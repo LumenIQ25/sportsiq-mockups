@@ -167,21 +167,25 @@
   .screen.active { display: block; }
 
   /* ── Screen layout helpers (use these on every new screen) ─ */
-  .screen-header { padding: 36px 48px 20px; }
-  .screen-title  { font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 8px; }
-  .screen-subtitle { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 760px; }
+  .screen-header { padding: 22px 48px 12px; }
+  .screen-title  { font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+  .screen-subtitle { font-size: 14px; color: var(--muted); line-height: 1.65; max-width: 760px; }
+  .screen-label {
+    font-size: 11px; font-weight: 800; color: var(--faint); letter-spacing: 2px;
+    padding: 18px 24px 10px; text-transform: uppercase;
+  }
   /* Centered container for phone mockup rows */
   .phones-section {
     display: flex; gap: 28px; flex-wrap: wrap; justify-content: center;
-    background: #020408; padding: 24px 40px 48px; min-height: 200px;
+    background: #020408; padding: 14px 40px 28px; min-height: 200px;
   }
 
   /* ── Phone frame ─────────────────────────────────────────── */
   .phone-wrap {
     min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
-    padding: 40px 20px;
-    gap: 40px;
+    padding: 28px 20px;
+    gap: 32px;
     flex-wrap: wrap;
     background: #020408;
   }
@@ -222,7 +226,7 @@
     min-height: 100vh;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    padding: 40px 20px; gap: 20px;
+    padding: 28px 20px; gap: 14px;
     background: #020408;
   }
   .tv-frame {
@@ -2528,7 +2532,7 @@
     <div class="tv-frame">
       <div class="bar-1080" id="bar-idle-inner" style="background:radial-gradient(ellipse at top left, rgba(85,69,211,0.28) 0%, transparent 55%), radial-gradient(ellipse at bottom right, rgba(34,140,136,0.22) 0%, transparent 55%), #0B2230; display:flex;">
         <!-- Left panel -->
-        <div style="width:480px;background:#110E2A;border-right:1px solid rgba(85,69,211,0.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 48px;">
+        <div style="width:480px;background:#110E2A;border-right:1px solid rgba(85,69,211,0.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:36px 40px;">
           <div style="text-align:center;">
             <div style="font-size:56px;font-weight:900;color:#F8FAFC;letter-spacing:-1px;">Sports<span style="color:#5545D3">IQ</span></div>
             <div style="display:inline-block;margin-top:10px;background:#5545D3;border-radius:8px;padding:5px 16px;font-size:16px;font-weight:700;color:#fff;letter-spacing:1px;">BAR EDITION</div>
@@ -2543,7 +2547,7 @@
           <div style="color:#64748B;font-size:20px;text-align:center;line-height:1.6;">Scan to join the game<br><span style="color:#228C88;">Free to play — win tonight</span></div>
         </div>
         <!-- Right: leaderboard -->
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:80px;">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:36px 48px;">
           <div style="text-align:center;">
             <div style="color:#94A3B8;font-size:26px;letter-spacing:3px;margin-bottom:14px;">TODAY'S LEADERS</div>
             <div style="width:64px;height:4px;background:linear-gradient(90deg,#5545D3,#228C88);margin:0 auto;border-radius:2px;"></div>
@@ -2569,7 +2573,7 @@
   <div class="tv-wrap">
     <div class="tv-label">BAR SCREEN — LIVE PREDICTION · Renders natively at 4K on 4K TVs, 1080p on 1080p TVs</div>
     <div class="tv-frame">
-      <div class="bar-1080" id="bar-pred-q-inner" style="background:radial-gradient(ellipse at top left, #E3183750 0%, transparent 55%), radial-gradient(ellipse at bottom right, #00338D45 0%, transparent 55%), #0B2230; display:flex; flex-direction:column; justify-content:space-between; padding:56px 80px;">
+      <div class="bar-1080" id="bar-pred-q-inner" style="background:radial-gradient(ellipse at top left, #E3183750 0%, transparent 55%), radial-gradient(ellipse at bottom right, #00338D45 0%, transparent 55%), #0B2230; display:flex; flex-direction:column; justify-content:space-between; padding:36px 72px;">
 
         <!-- Header row -->
         <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -2644,7 +2648,7 @@
       <div class="bar-1080" id="bar-tracking-inner" style="background:radial-gradient(ellipse at top left,#E3183750 0%,transparent 55%),radial-gradient(ellipse at bottom right,#00338D45 0%,transparent 55%),#0B2230; display:flex; flex-direction:column; font-family:'Lexend',sans-serif;">
 
         <!-- Header -->
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:56px 80px 0;flex-shrink:0;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:36px 72px 0;flex-shrink:0;">
           <div style="display:flex;align-items:center;gap:14px;">
             <div style="position:relative;width:18px;height:18px;flex-shrink:0;">
               <div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;opacity:0.5;animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></div>
@@ -2665,7 +2669,7 @@
         </div>
 
         <!-- Main content -->
-        <div style="flex:1;display:flex;align-items:center;gap:0;padding:0 60px;">
+        <div style="flex:1;display:flex;align-items:center;gap:0;padding:0 48px;">
 
           <!-- UNDER side -->
           <div style="width:260px;text-align:center;flex-shrink:0;">
@@ -2733,7 +2737,7 @@
         </div>
 
         <!-- Footer -->
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:0 80px 52px;flex-shrink:0;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0 72px 40px;flex-shrink:0;">
           <div style="color:#64748B;font-size:22px;">Open SportsIQ to join future rounds · Bar plays count 2×</div>
           <div style="display:flex;align-items:center;gap:14px;background:rgba(11,34,48,0.85);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:12px 20px;backdrop-filter:blur(8px);">
             <div style="width:60px;height:60px;background:#110E2A;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#64748B;text-align:center;">QR</div>
@@ -2757,7 +2761,7 @@
   <div class="tv-wrap">
     <div class="tv-label">BAR SCREEN — RESULT · Renders natively at 4K on 4K TVs, 1080p on 1080p TVs</div>
     <div class="tv-frame">
-      <div class="bar-1080" id="bar-result-inner" style="background:radial-gradient(ellipse at top left, #E3183750 0%, transparent 55%), radial-gradient(ellipse at bottom right, #00338D45 0%, transparent 55%), #0B2230; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:36px; text-align:center; padding:60px 80px;">
+      <div class="bar-1080" id="bar-result-inner" style="background:radial-gradient(ellipse at top left, #E3183750 0%, transparent 55%), radial-gradient(ellipse at bottom right, #00338D45 0%, transparent 55%), #0B2230; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; text-align:center; padding:40px 72px;">
         <div style="font-size:96px;">📈</div>
         <div>
           <div style="font-size:100px;font-weight:900;line-height:1;background:linear-gradient(135deg,#5545D3,#228C88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">OVER WINS</div>
@@ -7825,7 +7829,7 @@
     <div class="tv-frame">
       <div class="bar-1080" id="bar-idle-v2-inner" style="background:radial-gradient(ellipse at top left, rgba(85,69,211,0.28) 0%, transparent 55%), radial-gradient(ellipse at bottom right, rgba(34,140,136,0.22) 0%, transparent 55%), #0B2230; display:flex;">
         <!-- Left panel -->
-        <div style="width:520px;background:#110E2A;border-right:1px solid rgba(85,69,211,0.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;padding:60px 48px;">
+        <div style="width:520px;background:#110E2A;border-right:1px solid rgba(85,69,211,0.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:36px 40px;">
           <div style="text-align:center;">
             <div style="font-size:56px;font-weight:900;color:#F8FAFC;letter-spacing:-1px;">Sports<span style="color:#5545D3">IQ</span></div>
             <div style="display:inline-block;margin-top:10px;background:#5545D3;border-radius:8px;padding:5px 16px;font-size:16px;font-weight:700;color:#fff;letter-spacing:1px;">BAR EDITION</div>
@@ -7846,7 +7850,7 @@
           <div style="color:#64748B;font-size:18px;text-align:center;line-height:1.6;">Scan or type the code<br><span style="color:#228C88;">Free to play — win tonight</span></div>
         </div>
         <!-- Right: leaderboard (unchanged) -->
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:44px;padding:80px;">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:36px 48px;">
           <div style="text-align:center;">
             <div style="color:#94A3B8;font-size:26px;letter-spacing:3px;margin-bottom:14px;">TONIGHT'S LEADERS</div>
             <div style="width:64px;height:4px;background:linear-gradient(90deg,#5545D3,#228C88);margin:0 auto;border-radius:2px;"></div>
@@ -7969,7 +7973,7 @@
       <div class="bar-1080" id="bar-tracking-v2-inner" style="background:radial-gradient(ellipse at top left,#E3183750 0%,transparent 55%),radial-gradient(ellipse at bottom right,#00338D45 0%,transparent 55%),#0B2230; display:flex; flex-direction:column; font-family:'Lexend',sans-serif;">
 
         <!-- Header -->
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:48px 72px 0;flex-shrink:0;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:32px 64px 0;flex-shrink:0;">
           <div style="display:flex;align-items:center;gap:14px;">
             <div style="position:relative;width:18px;height:18px;flex-shrink:0;">
               <div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;opacity:0.5;animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></div>
@@ -8124,7 +8128,7 @@
       <div class="bar-1080" id="bar-result-v2-inner" style="background:radial-gradient(ellipse at top left,#E3183750 0%,transparent 55%),radial-gradient(ellipse at bottom right,#00338D45 0%,transparent 55%),#0B2230; display:flex; gap:0; font-family:'Lexend',sans-serif;">
 
         <!-- Left: result announcement -->
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;text-align:center;padding:60px 64px;">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;text-align:center;padding:36px 56px;">
           <div style="font-size:80px;">📈</div>
           <div>
             <div style="font-size:88px;font-weight:900;line-height:1;background:linear-gradient(135deg,#5545D3,#228C88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">OVER WINS</div>
@@ -13328,7 +13332,7 @@
     <div class="tv-frame">
       <div class="bar-1080" id="bar-idle-v3-inner" style="background:radial-gradient(ellipse at top left,rgba(85,69,211,0.28) 0%,transparent 55%),radial-gradient(ellipse at bottom right,rgba(34,140,136,0.22) 0%,transparent 55%),#0B2230;display:flex;">
         <!-- Left: logo + QR + code (same as v2) -->
-        <div style="width:520px;background:#110E2A;border-right:1px solid rgba(85,69,211,0.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:60px 48px;">
+        <div style="width:520px;background:#110E2A;border-right:1px solid rgba(85,69,211,0.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:36px 40px;">
           <div style="text-align:center;">
             <div style="font-size:56px;font-weight:900;color:#F8FAFC;letter-spacing:-1px;">Sports<span style="color:#5545D3;">IQ</span></div>
             <div style="display:inline-block;margin-top:10px;background:#5545D3;border-radius:8px;padding:5px 16px;font-size:16px;font-weight:700;color:#fff;letter-spacing:1px;">BAR EDITION</div>
@@ -13346,7 +13350,7 @@
           <div style="color:#64748B;font-size:18px;text-align:center;">Free to play — win tonight</div>
         </div>
         <!-- Right: v3 — prominent numeric player count + leaderboard -->
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:60px 80px;">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:36px 56px;">
           <!-- v3: big live count -->
           <div style="text-align:center;">
             <div style="color:#64748B;font-size:22px;font-weight:600;letter-spacing:3px;margin-bottom:6px;">PLAYING TONIGHT</div>
@@ -14210,7 +14214,7 @@
       <div class="bar-1080" id="bar-pred-q-v4-inner" style="background:linear-gradient(135deg,#060b18 0%,#0d1829 40%,#0a1520 100%);display:grid;grid-template-columns:1fr 1.4fr 320px;grid-template-rows:1fr auto;gap:0;padding:0;overflow:hidden;">
 
         <!-- ── LEFT: Player Identity ── -->
-        <div style="padding:56px 48px 48px 64px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(255,255,255,0.06);">
+        <div style="padding:36px 40px 36px 52px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(255,255,255,0.06);">
 
           <!-- LIVE badge -->
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:40px;">
@@ -14246,7 +14250,7 @@
         </div>
 
         <!-- ── CENTER: Crowd Split Hero ── -->
-        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;padding:56px 40px;gap:32px;">
+        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;padding:36px 32px;gap:24px;">
 
           <!-- Question label -->
           <div style="color:#64748b;font-size:26px;font-weight:700;letter-spacing:3px;text-align:center;">OVER  or  UNDER</div>
@@ -14290,7 +14294,7 @@
         </div>
 
         <!-- ── RIGHT: Timer + QR stack ── -->
-        <div style="border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:40px;padding:48px 32px;">
+        <div style="border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;padding:32px 24px;">
 
           <!-- Countdown -->
           <div style="text-align:center;">
@@ -14556,7 +14560,7 @@
   <div class="screen-label">Bar · Tracking v3 ✦ — Useful Stats · Result State · Today Only</div>
 
   <!-- STATE 1: Live Tracking -->
-  <div style="margin-bottom:48px;">
+  <div style="margin-bottom:28px;">
     <div class="screen-label" style="font-size:11px;opacity:0.6;">STATE 1 — LIVE TRACKING</div>
     <div class="tv-frame">
       <div class="bar-1080" id="bar-tracking-v3-inner" style="background:radial-gradient(ellipse at top left,rgba(34,197,94,0.18) 0%,transparent 50%),radial-gradient(ellipse at bottom right,rgba(85,69,211,0.22) 0%,transparent 50%),#060d1c;display:grid;grid-template-columns:1fr 440px;grid-template-rows:auto 1fr;gap:0;font-family:'Lexend',sans-serif;overflow:hidden;">
@@ -14692,7 +14696,7 @@
           <div style="font-size:14px;color:#64748b;">Kincade's Bar &amp; Grill · Tonight's results</div>
         </div>
         <!-- Left: result hero -->
-        <div style="padding:48px 60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center;">
+        <div style="padding:32px 48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center;">
           <div style="font-size:14px;color:#64748b;letter-spacing:3px;font-weight:700;">FINAL STAT</div>
           <div style="font-size:140px;font-weight:900;color:#22c55e;line-height:1;font-variant-numeric:tabular-nums;">312</div>
           <div style="font-size:22px;color:#fff;font-weight:700;">Lamar Jackson Passing Yards</div>
@@ -14776,7 +14780,7 @@
       </div>
 
       <!-- LEFT: Result hero + stats -->
-      <div style="padding:40px 60px;display:flex;flex-direction:column;gap:28px;">
+      <div style="padding:28px 48px;display:flex;flex-direction:column;gap:28px;">
 
         <!-- Result hero -->
         <div style="text-align:center;">
@@ -14887,7 +14891,7 @@
   <div class="screen-label">Trivia v3 📺 ✦ — TV Screen · 10s Countdown · No Lock-In · 5s Reveal · Auto-Advance</div>
 
   <!-- STATE 1: Question live -->
-  <div style="margin-bottom:48px;">
+  <div style="margin-bottom:28px;">
     <div class="screen-label" style="font-size:11px;opacity:0.6;">STATE 1 — QUESTION LIVE (10s countdown)</div>
     <div class="tv-frame">
       <div class="bar-1080" id="trivia-v3-inner" style="background:radial-gradient(ellipse at top,rgba(85,69,211,0.30) 0%,transparent 55%),#060d1c;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;overflow:hidden;">
