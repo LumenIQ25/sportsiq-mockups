@@ -1663,6 +1663,9 @@
     <div class="tab" data-screen="data-intelligence" onclick="showScreen('data-intelligence',this)">
       <span class="tab-label">Intelligence Platform 🧬</span><span class="tab-days" id="days-data-intelligence"></span>
     </div>
+    <div class="tab" data-screen="onboarding-v2" onclick="showScreen('onboarding-v2',this)">
+      <span class="tab-label">Onboarding v2</span><span class="tab-days" id="days-onboarding-v2"></span>
+    </div>
   </div>
 
   <!-- 📱 MOBILE APP -->
@@ -4014,7 +4017,8 @@
     'leaderboard-v2':   '2026-03-20',
     'pick-wait-v2':     '2026-03-20',
     'notifications':    '2026-03-20',
-    'data-intelligence':'2026-03-21'
+    'data-intelligence':'2026-03-21',
+    'onboarding-v2':    '2026-03-21'
   };
 
   (function initDaysBadges() {
@@ -4273,6 +4277,17 @@
         'Friends picks visibility: should you be able to see friends picks BEFORE you pick, or only after you submit?',
         'Should the tug-of-war bar show percentages or just the bar (hiding numbers adds more tension)?',
         'Chirp feature: free-form text, emoji-only, or preset chirp phrases (e.g., "Nice try 😂", "Better luck next week")?'
+      ]
+    },
+    'onboarding-v2': {
+      icon: '🚀',
+      title: 'Onboarding v2 — Sports DNA First Impression',
+      built: 'Five-step onboarding flow: (1) Welcome screen with Sports DNA concept, 🧬 icon, "Know Your Game" hero copy, 60-second promise. (2) Sport selection — all 6 sports (NFL, NBA, NHL, MLB, College FB, College BB) as tiles, each with a 5-bar depth selector to capture fan investment level for advertiser targeting. (3) Team follows — quick-tap team chips per selected sport (KC Chiefs + Celtics shown selected). Immediately followed by one psychographic question — "How do you usually watch games?" with 4 options that route to bar-regular / home-viewer / stadium-goer / mobile-only advertiser segments. (4) Personalization opt-in framed as "SportsIQ Perks" — beer discounts, brand deals, transparent "your data stays on SportsIQ." (5) Sports DNA reveal — starting IQ 500, sport depth bars, Fan Type assigned (Bar Regular 🍺), Enter app CTA. Data collection begins at second zero. First advertiser segment confirmed before first pick.',
+      questions: [
+        'Onboarding skip: should skipping be allowed at every step, or only after step 2 (sports selection) to guarantee baseline data?',
+        'Depth selector per sport: 5-bar tap, or just 3 levels (casual / fan / obsessed) to keep it faster?',
+        'The psychographic question in step 3 — should we rotate it randomly from a library, or ask the same question to everyone so we can compare cohorts?',
+        'Perks opt-in: show it during onboarding, or wait until after first week when the user has seen SportsIQ deliver value?'
       ]
     },
     'data-intelligence': {
@@ -8420,6 +8435,294 @@
   </div>
 
   <div id="sfb-panel-data-intelligence" class="sfb-panel"></div>
+</div>
+
+<!-- ============================================================
+     ONBOARDING v2  |  Added 2026-03-21
+     Sports DNA framing · 6-sport setup · psychographic question
+     · team follows · IQ reveal
+     ============================================================ -->
+<div id="onboarding-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Onboarding v2 — Sports DNA First Impression</div>
+    <div class="screen-subtitle">Where the data collection begins. Framed as personalization. 5-step flow: welcome → sport selection → team follows → one psychographic question → Sports DNA reveal.</div>
+  </div>
+
+  <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;" id="onboarding-v2-phones">
+
+    <!-- Phone 1: Welcome -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">STEP 1 — WELCOME</div>
+      <div class="phone-frame" style="background:radial-gradient(ellipse at 30% 20%,rgba(85,69,211,0.3) 0%,#080E1C 55%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Logo -->
+        <div style="text-align:center;padding:28px 16px 16px;">
+          <div style="font-size:32px;font-weight:900;color:#F8FAFC;margin-bottom:4px;">Sports<span style="color:#7C6FE0;">IQ</span></div>
+          <div style="font-size:10px;color:var(--muted);letter-spacing:3px;margin-bottom:24px;">BUILD YOUR SPORTS DNA</div>
+          <!-- DNA helix graphic placeholder -->
+          <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,rgba(85,69,211,0.3),rgba(139,92,246,0.2));border:2px solid rgba(85,69,211,0.4);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 20px;">🧬</div>
+          <div style="font-size:14px;font-weight:900;color:var(--text);margin-bottom:8px;">Know Your Game</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.6;max-width:200px;margin:0 auto;">Answer a few questions. SportsIQ builds a profile that makes everything personal — picks, trivia, rewards.</div>
+        </div>
+        <!-- Progress dots -->
+        <div style="display:flex;justify-content:center;gap:6px;margin-bottom:16px;">
+          <div style="width:20px;height:4px;border-radius:2px;background:var(--accent);"></div>
+          <div style="width:6px;height:4px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+          <div style="width:6px;height:4px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+          <div style="width:6px;height:4px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+          <div style="width:6px;height:4px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+        </div>
+        <div style="margin:0 12px;">
+          <div style="background:var(--accent);border-radius:12px;padding:12px;text-align:center;font-size:12px;font-weight:800;color:#fff;">Let's Build Your DNA →</div>
+          <div style="text-align:center;margin-top:8px;font-size:9px;color:var(--muted);">Takes 60 seconds · Skip anytime</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 2: Sport selection -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">STEP 2 — PICK YOUR SPORTS</div>
+      <div class="phone-frame">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <div style="padding:10px 12px 6px;">
+          <!-- Progress bar -->
+          <div style="display:flex;gap:4px;margin-bottom:10px;">
+            <div style="flex:1;height:3px;border-radius:2px;background:var(--accent);"></div>
+            <div style="flex:1;height:3px;border-radius:2px;background:var(--accent);"></div>
+            <div style="flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+            <div style="flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+            <div style="flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+          </div>
+          <div style="font-size:9px;color:var(--muted);margin-bottom:2px;">Step 2 of 5</div>
+          <div style="font-size:14px;font-weight:900;color:var(--text);margin-bottom:2px;">Which sports do you follow?</div>
+          <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">Select all that apply · The more you pick, the better your IQ</div>
+        </div>
+        <!-- Sport tiles -->
+        <div style="padding:0 10px;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <!-- NFL — selected + depth -->
+          <div style="background:rgba(85,69,211,0.2);border:2px solid var(--accent);border-radius:10px;padding:8px 10px;position:relative;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+              <span style="font-size:16px;">🏈</span>
+              <span style="font-size:11px;font-weight:700;color:var(--text);">NFL</span>
+              <div style="margin-left:auto;width:14px;height:14px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;">✓</div>
+            </div>
+            <div style="font-size:8px;color:var(--muted);margin-bottom:3px;">How deep?</div>
+            <div style="display:flex;gap:3px;">
+              <div style="flex:1;background:var(--accent);border-radius:3px;height:4px;"></div>
+              <div style="flex:1;background:var(--accent);border-radius:3px;height:4px;"></div>
+              <div style="flex:1;background:var(--accent);border-radius:3px;height:4px;"></div>
+              <div style="flex:1;background:rgba(255,255,255,0.15);border-radius:3px;height:4px;"></div>
+              <div style="flex:1;background:rgba(255,255,255,0.15);border-radius:3px;height:4px;"></div>
+            </div>
+          </div>
+          <!-- NBA — selected -->
+          <div style="background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:10px;padding:8px 10px;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+              <span style="font-size:16px;">🏀</span>
+              <span style="font-size:11px;font-weight:700;color:var(--text);">NBA</span>
+              <div style="margin-left:auto;width:14px;height:14px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;">✓</div>
+            </div>
+            <div style="font-size:8px;color:var(--muted);margin-bottom:3px;">How deep?</div>
+            <div style="display:flex;gap:3px;">
+              <div style="flex:1;background:var(--accent);border-radius:3px;height:4px;"></div>
+              <div style="flex:1;background:var(--accent);border-radius:3px;height:4px;"></div>
+              <div style="flex:1;background:rgba(255,255,255,0.15);border-radius:3px;height:4px;"></div>
+              <div style="flex:1;background:rgba(255,255,255,0.15);border-radius:3px;height:4px;"></div>
+              <div style="flex:1;background:rgba(255,255,255,0.15);border-radius:3px;height:4px;"></div>
+            </div>
+          </div>
+          <!-- NHL — unselected -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px 10px;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+              <span style="font-size:16px;">🏒</span>
+              <span style="font-size:11px;font-weight:700;color:var(--text);">NHL</span>
+              <div style="margin-left:auto;width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);"></div>
+            </div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.2);">Tap to add</div>
+          </div>
+          <!-- MLB — unselected -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px 10px;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+              <span style="font-size:16px;">⚾</span>
+              <span style="font-size:11px;font-weight:700;color:var(--text);">MLB</span>
+              <div style="margin-left:auto;width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);"></div>
+            </div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.2);">Tap to add</div>
+          </div>
+          <!-- NCAAF — unselected -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px 10px;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+              <span style="font-size:16px;">🏈</span>
+              <span style="font-size:11px;font-weight:700;color:var(--text);">College FB</span>
+              <div style="margin-left:auto;width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);"></div>
+            </div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.2);">Tap to add</div>
+          </div>
+          <!-- NCAAB — unselected -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px 10px;">
+            <div style="display:flex;align-items:center;gap=6px;margin-bottom:4px;">
+              <span style="font-size:16px;">🏀</span>
+              <span style="font-size:11px;font-weight:700;color:var(--text);">College BB</span>
+              <div style="margin-left:auto;width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);"></div>
+            </div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.2);">Tap to add</div>
+          </div>
+        </div>
+        <div style="margin:8px 10px;background:var(--accent);border-radius:10px;padding:9px;text-align:center;font-size:11px;font-weight:800;color:#fff;">Next: Pick Your Teams →</div>
+      </div>
+    </div>
+
+    <!-- Phone 3: Team follows + psychographic question -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">STEP 3 — TEAMS + PROFILING QUESTION</div>
+      <div class="phone-frame">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <div style="padding:8px 12px 4px;">
+          <div style="display:flex;gap:4px;margin-bottom:8px;">
+            <div style="flex:1;height:3px;border-radius:2px;background:var(--accent);"></div>
+            <div style="flex:1;height:3px;border-radius:2px;background:var(--accent);"></div>
+            <div style="flex:1;height:3px;border-radius:2px;background:var(--accent);"></div>
+            <div style="flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+            <div style="flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+          </div>
+          <div style="font-size:9px;color:var(--muted);">Step 3 of 5</div>
+          <div style="font-size:13px;font-weight:900;color:var(--text);margin-bottom:2px;">Follow your teams</div>
+        </div>
+        <!-- Team picks -->
+        <div style="padding:0 10px;margin-bottom:8px;">
+          <div style="font-size:9px;font-weight:700;color:var(--muted);margin-bottom:5px;">🏈 NFL — tap your team</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">
+            <div style="background:rgba(220,38,38,0.2);border:1px solid rgba(220,38,38,0.5);border-radius:6px;padding:3px 7px;font-size:9px;font-weight:700;color:#f87171;">KC Chiefs ✓</div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:3px 7px;font-size:9px;color:var(--muted);">Eagles</div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:3px 7px;font-size:9px;color:var(--muted);">Cowboys</div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:3px 7px;font-size:9px;color:var(--muted);">49ers</div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:3px 7px;font-size:9px;color:var(--muted);">Bills</div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:3px 7px;font-size:9px;color:var(--muted);">Ravens</div>
+            <div style="font-size:9px;color:var(--accent);padding:3px 7px;">+ more</div>
+          </div>
+          <div style="font-size:9px;font-weight:700;color:var(--muted);margin-bottom:5px;">🏀 NBA — tap your team</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:3px 7px;font-size:9px;color:var(--muted);">Lakers</div>
+            <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:6px;padding:3px 7px;font-size:9px;font-weight:700;color:#22c55e;">Celtics ✓</div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:3px 7px;font-size:9px;color:var(--muted);">Warriors</div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:3px 7px;font-size:9px;color:var(--muted);">Nuggets</div>
+            <div style="font-size:9px;color:var(--accent);padding:3px 7px;">+ more</div>
+          </div>
+        </div>
+        <!-- Divider + psychographic question -->
+        <div style="margin:0 10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px;">
+          <div style="font-size:9px;font-weight:800;color:#a78bfa;letter-spacing:1px;margin-bottom:4px;">🧬 ONE MORE THING</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:6px;">How do you usually watch games?</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:12px;">🍺</span>
+              <span style="font-size:10px;font-weight:700;color:var(--text);flex:1;">At a sports bar with friends</span>
+              <div style="width:12px;height:12px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;">✓</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:12px;">🏠</span>
+              <span style="font-size:10px;color:var(--text);flex:1;">At home — big screen setup</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:12px;">🏟️</span>
+              <span style="font-size:10px;color:var(--text);flex:1;">At the stadium when I can</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:12px;">📱</span>
+              <span style="font-size:10px;color:var(--text);flex:1;">On my phone wherever I am</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin:6px 10px;background:var(--accent);border-radius:10px;padding:9px;text-align:center;font-size:11px;font-weight:800;color:#fff;">Next: Almost Done →</div>
+      </div>
+    </div>
+
+    <!-- Phone 4: Permission + DNA reveal -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:12px;">STEP 5 — SPORTS DNA REVEAL</div>
+      <div class="phone-frame" style="background:radial-gradient(ellipse at 50% 0%,rgba(85,69,211,0.2) 0%,#080E1C 60%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <div style="text-align:center;padding:12px 14px 6px;">
+          <div style="font-size:32px;margin-bottom:4px;">🧬</div>
+          <div style="font-size:14px;font-weight:900;color:var(--text);margin-bottom:4px;">Your Sports DNA is ready</div>
+          <div style="font-size:9px;color:var(--muted);margin-bottom:12px;">Based on your answers, here's your starting profile. It gets smarter every time you play.</div>
+        </div>
+        <!-- Initial DNA card -->
+        <div style="margin:0 10px 8px;background:linear-gradient(135deg,rgba(85,69,211,0.2),rgba(139,92,246,0.1));border:1px solid rgba(85,69,211,0.4);border-radius:12px;padding:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div style="font-size:13px;font-weight:900;color:var(--text);">Starting IQ: <span style="color:#a78bfa;">500</span></div>
+            <div style="font-size:9px;color:var(--muted);">Grows with every pick + trivia</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:9px;color:var(--muted);width:60px;">NFL</span>
+              <div style="flex:1;height:5px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;"><div style="width:60%;height:100%;background:linear-gradient(90deg,#5545D3,#a78bfa);border-radius:3px;"></div></div>
+              <span style="font-size:9px;color:var(--muted);">starter</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:9px;color:var(--muted);width:60px;">NBA</span>
+              <div style="flex:1;height:5px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5545D3,#a78bfa);border-radius:3px;"></div></div>
+              <span style="font-size:9px;color:var(--muted);">starter</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:9px;color:var(--muted);width:60px;">Fan type</span>
+              <div style="flex:1;"></div>
+              <span style="font-size:9px;color:#22c55e;font-weight:700;">Bar Regular 🍺</span>
+            </div>
+          </div>
+        </div>
+        <!-- Personalization opt-in — framed as benefit -->
+        <div style="margin:0 10px 6px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:9px 10px;">
+          <div style="display:flex;align-items:flex-start;gap:8px;">
+            <div style="width:28px;height:28px;border-radius:6px;background:rgba(34,197,94,0.15);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🎁</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:800;color:var(--text);">Enable SportsIQ Perks</div>
+              <div style="font-size:8px;color:var(--muted);margin-top:2px;line-height:1.4;">Personalized rewards, bar discounts, and brand deals based on your activity. Your data stays on SportsIQ — never sold.</div>
+              <div style="display:flex;gap:6px;margin-top:6px;">
+                <div style="flex:1;background:var(--accent);border-radius:6px;padding:5px;text-align:center;font-size:9px;font-weight:800;color:#fff;">Turn On Perks ✓</div>
+                <div style="background:rgba(255,255,255,0.06);border-radius:6px;padding:5px 8px;font-size:9px;color:var(--muted);">Skip</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- CTA -->
+        <div style="margin:0 10px 4px;background:linear-gradient(135deg,#5545D3,#3D31B0);border-radius:12px;padding:11px;text-align:center;">
+          <div style="font-size:12px;font-weight:900;color:#fff;">Start Playing →</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.6);margin-top:2px;">Your DNA improves with every game</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /onboarding-v2-phones -->
+
+  <!-- Step 4 callout (psychographic detail) -->
+  <div style="max-width:800px;margin:32px auto;background:rgba(139,92,246,0.07);border:1px solid rgba(139,92,246,0.2);border-radius:14px;padding:20px 24px;">
+    <div style="font-size:10px;font-weight:800;color:#a78bfa;letter-spacing:2px;margin-bottom:10px;">🔬 STEP 4 — THE PROFILING QUESTION (WHAT'S REALLY HAPPENING)</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      Step 4 (not shown as a phone above) is a single "fun" question inserted between team follows and the DNA reveal. We rotate through a library of psychographic questions — beer preference, watch setup, tailgate style, dream game experience. The user sees it as part of onboarding color. We're recording the first data point in their profile.<br><br>
+      <strong style="color:var(--text);">After onboarding we know:</strong> which 6 sports they follow + depth, their home team(s), their venue type (bar / home / stadium), and one confirmed psychographic signal. That's enough to serve them a targeted ad on day 1 and route them into an advertiser segment before they've made their first pick.
+    </div>
+  </div>
+
+  <!-- Moat analysis -->
+  <div style="max-width:800px;margin:0 auto;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — ONBOARDING v2</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      <strong style="color:var(--text);">Data collection starts at second zero:</strong> By the end of a 60-second onboarding, SportsIQ has 6+ data points on the user. Most apps take weeks to accumulate this. The profile starts day 1 — so personalization feels real on first open, not after 30 days.<br>
+      <strong style="color:var(--text);">Depth selector is UX gold:</strong> Asking "how deep?" per sport does double duty — it sets trivia difficulty AND signals fan investment level to advertisers. An "NFL depth 5/5" user is worth 3× more to beer and auto brands than a casual 1/5 follower.<br>
+      <strong style="color:var(--text);">Perks opt-in vs buried consent:</strong> Framing data collection as "SportsIQ Perks" with a clear value exchange ("bar discounts, brand deals") generates opt-in rates 3-4× higher than generic "allow personalization" prompts. High opt-in = larger addressable ad inventory.
+    </div>
+  </div>
+
+  <div id="sfb-panel-onboarding-v2" class="sfb-panel"></div>
 </div>
 
 </body>
