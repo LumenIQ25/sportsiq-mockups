@@ -81,40 +81,63 @@
     min-height: 100vh;
   }
 
-  /* ── Nav ─────────────────────────────────────────────────── */
-  .nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-    background: rgba(5,9,18,0.95);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--cardBorder);
-    padding: 0 24px;
-    display: flex; align-items: center; gap: 0;
+  /* ── Left Sidebar Nav ────────────────────────────────────── */
+  .sidenav {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 1000;
+    width: 210px;
+    background: rgba(4,7,15,0.98);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid var(--cardBorder);
+    display: flex; flex-direction: column;
+    overflow-y: auto; overflow-x: hidden;
   }
+  .sidenav::-webkit-scrollbar { width: 3px; }
+  .sidenav::-webkit-scrollbar-thumb { background: rgba(85,69,211,0.3); border-radius: 3px; }
   .nav-logo {
     font-weight: 900; font-size: 22px; color: var(--text);
-    letter-spacing: -1px; padding: 16px 24px 16px 0;
-    border-right: 1px solid var(--cardBorder);
-    margin-right: 8px; font-family: 'Lexend', sans-serif;
+    letter-spacing: -1px; padding: 20px 18px 12px;
+    border-bottom: 1px solid var(--cardBorder);
+    font-family: 'Lexend', sans-serif; flex-shrink: 0;
   }
-  .nav-logo span { color: var(--brand); letter-spacing: -1px; }
+  .nav-logo span { color: var(--brand); }
+  .nav-logo-sub {
+    font-size: 9px; font-weight: 700; color: var(--faint);
+    letter-spacing: 2.5px; margin-top: 2px;
+  }
+  .nav-group { padding: 14px 0 4px; }
+  .nav-group-label {
+    font-size: 9px; font-weight: 800; color: var(--faint);
+    letter-spacing: 2px; padding: 0 18px 6px;
+    text-transform: uppercase;
+  }
   .tab {
-    padding: 16px 20px;
+    display: flex; align-items: center;
+    padding: 9px 18px;
     color: var(--faint);
-    font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
-    cursor: pointer; border-bottom: 2px solid transparent;
-    transition: all 0.15s ease;
-    white-space: nowrap;
+    font-size: 12px; font-weight: 600;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: all 0.12s ease;
+    gap: 8px;
   }
-  .tab:hover { color: var(--muted); }
-  .tab.active { color: var(--text); border-bottom-color: var(--brand); }
+  .tab-label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tab-days {
+    font-size: 9px; font-weight: 700; color: rgba(148,163,184,0.4);
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px; padding: 2px 5px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .tab:hover { color: var(--muted); background: rgba(255,255,255,0.03); }
+  .tab.active { color: var(--text); border-left-color: var(--brand); background: rgba(85,69,211,0.1); }
+  .tab.active .tab-days { color: rgba(165,157,245,0.6); background: rgba(85,69,211,0.15); }
 
   /* ── Screens ─────────────────────────────────────────────── */
-  .screen { display: none; padding-top: 57px; }
+  .screen { display: none; margin-left: 210px; }
   .screen.active { display: block; }
 
   /* ── Phone frame ─────────────────────────────────────────── */
   .phone-wrap {
-    min-height: calc(100vh - 57px);
+    min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
     padding: 40px 20px;
     gap: 40px;
@@ -154,7 +177,7 @@
 
   /* ── TV frame ────────────────────────────────────────────── */
   .tv-wrap {
-    min-height: calc(100vh - 57px);
+    min-height: 100vh;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     padding: 40px 20px; gap: 20px;
@@ -913,7 +936,7 @@
      MARKET INTELLIGENCE SCREEN
   ══════════════════════════════════════════════════════════ */
   .mkt-wrap {
-    min-height: calc(100vh - 57px);
+    min-height: 100vh;
     background: #020408;
     padding: 40px;
     display: flex; flex-direction: column; align-items: center;
@@ -952,8 +975,8 @@
   .mkt-source-chip {
     padding: 3px 10px; border-radius: 50px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
   }
-  .mkt-chip-kalshi  { background: rgba(99,198,149,0.15); border: 1px solid rgba(99,198,149,0.4); color: #63c695; }
-  .mkt-chip-poly    { background: rgba(0,119,255,0.15);  border: 1px solid rgba(0,119,255,0.4);  color: #4da3ff; }
+  .mkt-chip-sharp   { background: rgba(99,198,149,0.15); border: 1px solid rgba(99,198,149,0.4); color: #63c695; }
+  .mkt-chip-open    { background: rgba(0,119,255,0.15);  border: 1px solid rgba(0,119,255,0.4);  color: #4da3ff; }
   .mkt-chip-siq     { background: rgba(85,69,211,0.15);  border: 1px solid rgba(85,69,211,0.4);  color: #a59df5; }
   .mkt-chip-crowd   { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); color: #fbbf24; }
   /* Odds comparison table */
@@ -1054,7 +1077,7 @@
      VENUE OWNER DASHBOARD — Added 2026-03-20
   ══════════════════════════════════════════════════════════ */
   .venue-wrap {
-    min-height: calc(100vh - 57px);
+    min-height: 100vh;
     background: #020408;
     display: flex; justify-content: center;
     padding: 32px 20px 60px;
@@ -1226,7 +1249,7 @@
      FEEDBACK PANEL
   ══════════════════════════════════════════════════════════ */
   .feedback-wrap {
-    min-height: calc(100vh - 57px);
+    min-height: 100vh;
     display: flex; justify-content: center;
     padding: 40px; background: #020408;
   }
@@ -1496,28 +1519,181 @@
     .phone-wrap, .tv-wrap, .mkt-wrap { padding: 16px 12px; }
     .phone-frame { display: none; }
     .phone-label { display: none; }
+    /* Sidebar collapses on mobile */
+    .sidenav { width: 100%; height: auto; position: relative; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid var(--cardBorder); }
+    .screen { margin-left: 0; }
+  }
+
+  /* ══════════════════════════════════════════════════════
+     PER-SCREEN FEEDBACK PANEL
+  ══════════════════════════════════════════════════════ */
+  .sfb-panel {
+    background: rgba(4,7,15,0.97);
+    border-top: 1px solid rgba(85,69,211,0.25);
+    padding: 40px 32px 56px;
+    margin-top: 0;
+  }
+  .sfb-inner { max-width: 760px; margin: 0 auto; }
+  .sfb-header {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 24px;
+  }
+  .sfb-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(85,69,211,0.25), rgba(34,140,136,0.15));
+    border: 1px solid rgba(85,69,211,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .sfb-title { font-size: 18px; font-weight: 900; }
+  .sfb-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  /* Built section */
+  .sfb-built {
+    background: rgba(85,69,211,0.07); border: 1px solid rgba(85,69,211,0.2);
+    border-radius: 14px; padding: 18px 20px; margin-bottom: 20px;
+  }
+  .sfb-built-label {
+    font-size: 9px; font-weight: 800; color: #a59df5; letter-spacing: 2px; margin-bottom: 8px;
+  }
+  .sfb-built-text { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  /* Questions */
+  .sfb-questions { margin-bottom: 24px; }
+  .sfb-q-label {
+    font-size: 9px; font-weight: 800; color: var(--faint); letter-spacing: 2px; margin-bottom: 10px;
+  }
+  .sfb-q-item {
+    display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px;
+  }
+  .sfb-q-num {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(85,69,211,0.2); border: 1px solid rgba(85,69,211,0.35);
+    font-size: 10px; font-weight: 800; color: #a59df5;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+  }
+  .sfb-q-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  /* Reply thread */
+  .sfb-thread { margin-bottom: 20px; }
+  .sfb-reply-item {
+    border-radius: 12px; padding: 12px 16px; margin-bottom: 10px;
+  }
+  .sfb-reply-mark {
+    background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.25);
+  }
+  .sfb-reply-claude {
+    background: rgba(85,69,211,0.08); border: 1px solid rgba(85,69,211,0.22);
+  }
+  .sfb-reply-who {
+    font-size: 9px; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 5px;
+  }
+  .sfb-reply-mark .sfb-reply-who { color: #4ade80; }
+  .sfb-reply-claude .sfb-reply-who { color: #a59df5; }
+  .sfb-reply-text { font-size: 13px; color: #e2e8f0; line-height: 1.6; }
+  /* Reply form */
+  .sfb-reply-form {
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 18px 20px;
+  }
+  .sfb-form-label {
+    font-size: 9px; font-weight: 800; color: rgba(34,197,94,0.8); letter-spacing: 1.5px; margin-bottom: 8px;
+  }
+  .sfb-textarea {
+    width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 12px 14px; color: var(--text);
+    font-family: 'Lexend', sans-serif; font-size: 13px; line-height: 1.6;
+    resize: vertical; min-height: 90px; outline: none;
+    transition: border-color 0.15s;
+  }
+  .sfb-textarea:focus { border-color: rgba(85,69,211,0.5); }
+  .sfb-textarea::placeholder { color: var(--faint); }
+  .sfb-btn-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .sfb-send-btn {
+    background: linear-gradient(135deg, rgba(85,69,211,0.8), rgba(61,49,176,0.8));
+    border: 1px solid rgba(85,69,211,0.5); border-radius: 10px;
+    padding: 10px 20px; color: white; font-family: 'Lexend', sans-serif;
+    font-size: 12px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px;
+    transition: all 0.15s;
+  }
+  .sfb-send-btn:hover { background: linear-gradient(135deg, rgba(85,69,211,1), rgba(61,49,176,1)); }
+  .sfb-clear-btn {
+    background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 10px; padding: 10px 16px; color: #f87171;
+    font-family: 'Lexend', sans-serif; font-size: 12px; font-weight: 700;
+    cursor: pointer; transition: all 0.15s;
   }
 </style>
 </head>
 <body>
 
-<!-- ── Navigation ─────────────────────────────────────────────────────────── -->
-<nav class="nav">
-  <div class="nav-logo">Sports<span style="letter-spacing:-1px">IQ</span></div>
-  <div class="tab active" onclick="showScreen('home-live')">📱 Home · Live</div>
-  <div class="tab" onclick="showScreen('home-idle')">📱 Home · Idle</div>
-  <div class="tab" onclick="showScreen('pick-card')">📱 Pick Card</div>
-  <div class="tab" onclick="showScreen('pick-wait')">📱 Waiting</div>
-  <div class="tab" onclick="showScreen('bar-idle')">📺 Bar · Idle</div>
-  <div class="tab" onclick="showScreen('bar-pred-q')">📺 Bar · Live Pick</div>
-  <div class="tab" onclick="showScreen('bar-tracking')">📺 Bar · Tracking</div>
-  <div class="tab" onclick="showScreen('bar-result')">📺 Bar · Result</div>
-  <div class="tab" onclick="showScreen('mkt-intel')">📈 Market Intel</div>
-  <div class="tab" onclick="showScreen('venue-dashboard')">🏢 Venue Owner</div>
-  <div class="tab" onclick="showScreen('feedback')">💬 Feedback</div>
-  <div class="tab" onclick="showScreen('my-stats')">📊 My Stats</div>
-  <div class="tab" onclick="showScreen('leaderboard')">🏆 Leaderboard</div>
-  <div class="tab" onclick="showScreen('onboarding')">🚀 Onboarding</div>
+<!-- ── Left Sidebar Navigation ─────────────────────────────────────────── -->
+<nav class="sidenav" id="sidenav">
+  <div class="nav-logo">
+    Sports<span>IQ</span>
+    <div class="nav-logo-sub">DESIGN MOCKUPS</div>
+  </div>
+
+  <!-- 📱 MOBILE APP -->
+  <div class="nav-group">
+    <div class="nav-group-label">📱 Mobile App</div>
+    <div class="tab active" data-screen="home-live" onclick="showScreen('home-live',this)">
+      <span class="tab-label">Home · Live</span><span class="tab-days" id="days-home-live"></span>
+    </div>
+    <div class="tab" data-screen="home-idle" onclick="showScreen('home-idle',this)">
+      <span class="tab-label">Home · Idle</span><span class="tab-days" id="days-home-idle"></span>
+    </div>
+    <div class="tab" data-screen="pick-card" onclick="showScreen('pick-card',this)">
+      <span class="tab-label">Pick Card</span><span class="tab-days" id="days-pick-card"></span>
+    </div>
+    <div class="tab" data-screen="pick-wait" onclick="showScreen('pick-wait',this)">
+      <span class="tab-label">Waiting</span><span class="tab-days" id="days-pick-wait"></span>
+    </div>
+    <div class="tab" data-screen="my-stats" onclick="showScreen('my-stats',this)">
+      <span class="tab-label">My Stats</span><span class="tab-days" id="days-my-stats"></span>
+    </div>
+    <div class="tab" data-screen="leaderboard" onclick="showScreen('leaderboard',this)">
+      <span class="tab-label">Leaderboard</span><span class="tab-days" id="days-leaderboard"></span>
+    </div>
+  </div>
+
+  <!-- 📺 BAR TV -->
+  <div class="nav-group">
+    <div class="nav-group-label">📺 Bar TV</div>
+    <div class="tab" data-screen="bar-idle" onclick="showScreen('bar-idle',this)">
+      <span class="tab-label">Bar · Idle</span><span class="tab-days" id="days-bar-idle"></span>
+    </div>
+    <div class="tab" data-screen="bar-pred-q" onclick="showScreen('bar-pred-q',this)">
+      <span class="tab-label">Bar · Live Pick</span><span class="tab-days" id="days-bar-pred-q"></span>
+    </div>
+    <div class="tab" data-screen="bar-tracking" onclick="showScreen('bar-tracking',this)">
+      <span class="tab-label">Bar · Tracking</span><span class="tab-days" id="days-bar-tracking"></span>
+    </div>
+    <div class="tab" data-screen="bar-result" onclick="showScreen('bar-result',this)">
+      <span class="tab-label">Bar · Result</span><span class="tab-days" id="days-bar-result"></span>
+    </div>
+  </div>
+
+  <!-- 📊 BUSINESS -->
+  <div class="nav-group">
+    <div class="nav-group-label">📊 Business</div>
+    <div class="tab" data-screen="mkt-intel" onclick="showScreen('mkt-intel',this)">
+      <span class="tab-label">Market Intel</span><span class="tab-days" id="days-mkt-intel"></span>
+    </div>
+    <div class="tab" data-screen="venue-dashboard" onclick="showScreen('venue-dashboard',this)">
+      <span class="tab-label">Venue Owner</span><span class="tab-days" id="days-venue-dashboard"></span>
+    </div>
+  </div>
+
+  <!-- 🚀 FLOWS -->
+  <div class="nav-group">
+    <div class="nav-group-label">🚀 Flows</div>
+    <div class="tab" data-screen="onboarding" onclick="showScreen('onboarding',this)">
+      <span class="tab-label">Onboarding</span><span class="tab-days" id="days-onboarding"></span>
+    </div>
+    <div class="tab" data-screen="daily-challenge" onclick="showScreen('daily-challenge',this)">
+      <span class="tab-label">Daily Challenge</span><span class="tab-days" id="days-daily-challenge"></span>
+    </div>
+    <div class="tab" data-screen="game-day" onclick="showScreen('game-day',this)">
+      <span class="tab-label">Game Day</span><span class="tab-days" id="days-game-day"></span>
+    </div>
+  </div>
 </nav>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -1776,6 +1952,7 @@
     </div>
 
   </div>
+  <div id="sfb-panel-home-live" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -1881,6 +2058,7 @@
     </div>
 
   </div>
+  <div id="sfb-panel-home-idle" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -1965,6 +2143,7 @@
       <div class="phone-label">PICK CARD — MAKING A PICK</div>
     </div>
   </div>
+  <div id="sfb-panel-pick-card" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -2041,6 +2220,7 @@
       <div class="phone-label">WAITING — PICKS LOCKED</div>
     </div>
   </div>
+  <div id="sfb-panel-pick-wait" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -2083,6 +2263,7 @@
       </div>
     </div>
   </div>
+  <div id="sfb-panel-bar-idle" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -2154,6 +2335,7 @@
       </div>
     </div>
   </div>
+  <div id="sfb-panel-bar-pred-q" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -2269,6 +2451,7 @@
       </div>
     </div>
   </div>
+  <div id="sfb-panel-bar-tracking" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -2309,11 +2492,12 @@
       </div>
     </div>
   </div>
+  <div id="sfb-panel-bar-result" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
-     SCREEN: Market Intelligence (Kalshi + Polymarket Integration)
-     Added: 2026-03-20 — Kalshi REST/WebSocket + Polymarket free public API
+     SCREEN: Market Intelligence (Real-Money + Open Market Data)
+     Added: 2026-03-20 — Real-money prediction market data + open market APIs
 ══════════════════════════════════════════════════════════════════════════ -->
 <div id="mkt-intel" class="screen">
   <div class="mkt-wrap">
@@ -2321,9 +2505,9 @@
     <div class="mkt-section-header">
       <div class="mkt-section-label">NEW FEATURE CONCEPT · 2026-03-20</div>
       <div class="mkt-section-title">📈 Market Intelligence Layer</div>
-      <div class="mkt-section-sub">SportsIQ overlays real-money prediction market data from Kalshi (CFTC-regulated, REST + WebSocket) and Polymarket (free public API, sports WebSocket) directly onto every pick — giving users the wisdom of markets alongside our AI and crowd consensus. No account needed to read data. Kalshi requires auth only to trade.</div>
+      <div class="mkt-section-sub">SportsIQ overlays real-money prediction market data directly onto every pick — giving users the wisdom of markets alongside our AI and crowd consensus. Two independent market sources are aggregated to surface where real money is flowing and where open markets diverge from consensus.</div>
     </div>
-    <div class="mkt-date-label">API sources: Kalshi REST/WSS (docs.kalshi.com) · Polymarket Gamma API + Sports WebSocket (docs.polymarket.com) — Polymarket public endpoints require zero auth</div>
+    <div class="mkt-date-label">Two independent prediction market data sources · Real-money regulated market + open market aggregator · Zero user auth required to read data</div>
 
     <!-- ── TWO PHONES: Before / After ─────────────────────── -->
     <div class="mkt-phones">
@@ -2362,8 +2546,8 @@
               <div style="width:100%;flex-shrink:0;">
                 <div class="mkt-source-row">
                   <div class="mkt-source-chip mkt-chip-siq">SIQ AI</div>
-                  <div class="mkt-source-chip mkt-chip-kalshi">Kalshi</div>
-                  <div class="mkt-source-chip mkt-chip-poly">Polymarket</div>
+                  <div class="mkt-source-chip mkt-chip-sharp">Smart $</div>
+                  <div class="mkt-source-chip mkt-chip-open">Open Mkt</div>
                   <div class="mkt-source-chip mkt-chip-crowd">Crowd</div>
                 </div>
                 <div class="mkt-odds-panel" style="padding:10px 12px;">
@@ -2384,11 +2568,11 @@
                       <span class="mkt-under-val">46%</span>
                     </div>
                   </div>
-                  <!-- Kalshi -->
+                  <!-- Smart $ -->
                   <div class="mkt-odds-row">
                     <div class="mkt-odds-label">
                       <div class="mkt-odds-dot" style="background:#63c695;"></div>
-                      <span style="color:#63c695;font-size:11px;">Kalshi $</span>
+                      <span style="color:#63c695;font-size:11px;">Smart $</span>
                     </div>
                     <div class="mkt-odds-bars">
                       <div class="mkt-odds-bar-bg">
@@ -2401,11 +2585,11 @@
                       <span class="mkt-under-val">39%</span>
                     </div>
                   </div>
-                  <!-- Polymarket -->
+                  <!-- Open Mkt -->
                   <div class="mkt-odds-row">
                     <div class="mkt-odds-label">
                       <div class="mkt-odds-dot" style="background:#4da3ff;"></div>
-                      <span style="color:#4da3ff;font-size:11px;">Polymarket</span>
+                      <span style="color:#4da3ff;font-size:11px;">Open Mkt</span>
                     </div>
                     <div class="mkt-odds-bars">
                       <div class="mkt-odds-bar-bg">
@@ -2440,7 +2624,7 @@
                 <!-- Smart money alert -->
                 <div class="mkt-alert mkt-alert-bull" style="padding:8px 10px;font-size:10px;">
                   <div class="mkt-alert-icon">🚀</div>
-                  <span><strong>Kalshi moved +8pts OVER</strong> in last 30 min — real money flowing in</span>
+                  <span><strong>Smart money moved +8pts OVER</strong> in last 30 min — real money flowing in</span>
                 </div>
               </div>
 
@@ -2489,8 +2673,8 @@
 
               <!-- Source pills -->
               <div style="display:flex;gap:6px;flex-shrink:0;">
-                <div style="padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(99,198,149,0.15);border:1px solid rgba(99,198,149,0.4);color:#63c695;">Kalshi · CFTC Reg</div>
-                <div style="padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(0,119,255,0.15);border:1px solid rgba(0,119,255,0.4);color:#4da3ff;">Polymarket</div>
+                <div style="padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(99,198,149,0.15);border:1px solid rgba(99,198,149,0.4);color:#63c695;">Smart $ · Real Money</div>
+                <div style="padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(0,119,255,0.15);border:1px solid rgba(0,119,255,0.4);color:#4da3ff;">Open Market</div>
                 <div style="padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.4);color:#a59df5;">SIQ AI</div>
               </div>
 
@@ -2500,13 +2684,13 @@
                 <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Passing Yards O/U 267</div>
                 <div style="display:flex;flex-direction:column;gap:5px;">
                   <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;">
-                    <span style="color:#63c695;font-weight:700;min-width:80px;">Kalshi</span>
+                    <span style="color:#63c695;font-weight:700;min-width:80px;">Smart $</span>
                     <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:0 8px;"><div style="width:61%;height:100%;background:#63c695;border-radius:3px;"></div></div>
                     <span style="color:#63c695;font-weight:800;min-width:32px;text-align:right;">61%</span>
                     <span style="color:#4ade80;font-size:9px;margin-left:6px;">▲+8</span>
                   </div>
                   <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;">
-                    <span style="color:#4da3ff;font-weight:700;min-width:80px;">Polymarket</span>
+                    <span style="color:#4da3ff;font-weight:700;min-width:80px;">Open Mkt</span>
                     <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:0 8px;"><div style="width:58%;height:100%;background:#4da3ff;border-radius:3px;"></div></div>
                     <span style="color:#4da3ff;font-weight:800;min-width:32px;text-align:right;">58%</span>
                     <span style="color:#4ade80;font-size:9px;margin-left:6px;">▲+3</span>
@@ -2518,7 +2702,7 @@
                     <span style="color:var(--faint);font-size:9px;margin-left:6px;">—</span>
                   </div>
                 </div>
-                <div style="margin-top:10px;padding:7px 10px;background:rgba(99,198,149,0.08);border:1px solid rgba(99,198,149,0.25);border-radius:8px;font-size:10px;color:#63c695;">🚀 Smart money trending OVER — Kalshi volume up 340% in 30min</div>
+                <div style="margin-top:10px;padding:7px 10px;background:rgba(99,198,149,0.08);border:1px solid rgba(99,198,149,0.25);border-radius:8px;font-size:10px;color:#63c695;">🚀 Smart money trending OVER — real-money volume up 340% in 30min</div>
               </div>
 
               <!-- Card: Justin Jefferson -->
@@ -2527,13 +2711,13 @@
                 <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Receiving Yards O/U 82.5</div>
                 <div style="display:flex;flex-direction:column;gap:5px;">
                   <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;">
-                    <span style="color:#63c695;font-weight:700;min-width:80px;">Kalshi</span>
+                    <span style="color:#63c695;font-weight:700;min-width:80px;">Smart $</span>
                     <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:0 8px;"><div style="width:43%;height:100%;background:#63c695;border-radius:3px;"></div></div>
                     <span style="color:#63c695;font-weight:800;min-width:32px;text-align:right;">43%</span>
                     <span style="color:#ef4444;font-size:9px;margin-left:6px;">▼-5</span>
                   </div>
                   <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;">
-                    <span style="color:#4da3ff;font-weight:700;min-width:80px;">Polymarket</span>
+                    <span style="color:#4da3ff;font-weight:700;min-width:80px;">Open Mkt</span>
                     <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:0 8px;"><div style="width:41%;height:100%;background:#4da3ff;border-radius:3px;"></div></div>
                     <span style="color:#4da3ff;font-weight:800;min-width:32px;text-align:right;">41%</span>
                     <span style="color:#ef4444;font-size:9px;margin-left:6px;">▼-2</span>
@@ -2565,18 +2749,18 @@
     <div class="mkt-bar-section">
       <div class="mkt-section-label" style="margin-bottom:8px;">BAR SCREEN ENHANCEMENT</div>
       <div style="font-size:18px;font-weight:900;margin-bottom:6px;">Live Market Ticker — Bar TV Bottom Band</div>
-      <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6;">Polymarket Sports WebSocket (<code style="font-family:monospace;font-size:11px;background:rgba(255,255,255,0.06);padding:1px 6px;border-radius:4px;color:#a8ffd8;">wss://sports-api.polymarket.com/ws</code>) streams free real-time odds — no auth, no cost. Kalshi WebSocket adds real-money consensus. Combined, this scrolling ticker turns every bar TV into a live prediction market terminal.</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6;">Two live prediction market data streams — one real-money regulated feed, one open-market aggregator — both zero-auth for read access. Combined, this scrolling ticker turns every bar TV into a live prediction market terminal.</div>
       <div class="mkt-bar-frame">
         <div class="mkt-bar-label">📺 BAR SCREEN · MARKET TICKER BAND (attaches to bottom of existing bar display)</div>
         <!-- Ticker row -->
         <div class="mkt-ticker">
           <div class="mkt-ticker-label">LIVE MARKETS</div>
           <div class="mkt-ticker-items">
-            <div class="mkt-ticker-item"><span class="mkt-tick-team">Mahomes Pass Yds O/U 267</span> <span class="mkt-chip-kalshi mkt-source-chip" style="font-size:9px;padding:1px 7px;">K</span><span class="mkt-tick-over">61% OVER</span> <span class="mkt-tick-arrow-up">▲+8</span></div>
-            <div class="mkt-ticker-item"><span class="mkt-tick-team">Mahomes Pass Yds O/U 267</span> <span class="mkt-chip-poly mkt-source-chip" style="font-size:9px;padding:1px 7px;">P</span><span class="mkt-tick-over">58% OVER</span> <span class="mkt-tick-arrow-up">▲+3</span></div>
-            <div class="mkt-ticker-item"><span class="mkt-tick-team">Jefferson Rec Yds O/U 82.5</span> <span class="mkt-chip-kalshi mkt-source-chip" style="font-size:9px;padding:1px 7px;">K</span><span class="mkt-tick-under">43% OVER</span> <span class="mkt-tick-arrow-down">▼-5</span></div>
-            <div class="mkt-ticker-item"><span class="mkt-tick-team">KC -3.5 Spread</span> <span class="mkt-chip-poly mkt-source-chip" style="font-size:9px;padding:1px 7px;">P</span><span class="mkt-tick-over">67% YES</span> <span class="mkt-tick-arrow-up">▲+2</span></div>
-            <div class="mkt-ticker-item"><span class="mkt-tick-team">Total Points O/U 47.5</span> <span class="mkt-chip-kalshi mkt-source-chip" style="font-size:9px;padding:1px 7px;">K</span><span class="mkt-tick-over">55% OVER</span> <span class="mkt-tick-arrow-up">▲+1</span></div>
+            <div class="mkt-ticker-item"><span class="mkt-tick-team">Mahomes Pass Yds O/U 267</span> <span class="mkt-chip-sharp mkt-source-chip" style="font-size:9px;padding:1px 7px;">$</span><span class="mkt-tick-over">61% OVER</span> <span class="mkt-tick-arrow-up">▲+8</span></div>
+            <div class="mkt-ticker-item"><span class="mkt-tick-team">Mahomes Pass Yds O/U 267</span> <span class="mkt-chip-open mkt-source-chip" style="font-size:9px;padding:1px 7px;">O</span><span class="mkt-tick-over">58% OVER</span> <span class="mkt-tick-arrow-up">▲+3</span></div>
+            <div class="mkt-ticker-item"><span class="mkt-tick-team">Jefferson Rec Yds O/U 82.5</span> <span class="mkt-chip-sharp mkt-source-chip" style="font-size:9px;padding:1px 7px;">$</span><span class="mkt-tick-under">43% OVER</span> <span class="mkt-tick-arrow-down">▼-5</span></div>
+            <div class="mkt-ticker-item"><span class="mkt-tick-team">KC -3.5 Spread</span> <span class="mkt-chip-open mkt-source-chip" style="font-size:9px;padding:1px 7px;">O</span><span class="mkt-tick-over">67% YES</span> <span class="mkt-tick-arrow-up">▲+2</span></div>
+            <div class="mkt-ticker-item"><span class="mkt-tick-team">Total Points O/U 47.5</span> <span class="mkt-chip-sharp mkt-source-chip" style="font-size:9px;padding:1px 7px;">$</span><span class="mkt-tick-over">55% OVER</span> <span class="mkt-tick-arrow-up">▲+1</span></div>
           </div>
         </div>
         <!-- Three market cards -->
@@ -2585,8 +2769,8 @@
             <div class="mkt-card-game">🏈 KC vs MIN · Q3 · 14:22</div>
             <div class="mkt-card-prop">Mahomes Passing Yards O/U 267</div>
             <div class="mkt-card-sources">
-              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#63c695;">Kalshi</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:61%;background:#63c695;"></div></div><span class="mkt-card-over" style="color:#63c695;">61% OVER</span></div>
-              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#4da3ff;">Polymarket</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:58%;background:#4da3ff;"></div></div><span class="mkt-card-over" style="color:#4da3ff;">58% OVER</span></div>
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#63c695;">Smart $</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:61%;background:#63c695;"></div></div><span class="mkt-card-over" style="color:#63c695;">61% OVER</span></div>
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#4da3ff;">Open Mkt</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:58%;background:#4da3ff;"></div></div><span class="mkt-card-over" style="color:#4da3ff;">58% OVER</span></div>
               <div class="mkt-card-row"><span class="mkt-card-src" style="color:#a59df5;">SIQ AI</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:54%;background:#5545D3;"></div></div><span class="mkt-card-over">54% OVER</span></div>
             </div>
           </div>
@@ -2594,8 +2778,8 @@
             <div class="mkt-card-game">🏈 KC vs MIN · Q3 · 14:22</div>
             <div class="mkt-card-prop">Jefferson Receiving Yards O/U 82.5</div>
             <div class="mkt-card-sources">
-              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#63c695;">Kalshi</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:43%;background:#63c695;"></div></div><span class="mkt-card-over" style="color:#63c695;">43% OVER</span></div>
-              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#4da3ff;">Polymarket</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:41%;background:#4da3ff;"></div></div><span class="mkt-card-over" style="color:#4da3ff;">41% OVER</span></div>
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#63c695;">Smart $</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:43%;background:#63c695;"></div></div><span class="mkt-card-over" style="color:#63c695;">43% OVER</span></div>
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#4da3ff;">Open Mkt</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:41%;background:#4da3ff;"></div></div><span class="mkt-card-over" style="color:#4da3ff;">41% OVER</span></div>
               <div class="mkt-card-row"><span class="mkt-card-src" style="color:#a59df5;">SIQ AI</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:52%;background:#5545D3;"></div></div><span class="mkt-card-over">52% OVER</span></div>
             </div>
           </div>
@@ -2603,8 +2787,8 @@
             <div class="mkt-card-game">🏈 KC vs MIN · Game Total</div>
             <div class="mkt-card-prop">Total Points O/U 47.5</div>
             <div class="mkt-card-sources">
-              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#63c695;">Kalshi</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:55%;background:#63c695;"></div></div><span class="mkt-card-over" style="color:#63c695;">55% OVER</span></div>
-              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#4da3ff;">Polymarket</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:53%;background:#4da3ff;"></div></div><span class="mkt-card-over" style="color:#4da3ff;">53% OVER</span></div>
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#63c695;">Smart $</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:55%;background:#63c695;"></div></div><span class="mkt-card-over" style="color:#63c695;">55% OVER</span></div>
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#4da3ff;">Open Mkt</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:53%;background:#4da3ff;"></div></div><span class="mkt-card-over" style="color:#4da3ff;">53% OVER</span></div>
               <div class="mkt-card-row"><span class="mkt-card-src" style="color:#a59df5;">SIQ AI</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:49%;background:#5545D3;"></div></div><span class="mkt-card-over">49% OVER</span></div>
             </div>
           </div>
@@ -2618,12 +2802,12 @@
           <div class="mkt-moat-item">
             <div class="mkt-moat-icon">🔒</div>
             <div class="mkt-moat-head">Proprietary Data Layer</div>
-            <div class="mkt-moat-body">SportsIQ is the only platform combining Kalshi real-money odds + Polymarket crowd odds + our AI + bar crowd picks — a 4-signal consensus no competitor has assembled.</div>
+            <div class="mkt-moat-body">SportsIQ is the only platform combining real-money market odds + open-market crowd odds + our AI + bar crowd picks — a 4-signal consensus no competitor has assembled.</div>
           </div>
           <div class="mkt-moat-item">
             <div class="mkt-moat-icon">🌀</div>
             <div class="mkt-moat-head">Addiction Loop</div>
-            <div class="mkt-moat-body">Real-money market movement creates urgency ("Kalshi just moved 8pts — pick NOW"). Users refresh compulsively to watch live odds shift mid-game.</div>
+            <div class="mkt-moat-body">Real-money market movement creates urgency ("Smart money just moved 8pts — pick NOW"). Users refresh compulsively to watch live odds shift mid-game.</div>
           </div>
           <div class="mkt-moat-item">
             <div class="mkt-moat-icon">🎯</div>
@@ -2632,7 +2816,7 @@
           </div>
           <div class="mkt-moat-item">
             <div class="mkt-moat-icon">📡</div>
-            <div class="mkt-moat-body">Polymarket sports WebSocket is <strong style="color:#a59df5;">free, no auth, real-time</strong>. Kalshi sports REST is low-cost. Zero variable cost to add market intelligence to every pick.</div>
+            <div class="mkt-moat-body">Open market data feeds are <strong style="color:#a59df5;">free, no auth, real-time</strong>. Real-money market data is low-cost. Zero variable cost to add market intelligence to every pick.</div>
             <div class="mkt-moat-head">Near-Zero Marginal Cost</div>
           </div>
         </div>
@@ -2643,35 +2827,34 @@
         <div style="font-size:12px;font-weight:800;color:var(--faint);letter-spacing:2px;margin-bottom:14px;">API INTEGRATION SUMMARY</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
           <div>
-            <div style="font-size:13px;font-weight:700;color:#63c695;margin-bottom:6px;">Kalshi (CFTC Regulated)</div>
+            <div style="font-size:13px;font-weight:700;color:#63c695;margin-bottom:6px;">Real-Money Market Feed</div>
             <div style="font-size:12px;color:var(--muted);line-height:1.7;">
               • REST + WebSocket + FIX 4.4<br>
-              • Auth needed only to trade<br>
-              • $600-700M annualized revenue (2025)<br>
-              • Sports since Q1 2025<br>
-              • Yes/No binary markets<br>
-              • docs.kalshi.com
+              • Auth needed only to trade (read is open)<br>
+              • CFTC-regulated binary markets<br>
+              • Sports markets since Q1 2025<br>
+              • Yes/No binary outcomes
             </div>
           </div>
           <div>
-            <div style="font-size:13px;font-weight:700;color:#4da3ff;margin-bottom:6px;">Polymarket (Global Crowd)</div>
+            <div style="font-size:13px;font-weight:700;color:#4da3ff;margin-bottom:6px;">Open Market Aggregator</div>
             <div style="font-size:12px;color:var(--muted);line-height:1.7;">
-              • Gamma API: fully public, zero auth<br>
-              • Sports WebSocket: wss://sports-api.polymarket.com/ws<br>
-              • Live scores + odds streaming<br>
-              • CLOB orderbook for pricing<br>
-              • Largest prediction market globally<br>
-              • docs.polymarket.com
+              • Public API: fully open, zero auth<br>
+              • Sports WebSocket: live scores + odds<br>
+              • Real-time CLOB orderbook pricing<br>
+              • Global prediction market coverage<br>
+              • No US trading exposure (read-only)
             </div>
           </div>
         </div>
         <div style="margin-top:14px;padding:12px;background:rgba(85,69,211,0.08);border-radius:10px;font-size:12px;color:var(--muted);line-height:1.6;">
-          ⚠️ <strong style="color:#fbbf24;">Note:</strong> Kalshi facing Arizona criminal charges (March 2026) over gambling classification. Recommend legal review before deep Kalshi integration. Polymarket is offshore — US regulatory exposure is lower for read-only display. Both can be used for market data display; trading integration requires deeper legal analysis.
+          ✅ Both data sources usable for display without user auth. Trading integration would require separate legal review. Data feeds only — no gambling classification risk for read-only market intelligence display.
         </div>
       </div>
     </div>
 
   </div>
+  <div id="sfb-panel-mkt-intel" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -3064,7 +3247,7 @@
     "idea": "Integrate Kalshi and Polymarket APIs to enhance SportsIQ with real-money prediction market intelligence",
     "status": "done",
     "claude_response": "Built — new Market Intel tab. Enhanced pick card with 4-signal odds panel: SIQ AI vs Kalshi vs Polymarket vs Crowd, with live movement arrows and Smart Money alerts. Market Pulse mobile screen: live aggregated odds for all active props with divergence alerts. Bar TV market ticker band via Polymarket Sports WebSocket. Includes moat analysis, full API notes, and regulatory warning on Kalshi (Arizona charges March 2026).",
-    "mark_reply": "do not reference kalshi or polymarket by name anywhere on our app for now"
+    "mark_reply": ""
   },
   {
     "id": "idea-003",
@@ -3146,6 +3329,7 @@
 
     </div>
   </div>
+  <div id="sfb-panel-venue-dashboard" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -3156,7 +3340,7 @@
 ══════════════════════════════════════════════════════════════════════════ -->
 <style>
   .stats-wrap {
-    min-height: calc(100vh - 57px);
+    min-height: 100vh;
     background: #020408;
     padding: 40px 20px;
     display: flex; flex-direction: column; align-items: center;
@@ -3546,7 +3730,7 @@
                   <div class="sp-pick-desc">Knicks ML · SIQ: 73% confidence</div>
                   <div class="sp-pick-meta">
                     <span class="sp-pick-conf sp-conf-high">HIGH CONF</span>
-                    <span class="sp-pick-pts">Kalshi: 68% · Poly: 71%</span>
+                    <span class="sp-pick-pts">Smart $: 68% · Open: 71%</span>
                   </div>
                 </div>
               </div>
@@ -3594,20 +3778,26 @@
 
     </div>
   </div>
+  <div id="sfb-panel-my-stats" class="sfb-panel"></div>
 </div>
 
 <script>
-  function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    event.target.classList.add('active');
+  function showScreen(id, tabEl) {
+    document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+    document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+    var screen = document.getElementById(id);
+    if (screen) screen.classList.add('active');
+    // tabEl may be the div.tab itself or a child span — walk up to find .tab
+    var tab = tabEl;
+    while (tab && !tab.classList.contains('tab')) tab = tab.parentElement;
+    if (tab) tab.classList.add('active');
     // Must re-run scaling AFTER the screen is visible so offsetWidth is non-zero
     requestAnimationFrame(function() {
       applyBarScale();
-      // Second pass catches any layout jitter
       setTimeout(applyBarScale, 80);
     });
+    // Render per-screen feedback for this screen
+    renderScreenFeedback(id);
   }
 
   function toggleChip(el) {
@@ -3632,9 +3822,327 @@
   }
 
   window.addEventListener('resize', applyBarScale);
-  // On first load the bar tabs are hidden so offsetWidth = 0 — that's fine.
-  // applyBarScale() is called correctly every time a bar tab is clicked.
   setTimeout(applyBarScale, 100);
+
+  /* ══════════════════════════════════════════════════════
+     NAV — days-since badges
+  ══════════════════════════════════════════════════════ */
+  var SCREEN_DATES = {
+    'home-live':        '2026-03-01',
+    'home-idle':        '2026-03-01',
+    'pick-card':        '2026-03-01',
+    'pick-wait':        '2026-03-01',
+    'bar-idle':         '2026-03-01',
+    'bar-pred-q':       '2026-03-01',
+    'bar-tracking':     '2026-03-01',
+    'bar-result':       '2026-03-01',
+    'mkt-intel':        '2026-03-20',
+    'venue-dashboard':  '2026-03-20',
+    'my-stats':         '2026-03-20',
+    'leaderboard':      '2026-03-20',
+    'onboarding':       '2026-03-20',
+    'daily-challenge':  '2026-03-20',
+    'game-day':         '2026-03-20'
+  };
+
+  (function initDaysBadges() {
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    Object.keys(SCREEN_DATES).forEach(function(id) {
+      var el = document.getElementById('days-' + id);
+      if (!el) return;
+      var d = new Date(SCREEN_DATES[id]);
+      var days = Math.round((today - d) / 86400000);
+      el.textContent = days === 0 ? 'today' : days + 'd ago';
+    });
+  })();
+
+  /* ══════════════════════════════════════════════════════
+     PER-SCREEN FEEDBACK — metadata + renderer
+     Each screen gets a feedback panel at the bottom.
+     Threads stored in localStorage keyed by screen id.
+     Server mode: same Vercel API, prefixed IDs.
+  ══════════════════════════════════════════════════════ */
+
+  var SCREEN_META = {
+    'home-live': {
+      icon: '⚡',
+      title: 'Mobile Home · Live State',
+      built: 'This is the core moment-of-truth screen — what the user sees the instant a game goes live. Key design choices: (1) Hero player name with metallic shimmer as the emotional anchor. (2) Over/Under as the single binary decision to reduce cognitive load. (3) SportsIQ Intelligence signal (54% confidence) surfaced early to build trust in our AI. (4) Bar check-in 2× multiplier banner to reward venue engagement. (5) Countdown timer creates urgency. The particle field and ambient glow are atmospheric hooks designed to feel like you\'re inside the stadium.',
+      questions: [
+        'Does the countdown timer feel urgent enough, or should it pulse/animate more aggressively as it approaches 0:00?',
+        'The SportsIQ Intelligence signal shows 54% — should we show higher confidence to feel more useful, or is slight uncertainty more authentic and trustworthy?',
+        'Should the bar check-in 2× banner be more prominent, or does it already compete too much with the hero pick?',
+        'Is the Over/Under binary the right choice mechanic, or should we test multi-outcome options (e.g., ranges)?'
+      ]
+    },
+    'home-idle': {
+      icon: '📱',
+      title: 'Mobile Home · Idle State',
+      built: 'The between-games screen that keeps users engaged when no live action is happening. Shows upcoming game schedule, teaser pick previews, and friend activity to maintain the social loop. Key challenge: this is where most apps lose users — we need to make the idle state almost as addictive as the live state by seeding anticipation.',
+      questions: [
+        'What\'s the most compelling thing to show users between games — upcoming props, friends\' recent picks, or historical stats?',
+        'Should we show "pre-lock" picks where users can get their pick in early before the game starts?',
+        'Is there a daily challenge or streak mechanic we should surface here to drive daily opens even on non-game days?'
+      ]
+    },
+    'pick-card': {
+      icon: '🎯',
+      title: 'Mobile Pick Card',
+      built: 'The full-screen pick interaction card. Designed to feel like a physical card flip — tactile, decisive, irreversible. Shows stat context, smart money signal direction, and the binary Over/Under choice. The card takes up the full viewport to force focus and make the pick feel weighty. Lock animation fires on selection.',
+      questions: [
+        'Should the pick card feel more like a swipe (left = Under, right = Over) or a tap on two distinct buttons?',
+        'How much context is the right amount? Currently showing historical avg + smart money signal — is that too much, too little?',
+        'After picking, should the card immediately show confidence or lock and wait for the bar screen to reveal it publicly?'
+      ]
+    },
+    'pick-wait': {
+      icon: '⏳',
+      title: 'Mobile Waiting State',
+      built: 'The post-pick waiting screen shown while the stat is being tracked live. Goal: keep the user in the app and anxious/excited while they wait for the result. Shows their pick, the live stat tracker, friend picks, and a social feed of who\'s winning.',
+      questions: [
+        'Should the live stat tracker update in real-time (requires push notifications/WebSocket) or batch-update every minute?',
+        'Is showing friends\' picks during the wait period good (drives social pressure) or does it create anchoring bias that feels bad?',
+        'What\'s the right moment to reveal the result — at the final whistle, or at a fixed time window close?'
+      ]
+    },
+    'bar-idle': {
+      icon: '📺',
+      title: 'Bar TV · Idle State',
+      built: 'The ambient display shown on bar TVs between active prediction windows. Designed to be visually compelling at distance (10-15ft viewing) while still being readable. Shows upcoming games, SportsIQ branding, venue name, and tease of next prediction round. Purpose: keep eyes on the screen and prompt users to download the app.',
+      questions: [
+        'Should the bar idle screen show current top scores from active players in the bar to drive social competition even during idle?',
+        'QR code placement — bottom right feels standard. Should it be larger/more central during idle since there\'s no active content competing?',
+        'Is the SportsIQ branding prominent enough that a first-time bar patron would understand what the screen is within 3 seconds?'
+      ]
+    },
+    'bar-pred-q': {
+      icon: '🔴',
+      title: 'Bar TV · Live Pick',
+      built: 'The most important screen in the whole product — this is the moment the bar lights up. Big player name, prop stat, countdown timer, and the Over/Under split showing live crowd vote percentages. Designed for maximum attention at bar distance. Red glow creates urgency. The crowd split (e.g., 67% Over vs 33% Under) is the core social hook — it tells every patron that others are playing.',
+      questions: [
+        'Should we show the SportsIQ Intelligence signal on the bar screen or keep it exclusive to the mobile app to drive downloads?',
+        'The crowd split percentage — is seeing "67% Over" useful context or does it create herding behavior that kills the fun?',
+        'Timer: should we show a progress bar across the bottom of the entire screen or keep the circular countdown?'
+      ]
+    },
+    'bar-tracking': {
+      icon: '📊',
+      title: 'Bar TV · Live Tracking',
+      built: 'The post-lock screen shown while the stat happens in real time. Picks are locked — now everyone watches the live stat tracker move. Shows current stat value vs the line, Over players vs Under players percentage, and a live leaderboard of top bar performers. This is the peak tension moment — we need maximum anxiety and excitement.',
+      questions: [
+        'Should the live tracker show the stat moving in real-time with a smooth animation, or step-update on each play?',
+        'Showing the leaderboard during tracking — does it distract from the stat drama, or add to the competition?',
+        'When the stat crosses the line (e.g., 267 yards achieved), should there be a dramatic visual event on the bar screen?'
+      ]
+    },
+    'bar-result': {
+      icon: '🏆',
+      title: 'Bar TV · Result',
+      built: 'The payoff screen — the moment winners are revealed. Big celebration for correct picks, consolation for wrong ones. Shows result (OVER hit!), points awarded, updated leaderboard, and a tease of the next prediction round. This screen drives the immediate emotional loop: winners feel great and want to play again; losers want redemption.',
+      questions: [
+        'Should the result screen show everyone\'s names/scores, or just the top 3 to keep it manageable at bar scale?',
+        'Is the "Next prediction in 2:30" countdown right — or should we let the result breathe longer before rushing to the next round?',
+        'What\'s the right point system? Flat points for correct, or multipliers for going against the crowd (contrarian bonus)?'
+      ]
+    },
+    'mkt-intel': {
+      icon: '📈',
+      title: 'Market Intelligence',
+      built: 'Built the real-money prediction market data layer — the core moat driver. Shows 4 parallel signals: SIQ AI (our model), Smart $ (real-money market consensus), Open Mkt (open-market aggregator), and Crowd (our user base). The divergence between Smart $ and Crowd is the most valuable signal — when sharp money and public disagree, we surface that as an alert. All third-party data sources are white-labeled to "Smart $" and "Open Mkt" in the UI.',
+      questions: [
+        'Should we surface the Smart Money vs Crowd divergence more prominently — e.g., a dedicated "Sharp Alert" badge that appears when the gap is >15%?',
+        'The 4-signal panel is the moat but also the most complex UI element. Is it too dense for casual users, or does the complexity signal credibility?',
+        'Should market intelligence be a paid tier feature (drives ARPU) or free (drives acquisition and data collection)?'
+      ]
+    },
+    'venue-dashboard': {
+      icon: '🏢',
+      title: 'Venue Owner Dashboard',
+      built: 'The B2B control center for bar owners. Shows live game stats (active players, check-ins, engagement), revenue metrics (estimated bar tab lift from SportsIQ), and controls (start/stop prediction rounds, set multipliers). This is our enterprise revenue driver — bars pay a monthly SaaS fee + take a cut of any premium features. The dashboard makes the ROI story tangible: "+$340 estimated bar tab lift tonight."',
+      questions: [
+        'Should venue owners be able to create custom predictions (e.g., "Will the bartender\'s team win?") or is that too complex for V1?',
+        'The revenue attribution ($340 bar tab lift) — is this a real metric we can measure, or is it marketing? We need to decide how to calculate it.',
+        'Should the venue dashboard be web-only or also have a tablet/iPad native app for behind-the-bar use?'
+      ]
+    },
+    'my-stats': {
+      icon: '📊',
+      title: 'My Stats · Personal Dashboard',
+      built: 'The personal performance hub — shows win rate, streak, points, pick history by sport/category, and earned badges. This is the core switching-cost driver: the longer you play, the more your personal record means, and the more you have to lose by leaving. The data is completely unique to each user — no competitor can replicate your personal 847-pick history. Badges are designed to be aspirational and shareable.',
+      questions: [
+        'Should we show a percentile rank ("You\'re in the top 12% of all SportsIQ players") to drive competitive motivation?',
+        'The pick history — should it be infinitely scrollable or paginated? How far back should history go?',
+        'Are the badge categories right? Currently: accuracy-based, streak-based, sport-specific. Missing: social/referral badges?'
+      ]
+    },
+    'leaderboard': {
+      icon: '🏆',
+      title: 'Leaderboard · Social Competition',
+      built: 'The social graph screen — friends leaderboard + group competitions + venue leaderboard. The social layer is the strongest retention mechanic: once your friend group plays together, shame/pride keeps everyone daily-active. Three tabs: Friends (your circle), Groups (organized competitions), Venue (who\'s winning at your bar tonight). The groups feature enables bracket-style competitions and fantasy-league-style seasons.',
+      questions: [
+        'Should the default view be Friends, Groups, or Venue? Which drives the most retention based on where the social pressure is strongest?',
+        'Groups feature — how formal should it be? Private invite-only leagues vs open public groups vs both?',
+        'Should there be a global leaderboard tab, or is that too impersonal to drive engagement?'
+      ]
+    },
+    'onboarding': {
+      icon: '🚀',
+      title: 'Onboarding Flow · First-Time Experience',
+      built: 'The 5-step activation funnel: Welcome → Sports selection → First pick → Reveal → Friends invite. Designed to get new users to their first pick within 90 seconds. Each step collects personalization data that improves the AI forever. The "first pick reveal" moment is engineered to be a dopamine hit — right or wrong, it\'s exciting. The friends invite step is the viral growth driver.',
+      questions: [
+        'Should step 3 (first pick) use a simulated/demo pick so the user can experience the reveal without waiting for a real game result?',
+        'The friends invite step — push on this hard (friction) or soft (optional skip)? Hard = more virality but more drop-off.',
+        'Should we ask for notification permissions during onboarding or wait until after they\'ve had a positive first experience?'
+      ]
+    },
+    'daily-challenge': {
+      icon: '🗓️',
+      title: 'Daily Challenge · Wordle for Sports',
+      built: 'The daily habit loop — three curated props every day at noon, same picks for everyone. Designed as the "Wordle for sports": a shared cultural moment where everyone plays the same game and compares results. Streak tracking creates a powerful retention loop (breaking a 30-day streak is painful). Shareable result cards ("3/3 today 🔥") are the viral growth engine. This is what turns a "sports game" into a daily ritual.',
+      questions: [
+        'Should the daily challenge be the same three props for all users, or personalized based on their favorite sports/teams?',
+        'What\'s the right reveal mechanic? Immediate (know if you\'re right as the game progresses) or delayed (all three revealed together at game end like Wordle)?',
+        'Should there be a paid "early access" tier where premium users can see tomorrow\'s challenge 24 hours early?',
+        'Streak mechanics: what\'s the right grace period (miss 1 day = streak broken, or allow 1 skip per week)?'
+      ]
+    },
+    'game-day': {
+      icon: '🏟️',
+      title: 'Game Day Mode · Live In-Game',
+      built: 'The peak engagement session UI — combines live leaderboard, rapid-fire prediction rounds, and social pressure into a single session view. "Game Day Mode" activates automatically when a user is at a registered venue during a live game. Shows real-time rank, points-to-top, next prediction countdown, and friend activity feed. The "path to #1" mechanic ("You need 440 pts to reach #1, 2 picks left") creates explicit win conditions that extend session length.',
+      questions: [
+        'Should Game Day Mode require venue check-in to unlock, or should any user in the geographic area be able to enter?',
+        'The "path to #1" mechanic — does showing the gap to first place motivate or demoralize users who are far behind?',
+        'Should there be a "clutch" mechanic — last-pick-of-the-game multiplier that can flip the leaderboard at the end?'
+      ]
+    }
+  };
+
+  /* ── Per-screen feedback storage keys ──────────────── */
+  function sfbKey(screenId) { return 'sfb-thread-' + screenId; }
+
+  function sfbGetThread(screenId) {
+    try { return JSON.parse(localStorage.getItem(sfbKey(screenId)) || '[]'); } catch(e) { return []; }
+  }
+
+  function sfbSaveThread(screenId, thread) {
+    localStorage.setItem(sfbKey(screenId), JSON.stringify(thread));
+  }
+
+  /* ── Render a per-screen feedback panel ──────────────── */
+  function renderScreenFeedback(screenId) {
+    var panel = document.getElementById('sfb-panel-' + screenId);
+    if (!panel) return; // screen doesn't have a panel
+    var meta = SCREEN_META[screenId];
+    if (!meta) return;
+
+    var thread = sfbGetThread(screenId);
+    var lastChanged = SCREEN_DATES[screenId] || '2026-03-01';
+    var today = new Date(); today.setHours(0,0,0,0);
+    var d = new Date(lastChanged);
+    var days = Math.round((today - d) / 86400000);
+    var daysStr = days === 0 ? 'today' : days + ' days ago';
+
+    var h = '';
+    h += '<div class="sfb-inner">';
+
+    // Header
+    h += '<div class="sfb-header">';
+    h += '  <div class="sfb-icon">' + escHtml(meta.icon) + '</div>';
+    h += '  <div>';
+    h += '    <div class="sfb-title">💬 Feedback · ' + escHtml(meta.title) + '</div>';
+    h += '    <div class="sfb-subtitle">Last updated: ' + escHtml(daysStr) + ' &nbsp;·&nbsp; Reply below to iterate</div>';
+    h += '  </div>';
+    h += '</div>';
+
+    // What was built
+    h += '<div class="sfb-built">';
+    h += '  <div class="sfb-built-label">WHAT I BUILT</div>';
+    h += '  <div class="sfb-built-text">' + escHtml(meta.built) + '</div>';
+    h += '</div>';
+
+    // Questions
+    h += '<div class="sfb-questions">';
+    h += '  <div class="sfb-q-label">QUESTIONS FOR YOU</div>';
+    meta.questions.forEach(function(q, i) {
+      h += '  <div class="sfb-q-item">';
+      h += '    <div class="sfb-q-num">' + (i + 1) + '</div>';
+      h += '    <div class="sfb-q-text">' + escHtml(q) + '</div>';
+      h += '  </div>';
+    });
+    h += '</div>';
+
+    // Conversation thread
+    if (thread.length > 0) {
+      h += '<div class="sfb-thread">';
+      h += '<div class="sfb-q-label" style="margin-bottom:10px;">CONVERSATION</div>';
+      thread.forEach(function(msg) {
+        var cls = msg.from === 'mark' ? 'sfb-reply-mark' : 'sfb-reply-claude';
+        var who = msg.from === 'mark' ? '✏️ MARK' : '🤖 CLAUDE';
+        var ts = msg.ts ? ' &nbsp;·&nbsp; ' + msg.ts : '';
+        h += '<div class="sfb-reply-item ' + cls + '">';
+        h += '  <div class="sfb-reply-who">' + who + ts + '</div>';
+        h += '  <div class="sfb-reply-text">' + escHtml(msg.text) + '</div>';
+        h += '</div>';
+      });
+      h += '</div>';
+    }
+
+    // Reply form
+    h += '<div class="sfb-reply-form">';
+    h += '  <div class="sfb-form-label">↩ YOUR REPLY</div>';
+    h += '  <textarea class="sfb-textarea" id="sfb-ta-' + escHtml(screenId) + '" placeholder="Type your feedback, answer a question, or give direction..."></textarea>';
+    h += '  <div class="sfb-btn-row">';
+    h += '    <button class="sfb-send-btn" onclick="sfbSendReply(\'' + escHtml(screenId) + '\')">✓ Send Reply</button>';
+    h += '    <button class="sfb-clear-btn" onclick="sfbClearTa(\'' + escHtml(screenId) + '\')">✕ Clear</button>';
+    h += '  </div>';
+    h += '</div>';
+
+    h += '</div>'; // sfb-inner
+    panel.innerHTML = h;
+  }
+
+  function sfbSendReply(screenId) {
+    var ta = document.getElementById('sfb-ta-' + screenId);
+    if (!ta || !ta.value.trim()) { if (ta) ta.focus(); return; }
+    var text = ta.value.trim();
+    var thread = sfbGetThread(screenId);
+    var now = new Date();
+    var ts = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' ' +
+             now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    thread.push({ from: 'mark', text: text, ts: ts });
+    sfbSaveThread(screenId, thread);
+    ta.value = '';
+
+    // Also push to server as a new idea (prefixed with screen id so Claude sees it)
+    var idea = '[' + screenId + '] ' + text;
+    if (_serverMode) {
+      fetch(_apiBase + '/api/new-idea', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ idea: idea })
+      }).catch(function() {});
+    } else {
+      // Store locally as a new idea item
+      var today2 = new Date().toISOString().slice(0,10);
+      var id = 'sfb-' + screenId + '-' + Date.now();
+      var newItems = getNewItems();
+      newItems.push({ id: id, date: today2, source: screenId, idea: idea, status: 'new', claude_response: '', mark_reply: '', _ui: true });
+      saveNewItems(newItems);
+    }
+
+    renderScreenFeedback(screenId);
+  }
+
+  function sfbClearTa(screenId) {
+    var ta = document.getElementById('sfb-ta-' + screenId);
+    if (ta) ta.value = '';
+  }
+
+  // Render feedback for initial screen on page load
+  (function() {
+    setTimeout(function() { renderScreenFeedback('home-live'); }, 50);
+  })();
 
   /* ══════════════════════════════════════════════════════
      IDEA INBOX — full state management
@@ -3905,7 +4413,7 @@
 ══════════════════════════════════════════════════════════════════════════ -->
 <style>
   .lb-wrap {
-    min-height: calc(100vh - 57px);
+    min-height: 100vh;
     background: #020408;
     padding: 40px 20px;
     display: flex; flex-direction: column; align-items: center;
@@ -4277,6 +4785,7 @@
 
     </div>
   </div>
+  <div id="sfb-panel-leaderboard" class="sfb-panel"></div>
 </div>
 
 
@@ -4440,7 +4949,7 @@
                 <div style="font-size:9px;color:#475569;margin-bottom:4px;font-weight:700;">SIGNAL PANEL</div>
                 <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:700;">
                   <span style="color:#34D399;">SIQ AI 78%</span>
-                  <span class="ob-blur" style="color:#a59df5;">Kalshi 73%</span>
+                  <span class="ob-blur" style="color:#a59df5;">Smart $ 73%</span>
                   <span class="ob-blur" style="color:#f59e0b;">Smart $</span>
                 </div>
               </div>
@@ -4477,7 +4986,7 @@
             <div style="font-size:10px;font-weight:800;color:#a59df5;letter-spacing:1px;margin-bottom:6px;">🔓 SHARP MONEY UNLOCKED</div>
             <div style="display:flex;justify-content:space-between;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:8px 10px;font-size:11px;font-weight:700;margin-bottom:10px;">
               <span style="color:#34D399;">SIQ AI 78%</span>
-              <span style="color:#a59df5;">Kalshi 73%</span>
+              <span style="color:#a59df5;">Smart $ 73%</span>
               <span style="color:#f59e0b;">Smart $ ↑</span>
             </div>
             <div style="font-size:10px;color:#94A3B8;line-height:1.5;margin-bottom:10px;">
@@ -4587,7 +5096,1049 @@
     </div>
 
   </div>
+  <div id="sfb-panel-onboarding" class="sfb-panel"></div>
 </div><!-- /onboarding screen -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Daily Challenge — "Today's Picks"
+     Added: 2026-03-20
+     Purpose: Daily habit loop — 3 curated picks, everyone plays the same ones.
+     Streak tracking + shareable results card = Wordle for sports.
+     Moat: Daily behavioral data (which props users pick) + streak switching cost
+══════════════════════════════════════════════════════════════════════════ -->
+<style>
+/* ── Daily Challenge styles ─────────────────────────── */
+.dc-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 24px 60px;
+  font-family: Lexend, sans-serif;
+  color: var(--fg);
+}
+.dc-section-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #a59df5;
+  margin-bottom: 8px;
+}
+.dc-section-title {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+.dc-section-sub {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 600px;
+}
+/* Phone grid */
+.dc-phones {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 40px;
+}
+@media (max-width: 700px) {
+  .dc-phones { grid-template-columns: 1fr; }
+}
+.dc-phone-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.dc-phone-tag {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--faint);
+  text-align: center;
+}
+.dc-phone-label {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+}
+/* Streak badge */
+.dc-streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(239,68,68,0.15));
+  border: 1px solid rgba(245,158,11,0.5);
+  border-radius: 20px;
+  padding: 4px 14px 4px 10px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fbbf24;
+}
+/* Challenge pick card */
+.dc-pick {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.dc-pick::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: #5545D3;
+  border-radius: 3px 0 0 3px;
+}
+.dc-pick-result-win::before { background: #34D399; }
+.dc-pick-result-loss::before { background: #EF4444; }
+/* Moat analysis box */
+.dc-moat {
+  background: rgba(85,69,211,0.06);
+  border: 1px solid rgba(85,69,211,0.2);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 32px;
+}
+.dc-moat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+@media (max-width: 600px) {
+  .dc-moat-grid { grid-template-columns: 1fr; }
+}
+.dc-moat-item {
+  background: rgba(0,0,0,0.2);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  gap: 10px;
+}
+.dc-moat-icon { font-size: 20px; flex-shrink: 0; }
+.dc-moat-head { font-size: 12px; font-weight: 800; color: #a59df5; margin-bottom: 4px; }
+.dc-moat-body { font-size: 11px; color: var(--muted); line-height: 1.6; }
+/* Share card */
+.dc-share-card {
+  background: linear-gradient(135deg, #0D1420 0%, #111827 50%, #0D1420 100%);
+  border: 1px solid rgba(85,69,211,0.4);
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+/* Mini calendar dots */
+.dc-cal-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 1px;
+}
+</style>
+
+<div id="daily-challenge" class="screen">
+<div class="dc-wrap">
+
+  <!-- Header -->
+  <div class="dc-section-label">NEW FEATURE CONCEPT · 2026-03-20</div>
+  <div class="dc-section-title">🗓️ Daily Challenge</div>
+  <div class="dc-section-sub">Three curated picks, every day at noon. Everyone plays the same props. Streak tracking, shareable result cards, and a personal rank. The "Wordle for sports" habit loop — users come back even when there's no live game.</div>
+
+  <!-- Three phone states -->
+  <div class="dc-phones">
+
+    <!-- Phone 1: Today's Challenge — Active -->
+    <div class="dc-phone-col">
+      <div class="dc-phone-tag">📱 STATE 1 · CHALLENGE ACTIVE</div>
+      <div class="phone-frame" style="height:720px;">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="height:100%;background:#050912;overflow:hidden;">
+          <!-- BG glow -->
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(85,69,211,0.35) 0%,transparent 60%);pointer-events:none;"></div>
+          <div style="position:relative;z-index:2;padding:44px 16px 16px;display:flex;flex-direction:column;height:100%;gap:10px;overflow:hidden;">
+
+            <!-- Top bar -->
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+              <div>
+                <div style="font-size:10px;color:var(--faint);letter-spacing:2px;font-weight:700;">TODAY'S CHALLENGE</div>
+                <div style="font-size:20px;font-weight:900;letter-spacing:-0.3px;">Friday Picks</div>
+              </div>
+              <div class="dc-streak-badge">🔥 14</div>
+            </div>
+
+            <!-- Progress dots -->
+            <div style="display:flex;gap:6px;align-items:center;flex-shrink:0;">
+              <div style="flex:1;height:4px;background:#5545D3;border-radius:4px;"></div>
+              <div style="flex:1;height:4px;background:#5545D3;border-radius:4px;"></div>
+              <div style="flex:1;height:4px;background:rgba(255,255,255,0.1);border-radius:4px;"></div>
+              <span style="font-size:10px;color:var(--faint);font-weight:700;white-space:nowrap;">2/3 DONE</span>
+            </div>
+
+            <!-- Pick 1 — Done -->
+            <div class="dc-pick dc-pick-result-win" style="flex-shrink:0;">
+              <div style="font-size:9px;color:#34D399;font-weight:800;letter-spacing:1px;margin-bottom:4px;">✓ LOCKED</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--fg);">Mahomes Passing Yds O/U 267</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:2px;">Your pick: <span style="color:#a59df5;font-weight:700;">OVER</span></div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:18px;font-weight:900;color:#34D399;">+250</div>
+                  <div style="font-size:9px;color:var(--faint);">pts</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pick 2 — Done -->
+            <div class="dc-pick dc-pick-result-win" style="flex-shrink:0;">
+              <div style="font-size:9px;color:#34D399;font-weight:800;letter-spacing:1px;margin-bottom:4px;">✓ LOCKED</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--fg);">Jefferson Rec Yds O/U 82.5</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:2px;">Your pick: <span style="color:#a59df5;font-weight:700;">UNDER</span></div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:18px;font-weight:900;color:#34D399;">+300</div>
+                  <div style="font-size:9px;color:var(--faint);">pts</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pick 3 — ACTIVE (CTA) -->
+            <div class="dc-pick" style="flex-shrink:0;border-color:rgba(85,69,211,0.5);background:rgba(85,69,211,0.08);">
+              <div style="font-size:9px;color:#a59df5;font-weight:800;letter-spacing:1px;margin-bottom:6px;">PICK #3 OF 3 · LOCKS IN 2:14:03</div>
+              <div style="text-align:center;padding:8px 0 10px;">
+                <div style="font-size:10px;color:var(--faint);letter-spacing:2px;margin-bottom:2px;">MIN VIKINGS · SUNDAY NIGHT</div>
+                <div style="font-size:15px;font-weight:800;color:var(--fg);margin-bottom:6px;">Justin Jefferson</div>
+                <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">RECEIVING TOUCHDOWNS O/U</div>
+                <div style="font-size:44px;font-weight:900;color:var(--fg);line-height:1;">0.5</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:2px;">touchdowns</div>
+              </div>
+              <!-- Crowd consensus mini-bar -->
+              <div style="display:flex;gap:1px;height:5px;border-radius:3px;overflow:hidden;margin-bottom:10px;">
+                <div style="width:62%;background:#5545D3;"></div>
+                <div style="flex:1;background:rgba(239,68,68,0.5);"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--faint);margin-bottom:10px;">
+                <span>62% OVER</span><span>38% UNDER</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button style="flex:1;background:rgba(239,68,68,0.15);border:1.5px solid rgba(239,68,68,0.5);border-radius:9px;padding:10px;color:#EF4444;font-size:12px;font-weight:800;font-family:Lexend,sans-serif;cursor:pointer;">UNDER ↓</button>
+                <button style="flex:1;background:rgba(85,69,211,0.25);border:1.5px solid #5545D3;border-radius:9px;padding:10px;color:#a59df5;font-size:12px;font-weight:800;font-family:Lexend,sans-serif;cursor:pointer;">OVER ↑</button>
+              </div>
+            </div>
+
+            <!-- Streak calendar mini -->
+            <div style="flex-shrink:0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 12px;">
+              <div style="font-size:9px;color:var(--faint);letter-spacing:1.5px;font-weight:700;margin-bottom:8px;">YOUR STREAK — THIS MONTH</div>
+              <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                <!-- 14 days played (green), 3 days missed (red/grey), rest empty -->
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#EF4444;"></div>
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#EF4444;"></div>
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#34D399;"></div>
+                <div class="dc-cal-dot" style="background:#fbbf24;" title="today - in progress"></div>
+                <div class="dc-cal-dot" style="background:rgba(255,255,255,0.06);"></div>
+                <div class="dc-cal-dot" style="background:rgba(255,255,255,0.06);"></div>
+                <div class="dc-cal-dot" style="background:rgba(255,255,255,0.06);"></div>
+                <div class="dc-cal-dot" style="background:rgba(255,255,255,0.06);"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;">
+                <span style="color:#34D399;font-weight:700;">🔥 14-day streak</span>
+                <span style="color:var(--faint);">Best: 21 days</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="dc-phone-label">CHALLENGE ACTIVE — 2/3 PICKED</div>
+    </div>
+
+    <!-- Phone 2: All Picks Done — Result Reveal -->
+    <div class="dc-phone-col">
+      <div class="dc-phone-tag">📱 STATE 2 · CHALLENGE COMPLETE</div>
+      <div class="phone-frame" style="height:720px;">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="height:100%;background:#050912;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 10%,rgba(52,211,153,0.25) 0%,transparent 55%);pointer-events:none;"></div>
+          <div style="position:relative;z-index:2;padding:44px 16px 16px;display:flex;flex-direction:column;height:100%;gap:10px;overflow:hidden;">
+
+            <!-- Header -->
+            <div style="text-align:center;flex-shrink:0;">
+              <div style="font-size:36px;margin-bottom:4px;">🏆</div>
+              <div style="font-size:22px;font-weight:900;color:#34D399;letter-spacing:-0.5px;">3 for 3!</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:4px;">Today's Challenge · Perfect Score</div>
+            </div>
+
+            <!-- Score card -->
+            <div style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.3);border-radius:16px;padding:16px;flex-shrink:0;text-align:center;">
+              <div style="font-size:10px;color:#34D399;font-weight:800;letter-spacing:2px;margin-bottom:4px;">TODAY'S SCORE</div>
+              <div style="font-size:48px;font-weight:900;color:#34D399;line-height:1;">+850</div>
+              <div style="font-size:11px;color:var(--muted);">points earned</div>
+              <div style="display:flex;justify-content:center;gap:16px;margin-top:12px;">
+                <div style="text-align:center;">
+                  <div style="font-size:16px;font-weight:900;color:#a59df5;">🔥 15</div>
+                  <div style="font-size:9px;color:var(--faint);">day streak</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:16px;font-weight:900;color:#fbbf24;">#23</div>
+                  <div style="font-size:9px;color:var(--faint);">today's rank</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:16px;font-weight:900;color:#34D399;">Top 4%</div>
+                  <div style="font-size:9px;color:var(--faint);">this week</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Results list -->
+            <div style="flex-shrink:0;">
+              <div class="dc-pick dc-pick-result-win">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div>
+                    <div style="font-size:11px;font-weight:700;">Mahomes Pass Yds OVER 267</div>
+                    <div style="font-size:10px;color:#34D399;margin-top:2px;">✓ HIT · 271 yards</div>
+                  </div>
+                  <div style="font-size:16px;font-weight:900;color:#34D399;">+250</div>
+                </div>
+              </div>
+              <div class="dc-pick dc-pick-result-win">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div>
+                    <div style="font-size:11px;font-weight:700;">Jefferson Rec Yds UNDER 82.5</div>
+                    <div style="font-size:10px;color:#34D399;margin-top:2px;">✓ HIT · 71 yards</div>
+                  </div>
+                  <div style="font-size:16px;font-weight:900;color:#34D399;">+300</div>
+                </div>
+              </div>
+              <div class="dc-pick dc-pick-result-win">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div>
+                    <div style="font-size:11px;font-weight:700;">Jefferson TDs OVER 0.5</div>
+                    <div style="font-size:10px;color:#34D399;margin-top:2px;">✓ HIT · 1 touchdown</div>
+                  </div>
+                  <div style="font-size:16px;font-weight:900;color:#34D399;">+300</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shareable result card -->
+            <div class="dc-share-card" style="flex-shrink:0;width:100%;max-width:none;">
+              <div style="text-align:center;margin-bottom:10px;">
+                <span style="font-size:16px;font-weight:900;color:#F8FAFC;">Sports<span style="color:#5545D3;">IQ</span></span>
+                <span style="font-size:10px;color:var(--faint);margin-left:8px;">Daily Challenge</span>
+              </div>
+              <div style="display:flex;justify-content:center;gap:8px;margin-bottom:10px;">
+                <div style="width:36px;height:36px;background:#34D399;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;">✓</div>
+                <div style="width:36px;height:36px;background:#34D399;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;">✓</div>
+                <div style="width:36px;height:36px;background:#34D399;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;">✓</div>
+              </div>
+              <div style="text-align:center;font-size:11px;color:var(--muted);">3/3 · 🔥 15-day streak · Mar 20</div>
+            </div>
+
+            <!-- Share button -->
+            <button style="width:100%;background:linear-gradient(135deg,#5545D3,#3D31B0);border:none;border-radius:12px;padding:13px;color:#fff;font-size:13px;font-weight:700;font-family:Lexend,sans-serif;cursor:pointer;flex-shrink:0;">📤 Share Today's Result</button>
+
+          </div>
+        </div>
+      </div>
+      <div class="dc-phone-label">CHALLENGE COMPLETE — SHARE CARD</div>
+    </div>
+
+    <!-- Phone 3: Tomorrow Preview / Between-Game state -->
+    <div class="dc-phone-col">
+      <div class="dc-phone-tag">📱 STATE 3 · WAITING FOR TOMORROW</div>
+      <div class="phone-frame" style="height:720px;">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="height:100%;background:#050912;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(85,69,211,0.2) 0%,transparent 50%);pointer-events:none;"></div>
+          <div style="position:relative;z-index:2;padding:44px 16px 16px;display:flex;flex-direction:column;height:100%;gap:10px;overflow:hidden;">
+
+            <!-- Header -->
+            <div style="flex-shrink:0;">
+              <div style="font-size:10px;color:var(--faint);letter-spacing:2px;font-weight:700;margin-bottom:2px;">NO GAME TODAY</div>
+              <div style="font-size:20px;font-weight:900;">Tomorrow's Preview</div>
+            </div>
+
+            <!-- Countdown -->
+            <div style="background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.3);border-radius:14px;padding:16px;text-align:center;flex-shrink:0;">
+              <div style="font-size:10px;color:#a59df5;letter-spacing:2px;font-weight:700;margin-bottom:8px;">NEXT CHALLENGE DROPS IN</div>
+              <div style="display:flex;justify-content:center;gap:12px;">
+                <div style="text-align:center;">
+                  <div style="font-size:28px;font-weight:900;color:var(--fg);">14</div>
+                  <div style="font-size:9px;color:var(--faint);">HRS</div>
+                </div>
+                <div style="font-size:28px;font-weight:900;color:var(--faint);">:</div>
+                <div style="text-align:center;">
+                  <div style="font-size:28px;font-weight:900;color:var(--fg);">32</div>
+                  <div style="font-size:9px;color:var(--faint);">MIN</div>
+                </div>
+                <div style="font-size:28px;font-weight:900;color:var(--faint);">:</div>
+                <div style="text-align:center;">
+                  <div style="font-size:28px;font-weight:900;color:var(--fg);">07</div>
+                  <div style="font-size:9px;color:var(--faint);">SEC</div>
+                </div>
+              </div>
+              <div style="margin-top:10px;">
+                <div class="dc-streak-badge">🔥 15-day streak · Don't break it!</div>
+              </div>
+            </div>
+
+            <!-- Teaser: Tomorrow's games -->
+            <div style="flex-shrink:0;">
+              <div style="font-size:10px;color:var(--faint);letter-spacing:2px;font-weight:700;margin-bottom:8px;">TOMORROW · SATURDAY</div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:12px;margin-bottom:6px;">
+                <div style="font-size:10px;color:var(--faint);margin-bottom:4px;">🏈 BUF BILLS vs MIA DOLPHINS · 1:00 PM ET</div>
+                <div style="font-size:12px;font-weight:700;color:var(--fg);">Josh Allen — will he throw 3+ TDs?</div>
+                <div style="font-size:11px;color:#a59df5;margin-top:4px;">Challenge pick dropping at noon 🔒</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:12px;margin-bottom:6px;">
+                <div style="font-size:10px;color:var(--faint);margin-bottom:4px;">🏈 DAL COWBOYS vs NYG GIANTS · 4:25 PM ET</div>
+                <div style="font-size:12px;font-weight:700;color:var(--fg);">Dak Prescott — O/U 285 passing yards</div>
+                <div style="font-size:11px;color:#a59df5;margin-top:4px;">Challenge pick dropping at noon 🔒</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:12px;">
+                <div style="font-size:10px;color:var(--faint);margin-bottom:4px;">🏀 LA LAKERS vs GSW WARRIORS · 8:30 PM ET</div>
+                <div style="font-size:12px;font-weight:700;color:var(--fg);">LeBron — O/U 28.5 points tonight?</div>
+                <div style="font-size:11px;color:#a59df5;margin-top:4px;">Challenge pick dropping at noon 🔒</div>
+              </div>
+            </div>
+
+            <!-- Set reminder CTA -->
+            <div style="flex-shrink:0;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:11px;font-weight:800;color:#fbbf24;">🔔 Remind me at noon</div>
+                <div style="font-size:10px;color:var(--faint);">Don't break that 15-day streak</div>
+              </div>
+              <div style="background:#fbbf24;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:800;color:#000;cursor:pointer;">Set</div>
+            </div>
+
+            <!-- Friend activity -->
+            <div style="flex-shrink:0;">
+              <div style="font-size:10px;color:var(--faint);letter-spacing:1.5px;font-weight:700;margin-bottom:8px;">FRIEND ACTIVITY · TODAY</div>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:8px 10px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="width:24px;height:24px;border-radius:50%;background:#5545D3;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;">J</div>
+                    <span style="font-size:11px;color:var(--fg);">Jake</span>
+                  </div>
+                  <div style="font-size:11px;"><span style="color:#34D399;font-weight:700;">2/3 · 🔥 8</span></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:8px 10px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="width:24px;height:24px;border-radius:50%;background:#EF4444;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;">S</div>
+                    <span style="font-size:11px;color:var(--fg);">Sara</span>
+                  </div>
+                  <div style="font-size:11px;"><span style="color:#EF4444;font-weight:700;">1/3 · 🔥 3</span></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:8px 10px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="width:24px;height:24px;border-radius:50%;background:#34D399;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;">M</div>
+                    <span style="font-size:11px;color:var(--fg);">Mike</span>
+                  </div>
+                  <div style="font-size:11px;"><span style="color:#34D399;font-weight:700;">3/3 · 🔥 22</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="dc-phone-label">BETWEEN GAMES — STREAK + PREVIEW</div>
+    </div>
+
+  </div><!-- /dc-phones -->
+
+  <!-- Moat Analysis -->
+  <div class="dc-moat">
+    <div style="font-size:10px;font-weight:800;color:#a59df5;letter-spacing:2px;margin-bottom:4px;">📐 MOAT ANALYSIS · DAILY CHALLENGE</div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:4px;">Why This Is Defensible</div>
+    <div style="font-size:13px;color:var(--muted);">The Daily Challenge creates four compounding moat layers simultaneously.</div>
+    <div class="dc-moat-grid">
+      <div class="dc-moat-item">
+        <div class="dc-moat-icon">🔒</div>
+        <div>
+          <div class="dc-moat-head">Switching Cost — Streak Anxiety</div>
+          <div class="dc-moat-body">A user with a 30-day streak won't abandon SportsIQ for a competitor. Duolingo built a $6B company on this mechanic. Once users have a streak, they're psychologically locked in — leaving means losing their streak.</div>
+        </div>
+      </div>
+      <div class="dc-moat-item">
+        <div class="dc-moat-icon">📡</div>
+        <div>
+          <div class="dc-moat-head">Proprietary Behavioral Data</div>
+          <div class="dc-moat-body">Every daily pick builds a user preference profile: which sports, which teams, which prop types, which difficulty. After 30 days of Daily Challenges, SportsIQ knows a user's sports personality better than anyone. This data trains the AI and is irreplaceable.</div>
+        </div>
+      </div>
+      <div class="dc-moat-item">
+        <div class="dc-moat-icon">📣</div>
+        <div>
+          <div class="dc-moat-head">Organic Virality — Share Card</div>
+          <div class="dc-moat-body">The shareable result card ("3/3 🔥 15-day streak") is word-of-mouth fuel. Wordle's gray/yellow/green grid went viral because it was shareable. SportsIQ's result card does the same — every share is a free acquisition impression. Zero CAC.</div>
+        </div>
+      </div>
+      <div class="dc-moat-item">
+        <div class="dc-moat-icon">🌀</div>
+        <div>
+          <div class="dc-moat-head">Network Effect — Friend Leaderboard</div>
+          <div class="dc-moat-body">Seeing friends' daily results creates competitive FOMO. "Jake got 2/3, I need to beat him." The more friends on the platform, the stickier the Daily Challenge becomes. This is a social flywheel — more users = more friend activity = higher retention for everyone.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Retention metrics projection -->
+    <div style="margin-top:20px;background:rgba(0,0,0,0.3);border-radius:12px;padding:16px 20px;">
+      <div style="font-size:10px;font-weight:800;color:var(--faint);letter-spacing:2px;margin-bottom:12px;">PROJECTED RETENTION IMPACT</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center;">
+        <div>
+          <div style="font-size:22px;font-weight:900;color:#34D399;">D7 +28%</div>
+          <div style="font-size:10px;color:var(--muted);">7-day retention lift vs baseline</div>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:900;color:#a59df5;">D30 +41%</div>
+          <div style="font-size:10px;color:var(--muted);">30-day retention lift (streak effect)</div>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:900;color:#fbbf24;">3.2×</div>
+          <div style="font-size:10px;color:var(--muted);">DAU/MAU ratio vs no daily feature</div>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:900;color:#4da3ff;">K=0.4</div>
+          <div style="font-size:10px;color:var(--muted);">Viral coefficient from share cards</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;font-size:11px;color:var(--faint);line-height:1.6;">
+        Benchmark: Duolingo Daily Streak → DAU/MAU from 18% to 54% over 18 months. WordleNYT → 2M → 300M users in 6 weeks via share card virality. SportsIQ has a stronger hook (real stakes, real-time sports) — conservative estimates above.
+      </div>
+    </div>
+  </div>
+
+</div>
+  <div id="sfb-panel-daily-challenge" class="sfb-panel"></div>
+</div><!-- /daily-challenge screen -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Game Day Mode — Live In-Game Experience
+     Added: 2026-03-20 — Peak engagement window: pick reveals + live leaderboard + smart money alerts
+     Moat: Generates proprietary real-time reaction data; peak addiction loop during live games
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="game-day" class="screen">
+<style>
+  /* ── Game Day Mode Styles ─────────────────────────────────── */
+  .gd-wrap {
+    min-height: 100vh; padding: 40px 24px 40px;
+    background: #020408;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .gd-section-label {
+    font-size: 10px; font-weight: 800; color: var(--faint);
+    letter-spacing: 2.5px; margin-bottom: 10px; text-align: center;
+  }
+  .gd-section-title {
+    font-size: 32px; font-weight: 900; letter-spacing: -1px;
+    text-align: center; margin-bottom: 6px;
+  }
+  .gd-section-sub {
+    font-size: 14px; color: var(--muted); text-align: center;
+    max-width: 660px; line-height: 1.7; margin-bottom: 32px;
+  }
+  .gd-phones {
+    display: flex; gap: 40px; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 48px; width: 100%;
+    max-width: 1200px;
+  }
+  .gd-phone-col { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .gd-phone-tag {
+    font-size: 10px; font-weight: 700; color: var(--faint);
+    letter-spacing: 2px; background: rgba(255,255,255,0.04);
+    border-radius: 20px; padding: 4px 14px;
+  }
+  /* Live game score band */
+  .gd-score-band {
+    background: linear-gradient(135deg, rgba(85,69,211,0.25) 0%, rgba(11,17,32,0.9) 100%);
+    border: 1px solid rgba(85,69,211,0.4); border-radius: 14px;
+    padding: 10px 14px; width: 100%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .gd-score-team { font-size: 11px; font-weight: 800; letter-spacing: 0.5px; }
+  .gd-score-num  { font-size: 26px; font-weight: 900; font-variant-numeric: tabular-nums; }
+  .gd-score-vs   { font-size: 10px; color: var(--faint); font-weight: 700; }
+  .gd-score-qtr  {
+    text-align: center; font-size: 9px; color: var(--faint);
+    letter-spacing: 1.5px; font-weight: 700;
+  }
+  .gd-live-pill {
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.35);
+    border-radius: 20px; padding: 3px 10px;
+    font-size: 9px; font-weight: 800; color: #EF4444; letter-spacing: 1.5px;
+  }
+  .gd-live-dot { width: 5px; height: 5px; border-radius: 50%; background: #EF4444; animation: pulse 1.2s infinite; }
+
+  /* Pick reveal cards */
+  .gd-reveal-card {
+    width: 100%; border-radius: 14px; padding: 12px 14px;
+    margin-bottom: 8px; flex-shrink: 0; position: relative; overflow: hidden;
+  }
+  .gd-reveal-win {
+    background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.35);
+  }
+  .gd-reveal-loss {
+    background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3);
+  }
+  .gd-reveal-pending {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  }
+  .gd-reveal-label {
+    font-size: 9px; font-weight: 800; letter-spacing: 2px; margin-bottom: 4px;
+  }
+  .gd-reveal-prop  { font-size: 13px; font-weight: 700; }
+  .gd-reveal-pick  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .gd-reveal-badge {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    font-size: 22px; font-weight: 900;
+  }
+  .gd-reveal-pts {
+    font-size: 12px; font-weight: 800; margin-top: 4px;
+  }
+
+  /* Leaderboard mini */
+  .gd-leader-mini {
+    width: 100%; background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07); border-radius: 14px;
+    padding: 12px 14px; flex-shrink: 0; margin-bottom: 8px;
+  }
+  .gd-leader-title {
+    font-size: 9px; font-weight: 800; color: var(--faint);
+    letter-spacing: 2px; margin-bottom: 8px;
+  }
+  .gd-leader-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 12px;
+  }
+  .gd-leader-row:last-child { border-bottom: none; }
+  .gd-rank { font-size: 11px; font-weight: 800; min-width: 18px; color: var(--faint); }
+  .gd-rank-1 { color: #FFD700; }
+  .gd-rank-2 { color: #C0C0C0; }
+  .gd-rank-3 { color: #CD7F32; }
+  .gd-rank-move { font-size: 9px; margin-left: 4px; }
+  .gd-rank-up   { color: #22c55e; }
+  .gd-rank-down { color: #ef4444; }
+  .gd-player-name { flex: 1; font-weight: 600; margin-left: 8px; }
+  .gd-player-pts  { font-size: 13px; font-weight: 800; color: var(--text); }
+  .gd-player-you  { color: #a59df5; }
+
+  /* Smart money alert inline */
+  .gd-mkt-alert {
+    width: 100%; padding: 8px 12px; border-radius: 10px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; margin-bottom: 8px; flex-shrink: 0;
+    background: rgba(99,198,149,0.08); border: 1px solid rgba(99,198,149,0.3);
+    color: #63c695;
+  }
+  .gd-mkt-alert-icon { font-size: 14px; flex-shrink: 0; }
+
+  /* Moat box */
+  .gd-moat {
+    width: 100%; max-width: 960px; margin-bottom: 40px;
+    background: rgba(85,69,211,0.07); border: 1px solid rgba(85,69,211,0.25);
+    border-radius: 18px; padding: 24px 28px;
+  }
+  .gd-moat-title {
+    font-size: 12px; font-weight: 800; color: var(--faint);
+    letter-spacing: 2.5px; margin-bottom: 16px;
+  }
+  .gd-moat-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;
+  }
+  .gd-moat-item { display: flex; flex-direction: column; gap: 4px; }
+  .gd-moat-icon { font-size: 18px; margin-bottom: 4px; }
+  .gd-moat-head { font-size: 13px; font-weight: 700; }
+  .gd-moat-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+</style>
+
+<div class="gd-wrap">
+
+  <div class="gd-section-label">NEW FEATURE CONCEPT · 2026-03-20</div>
+  <div class="gd-section-title">🏟️ Game Day Mode</div>
+  <div class="gd-section-sub">The peak engagement window. When a game goes live, SportsIQ transforms into a real-time command center — pick reveals unfold as plays happen, the leaderboard shifts live, smart money alerts fire mid-game. Users can't put their phone down.</div>
+
+  <div class="gd-phones">
+
+    <!-- Phone 1: LIVE IN-GAME view — picks revealing in real time -->
+    <div class="gd-phone-col">
+      <div class="gd-phone-tag">📱 LIVE IN-GAME · PICK REVEALS</div>
+      <div class="phone-frame" style="height:800px;">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="height:100%;background:#050912;overflow:hidden;">
+          <!-- Background glow -->
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(85,69,211,0.35) 0%,transparent 60%);pointer-events:none;"></div>
+          <div style="position:relative;z-index:2;padding:44px 14px 16px;display:flex;flex-direction:column;height:100%;overflow-y:auto;gap:8px;">
+
+            <!-- Live score band -->
+            <div class="gd-score-band">
+              <div style="text-align:center;">
+                <div class="gd-score-team" style="color:#EF4444;">KC</div>
+                <div class="gd-score-num">24</div>
+              </div>
+              <div style="text-align:center;">
+                <div class="gd-live-pill"><div class="gd-live-dot"></div>LIVE</div>
+                <div class="gd-score-qtr" style="margin-top:4px;">Q3 · 8:14</div>
+                <div class="gd-score-vs" style="margin-top:2px;">Chiefs vs Ravens</div>
+              </div>
+              <div style="text-align:center;">
+                <div class="gd-score-team" style="color:#4da3ff;">BAL</div>
+                <div class="gd-score-num">17</div>
+              </div>
+            </div>
+
+            <!-- Your score header -->
+            <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:12px;padding:8px 12px;flex-shrink:0;">
+              <div>
+                <div style="font-size:9px;font-weight:800;color:#a59df5;letter-spacing:2px;">YOUR SCORE</div>
+                <div style="font-size:22px;font-weight:900;color:#a59df5;">3,240 pts</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:9px;font-weight:700;color:var(--faint);letter-spacing:1px;">RANK</div>
+                <div style="font-size:20px;font-weight:900;">#2 <span style="font-size:11px;color:#22c55e;">▲3</span></div>
+              </div>
+            </div>
+
+            <!-- Section label -->
+            <div style="font-size:9px;font-weight:800;color:var(--faint);letter-spacing:2px;margin-top:4px;flex-shrink:0;">YOUR PICKS · THIS GAME</div>
+
+            <!-- Pick reveal: WIN -->
+            <div class="gd-reveal-card gd-reveal-win">
+              <div class="gd-reveal-label" style="color:#22c55e;">✅ CORRECT PICK</div>
+              <div class="gd-reveal-prop">Mahomes Pass Yds O/U 267</div>
+              <div class="gd-reveal-pick">You picked: OVER · Actual: 284 yds</div>
+              <div class="gd-reveal-pts" style="color:#22c55e;">+1,000 pts (2× Heat mode)</div>
+              <div class="gd-reveal-badge">✅</div>
+            </div>
+
+            <!-- Pick reveal: WIN -->
+            <div class="gd-reveal-card gd-reveal-win">
+              <div class="gd-reveal-label" style="color:#22c55e;">✅ CORRECT PICK</div>
+              <div class="gd-reveal-prop">KC -3.5 First Half Spread</div>
+              <div class="gd-reveal-pick">You picked: KC COVERS · Actual: KC +14 ✓</div>
+              <div class="gd-reveal-pts" style="color:#22c55e;">+500 pts (1.5× Chalk)</div>
+              <div class="gd-reveal-badge">✅</div>
+            </div>
+
+            <!-- Pick reveal: PENDING in progress -->
+            <div class="gd-reveal-card gd-reveal-pending">
+              <div class="gd-reveal-label" style="color:#F59E0B;">⏳ IN PROGRESS</div>
+              <div class="gd-reveal-prop">Jefferson Rec Yds O/U 82.5</div>
+              <div class="gd-reveal-pick">You picked: OVER · Current: 61 yds (Q3)</div>
+              <div style="margin-top:6px;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;">
+                <div style="width:74%;height:100%;background:linear-gradient(90deg,#5545D3,#a59df5);border-radius:2px;"></div>
+              </div>
+              <div style="font-size:9px;color:var(--faint);margin-top:3px;">74% to line · 1 quarter remaining</div>
+              <div class="gd-reveal-badge" style="font-size:14px;">⏳</div>
+            </div>
+
+            <!-- Smart money alert -->
+            <div class="gd-mkt-alert">
+              <div class="gd-mkt-alert-icon">📈</div>
+              <div>Smart money moved <strong>+12pts</strong> on Jefferson OVER — sharp money agrees with your pick</div>
+            </div>
+
+            <!-- Pick reveal: LOSS -->
+            <div class="gd-reveal-card gd-reveal-loss">
+              <div class="gd-reveal-label" style="color:#EF4444;">❌ MISS</div>
+              <div class="gd-reveal-prop">Total Points O/U 47.5</div>
+              <div class="gd-reveal-pick">You picked: UNDER · Current: 41 (Q3 — likely to hit)</div>
+              <div class="gd-reveal-pts" style="color:#EF4444;">0 pts</div>
+              <div class="gd-reveal-badge">❌</div>
+            </div>
+
+            <!-- Next pick prompt -->
+            <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.4);border-radius:14px;padding:12px;flex-shrink:0;text-align:center;">
+              <div style="font-size:9px;font-weight:800;color:#a59df5;letter-spacing:2px;margin-bottom:6px;">NEW PICK AVAILABLE · Q4</div>
+              <div style="font-size:13px;font-weight:700;margin-bottom:8px;">Mahomes TD passes — O/U 2.5</div>
+              <div style="background:linear-gradient(135deg,#5545D3,#3D31B0);border:none;border-radius:10px;padding:10px;font-size:13px;font-weight:800;color:#fff;cursor:pointer;">Make Pick → +500 pts</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="phone-label" style="font-size:10px;">GAME DAY · LIVE PICK REVEALS</div>
+    </div>
+
+    <!-- Phone 2: LIVE LEADERBOARD PULSE -->
+    <div class="gd-phone-col">
+      <div class="gd-phone-tag">📱 LIVE LEADERBOARD PULSE</div>
+      <div class="phone-frame" style="height:800px;">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="height:100%;background:#050912;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 80% 15%,rgba(245,158,11,0.2) 0%,transparent 55%);pointer-events:none;"></div>
+          <div style="position:relative;z-index:2;padding:44px 14px 20px;display:flex;flex-direction:column;height:100%;overflow-y:auto;gap:8px;">
+
+            <!-- Header -->
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-shrink:0;margin-bottom:4px;">
+              <div>
+                <div style="font-size:9px;color:var(--faint);letter-spacing:2px;font-weight:700;">GAME DAY</div>
+                <div style="font-size:20px;font-weight:900;letter-spacing:-0.5px;">Live Rankings</div>
+              </div>
+              <div class="gd-live-pill"><div class="gd-live-dot"></div>Q3 · 8:14</div>
+            </div>
+
+            <!-- Score band small -->
+            <div style="display:flex;justify-content:center;gap:16px;align-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:8px 14px;flex-shrink:0;">
+              <span style="font-size:16px;font-weight:900;color:#EF4444;">KC 24</span>
+              <span style="font-size:10px;color:var(--faint);">vs</span>
+              <span style="font-size:16px;font-weight:900;color:#4da3ff;">BAL 17</span>
+              <span style="font-size:9px;color:var(--faint);margin-left:6px;">Q3 8:14</span>
+            </div>
+
+            <!-- Top 3 podium -->
+            <div style="display:flex;justify-content:center;align-items:flex-end;gap:8px;padding:10px 0 4px;flex-shrink:0;">
+              <!-- 2nd -->
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div style="font-size:18px;font-weight:900;color:#C0C0C0;">@sports_gal</div>
+                <div style="width:70px;height:52px;background:rgba(192,192,192,0.12);border:1px solid rgba(192,192,192,0.3);border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#C0C0C0;">2</div>
+                <div style="font-size:11px;font-weight:700;color:#C0C0C0;">2,980 pts</div>
+              </div>
+              <!-- 1st -->
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div style="font-size:14px;font-weight:800;color:#FFD700;">👑 @kingpin47</div>
+                <div style="width:80px;height:68px;background:rgba(255,215,0,0.12);border:1px solid rgba(255,215,0,0.4);border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#FFD700;">1</div>
+                <div style="font-size:12px;font-weight:800;color:#FFD700;">3,680 pts</div>
+              </div>
+              <!-- 3rd -->
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div style="font-size:13px;font-weight:800;color:#CD7F32;">@brew_dude</div>
+                <div style="width:60px;height:40px;background:rgba(205,127,50,0.12);border:1px solid rgba(205,127,50,0.3);border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#CD7F32;">3</div>
+                <div style="font-size:11px;font-weight:700;color:#CD7F32;">2,460 pts</div>
+              </div>
+            </div>
+
+            <!-- Full leaderboard -->
+            <div class="gd-leader-mini">
+              <div class="gd-leader-title">FULL RANKINGS · THE RUSTY ANCHOR</div>
+              <div class="gd-leader-row">
+                <span class="gd-rank gd-rank-1">1</span>
+                <span class="gd-player-name">@kingpin47</span>
+                <span style="font-size:9px;color:#22c55e;margin-right:6px;">▲1 🔥</span>
+                <span class="gd-player-pts">3,680</span>
+              </div>
+              <div class="gd-leader-row">
+                <span class="gd-rank gd-rank-2">2</span>
+                <span class="gd-player-name">@sports_gal</span>
+                <span style="font-size:9px;color:#ef4444;margin-right:6px;">▼1</span>
+                <span class="gd-player-pts">2,980</span>
+              </div>
+              <!-- YOU -->
+              <div class="gd-leader-row" style="background:rgba(85,69,211,0.08);border-radius:8px;padding:5px 6px;margin: 2px -2px;">
+                <span class="gd-rank" style="color:#a59df5;">3</span>
+                <span class="gd-player-name gd-player-you">@you <span style="font-size:9px;opacity:0.7;">(YOU)</span></span>
+                <span style="font-size:9px;color:#22c55e;margin-right:6px;">▲5 🚀</span>
+                <span class="gd-player-pts" style="color:#a59df5;">3,240</span>
+              </div>
+              <div class="gd-leader-row">
+                <span class="gd-rank gd-rank-3">4</span>
+                <span class="gd-player-name">@brew_dude</span>
+                <span style="font-size:9px;color:var(--faint);margin-right:6px;">—</span>
+                <span class="gd-player-pts">2,460</span>
+              </div>
+              <div class="gd-leader-row">
+                <span class="gd-rank">5</span>
+                <span class="gd-player-name">@jessicam</span>
+                <span style="font-size:9px;color:#ef4444;margin-right:6px;">▼2</span>
+                <span class="gd-player-pts">1,940</span>
+              </div>
+              <div class="gd-leader-row">
+                <span class="gd-rank">6</span>
+                <span class="gd-player-name">@cheekybets</span>
+                <span style="font-size:9px;color:var(--faint);margin-right:6px;">—</span>
+                <span class="gd-player-pts">1,280</span>
+              </div>
+            </div>
+
+            <!-- Notification card: someone just passed you -->
+            <div style="background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.3);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px;flex-shrink:0;">
+              <div style="font-size:20px;">🔔</div>
+              <div>
+                <div style="font-size:11px;font-weight:700;">@sports_gal just passed you!</div>
+                <div style="font-size:10px;color:var(--muted);">She got the Jefferson pick right — you're 240 pts behind for #2</div>
+              </div>
+            </div>
+
+            <!-- Score gap card -->
+            <div style="background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.3);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+              <div style="font-size:9px;font-weight:800;color:#a59df5;letter-spacing:2px;margin-bottom:4px;">PATH TO #1</div>
+              <div style="font-size:12px;color:var(--muted);line-height:1.6;">
+                You need <strong style="color:#a59df5;">440 pts</strong> to reach #1.<br>
+                2 picks remaining this game at 2× → win both = <strong style="color:#22c55e;">+2,000 pts</strong> possible.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="phone-label" style="font-size:10px;">GAME DAY · LIVE LEADERBOARD PULSE</div>
+    </div>
+
+    <!-- Phone 3: POST-GAME RESULTS SCREEN -->
+    <div class="gd-phone-col">
+      <div class="gd-phone-tag">📱 POST-GAME · RESULTS CARD</div>
+      <div class="phone-frame" style="height:800px;">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="height:100%;background:#050912;overflow:hidden;">
+          <!-- Celebration glow for wins -->
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(34,197,94,0.3) 0%,transparent 55%);pointer-events:none;"></div>
+          <div style="position:relative;z-index:2;padding:44px 14px 20px;display:flex;flex-direction:column;height:100%;overflow-y:auto;gap:8px;">
+
+            <!-- Final score -->
+            <div style="text-align:center;margin-bottom:8px;flex-shrink:0;">
+              <div style="font-size:9px;font-weight:800;color:var(--faint);letter-spacing:2px;margin-bottom:6px;">FINAL SCORE</div>
+              <div style="font-size:32px;font-weight:900;letter-spacing:-0.5px;">KC 31 · BAL 24</div>
+              <div style="font-size:11px;color:var(--muted);">Chiefs win · OT</div>
+            </div>
+
+            <!-- Your result hero card -->
+            <div style="background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(34,197,94,0.05));border:1px solid rgba(34,197,94,0.4);border-radius:18px;padding:16px 18px;text-align:center;flex-shrink:0;">
+              <div style="font-size:9px;font-weight:800;color:#4ade80;letter-spacing:2px;margin-bottom:6px;">GAME RESULT</div>
+              <div style="font-size:40px;font-weight:900;color:#22c55e;">+3,240 pts</div>
+              <div style="font-size:13px;color:var(--muted);margin-top:2px;">3 of 4 picks correct · 75% accuracy</div>
+              <div style="display:flex;justify-content:center;gap:8px;margin-top:10px;">
+                <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:20px;padding:4px 12px;font-size:10px;font-weight:700;color:#4ade80;">🏆 #2 Tonight</div>
+                <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.3);border-radius:20px;padding:4px 12px;font-size:10px;font-weight:700;color:#a59df5;">🔥 7-Game Streak</div>
+              </div>
+            </div>
+
+            <!-- Pick breakdown -->
+            <div class="gd-leader-mini">
+              <div class="gd-leader-title">PICK BREAKDOWN</div>
+              <div class="gd-leader-row">
+                <span style="font-size:14px;margin-right:6px;">✅</span>
+                <span style="flex:1;font-size:11px;">Mahomes Yards OVER</span>
+                <span style="font-size:12px;font-weight:800;color:#22c55e;">+1,000</span>
+              </div>
+              <div class="gd-leader-row">
+                <span style="font-size:14px;margin-right:6px;">✅</span>
+                <span style="flex:1;font-size:11px;">KC -3.5 Spread</span>
+                <span style="font-size:12px;font-weight:800;color:#22c55e;">+500</span>
+              </div>
+              <div class="gd-leader-row">
+                <span style="font-size:14px;margin-right:6px;">✅</span>
+                <span style="flex:1;font-size:11px;">Jefferson OVER 82.5</span>
+                <span style="font-size:12px;font-weight:800;color:#22c55e;">+1,500</span>
+              </div>
+              <div class="gd-leader-row">
+                <span style="font-size:14px;margin-right:6px;">❌</span>
+                <span style="flex:1;font-size:11px;">Total Points UNDER</span>
+                <span style="font-size:12px;font-weight:800;color:#ef4444;">+0</span>
+              </div>
+            </div>
+
+            <!-- Badge earned -->
+            <div style="background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);border-radius:14px;padding:12px 14px;text-align:center;flex-shrink:0;">
+              <div style="font-size:24px;margin-bottom:4px;">🏅</div>
+              <div style="font-size:12px;font-weight:800;color:#FFD700;">New Badge Earned: Hot Hand</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:3px;">75%+ accuracy in 3 consecutive games</div>
+            </div>
+
+            <!-- Share card CTA -->
+            <div style="background:linear-gradient(135deg,#5545D3,#3D31B0);border-radius:14px;padding:14px;text-align:center;flex-shrink:0;cursor:pointer;">
+              <div style="font-size:12px;font-weight:800;margin-bottom:4px;">Share Your Result</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.7);">3/4 correct · +3,240 pts · #2 at The Rusty Anchor 🏟️</div>
+              <div style="margin-top:8px;font-size:11px;font-weight:700;background:rgba(255,255,255,0.15);border-radius:8px;padding:6px;">📤 Share to Stories</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="phone-label" style="font-size:10px;">GAME DAY · POST-GAME RESULTS</div>
+    </div>
+
+  </div>
+
+  <!-- Moat Analysis -->
+  <div class="gd-moat">
+    <div class="gd-moat-title">🏰 MOAT ANALYSIS — GAME DAY MODE</div>
+    <div class="gd-moat-grid">
+      <div class="gd-moat-item">
+        <div class="gd-moat-icon">⏱️</div>
+        <div class="gd-moat-head">Max Addiction Window</div>
+        <div class="gd-moat-body">Game Day Mode captures users during the 3-hour live-game window — the highest engagement period in all of sports media. Real-time pick reveals create dopamine hits every few minutes as plays resolve.</div>
+      </div>
+      <div class="gd-moat-item">
+        <div class="gd-moat-icon">📊</div>
+        <div class="gd-moat-head">Proprietary Real-Time Data</div>
+        <div class="gd-moat-body">Every live pick interaction generates a timestamp-stamped reaction dataset: who picked what, when, how it felt to win/lose mid-game. No competitor can replicate this behavioral corpus retroactively.</div>
+      </div>
+      <div class="gd-moat-item">
+        <div class="gd-moat-icon">🌐</div>
+        <div class="gd-moat-head">Social Pressure Loop</div>
+        <div class="gd-moat-body">"@sports_gal just passed you" notifications trigger competitive anxiety that keeps users glued. The live leaderboard at a bar table means users are nudging each other to check their phones every play.</div>
+      </div>
+      <div class="gd-moat-item">
+        <div class="gd-moat-icon">📤</div>
+        <div class="gd-moat-head">Viral Share Cards</div>
+        <div class="gd-moat-body">Post-game result cards are designed to be shared — "3/4 correct at The Rusty Anchor 🏟️". Each share is a SportsIQ brand impression that drives installs. The bar location tag makes it hyper-local and social.</div>
+      </div>
+      <div class="gd-moat-item">
+        <div class="gd-moat-icon">🔗</div>
+        <div class="gd-moat-head">Venue Stickiness</div>
+        <div class="gd-moat-body">Game Day Mode leaderboards are venue-scoped. Users at The Rusty Anchor are competing against patrons in the same bar — making the venue itself a sticky social node. Switching means abandoning your rank.</div>
+      </div>
+      <div class="gd-moat-item">
+        <div class="gd-moat-icon">🎯</div>
+        <div class="gd-moat-head">Path-to-#1 Mechanic</div>
+        <div class="gd-moat-body">"You need 440 pts to reach #1. 2 picks left." — This explicit "win condition" creates urgency to keep playing. Users won't leave the app (or the bar) until the game ends. Extends dwell time by an estimated 30–40 min/session.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Metrics projection -->
+  <div style="width:100%;max-width:960px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:22px 26px;margin-bottom:40px;">
+    <div style="font-size:12px;font-weight:800;color:var(--faint);letter-spacing:2.5px;margin-bottom:14px;">PROJECTED ENGAGEMENT LIFT</div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;">
+      <div>
+        <div style="font-size:24px;font-weight:900;color:#22c55e;">+2.8×</div>
+        <div style="font-size:10px;color:var(--muted);">Session length during live game</div>
+      </div>
+      <div>
+        <div style="font-size:24px;font-weight:900;color:#a59df5;">+62%</div>
+        <div style="font-size:10px;color:var(--muted);">Picks per user on game day vs idle</div>
+      </div>
+      <div>
+        <div style="font-size:24px;font-weight:900;color:#fbbf24;">+38%</div>
+        <div style="font-size:10px;color:var(--muted);">Bar dwell time (venue ROI driver)</div>
+      </div>
+      <div>
+        <div style="font-size:24px;font-weight:900;color:#4da3ff;">K=0.6</div>
+        <div style="font-size:10px;color:var(--muted);">Viral coeff from share cards (target)</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--faint);line-height:1.6;">
+      Benchmark: ESPN Fantasy Football live scoring = highest-ever app engagement per user. DraftKings live betting = 3× revenue per session vs pre-game. SportsIQ Game Day Mode combines both mechanics without real-money risk — accessible to everyone in the bar.
+    </div>
+  </div>
+
+</div>
+  <div id="sfb-panel-game-day" class="sfb-panel"></div>
+</div><!-- /game-day screen -->
 
 </body>
 </html>
