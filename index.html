@@ -4202,6 +4202,8 @@
     // Render per-screen feedback for this screen (local first, then sync from server)
     renderScreenFeedback(id);
     sfbPullFromServer(id);
+    // Persist current screen in URL hash so refresh stays on same page
+    history.replaceState(null, '', '#' + id);
   }
 
   function toggleChip(el) {
@@ -4514,16 +4516,17 @@
     },
     'trivia': {
       icon: '🧠',
-      title: 'Trivia — Daily Engagement Loop',
-      built: 'Proactive build answering your question "how does trivia fit into stats?" Three screens: (1) Active question — circular timer, 4 options, one selected. (2) Reveal — correct green, wrong red, +250 pts, speed bonus, 3-streak. (3) Trivia Stats within My Stats — Trivia IQ Score (847, top 8%), per-sport accuracy bars, trivia badges. Bar TV integration: venue can trigger trivia rounds between prediction windows. Moat: daily habit loop, proprietary question bank, IQ score creates switching cost.',
+      title: 'Trivia v1 — Daily Engagement Loop (updated per feedback)',
+      built: 'Updated per your feedback. All 4 answers implemented: (1) ✅ Continuous mode — "Question 3 of ∞" replaces fixed 5-question format. Play as long as you want. (2) ✅ Trivia IQ on home screen — IQ 847 now shows in the home idle hero stats row. (3) ✅ SportsIQ triggers bar trivia — venue does not manage it, SportsIQ auto-triggers trivia rounds between prediction windows. (4) ✅ All 6 sports — trivia accuracy breakdown now shows NFL 82%, NHL 76%, NBA 71%, CFB 69%, MLB 64%, CBB 58%. Speed bonus and streak mechanics unchanged. Phone 3 stats panel expanded to show all 6 sports with accuracy bars.',
       questions: [
-        'Trivia: standalone daily 5-question challenge, or continuous mode?',
-        'Should Trivia IQ Score (847) show on the home screen alongside pick win rate?',
-        'Bar TV trivia: venue triggers a 5-question break, players answer on mobile, results on TV — does that fit your vision for bar flow?',
-        'Start NFL-only or launch with NFL + NBA together?'
+        'Trivia difficulty: should the questions ramp up in difficulty the longer you play in one session (adaptive difficulty), or stay randomized from a flat pool?',
+        'Accuracy leaderboard: should there be a separate Trivia IQ leaderboard that friends can see ("MarcD is top 8% in NFL trivia"), or keep it inside the profile only?',
+        'Bar trivia on TV: when SportsIQ triggers a bar trivia round, should results be shown on the TV screen (who got it right, % correct) or kept mobile-only?',
+        'Question bank: should users ever be able to contribute questions, or is it 100% curated by SportsIQ to maintain quality control?'
       ],
       seed_thread: [
-        { from: 'mark', text: '1. Continuous mode\n2. Yes — show Trivia IQ Score on home screen\n3. We trigger it, not venue\n4. NBA, NFL, NHL, MLB, college basketball, college football', ts: 'Mar 20 11:16 PM' }
+        { from: 'mark', text: '1. Continuous mode\n2. Yes — show Trivia IQ Score on home screen\n3. We trigger it, not venue\n4. NBA, NFL, NHL, MLB, college basketball, college football', ts: 'Mar 20 11:16 PM' },
+        { from: 'claude', text: 'All 4 implemented ✅\n• Continuous mode — "Question 3 of ∞" now shown on trivia screen\n• Trivia IQ 847 added to home idle hero row\n• Bar trivia description updated: SportsIQ triggers rounds, venues don\'t manage it\n• All 6 sports (NFL/NBA/NHL/MLB/CFB/CBB) with accuracy bars on stats panel\nNew questions above — ready for your next round of feedback.', ts: 'Mar 21 9:20 AM' }
       ]
     },
     'leaderboard-v2': {
@@ -4661,12 +4664,53 @@
     'notifications': {
       icon: '🔔',
       title: 'Push Notifications — Full Catalog',
-      built: 'Two lock screen mockups: (1) Game day — 4 notifications: pick window open, friend picked same (BigMike OVER), live tracking update (OVER tracking ✅, 31 pts scored), trash talk received (SarahK). (2) Off day + streak — 4 notifications: daily trivia ready (8 AM), streak at risk (14-day streak danger), weekly recap (6-3, +340 IQ, climbed 4 spots), upcoming pick window preview. Full 10-type catalog with trigger logic: Pick Window Open, Closing (10 min), Live Tracking, Final Whistle result, Friend Picked, Trash Talk Received, Streak at Risk, Daily Trivia, Weekly Recap, Leaderboard Movement. Moat: 10 re-engagement vectors, offseason coverage, high permission value.',
+      built: 'Two lock screen mockups: (1) Game day — 4 notifications: pick window open, friend picked same (BigMike OVER), live tracking update (OVER tracking ✅, 31 pts scored), trash talk received (SarahK). (2) Off day + streak — 4 notifications: daily trivia ready (8 AM), streak at risk (22-day streak danger), weekly recap (6-3, +340 IQ, climbed 4 spots), upcoming pick window preview. Full 10-type catalog with trigger logic: Pick Window Open, Closing (10 min), Live Tracking, Final Whistle result, Friend Picked, Trash Talk Received, Streak at Risk, Daily Trivia, Weekly Recap, Leaderboard Movement. Moat: 10 re-engagement vectors, offseason coverage, high permission value.',
       questions: [
         'Notification frequency control — should users set per-type toggles, or a simple "Game Day Only / All / Quiet Mode" top-level switch?',
         'Live tracking updates: one per quarter, or triggered by score events (e.g., every time points are scored)?',
         'Streak at risk: what time should this fire — 6 PM, 8 PM, or 2 hours before midnight based on timezone?',
         'Weekly recap: Monday AM delivery, or Sunday night after the last game?'
+      ]
+    },
+    'home-live-v3': {
+      icon: '⚡',
+      title: 'Home Live v3 — Real Market Intelligence',
+      built: 'Three phones showing the v3 upgrade: (1) :09 urgent state — replaced fake "73% accuracy" AI signal with three real market signals: Crowd 62% OVER, Polymarket 0.67, Sharp $ line moved +0.5 toward OVER. Amber confidence dot (68% = moderate) signals data quality. Existing red glow escalation preserved. (2) :03 full red flood — entire screen washes red, OVER button pulses and shakes, "LOCK IN NOW" copy, full urgency mode. (3) Market Intelligence close-up — detailed signal card showing Crowd %, Polymarket price, Sharp $ line movement, and a crowd vs sharp divergence alert when they differ. Moat: real-money market data as signal layer — Polymarket integration is proprietary and creates trust that no fake "AI confidence" number can replicate.',
+      questions: [
+        'The three signals (Crowd / Polymarket / Sharp $) — should all three always show, or only surface Polymarket/Sharp $ when they diverge significantly from Crowd (i.e. only show when it\'s interesting)?',
+        'Amber confidence dot for 68% moderate signal — is the green/amber/red traffic light clear enough, or does it need a label like "Moderate signal" written out?',
+        'When the pick window closes, does the Intel panel disappear (keep it simple) or stay visible during tracking to show how the signal predicted the outcome?'
+      ]
+    },
+    'bar-idle-v3': {
+      icon: '📺',
+      title: 'Bar Idle v3 — Live Player Count + Session Leaderboard',
+      built: 'V3 upgrade to the bar idle screen: (1) Left panel unchanged — SportsIQ logo, QR code (280px), 5-digit room code. (2) Right panel upgraded — replaces generic "upcoming games" with two live data panels: a bold numeric player count ("47 players in tonight\'s session" with a live-updating sub-count of those who have checked in with QR), and a mini session leaderboard (top 5 players tonight with points, on-screen since opening). The live player count creates social proof pressure — new patrons entering see "47 players" and immediately want to join. The mini leaderboard creates competition gravity from the first screen seen.',
+      questions: [
+        'Live player count: show the count as it grows in real-time with a "+1" animation as each person joins, or keep it as a static snapshot?',
+        'Should the idle screen cycle between the leaderboard and the upcoming game schedule on a 10-second rotation, or show both simultaneously?',
+        'Player count threshold: should the bar owner be able to set a "session start" minimum (e.g., don\'t show leaderboard until 10+ players joined)?'
+      ]
+    },
+    'bar-pred-q-v3': {
+      icon: '🔴',
+      title: 'Bar Live Pick v3 — Market Intelligence on the Big Screen',
+      built: 'V3 upgrade to the bar prediction screen: the big change is bringing real market signals onto the TV. Shows: (1) Left panel — player name, prop stat, circular countdown timer, pick question as before. (2) Center panel — Crowd split (OVER 68% vs UNDER 32%) tug-of-war bar, same as v2. (3) New right panel — Market Intelligence strip showing Polymarket 0.67 and Sharp $ indicator ("Line moved toward OVER") in a narrow column, amber confidence dot. Design principle: the market data makes every pick feel like the real thing — it\'s not a pub quiz, it\'s real-money market intelligence on a bar screen. Moat: no competitor can put Polymarket data on a bar screen — this is unique to SportsIQ.',
+      questions: [
+        'Does showing Polymarket 0.67 and Sharp $ on the bar screen give too much away and reduce the competitive fun, or does it make the game feel more "real" and credible?',
+        'Should the market intel panel only appear when there\'s a divergence (Crowd vs Sharp $ disagree), keeping it hidden when signals align to build anticipation?',
+        'Intel panel position: right column (current), or a slim horizontal banner at the very top of the screen below the timer row?'
+      ]
+    },
+    'head-to-head': {
+      icon: '⚔️',
+      title: 'Head-to-Head Challenge — Direct Friend vs Friend',
+      built: 'Three phones covering the full H2H flow: (1) Challenge creation — pick a friend (BigMike, shows his IQ 912 / 🔥34 / #1 this week), choose a live prop (same props as daily pick pool), set IQ bet (10/25/50/100 IQ wagered between the two players), Challenge CTA with "winner takes the IQ bet" mechanic preview. (2) Active matchup — both players\' picks shown (MarcD: OVER, BigMike: UNDER), live tug-of-war bar with crowd %, countdown to Final Whistle, "You\'re both locked in — first to check after the whistle wins bragging rights" note. (3) Result — Final Whistle, OVER HITS, MarcD wins, IQ transferred (+100 from BigMike), trophy animation, chirp BigMike button with prefilled trash talk ("Told you so 🏆"), Rematch CTA. Moat: direct challenges create a personal obligation loop — you cannot ignore a challenge from someone you know. Every H2H creates 2 re-engagement events: challenge received + result revealed.',
+      questions: [
+        'H2H IQ bet: real IQ points transferred between users, or a separate "battle record" (W-L vs friends) that doesn\'t touch main IQ?',
+        'Should you be able to challenge someone who hasn\'t picked yet (asynchronous — they see your pick hidden), or must both pick simultaneously in the same window?',
+        'Maximum concurrent H2H challenges per user — should there be a cap (e.g., 3 active at once) to keep stakes feeling meaningful?',
+        'Should H2H challenges show publicly on the leaderboard ("MarcD challenged BigMike") to create social spectacle, or stay private between the two players?'
       ]
     }
   };
@@ -5174,6 +5218,15 @@
 
   // Render on load
   renderIdeaInbox();
+
+  // ── Hash-based navigation: restore screen on page load / refresh ──────
+  (function initHashNav() {
+    var hash = location.hash.replace('#', '');
+    var target = hash ? document.getElementById(hash) : null;
+    var screenId = (target && target.classList.contains('screen')) ? hash : 'home-live-v3';
+    var tab = document.querySelector('[data-screen="' + screenId + '"]');
+    showScreen(screenId, tab || null);
+  })();
 </script>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -7535,9 +7588,9 @@
   <div class="trivia-wrap">
     <div class="trivia-inner">
 
-      <div class="trivia-section-label">PROACTIVE BUILD · 2026-03-21 · DAILY ENGAGEMENT LOOP</div>
+      <div class="trivia-section-label">PROACTIVE BUILD · 2026-03-21 · DAILY ENGAGEMENT LOOP — v2 updated per Mark feedback</div>
       <div class="trivia-section-title">🧠 Sports Trivia — The Daily Hook</div>
-      <div class="trivia-section-sub">Trivia fires every day, even when no game is live. It's the second addiction loop alongside live picks. Every question answered adds to your personal Trivia IQ stat — a proprietary accuracy score no competitor can replicate. Bar venues can run trivia rounds between game prediction windows, keeping the room engaged for 3+ hours instead of just during pick windows.</div>
+      <div class="trivia-section-sub">Trivia fires every day, even when no game is live. It's the second addiction loop alongside live picks. Continuous mode — no fixed question count, play as long as you want. Every question answered adds to your personal Trivia IQ stat across all 6 sports (NFL, NBA, NHL, MLB, College FB, College BB) — a proprietary accuracy score no competitor can replicate. Between game prediction windows at bars, SportsIQ automatically triggers trivia rounds on the bar screen — venues don't manage it, it just happens seamlessly.</div>
 
       <div class="trivia-phones">
 
@@ -7547,10 +7600,10 @@
           <div class="tp-shell">
             <div class="tp-notch"></div>
             <div style="background:rgba(139,92,246,0.12);border-bottom:1px solid rgba(139,92,246,0.2);margin:-44px -18px 16px;padding:44px 18px 12px;text-align:center;">
-              <div style="font-size:9px;font-weight:800;color:#a78bfa;letter-spacing:2px;margin-bottom:2px;">DAILY TRIVIA · NFL</div>
+              <div style="font-size:9px;font-weight:800;color:#a78bfa;letter-spacing:2px;margin-bottom:2px;">DAILY TRIVIA · NFL · CONTINUOUS MODE</div>
               <div style="display:flex;justify-content:center;align-items:center;gap:6px;">
                 <div style="font-size:18px;">🧠</div>
-                <div style="font-size:13px;font-weight:800;color:var(--text);">Question 3 of 5</div>
+                <div style="font-size:13px;font-weight:800;color:var(--text);">Question 3 of ∞</div>
                 <div style="font-size:13px;color:var(--muted);">·</div>
                 <div class="tq-streak-pill"><span style="font-size:14px;">🔥</span><span style="font-size:12px;font-weight:700;color:#F59E0B;">2 streak</span></div>
               </div>
@@ -7587,7 +7640,7 @@
           <div class="tp-shell">
             <div class="tp-notch"></div>
             <div style="background:rgba(34,197,94,0.1);border-bottom:1px solid rgba(34,197,94,0.25);margin:-44px -18px 16px;padding:44px 18px 12px;text-align:center;">
-              <div style="font-size:9px;font-weight:800;color:#4ade80;letter-spacing:2px;margin-bottom:2px;">DAILY TRIVIA · NFL</div>
+              <div style="font-size:9px;font-weight:800;color:#4ade80;letter-spacing:2px;margin-bottom:2px;">DAILY TRIVIA · NFL · CONTINUOUS MODE</div>
               <div style="display:flex;justify-content:center;align-items:center;gap:6px;">
                 <div style="font-size:18px;">✅</div>
                 <div style="font-size:13px;font-weight:800;color:#4ade80;">CORRECT!</div>
@@ -7626,20 +7679,35 @@
             <!-- Sport breakdown -->
             <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:14px;margin-bottom:12px;">
               <div style="font-size:10px;color:var(--faint);letter-spacing:2px;margin-bottom:10px;">ACCURACY BY SPORT</div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <span style="font-size:12px;color:var(--muted);">🏈 NFL</span>
-                <div style="flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;margin:0 10px;overflow:hidden;"><div style="height:100%;width:82%;background:#8B5CF6;border-radius:3px;"></div></div>
-                <span style="font-size:12px;font-weight:700;color:var(--text);">82%</span>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+                <span style="font-size:11px;color:var(--muted);min-width:52px;">🏈 NFL</span>
+                <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;margin:0 8px;overflow:hidden;"><div style="height:100%;width:82%;background:#8B5CF6;border-radius:3px;"></div></div>
+                <span style="font-size:11px;font-weight:700;color:var(--text);min-width:28px;text-align:right;">82%</span>
               </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <span style="font-size:12px;color:var(--muted);">🏀 NBA</span>
-                <div style="flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;margin:0 10px;overflow:hidden;"><div style="height:100%;width:71%;background:#8B5CF6;border-radius:3px;"></div></div>
-                <span style="font-size:12px;font-weight:700;color:var(--text);">71%</span>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+                <span style="font-size:11px;color:var(--muted);min-width:52px;">🏀 NBA</span>
+                <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;margin:0 8px;overflow:hidden;"><div style="height:100%;width:71%;background:#8B5CF6;border-radius:3px;"></div></div>
+                <span style="font-size:11px;font-weight:700;color:var(--text);min-width:28px;text-align:right;">71%</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+                <span style="font-size:11px;color:var(--muted);min-width:52px;">🏒 NHL</span>
+                <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;margin:0 8px;overflow:hidden;"><div style="height:100%;width:76%;background:#8B5CF6;border-radius:3px;"></div></div>
+                <span style="font-size:11px;font-weight:700;color:var(--text);min-width:28px;text-align:right;">76%</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+                <span style="font-size:11px;color:var(--muted);min-width:52px;">⚾ MLB</span>
+                <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;margin:0 8px;overflow:hidden;"><div style="height:100%;width:64%;background:#8B5CF6;border-radius:3px;"></div></div>
+                <span style="font-size:11px;font-weight:700;color:var(--text);min-width:28px;text-align:right;">64%</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+                <span style="font-size:11px;color:var(--muted);min-width:52px;">🏈 CFB</span>
+                <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;margin:0 8px;overflow:hidden;"><div style="height:100%;width:69%;background:#8B5CF6;border-radius:3px;"></div></div>
+                <span style="font-size:11px;font-weight:700;color:var(--text);min-width:28px;text-align:right;">69%</span>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:12px;color:var(--muted);">⚾ MLB</span>
-                <div style="flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;margin:0 10px;overflow:hidden;"><div style="height:100%;width:64%;background:#8B5CF6;border-radius:3px;"></div></div>
-                <span style="font-size:12px;font-weight:700;color:var(--text);">64%</span>
+                <span style="font-size:11px;color:var(--muted);min-width:52px;">🏀 CBB</span>
+                <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;margin:0 8px;overflow:hidden;"><div style="height:100%;width:58%;background:#8B5CF6;border-radius:3px;"></div></div>
+                <span style="font-size:11px;font-weight:700;color:var(--text);min-width:28px;text-align:right;">58%</span>
               </div>
             </div>
             <!-- Recent trivia badge -->
