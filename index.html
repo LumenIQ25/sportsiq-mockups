@@ -12,8 +12,8 @@
   //   crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword'))
   //     .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
   // Then replace the hash below and redeploy.
-  var HASH = 'b0c5b40b1fc27b9b0b6d71e90d282b3b4c6c9e6f7c0e1e5b2c3a4d5e6f7a8b9';
-  // ^^^ PLACEHOLDER — see SETUP.md for how to set your real password
+  var HASH = 'a4de2abfff0dd341ba0314c03de47d3f84153a2054cecd660c07f0899952a848';
+  // Password: SportsIQ2026! — message Claude to change it
 
   var SESSION_KEY = 'siq_auth';
   if (sessionStorage.getItem(SESSION_KEY) === HASH) return; // already verified
@@ -2718,9 +2718,17 @@
     } else {
       /* File mode fallback — copy short chat message to clipboard */
       var chatMsg = 'Reply for ' + id + ': ' + reply;
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(chatMsg).then(function() { flashBtn('✓ Copied — paste in chat!'); });
-      } else { prompt('Paste this in chat:', chatMsg); }
+      /* Web Share API — opens native share sheet on iPhone/Android (WhatsApp, iMessage, etc.) */
+      if (navigator.share) {
+        navigator.share({ text: chatMsg })
+          .then(function() { flashBtn('✓ Sent!'); ta.value = ''; localStorage.removeItem('reply-' + id); })
+          .catch(function() { /* user dismissed — do nothing */ });
+      } else if (navigator.clipboard) {
+        /* Desktop fallback — copy to clipboard */
+        navigator.clipboard.writeText(chatMsg).then(function() { flashBtn('✓ Copied — paste in chat'); });
+      } else {
+        prompt('Send this in chat:', chatMsg);
+      }
     }
   }
 
@@ -2737,7 +2745,7 @@
     var sm = statusMeta[item.status] || { label: item.status.toUpperCase(), cls: 'badge-new' };
     var cardCls = 'idea-card status-' + item.status + (isCompleted ? ' idea-card-completed' : '');
     var savedReply = localStorage.getItem('reply-' + item.id) || (item.mark_reply || '');
-    var unsavedPill = item._ui ? '<span class="new-item-pill">Unsaved — paste JSON to persist</span>' : '';
+    var unsavedPill = item._ui ? '<span class="new-item-pill">✓ Added — Claude will see it next check</span>' : '';
     var h = '';
     h += '<div class="' + cardCls + '" id="card-' + escHtml(item.id) + '">';
     h += '  <div class="idea-card-top">';
