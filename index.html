@@ -1281,6 +1281,50 @@
     animation: stat-pop .5s ease;
   }
   .tug-live-lbl { font-size: 10px; color: var(--faint); letter-spacing: 2px; margin-top: 2px; }
+
+  /* ── Mobile responsive ──────────────────────────────────── */
+  @media (max-width: 768px) {
+    /* Nav — scrollable row, no wrap */
+    .nav {
+      padding: 0 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav-logo { font-size: 17px; padding: 12px 12px 12px 4px; }
+    .tab { padding: 14px 12px; font-size: 12px; }
+
+    /* Feedback / Idea Inbox */
+    .feedback-wrap { padding: 14px 12px 40px; }
+    .feedback-inner { padding-top: 8px; }
+    .idea-inbox-title { font-size: 18px; }
+    .inbox-top-bar { flex-direction: column; align-items: stretch; }
+    .inbox-add-btn { justify-content: center; padding: 12px; font-size: 14px; }
+    .inbox-form-btns { flex-direction: column; }
+    .inbox-form-submit, .inbox-form-cancel { width: 100%; padding: 12px; text-align: center; }
+    .inbox-add-form textarea { font-size: 16px; } /* prevent iOS zoom */
+
+    /* Cards */
+    .idea-card { border-radius: 14px; }
+    .idea-card-top { flex-direction: column; gap: 8px; align-items: flex-start; }
+    .idea-reply-textarea {
+      min-height: 90px;
+      font-size: 16px; /* prevent iOS zoom-in */
+    }
+    .idea-reply-area > div:last-child { flex-direction: column; }
+    .idea-copy-btn {
+      width: 100%; text-align: center;
+      padding: 13px 16px; font-size: 14px;
+    }
+    .card-complete-btn { width: 100%; text-align: center; padding: 12px; }
+    .card-restore-btn  { width: 100%; text-align: center; padding: 10px; }
+
+    /* Phone/TV frames — hide on small screens, just show content */
+    .phone-wrap, .tv-wrap, .mkt-wrap { padding: 16px 12px; }
+    .phone-frame { display: none; }
+    .phone-label { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -2675,7 +2719,10 @@
 
   function clearReply(id) {
     var ta = document.getElementById('reply-' + id);
-    if (ta) { ta.value = ''; localStorage.removeItem('reply-' + id); }
+    if (ta) { ta.value = ''; }
+    localStorage.removeItem('reply-' + id);
+    var savedBox = document.getElementById('saved-reply-' + id);
+    if (savedBox) savedBox.style.display = 'none';
   }
 
   function copyUpdatedEntry(id) {
@@ -2707,19 +2754,16 @@
       })
       .catch(function(e) { alert('Could not save: ' + e.message); });
     } else {
-      /* File mode fallback — copy short chat message to clipboard */
-      var chatMsg = 'Reply for ' + id + ': ' + reply;
-      /* Web Share API — opens native share sheet on iPhone/Android (WhatsApp, iMessage, etc.) */
-      if (navigator.share) {
-        navigator.share({ text: chatMsg })
-          .then(function() { flashBtn('✓ Sent!'); ta.value = ''; localStorage.removeItem('reply-' + id); })
-          .catch(function() { /* user dismissed — do nothing */ });
-      } else if (navigator.clipboard) {
-        /* Desktop fallback — copy to clipboard */
-        navigator.clipboard.writeText(chatMsg).then(function() { flashBtn('✓ Copied — paste in chat'); });
-      } else {
-        prompt('Send this in chat:', chatMsg);
+      /* No server yet — save to localStorage and show inline in card */
+      localStorage.setItem('reply-' + id, reply);
+      /* Update the inline saved-reply display without full re-render */
+      var savedBox = document.getElementById('saved-reply-' + id);
+      if (savedBox) {
+        savedBox.querySelector('.saved-reply-txt').textContent = reply;
+        savedBox.style.display = 'block';
       }
+      ta.value = '';
+      flashBtn('✓ Reply saved');
     }
   }
 
@@ -2749,17 +2793,23 @@
     }
     if (item.mark_reply && item.mark_reply.trim()) {
       h += '  <div style="margin-top:10px;padding:10px 14px;background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.25);border-radius:10px;">';
-      h += '    <div style="font-size:10px;font-weight:800;color:#4ade80;letter-spacing:1.5px;margin-bottom:5px;">MARK\'S REPLY · IN JSON</div>';
+      h += '    <div style="font-size:10px;font-weight:800;color:#4ade80;letter-spacing:1.5px;margin-bottom:5px;">YOUR REPLY</div>';
       h += '    <div style="font-size:13px;color:#e2e8f0;">' + escHtml(item.mark_reply) + '</div>';
       h += '  </div>';
     }
+    /* Locally saved reply — shows after hitting Send Reply */
+    var hasSavedLocally = savedReply && savedReply !== (item.mark_reply || '');
+    h += '  <div id="saved-reply-' + escHtml(item.id) + '" style="margin-top:10px;padding:10px 14px;background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.25);border-radius:10px;' + (hasSavedLocally ? '' : 'display:none;') + '">';
+    h += '    <div style="font-size:10px;font-weight:800;color:#4ade80;letter-spacing:1.5px;margin-bottom:5px;">✓ YOUR REPLY · SAVED</div>';
+    h += '    <div class="saved-reply-txt" style="font-size:13px;color:#e2e8f0;">' + escHtml(hasSavedLocally ? savedReply : '') + '</div>';
+    h += '  </div>';
     if (!isCompleted) {
       /* Reply box */
       h += '  <div class="idea-reply-area">';
       h += '    <div style="font-size:10px;font-weight:800;color:rgba(34,197,94,0.8);letter-spacing:1.5px;margin-bottom:6px;">↩ YOUR REPLY TO CLAUDE</div>';
-      h += '    <textarea id="reply-' + escHtml(item.id) + '" class="idea-reply-textarea" placeholder="Type your follow-up, direction, or approval..." onInput="saveReplyLocally(\'' + escHtml(item.id) + '\')">' + escHtml(savedReply) + '</textarea>';
+      h += '    <textarea id="reply-' + escHtml(item.id) + '" class="idea-reply-textarea" placeholder="Type your reply or direction..." onInput="saveReplyLocally(\'' + escHtml(item.id) + '\')"></textarea>';
       h += '    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">';
-      h += '      <button id="reply-btn-' + escHtml(item.id) + '" class="idea-copy-btn" onclick="copyUpdatedEntry(\'' + escHtml(item.id) + '\')">💬 Send Reply</button>';
+      h += '      <button id="reply-btn-' + escHtml(item.id) + '" class="idea-copy-btn" onclick="copyUpdatedEntry(\'' + escHtml(item.id) + '\')">✓ Send Reply</button>';
       h += '      <button class="idea-copy-btn" style="background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.3);color:#f87171;" onclick="clearReply(\'' + escHtml(item.id) + '\')">✕ Clear</button>';
       h += '    </div>';
       h += '  </div>';
