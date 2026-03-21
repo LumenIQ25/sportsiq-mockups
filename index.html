@@ -1669,6 +1669,9 @@
     <div class="tab" data-screen="pick-card-v2" onclick="showScreen('pick-card-v2',this)">
       <span class="tab-label">Pick Card v2</span><span class="tab-days" id="days-pick-card-v2"></span>
     </div>
+    <div class="tab" data-screen="game-day-v2" onclick="showScreen('game-day-v2',this)">
+      <span class="tab-label">Game Day v2 ⚡</span><span class="tab-days" id="days-game-day-v2"></span>
+    </div>
   </div>
 
   <!-- 📱 MOBILE APP -->
@@ -4022,7 +4025,8 @@
     'notifications':    '2026-03-20',
     'data-intelligence':'2026-03-21',
     'onboarding-v2':    '2026-03-21',
-    'pick-card-v2':     '2026-03-21'
+    'pick-card-v2':     '2026-03-21',
+    'game-day-v2':      '2026-03-21'
   };
 
   (function initDaysBadges() {
@@ -4281,6 +4285,17 @@
         'Friends picks visibility: should you be able to see friends picks BEFORE you pick, or only after you submit?',
         'Should the tug-of-war bar show percentages or just the bar (hiding numbers adds more tension)?',
         'Chirp feature: free-form text, emoji-only, or preset chirp phrases (e.g., "Nice try 😂", "Better luck next week")?'
+      ]
+    },
+    'game-day-v2': {
+      icon: '⚡',
+      title: 'Game Day v2 — Clutch Pick + Venue Geo Mode',
+      built: 'Three phones: (1) Geo-activated Game Day Mode — banner shows "You\'re near Murphy\'s Bar · 47 players in session," tonight\'s session header with live game status, current position card (#4 of 47) with visual gap bar showing 320 pts to #1, pick queue for tonight (2 completed, 1 open, 1 CLUTCH). (2) The Clutch Pick — Clutch mode banner, leaderboard context card showing exact math ("5× clutch win puts you at 2,340 → 🥇 #1"), pick question (Chiefs win by 7+), 3-tier clutch multiplier (1× safe, 3× bold, 5× all-in clutch selected), gold lock button. (3) Clutch Result — Final Whistle, Chiefs 21-17 cover, Clutch Hit reveal (+500 pts), flipped leaderboard (was #4 → now #1, BigMike drops to #2), bar reaction moment ("BigMike just got CLUTCHED out of #1 💀"), Share Your Clutch CTA.',
+      questions: [
+        'Clutch Pick: should it be the LAST prop of every session, or triggered manually by the venue owner at a dramatic moment?',
+        'Geo radius: how tight? 0.1 mile (must be inside or very near), 0.25 mile, or 0.5 mile radius around the venue?',
+        'Should non-venue players (home users) have access to a Clutch Pick, or is it exclusive to Game Day Mode at venues?',
+        '"Share Your Clutch" — share to stories/WhatsApp? Or does tapping it auto-post a trash talk message to your Bar Crew group?'
       ]
     },
     'pick-card-v2': {
@@ -9007,6 +9022,284 @@
   </div>
 
   <div id="sfb-panel-pick-card-v2" class="sfb-panel"></div>
+</div>
+
+<!-- ============================================================
+     GAME DAY v2  |  Added 2026-03-21
+     Geo-activated venue mode · path-to-#1 gap display
+     · Clutch Pick — final high-stakes multiplier that flips the board
+     ============================================================ -->
+<div id="game-day-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Game Day v2 — Clutch Pick + Venue Geo Mode</div>
+    <div class="screen-subtitle">Unlocks for any user near a participating venue. Path-to-#1 gap always visible. Clutch Pick is the final prop — up to 5× multiplier that can flip the entire leaderboard.</div>
+  </div>
+
+  <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;" id="game-day-v2-phones">
+
+    <!-- Phone 1: Game Day Mode activation -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#f59e0b;letter-spacing:2px;margin-bottom:12px;">GAME DAY MODE — GEO ACTIVATED</div>
+      <div class="phone-frame" style="background:radial-gradient(ellipse at 50% 0%,rgba(245,158,11,0.15) 0%,#080E1C 55%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Venue detection banner -->
+        <div style="margin:4px 10px;background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(251,191,36,0.1));border:1px solid rgba(245,158,11,0.45);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+          <span style="font-size:18px;">📍</span>
+          <div style="flex:1;">
+            <div style="font-size:10px;font-weight:900;color:#fbbf24;">GAME DAY MODE ACTIVE</div>
+            <div style="font-size:8px;color:var(--muted);">You're near Murphy's Sports Bar · 47 players in session</div>
+          </div>
+          <div style="background:rgba(245,158,11,0.25);border:1px solid rgba(245,158,11,0.4);border-radius:6px;padding:3px 7px;font-size:9px;font-weight:700;color:#fbbf24;">LIVE</div>
+        </div>
+        <!-- Tonight's session header -->
+        <div style="margin:4px 10px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:8px;">
+          <div style="font-size:9px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">TONIGHT'S SESSION — CHIEFS vs EAGLES</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:11px;color:var(--text);">🏈 NFL · 4:25 PM ET</div>
+            <div style="font-size:9px;color:#22c55e;font-weight:700;">Q2 7:44 · IN PROGRESS</div>
+          </div>
+        </div>
+        <!-- My standing -->
+        <div style="margin:4px 10px;background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:10px;padding:8px 10px;">
+          <div style="font-size:9px;font-weight:800;color:var(--accent);letter-spacing:1px;margin-bottom:5px;">YOUR POSITION</div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="text-align:center;">
+              <div style="font-size:24px;font-weight:900;color:var(--text);">#4</div>
+              <div style="font-size:8px;color:var(--muted);">of 47</div>
+            </div>
+            <div style="flex:1;">
+              <!-- Gap bar -->
+              <div style="font-size:8px;color:var(--muted);margin-bottom:3px;">Gap to #1 (BigMike)</div>
+              <div style="height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:3px;">
+                <div style="width:68%;height:100%;background:linear-gradient(90deg,#5545D3,#a78bfa);border-radius:3px;"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:8px;">
+                <span style="color:var(--accent);">You: 1,840 pts</span>
+                <span style="color:#fbbf24;">–320 to catch #1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Picks queue -->
+        <div style="margin:4px 10px;">
+          <div style="font-size:9px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">PICK QUEUE — TONIGHT</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:7px;">
+              <span style="font-size:9px;color:#22c55e;font-weight:700;">✓</span>
+              <span style="font-size:9px;color:var(--muted);flex:1;">Q1: 1st half total OVER 24</span>
+              <span style="font-size:9px;color:#22c55e;font-weight:700;">+200 pts</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:7px;">
+              <span style="font-size:9px;color:#22c55e;font-weight:700;">✓</span>
+              <span style="font-size:9px;color:var(--muted);flex:1;">Q2: Chiefs score next TD</span>
+              <span style="font-size:9px;color:#22c55e;font-weight:700;">+320 pts</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:7px;">
+              <span style="font-size:9px;color:var(--muted);">⏳</span>
+              <span style="font-size:9px;color:var(--muted);flex:1;">Q3: Game total OVER 47.5</span>
+              <span style="font-size:9px;color:var(--muted);">open</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:7px;">
+              <span style="font-size:12px;">⚡</span>
+              <span style="font-size:9px;color:#fbbf24;font-weight:700;flex:1;">CLUTCH PICK — Final Q4 prop</span>
+              <span style="font-size:9px;color:#fbbf24;font-weight:800;">up to 5×</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:4px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--accent);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--muted);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--muted);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 2: The Clutch Pick -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#fbbf24;letter-spacing:2px;margin-bottom:12px;">THE CLUTCH PICK — FINAL PROP</div>
+      <div class="phone-frame" style="background:radial-gradient(ellipse at 50% 0%,rgba(251,191,36,0.18) 0%,#080E1C 55%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Clutch mode banner -->
+        <div style="margin:4px 10px;background:linear-gradient(135deg,rgba(251,191,36,0.25),rgba(245,158,11,0.12));border:2px solid rgba(251,191,36,0.5);border-radius:10px;padding:7px 10px;text-align:center;">
+          <div style="font-size:14px;font-weight:900;color:#fbbf24;letter-spacing:1px;">⚡ CLUTCH PICK</div>
+          <div style="font-size:9px;color:var(--muted);margin-top:2px;">Final prop of the night · This one can flip everything</div>
+        </div>
+        <!-- Leaderboard gap context -->
+        <div style="margin:5px 10px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:8px;padding:7px 10px;">
+          <div style="font-size:9px;font-weight:800;color:var(--accent);letter-spacing:1px;margin-bottom:4px;">PATH TO #1 — RIGHT NOW</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:9px;color:#fbbf24;font-weight:900;width:12px;">1</span>
+              <span style="font-size:9px;color:var(--text);flex:1;">BigMike</span>
+              <span style="font-size:10px;font-weight:900;color:#fbbf24;">2,160</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:9px;color:var(--muted);width:12px;">2</span>
+              <span style="font-size:9px;color:var(--muted);flex:1;">SarahK</span>
+              <span style="font-size:10px;font-weight:700;color:var(--muted);">2,040</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:9px;color:var(--muted);width:12px;">3</span>
+              <span style="font-size:9px;color:var(--muted);flex:1;">JayBird</span>
+              <span style="font-size:10px;font-weight:700;color:var(--muted);">1,960</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(85,69,211,0.15);border-radius:4px;padding:2px 3px;">
+              <span style="font-size:9px;color:var(--accent);font-weight:900;width:12px;">4</span>
+              <span style="font-size:9px;color:var(--text);flex:1;">You 👈</span>
+              <span style="font-size:10px;font-weight:900;color:var(--accent);">1,840</span>
+            </div>
+          </div>
+          <div style="margin-top:5px;font-size:8px;color:#fbbf24;text-align:center;">5× clutch win = +500 pts → puts you at 2,340 → 🥇 NEW #1</div>
+        </div>
+        <!-- The question -->
+        <div style="margin:5px 10px;">
+          <div style="font-size:11px;font-weight:900;color:var(--text);margin-bottom:5px;">Chiefs win by more than 7?</div>
+          <div style="display:flex;gap:6px;margin-bottom:5px;">
+            <div style="flex:1;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:8px 6px;text-align:center;">
+              <div style="font-size:12px;font-weight:900;color:#22c55e;">YES</div>
+              <div style="font-size:8px;color:var(--muted);">54% community</div>
+            </div>
+            <div style="flex:1;background:rgba(85,69,211,0.12);border:2px solid var(--accent);border-radius:8px;padding:8px 6px;text-align:center;">
+              <div style="font-size:12px;font-weight:900;color:var(--accent);">NO ✓</div>
+              <div style="font-size:8px;color:var(--muted);">46% community</div>
+            </div>
+          </div>
+        </div>
+        <!-- Clutch multiplier selector -->
+        <div style="margin:0 10px;">
+          <div style="font-size:8px;font-weight:800;color:#fbbf24;letter-spacing:1px;margin-bottom:4px;">⚡ CLUTCH MULTIPLIER — CHOOSE YOUR BET</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="display:flex;align-items:center;gap:6px;padding:5px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:7px;">
+              <div style="width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--muted);">1×</div>
+              <span style="flex:1;font-size:9px;color:var(--text);">Safe · +100 pts if right</span>
+              <span style="font-size:8px;color:var(--muted);">stays #4</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;padding:5px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:7px;">
+              <div style="width:22px;height:22px;border-radius:6px;background:rgba(85,69,211,0.2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--accent);">3×</div>
+              <span style="flex:1;font-size:9px;color:var(--text);">Bold · +300 pts if right</span>
+              <span style="font-size:8px;color:var(--muted);">could hit #2</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;padding:5px 8px;background:rgba(251,191,36,0.12);border:2px solid rgba(251,191,36,0.45);border-radius:7px;">
+              <div style="width:22px;height:22px;border-radius:6px;background:rgba(251,191,36,0.2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fbbf24;">5×</div>
+              <span style="flex:1;font-size:9px;font-weight:700;color:#fbbf24;">ALL-IN CLUTCH · +500 pts if right</span>
+              <span style="font-size:8px;color:#22c55e;font-weight:700;">🥇 #1!</span>
+            </div>
+          </div>
+        </div>
+        <!-- Lock button -->
+        <div style="margin:6px 10px;background:linear-gradient(135deg,#d97706,#fbbf24);border-radius:12px;padding:10px;text-align:center;">
+          <div style="font-size:12px;font-weight:900;color:#1a0a00;">⚡ Lock Clutch Pick — NO, 5× All-In</div>
+          <div style="font-size:8px;color:rgba(0,0,0,0.5);margin-top:2px;">Final Whistle reveal · No changing after submit</div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:4px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:2px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--accent);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--muted);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 3: Clutch result + leaderboard flip -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:12px;">CLUTCH RESULT — BOARD FLIPPED</div>
+      <div class="phone-frame" style="background:radial-gradient(ellipse at 50% 0%,rgba(251,191,36,0.2) 0%,rgba(34,197,94,0.08) 40%,#080E1C 70%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Final whistle header -->
+        <div style="text-align:center;padding:8px 14px 4px;">
+          <div style="font-size:9px;font-weight:800;color:var(--muted);letter-spacing:3px;margin-bottom:2px;">FINAL WHISTLE</div>
+          <div style="font-size:13px;font-weight:900;color:var(--text);">Chiefs 21 · Eagles 17</div>
+          <div style="font-size:9px;color:var(--muted);">Chiefs win by 4 — NO covers ✓</div>
+        </div>
+        <!-- Clutch reveal -->
+        <div style="margin:4px 10px;background:linear-gradient(135deg,rgba(251,191,36,0.2),rgba(245,158,11,0.08));border:2px solid rgba(251,191,36,0.5);border-radius:12px;padding:10px;text-align:center;">
+          <div style="font-size:24px;margin-bottom:2px;">⚡🏆</div>
+          <div style="font-size:14px;font-weight:900;color:#fbbf24;">CLUTCH HIT!</div>
+          <div style="font-size:10px;color:var(--text);margin-top:2px;">NO · 5× All-In · <strong style="color:#22c55e;">+500 pts</strong></div>
+          <div style="font-size:18px;font-weight:900;color:#fbbf24;margin-top:4px;">2,340 total pts</div>
+        </div>
+        <!-- New leaderboard -->
+        <div style="margin:5px 10px;">
+          <div style="font-size:9px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">🔄 FINAL STANDINGS — BOARD FLIPPED</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="display:flex;align-items:center;gap:6px;padding:5px 8px;background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.35);border-radius:8px;">
+              <span style="font-size:14px;">🥇</span>
+              <div style="flex:1;">
+                <div style="font-size:10px;font-weight:900;color:#fbbf24;">You</div>
+                <div style="font-size:8px;color:var(--muted);">Was #4 → Now #1 · Clutch +500</div>
+              </div>
+              <span style="font-size:12px;font-weight:900;color:#fbbf24;">2,340</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;padding:5px 8px;background:rgba(255,255,255,0.04);border-radius:8px;">
+              <span style="font-size:14px;">🥈</span>
+              <div style="flex:1;">
+                <div style="font-size:10px;color:var(--text);">BigMike</div>
+                <div style="font-size:8px;color:var(--muted);">Was #1 → Now #2</div>
+              </div>
+              <span style="font-size:11px;font-weight:700;color:var(--text);">2,160</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;padding:5px 8px;background:rgba(255,255,255,0.04);border-radius:8px;">
+              <span style="font-size:14px;">🥉</span>
+              <div style="flex:1;">
+                <div style="font-size:10px;color:var(--text);">SarahK</div>
+              </div>
+              <span style="font-size:11px;font-weight:700;color:var(--text);">2,040</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;padding:5px 8px;">
+              <span style="font-size:9px;color:var(--muted);width:16px;">4</span>
+              <div style="flex:1;">
+                <div style="font-size:10px;color:var(--muted);">JayBird</div>
+              </div>
+              <span style="font-size:11px;font-weight:700;color:var(--muted);">1,960</span>
+            </div>
+          </div>
+        </div>
+        <!-- Bar reaction + share -->
+        <div style="margin:4px 10px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:7px 10px;">
+          <div style="font-size:9px;font-weight:700;color:#22c55e;margin-bottom:4px;">😱 Bar reaction</div>
+          <div style="font-size:8px;color:var(--muted);">"BigMike just got CLUTCHED out of #1 at Murphy's Bar 💀" — 12 reactions from other players</div>
+        </div>
+        <div style="margin:4px 10px;background:var(--accent);border-radius:10px;padding:8px;text-align:center;font-size:10px;font-weight:800;color:#fff;">Share Your Clutch 📣</div>
+        <div style="display:flex;justify-content:space-around;padding:4px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:4px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--accent);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--muted);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /game-day-v2-phones -->
+
+  <!-- Design notes -->
+  <div style="max-width:800px;margin:32px auto;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:14px;padding:20px 24px;">
+    <div style="font-size:10px;font-weight:800;color:#fbbf24;letter-spacing:2px;margin-bottom:10px;">⚡ DESIGN DECISIONS — CLUTCH PICK</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.9;">
+      <strong style="color:var(--text);">Why Clutch works:</strong> The final prop of the night has a 5× cap specifically so it can flip a top-10 leaderboard entirely. Every player knows this — so even if you're losing going into Q4, you haven't lost yet. This keeps engagement high through the entire game instead of dropping off when someone builds a big lead.<br>
+      <strong style="color:var(--text);">Geo vs check-in:</strong> Unlocking Game Day Mode for anyone in the venue's geographic area removes friction. Users don't need to remember to "check in" — the app detects them and activates automatically. Mark's call: "any user in the venue" = maximum participation rate per session.<br>
+      <strong style="color:var(--text);">Path-to-#1 gap display:</strong> The exact point gap shown on the Clutch Pick card ("5× win puts you at 2,340 → 🥇 #1") converts casual multiplier selection into a strategic decision. Users who see a specific path to winning choose higher multipliers — which generates more engagement data and more emotional investment.<br>
+      <strong style="color:var(--text);">Bar reaction moment:</strong> "BigMike just got CLUTCHED out of #1" is the event that gets talked about at the bar. This is the viral social moment the product is built around — a real, live, witnessed leaderboard flip. Word of mouth from one Clutch moment can recruit an entire new group.
+    </div>
+  </div>
+
+  <!-- Moat analysis -->
+  <div style="max-width:800px;margin:0 auto;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — GAME DAY v2</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      <strong style="color:var(--text);">The Clutch mechanic is legally protective:</strong> Because Clutch is a free-to-play, IQ-points-only competition with no real-money stakes, it sits clearly outside gambling regulation. But the psychological experience — the stakes, the crowd, the leaderboard flip — is more intense than most real-money products. This is the moat: a gambling-grade emotional experience with zero regulatory exposure.<br>
+      <strong style="color:var(--text);">Venue loyalty lock-in:</strong> When users associate specific Clutch moments ("I came back from #7 at Murphy's Bar last Sunday") with physical venues, they return to that venue to recreate the experience. This makes SportsIQ an active driver of venue foot traffic — which is the strongest possible argument for venue partnerships and a monthly SaaS fee.<br>
+      <strong style="color:var(--text);">Data at peak moment:</strong> Clutch Pick multiplier selection under pressure — knowing exactly what's at stake, watching the live leaderboard — is the highest-fidelity behavioral data point SportsIQ collects. A user who goes 5× Clutch at a venue bar is a verified high-engagement sports fan with a documented risk appetite. That profile is worth 5× an average user to advertisers.
+    </div>
+  </div>
+
+  <div id="sfb-panel-game-day-v2" class="sfb-panel"></div>
 </div>
 
 </body>
