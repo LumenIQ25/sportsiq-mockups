@@ -1675,6 +1675,9 @@
     <div class="tab" data-screen="home-idle-v2" onclick="showScreen('home-idle-v2',this)">
       <span class="tab-label">Home Idle v2 🏠</span><span class="tab-days" id="days-home-idle-v2"></span>
     </div>
+    <div class="tab" data-screen="daily-challenge-v2" onclick="showScreen('daily-challenge-v2',this)">
+      <span class="tab-label">Daily Challenge v2 📅</span><span class="tab-days" id="days-daily-challenge-v2"></span>
+    </div>
   </div>
 
   <!-- 📱 MOBILE APP -->
@@ -4030,7 +4033,8 @@
     'onboarding-v2':    '2026-03-21',
     'pick-card-v2':     '2026-03-21',
     'game-day-v2':      '2026-03-21',
-    'home-idle-v2':     '2026-03-21'
+    'home-idle-v2':        '2026-03-21',
+    'daily-challenge-v2':  '2026-03-21'
   };
 
   (function initDaysBadges() {
@@ -4333,6 +4337,17 @@
         'Data revenue: do you want to pursue brand sponsorships first (faster revenue, fewer legal hurdles) or data licensing first (higher ceiling but slower)?',
         'User-facing profile: should "Your Sports DNA" be its own tab, or live inside the existing Profile page?',
         'Privacy framing: "Personalize my experience" opt-in at onboarding, or let it build silently and reveal the profile after 2 weeks when it\'s impressive?'
+      ]
+    },
+    'daily-challenge-v2': {
+      icon: '📅',
+      title: 'Daily Challenge v2 — Wordle for Sports',
+      built: 'Three phones covering the full Daily Challenge flow: (1) Challenge lobby — today\'s 5-pick card with difficulty tiers (Warm-Up / Sharp / Sharp / Expert / Clutch), locked picks 1-2 from early submitters showing green ✓, current streak (🔥22 days), friends completion status (4 of 6 friends done), midnight countdown timer, one-skip-per-week button (1 remaining). (2) In-challenge at pick 3 — "Sharp Pick" difficulty label in orange, today\'s matchup (Warriors vs Lakers, 3rd Q), OVER/UNDER tap buttons with community % hidden until after submit, progress row showing picks 1-2 ✓ and 3-4-5 locked, streak-at-stake reminder. (3) Challenge complete — all 5 picks graded (4/5 correct), IQ points earned (+175), daily rank ("You finished #2,341 of 47,293 players today"), friends leaderboard for today\'s challenge, Chirp the #1 friend, share-to-story CTA. Data generated: each user vs the exact same 5 props = perfectly controlled accuracy experiment to identify true sharp users vs lucky streaks.',
+      questions: [
+        'Reveal timing: do you see your result immediately after each pick, or all 5 revealed at once at the end?',
+        'Community % display: show the crowd split before the user picks (social proof / potentially fun pressure), or hide it until after submit to keep picks independent?',
+        'Daily rank: should "2,341 of 47,293" be shown by default, or is that number initially overwhelming — should we show percentile instead (top 5%)?',
+        'Friends only vs. global: does the challenge leaderboard default to friends, or should there be a public global rank for the "I beat 47k people" bragging moment?'
       ]
     },
     'home-idle-v2': {
@@ -9602,6 +9617,357 @@
   </div>
 
   <div id="sfb-panel-home-idle-v2" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Daily Challenge v2 — Wordle for Sports
+     Added: 2026-03-21 | Autonomous loop build
+     Moat: same-stimulus controlled accuracy data, streak addiction, daily social moment
+     "Wordle for sports" — everyone does the same 5 picks. Creates daily talking point.
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="daily-challenge-v2" class="screen" style="display:none;">
+  <div style="min-height:100vh;background:#020408;padding:40px 20px;display:flex;flex-direction:column;align-items:center;">
+
+    <!-- Header -->
+    <div style="width:100%;max-width:900px;margin-bottom:32px;">
+      <div style="font-size:11px;font-weight:700;color:#5545D3;letter-spacing:3px;margin-bottom:6px;">v2 UPDATES · 2026-03-21</div>
+      <div style="font-size:28px;font-weight:900;color:#F8FAFC;margin-bottom:6px;">Daily Challenge v2 📅</div>
+      <div style="font-size:14px;color:#94A3B8;line-height:1.6;">Same 5 picks for every user, every day. Refreshes at midnight. <span style="color:#F8FAFC;font-weight:700;">Wordle for sports.</span> Creates a shared social moment — everyone's debating the same props. All five picks generate a controlled accuracy dataset across your entire user base.</div>
+    </div>
+
+    <!-- Three phones -->
+    <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;" id="daily-challenge-v2-phones">
+
+      <!-- ── PHONE 1: Challenge Lobby ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 1 — LOBBY</div>
+        <div style="width:280px;height:580px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;position:relative;">
+          <!-- Status bar -->
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:9px;font-weight:700;color:#94A3B8;">9:14 AM</div>
+            <div style="font-size:9px;font-weight:700;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <!-- Top bar -->
+          <div style="background:#0A101C;padding:8px 14px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div>
+              <div style="font-size:13px;font-weight:900;color:#F8FAFC;">Daily Challenge</div>
+              <div style="font-size:9px;color:#94A3B8;">Sun Mar 22 · resets in <span style="color:#F59E0B;font-weight:700;">14h 46m</span></div>
+            </div>
+            <div style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:3px 8px;font-size:9px;font-weight:700;color:#F59E0B;">🔥 22-day streak</div>
+          </div>
+          <!-- Body -->
+          <div style="flex:1;overflow-y:auto;padding:10px 12px;">
+            <!-- Progress -->
+            <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:8px 10px;margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#a59df5;letter-spacing:1.5px;margin-bottom:6px;">TODAY'S PROGRESS</div>
+              <div style="display:flex;gap:5px;">
+                <div style="flex:1;height:6px;border-radius:3px;background:rgba(34,197,94,0.3);position:relative;overflow:hidden;"><div style="position:absolute;inset:0;background:#22c55e;border-radius:3px;"></div></div>
+                <div style="flex:1;height:6px;border-radius:3px;background:rgba(34,197,94,0.3);position:relative;overflow:hidden;"><div style="position:absolute;inset:0;background:#22c55e;border-radius:3px;"></div></div>
+                <div style="flex:1;height:6px;border-radius:3px;background:rgba(85,69,211,0.4);"></div>
+                <div style="flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,0.08);"></div>
+                <div style="flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,0.08);"></div>
+              </div>
+              <div style="font-size:8px;color:#94A3B8;margin-top:4px;">2 of 5 picks submitted · pick 3 waiting</div>
+            </div>
+
+            <!-- Today's 5 picks list -->
+            <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">TODAY'S PICKS</div>
+            <!-- Pick 1 — done -->
+            <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.25);border-radius:8px;padding:7px 9px;margin-bottom:5px;display:flex;align-items:center;gap:8px;">
+              <div style="width:18px;height:18px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:9px;color:#22c55e;font-weight:800;">✓</span></div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:8px;font-weight:700;color:#22c55e;letter-spacing:1px;">WARM-UP</div>
+                <div style="font-size:9px;color:#F8FAFC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Chiefs ML · vs Chargers</div>
+              </div>
+              <div style="font-size:10px;color:#22c55e;font-weight:800;">+100</div>
+            </div>
+            <!-- Pick 2 — done -->
+            <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.25);border-radius:8px;padding:7px 9px;margin-bottom:5px;display:flex;align-items:center;gap:8px;">
+              <div style="width:18px;height:18px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:9px;color:#22c55e;font-weight:800;">✓</span></div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:8px;font-weight:700;color:#3B82F6;letter-spacing:1px;">SHARP</div>
+                <div style="font-size:9px;color:#F8FAFC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Celtics OVER 221.5 · vs Heat</div>
+              </div>
+              <div style="font-size:10px;color:#22c55e;font-weight:800;">+125</div>
+            </div>
+            <!-- Pick 3 — active -->
+            <div style="background:rgba(85,69,211,0.12);border:1.5px solid rgba(85,69,211,0.5);border-radius:8px;padding:7px 9px;margin-bottom:5px;display:flex;align-items:center;gap:8px;position:relative;">
+              <div style="width:18px;height:18px;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.6);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:10px;color:#a59df5;font-weight:800;">3</span></div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:8px;font-weight:700;color:#F59E0B;letter-spacing:1px;">SHARP ▶ NOW</div>
+                <div style="font-size:9px;color:#F8FAFC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Warriors vs Lakers O/U 228.5</div>
+              </div>
+              <div style="background:rgba(85,69,211,0.3);border:1px solid rgba(85,69,211,0.6);border-radius:6px;padding:2px 7px;font-size:8px;font-weight:700;color:#a59df5;">PICK</div>
+            </div>
+            <!-- Pick 4 — locked -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:7px 9px;margin-bottom:5px;display:flex;align-items:center;gap:8px;opacity:0.5;">
+              <div style="width:18px;height:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:10px;color:#475569;font-weight:800;">4</span></div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:8px;font-weight:700;color:#EF4444;letter-spacing:1px;">EXPERT 🔒</div>
+                <div style="font-size:9px;color:#475569;">Unlocks after pick 3</div>
+              </div>
+            </div>
+            <!-- Pick 5 — locked -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:7px 9px;margin-bottom:10px;display:flex;align-items:center;gap:8px;opacity:0.4;">
+              <div style="width:18px;height:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:10px;color:#475569;font-weight:800;">5</span></div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:8px;font-weight:700;color:#F59E0B;letter-spacing:1px;">CLUTCH 🔒</div>
+                <div style="font-size:9px;color:#475569;">Unlocks after pick 4</div>
+              </div>
+            </div>
+
+            <!-- Friends status -->
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px 10px;margin-bottom:8px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">FRIENDS TODAY</div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:3px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:12px;padding:2px 6px;"><span style="font-size:8px;">✓</span><span style="font-size:8px;color:#22c55e;font-weight:700;">BigMike</span></div>
+                <div style="display:flex;align-items:center;gap:3px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:12px;padding:2px 6px;"><span style="font-size:8px;">✓</span><span style="font-size:8px;color:#22c55e;font-weight:700;">JayBird</span></div>
+                <div style="display:flex;align-items:center;gap:3px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.2);border-radius:12px;padding:2px 6px;"><span style="font-size:8px;">⏳</span><span style="font-size:8px;color:#a59df5;font-weight:700;">SarahK</span></div>
+                <div style="display:flex;align-items:center;gap:3px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:2px 6px;"><span style="font-size:8px;">–</span><span style="font-size:8px;color:#475569;font-weight:700;">Trev</span></div>
+              </div>
+            </div>
+
+            <!-- Skip button -->
+            <div style="text-align:center;">
+              <button style="background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:5px 14px;font-size:8px;color:#475569;font-family:Lexend,sans-serif;cursor:pointer;">Use weekly skip (1 remaining)</button>
+            </div>
+          </div>
+          <!-- Bottom nav -->
+          <div style="display:flex;justify-content:space-around;padding:8px 0 10px;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:#94A3B8;">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">📅</div><div style="font-size:7px;color:#5545D3;font-weight:700;">Challenge</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:#94A3B8;">Board</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:#94A3B8;">Profile</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHONE 2: In-Challenge (Pick 3 of 5) ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 2 — PICKING</div>
+        <div style="width:280px;height:580px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <!-- Status bar -->
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;font-weight:700;color:#94A3B8;">9:17 AM</div>
+            <div style="font-size:9px;font-weight:700;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <!-- Header -->
+          <div style="background:#0A101C;padding:8px 14px 10px;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <div style="font-size:12px;font-weight:900;color:#F8FAFC;">Pick 3 of 5</div>
+              <div style="font-size:9px;font-weight:700;color:#F59E0B;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:10px;padding:2px 6px;">SHARP</div>
+            </div>
+            <!-- Progress dots -->
+            <div style="display:flex;gap:4px;align-items:center;">
+              <div style="width:28px;height:5px;border-radius:3px;background:#22c55e;"></div>
+              <div style="width:28px;height:5px;border-radius:3px;background:#22c55e;"></div>
+              <div style="width:28px;height:5px;border-radius:3px;background:#5545D3;"></div>
+              <div style="width:28px;height:5px;border-radius:3px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:28px;height:5px;border-radius:3px;background:rgba(255,255,255,0.1);"></div>
+            </div>
+          </div>
+          <!-- Body -->
+          <div style="flex:1;overflow-y:auto;padding:12px 12px 8px;">
+            <!-- Streak reminder -->
+            <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:5px 8px;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+              <span style="font-size:13px;">🔥</span>
+              <div style="font-size:8px;color:#F59E0B;font-weight:600;">22-day streak on the line — complete today's challenge to keep it.</div>
+            </div>
+
+            <!-- Pick card -->
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;margin-bottom:10px;">
+              <!-- Match header -->
+              <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px;">
+                <div style="text-align:center;">
+                  <div style="font-size:20px;">🏀</div>
+                  <div style="font-size:9px;font-weight:700;color:#F8FAFC;">Warriors</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:9px;color:#94A3B8;margin-bottom:2px;">O/U</div>
+                  <div style="font-size:16px;font-weight:900;color:#F8FAFC;">228.5</div>
+                  <div style="font-size:7px;color:#475569;">3rd Q · 7:42</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:20px;">🏀</div>
+                  <div style="font-size:9px;font-weight:700;color:#F8FAFC;">Lakers</div>
+                </div>
+              </div>
+              <div style="font-size:9px;color:#94A3B8;text-align:center;margin-bottom:10px;">Total combined points by end of game</div>
+
+              <!-- Over/Under buttons -->
+              <div style="display:flex;gap:8px;margin-bottom:6px;">
+                <button style="flex:1;background:rgba(34,197,94,0.08);border:1.5px solid rgba(34,197,94,0.3);border-radius:10px;padding:11px 8px;font-family:Lexend,sans-serif;cursor:pointer;">
+                  <div style="font-size:13px;font-weight:900;color:#22c55e;">OVER</div>
+                  <div style="font-size:8px;color:#94A3B8;margin-top:2px;">228.5+ pts</div>
+                </button>
+                <button style="flex:1;background:rgba(239,68,68,0.08);border:1.5px solid rgba(239,68,68,0.3);border-radius:10px;padding:11px 8px;font-family:Lexend,sans-serif;cursor:pointer;">
+                  <div style="font-size:13px;font-weight:900;color:#EF4444;">UNDER</div>
+                  <div style="font-size:8px;color:#94A3B8;margin-top:2px;">228.4 or fewer</div>
+                </button>
+              </div>
+              <div style="text-align:center;font-size:8px;color:#475569;">Community split revealed after you pick</div>
+            </div>
+
+            <!-- Context strip -->
+            <div style="background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.18);border-radius:8px;padding:7px 9px;margin-bottom:8px;">
+              <div style="font-size:8px;font-weight:700;color:#a59df5;letter-spacing:1px;margin-bottom:4px;">SIQ INTEL</div>
+              <div style="font-size:8px;color:#94A3B8;line-height:1.6;">Warriors avg 119 ppg this season · Lakers avg 116 ppg · these teams have gone OVER in 7 of last 10 meetings · current pace: 212 pts through 3Q</div>
+            </div>
+
+            <!-- Picks summary row -->
+            <div style="display:flex;gap:6px;">
+              <div style="flex:1;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:7px;padding:5px 6px;text-align:center;">
+                <div style="font-size:7px;color:#94A3B8;">Pick 1</div>
+                <div style="font-size:9px;font-weight:700;color:#22c55e;">KC ML ✓</div>
+              </div>
+              <div style="flex:1;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:7px;padding:5px 6px;text-align:center;">
+                <div style="font-size:7px;color:#94A3B8;">Pick 2</div>
+                <div style="font-size:9px;font-weight:700;color:#22c55e;">BOS OV ✓</div>
+              </div>
+              <div style="flex:1;background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.4);border-radius:7px;padding:5px 6px;text-align:center;">
+                <div style="font-size:7px;color:#94A3B8;">Pick 3</div>
+                <div style="font-size:9px;font-weight:700;color:#a59df5;">▶ now</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:5px 6px;text-align:center;opacity:0.4;">
+                <div style="font-size:7px;color:#475569;">Pick 4</div>
+                <div style="font-size:9px;font-weight:700;color:#475569;">🔒</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:5px 6px;text-align:center;opacity:0.4;">
+                <div style="font-size:7px;color:#475569;">Pick 5</div>
+                <div style="font-size:9px;font-weight:700;color:#475569;">🔒</div>
+              </div>
+            </div>
+          </div>
+          <!-- Bottom nav -->
+          <div style="display:flex;justify-content:space-around;padding:8px 0 10px;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:#94A3B8;">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">📅</div><div style="font-size:7px;color:#5545D3;font-weight:700;">Challenge</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:#94A3B8;">Board</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:#94A3B8;">Profile</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHONE 3: Challenge Complete ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 3 — RESULTS</div>
+        <div style="width:280px;height:580px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <!-- Status bar -->
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;font-weight:700;color:#94A3B8;">10:31 AM</div>
+            <div style="font-size:9px;font-weight:700;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <!-- Header -->
+          <div style="background:linear-gradient(135deg,rgba(85,69,211,0.3),rgba(34,197,94,0.12));padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.06);text-align:center;">
+            <div style="font-size:22px;font-weight:900;color:#F8FAFC;">4 / 5 ✓</div>
+            <div style="font-size:10px;color:#94A3B8;margin-top:2px;">Challenge Complete · +175 IQ pts</div>
+            <div style="font-size:9px;color:#F59E0B;margin-top:2px;font-weight:700;">🔥 22-day streak maintained!</div>
+          </div>
+          <!-- Body -->
+          <div style="flex:1;overflow-y:auto;padding:10px 12px;">
+            <!-- Picks graded -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">YOUR PICKS</div>
+              <!-- P1 correct -->
+              <div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <div style="width:16px;height:16px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:8px;color:#22c55e;">✓</span></div>
+                <div style="flex:1;min-width:0;"><div style="font-size:8px;color:#F8FAFC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Chiefs ML · Chiefs won 24-17</div></div>
+                <div style="font-size:8px;font-weight:700;color:#22c55e;">+35</div>
+              </div>
+              <!-- P2 correct -->
+              <div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <div style="width:16px;height:16px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:8px;color:#22c55e;">✓</span></div>
+                <div style="flex:1;min-width:0;"><div style="font-size:8px;color:#F8FAFC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Celtics OVER 221.5 · final 228</div></div>
+                <div style="font-size:8px;font-weight:700;color:#22c55e;">+40</div>
+              </div>
+              <!-- P3 correct -->
+              <div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <div style="width:16px;height:16px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:8px;color:#22c55e;">✓</span></div>
+                <div style="flex:1;min-width:0;"><div style="font-size:8px;color:#F8FAFC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Warriors/Lakers OVER 228.5 · final 241</div></div>
+                <div style="font-size:8px;font-weight:700;color:#22c55e;">+45</div>
+              </div>
+              <!-- P4 wrong -->
+              <div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <div style="width:16px;height:16px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:8px;color:#EF4444;">✗</span></div>
+                <div style="flex:1;min-width:0;"><div style="font-size:8px;color:#94A3B8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Broncos –3.5 · lost 17-21</div></div>
+                <div style="font-size:8px;font-weight:700;color:#EF4444;">–0</div>
+              </div>
+              <!-- P5 correct -->
+              <div style="display:flex;align-items:center;gap:7px;padding:5px 0;">
+                <div style="width:16px;height:16px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:8px;color:#22c55e;">✓</span></div>
+                <div style="flex:1;min-width:0;"><div style="font-size:8px;color:#F8FAFC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Bruins CLUTCH ML · Bruins won 3-1</div></div>
+                <div style="font-size:8px;font-weight:700;color:#22c55e;">+55</div>
+              </div>
+            </div>
+
+            <!-- Global rank -->
+            <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:8px 10px;margin-bottom:8px;">
+              <div style="font-size:8px;font-weight:700;color:#a59df5;letter-spacing:1px;margin-bottom:4px;">GLOBAL RANK TODAY</div>
+              <div style="font-size:16px;font-weight:900;color:#F8FAFC;">#2,341 <span style="font-size:10px;color:#94A3B8;font-weight:400;">of 47,293 players</span></div>
+              <div style="font-size:8px;color:#22c55e;margin-top:2px;">Top 5% nationally</div>
+            </div>
+
+            <!-- Friends leaderboard today -->
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px 10px;margin-bottom:8px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1px;margin-bottom:6px;">FRIENDS — TODAY'S CHALLENGE</div>
+              <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
+                <div style="font-size:9px;font-weight:800;color:#F59E0B;width:12px;">1</div>
+                <div style="font-size:9px;color:#F8FAFC;flex:1;">BigMike</div>
+                <div style="font-size:9px;font-weight:700;color:#F8FAFC;">5/5</div>
+                <div style="font-size:8px;color:#22c55e;">+215</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;background:rgba(85,69,211,0.12);border-radius:6px;padding:3px 0;">
+                <div style="font-size:9px;font-weight:800;color:#94A3B8;width:12px;margin-left:0;">2</div>
+                <div style="font-size:9px;color:#a59df5;flex:1;font-weight:700;">You</div>
+                <div style="font-size:9px;font-weight:700;color:#a59df5;">4/5</div>
+                <div style="font-size:8px;color:#22c55e;">+175</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
+                <div style="font-size:9px;font-weight:800;color:#94A3B8;width:12px;">3</div>
+                <div style="font-size:9px;color:#F8FAFC;flex:1;">JayBird</div>
+                <div style="font-size:9px;font-weight:700;color:#F8FAFC;">4/5</div>
+                <div style="font-size:8px;color:#22c55e;">+160</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;">
+                <div style="font-size:9px;font-weight:800;color:#94A3B8;width:12px;">4</div>
+                <div style="font-size:9px;color:#F8FAFC;flex:1;">SarahK</div>
+                <div style="font-size:9px;font-weight:700;color:#F8FAFC;">3/5</div>
+                <div style="font-size:8px;color:#EF4444;">–30</div>
+              </div>
+            </div>
+
+            <!-- CTAs -->
+            <div style="display:flex;gap:6px;">
+              <button style="flex:1;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:8px;padding:7px;font-family:Lexend,sans-serif;font-size:8px;font-weight:700;color:#a59df5;cursor:pointer;">💬 Chirp BigMike</button>
+              <button style="flex:1;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:7px;font-family:Lexend,sans-serif;font-size:8px;font-weight:700;color:#22c55e;cursor:pointer;">📤 Share Result</button>
+            </div>
+          </div>
+          <!-- Bottom nav -->
+          <div style="display:flex;justify-content:space-around;padding:8px 0 10px;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:#94A3B8;">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">📅</div><div style="font-size:7px;color:#5545D3;font-weight:700;">Challenge</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:#94A3B8;">Board</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:#94A3B8;">Profile</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /daily-challenge-v2-phones -->
+
+    <!-- Moat analysis -->
+    <div style="margin-top:40px;max-width:900px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+      <div style="font-size:10px;font-weight:800;color:#5545D3;letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — DAILY CHALLENGE v2</div>
+      <div style="font-size:13px;color:#94A3B8;line-height:1.8;">
+        <strong style="color:#F8FAFC;">The Wordle effect:</strong> Wordle became a global phenomenon because everyone answered the same puzzle on the same day — the shared experience drove organic word-of-mouth. SportsIQ's Daily Challenge creates the same dynamic for sports. "Did you get pick 5?" is a conversation that happens at the bar, in the group chat, everywhere. A competitor can copy the format but cannot copy the user base having this conversation.<br>
+        <strong style="color:#F8FAFC;">Controlled accuracy data:</strong> Every user answering the same 5 props on the same day creates a perfectly controlled experiment. We can calculate each user's genuine accuracy rate vs. the market — not confounded by different pick selection. After 90 days of daily challenges, SportsIQ knows who the sharp users actually are. This is a dataset no sportsbook has.<br>
+        <strong style="color:#F8FAFC;">Streak mechanics:</strong> A user on a 22-day challenge streak has opened the app 22 consecutive days. At 30 days, the churn probability drops to near zero — they will not miss a day. One skip per week is a crucial design choice: it prevents frustration breaks that kill streaks, which extends the retention curve significantly.<br>
+        <strong style="color:#F8FAFC;">Sequential unlock design:</strong> Picks 4 and 5 unlock only after completing the prior pick. This drives completion rates — once a user is 3/5, the sunk-cost effect pulls them to finish. Average session time increases with each pick submitted. This is standard mobile game design applied to sports.
+      </div>
+    </div>
+
+  </div><!-- /outer div -->
+
+  <div id="sfb-panel-daily-challenge-v2" class="sfb-panel"></div>
 </div>
 
 </body>
