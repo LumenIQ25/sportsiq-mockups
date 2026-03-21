@@ -1342,6 +1342,7 @@
   <div class="tab" onclick="showScreen('bar-result')">📺 Bar · Result</div>
   <div class="tab" onclick="showScreen('mkt-intel')">📈 Market Intel</div>
   <div class="tab" onclick="showScreen('feedback')">💬 Feedback</div>
+  <div class="tab" onclick="showScreen('my-stats')">📊 My Stats</div>
 </nav>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -2565,6 +2566,454 @@
 
         <div id="idea-inbox-list">
           <!-- Rendered by renderIdeaInbox() below -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: My Stats — Personal Performance Dashboard
+     Added: 2026-03-20 | Hourly loop build
+     Moat: proprietary pick history, streak addiction loop, switching costs
+     Every stat is unique to this user — can't be replicated by a competitor
+══════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .stats-wrap {
+    min-height: calc(100vh - 57px);
+    background: #020408;
+    padding: 40px 20px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .stats-inner { width: 100%; max-width: 900px; }
+  .stats-page-label {
+    font-size: 11px; font-weight: 700; color: var(--faint);
+    letter-spacing: 3px; margin-bottom: 6px;
+  }
+  .stats-page-title {
+    font-size: 28px; font-weight: 900; margin-bottom: 4px;
+  }
+  .stats-page-sub {
+    font-size: 13px; color: var(--muted); margin-bottom: 36px; line-height: 1.6;
+  }
+
+  /* ── Two-phone layout ─────────────────────────────────── */
+  .stats-phone-row {
+    display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; align-items: flex-start;
+  }
+  .stats-phone-col { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .stats-phone-col-label {
+    font-size: 12px; font-weight: 700; color: var(--faint); letter-spacing: 2px;
+  }
+
+  /* ── Shared phone shell ───────────────────────────────── */
+  .sp-shell {
+    width: 390px; min-height: 780px;
+    background: var(--bg);
+    border-radius: 52px;
+    border: 1.5px solid rgba(255,255,255,0.12);
+    box-shadow: 0 0 0 6px rgba(0,0,0,0.6), 0 40px 100px rgba(0,0,0,0.8);
+    overflow: hidden; position: relative;
+    font-family: 'Lexend', sans-serif;
+  }
+  .sp-notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 34px; background: #000;
+    border-radius: 0 0 24px 24px; z-index: 10;
+  }
+  .sp-body { padding: 52px 20px 32px; }
+
+  /* ── Status bar ───────────────────────────────────────── */
+  .sp-statusbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 4px; margin-bottom: 16px; font-size: 11px; font-weight: 700;
+    color: var(--faint);
+  }
+
+  /* ── Profile header ───────────────────────────────────── */
+  .sp-profile-row {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+  }
+  .sp-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand), var(--teal));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 900; color: white;
+    flex-shrink: 0;
+  }
+  .sp-profile-name { font-size: 18px; font-weight: 900; }
+  .sp-profile-level {
+    font-size: 11px; color: var(--muted); margin-top: 2px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .sp-level-badge {
+    background: linear-gradient(90deg, #f59e0b, #ef4444);
+    border-radius: 20px; padding: 2px 8px;
+    font-size: 10px; font-weight: 800; color: white; letter-spacing: 0.5px;
+  }
+
+  /* ── Big win rate hero ────────────────────────────────── */
+  .sp-winrate-hero {
+    background: linear-gradient(135deg, rgba(85,69,211,0.18) 0%, rgba(34,140,136,0.12) 100%);
+    border: 1px solid rgba(85,69,211,0.35);
+    border-radius: 20px; padding: 22px 20px;
+    text-align: center; margin-bottom: 14px; position: relative; overflow: hidden;
+  }
+  .sp-winrate-hero::before {
+    content: ''; position: absolute; top: -30px; right: -30px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(85,69,211,0.25), transparent 70%);
+  }
+  .sp-winrate-num {
+    font-size: 56px; font-weight: 900;
+    background: linear-gradient(90deg, #a59df5, #5febd4);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    line-height: 1; margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .sp-winrate-label { font-size: 11px; font-weight: 700; color: var(--faint); letter-spacing: 2px; }
+  .sp-winrate-sub { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  /* ── Streak row ───────────────────────────────────────── */
+  .sp-streak-row {
+    display: flex; gap: 10px; margin-bottom: 14px;
+  }
+  .sp-streak-card {
+    flex: 1; background: var(--card); border: 1px solid var(--cardBorder);
+    border-radius: 16px; padding: 14px 12px; text-align: center;
+  }
+  .sp-streak-num { font-size: 28px; font-weight: 900; line-height: 1; margin-bottom: 2px; }
+  .sp-streak-lbl { font-size: 10px; font-weight: 700; color: var(--faint); letter-spacing: 1.5px; }
+  .sp-streak-hot { border-color: rgba(249,115,22,0.5); background: rgba(249,115,22,0.07); }
+  .sp-streak-hot .sp-streak-num { color: #fb923c; }
+
+  /* ── Category breakdown ───────────────────────────────── */
+  .sp-cats-title {
+    font-size: 10px; font-weight: 800; color: var(--faint);
+    letter-spacing: 2px; margin-bottom: 10px;
+  }
+  .sp-cat-row {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+  }
+  .sp-cat-name { font-size: 12px; font-weight: 700; width: 60px; flex-shrink: 0; }
+  .sp-cat-bar-bg {
+    flex: 1; height: 6px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden;
+  }
+  .sp-cat-bar-fill { height: 100%; border-radius: 3px; }
+  .sp-cat-pct { font-size: 11px; font-weight: 800; width: 36px; text-align: right; }
+
+  /* ── Badge shelf ──────────────────────────────────────── */
+  .sp-badges-title {
+    font-size: 10px; font-weight: 800; color: var(--faint);
+    letter-spacing: 2px; margin: 16px 0 10px;
+  }
+  .sp-badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .sp-badge {
+    background: var(--card); border: 1px solid var(--cardBorder);
+    border-radius: 12px; padding: 8px 12px;
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700; color: var(--muted);
+  }
+  .sp-badge-earned { border-color: rgba(85,69,211,0.5); color: #a59df5; background: rgba(85,69,211,0.1); }
+  .sp-badge-gold   { border-color: rgba(245,158,11,0.5); color: #fbbf24; background: rgba(245,158,11,0.08); }
+  .sp-badge-icon   { font-size: 16px; }
+
+  /* ── Pick history cards (phone 2) ─────────────────────── */
+  .sp-hist-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px;
+  }
+  .sp-hist-title { font-size: 16px; font-weight: 900; }
+  .sp-hist-filter {
+    font-size: 11px; font-weight: 700; color: var(--brand);
+    background: rgba(85,69,211,0.15); border: 1px solid rgba(85,69,211,0.4);
+    border-radius: 20px; padding: 4px 12px; cursor: pointer;
+  }
+  .sp-pick-card {
+    background: var(--card); border: 1px solid var(--cardBorder);
+    border-radius: 16px; padding: 14px 16px; margin-bottom: 10px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .sp-pick-outcome {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 900; flex-shrink: 0;
+  }
+  .sp-pick-win { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.35); }
+  .sp-pick-loss { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+  .sp-pick-pending { background: rgba(85,69,211,0.15); color: #a59df5; border: 1px solid rgba(85,69,211,0.4); }
+  .sp-pick-body { flex: 1; min-width: 0; }
+  .sp-pick-game { font-size: 12px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sp-pick-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .sp-pick-meta {
+    display: flex; gap: 8px; margin-top: 6px; align-items: center; flex-wrap: wrap;
+  }
+  .sp-pick-conf {
+    font-size: 10px; font-weight: 800; letter-spacing: 1px;
+    border-radius: 20px; padding: 2px 8px;
+  }
+  .sp-conf-high { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .sp-conf-med  { background: rgba(234,179,8,0.15); color: #facc15; }
+  .sp-conf-low  { background: rgba(148,163,184,0.1); color: var(--faint); }
+  .sp-pick-pts  { font-size: 10px; font-weight: 700; color: var(--muted); }
+
+  /* ── Weekly summary strip ─────────────────────────────── */
+  .sp-week-strip {
+    background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.25);
+    border-radius: 14px; padding: 12px 14px; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .sp-week-label { font-size: 10px; font-weight: 800; color: #4ade80; letter-spacing: 1.5px; }
+  .sp-week-val { font-size: 18px; font-weight: 900; color: #4ade80; }
+  .sp-week-sub { font-size: 10px; color: var(--muted); }
+  .sp-week-right { text-align: right; }
+  .sp-week-dots { display: flex; gap: 4px; }
+  .sp-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .sp-dot-win  { background: #4ade80; }
+  .sp-dot-loss { background: #f87171; }
+  .sp-dot-pend { background: rgba(255,255,255,0.15); }
+
+  @media (max-width: 768px) {
+    .stats-wrap { padding: 16px 12px 40px; }
+    .sp-shell { width: 100%; max-width: 420px; border-radius: 28px; }
+    .stats-phone-row { gap: 24px; }
+  }
+</style>
+
+<div id="my-stats" class="screen">
+  <div class="stats-wrap">
+    <div class="stats-inner">
+      <div class="stats-page-label">MOBILE · PERSONAL PERFORMANCE</div>
+      <div class="stats-page-title">📊 My Stats</div>
+      <div class="stats-page-sub">
+        Every user's pick history, streak, and badges are unique to SportsIQ — the deeper they go, the more they own and can't leave.
+        This is the switching-cost machine. Phase 4 adds friends leaderboards and social comparison.
+      </div>
+
+      <div class="stats-phone-row">
+
+        <!-- ── PHONE 1: Profile + Win Rate ─────────────────── -->
+        <div class="stats-phone-col">
+          <div class="stats-phone-col-label">PROFILE OVERVIEW</div>
+          <div class="sp-shell">
+            <div class="sp-notch"></div>
+            <div class="sp-body">
+
+              <!-- Status bar -->
+              <div class="sp-statusbar">
+                <span>9:41</span>
+                <span>●●●● 5G 🔋</span>
+              </div>
+
+              <!-- Profile row -->
+              <div class="sp-profile-row">
+                <div class="sp-avatar">M</div>
+                <div>
+                  <div class="sp-profile-name">Mark</div>
+                  <div class="sp-profile-level">
+                    <span class="sp-level-badge">🔥 SHARP</span>
+                    <span style="color:var(--faint)">Level 12 · 2,840 XP</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Win rate hero -->
+              <div class="sp-winrate-hero">
+                <div class="sp-winrate-num">67%</div>
+                <div class="sp-winrate-label">ALL-TIME WIN RATE</div>
+                <div class="sp-winrate-sub">182 wins · 90 losses · 11 pending</div>
+              </div>
+
+              <!-- Streak row -->
+              <div class="sp-streak-row">
+                <div class="sp-streak-card sp-streak-hot">
+                  <div class="sp-streak-num">🔥 8</div>
+                  <div class="sp-streak-lbl">CURRENT STREAK</div>
+                </div>
+                <div class="sp-streak-card">
+                  <div class="sp-streak-num">14</div>
+                  <div class="sp-streak-lbl">BEST STREAK</div>
+                </div>
+                <div class="sp-streak-card">
+                  <div class="sp-streak-num">+$41</div>
+                  <div class="sp-streak-lbl">THIS WEEK</div>
+                </div>
+              </div>
+
+              <!-- Category breakdown -->
+              <div class="sp-cats-title">HOT CATEGORIES</div>
+
+              <div class="sp-cat-row">
+                <div class="sp-cat-name" style="color:#4ade80;">NBA</div>
+                <div class="sp-cat-bar-bg">
+                  <div class="sp-cat-bar-fill" style="width:78%;background:linear-gradient(90deg,#4ade80,#22c55e);"></div>
+                </div>
+                <div class="sp-cat-pct" style="color:#4ade80;">78%</div>
+              </div>
+              <div class="sp-cat-row">
+                <div class="sp-cat-name" style="color:#a59df5;">NFL</div>
+                <div class="sp-cat-bar-bg">
+                  <div class="sp-cat-bar-fill" style="width:64%;background:linear-gradient(90deg,#a59df5,#7c6fed);"></div>
+                </div>
+                <div class="sp-cat-pct" style="color:#a59df5;">64%</div>
+              </div>
+              <div class="sp-cat-row">
+                <div class="sp-cat-name" style="color:#5febd4;">MLB</div>
+                <div class="sp-cat-bar-bg">
+                  <div class="sp-cat-bar-fill" style="width:61%;background:linear-gradient(90deg,#5febd4,#34d399);"></div>
+                </div>
+                <div class="sp-cat-pct" style="color:#5febd4;">61%</div>
+              </div>
+              <div class="sp-cat-row">
+                <div class="sp-cat-name" style="color:#facc15;">NCAAB</div>
+                <div class="sp-cat-bar-bg">
+                  <div class="sp-cat-bar-fill" style="width:55%;background:linear-gradient(90deg,#facc15,#f59e0b);"></div>
+                </div>
+                <div class="sp-cat-pct" style="color:#facc15;">55%</div>
+              </div>
+
+              <!-- Badges -->
+              <div class="sp-badges-title">EARNED BADGES</div>
+              <div class="sp-badge-row">
+                <div class="sp-badge sp-badge-gold">
+                  <span class="sp-badge-icon">🏆</span>10-Streak
+                </div>
+                <div class="sp-badge sp-badge-earned">
+                  <span class="sp-badge-icon">🎯</span>Sharp
+                </div>
+                <div class="sp-badge sp-badge-earned">
+                  <span class="sp-badge-icon">🏀</span>NBA Pro
+                </div>
+                <div class="sp-badge" style="opacity:0.35;">
+                  <span class="sp-badge-icon">👑</span>Legend
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ── PHONE 2: Pick History ────────────────────────── -->
+        <div class="stats-phone-col">
+          <div class="stats-phone-col-label">PICK HISTORY</div>
+          <div class="sp-shell">
+            <div class="sp-notch"></div>
+            <div class="sp-body">
+
+              <!-- Status bar -->
+              <div class="sp-statusbar">
+                <span>9:41</span>
+                <span>●●●● 5G 🔋</span>
+              </div>
+
+              <!-- History header -->
+              <div class="sp-hist-header">
+                <div class="sp-hist-title">Recent Picks</div>
+                <div class="sp-hist-filter">All Sports ▾</div>
+              </div>
+
+              <!-- This week strip -->
+              <div class="sp-week-strip">
+                <div>
+                  <div class="sp-week-label">THIS WEEK</div>
+                  <div class="sp-week-val">5-1</div>
+                  <div class="sp-week-sub">1 pending</div>
+                </div>
+                <div>
+                  <div class="sp-week-dots">
+                    <div class="sp-dot sp-dot-win"></div>
+                    <div class="sp-dot sp-dot-win"></div>
+                    <div class="sp-dot sp-dot-loss"></div>
+                    <div class="sp-dot sp-dot-win"></div>
+                    <div class="sp-dot sp-dot-win"></div>
+                    <div class="sp-dot sp-dot-win"></div>
+                    <div class="sp-dot sp-dot-pend"></div>
+                  </div>
+                  <div class="sp-week-sub" style="text-align:right;margin-top:4px;">Mon → today</div>
+                </div>
+                <div class="sp-week-right">
+                  <div class="sp-week-label">P&L</div>
+                  <div class="sp-week-val">+$41</div>
+                  <div class="sp-week-sub">this week</div>
+                </div>
+              </div>
+
+              <!-- Pick cards -->
+              <div class="sp-pick-card">
+                <div class="sp-pick-outcome sp-pick-win">W</div>
+                <div class="sp-pick-body">
+                  <div class="sp-pick-game">Lakers vs Celtics · 4Q</div>
+                  <div class="sp-pick-desc">LeBron Over 26.5 pts — hit 31</div>
+                  <div class="sp-pick-meta">
+                    <span class="sp-pick-conf sp-conf-high">HIGH CONF</span>
+                    <span class="sp-pick-pts">+12 XP &nbsp;·&nbsp; +$8.50</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-pick-card">
+                <div class="sp-pick-outcome sp-pick-win">W</div>
+                <div class="sp-pick-body">
+                  <div class="sp-pick-game">Warriors vs Nuggets</div>
+                  <div class="sp-pick-desc">Under 224.5 total — final 218</div>
+                  <div class="sp-pick-meta">
+                    <span class="sp-pick-conf sp-conf-med">MED CONF</span>
+                    <span class="sp-pick-pts">+8 XP &nbsp;·&nbsp; +$5.00</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-pick-card">
+                <div class="sp-pick-outcome sp-pick-pending">⏳</div>
+                <div class="sp-pick-body">
+                  <div class="sp-pick-game">Knicks vs Heat · Tonight 7:30p</div>
+                  <div class="sp-pick-desc">Knicks ML · SIQ: 73% confidence</div>
+                  <div class="sp-pick-meta">
+                    <span class="sp-pick-conf sp-conf-high">HIGH CONF</span>
+                    <span class="sp-pick-pts">Kalshi: 68% · Poly: 71%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-pick-card">
+                <div class="sp-pick-outcome sp-pick-loss">L</div>
+                <div class="sp-pick-body">
+                  <div class="sp-pick-game">Chiefs vs Bills · MNF</div>
+                  <div class="sp-pick-desc">Chiefs -3.5 — lost by 7</div>
+                  <div class="sp-pick-meta">
+                    <span class="sp-pick-conf sp-conf-med">MED CONF</span>
+                    <span class="sp-pick-pts">−6 XP &nbsp;·&nbsp; −$5.00</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-pick-card">
+                <div class="sp-pick-outcome sp-pick-win">W</div>
+                <div class="sp-pick-body">
+                  <div class="sp-pick-game">Celtics vs Bucks</div>
+                  <div class="sp-pick-desc">Tatum Over 28.5 — dropped 34</div>
+                  <div class="sp-pick-meta">
+                    <span class="sp-pick-conf sp-conf-high">HIGH CONF</span>
+                    <span class="sp-pick-pts">+12 XP &nbsp;·&nbsp; +$9.00</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /stats-phone-row -->
+
+      <!-- ── Moat analysis note ──────────────────────────── -->
+      <div style="margin-top:40px;max-width:700px;background:rgba(85,69,211,0.07);border:1px solid rgba(85,69,211,0.25);border-radius:16px;padding:20px 24px;">
+        <div style="font-size:10px;font-weight:800;color:#a59df5;letter-spacing:2px;margin-bottom:10px;">📐 MOAT ANALYSIS · MY STATS</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+          <strong style="color:var(--text);">Proprietary data:</strong> Every pick, outcome, and streak exists only in SportsIQ. A competitor can't replicate a user's 2-year history.<br>
+          <strong style="color:var(--text);">Switching cost:</strong> Users who have 182 picks logged will not start over at a competitor. This is the sports equivalent of credit score history.<br>
+          <strong style="color:var(--text);">Addiction loop:</strong> Streaks are the strongest daily pull. 8-streak → users check the app morning, game time, and final score. 3× daily opens.<br>
+          <strong style="color:var(--text);">Next unlock — Phase 4:</strong> Friends leaderboard ("You're #2 in your group — Jake is 3 picks ahead"). Social comparison 10×s the addiction.
         </div>
       </div>
 
