@@ -1825,8 +1825,8 @@
     <div class="tab" data-screen="notifications" onclick="showScreen('notifications',this)">
       <span class="tab-label">Notifications v1 🔔</span><span class="tab-days" id="days-notifications"></span>
     </div>
-    <div class="tab" data-screen="my-stats" onclick="showScreen('my-stats',this)">
-      <span class="tab-label">My Stats v1</span><span class="tab-days" id="days-my-stats"></span>
+    <div class="tab" data-screen="my-stats-v2" onclick="showScreen('my-stats-v2',this)">
+      <span class="tab-label">My Stats v2</span><span class="tab-days" id="days-my-stats-v2"></span>
     </div>
     <div class="tab" data-screen="leaderboard-v2" onclick="showScreen('leaderboard-v2',this)">
       <span class="tab-label">Leaderboard v2</span><span class="tab-days" id="days-leaderboard-v2"></span>
@@ -4493,7 +4493,9 @@
     'bar-idle-v3':         '2026-03-21T08:21:00-07:00',
     'home-live-v3':        '2026-03-21T08:21:00-07:00',
     'bar-pred-q-v3':       '2026-03-21T08:21:00-07:00',
-    'head-to-head':        '2026-03-21T08:21:00-07:00'
+    'head-to-head':        '2026-03-21T08:21:00-07:00',
+    // ── Mar 21 9:45 AM PT — My Stats v2 ──────────────────────────────
+    'my-stats-v2':         '2026-03-21T09:45:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -4913,6 +4915,17 @@
         'Does showing Polymarket 0.67 and Sharp $ on the bar screen give too much away and reduce the competitive fun, or does it make the game feel more "real" and credible?',
         'Should the market intel panel only appear when there\'s a divergence (Crowd vs Sharp $ disagree), keeping it hidden when signals align to build anticipation?',
         'Intel panel position: right column (current), or a slim horizontal banner at the very top of the screen below the timer row?'
+      ]
+    },
+    'my-stats-v2': {
+      icon: '📊',
+      title: 'My Stats v2 — Deep Analytics + Social Comparison',
+      built: 'v2 upgrade of the personal stats screen. Three phones: (1) Profile & Performance — IQ Score 847, MarcD avatar + Level 14 · 3,240 XP, Top 12% percentile chip, 68% all-time win rate hero, 342-160 record, quick stats (🔥22 streak / 28 best / +340 IQ this week — corrected from v1\'s wrong "+$41"), per-sport win rate bars (NFL 74% ⭐ best / CFB 70% / NBA 71% / NHL 62% / MLB 58% / CBB 53% — corrected from v1\'s mismatched values), badge shelf. (2) Analytics Deep Dive — IQ trajectory sparkline (last 30 days, +47 this month), Contrarian Lean card (beat crowd 71% when going against it, 2.1× average), Pick Timing analysis (0-3min: 74% vs 3-10min: 63% vs 10-30min: 58% — "pick early for best results"), 502 total picks / W8 best run / 6 months of history. (3) Social Comparison — crew comparison table (MarcD vs BigMike/SarahK/JayBird with IQ, W%, streak, H2H record), "65 IQ behind BigMike — overtake in ~13 days" goal card, crew rank history (#2 this week / #1 last month peak / #4 worst ever).',
+      questions: [
+        'IQ Trajectory sparkline — 30-day view only, or option to see all-time? Does seeing an IQ dip during a bad week feel discouraging or motivating?',
+        'Pick timing analytics ("You\'re 16% sharper when picking early") — right insight to surface, or is "You perform 22% better on NFL vs your other sports" more actionable?',
+        'Social comparison H2H record vs each friend — motivating to see "4-4 tied with BigMike," or is it too much data density on this screen?',
+        'The "65 IQ behind BigMike, overtake in ~13 days" projection — show it here, or save it for a push notification to maximize daily opens?'
       ]
     },
     'head-to-head': {
@@ -12442,6 +12455,382 @@
   </div>
 
   <div id="sfb-panel-head-to-head" class="sfb-panel"></div>
+</div>
+
+<!-- ═══ MY STATS v2 — Deep Analytics + Social Comparison · 2026-03-21 ═══ -->
+<div id="my-stats-v2" class="screen" style="display:none;">
+  <div class="phone-wrap" style="display:flex;gap:32px;flex-wrap:wrap;justify-content:center;align-items:flex-start;padding:40px 20px;">
+
+    <!-- v2 badge -->
+    <div style="width:100%;text-align:center;margin-bottom:4px;">
+      <span style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:10px;font-weight:900;letter-spacing:2px;padding:4px 14px;border-radius:20px;">MY STATS v2 — DEEP ANALYTICS + SOCIAL COMPARISON</span>
+    </div>
+
+    <!-- ── PHONE 1: Profile & Performance ── -->
+    <div class="phone-frame" style="width:320px;">
+      <div class="phone-notch"></div>
+      <div class="phone-screen" style="padding:0;overflow:hidden;">
+
+        <!-- Header -->
+        <div style="background:linear-gradient(160deg,#1e1b4b 0%,#312e81 60%,#4c1d95 100%);padding:20px 16px 16px;position:relative;">
+          <div style="font-size:10px;font-weight:700;color:#a5b4fc;letter-spacing:2px;margin-bottom:12px;">MY PERFORMANCE</div>
+
+          <!-- Avatar row -->
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid rgba(255,255,255,0.2);">🦁</div>
+            <div>
+              <div style="font-size:16px;font-weight:900;color:#fff;">MarcD</div>
+              <div style="font-size:11px;color:#a5b4fc;">Level 14 · 3,240 XP</div>
+              <div style="display:inline-block;background:rgba(99,102,241,0.3);border:1px solid #6366f1;border-radius:10px;padding:2px 8px;font-size:9px;font-weight:700;color:#a5b4fc;margin-top:3px;">TOP 12% GLOBALLY</div>
+            </div>
+            <div style="margin-left:auto;text-align:right;">
+              <div style="font-size:28px;font-weight:900;color:#fff;line-height:1;">847</div>
+              <div style="font-size:9px;color:#a5b4fc;font-weight:700;">IQ SCORE</div>
+            </div>
+          </div>
+
+          <!-- Win rate hero -->
+          <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:14px;">
+            <div style="text-align:center;">
+              <div style="font-size:28px;font-weight:900;color:#22c55e;line-height:1;">68%</div>
+              <div style="font-size:8px;color:#86efac;font-weight:700;">ALL-TIME WIN RATE</div>
+            </div>
+            <div style="width:1px;height:36px;background:rgba(255,255,255,0.15);"></div>
+            <div style="text-align:center;">
+              <div style="font-size:18px;font-weight:900;color:#fff;line-height:1;">342-160</div>
+              <div style="font-size:8px;color:#a5b4fc;font-weight:700;">W-L RECORD</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick stats row -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:#2a2a3a;">
+          <div style="background:#1a1a2e;padding:10px;text-align:center;">
+            <div style="font-size:16px;font-weight:900;color:#f97316;">🔥22</div>
+            <div style="font-size:8px;color:var(--muted);font-weight:600;">CUR STREAK</div>
+          </div>
+          <div style="background:#1a1a2e;padding:10px;text-align:center;">
+            <div style="font-size:16px;font-weight:900;color:var(--accent);">28</div>
+            <div style="font-size:8px;color:var(--muted);font-weight:600;">BEST STREAK</div>
+          </div>
+          <div style="background:#1a1a2e;padding:10px;text-align:center;">
+            <div style="font-size:16px;font-weight:900;color:#22c55e;">+340 IQ</div>
+            <div style="font-size:8px;color:var(--muted);font-weight:600;">THIS WEEK</div>
+          </div>
+        </div>
+
+        <!-- Per-sport win rates -->
+        <div style="padding:14px 14px 10px;">
+          <div style="font-size:9px;font-weight:700;color:var(--muted);letter-spacing:1.5px;margin-bottom:10px;">WIN RATE BY SPORT</div>
+
+          <!-- NFL -->
+          <div style="margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+              <div style="font-size:11px;font-weight:700;color:var(--text);">🏈 NFL <span style="font-size:9px;color:#f59e0b;">⭐ BEST</span></div>
+              <div style="font-size:11px;font-weight:900;color:#22c55e;">74%</div>
+            </div>
+            <div style="height:5px;background:#2a2a3a;border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:74%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- NBA -->
+          <div style="margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+              <div style="font-size:11px;font-weight:700;color:var(--text);">🏀 NBA</div>
+              <div style="font-size:11px;font-weight:900;color:#22c55e;">71%</div>
+            </div>
+            <div style="height:5px;background:#2a2a3a;border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:71%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- CFB -->
+          <div style="margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+              <div style="font-size:11px;font-weight:700;color:var(--text);">🏈 CFB</div>
+              <div style="font-size:11px;font-weight:900;color:#22c55e;">70%</div>
+            </div>
+            <div style="height:5px;background:#2a2a3a;border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:70%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- NHL -->
+          <div style="margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+              <div style="font-size:11px;font-weight:700;color:var(--text);">🏒 NHL</div>
+              <div style="font-size:11px;font-weight:900;color:#facc15;">62%</div>
+            </div>
+            <div style="height:5px;background:#2a2a3a;border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:62%;background:linear-gradient(90deg,#facc15,#ca8a04);border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- MLB -->
+          <div style="margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+              <div style="font-size:11px;font-weight:700;color:var(--text);">⚾ MLB</div>
+              <div style="font-size:11px;font-weight:900;color:#facc15;">58%</div>
+            </div>
+            <div style="height:5px;background:#2a2a3a;border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:58%;background:linear-gradient(90deg,#facc15,#ca8a04);border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- CBB -->
+          <div style="margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+              <div style="font-size:11px;font-weight:700;color:var(--text);">🏀 CBB</div>
+              <div style="font-size:11px;font-weight:900;color:#94a3b8;">53%</div>
+            </div>
+            <div style="height:5px;background:#2a2a3a;border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:53%;background:linear-gradient(90deg,#64748b,#475569);border-radius:3px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badge shelf -->
+        <div style="padding:10px 14px 14px;border-top:1px solid #2a2a3a;">
+          <div style="font-size:9px;font-weight:700;color:var(--muted);letter-spacing:1.5px;margin-bottom:8px;">BADGES EARNED</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <div style="background:#1e3a1e;border:1px solid #22c55e;border-radius:8px;padding:5px 8px;font-size:10px;">🏆 <span style="color:#22c55e;font-weight:700;">W10</span></div>
+            <div style="background:#1e1e3a;border:1px solid #6366f1;border-radius:8px;padding:5px 8px;font-size:10px;">🧠 <span style="color:#a5b4fc;font-weight:700;">NFL SAGE</span></div>
+            <div style="background:#3a1e1e;border:1px solid #f97316;border-radius:8px;padding:5px 8px;font-size:10px;">🔥 <span style="color:#fb923c;font-weight:700;">22 STREAK</span></div>
+            <div style="background:#2a1e3a;border:1px solid #a855f7;border-radius:8px;padding:5px 8px;font-size:10px;">🎭 <span style="color:#c084fc;font-weight:700;">CONTRARIAN</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── PHONE 2: Analytics Deep Dive ── -->
+    <div class="phone-frame" style="width:320px;">
+      <div class="phone-notch"></div>
+      <div class="phone-screen" style="padding:0;overflow:hidden;">
+
+        <!-- Header -->
+        <div style="background:linear-gradient(160deg,#0f2027,#203a43,#2c5364);padding:16px 16px 14px;">
+          <div style="font-size:10px;font-weight:700;color:#67e8f9;letter-spacing:2px;margin-bottom:4px;">ANALYTICS DEEP DIVE</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6);">Last 30 days · 502 total picks</div>
+        </div>
+
+        <div style="padding:14px;">
+
+          <!-- IQ Trajectory sparkline -->
+          <div style="background:#1a1a2e;border-radius:10px;padding:12px;margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="font-size:10px;font-weight:700;color:var(--text);">IQ TRAJECTORY</div>
+              <div style="font-size:10px;font-weight:900;color:#22c55e;">+47 this month</div>
+            </div>
+            <!-- SVG sparkline -->
+            <svg width="100%" height="60" viewBox="0 0 280 60" style="display:block;">
+              <defs>
+                <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#6366f1" stop-opacity="0.4"/>
+                  <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- area fill -->
+              <path d="M0,45 L20,42 L40,48 L60,40 L80,35 L100,38 L120,30 L140,33 L160,25 L180,28 L200,20 L220,22 L240,15 L260,12 L280,8 L280,60 L0,60 Z" fill="url(#sparkGrad)"/>
+              <!-- line -->
+              <polyline points="0,45 20,42 40,48 60,40 80,35 100,38 120,30 140,33 160,25 180,28 200,20 220,22 240,15 260,12 280,8" fill="none" stroke="#6366f1" stroke-width="2" stroke-linejoin="round"/>
+              <!-- end dot -->
+              <circle cx="280" cy="8" r="4" fill="#6366f1"/>
+            </svg>
+            <div style="display:flex;justify-content:space-between;font-size:8px;color:var(--muted);margin-top:4px;">
+              <span>30 days ago</span><span>800 IQ</span><span style="color:#22c55e;">847 IQ ↑</span>
+            </div>
+          </div>
+
+          <!-- Contrarian lean card -->
+          <div style="background:linear-gradient(135deg,#1e1b4b,#2e1b5b);border:1px solid #6366f1;border-radius:10px;padding:12px;margin-bottom:12px;">
+            <div style="font-size:10px;font-weight:700;color:#a5b4fc;letter-spacing:1px;margin-bottom:6px;">🎭 CONTRARIAN LEAN</div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="text-align:center;">
+                <div style="font-size:24px;font-weight:900;color:#c084fc;">71%</div>
+                <div style="font-size:8px;color:#a5b4fc;">win rate vs crowd</div>
+              </div>
+              <div style="width:1px;height:36px;background:rgba(255,255,255,0.15);"></div>
+              <div style="text-align:center;">
+                <div style="font-size:24px;font-weight:900;color:#c084fc;">2.1×</div>
+                <div style="font-size:8px;color:#a5b4fc;">avg IQ gain</div>
+              </div>
+              <div style="flex:1;font-size:10px;color:#c084fc;line-height:1.4;">You beat the crowd 71% when going against it</div>
+            </div>
+          </div>
+
+          <!-- Pick timing analysis -->
+          <div style="background:#1a1a2e;border-radius:10px;padding:12px;margin-bottom:12px;">
+            <div style="font-size:10px;font-weight:700;color:var(--text);margin-bottom:10px;">⏱ PICK TIMING</div>
+
+            <div style="margin-bottom:7px;">
+              <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px;">
+                <span style="color:#22c55e;font-weight:700;">0–3 min after open</span>
+                <span style="color:#22c55e;font-weight:900;">74%</span>
+              </div>
+              <div style="height:6px;background:#2a2a3a;border-radius:3px;overflow:hidden;">
+                <div style="height:100%;width:74%;background:#22c55e;border-radius:3px;"></div>
+              </div>
+            </div>
+
+            <div style="margin-bottom:7px;">
+              <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px;">
+                <span style="color:#facc15;font-weight:700;">3–10 min</span>
+                <span style="color:#facc15;font-weight:900;">63%</span>
+              </div>
+              <div style="height:6px;background:#2a2a3a;border-radius:3px;overflow:hidden;">
+                <div style="height:100%;width:63%;background:#facc15;border-radius:3px;"></div>
+              </div>
+            </div>
+
+            <div style="margin-bottom:4px;">
+              <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px;">
+                <span style="color:#94a3b8;font-weight:700;">10–30 min</span>
+                <span style="color:#94a3b8;font-weight:900;">58%</span>
+              </div>
+              <div style="height:6px;background:#2a2a3a;border-radius:3px;overflow:hidden;">
+                <div style="height:100%;width:58%;background:#64748b;border-radius:3px;"></div>
+              </div>
+            </div>
+
+            <div style="font-size:9px;color:#6366f1;font-weight:700;margin-top:6px;">💡 Pick early for best results — you're 16% sharper in the first 3 min</div>
+          </div>
+
+          <!-- Footer stats -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+            <div style="background:#1a1a2e;border-radius:8px;padding:8px;text-align:center;">
+              <div style="font-size:14px;font-weight:900;color:var(--accent);">502</div>
+              <div style="font-size:8px;color:var(--muted);">TOTAL PICKS</div>
+            </div>
+            <div style="background:#1a1a2e;border-radius:8px;padding:8px;text-align:center;">
+              <div style="font-size:14px;font-weight:900;color:#f97316;">W8</div>
+              <div style="font-size:8px;color:var(--muted);">BEST RUN</div>
+            </div>
+            <div style="background:#1a1a2e;border-radius:8px;padding:8px;text-align:center;">
+              <div style="font-size:14px;font-weight:900;color:#22c55e;">6 mo</div>
+              <div style="font-size:8px;color:var(--muted);">HISTORY</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PHONE 3: Social Comparison ── -->
+    <div class="phone-frame" style="width:320px;">
+      <div class="phone-notch"></div>
+      <div class="phone-screen" style="padding:0;overflow:hidden;">
+
+        <!-- Header -->
+        <div style="background:linear-gradient(160deg,#0c1a0c,#1a3a1a,#0f2d1a);padding:16px 16px 14px;">
+          <div style="font-size:10px;font-weight:700;color:#86efac;letter-spacing:2px;margin-bottom:4px;">CREW COMPARISON</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6);">Your squad · weekly reset</div>
+        </div>
+
+        <div style="padding:12px 14px;">
+
+          <!-- Crew comparison table -->
+          <div style="background:#1a1a2e;border-radius:10px;overflow:hidden;margin-bottom:12px;">
+            <!-- Table header -->
+            <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;background:#12122a;padding:6px 10px;gap:4px;">
+              <div style="font-size:8px;color:var(--muted);font-weight:700;">PLAYER</div>
+              <div style="font-size:8px;color:var(--muted);font-weight:700;text-align:center;">IQ</div>
+              <div style="font-size:8px;color:var(--muted);font-weight:700;text-align:center;">W%</div>
+              <div style="font-size:8px;color:var(--muted);font-weight:700;text-align:center;">🔥</div>
+              <div style="font-size:8px;color:var(--muted);font-weight:700;text-align:center;">H2H</div>
+            </div>
+
+            <!-- MarcD row (you) -->
+            <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;padding:8px 10px;gap:4px;background:rgba(99,102,241,0.1);border-left:3px solid #6366f1;">
+              <div style="font-size:10px;font-weight:900;color:#a5b4fc;">MarcD ★</div>
+              <div style="font-size:11px;font-weight:900;color:#fff;text-align:center;">847</div>
+              <div style="font-size:11px;font-weight:900;color:#22c55e;text-align:center;">68%</div>
+              <div style="font-size:11px;font-weight:900;color:#f97316;text-align:center;">22</div>
+              <div style="font-size:10px;color:var(--muted);text-align:center;">—</div>
+            </div>
+
+            <!-- BigMike row -->
+            <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;padding:8px 10px;gap:4px;border-top:1px solid #2a2a3a;">
+              <div style="font-size:10px;font-weight:700;color:#f97316;">BigMike</div>
+              <div style="font-size:11px;font-weight:900;color:#fff;text-align:center;">912</div>
+              <div style="font-size:11px;font-weight:900;color:#22c55e;text-align:center;">72%</div>
+              <div style="font-size:11px;font-weight:900;color:#f97316;text-align:center;">34</div>
+              <div style="font-size:10px;font-weight:700;color:#94a3b8;text-align:center;">4-4</div>
+            </div>
+
+            <!-- SarahK row -->
+            <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;padding:8px 10px;gap:4px;border-top:1px solid #2a2a3a;">
+              <div style="font-size:10px;font-weight:700;color:#64748b;">SarahK</div>
+              <div style="font-size:11px;font-weight:900;color:#fff;text-align:center;">731</div>
+              <div style="font-size:11px;font-weight:900;color:#facc15;text-align:center;">61%</div>
+              <div style="font-size:11px;font-weight:900;color:#f97316;text-align:center;">5</div>
+              <div style="font-size:10px;font-weight:700;color:#22c55e;text-align:center;">7-2</div>
+            </div>
+
+            <!-- JayBird row -->
+            <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;padding:8px 10px;gap:4px;border-top:1px solid #2a2a3a;">
+              <div style="font-size:10px;font-weight:700;color:#14b8a6;">JayBird</div>
+              <div style="font-size:11px;font-weight:900;color:#fff;text-align:center;">680</div>
+              <div style="font-size:11px;font-weight:900;color:#facc15;text-align:center;">58%</div>
+              <div style="font-size:11px;font-weight:900;color:#f97316;text-align:center;">7</div>
+              <div style="font-size:10px;font-weight:700;color:#22c55e;text-align:center;">9-3</div>
+            </div>
+          </div>
+
+          <!-- Goal card — BigMike chase -->
+          <div style="background:linear-gradient(135deg,#1e1b4b,#2d1b4b);border:1px solid #8b5cf6;border-radius:10px;padding:12px;margin-bottom:12px;">
+            <div style="font-size:9px;font-weight:700;color:#a5b4fc;letter-spacing:1px;margin-bottom:6px;">🎯 NEXT GOAL</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div>
+                <div style="font-size:13px;font-weight:900;color:#fff;">Overtake BigMike</div>
+                <div style="font-size:10px;color:#a5b4fc;">65 IQ behind · ~13 days at current pace</div>
+              </div>
+              <div style="font-size:20px;">🏆</div>
+            </div>
+            <!-- Progress bar -->
+            <div style="height:6px;background:#2a2a3a;border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:82%;background:linear-gradient(90deg,#6366f1,#8b5cf6);border-radius:3px;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:8px;color:var(--muted);margin-top:3px;">
+              <span>847 IQ</span><span style="color:#a5b4fc;">82% there</span><span>912 IQ</span>
+            </div>
+          </div>
+
+          <!-- Crew rank history -->
+          <div style="background:#1a1a2e;border-radius:10px;padding:12px;">
+            <div style="font-size:10px;font-weight:700;color:var(--text);margin-bottom:10px;">📈 CREW RANK HISTORY</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;">
+              <div>
+                <div style="font-size:18px;font-weight:900;color:#22c55e;">#2</div>
+                <div style="font-size:8px;color:var(--muted);">THIS WEEK</div>
+              </div>
+              <div>
+                <div style="font-size:18px;font-weight:900;color:#f59e0b;">#1 ⭐</div>
+                <div style="font-size:8px;color:var(--muted);">PEAK (last mo)</div>
+              </div>
+              <div>
+                <div style="font-size:18px;font-weight:900;color:#ef4444;">#4</div>
+                <div style="font-size:8px;color:var(--muted);">WORST EVER</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+
+  <!-- Moat analysis -->
+  <div style="max-width:900px;margin:0 auto 40px;padding:0 20px;">
+    <div style="background:linear-gradient(135deg,#0a0a1a,#1a1a2e);border:1px solid #2a2a4a;border-radius:14px;padding:24px;">
+      <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — MY STATS v2</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+        <strong style="color:var(--text);">Proprietary behavioral data compound over time:</strong> Every pick generates pick-timing data, contrarian-lean signals, and per-sport calibration. After 502 picks, the system knows you better than you know yourself. Competitors starting from zero can't replicate 6 months of behavioral fingerprint — they'd need to acquire the user AND their data.<br>
+        <strong style="color:var(--text);">Identity investment creates switching costs:</strong> "Level 14 · Top 12% Globally" is not a number — it's identity. Users who see themselves as "NFL Sage" badge-holders have psychological ownership of their SportsIQ profile. Switching to DraftKings means starting as a nobody again. The longer they're on the platform, the more identity they'd be abandoning.<br>
+        <strong style="color:var(--text);">Social rivalry data is irreplaceable:</strong> A 4-4 H2H record against BigMike exists only in SportsIQ. That specific rivalry, those specific outcomes, that specific leaderboard position — none of it transfers. The social graph + history is the stickiest data asset in the product.<br>
+        <strong style="color:var(--text);">"65 IQ behind BigMike, ~13 days" is the addiction engine:</strong> Goal proximity creates daily opens. The user doesn't need a push notification — the goal card is enough. Every session is progress toward overtaking Mike. This is the same psychological mechanism as Duolingo streaks, executed with far higher stakes (social status among real friends).
+      </div>
+    </div>
+  </div>
+
+  <div id="sfb-panel-my-stats-v2" class="sfb-panel"></div>
 </div>
 
 </body>
