@@ -7,18 +7,12 @@
 <!-- ── Password gate — runs before anything else renders ── -->
 <script>
 (function() {
-  // SHA-256 hash of the access password.
-  // To change the password: run this in browser console:
-  //   crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword'))
-  //     .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
-  // Then replace the hash below and redeploy.
-  var HASH = 'c75cb66ae28d8ebc6eded002c28a8ba0d06d3a78c6b5cbf9b2ade051f0775ac4';
-  // Password: 69
-
+  // Password check — works on both http and https
+  // To change: update TOKEN to btoa(yourpassword)
+  var TOKEN = 'Njk='; // btoa('69')
   var SESSION_KEY = 'siq_auth';
-  if (sessionStorage.getItem(SESSION_KEY) === HASH) return; // already verified
+  if (sessionStorage.getItem(SESSION_KEY) === TOKEN) return;
 
-  // Inject lock screen — nothing else renders until correct password entered
   document.addEventListener('DOMContentLoaded', function() {
     var lock = document.createElement('div');
     lock.id = 'siq-lock';
@@ -40,17 +34,14 @@
 
     function attempt() {
       var pw = document.getElementById('siq-pw').value;
-      crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw)).then(function(buf) {
-        var hex = Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
-        if (hex === HASH) {
-          sessionStorage.setItem(SESSION_KEY, HASH);
-          location.reload();
-        } else {
-          document.getElementById('siq-err').textContent = 'Incorrect password';
-          document.getElementById('siq-pw').value = '';
-          document.getElementById('siq-pw').focus();
-        }
-      });
+      if (btoa(pw) === TOKEN) {
+        sessionStorage.setItem(SESSION_KEY, TOKEN);
+        location.reload();
+      } else {
+        document.getElementById('siq-err').textContent = 'Incorrect password';
+        document.getElementById('siq-pw').value = '';
+        document.getElementById('siq-pw').focus();
+      }
     }
     document.getElementById('siq-btn').addEventListener('click', attempt);
     document.getElementById('siq-pw').addEventListener('keydown', function(e){ if(e.key==='Enter') attempt(); });
