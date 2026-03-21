@@ -40,14 +40,14 @@ function parseIdeas(html) {
 
 /** Write ideas array back into HTML and commit to GitHub */
 async function writeIdeas(ideas, sha, message) {
-  const { content: currentHtml } = await readFile();
-  // re-read to get latest sha
+  // re-read to get latest sha + content in one call
   const freshData = await ghFetch(FILE);
   const html = Buffer.from(freshData.content, 'base64').toString('utf8');
   const json = JSON.stringify(ideas, null, 2);
+  // Use function replacer to avoid $ in json being treated as regex backreferences
   const updated = html.replace(
     /(<script id="mark-ideas"[^>]*>)([\s\S]*?)(<\/script>)/,
-    '$1\n' + json + '\n$3'
+    (_, open, _body, close) => open + '\n' + json + '\n' + close
   );
   await ghFetch(FILE, {
     method: 'PUT',
