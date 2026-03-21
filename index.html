@@ -1254,6 +1254,81 @@
     padding: 40px; background: #020408;
   }
   .feedback-inner { max-width: 720px; width: 100%; padding-top: 16px; }
+
+  /* ── Sync Replies panel ─────────────────────────────── */
+  .sync-replies-card {
+    margin-top: 32px;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 24px;
+  }
+  .sync-replies-header {
+    display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px;
+  }
+  .sync-replies-icon {
+    font-size: 28px; line-height: 1; flex-shrink: 0; margin-top: 2px;
+  }
+  .sync-replies-title {
+    font-size: 18px; font-weight: 800; margin-bottom: 4px;
+  }
+  .sync-replies-sub {
+    font-size: 13px; color: var(--muted); line-height: 1.6;
+  }
+  .sync-replies-sub em { color: #f59e0b; font-style: normal; font-weight: 700; }
+  .sync-section-label {
+    font-size: 11px; font-weight: 800; color: var(--faint);
+    letter-spacing: 2px; margin-bottom: 10px;
+  }
+  .sync-hint {
+    font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.5;
+  }
+  .sync-ta {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 12px;
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    resize: vertical;
+    min-height: 90px;
+    outline: none;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+  }
+  .sync-ta:focus { border-color: var(--brand); }
+  .sync-ta::placeholder { color: var(--faint); }
+  .sync-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 13px; font-weight: 700;
+    font-family: 'Lexend', sans-serif;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s;
+  }
+  .sync-btn:hover { opacity: 0.85; }
+  .sync-export-btn { background: linear-gradient(90deg, var(--brand), var(--teal)); color: #fff; margin-bottom: 10px; }
+  .sync-import-btn { background: #22c55e; color: #000; }
+  .sync-clear-btn { background: rgba(255,255,255,0.08); color: var(--muted); }
+  .sync-copy-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 10px;
+    font-size: 12px; font-weight: 700;
+    font-family: 'Lexend', sans-serif;
+    background: rgba(255,255,255,0.08);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: pointer; margin-top: 8px;
+    transition: background 0.15s;
+  }
+  .sync-copy-btn:hover { background: rgba(255,255,255,0.14); }
+  .sync-empty { font-size: 13px; color: var(--muted); font-style: italic; padding: 8px 0; }
+  .sync-import-ok { color: #4ade80; font-size: 13px; font-weight: 700; }
+  .sync-import-err { color: #f87171; font-size: 13px; font-weight: 700; }
   .feedback-title { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
   .feedback-sub { color: var(--muted); margin-bottom: 32px; line-height: 1.6; }
   .feedback-section { margin-bottom: 28px; }
@@ -3613,6 +3688,42 @@
         </div>
       </div>
 
+      <!-- ─── SYNC REPLIES ─────────────────────────────────────── -->
+      <div class="sync-replies-card" id="sync-replies-card">
+        <div class="sync-replies-header">
+          <div class="sync-replies-icon">🔄</div>
+          <div>
+            <div class="sync-replies-title">Sync Screen Replies</div>
+            <div class="sync-replies-sub">Replies you type on screen feedback panels live in <em>this browser only</em>. Use this tool to carry them to another device.</div>
+          </div>
+        </div>
+
+        <!-- EXPORT -->
+        <div class="sync-section">
+          <div class="sync-section-label">STEP 1 — Export from this device</div>
+          <button class="sync-btn sync-export-btn" onclick="exportReplies()">📤 Generate Export Code</button>
+          <div id="export-result" style="display:none;">
+            <div class="sync-hint">Copy the entire code below, then paste it on your other device:</div>
+            <textarea class="sync-ta" id="export-ta" readonly onclick="this.select()"></textarea>
+            <button class="sync-copy-btn" onclick="copyExportCode()">📋 Copy to Clipboard</button>
+            <div id="export-copied" style="display:none;color:#4ade80;font-size:12px;margin-top:6px;font-weight:700;">✓ Copied!</div>
+          </div>
+          <div id="export-empty" style="display:none;" class="sync-empty">No screen replies found on this device yet.</div>
+        </div>
+
+        <!-- IMPORT -->
+        <div class="sync-section" style="margin-top:20px;">
+          <div class="sync-section-label">STEP 2 — Import on another device</div>
+          <div class="sync-hint">Paste the code from your other device here, then click Import:</div>
+          <textarea class="sync-ta" id="import-ta" placeholder="Paste export code here…"></textarea>
+          <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;">
+            <button class="sync-btn sync-import-btn" onclick="importReplies()">📥 Import Replies</button>
+            <button class="sync-btn sync-clear-btn" onclick="document.getElementById('import-ta').value='';document.getElementById('import-result').style.display='none';">Clear</button>
+          </div>
+          <div id="import-result" style="display:none;margin-top:10px;"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -4686,6 +4797,77 @@
   function sfbClearTa(screenId) {
     var ta = document.getElementById('sfb-ta-' + screenId);
     if (ta) ta.value = '';
+  }
+
+  /* ── Export / Import reply sync ──────────────────────── */
+  function exportReplies() {
+    var data = {};
+    for (var i = 0; i < localStorage.length; i++) {
+      var k = localStorage.key(i);
+      if (k && k.indexOf('sfb-thread-') === 0) {
+        var screenId = k.replace('sfb-thread-', '');
+        try {
+          var thread = JSON.parse(localStorage.getItem(k) || '[]');
+          if (thread.length > 0) data[screenId] = thread;
+        } catch(e) {}
+      }
+    }
+    var resultEl = document.getElementById('export-result');
+    var emptyEl = document.getElementById('export-empty');
+    if (Object.keys(data).length === 0) {
+      resultEl.style.display = 'none';
+      emptyEl.style.display = 'block';
+      return;
+    }
+    var encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    document.getElementById('export-ta').value = encoded;
+    resultEl.style.display = 'block';
+    emptyEl.style.display = 'none';
+    document.getElementById('export-copied').style.display = 'none';
+  }
+
+  function copyExportCode() {
+    var ta = document.getElementById('export-ta');
+    ta.select();
+    try { document.execCommand('copy'); } catch(e) {}
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(ta.value).catch(function(){});
+    }
+    document.getElementById('export-copied').style.display = 'block';
+    setTimeout(function(){ document.getElementById('export-copied').style.display = 'none'; }, 2500);
+  }
+
+  function importReplies() {
+    var raw = (document.getElementById('import-ta').value || '').trim();
+    var resultEl = document.getElementById('import-result');
+    resultEl.style.display = 'block';
+    if (!raw) {
+      resultEl.innerHTML = '<span class="sync-import-err">⚠ Paste an export code first.</span>';
+      return;
+    }
+    try {
+      var decoded = decodeURIComponent(escape(atob(raw)));
+      var data = JSON.parse(decoded);
+      var count = 0;
+      Object.keys(data).forEach(function(screenId) {
+        var incoming = data[screenId];
+        if (!Array.isArray(incoming) || incoming.length === 0) return;
+        var existing = sfbGetThread(screenId);
+        // Merge by ts: keep unique messages from both sides
+        var seen = {};
+        var merged = [];
+        existing.concat(incoming).forEach(function(msg) {
+          var key = (msg.from || '') + '|' + (msg.ts || '') + '|' + (msg.text || '').slice(0, 40);
+          if (!seen[key]) { seen[key] = true; merged.push(msg); }
+        });
+        sfbSaveThread(screenId, merged);
+        count++;
+      });
+      resultEl.innerHTML = '<span class="sync-import-ok">✓ Imported replies for ' + count + ' screen' + (count === 1 ? '' : 's') + '. Reload the page to see them.</span>';
+      document.getElementById('import-ta').value = '';
+    } catch(e) {
+      resultEl.innerHTML = '<span class="sync-import-err">⚠ Invalid code — make sure you copied the full export string.</span>';
+    }
   }
 
   // Render feedback for initial screen on page load
