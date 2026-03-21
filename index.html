@@ -1,0 +1,2825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SportsIQ — Design Mockups</title>
+<!-- ── Password gate — runs before anything else renders ── -->
+<script>
+(function() {
+  // SHA-256 hash of the access password.
+  // To change the password: run this in browser console:
+  //   crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword'))
+  //     .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
+  // Then replace the hash below and redeploy.
+  var HASH = 'b0c5b40b1fc27b9b0b6d71e90d282b3b4c6c9e6f7c0e1e5b2c3a4d5e6f7a8b9';
+  // ^^^ PLACEHOLDER — see SETUP.md for how to set your real password
+
+  var SESSION_KEY = 'siq_auth';
+  if (sessionStorage.getItem(SESSION_KEY) === HASH) return; // already verified
+
+  // Inject lock screen — nothing else renders until correct password entered
+  document.addEventListener('DOMContentLoaded', function() {
+    var lock = document.createElement('div');
+    lock.id = 'siq-lock';
+    lock.innerHTML = [
+      '<div style="min-height:100vh;background:#050912;display:flex;align-items:center;justify-content:center;font-family:Lexend,sans-serif;">',
+      '<div style="background:#0D1420;border:1px solid rgba(85,69,211,0.3);border-radius:20px;padding:40px 48px;width:340px;text-align:center;">',
+      '<div style="font-size:32px;font-weight:900;color:#F8FAFC;margin-bottom:4px;">Sports<span style="color:#5545D3">IQ</span></div>',
+      '<div style="font-size:11px;color:#475569;letter-spacing:2px;margin-bottom:32px;">DESIGN MOCKUPS</div>',
+      '<input id="siq-pw" type="password" placeholder="Access password" ',
+      'style="width:100%;background:#0B1120;border:1px solid rgba(85,69,211,0.4);border-radius:10px;padding:12px 16px;',
+      'color:#F8FAFC;font-size:15px;font-family:Lexend,sans-serif;outline:none;margin-bottom:12px;" />',
+      '<div id="siq-err" style="color:#EF4444;font-size:12px;height:16px;margin-bottom:8px;"></div>',
+      '<button id="siq-btn" style="width:100%;background:linear-gradient(135deg,#5545D3,#3D31B0);border:none;border-radius:10px;',
+      'padding:13px;color:#fff;font-size:15px;font-weight:700;font-family:Lexend,sans-serif;cursor:pointer;">Enter</button>',
+      '</div></div>'
+    ].join('');
+    document.body.innerHTML = '';
+    document.body.appendChild(lock);
+
+    function attempt() {
+      var pw = document.getElementById('siq-pw').value;
+      crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw)).then(function(buf) {
+        var hex = Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+        if (hex === HASH) {
+          sessionStorage.setItem(SESSION_KEY, HASH);
+          location.reload();
+        } else {
+          document.getElementById('siq-err').textContent = 'Incorrect password';
+          document.getElementById('siq-pw').value = '';
+          document.getElementById('siq-pw').focus();
+        }
+      });
+    }
+    document.getElementById('siq-btn').addEventListener('click', attempt);
+    document.getElementById('siq-pw').addEventListener('keydown', function(e){ if(e.key==='Enter') attempt(); });
+    document.getElementById('siq-pw').focus();
+  });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #050912;
+    --bgOuter:  #0B2230;
+    --bgPanel:  #110E2A;
+    --bgDeep:   #0A0718;
+    --brand:    #5545D3;
+    --teal:     #228C88;
+    --green:    #22C55E;
+    --red:      #EF4444;
+    --amber:    #F59E0B;
+    --orange:   #F97316;
+    --text:     #F8FAFC;
+    --muted:    #94A3B8;
+    --faint:    #64748B;
+    --border:   rgba(85,69,211,0.4);
+    --card:     rgba(255,255,255,0.05);
+    --cardBorder: rgba(255,255,255,0.09);
+  }
+
+  body {
+    font-family: 'Lexend', sans-serif;
+    background: #020408;
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── Nav ─────────────────────────────────────────────────── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(5,9,18,0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--cardBorder);
+    padding: 0 24px;
+    display: flex; align-items: center; gap: 0;
+  }
+  .nav-logo {
+    font-weight: 900; font-size: 22px; color: var(--text);
+    letter-spacing: -1px; padding: 16px 24px 16px 0;
+    border-right: 1px solid var(--cardBorder);
+    margin-right: 8px; font-family: 'Lexend', sans-serif;
+  }
+  .nav-logo span { color: var(--brand); letter-spacing: -1px; }
+  .tab {
+    padding: 16px 20px;
+    color: var(--faint);
+    font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+    cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .tab:hover { color: var(--muted); }
+  .tab.active { color: var(--text); border-bottom-color: var(--brand); }
+
+  /* ── Screens ─────────────────────────────────────────────── */
+  .screen { display: none; padding-top: 57px; }
+  .screen.active { display: block; }
+
+  /* ── Phone frame ─────────────────────────────────────────── */
+  .phone-wrap {
+    min-height: calc(100vh - 57px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 20px;
+    gap: 40px;
+    flex-wrap: wrap;
+    background: #020408;
+  }
+  .phone-frame {
+    width: 390px;
+    background: var(--bg);
+    border-radius: 52px;
+    overflow: hidden;
+    border: 1.5px solid rgba(255,255,255,0.12);
+    box-shadow:
+      0 0 0 6px rgba(0,0,0,0.6),
+      0 40px 100px rgba(0,0,0,0.8),
+      0 0 80px rgba(85,69,211,0.08);
+    position: relative;
+  }
+  .phone-notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 34px;
+    background: #000;
+    border-radius: 0 0 24px 24px;
+    z-index: 10;
+  }
+  .phone-inner {
+    height: 844px;
+    overflow: hidden;
+    position: relative;
+  }
+  .phone-label {
+    text-align: center;
+    margin-top: 16px;
+    color: var(--faint);
+    font-size: 13px; font-weight: 600; letter-spacing: 1px;
+  }
+
+  /* ── TV frame ────────────────────────────────────────────── */
+  .tv-wrap {
+    min-height: calc(100vh - 57px);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 40px 20px; gap: 20px;
+    background: #020408;
+  }
+  .tv-frame {
+    width: 100%; max-width: 1280px;
+    aspect-ratio: 16/9;
+    background: var(--bgOuter);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.08);
+    box-shadow: 0 40px 120px rgba(0,0,0,0.9), 0 0 100px rgba(85,69,211,0.06);
+    position: relative;
+  }
+  /* 4K-ready: all bar content authored at true 1920×1080, scaled down for preview */
+  .bar-1080 {
+    width: 1920px;
+    height: 1080px;
+    position: absolute;
+    top: 0; left: 0;
+    transform-origin: top left;
+    font-family: 'Lexend', sans-serif;
+    overflow: hidden;
+  }
+  .tv-label {
+    color: var(--faint); font-size: 13px; font-weight: 600; letter-spacing: 1px;
+  }
+
+  /* ── Keyframes ───────────────────────────────────────────── */
+  @keyframes ping {
+    75%, 100% { transform: scale(2.2); opacity: 0; }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideDown {
+    from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+    to   { transform: translateX(-50%) translateY(0); opacity: 1; }
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(85,69,211,0.3); }
+    50%       { box-shadow: 0 0 40px rgba(85,69,211,0.6); }
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     CINEMATIC HOME — particles, shimmer, rings, depth
+  ══════════════════════════════════════════════════════════ */
+
+  /* Particle field */
+  @keyframes hpfloat {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    12%  { opacity: var(--op, 0.45); }
+    88%  { opacity: calc(var(--op, 0.45) * 0.4); }
+    100% { transform: translateY(-180px) translateX(var(--dx, 8px)); opacity: 0; }
+  }
+  .home-particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+  .hp {
+    position: absolute; border-radius: 50%;
+    animation: hpfloat var(--d, 4s) ease-in infinite var(--dl, 0s);
+    bottom: var(--b, 25%); left: var(--l, 50%);
+    width: var(--s, 2px); height: var(--s, 2px);
+    background: var(--c, rgba(255,255,255,0.4));
+  }
+
+  /* Metallic player name shimmer */
+  @keyframes name-shimmer {
+    0%   { background-position: 250% center; }
+    100% { background-position: -250% center; }
+  }
+  .hero-player {
+    font-size: 66px; font-weight: 900;
+    line-height: 0.92; letter-spacing: -3px; margin-bottom: 7px;
+    background: linear-gradient(90deg,
+      #F8FAFC 0%, #F8FAFC 30%,
+      rgba(255,255,255,0.55) 43%,
+      #FFFFFF 50%,
+      rgba(255,255,255,0.55) 57%,
+      #F8FAFC 70%, #F8FAFC 100%
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeUp 0.35s ease 0.1s both,
+               hero-float 7s ease-in-out infinite 0.6s,
+               name-shimmer 6s linear infinite 2s;
+    filter: drop-shadow(0 0 24px rgba(227,24,55,0.2));
+  }
+
+  /* Stat number — vertical gradient for depth */
+  .hero-number {
+    font-size: 60px; font-weight: 900;
+    letter-spacing: -3px; line-height: 1; font-variant-numeric: tabular-nums;
+    background: linear-gradient(to bottom, #FFFFFF 20%, rgba(255,255,255,0.65) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* SportsIQ Intelligence line inside hero */
+  .hero-intel {
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(85,69,211,0.08); border: 1px solid rgba(85,69,211,0.22);
+    border-radius: 10px; padding: 6px 11px; margin-top: 7px;
+    font-size: 11px; color: var(--muted);
+  }
+  .hero-intel-pct { color: var(--brand); font-weight: 800; font-variant-numeric: tabular-nums; }
+  .hero-intel-icon { font-size: 13px; }
+
+  /* JOIN button — dual expanding pulse rings */
+  @keyframes ring-expand {
+    0%   { transform: scale(1);    opacity: 0.7; }
+    100% { transform: scale(1.08); opacity: 0;   }
+  }
+  .join-ring {
+    position: relative; padding: 11px 18px 0; flex-shrink: 0;
+  }
+  .join-ring::before {
+    content: ''; position: absolute;
+    top: 11px; left: 18px; right: 18px; bottom: 0;
+    border-radius: 21px; border: 2px solid rgba(85,69,211,0.5);
+    animation: ring-expand 2.2s ease-out infinite;
+    pointer-events: none;
+  }
+  .join-ring::after {
+    content: ''; position: absolute;
+    top: 11px; left: 18px; right: 18px; bottom: 0;
+    border-radius: 21px; border: 1.5px solid rgba(34,140,136,0.35);
+    animation: ring-expand 2.2s ease-out infinite 0.55s;
+    pointer-events: none;
+  }
+
+  /* Live crowd count pulse */
+  @keyframes crowd-tick {
+    0%,89% { opacity: 1; transform: translateY(0); }
+    92%    { opacity: 0; transform: translateY(-5px); }
+    93%    { opacity: 0; transform: translateY(5px); }
+    96%    { opacity: 1; transform: translateY(0); }
+  }
+  .crowd-live { display: inline-block; animation: crowd-tick 5s ease-in-out infinite 4s; font-variant-numeric: tabular-nums; }
+
+  /* Noise/grain overlay for depth */
+  .home-grain {
+    position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+  }
+
+  /* Urgency countdown */
+  .countdown-box {
+    background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.38);
+    border-radius: 10px; padding: 5px 11px; text-align: center;
+    animation: pulse 1s ease-in-out infinite;
+  }
+  .countdown-lbl { color: #EF4444; font-size: 9px; font-weight: 700; letter-spacing: 1px; }
+  .countdown-val { color: #EF4444; font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; line-height: 1.1; }
+
+  /* Moat badge */
+  .moat-iq {
+    position: absolute; top: 48px; right: 20px;
+    background: rgba(85,69,211,0.12); border: 1px solid rgba(85,69,211,0.3);
+    border-radius: 8px; padding: 4px 9px;
+    font-size: 8px; font-weight: 800; color: var(--brand); letter-spacing: 1.5px;
+  }
+
+  /* ── Shared components ───────────────────────────────────── */
+  .live-dot {
+    position: relative; width: 10px; height: 10px; flex-shrink: 0;
+  }
+  .live-dot::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 50%; background: var(--green);
+    animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;
+    opacity: 0.6;
+  }
+  .live-dot::after {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 50%; background: var(--green);
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     SCREEN 1 — MOBILE HOME  (full redesign)
+     RULE: No scroll ever. Flex column owns exactly 844px.
+  ══════════════════════════════════════════════════════════ */
+  @keyframes glow-breathe-a {
+    0%,100% { opacity: 1;    transform: scale(1);    }
+    50%      { opacity: 0.55; transform: scale(1.12); }
+  }
+  @keyframes glow-breathe-b {
+    0%,100% { opacity: 0.7;  transform: scale(1.08); }
+    50%      { opacity: 1;   transform: scale(1);    }
+  }
+  @keyframes hero-float {
+    0%,100% { transform: translateY(0px);  }
+    50%      { transform: translateY(-4px); }
+  }
+  @keyframes join-drain { from { width: 65%; } to { width: 0%; } }
+  @keyframes bar-shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+
+  /* Background */
+  .home-bg { position: absolute; inset: 0; background: var(--bg); }
+  .home-glow-a {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 25% -5%, #E3183758 0%, transparent 55%);
+    animation: glow-breathe-a 5s ease-in-out infinite;
+  }
+  .home-glow-b {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 85% 115%, #00338D52 0%, transparent 55%);
+    animation: glow-breathe-b 6.5s ease-in-out infinite 1.5s;
+  }
+  .home-vignette {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom,
+      transparent 0%, rgba(5,9,18,0.35) 28%,
+      rgba(5,9,18,0.82) 62%, rgba(5,9,18,0.98) 100%);
+  }
+
+  /* Shell — strict flex column, clips everything */
+  .home-shell {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+
+  /* Top bar — fixed height */
+  .home-topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 46px 20px 0; flex-shrink: 0;
+  }
+  .home-logo { font-size: 26px; font-weight: 900; color: var(--text); letter-spacing: -1px; }
+  .home-logo span { color: var(--brand); }
+  .home-pts-chip {
+    background: rgba(85,69,211,0.12); border: 1px solid rgba(85,69,211,0.4);
+    border-radius: 50px; padding: 5px 13px;
+    font-size: 13px; font-weight: 700; color: var(--brand);
+  }
+
+  /* Bar check-in banner */
+  .bar-checkin {
+    margin: 9px 16px 0; flex-shrink: 0;
+    background: linear-gradient(90deg,
+      rgba(245,158,11,0.13) 0%, rgba(245,158,11,0.06) 50%, rgba(245,158,11,0.13) 100%);
+    background-size: 200% 100%; animation: bar-shimmer 3s linear infinite;
+    border: 1px solid rgba(245,158,11,0.38); border-radius: 11px; padding: 7px 13px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .bar-checkin-text  { font-size: 11px; font-weight: 700; color: #F59E0B; }
+  .bar-checkin-badge {
+    font-size: 10px; font-weight: 800; color: #F59E0B;
+    background: rgba(245,158,11,0.18); border-radius: 6px; padding: 2px 8px; letter-spacing: 1px;
+  }
+
+  /* Hero zone — flex:1 fills all leftover vertical space */
+  .home-hero {
+    flex: 1; min-height: 0;
+    display: flex; flex-direction: column; justify-content: center; padding: 0 20px;
+  }
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.35);
+    border-radius: 50px; padding: 4px 12px; margin-bottom: 6px; align-self: flex-start;
+    animation: fadeUp 0.4s ease;
+  }
+  .live-badge-text { font-size: 10px; font-weight: 700; color: var(--green); letter-spacing: 2px; }
+  .hero-team {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px; color: var(--muted);
+    margin-bottom: 1px; animation: fadeUp 0.35s ease 0.05s both;
+  }
+  .hero-player {
+    font-size: 66px; font-weight: 900; color: var(--text);
+    line-height: 0.92; letter-spacing: -3px;
+    text-shadow: 0 4px 40px rgba(227,24,55,0.18);
+    animation: fadeUp 0.35s ease 0.1s both, hero-float 7s ease-in-out infinite 0.6s;
+    margin-bottom: 7px;
+  }
+  .hero-ou-label { font-size: 9px; font-weight: 700; letter-spacing: 3px; color: var(--faint); margin-bottom: 1px; }
+  .hero-stat-row {
+    display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px;
+    animation: fadeUp 0.35s ease 0.15s both;
+  }
+  .hero-number {
+    font-size: 60px; font-weight: 900; color: var(--text);
+    letter-spacing: -3px; line-height: 1; font-variant-numeric: tabular-nums;
+  }
+  .hero-stat-unit { font-size: 16px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+  .context-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 11px; padding: 7px 11px;
+    font-size: 11px; color: var(--muted); line-height: 1.4;
+    animation: fadeUp 0.35s ease 0.2s both;
+  }
+
+  /* JOIN button */
+  .join-wrap { padding: 11px 18px 0; flex-shrink: 0; }
+  .join-btn {
+    width: 100%; height: 66px; border-radius: 18px; border: none;
+    background: linear-gradient(135deg, var(--brand) 0%, var(--teal) 100%);
+    color: white; font-size: 21px; font-weight: 900;
+    font-family: 'Lexend', sans-serif; letter-spacing: 2px; cursor: pointer;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    box-shadow: 0 8px 28px rgba(85,69,211,0.38); animation: glow 2.5s ease infinite;
+  }
+  .join-btn::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: rgba(255,255,255,0.28);
+  }
+  .join-sub { font-size: 11px; font-weight: 500; opacity: 0.72; letter-spacing: 0.5px; }
+  .join-drain-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.12); }
+  .join-drain-fill { height: 100%; width: 65%; background: rgba(255,255,255,0.65); animation: join-drain 42s linear forwards; }
+
+  /* Activity rail */
+  .activity-section { padding: 10px 18px 0; flex-shrink: 0; }
+  .activity-label { font-size: 8px; font-weight: 700; letter-spacing: 2.5px; color: var(--faint); margin-bottom: 6px; }
+  .activity-rail { display: flex; gap: 7px; }
+  .act-card {
+    flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 13px; padding: 9px 6px 7px;
+    display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer;
+  }
+  .act-card.act-live { border-color: rgba(34,197,94,0.28); background: rgba(34,197,94,0.04); }
+  .act-card.act-you  { border-color: rgba(85,69,211,0.4);  background: rgba(85,69,211,0.07); }
+  .act-icon  { font-size: 18px; line-height: 1; }
+  .act-name  { font-size: 8px; font-weight: 700; color: var(--text); letter-spacing: 0.5px; text-align: center; }
+  .act-status { display: flex; align-items: center; gap: 3px; font-size: 7px; color: var(--faint); }
+  .act-live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 1.5s ease-in-out infinite; flex-shrink: 0; }
+
+  /* Stats pills row */
+  .stats-row { display: flex; gap: 7px; padding: 9px 18px 22px; flex-shrink: 0; }
+  .stat-pill {
+    flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 11px; padding: 7px 4px;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .stat-pill-val { font-size: 14px; font-weight: 900; color: var(--text); font-variant-numeric: tabular-nums; }
+  .stat-pill-lbl { font-size: 7px; font-weight: 700; color: var(--faint); letter-spacing: 1.5px; }
+
+  /* legacy aliases kept for other screens */
+  .points-chip {
+    background: rgba(85,69,211,0.15); border: 1px solid rgba(85,69,211,0.5);
+    border-radius: 50px; padding: 6px 14px; font-size: 13px; font-weight: 700; color: var(--brand);
+  }
+  .stat-val { font-size: 18px; font-weight: 900; color: var(--text); font-variant-numeric: tabular-nums; }
+  .stat-lbl { font-size: 9px; font-weight: 600; color: var(--faint); letter-spacing: 1.5px; }
+  .stat-div { width: 1px; background: rgba(255,255,255,0.08); margin: 4px 0; }
+
+  /* ══════════════════════════════════════════════════════════
+     SCREEN 2 — MOBILE PICK CARD
+  ══════════════════════════════════════════════════════════ */
+  .pick-bg {
+    position: absolute; inset: 0;
+    background: var(--bg);
+  }
+  .pick-glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 0%, #E3183740 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 100%, #00338D35 0%, transparent 50%);
+  }
+  .pick-vignette {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent, rgba(5,9,18,0.7) 60%, rgba(5,9,18,0.95) 100%);
+  }
+  .pick-content {
+    position: relative; z-index: 2;
+    padding: 50px 22px 22px;
+    display: flex; flex-direction: column; height: 100%;
+    overflow: hidden; /* enforce no-scroll */
+  }
+  .pick-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-shrink: 0;
+  }
+  .pick-player { font-size: 36px; font-weight: 900; color: var(--text); letter-spacing: -1px; }
+  .pick-team { font-size: 13px; color: var(--muted); letter-spacing: 1px; margin-bottom: 4px; }
+  .pick-prompt {
+    font-size: 12px; font-weight: 600; color: var(--faint); letter-spacing: 2px; margin-bottom: 4px; text-align: center;
+  }
+  .pick-line-row {
+    display: flex; align-items: baseline; justify-content: center; gap: 8px; margin-bottom: 14px; flex-shrink: 0;
+  }
+  .pick-number {
+    font-size: 64px; font-weight: 900; color: var(--text);
+    line-height: 1; letter-spacing: -3px; font-variant-numeric: tabular-nums;
+  }
+  .pick-unit { font-size: 18px; font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+  .intel-badge {
+    background: rgba(85,69,211,0.1);
+    border: 1px solid rgba(85,69,211,0.35);
+    border-radius: 14px; padding: 12px 14px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--muted);
+    /* lives inside flex:1 wrapper — gets all middle space, never squished */
+    width: 100%;
+  }
+  .intel-pct { color: var(--brand); font-weight: 700; }
+  .diff-row {
+    display: flex; gap: 8px; margin-bottom: 10px; flex-shrink: 0;
+  }
+  .diff-btn {
+    flex: 1; padding: 9px 6px; border-radius: 14px; border: 1px solid;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    cursor: pointer; transition: all 0.15s; font-family: 'Lexend', sans-serif;
+  }
+  .diff-chalk   { border-color: rgba(148,163,184,0.3); background: rgba(148,163,184,0.07); }
+  .diff-heat    { border-color: rgba(239,68,68,0.4);   background: rgba(239,68,68,0.1); }
+  .diff-wise    { border-color: rgba(249,115,22,0.4);  background: rgba(249,115,22,0.1); }
+  .diff-active  { border-width: 2px; }
+  .diff-wise.diff-active  { border-color: var(--orange); background: rgba(249,115,22,0.18); }
+  .diff-heat.diff-active  { border-color: var(--red);    background: rgba(239,68,68,0.2); }
+  .diff-chalk.diff-active { border-color: var(--muted);  background: rgba(148,163,184,0.14); }
+  .diff-label { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; }
+  .diff-mult  { font-size: 18px; font-weight: 900; }
+  .diff-sub   { font-size: 10px; color: var(--faint); }
+  .pick-btns { display: flex; gap: 12px; margin-top: 4px; flex-shrink: 0; }
+  .more-btn, .less-btn {
+    flex: 1; height: 60px; border-radius: 18px; border: none;
+    font-family: 'Lexend', sans-serif;
+    font-size: 22px; font-weight: 900; letter-spacing: 1px; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    position: relative; overflow: hidden;
+  }
+  .more-btn { background: linear-gradient(135deg, var(--brand), #3D31B0); color: white; }
+  .less-btn { background: linear-gradient(135deg, var(--teal), #166562); color: white; }
+  .more-btn::before, .less-btn::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: rgba(255,255,255,0.2);
+  }
+  .btn-sub { font-size: 11px; font-weight: 400; opacity: 0.7; }
+  .lock-row {
+    display: flex; justify-content: center; align-items: center; gap: 8px;
+    margin-top: 12px; color: var(--faint); font-size: 13px;
+  }
+  .lock-countdown { color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  /* ══════════════════════════════════════════════════════════
+     SCREEN 3 — BAR SCREEN PREDICTOR-Q
+  ══════════════════════════════════════════════════════════ */
+  .bar-q {
+    width: 100%; height: 100%; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: center; gap: 28px;
+    padding: 48px 64px;
+    font-family: 'Lexend', sans-serif;
+  }
+  .bar-bg-grad {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at top left, #E3183750 0%, transparent 55%),
+      radial-gradient(ellipse at bottom right, #00338D45 0%, transparent 55%),
+      var(--bgOuter);
+  }
+  .bar-z { position: relative; z-index: 2; }
+  .bar-header { display: flex; justify-content: space-between; align-items: center; }
+  .bar-live-badge {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .bar-live-text { color: var(--green); font-size: 18px; font-weight: 800; letter-spacing: 2px; }
+  .bar-lock-pill {
+    background: var(--bgPanel);
+    border: 2px solid var(--border);
+    border-radius: 14px; padding: 8px 28px;
+    font-size: 28px; font-weight: 900; color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .bar-player-hero { text-align: center; }
+  .bar-team-name { color: var(--muted); font-size: 24px; margin-bottom: 4px; }
+  .bar-player-name {
+    color: var(--text); font-size: 80px; font-weight: 900;
+    line-height: 1; letter-spacing: -2px;
+  }
+  .bar-or-label { color: var(--faint); font-size: 32px; margin: 8px 0; }
+  .bar-stat-num {
+    color: var(--text); font-size: 120px; font-weight: 900;
+    line-height: 1; letter-spacing: -4px; font-variant-numeric: tabular-nums;
+  }
+  .bar-stat-label { color: var(--muted); font-size: 36px; margin-top: 4px; }
+  .bar-intel {
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+    background: rgba(0,0,0,0.25); border-radius: 10px; padding: 10px 24px;
+    align-self: center;
+  }
+  .bar-intel-text { color: var(--muted); font-size: 22px; }
+  .bar-intel-pct  { color: var(--text); font-weight: 700; }
+  .bar-crowd { display: flex; gap: 20px; }
+  .bar-crowd-more, .bar-crowd-less {
+    flex: 1; border-radius: 18px; padding: 20px 28px; text-align: center;
+  }
+  .bar-crowd-more { background: rgba(85,69,211,0.2); border: 2px solid var(--brand); }
+  .bar-crowd-less { background: rgba(34,140,136,0.2); border: 2px solid var(--teal); }
+  .bar-crowd-dir { font-size: 40px; font-weight: 900; }
+  .bar-crowd-pct { font-size: 56px; font-weight: 900; font-variant-numeric: tabular-nums; }
+  .bar-crowd-count { font-size: 20px; color: var(--faint); margin-top: 4px; }
+  .bar-cta { text-align: center; color: var(--faint); font-size: 22px; }
+
+  /* ══════════════════════════════════════════════════════════
+     SCREEN 4 — BAR SCREEN RESULT
+  ══════════════════════════════════════════════════════════ */
+  .bar-result {
+    width: 100%; height: 100%; position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    gap: 28px; text-align: center;
+    padding: 48px 64px;
+    font-family: 'Lexend', sans-serif;
+  }
+  .bar-result-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at top left, #E3183750 0%, transparent 55%),
+      radial-gradient(ellipse at bottom right, #00338D45 0%, transparent 55%),
+      var(--bgOuter);
+  }
+  .bar-result-emoji { font-size: 80px; }
+  .bar-result-wins {
+    font-size: 88px; font-weight: 900; line-height: 1;
+    background: linear-gradient(135deg, var(--brand), var(--teal));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .bar-result-final { color: var(--muted); font-size: 36px; }
+  .bar-pts-row { display: flex; gap: 20px; }
+  .bar-pts-card {
+    background: var(--bgPanel);
+    border: 1px solid var(--cardBorder);
+    border-radius: 18px; padding: 20px 44px; text-align: center;
+  }
+  .bar-pts-label { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .bar-pts-val { font-size: 44px; font-weight: 900; color: var(--text); font-variant-numeric: tabular-nums; }
+  .bar-crowd-result {
+    background: rgba(0,0,0,0.3); border-radius: 14px; padding: 14px 36px;
+    font-size: 26px; color: var(--faint);
+  }
+  .bar-crowd-result strong { color: var(--text); }
+
+  /* ══════════════════════════════════════════════════════════
+     SCREEN 5 — BAR SCREEN IDLE
+  ══════════════════════════════════════════════════════════ */
+  .bar-idle {
+    width: 100%; height: 100%;
+    display: flex; font-family: 'Lexend', sans-serif;
+    background: var(--bgOuter);
+    position: relative; overflow: hidden;
+  }
+  .bar-idle-glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at top left, rgba(85,69,211,0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(34,140,136,0.2) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .bar-idle-left {
+    width: 38%; background: var(--bgPanel);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 24px; padding: 48px 40px;
+    position: relative; z-index: 2;
+  }
+  .bar-idle-logo { font-size: 44px; font-weight: 900; color: var(--text); letter-spacing: -1px; }
+  .bar-idle-badge {
+    background: var(--brand); border-radius: 6px;
+    padding: 4px 12px; font-size: 11px; font-weight: 700; color: white; letter-spacing: 1px;
+    margin-top: -16px;
+  }
+  .bar-qr-box {
+    background: var(--bgOuter);
+    border: 2px solid var(--border);
+    border-radius: 16px; padding: 14px;
+    width: 180px; height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--faint); text-align: center;
+  }
+  .bar-room-code {
+    text-align: center;
+  }
+  .bar-room-label { color: var(--faint); font-size: 14px; margin-bottom: 8px; }
+  .bar-room-num {
+    color: var(--text); font-size: 40px; font-weight: 900;
+    letter-spacing: 10px; font-variant-numeric: tabular-nums;
+  }
+  .bar-idle-cta { color: var(--faint); font-size: 15px; text-align: center; line-height: 1.5; }
+  .bar-idle-cta span { color: var(--teal); }
+  .bar-idle-right {
+    flex: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 32px; padding: 60px 64px;
+    position: relative; z-index: 2;
+  }
+  .bar-idle-heading { color: var(--muted); font-size: 20px; letter-spacing: 3px; text-align: center; }
+  .bar-divider {
+    width: 48px; height: 3px;
+    background: linear-gradient(90deg, var(--brand), var(--teal));
+    border-radius: 2px; margin: -16px auto 0;
+  }
+  .bar-leader-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 24px;
+    border-radius: 12px; margin-bottom: 8px; width: 100%;
+  }
+  .bar-leader-row:first-of-type { background: rgba(85,69,211,0.15); border: 1px solid var(--border); }
+  .bar-leader-row:not(:first-of-type) { background: rgba(255,255,255,0.03); border: 1px solid var(--cardBorder); }
+  .bar-leader-name { font-size: 22px; font-weight: 600; color: var(--text); }
+  .bar-leader-pts  { font-size: 26px; font-weight: 900; color: var(--brand); font-variant-numeric: tabular-nums; }
+
+  /* ══════════════════════════════════════════════════════════
+     SCREEN 6 — MOBILE WAITING STATE
+  ══════════════════════════════════════════════════════════ */
+  .wait-bg { position: absolute; inset: 0; background: var(--bg); }
+  .wait-glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 5%, #E3183745 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 95%, #00338D40 0%, transparent 50%);
+  }
+  .wait-vign {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent, rgba(5,9,18,0.6) 50%, rgba(5,9,18,0.9) 100%);
+  }
+  .wait-content { position: relative; z-index: 2; padding: 50px 22px 20px; display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+  .wait-label-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-shrink: 0; }
+  .wait-label { font-size: 11px; font-weight: 700; color: var(--faint); letter-spacing: 2px; }
+  .wait-player { font-size: 26px; font-weight: 900; color: var(--text); letter-spacing: -0.5px; margin-bottom: 2px; flex-shrink: 0; text-align: center; width: 100%; }
+  .wait-stat-desc { font-size: 13px; color: var(--muted); margin-bottom: 12px; flex-shrink: 0; text-align: center; width: 100%; }
+  .wait-stat-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px; padding: 20px 24px;
+    display: flex; justify-content: center; gap: 32px; align-items: center;
+    margin-bottom: 20px;
+  }
+  .wait-num { text-align: center; }
+  .wait-num-label { font-size: 10px; color: var(--faint); letter-spacing: 2px; margin-bottom: 4px; }
+  .wait-num-val { font-size: 52px; font-weight: 900; font-variant-numeric: tabular-nums; }
+  .wait-divider { font-size: 36px; color: var(--faint); font-weight: 300; margin-bottom: 8px; }
+  .wait-prob-section { margin-bottom: 20px; }
+  .wait-prob-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+  .wait-prob-label { font-size: 13px; color: var(--muted); }
+  .wait-prob-val { font-size: 22px; font-weight: 900; color: var(--green); font-variant-numeric: tabular-nums; }
+  .wait-bar { height: 8px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; }
+  .wait-bar-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--teal), var(--green)); }
+  .wait-crowd { display: flex; gap: 10px; margin-bottom: auto; }
+  .wait-crowd-more, .wait-crowd-less {
+    flex: 1; border-radius: 14px; padding: 14px 12px; text-align: center;
+  }
+  .wait-crowd-more { background: rgba(85,69,211,0.15); border: 1px solid rgba(85,69,211,0.4); }
+  .wait-crowd-less { background: rgba(34,140,136,0.15); border: 1px solid rgba(34,140,136,0.4); }
+  .wait-crowd-dir { font-size: 13px; font-weight: 700; letter-spacing: 1px; }
+  .wait-crowd-pct { font-size: 28px; font-weight: 900; font-variant-numeric: tabular-nums; }
+  .wait-crowd-cnt { font-size: 11px; color: var(--faint); margin-top: 2px; }
+
+  /* Add New button + form */
+  .inbox-top-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
+  }
+  .inbox-add-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(85,69,211,0.18); border: 1px solid rgba(85,69,211,0.5);
+    border-radius: 10px; padding: 9px 18px; cursor: pointer;
+    font-family: 'Lexend', sans-serif; font-size: 13px; font-weight: 700;
+    color: #a59df5; transition: background 0.15s;
+  }
+  .inbox-add-btn:hover { background: rgba(85,69,211,0.28); }
+  .inbox-add-form {
+    background: rgba(85,69,211,0.07); border: 1px solid rgba(85,69,211,0.3);
+    border-radius: 14px; padding: 18px 20px; margin-bottom: 20px;
+  }
+  .inbox-add-form textarea {
+    width: 100%; min-height: 80px; background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(85,69,211,0.3); border-radius: 8px;
+    padding: 10px 12px; color: var(--text); font-family: 'Lexend', sans-serif;
+    font-size: 13px; line-height: 1.5; outline: none; box-sizing: border-box;
+    resize: vertical; margin-bottom: 10px;
+  }
+  .inbox-add-form textarea:focus { border-color: rgba(85,69,211,0.6); }
+  .inbox-add-form textarea::placeholder { color: var(--faint); }
+  .inbox-form-btns { display: flex; gap: 8px; }
+  .inbox-form-submit {
+    background: rgba(85,69,211,0.25); border: 1px solid rgba(85,69,211,0.5);
+    border-radius: 8px; padding: 8px 18px; color: #a59df5;
+    font-family: 'Lexend', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  .inbox-form-submit:hover { background: rgba(85,69,211,0.38); }
+  .inbox-form-cancel {
+    background: transparent; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 8px 14px; color: var(--faint);
+    font-family: 'Lexend', sans-serif; font-size: 13px; cursor: pointer;
+  }
+  /* Complete button per card */
+  .card-complete-btn {
+    margin-top: 12px; padding: 7px 14px;
+    background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 8px; color: #4ade80; font-family: 'Lexend', sans-serif;
+    font-size: 11px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px;
+  }
+  .card-complete-btn:hover { background: rgba(34,197,94,0.2); }
+  /* Completed section */
+  .completed-section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin: 36px 0 16px; padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .completed-section-title {
+    font-size: 11px; font-weight: 800; color: var(--faint); letter-spacing: 2px;
+  }
+  .completed-section-count {
+    font-size: 11px; background: rgba(255,255,255,0.07); border-radius: 20px;
+    padding: 2px 10px; color: var(--faint);
+  }
+  .idea-card-completed {
+    opacity: 0.55; border-color: rgba(255,255,255,0.05) !important;
+    background: rgba(255,255,255,0.015) !important;
+  }
+  .card-restore-btn {
+    margin-top: 10px; padding: 5px 12px;
+    background: transparent; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; color: var(--faint); font-family: 'Lexend', sans-serif;
+    font-size: 11px; cursor: pointer;
+  }
+  .card-restore-btn:hover { border-color: rgba(255,255,255,0.25); color: var(--muted); }
+  /* Unsaved new-item indicator */
+  .new-item-pill {
+    display: inline-block; padding: 2px 8px; border-radius: 20px;
+    background: rgba(85,69,211,0.2); border: 1px solid rgba(85,69,211,0.4);
+    color: #a59df5; font-size: 10px; font-weight: 700; margin-left: 8px;
+  }
+
+  .idea-reply-area {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: rgba(34,197,94,0.04);
+    border: 1px dashed rgba(34,197,94,0.3);
+    border-radius: 12px;
+  }
+  .idea-reply-textarea {
+    width: 100%; min-height: 72px; max-height: 200px;
+    background: rgba(0,0,0,0.3); border: 1px solid rgba(34,197,94,0.25);
+    border-radius: 8px; padding: 10px 12px; resize: vertical;
+    color: var(--text); font-family: 'Lexend', sans-serif; font-size: 13px;
+    line-height: 1.5; outline: none; box-sizing: border-box;
+  }
+  .idea-reply-textarea:focus { border-color: rgba(34,197,94,0.55); }
+  .idea-reply-textarea::placeholder { color: var(--faint); }
+
+  /* ══════════════════════════════════════════════════════════
+     MARKET INTELLIGENCE SCREEN
+  ══════════════════════════════════════════════════════════ */
+  .mkt-wrap {
+    min-height: calc(100vh - 57px);
+    background: #020408;
+    padding: 40px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .mkt-section-header {
+    width: 100%; max-width: 1100px;
+    margin-bottom: 10px;
+  }
+  .mkt-section-label {
+    font-size: 11px; font-weight: 700; color: var(--faint); letter-spacing: 3px; margin-bottom: 4px;
+  }
+  .mkt-section-title {
+    font-size: 26px; font-weight: 900; margin-bottom: 4px;
+  }
+  .mkt-section-sub {
+    font-size: 13px; color: var(--muted); line-height: 1.6; max-width: 680px;
+  }
+  .mkt-date-label {
+    font-size: 11px; color: var(--faint); margin-bottom: 28px;
+    font-style: italic; width: 100%; max-width: 1100px;
+  }
+  /* Two phones side by side */
+  .mkt-phones {
+    display: flex; gap: 48px; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 56px; width: 100%; max-width: 1100px;
+  }
+  .mkt-phone-col { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .mkt-phone-tag {
+    font-size: 11px; font-weight: 700; color: var(--faint); letter-spacing: 2px;
+    background: rgba(255,255,255,0.04); border-radius: 20px; padding: 4px 14px;
+  }
+  /* Market badge inside phone */
+  .mkt-source-row {
+    display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; justify-content: center;
+  }
+  .mkt-source-chip {
+    padding: 3px 10px; border-radius: 50px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+  }
+  .mkt-chip-kalshi  { background: rgba(99,198,149,0.15); border: 1px solid rgba(99,198,149,0.4); color: #63c695; }
+  .mkt-chip-poly    { background: rgba(0,119,255,0.15);  border: 1px solid rgba(0,119,255,0.4);  color: #4da3ff; }
+  .mkt-chip-siq     { background: rgba(85,69,211,0.15);  border: 1px solid rgba(85,69,211,0.4);  color: #a59df5; }
+  .mkt-chip-crowd   { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); color: #fbbf24; }
+  /* Odds comparison table */
+  .mkt-odds-panel {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px; padding: 14px; margin-bottom: 10px; width: 100%;
+  }
+  .mkt-odds-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+  }
+  .mkt-odds-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .mkt-odds-label { color: var(--muted); font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .mkt-odds-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .mkt-odds-bars { flex: 1; margin: 0 12px; }
+  .mkt-odds-bar-bg { height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+  .mkt-odds-bar-fill { height: 100%; border-radius: 3px; }
+  .mkt-odds-vals { display: flex; gap: 12px; font-weight: 700; font-size: 12px; font-variant-numeric: tabular-nums; }
+  .mkt-over-val  { color: #a59df5; }
+  .mkt-under-val { color: var(--teal); }
+  /* Smart money alert */
+  .mkt-alert {
+    border-radius: 12px; padding: 10px 12px; margin-bottom: 10px; font-size: 11px;
+    display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+  }
+  .mkt-alert-bull { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: #4ade80; }
+  .mkt-alert-warn { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: #fbbf24; }
+  .mkt-alert-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  /* Divergence badge */
+  .mkt-divg {
+    border-radius: 12px; padding: 10px 12px; font-size: 11px;
+    background: rgba(85,69,211,0.12); border: 1px solid rgba(85,69,211,0.35);
+    color: var(--muted); line-height: 1.6;
+  }
+  .mkt-divg strong { color: #a59df5; }
+  /* Market Pulse bar section */
+  .mkt-bar-section {
+    width: 100%; max-width: 1100px;
+  }
+  .mkt-bar-frame {
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden;
+    background: #0B2230; margin-bottom: 14px;
+  }
+  .mkt-bar-label {
+    background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 10px 18px; font-size: 11px; font-weight: 700; color: var(--faint); letter-spacing: 2px;
+  }
+  .mkt-ticker {
+    display: flex; align-items: center; gap: 0; overflow: hidden;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .mkt-ticker-label {
+    padding: 10px 16px; background: rgba(85,69,211,0.2); font-size: 11px;
+    font-weight: 800; letter-spacing: 1px; color: #a59df5; flex-shrink: 0;
+    border-right: 1px solid rgba(85,69,211,0.3);
+  }
+  .mkt-ticker-items {
+    display: flex; gap: 0; overflow: hidden; flex: 1;
+  }
+  .mkt-ticker-item {
+    padding: 10px 20px; font-size: 12px; color: var(--muted); flex-shrink: 0;
+    border-right: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 8px;
+  }
+  .mkt-tick-team { color: var(--text); font-weight: 700; }
+  .mkt-tick-over { color: #a59df5; font-weight: 700; }
+  .mkt-tick-under { color: var(--teal); font-weight: 700; }
+  .mkt-tick-arrow-up   { color: #4ade80; font-size: 10px; }
+  .mkt-tick-arrow-down { color: #ef4444; font-size: 10px; }
+  /* Three-column market cards */
+  .mkt-card-grid { display: flex; gap: 16px; padding: 20px 18px; flex-wrap: wrap; }
+  .mkt-card {
+    flex: 1; min-width: 220px; background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 16px;
+  }
+  .mkt-card-game { font-size: 11px; color: var(--faint); letter-spacing: 1px; margin-bottom: 6px; }
+  .mkt-card-prop { font-size: 14px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
+  .mkt-card-sources { display: flex; flex-direction: column; gap: 6px; }
+  .mkt-card-row { display: flex; align-items: center; justify-content: space-between; font-size: 12px; }
+  .mkt-card-src { color: var(--faint); }
+  .mkt-card-prob-bar { flex: 1; height: 4px; margin: 0 10px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+  .mkt-card-prob-fill { height: 100%; border-radius: 2px; }
+  .mkt-card-over { color: #a59df5; font-weight: 700; font-variant-numeric: tabular-nums; }
+  /* Moat callout */
+  .mkt-moat {
+    width: 100%; max-width: 1100px;
+    background: rgba(85,69,211,0.08); border: 1px solid rgba(85,69,211,0.25);
+    border-radius: 16px; padding: 24px 28px; margin-top: 8px;
+  }
+  .mkt-moat-title { font-size: 14px; font-weight: 800; color: #a59df5; letter-spacing: 1px; margin-bottom: 12px; }
+  .mkt-moat-grid { display: flex; gap: 20px; flex-wrap: wrap; }
+  .mkt-moat-item { flex: 1; min-width: 200px; }
+  .mkt-moat-icon { font-size: 20px; margin-bottom: 6px; }
+  .mkt-moat-head { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .mkt-moat-body { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ══════════════════════════════════════════════════════════
+     FEEDBACK PANEL
+  ══════════════════════════════════════════════════════════ */
+  .feedback-wrap {
+    min-height: calc(100vh - 57px);
+    display: flex; justify-content: center;
+    padding: 40px; background: #020408;
+  }
+  .feedback-inner { max-width: 720px; width: 100%; padding-top: 16px; }
+  .feedback-title { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
+  .feedback-sub { color: var(--muted); margin-bottom: 32px; line-height: 1.6; }
+  .feedback-section { margin-bottom: 28px; }
+  .feedback-section-title { font-size: 13px; font-weight: 700; color: var(--faint); letter-spacing: 2px; margin-bottom: 12px; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.12); color: var(--muted);
+    cursor: pointer; transition: all 0.15s; font-family: 'Lexend', sans-serif;
+    background: var(--card);
+  }
+  .chip:hover { border-color: var(--brand); color: var(--text); }
+  .chip.selected { border-color: var(--brand); color: var(--brand); background: rgba(85,69,211,0.12); }
+  textarea {
+    width: 100%; background: var(--card); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px; padding: 16px; color: var(--text); font-family: 'Lexend', sans-serif;
+    font-size: 14px; resize: vertical; min-height: 100px;
+    outline: none; transition: border-color 0.15s;
+  }
+  textarea:focus { border-color: var(--brand); }
+  textarea::placeholder { color: var(--faint); }
+  .submit-btn {
+    width: 100%; height: 56px; background: linear-gradient(90deg, var(--brand), var(--teal));
+    border: none; border-radius: 14px; color: white;
+    font-family: 'Lexend', sans-serif; font-size: 16px; font-weight: 700;
+    cursor: pointer; margin-top: 20px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── Idea Inbox ─────────────────────────────────── */
+  .idea-inbox-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px; padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .idea-inbox-icon { font-size: 28px; }
+  .idea-inbox-title { font-size: 22px; font-weight: 900; }
+  .idea-inbox-sub { font-size: 13px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+  .idea-how-to {
+    background: rgba(85,69,211,0.1); border: 1px solid rgba(85,69,211,0.3);
+    border-radius: 12px; padding: 16px 18px; margin-bottom: 24px; font-size: 13px;
+    color: var(--muted); line-height: 1.7;
+  }
+  .idea-how-to strong { color: var(--text); }
+  .idea-how-to code {
+    background: rgba(255,255,255,0.08); padding: 2px 7px; border-radius: 5px;
+    font-family: 'Courier New', monospace; font-size: 12px; color: #a8ffd8;
+  }
+  .idea-card {
+    background: var(--card); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px; padding: 20px 22px; margin-bottom: 14px;
+    transition: border-color 0.2s;
+  }
+  .idea-card:hover { border-color: rgba(255,255,255,0.15); }
+  .idea-card.status-new     { border-left: 3px solid #5545d3; }
+  .idea-card.status-queued  { border-left: 3px solid #f59e0b; }
+  .idea-card.status-in-progress { border-left: 3px solid #06b6d4; }
+  .idea-card.status-done    { border-left: 3px solid #22c55e; }
+  .idea-card.status-noted   { border-left: 3px solid #8b5cf6; }
+  .idea-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  .idea-text { font-size: 15px; font-weight: 600; line-height: 1.5; flex: 1; }
+  .idea-badge {
+    padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px; white-space: nowrap; flex-shrink: 0;
+  }
+  .badge-new        { background: rgba(85,69,211,0.2);  color: #a59df5; }
+  .badge-queued     { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .badge-in-progress{ background: rgba(6,182,212,0.15);  color: #22d3ee; }
+  .badge-done       { background: rgba(34,197,94,0.15);  color: #4ade80; }
+  .badge-noted      { background: rgba(139,92,246,0.15); color: #c4b5fd; }
+  .idea-meta { font-size: 11px; color: var(--faint); margin-bottom: 10px; }
+  .idea-response {
+    background: rgba(255,255,255,0.04); border-radius: 10px;
+    padding: 12px 14px; font-size: 13px; color: var(--muted); line-height: 1.6;
+    border-left: 2px solid rgba(85,69,211,0.5);
+  }
+  .idea-response-label {
+    font-size: 10px; font-weight: 700; color: var(--faint);
+    letter-spacing: 1.5px; margin-bottom: 6px;
+  }
+  .idea-empty {
+    text-align: center; padding: 40px 20px; color: var(--faint);
+    font-size: 14px; line-height: 1.8;
+  }
+  .idea-empty-icon { font-size: 36px; margin-bottom: 12px; }
+  .idea-draft-section { margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.07); }
+  .idea-draft-label { font-size: 13px; font-weight: 700; color: var(--faint); letter-spacing: 2px; margin-bottom: 10px; }
+  .idea-draft-note { font-size: 12px; color: var(--faint); margin-top: 10px; line-height: 1.6; }
+  .idea-copy-btn {
+    margin-top: 12px; padding: 10px 20px; border-radius: 10px;
+    background: rgba(85,69,211,0.2); border: 1px solid rgba(85,69,211,0.4);
+    color: #a59df5; font-family: 'Lexend', sans-serif; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .idea-copy-btn:hover { background: rgba(85,69,211,0.35); }
+
+  /* ══════════════════════════════════════════════════════════
+     TUG OF WAR — shared keyframes + mobile styles
+  ══════════════════════════════════════════════════════════ */
+  @keyframes tug-sway {
+    0%,100% { transform: translate(-50%,-50%) translateX(0); }
+    30%     { transform: translate(-50%,-50%) translateX(-5px); }
+    70%     { transform: translate(-50%,-50%) translateX(5px); }
+  }
+  @keyframes tug-shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+  @keyframes rope-grow {
+    from { width: 0%; }
+    to   { width: 81.7%; }
+  }
+  @keyframes stat-pop {
+    0%   { transform: scale(0.7); opacity: 0; }
+    70%  { transform: scale(1.05); }
+    100% { transform: scale(1);   opacity: 1; }
+  }
+
+  /*
+   * ═══════════════════════════════════════════════════════════
+   * DESIGN RULE — NO SCROLL, NO OVERLAP (applies to ALL screens)
+   *
+   * Mobile: content must fit within 390×844px phone frame.
+   * Bar:    content must fit within 1920×1080 canvas.
+   * Rules:
+   *   • Use flex-direction:column + flex:1 + min-height:0 to
+   *     distribute space rather than fixed heights that overflow.
+   *   • No absolutely-positioned elements that can drift over
+   *     sibling content. Use in-flow layout wherever possible.
+   *   • Font sizes use clamp() or are sized to fit known bounds.
+   *   • overflow:hidden is enforced on all scroll containers.
+   * ═══════════════════════════════════════════════════════════
+   */
+  .phone-inner { overflow: hidden !important; }
+  .bar-1080    { overflow: hidden !important; }
+
+  /* Card wrapper */
+  .tug-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 20px; padding: 12px 14px 10px;
+    margin-bottom: 10px;
+    flex-shrink: 0; /* never let the card squash smaller than its content */
+  }
+  /* Side headers (UNDER left / OVER right) */
+  .tug-heads { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .tug-h-dir  { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 1px; }
+  .tug-h-pct  { font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; line-height: 1; }
+  .tug-h-cnt  { font-size: 9px; color: var(--faint); }
+  .tug-h-mid  { font-size: 9px; color: var(--faint); letter-spacing: 1.5px; text-align: center; }
+
+  /* Rope area — self-contained, nothing overflows its bounds */
+  .tug-rope-area  { position: relative; height: 40px; margin-bottom: 6px; overflow: visible; }
+  .tug-rope-track {
+    position: absolute; top: 50%; left: 0; right: 0;
+    height: 12px; transform: translateY(-50%);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px; overflow: hidden;
+  }
+  .tug-rope-fill {
+    height: 100%; width: 81.7%; border-radius: 6px 0 0 6px;
+    background: linear-gradient(90deg, rgba(34,140,136,0.5), rgba(34,140,136,0.95));
+    animation: rope-grow 1.4s cubic-bezier(.34,1.15,.64,1) forwards;
+    position: relative;
+  }
+  .tug-rope-fill::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.22) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: tug-shimmer 2.5s linear 1.5s infinite;
+  }
+  .tug-target-mark {
+    position: absolute; right: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 3px; height: 28px;
+    background: rgba(255,255,255,0.28); border-radius: 2px;
+  }
+  /* Knot — lives inside .tug-rope-area, never escapes vertically */
+  .tug-knot {
+    position: absolute; left: 81.7%; top: 50%;
+    transform: translate(-50%,-50%); z-index: 4;
+    animation: tug-sway 2.4s ease-in-out infinite 1.6s;
+    /* NO child elements positioned outside this box */
+  }
+  .tug-knot-glow {
+    position: absolute; inset: -8px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(34,197,94,0.28) 0%, transparent 70%);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  .tug-knot-ball {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, #22C55E, #15803D);
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 0 16px rgba(34,197,94,0.55);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 2;
+  }
+  .tug-knot-ball::before {
+    content: ''; width: 8px; height: 8px;
+    border-radius: 50%; background: rgba(255,255,255,0.35);
+  }
+  /* Rope axis labels — always below rope, never floating over sibling content */
+  .tug-rope-labels {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 2px;
+  }
+  .tug-rope-label-val {
+    font-size: 10px; font-weight: 700; font-variant-numeric: tabular-nums;
+  }
+  .tug-needs { text-align: center; font-size: 11px; color: var(--faint); margin-top: 4px; }
+  .tug-needs strong { color: var(--muted); }
+
+  /* Big live stat — compact, no margin-bottom (pick recap below handles its own spacing) */
+  .tug-live { text-align: center; margin-bottom: 10px; flex-shrink: 0; }
+  .tug-live-num {
+    font-size: 56px; font-weight: 900; color: var(--text);
+    line-height: 1; letter-spacing: -2px; font-variant-numeric: tabular-nums;
+    animation: stat-pop .5s ease;
+  }
+  .tug-live-lbl { font-size: 10px; color: var(--faint); letter-spacing: 2px; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="nav-logo">Sports<span style="letter-spacing:-1px">IQ</span></div>
+  <div class="tab active" onclick="showScreen('home-live')">📱 Home · Live</div>
+  <div class="tab" onclick="showScreen('home-idle')">📱 Home · Idle</div>
+  <div class="tab" onclick="showScreen('pick-card')">📱 Pick Card</div>
+  <div class="tab" onclick="showScreen('pick-wait')">📱 Waiting</div>
+  <div class="tab" onclick="showScreen('bar-idle')">📺 Bar · Idle</div>
+  <div class="tab" onclick="showScreen('bar-pred-q')">📺 Bar · Live Pick</div>
+  <div class="tab" onclick="showScreen('bar-tracking')">📺 Bar · Tracking</div>
+  <div class="tab" onclick="showScreen('bar-result')">📺 Bar · Result</div>
+  <div class="tab" onclick="showScreen('mkt-intel')">📈 Market Intel</div>
+  <div class="tab" onclick="showScreen('feedback')">💬 Feedback</div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Mobile Home — LIVE STATE
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="home-live" class="screen active">
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: LIVE + BAR CHECK-IN ACTIVE ─────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner">
+
+          <!-- Background depth layers -->
+          <div class="home-bg"></div>
+          <div class="home-glow-a"></div>
+          <div class="home-glow-b"></div>
+          <div class="home-vignette"></div>
+          <div class="home-grain"></div>
+
+          <!-- Particle field — arena dust rising through stadium light -->
+          <div class="home-particles">
+            <div class="hp" style="--d:4.2s;--dl:0s;  --b:18%;--l:12%;--s:2px;--dx:12px; --op:0.5;--c:rgba(255,255,255,0.45);"></div>
+            <div class="hp" style="--d:5.8s;--dl:0.7s;--b:22%;--l:28%;--s:1.5px;--dx:-9px;--op:0.4;--c:rgba(85,69,211,0.7);"></div>
+            <div class="hp" style="--d:3.6s;--dl:1.4s;--b:15%;--l:45%;--s:2.5px;--dx:6px; --op:0.5;--c:rgba(255,255,255,0.35);"></div>
+            <div class="hp" style="--d:6.1s;--dl:0.3s;--b:30%;--l:62%;--s:1px;  --dx:-14px;--op:0.6;--c:rgba(255,255,255,0.4);"></div>
+            <div class="hp" style="--d:4.9s;--dl:2.1s;--b:20%;--l:75%;--s:2px; --dx:8px; --op:0.35;--c:rgba(34,140,136,0.8);"></div>
+            <div class="hp" style="--d:5.3s;--dl:0.9s;--b:12%;--l:88%;--s:1.5px;--dx:-6px;--op:0.45;--c:rgba(255,255,255,0.4);"></div>
+            <div class="hp" style="--d:3.9s;--dl:3.2s;--b:25%;--l:35%;--s:3px; --dx:10px; --op:0.3;--c:rgba(227,24,55,0.5);"></div>
+            <div class="hp" style="--d:4.5s;--dl:1.8s;--b:18%;--l:55%;--s:1px; --dx:-11px;--op:0.5;--c:rgba(255,255,255,0.5);"></div>
+            <div class="hp" style="--d:6.4s;--dl:0.5s;--b:35%;--l:20%;--s:2px; --dx:7px;  --op:0.35;--c:rgba(85,69,211,0.6);"></div>
+            <div class="hp" style="--d:5.1s;--dl:2.8s;--b:28%;--l:80%;--s:1.5px;--dx:-8px;--op:0.4;--c:rgba(255,255,255,0.35);"></div>
+          </div>
+
+          <div class="home-shell">
+
+            <!-- Top bar -->
+            <div class="home-topbar">
+              <div class="home-logo">Sports<span>IQ</span></div>
+              <div class="home-pts-chip">⚡ 2,450 pts</div>
+            </div>
+
+            <!-- Bar check-in banner -->
+            <div class="bar-checkin">
+              <div class="bar-checkin-text">🍺 Tap & Taylor's · Bar Mode</div>
+              <div class="bar-checkin-badge">2× ACTIVE</div>
+            </div>
+
+            <!-- Hero zone — takes all flex:1 space -->
+            <div class="home-hero">
+              <!-- Live badge + countdown side by side -->
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <div class="live-badge" style="margin-bottom:0;">
+                  <div class="live-dot"></div>
+                  <span class="live-badge-text">LIVE NOW</span>
+                </div>
+                <div class="countdown-box">
+                  <div class="countdown-lbl">LOCKS IN</div>
+                  <div class="countdown-val">0:42</div>
+                </div>
+              </div>
+
+              <div class="hero-team">KANSAS CITY CHIEFS</div>
+
+              <!-- Player name — metallic shimmer -->
+              <div class="hero-player">Mahomes</div>
+
+              <div class="hero-ou-label">OVER OR UNDER</div>
+              <div class="hero-stat-row">
+                <div class="hero-number">267</div>
+                <div class="hero-stat-unit">passing yards</div>
+              </div>
+
+              <!-- Context + SportsIQ Intelligence (the moat, surfaced early) -->
+              <div class="context-card">📊 Chiefs trailing by 14 — Mahomes is in throw mode</div>
+              <div class="hero-intel">
+                <span class="hero-intel-icon">🔮</span>
+                <span>SportsIQ Intelligence · <span class="hero-intel-pct">54% chance OVER</span></span>
+              </div>
+            </div>
+
+            <!-- JOIN button with dual pulse rings + time drain -->
+            <div class="join-ring">
+              <button class="join-btn">
+                JOIN NOW
+                <span class="join-sub"><span class="crowd-live">184</span> players · 42s to lock</span>
+                <div class="join-drain-bar"><div class="join-drain-fill"></div></div>
+              </button>
+            </div>
+
+            <!-- Activity rail -->
+            <div class="activity-section">
+              <div class="activity-label">ALSO LIVE NOW</div>
+              <div class="activity-rail">
+                <div class="act-card act-you">
+                  <div class="act-icon">🏈</div>
+                  <div class="act-name">OVER/UNDER</div>
+                  <div class="act-status"><div class="act-live-dot"></div>YOU'RE IN</div>
+                </div>
+                <div class="act-card act-live">
+                  <div class="act-icon">🧠</div>
+                  <div class="act-name">TRIVIA</div>
+                  <div class="act-status"><div class="act-live-dot"></div>ROUND 3</div>
+                </div>
+                <div class="act-card act-live">
+                  <div class="act-icon">🎱</div>
+                  <div class="act-name">BINGO</div>
+                  <div class="act-status"><div class="act-live-dot"></div>ACTIVE</div>
+                </div>
+                <div class="act-card">
+                  <div class="act-icon">📊</div>
+                  <div class="act-name">SCORES</div>
+                  <div class="act-status" style="color:var(--faint)">MNF LIVE</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats pills -->
+            <div class="stats-row">
+              <div class="stat-pill">
+                <div class="stat-pill-val">2,450</div>
+                <div class="stat-pill-lbl">PTS</div>
+              </div>
+              <div class="stat-pill">
+                <div class="stat-pill-val">#3</div>
+                <div class="stat-pill-lbl">TODAY</div>
+              </div>
+              <div class="stat-pill">
+                <div class="stat-pill-val" style="color:#F59E0B">🔥 4</div>
+                <div class="stat-pill-lbl">STREAK</div>
+              </div>
+              <div class="stat-pill">
+                <div class="stat-pill-val" style="color:#F59E0B">Gold</div>
+                <div class="stat-pill-lbl">TIER</div>
+              </div>
+            </div>
+
+          </div><!-- /home-shell -->
+        </div>
+      </div>
+      <div class="phone-label">HOME — LIVE · BAR CHECK-IN ACTIVE · 2×</div>
+    </div>
+
+    <!-- ── PHONE 2: LIVE · NOT YET CHECKED IN ───────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner">
+
+          <div class="home-bg"></div>
+          <div class="home-glow-a"></div>
+          <div class="home-glow-b"></div>
+          <div class="home-vignette"></div>
+          <div class="home-grain"></div>
+
+          <!-- Particles -->
+          <div class="home-particles">
+            <div class="hp" style="--d:4.8s;--dl:0.2s;--b:20%;--l:18%;--s:2px; --dx:10px; --op:0.45;--c:rgba(255,255,255,0.4);"></div>
+            <div class="hp" style="--d:3.7s;--dl:1.1s;--b:14%;--l:40%;--s:1.5px;--dx:-8px; --op:0.5; --c:rgba(85,69,211,0.65);"></div>
+            <div class="hp" style="--d:5.5s;--dl:0.6s;--b:28%;--l:60%;--s:2.5px;--dx:12px; --op:0.35;--c:rgba(255,255,255,0.35);"></div>
+            <div class="hp" style="--d:4.1s;--dl:2.4s;--b:22%;--l:78%;--s:1px;  --dx:-7px;  --op:0.5; --c:rgba(34,140,136,0.7);"></div>
+            <div class="hp" style="--d:6.2s;--dl:0.4s;--b:32%;--l:30%;--s:2px; --dx:6px;  --op:0.3; --c:rgba(255,255,255,0.4);"></div>
+            <div class="hp" style="--d:5.0s;--dl:3.0s;--b:16%;--l:85%;--s:1.5px;--dx:-10px;--op:0.45;--c:rgba(255,255,255,0.4);"></div>
+            <div class="hp" style="--d:3.5s;--dl:1.7s;--b:25%;--l:50%;--s:3px; --dx:9px;  --op:0.28;--c:rgba(227,24,55,0.5);"></div>
+          </div>
+
+          <div class="home-shell">
+
+            <div class="home-topbar">
+              <div class="home-logo">Sports<span>IQ</span></div>
+              <div class="home-pts-chip">⚡ 2,450 pts</div>
+            </div>
+
+            <!-- Bar check-in prompt -->
+            <div class="bar-checkin" style="background:rgba(100,116,139,0.07);border-color:rgba(100,116,139,0.22);animation:none;">
+              <div class="bar-checkin-text" style="color:var(--faint)">📍 At a bar? Scan QR for 2× points</div>
+              <div class="bar-checkin-badge" style="color:var(--faint);background:rgba(100,116,139,0.15);">CHECK IN →</div>
+            </div>
+
+            <!-- Hero zone -->
+            <div class="home-hero">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <div class="live-badge" style="margin-bottom:0;">
+                  <div class="live-dot"></div>
+                  <span class="live-badge-text">LIVE NOW</span>
+                </div>
+                <div class="countdown-box">
+                  <div class="countdown-lbl">LOCKS IN</div>
+                  <div class="countdown-val">0:42</div>
+                </div>
+              </div>
+
+              <div class="hero-team">KANSAS CITY CHIEFS</div>
+              <div class="hero-player">Mahomes</div>
+              <div class="hero-ou-label">OVER OR UNDER</div>
+              <div class="hero-stat-row">
+                <div class="hero-number">267</div>
+                <div class="hero-stat-unit">passing yards</div>
+              </div>
+              <div class="context-card">📊 Chiefs trailing by 14 — Mahomes is in throw mode</div>
+              <div class="hero-intel">
+                <span class="hero-intel-icon">🔮</span>
+                <span>SportsIQ Intelligence · <span class="hero-intel-pct">54% chance OVER</span></span>
+              </div>
+            </div>
+
+            <!-- JOIN with rings -->
+            <div class="join-ring">
+              <button class="join-btn">
+                JOIN NOW
+                <span class="join-sub"><span class="crowd-live">184</span> players · 42s to lock</span>
+                <div class="join-drain-bar"><div class="join-drain-fill"></div></div>
+              </button>
+            </div>
+
+            <!-- Activity rail -->
+            <div class="activity-section">
+              <div class="activity-label">ALSO LIVE NOW</div>
+              <div class="activity-rail">
+                <div class="act-card act-live">
+                  <div class="act-icon">🏈</div>
+                  <div class="act-name">OVER/UNDER</div>
+                  <div class="act-status"><div class="act-live-dot"></div>JOIN NOW</div>
+                </div>
+                <div class="act-card act-live">
+                  <div class="act-icon">🧠</div>
+                  <div class="act-name">TRIVIA</div>
+                  <div class="act-status"><div class="act-live-dot"></div>ROUND 3</div>
+                </div>
+                <div class="act-card act-live">
+                  <div class="act-icon">🎱</div>
+                  <div class="act-name">BINGO</div>
+                  <div class="act-status"><div class="act-live-dot"></div>ACTIVE</div>
+                </div>
+                <div class="act-card">
+                  <div class="act-icon">📊</div>
+                  <div class="act-name">SCORES</div>
+                  <div class="act-status" style="color:var(--faint)">MNF LIVE</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats pills -->
+            <div class="stats-row">
+              <div class="stat-pill"><div class="stat-pill-val">2,450</div><div class="stat-pill-lbl">PTS</div></div>
+              <div class="stat-pill"><div class="stat-pill-val">#3</div><div class="stat-pill-lbl">TODAY</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">🔥 4</div><div class="stat-pill-lbl">STREAK</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">Gold</div><div class="stat-pill-lbl">TIER</div></div>
+            </div>
+
+          </div><!-- /home-shell -->
+        </div>
+      </div>
+      <div class="phone-label">HOME — LIVE · NOT CHECKED IN (prompt to scan)</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Mobile Home — IDLE (standalone)
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="home-idle" class="screen">
+  <div class="phone-wrap">
+
+    <!-- ── IDLE: No game active ─────────────────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner">
+          <div class="home-bg"></div>
+          <!-- Soft brand glow instead of team colors -->
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(85,69,211,0.28) 0%,transparent 60%);"></div>
+          <div class="home-vignette"></div>
+          <div class="home-shell">
+
+            <!-- Top bar -->
+            <div class="home-topbar">
+              <div class="home-logo">Sports<span>IQ</span></div>
+              <div class="home-pts-chip">⚡ 2,450 pts</div>
+            </div>
+
+            <!-- Big branding + tagline (takes flex:1) -->
+            <div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;gap:14px;">
+
+              <!-- Logo mark -->
+              <div style="background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.38);border-radius:24px;padding:24px 32px;text-align:center;width:100%;">
+                <div style="font-size:44px;font-weight:900;color:var(--text);letter-spacing:-2px;line-height:1;margin-bottom:6px;">Sports<span style="color:#5545D3">IQ</span></div>
+                <div style="font-size:13px;color:var(--muted);letter-spacing:0.5px;">The smartest fans win</div>
+              </div>
+
+              <!-- Status message -->
+              <div style="color:var(--faint);font-size:12px;text-align:center;line-height:1.7;">No live game right now<br>Visit a bar to play tonight's games live</div>
+
+              <!-- Next game teaser -->
+              <div style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="font-size:9px;color:var(--faint);letter-spacing:2px;margin-bottom:3px;">NEXT GAME</div>
+                  <div style="font-size:14px;font-weight:700;color:var(--text);">Ravens vs Chiefs</div>
+                  <div style="font-size:11px;color:var(--muted);">Tomorrow · 8:15 PM</div>
+                </div>
+                <div style="font-size:28px;">🏈</div>
+              </div>
+
+              <!-- Practice mode CTA -->
+              <button style="width:100%;height:52px;background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.35);border-radius:14px;color:var(--brand);font-family:'Lexend',sans-serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:1px;">PRACTICE MODE</button>
+            </div>
+
+            <!-- Always-available activities -->
+            <div class="activity-section">
+              <div class="activity-label">ALWAYS AVAILABLE</div>
+              <div class="activity-rail">
+                <div class="act-card">
+                  <div class="act-icon">🧠</div>
+                  <div class="act-name">TRIVIA</div>
+                  <div class="act-status" style="color:var(--faint)">PRACTICE</div>
+                </div>
+                <div class="act-card">
+                  <div class="act-icon">🏆</div>
+                  <div class="act-name">HISTORY</div>
+                  <div class="act-status" style="color:var(--faint)">ALL PICKS</div>
+                </div>
+                <div class="act-card">
+                  <div class="act-icon">📊</div>
+                  <div class="act-name">STATS</div>
+                  <div class="act-status" style="color:var(--faint)">LEADERS</div>
+                </div>
+                <div class="act-card">
+                  <div class="act-icon">⚙️</div>
+                  <div class="act-name">SETTINGS</div>
+                  <div class="act-status" style="color:var(--faint)">PROFILE</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats pills -->
+            <div class="stats-row">
+              <div class="stat-pill">
+                <div class="stat-pill-val">2,450</div>
+                <div class="stat-pill-lbl">PTS</div>
+              </div>
+              <div class="stat-pill">
+                <div class="stat-pill-val">73%</div>
+                <div class="stat-pill-lbl">CORRECT</div>
+              </div>
+              <div class="stat-pill">
+                <div class="stat-pill-val" style="color:#F59E0B">🔥 4</div>
+                <div class="stat-pill-lbl">STREAK</div>
+              </div>
+              <div class="stat-pill">
+                <div class="stat-pill-val" style="color:#F59E0B">Gold</div>
+                <div class="stat-pill-lbl">TIER</div>
+              </div>
+            </div>
+
+          </div><!-- /home-shell -->
+        </div>
+      </div>
+      <div class="phone-label">HOME — IDLE (no active game)</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Mobile Pick Card
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="pick-card" class="screen">
+  <div class="phone-wrap">
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner">
+          <div class="pick-bg"></div>
+          <div class="pick-glow"></div>
+          <div class="pick-vignette"></div>
+          <div class="pick-content">
+            <div class="pick-header">
+              <div>
+                <div class="pick-team">KANSAS CITY CHIEFS</div>
+                <div class="pick-player">Mahomes</div>
+              </div>
+              <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.4);border-radius:10px;padding:8px 14px;text-align:center">
+                <div style="color:#EF4444;font-size:10px;font-weight:700;letter-spacing:1px">LOCKS IN</div>
+                <div style="color:#EF4444;font-size:24px;font-weight:900;font-variant-numeric:tabular-nums">0:42</div>
+              </div>
+            </div>
+
+            <div style="text-align:center; flex-shrink:0; width:100%; align-self:stretch; display:flex; flex-direction:column; align-items:center;">
+              <div class="pick-prompt">OVER OR UNDER</div>
+              <div class="pick-line-row">
+                <div class="pick-number">267</div>
+              </div>
+              <div style="font-size:14px;color:var(--muted);margin-top:2px;letter-spacing:1px;">passing yards</div>
+            </div>
+
+            <!-- Flex spacer: intel badge claims all space between stat and diff buttons.
+                 Rule: never squeeze informational content between two action zones.
+                 Always use a flex:1 wrapper so it breathes. -->
+            <div style="flex:1; display:flex; align-items:center; min-height:0; padding: 4px 0;">
+              <div class="intel-badge" style="width:100%; margin-bottom:0;">
+                <span>📊</span>
+                <span>SportsIQ Intelligence: <span class="intel-pct">54% chance OVER</span></span>
+              </div>
+            </div>
+
+            <div class="diff-row">
+              <div class="diff-btn diff-chalk">
+                <div class="diff-label" style="color:var(--muted)">🧱 Chalk</div>
+                <div class="diff-mult" style="color:var(--muted)">1.5×</div>
+                <div class="diff-sub">259 passing yards</div>
+              </div>
+              <div class="diff-btn diff-heat diff-active">
+                <div class="diff-label" style="color:var(--red)">🔥 Heat Check</div>
+                <div class="diff-mult" style="color:var(--red)">2×</div>
+                <div class="diff-sub">267 passing yards</div>
+              </div>
+              <div class="diff-btn diff-wise">
+                <div class="diff-label" style="color:var(--orange)">🤙 Wise Guy</div>
+                <div class="diff-mult" style="color:var(--orange)">3×</div>
+                <div class="diff-sub">278 passing yards</div>
+              </div>
+            </div>
+
+            <div class="pick-btns">
+              <button class="less-btn">
+                UNDER ↓
+                <span class="btn-sub">+500 pts</span>
+              </button>
+              <button class="more-btn">
+                OVER ↑
+                <span class="btn-sub">+500 pts</span>
+              </button>
+            </div>
+
+            <div class="lock-row">
+              <span>Locks in</span>
+              <span class="lock-countdown">0:42</span>
+              <span>· 184 playing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">PICK CARD — MAKING A PICK</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Mobile Waiting State
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="pick-wait" class="screen">
+  <div class="phone-wrap">
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner">
+          <div class="wait-bg"></div>
+          <div class="wait-glow"></div>
+          <div class="wait-vign"></div>
+          <div class="wait-content">
+            <div class="wait-label-row">
+              <div class="live-dot"></div>
+              <div class="wait-label">WATCHING LIVE</div>
+            </div>
+            <div class="wait-player">Mahomes</div>
+            <div class="wait-stat-desc">Passing yards — needs 267 to go OVER</div>
+
+            <!-- ── TUG OF WAR ─────────────────────────────── -->
+            <div class="tug-card">
+              <!-- Crowd sides — fixed row, nothing overflows into rope zone -->
+              <div class="tug-heads">
+                <div>
+                  <div class="tug-h-dir" style="color:var(--teal)">UNDER ↓</div>
+                  <div class="tug-h-pct" style="color:var(--teal)">32%</div>
+                  <div class="tug-h-cnt">59 players</div>
+                </div>
+                <div class="tug-h-mid">CROWD SPLIT</div>
+                <div style="text-align:right">
+                  <div class="tug-h-dir" style="color:var(--brand)">OVER ↑</div>
+                  <div class="tug-h-pct" style="color:var(--brand)">68%</div>
+                  <div class="tug-h-cnt">125 players</div>
+                </div>
+              </div>
+              <!-- Rope — knot has NO children that escape the rope-area bounds -->
+              <div class="tug-rope-area">
+                <div class="tug-rope-track">
+                  <div class="tug-rope-fill"></div>
+                </div>
+                <div class="tug-target-mark"></div>
+                <div class="tug-knot">
+                  <div class="tug-knot-glow"></div>
+                  <div class="tug-knot-ball"></div>
+                </div>
+              </div>
+              <!-- Axis labels below the rope — always in-flow, never overlapping -->
+              <div class="tug-rope-labels">
+                <span class="tug-rope-label-val" style="color:var(--teal)">0 yds</span>
+                <span class="tug-rope-label-val" style="color:var(--green)">218 ←live</span>
+                <span class="tug-rope-label-val" style="color:var(--faint)">267 target</span>
+              </div>
+              <!-- Needs X more -->
+              <div class="tug-needs">needs <strong>49 more</strong> passing yards for OVER</div>
+            </div>
+
+            <!-- Live stat counter — compact -->
+            <div class="tug-live">
+              <div class="tug-live-num">218</div>
+              <div class="tug-live-lbl">PASSING YARDS · LIVE</div>
+            </div>
+
+            <div style="margin-top:auto;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:14px;padding:14px;text-align:center">
+              <div style="font-size:11px;font-weight:700;color:var(--faint);letter-spacing:2px;margin-bottom:4px">YOUR PICK</div>
+              <div style="font-size:20px;font-weight:900;color:var(--text)">🔥 OVER · Heat Check · 2×</div>
+              <div style="font-size:13px;color:var(--muted);margin-top:2px">+500 pts if correct</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">WAITING — PICKS LOCKED</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Bar Idle
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="bar-idle" class="screen">
+  <div class="tv-wrap">
+    <div class="tv-label">BAR SCREEN — IDLE · Renders natively at 4K on 4K TVs, 1080p on 1080p TVs (pure CSS — no fixed resolution cap)</div>
+    <div class="tv-frame">
+      <div class="bar-1080" id="bar-idle-inner" style="background:radial-gradient(ellipse at top left, rgba(85,69,211,0.28) 0%, transparent 55%), radial-gradient(ellipse at bottom right, rgba(34,140,136,0.22) 0%, transparent 55%), #0B2230; display:flex;">
+        <!-- Left panel -->
+        <div style="width:480px;background:#110E2A;border-right:1px solid rgba(85,69,211,0.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 48px;">
+          <div style="text-align:center;">
+            <div style="font-size:56px;font-weight:900;color:#F8FAFC;letter-spacing:-1px;">Sports<span style="color:#5545D3">IQ</span></div>
+            <div style="display:inline-block;margin-top:10px;background:#5545D3;border-radius:8px;padding:5px 16px;font-size:16px;font-weight:700;color:#fff;letter-spacing:1px;">BAR EDITION</div>
+          </div>
+          <div style="background:#0B2230;border:2px solid rgba(85,69,211,0.35);border-radius:20px;padding:18px;width:220px;height:220px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#64748B;text-align:center;">
+            <div><div style="font-size:56px;margin-bottom:4px;">▦</div>QR code here</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="color:#64748B;font-size:20px;margin-bottom:10px;">Or enter room code</div>
+            <div style="color:#F8FAFC;font-size:48px;font-weight:900;letter-spacing:12px;font-variant-numeric:tabular-nums;">7429</div>
+          </div>
+          <div style="color:#64748B;font-size:20px;text-align:center;line-height:1.6;">Scan to join the game<br><span style="color:#228C88;">Free to play — win tonight</span></div>
+        </div>
+        <!-- Right: leaderboard -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:80px;">
+          <div style="text-align:center;">
+            <div style="color:#94A3B8;font-size:26px;letter-spacing:3px;margin-bottom:14px;">TODAY'S LEADERS</div>
+            <div style="width:64px;height:4px;background:linear-gradient(90deg,#5545D3,#228C88);margin:0 auto;border-radius:2px;"></div>
+          </div>
+          <div style="width:100%;max-width:680px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 28px;background:rgba(85,69,211,0.18);border:1px solid rgba(85,69,211,0.35);border-radius:14px;margin-bottom:12px;"><span style="color:#F8FAFC;font-size:28px;font-weight:800;"><span style="color:#64748B;margin-right:14px;font-size:22px;">#1</span>BigMike</span><span style="color:#5545D3;font-weight:900;font-size:32px;">4,100 pts</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 28px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;margin-bottom:12px;"><span style="color:#94A3B8;font-size:28px;font-weight:500;"><span style="color:#64748B;margin-right:14px;font-size:22px;">#2</span>SarahK</span><span style="color:#94A3B8;font-weight:900;font-size:32px;">3,850 pts</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 28px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;margin-bottom:12px;"><span style="color:#94A3B8;font-size:28px;font-weight:500;"><span style="color:#64748B;margin-right:14px;font-size:22px;">#3</span>JayBird</span><span style="color:#94A3B8;font-weight:900;font-size:32px;">3,200 pts</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 28px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;margin-bottom:12px;"><span style="color:#94A3B8;font-size:28px;font-weight:500;"><span style="color:#64748B;margin-right:14px;font-size:22px;">#4</span>CoachKev</span><span style="color:#94A3B8;font-weight:900;font-size:32px;">2,900 pts</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 28px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;"><span style="color:#94A3B8;font-size:28px;font-weight:500;"><span style="color:#64748B;margin-right:14px;font-size:22px;">#5</span>LanaD</span><span style="color:#94A3B8;font-weight:900;font-size:32px;">2,650 pts</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Bar Predictor Question
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="bar-pred-q" class="screen">
+  <div class="tv-wrap">
+    <div class="tv-label">BAR SCREEN — LIVE PREDICTION · Renders natively at 4K on 4K TVs, 1080p on 1080p TVs</div>
+    <div class="tv-frame">
+      <div class="bar-1080" id="bar-pred-q-inner" style="background:radial-gradient(ellipse at top left, #E3183750 0%, transparent 55%), radial-gradient(ellipse at bottom right, #00338D45 0%, transparent 55%), #0B2230; display:flex; flex-direction:column; justify-content:space-between; padding:56px 80px;">
+
+        <!-- Header row -->
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="position:relative;width:18px;height:18px;flex-shrink:0;">
+              <div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;opacity:0.5;animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></div>
+              <div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;"></div>
+            </div>
+            <span style="color:#22C55E;font-size:26px;font-weight:800;letter-spacing:2px;">LIVE PREDICTION</span>
+          </div>
+          <div style="background:#110E2A;border:2px solid rgba(85,69,211,0.35);border-radius:18px;padding:12px 36px;">
+            <span style="color:#F8FAFC;font-size:36px;font-weight:900;font-variant-numeric:tabular-nums;">Locks in 42s</span>
+          </div>
+        </div>
+
+        <!-- Player hero — center of gravity -->
+        <div style="text-align:center;">
+          <div style="color:#94A3B8;font-size:28px;margin-bottom:6px;letter-spacing:1px;">KANSAS CITY CHIEFS</div>
+          <div style="color:#F8FAFC;font-size:96px;font-weight:900;line-height:1;letter-spacing:-2px;">Mahomes</div>
+          <div style="color:#64748B;font-size:32px;margin:16px 0;">OVER or UNDER</div>
+          <div style="color:#F8FAFC;font-size:140px;font-weight:900;line-height:1;letter-spacing:-4px;font-variant-numeric:tabular-nums;">267</div>
+          <div style="color:#94A3B8;font-size:40px;margin-top:8px;">passing yards</div>
+        </div>
+
+        <!-- Intel row -->
+        <div style="display:flex;justify-content:center;">
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(0,0,0,0.28);border-radius:14px;padding:14px 32px;">
+            <span style="font-size:26px;">📊</span>
+            <span style="color:#94A3B8;font-size:26px;">SportsIQ Intelligence: <span style="color:#F8FAFC;font-weight:700;">54% chance OVER</span></span>
+          </div>
+        </div>
+
+        <!-- Crowd split — UNDER left, OVER right -->
+        <div style="display:flex;gap:24px;">
+          <div style="flex:1;background:rgba(34,140,136,0.2);border:2px solid #228C88;border-radius:20px;padding:24px 32px;text-align:center;">
+            <div style="color:#228C88;font-size:44px;font-weight:900;">UNDER ↓</div>
+            <div style="color:#F8FAFC;font-size:64px;font-weight:900;font-variant-numeric:tabular-nums;">32%</div>
+            <div style="color:#64748B;font-size:24px;margin-top:4px;">59 players</div>
+          </div>
+          <div style="flex:1;background:rgba(85,69,211,0.2);border:2px solid #5545D3;border-radius:20px;padding:24px 32px;text-align:center;">
+            <div style="color:#5545D3;font-size:44px;font-weight:900;">OVER ↑</div>
+            <div style="color:#F8FAFC;font-size:64px;font-weight:900;font-variant-numeric:tabular-nums;">68%</div>
+            <div style="color:#64748B;font-size:24px;margin-top:4px;">125 players</div>
+          </div>
+        </div>
+
+        <!-- Footer: CTA + QR side by side (no overlap) -->
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="color:#64748B;font-size:24px;">Open SportsIQ — pick OVER or UNDER · Bar plays count 2×</div>
+          <div style="display:flex;align-items:center;gap:14px;background:rgba(11,34,48,0.85);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:12px 20px;backdrop-filter:blur(8px);">
+            <div style="width:60px;height:60px;background:#110E2A;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#64748B;text-align:center;">QR</div>
+            <div>
+              <div style="color:#64748B;font-size:14px;letter-spacing:1px;">JOIN</div>
+              <div style="color:#F8FAFC;font-size:26px;font-weight:900;letter-spacing:6px;font-variant-numeric:tabular-nums;">7429</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Bar Live Tracking (picks locked — watch the stat live)
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="bar-tracking" class="screen">
+  <div class="tv-wrap">
+    <div class="tv-label">BAR SCREEN — LIVE TRACKING · Picks locked, everyone watches together</div>
+    <div class="tv-frame">
+      <div class="bar-1080" id="bar-tracking-inner" style="background:radial-gradient(ellipse at top left,#E3183750 0%,transparent 55%),radial-gradient(ellipse at bottom right,#00338D45 0%,transparent 55%),#0B2230; display:flex; flex-direction:column; font-family:'Lexend',sans-serif;">
+
+        <!-- Header -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:56px 80px 0;flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="position:relative;width:18px;height:18px;flex-shrink:0;">
+              <div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;opacity:0.5;animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></div>
+              <div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;"></div>
+            </div>
+            <span style="color:#22C55E;font-size:26px;font-weight:800;letter-spacing:2px;">LIVE TRACKING</span>
+            <span style="color:#64748B;font-size:22px;margin-left:8px;">· Q3 · 8:42 remaining</span>
+          </div>
+          <div style="text-align:center;">
+            <div style="color:#94A3B8;font-size:22px;letter-spacing:2px;">KANSAS CITY CHIEFS</div>
+            <div style="color:#F8FAFC;font-size:64px;font-weight:900;line-height:1;letter-spacing:-2px;">Mahomes</div>
+            <div style="color:#64748B;font-size:24px;letter-spacing:2px;">PASSING YARDS</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="color:#64748B;font-size:20px;margin-bottom:4px;">Picks are locked</div>
+            <div style="color:#F97316;font-size:28px;font-weight:800;">needs 49 more to go OVER</div>
+          </div>
+        </div>
+
+        <!-- Main content -->
+        <div style="flex:1;display:flex;align-items:center;gap:0;padding:0 60px;">
+
+          <!-- UNDER side -->
+          <div style="width:260px;text-align:center;flex-shrink:0;">
+            <div style="color:#228C88;font-size:52px;font-weight:900;letter-spacing:-1px;">UNDER ↓</div>
+            <div style="color:#F8FAFC;font-size:96px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;">32%</div>
+            <div style="color:#64748B;font-size:26px;margin-top:6px;">59 players</div>
+          </div>
+
+          <!-- Center: stat + rope -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;padding:0 40px;">
+
+            <!-- Big stat numbers -->
+            <div style="display:flex;align-items:baseline;gap:28px;margin-bottom:36px;">
+              <div style="text-align:center;">
+                <div style="color:#F8FAFC;font-size:128px;font-weight:900;line-height:1;letter-spacing:-4px;font-variant-numeric:tabular-nums;animation:stat-pop .5s ease;">218</div>
+                <div style="color:#64748B;font-size:22px;letter-spacing:2px;margin-top:4px;">CURRENT</div>
+              </div>
+              <div style="color:#64748B;font-size:64px;font-weight:200;line-height:1;margin-bottom:32px;">→</div>
+              <div style="text-align:center;">
+                <div style="color:#94A3B8;font-size:128px;font-weight:900;line-height:1;letter-spacing:-4px;font-variant-numeric:tabular-nums;">267</div>
+                <div style="color:#64748B;font-size:22px;letter-spacing:2px;margin-top:4px;">TARGET</div>
+              </div>
+            </div>
+
+            <!-- The rope -->
+            <div style="position:relative;height:72px;width:100%;">
+              <!-- Track -->
+              <div style="position:absolute;top:50%;left:0;right:0;height:22px;transform:translateY(-50%);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.07);border-radius:11px;overflow:hidden;">
+                <!-- Fill (teal progress) -->
+                <div style="height:100%;width:81.7%;border-radius:11px 0 0 11px;background:linear-gradient(90deg,rgba(34,140,136,0.55),rgba(34,140,136,0.95));animation:rope-grow 1.6s cubic-bezier(.34,1.15,.64,1) forwards;position:relative;">
+                  <div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);background-size:200% 100%;animation:tug-shimmer 2.5s linear 1.6s infinite;"></div>
+                </div>
+              </div>
+              <!-- Target marker (right edge) -->
+              <div style="position:absolute;right:0;top:50%;transform:translateY(-50%);width:4px;height:52px;background:rgba(255,255,255,0.35);border-radius:2px;"></div>
+              <!-- Knot at 81.7% -->
+              <div style="position:absolute;left:81.7%;top:50%;transform:translate(-50%,-50%);z-index:4;animation:tug-sway 2.4s ease-in-out infinite 1.7s;">
+                <!-- Glow -->
+                <div style="position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,0.3) 0%,transparent 70%);animation:pulse 1.6s ease-in-out infinite;"></div>
+                <!-- Ball -->
+                <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#22C55E,#15803D);border:3px solid rgba(255,255,255,0.3);box-shadow:0 0 32px rgba(34,197,94,0.55);display:flex;align-items:center;justify-content:center;position:relative;z-index:2;">
+                  <div style="width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.35);"></div>
+                </div>
+                <!-- Stat bubble above knot -->
+                <div style="position:absolute;bottom:calc(100%+10px);left:50%;transform:translateX(-50%);background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.4);border-radius:10px;padding:5px 18px;font-size:22px;font-weight:900;color:#22C55E;white-space:nowrap;font-variant-numeric:tabular-nums;animation:stat-pop .4s ease 1.7s both;">218 yds</div>
+              </div>
+            </div>
+
+            <!-- Under rope labels -->
+            <div style="display:flex;justify-content:space-between;width:100%;margin-top:10px;">
+              <div style="color:#64748B;font-size:18px;">0</div>
+              <div style="color:#F97316;font-size:22px;font-weight:700;">49 more passing yards needed for OVER</div>
+              <div style="color:#64748B;font-size:18px;">267</div>
+            </div>
+
+          </div>
+
+          <!-- OVER side -->
+          <div style="width:260px;text-align:center;flex-shrink:0;">
+            <div style="color:#5545D3;font-size:52px;font-weight:900;letter-spacing:-1px;">OVER ↑</div>
+            <div style="color:#F8FAFC;font-size:96px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;">68%</div>
+            <div style="color:#64748B;font-size:26px;margin-top:6px;">125 players</div>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0 80px 52px;flex-shrink:0;">
+          <div style="color:#64748B;font-size:22px;">Open SportsIQ to join future rounds · Bar plays count 2×</div>
+          <div style="display:flex;align-items:center;gap:14px;background:rgba(11,34,48,0.85);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:12px 20px;backdrop-filter:blur(8px);">
+            <div style="width:60px;height:60px;background:#110E2A;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#64748B;text-align:center;">QR</div>
+            <div>
+              <div style="color:#64748B;font-size:14px;letter-spacing:1px;">JOIN</div>
+              <div style="color:#F8FAFC;font-size:26px;font-weight:900;letter-spacing:6px;font-variant-numeric:tabular-nums;">7429</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Bar Result
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="bar-result" class="screen">
+  <div class="tv-wrap">
+    <div class="tv-label">BAR SCREEN — RESULT · Renders natively at 4K on 4K TVs, 1080p on 1080p TVs</div>
+    <div class="tv-frame">
+      <div class="bar-1080" id="bar-result-inner" style="background:radial-gradient(ellipse at top left, #E3183750 0%, transparent 55%), radial-gradient(ellipse at bottom right, #00338D45 0%, transparent 55%), #0B2230; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:36px; text-align:center; padding:60px 80px;">
+        <div style="font-size:96px;">📈</div>
+        <div>
+          <div style="font-size:100px;font-weight:900;line-height:1;background:linear-gradient(135deg,#5545D3,#228C88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">OVER WINS</div>
+          <div style="color:#94A3B8;font-size:42px;margin-top:12px;">Mahomes — 284 passing yards</div>
+        </div>
+        <div style="display:flex;gap:24px;">
+          <div style="background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:28px 56px;text-align:center;">
+            <div style="color:#F97316;font-size:26px;font-weight:700;margin-bottom:10px;">🤙 Wise Guy</div>
+            <div style="color:#F8FAFC;font-size:52px;font-weight:900;font-variant-numeric:tabular-nums;">+750</div>
+          </div>
+          <div style="background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:28px 56px;text-align:center;">
+            <div style="color:#EF4444;font-size:26px;font-weight:700;margin-bottom:10px;">🔥 Heat Check</div>
+            <div style="color:#F8FAFC;font-size:52px;font-weight:900;font-variant-numeric:tabular-nums;">+500</div>
+          </div>
+          <div style="background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:28px 56px;text-align:center;">
+            <div style="color:#94A3B8;font-size:26px;font-weight:700;margin-bottom:10px;">🧱 Chalk</div>
+            <div style="color:#F8FAFC;font-size:52px;font-weight:900;font-variant-numeric:tabular-nums;">+375</div>
+          </div>
+        </div>
+        <div style="background:rgba(0,0,0,0.3);border-radius:14px;padding:18px 40px;">
+          <span style="color:#64748B;font-size:30px;"><strong style="color:#F8FAFC;">68%</strong> of players called it right</span>
+        </div>
+        <!-- Footer QR -->
+        <div style="position:absolute;bottom:28px;right:36px;display:flex;align-items:center;gap:14px;background:rgba(11,34,48,0.85);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:12px 20px;">
+          <div style="width:60px;height:60px;background:#110E2A;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#64748B;text-align:center;">QR</div>
+          <div><div style="color:#64748B;font-size:14px;letter-spacing:1px;">JOIN</div><div style="color:#F8FAFC;font-size:26px;font-weight:900;letter-spacing:6px;">7429</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Market Intelligence (Kalshi + Polymarket Integration)
+     Added: 2026-03-20 — Kalshi REST/WebSocket + Polymarket free public API
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="mkt-intel" class="screen">
+  <div class="mkt-wrap">
+
+    <div class="mkt-section-header">
+      <div class="mkt-section-label">NEW FEATURE CONCEPT · 2026-03-20</div>
+      <div class="mkt-section-title">📈 Market Intelligence Layer</div>
+      <div class="mkt-section-sub">SportsIQ overlays real-money prediction market data from Kalshi (CFTC-regulated, REST + WebSocket) and Polymarket (free public API, sports WebSocket) directly onto every pick — giving users the wisdom of markets alongside our AI and crowd consensus. No account needed to read data. Kalshi requires auth only to trade.</div>
+    </div>
+    <div class="mkt-date-label">API sources: Kalshi REST/WSS (docs.kalshi.com) · Polymarket Gamma API + Sports WebSocket (docs.polymarket.com) — Polymarket public endpoints require zero auth</div>
+
+    <!-- ── TWO PHONES: Before / After ─────────────────────── -->
+    <div class="mkt-phones">
+
+      <!-- Phone 1: Pick card WITH market intel panel added -->
+      <div class="mkt-phone-col">
+        <div class="mkt-phone-tag">📱 PICK CARD + MARKET INTEL</div>
+        <div class="phone-frame" style="height:760px;">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="height:100%;">
+            <div class="pick-bg"></div>
+            <div class="pick-glow"></div>
+            <div class="pick-vignette"></div>
+            <div class="pick-content" style="padding:44px 18px 16px; gap:8px;">
+
+              <!-- Header -->
+              <div class="pick-header" style="margin-bottom:10px;">
+                <div>
+                  <div class="pick-team">KANSAS CITY CHIEFS</div>
+                  <div class="pick-player">Mahomes</div>
+                </div>
+                <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.4);border-radius:10px;padding:6px 12px;text-align:center">
+                  <div style="color:#EF4444;font-size:9px;font-weight:700;letter-spacing:1px">LOCKS IN</div>
+                  <div style="color:#EF4444;font-size:22px;font-weight:900;font-variant-numeric:tabular-nums">0:42</div>
+                </div>
+              </div>
+
+              <!-- Line -->
+              <div style="text-align:center;flex-shrink:0;width:100%;align-self:stretch;display:flex;flex-direction:column;align-items:center;">
+                <div class="pick-prompt">OVER OR UNDER</div>
+                <div class="pick-line-row"><div class="pick-number" style="font-size:56px;">267</div></div>
+                <div style="font-size:13px;color:var(--muted);margin-top:0;letter-spacing:1px;">passing yards</div>
+              </div>
+
+              <!-- ★ NEW: Market Intel Panel -->
+              <div style="width:100%;flex-shrink:0;">
+                <div class="mkt-source-row">
+                  <div class="mkt-source-chip mkt-chip-siq">SIQ AI</div>
+                  <div class="mkt-source-chip mkt-chip-kalshi">Kalshi</div>
+                  <div class="mkt-source-chip mkt-chip-poly">Polymarket</div>
+                  <div class="mkt-source-chip mkt-chip-crowd">Crowd</div>
+                </div>
+                <div class="mkt-odds-panel" style="padding:10px 12px;">
+                  <!-- SportsIQ AI -->
+                  <div class="mkt-odds-row">
+                    <div class="mkt-odds-label">
+                      <div class="mkt-odds-dot" style="background:#a59df5;"></div>
+                      <span style="color:#a59df5;font-size:11px;">SportsIQ AI</span>
+                    </div>
+                    <div class="mkt-odds-bars">
+                      <div class="mkt-odds-bar-bg">
+                        <div class="mkt-odds-bar-fill" style="width:54%;background:#5545D3;"></div>
+                      </div>
+                    </div>
+                    <div class="mkt-odds-vals">
+                      <span class="mkt-over-val">54%</span>
+                      <span style="color:var(--faint)">·</span>
+                      <span class="mkt-under-val">46%</span>
+                    </div>
+                  </div>
+                  <!-- Kalshi -->
+                  <div class="mkt-odds-row">
+                    <div class="mkt-odds-label">
+                      <div class="mkt-odds-dot" style="background:#63c695;"></div>
+                      <span style="color:#63c695;font-size:11px;">Kalshi $</span>
+                    </div>
+                    <div class="mkt-odds-bars">
+                      <div class="mkt-odds-bar-bg">
+                        <div class="mkt-odds-bar-fill" style="width:61%;background:#63c695;"></div>
+                      </div>
+                    </div>
+                    <div class="mkt-odds-vals">
+                      <span style="color:#63c695;font-weight:700;">61%</span>
+                      <span style="color:var(--faint)">·</span>
+                      <span class="mkt-under-val">39%</span>
+                    </div>
+                  </div>
+                  <!-- Polymarket -->
+                  <div class="mkt-odds-row">
+                    <div class="mkt-odds-label">
+                      <div class="mkt-odds-dot" style="background:#4da3ff;"></div>
+                      <span style="color:#4da3ff;font-size:11px;">Polymarket</span>
+                    </div>
+                    <div class="mkt-odds-bars">
+                      <div class="mkt-odds-bar-bg">
+                        <div class="mkt-odds-bar-fill" style="width:58%;background:#4da3ff;"></div>
+                      </div>
+                    </div>
+                    <div class="mkt-odds-vals">
+                      <span style="color:#4da3ff;font-weight:700;">58%</span>
+                      <span style="color:var(--faint)">·</span>
+                      <span class="mkt-under-val">42%</span>
+                    </div>
+                  </div>
+                  <!-- Crowd -->
+                  <div class="mkt-odds-row">
+                    <div class="mkt-odds-label">
+                      <div class="mkt-odds-dot" style="background:#fbbf24;"></div>
+                      <span style="color:#fbbf24;font-size:11px;">SIQ Crowd</span>
+                    </div>
+                    <div class="mkt-odds-bars">
+                      <div class="mkt-odds-bar-bg">
+                        <div class="mkt-odds-bar-fill" style="width:68%;background:#fbbf24;"></div>
+                      </div>
+                    </div>
+                    <div class="mkt-odds-vals">
+                      <span style="color:#fbbf24;font-weight:700;">68%</span>
+                      <span style="color:var(--faint)">·</span>
+                      <span class="mkt-under-val">32%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Smart money alert -->
+                <div class="mkt-alert mkt-alert-bull" style="padding:8px 10px;font-size:10px;">
+                  <div class="mkt-alert-icon">🚀</div>
+                  <span><strong>Kalshi moved +8pts OVER</strong> in last 30 min — real money flowing in</span>
+                </div>
+              </div>
+
+              <!-- Difficulty buttons -->
+              <div class="diff-row" style="margin-bottom:6px;">
+                <div class="diff-btn diff-chalk"><div class="diff-label" style="color:var(--muted)">🧱 Chalk</div><div class="diff-mult" style="color:var(--muted)">1.5×</div><div class="diff-sub">259 yds</div></div>
+                <div class="diff-btn diff-heat diff-active"><div class="diff-label" style="color:var(--red)">🔥 Heat</div><div class="diff-mult" style="color:var(--red)">2×</div><div class="diff-sub">267 yds</div></div>
+                <div class="diff-btn diff-wise"><div class="diff-label" style="color:var(--orange)">🤙 Wise</div><div class="diff-mult" style="color:var(--orange)">3×</div><div class="diff-sub">278 yds</div></div>
+              </div>
+
+              <!-- Buttons -->
+              <div class="pick-btns">
+                <button class="less-btn" style="height:52px;">UNDER ↓<span class="btn-sub">+500 pts</span></button>
+                <button class="more-btn" style="height:52px;">OVER ↑<span class="btn-sub">+500 pts</span></button>
+              </div>
+              <div class="lock-row" style="margin-top:8px;font-size:12px;">
+                <span>Locks in</span><span class="lock-countdown">0:42</span><span>· 184 playing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label" style="font-size:10px;">PICK CARD — WITH MARKET INTEL</div>
+      </div>
+
+      <!-- Phone 2: Market Pulse standalone screen -->
+      <div class="mkt-phone-col">
+        <div class="mkt-phone-tag">📱 MARKET PULSE SCREEN</div>
+        <div class="phone-frame" style="height:760px;">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="height:100%;background:#050912;">
+            <!-- Glow -->
+            <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 10%,rgba(85,69,211,0.3) 0%,transparent 55%),radial-gradient(ellipse at 80% 90%,rgba(99,198,149,0.2) 0%,transparent 55%);pointer-events:none;"></div>
+            <div style="position:relative;z-index:2;padding:44px 18px 20px;display:flex;flex-direction:column;height:100%;overflow:hidden;gap:10px;">
+
+              <!-- Header -->
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+                <div>
+                  <div style="font-size:10px;color:var(--faint);letter-spacing:2px;font-weight:700;">LIVE MARKETS</div>
+                  <div style="font-size:22px;font-weight:900;letter-spacing:-0.5px;">Market Pulse</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:20px;padding:5px 12px;">
+                  <div style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></div>
+                  <span style="font-size:10px;font-weight:700;color:#4ade80;letter-spacing:1px;">LIVE</span>
+                </div>
+              </div>
+
+              <!-- Source pills -->
+              <div style="display:flex;gap:6px;flex-shrink:0;">
+                <div style="padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(99,198,149,0.15);border:1px solid rgba(99,198,149,0.4);color:#63c695;">Kalshi · CFTC Reg</div>
+                <div style="padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(0,119,255,0.15);border:1px solid rgba(0,119,255,0.4);color:#4da3ff;">Polymarket</div>
+                <div style="padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.4);color:#a59df5;">SIQ AI</div>
+              </div>
+
+              <!-- Card: Mahomes passing yards -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:14px;flex-shrink:0;">
+                <div style="font-size:10px;color:var(--faint);letter-spacing:1px;margin-bottom:4px;">KC CHIEFS · MAHOMES</div>
+                <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Passing Yards O/U 267</div>
+                <div style="display:flex;flex-direction:column;gap:5px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;">
+                    <span style="color:#63c695;font-weight:700;min-width:80px;">Kalshi</span>
+                    <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:0 8px;"><div style="width:61%;height:100%;background:#63c695;border-radius:3px;"></div></div>
+                    <span style="color:#63c695;font-weight:800;min-width:32px;text-align:right;">61%</span>
+                    <span style="color:#4ade80;font-size:9px;margin-left:6px;">▲+8</span>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;">
+                    <span style="color:#4da3ff;font-weight:700;min-width:80px;">Polymarket</span>
+                    <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:0 8px;"><div style="width:58%;height:100%;background:#4da3ff;border-radius:3px;"></div></div>
+                    <span style="color:#4da3ff;font-weight:800;min-width:32px;text-align:right;">58%</span>
+                    <span style="color:#4ade80;font-size:9px;margin-left:6px;">▲+3</span>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;">
+                    <span style="color:#a59df5;font-weight:700;min-width:80px;">SportsIQ AI</span>
+                    <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:0 8px;"><div style="width:54%;height:100%;background:#5545D3;border-radius:3px;"></div></div>
+                    <span style="color:#a59df5;font-weight:800;min-width:32px;text-align:right;">54%</span>
+                    <span style="color:var(--faint);font-size:9px;margin-left:6px;">—</span>
+                  </div>
+                </div>
+                <div style="margin-top:10px;padding:7px 10px;background:rgba(99,198,149,0.08);border:1px solid rgba(99,198,149,0.25);border-radius:8px;font-size:10px;color:#63c695;">🚀 Smart money trending OVER — Kalshi volume up 340% in 30min</div>
+              </div>
+
+              <!-- Card: Justin Jefferson -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:14px;flex-shrink:0;">
+                <div style="font-size:10px;color:var(--faint);letter-spacing:1px;margin-bottom:4px;">MIN VIKINGS · JEFFERSON</div>
+                <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Receiving Yards O/U 82.5</div>
+                <div style="display:flex;flex-direction:column;gap:5px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;">
+                    <span style="color:#63c695;font-weight:700;min-width:80px;">Kalshi</span>
+                    <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:0 8px;"><div style="width:43%;height:100%;background:#63c695;border-radius:3px;"></div></div>
+                    <span style="color:#63c695;font-weight:800;min-width:32px;text-align:right;">43%</span>
+                    <span style="color:#ef4444;font-size:9px;margin-left:6px;">▼-5</span>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;">
+                    <span style="color:#4da3ff;font-weight:700;min-width:80px;">Polymarket</span>
+                    <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:0 8px;"><div style="width:41%;height:100%;background:#4da3ff;border-radius:3px;"></div></div>
+                    <span style="color:#4da3ff;font-weight:800;min-width:32px;text-align:right;">41%</span>
+                    <span style="color:#ef4444;font-size:9px;margin-left:6px;">▼-2</span>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;">
+                    <span style="color:#a59df5;font-weight:700;min-width:80px;">SportsIQ AI</span>
+                    <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:0 8px;"><div style="width:52%;height:100%;background:#5545D3;border-radius:3px;"></div></div>
+                    <span style="color:#a59df5;font-weight:800;min-width:32px;text-align:right;">52%</span>
+                    <span style="color:var(--faint);font-size:9px;margin-left:6px;">—</span>
+                  </div>
+                </div>
+                <div style="margin-top:10px;padding:7px 10px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;font-size:10px;color:#fbbf24;">⚡ Divergence: SIQ AI sees OVER, markets leaning UNDER — contrarian edge?</div>
+              </div>
+
+              <!-- SIQ Advantage callout -->
+              <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.3);border-radius:14px;padding:12px;flex-shrink:0;">
+                <div style="font-size:10px;font-weight:800;color:#a59df5;letter-spacing:1.5px;margin-bottom:6px;">YOUR MARKET EDGE</div>
+                <div style="font-size:12px;color:var(--muted);line-height:1.5;">When SportsIQ AI diverges from real-money markets by &gt;10%, you get a <strong style="color:#a59df5">🎯 Contrarian Badge</strong> — historically +18% win rate for these picks.</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="phone-label" style="font-size:10px;">MARKET PULSE — LIVE ODDS AGGREGATOR</div>
+      </div>
+    </div>
+
+    <!-- ── BAR TV: Market Ticker Band ─────────────────────── -->
+    <div class="mkt-bar-section">
+      <div class="mkt-section-label" style="margin-bottom:8px;">BAR SCREEN ENHANCEMENT</div>
+      <div style="font-size:18px;font-weight:900;margin-bottom:6px;">Live Market Ticker — Bar TV Bottom Band</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6;">Polymarket Sports WebSocket (<code style="font-family:monospace;font-size:11px;background:rgba(255,255,255,0.06);padding:1px 6px;border-radius:4px;color:#a8ffd8;">wss://sports-api.polymarket.com/ws</code>) streams free real-time odds — no auth, no cost. Kalshi WebSocket adds real-money consensus. Combined, this scrolling ticker turns every bar TV into a live prediction market terminal.</div>
+      <div class="mkt-bar-frame">
+        <div class="mkt-bar-label">📺 BAR SCREEN · MARKET TICKER BAND (attaches to bottom of existing bar display)</div>
+        <!-- Ticker row -->
+        <div class="mkt-ticker">
+          <div class="mkt-ticker-label">LIVE MARKETS</div>
+          <div class="mkt-ticker-items">
+            <div class="mkt-ticker-item"><span class="mkt-tick-team">Mahomes Pass Yds O/U 267</span> <span class="mkt-chip-kalshi mkt-source-chip" style="font-size:9px;padding:1px 7px;">K</span><span class="mkt-tick-over">61% OVER</span> <span class="mkt-tick-arrow-up">▲+8</span></div>
+            <div class="mkt-ticker-item"><span class="mkt-tick-team">Mahomes Pass Yds O/U 267</span> <span class="mkt-chip-poly mkt-source-chip" style="font-size:9px;padding:1px 7px;">P</span><span class="mkt-tick-over">58% OVER</span> <span class="mkt-tick-arrow-up">▲+3</span></div>
+            <div class="mkt-ticker-item"><span class="mkt-tick-team">Jefferson Rec Yds O/U 82.5</span> <span class="mkt-chip-kalshi mkt-source-chip" style="font-size:9px;padding:1px 7px;">K</span><span class="mkt-tick-under">43% OVER</span> <span class="mkt-tick-arrow-down">▼-5</span></div>
+            <div class="mkt-ticker-item"><span class="mkt-tick-team">KC -3.5 Spread</span> <span class="mkt-chip-poly mkt-source-chip" style="font-size:9px;padding:1px 7px;">P</span><span class="mkt-tick-over">67% YES</span> <span class="mkt-tick-arrow-up">▲+2</span></div>
+            <div class="mkt-ticker-item"><span class="mkt-tick-team">Total Points O/U 47.5</span> <span class="mkt-chip-kalshi mkt-source-chip" style="font-size:9px;padding:1px 7px;">K</span><span class="mkt-tick-over">55% OVER</span> <span class="mkt-tick-arrow-up">▲+1</span></div>
+          </div>
+        </div>
+        <!-- Three market cards -->
+        <div class="mkt-card-grid">
+          <div class="mkt-card">
+            <div class="mkt-card-game">🏈 KC vs MIN · Q3 · 14:22</div>
+            <div class="mkt-card-prop">Mahomes Passing Yards O/U 267</div>
+            <div class="mkt-card-sources">
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#63c695;">Kalshi</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:61%;background:#63c695;"></div></div><span class="mkt-card-over" style="color:#63c695;">61% OVER</span></div>
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#4da3ff;">Polymarket</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:58%;background:#4da3ff;"></div></div><span class="mkt-card-over" style="color:#4da3ff;">58% OVER</span></div>
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#a59df5;">SIQ AI</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:54%;background:#5545D3;"></div></div><span class="mkt-card-over">54% OVER</span></div>
+            </div>
+          </div>
+          <div class="mkt-card">
+            <div class="mkt-card-game">🏈 KC vs MIN · Q3 · 14:22</div>
+            <div class="mkt-card-prop">Jefferson Receiving Yards O/U 82.5</div>
+            <div class="mkt-card-sources">
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#63c695;">Kalshi</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:43%;background:#63c695;"></div></div><span class="mkt-card-over" style="color:#63c695;">43% OVER</span></div>
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#4da3ff;">Polymarket</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:41%;background:#4da3ff;"></div></div><span class="mkt-card-over" style="color:#4da3ff;">41% OVER</span></div>
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#a59df5;">SIQ AI</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:52%;background:#5545D3;"></div></div><span class="mkt-card-over">52% OVER</span></div>
+            </div>
+          </div>
+          <div class="mkt-card">
+            <div class="mkt-card-game">🏈 KC vs MIN · Game Total</div>
+            <div class="mkt-card-prop">Total Points O/U 47.5</div>
+            <div class="mkt-card-sources">
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#63c695;">Kalshi</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:55%;background:#63c695;"></div></div><span class="mkt-card-over" style="color:#63c695;">55% OVER</span></div>
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#4da3ff;">Polymarket</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:53%;background:#4da3ff;"></div></div><span class="mkt-card-over" style="color:#4da3ff;">53% OVER</span></div>
+              <div class="mkt-card-row"><span class="mkt-card-src" style="color:#a59df5;">SIQ AI</span><div class="mkt-card-prob-bar"><div class="mkt-card-prob-fill" style="width:49%;background:#5545D3;"></div></div><span class="mkt-card-over">49% OVER</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Moat Analysis -->
+      <div class="mkt-moat">
+        <div class="mkt-moat-title">🏰 MOAT ANALYSIS — WHY THIS IS DEFENSIBLE</div>
+        <div class="mkt-moat-grid">
+          <div class="mkt-moat-item">
+            <div class="mkt-moat-icon">🔒</div>
+            <div class="mkt-moat-head">Proprietary Data Layer</div>
+            <div class="mkt-moat-body">SportsIQ is the only platform combining Kalshi real-money odds + Polymarket crowd odds + our AI + bar crowd picks — a 4-signal consensus no competitor has assembled.</div>
+          </div>
+          <div class="mkt-moat-item">
+            <div class="mkt-moat-icon">🌀</div>
+            <div class="mkt-moat-head">Addiction Loop</div>
+            <div class="mkt-moat-body">Real-money market movement creates urgency ("Kalshi just moved 8pts — pick NOW"). Users refresh compulsively to watch live odds shift mid-game.</div>
+          </div>
+          <div class="mkt-moat-item">
+            <div class="mkt-moat-icon">🎯</div>
+            <div class="mkt-moat-head">Contrarian Edge Feature</div>
+            <div class="mkt-moat-body">When SIQ AI diverges from markets by &gt;10%, we badge it as a "Smart Pick" opportunity. This creates a unique product story — we give you an edge the markets don't know about yet.</div>
+          </div>
+          <div class="mkt-moat-item">
+            <div class="mkt-moat-icon">📡</div>
+            <div class="mkt-moat-body">Polymarket sports WebSocket is <strong style="color:#a59df5;">free, no auth, real-time</strong>. Kalshi sports REST is low-cost. Zero variable cost to add market intelligence to every pick.</div>
+            <div class="mkt-moat-head">Near-Zero Marginal Cost</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- API Technical Summary -->
+      <div style="margin-top:16px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:20px 22px;">
+        <div style="font-size:12px;font-weight:800;color:var(--faint);letter-spacing:2px;margin-bottom:14px;">API INTEGRATION SUMMARY</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#63c695;margin-bottom:6px;">Kalshi (CFTC Regulated)</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+              • REST + WebSocket + FIX 4.4<br>
+              • Auth needed only to trade<br>
+              • $600-700M annualized revenue (2025)<br>
+              • Sports since Q1 2025<br>
+              • Yes/No binary markets<br>
+              • docs.kalshi.com
+            </div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#4da3ff;margin-bottom:6px;">Polymarket (Global Crowd)</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+              • Gamma API: fully public, zero auth<br>
+              • Sports WebSocket: wss://sports-api.polymarket.com/ws<br>
+              • Live scores + odds streaming<br>
+              • CLOB orderbook for pricing<br>
+              • Largest prediction market globally<br>
+              • docs.polymarket.com
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:14px;padding:12px;background:rgba(85,69,211,0.08);border-radius:10px;font-size:12px;color:var(--muted);line-height:1.6;">
+          ⚠️ <strong style="color:#fbbf24;">Note:</strong> Kalshi facing Arizona criminal charges (March 2026) over gambling classification. Recommend legal review before deep Kalshi integration. Polymarket is offshore — US regulatory exposure is lower for read-only display. Both can be used for market data display; trading integration requires deeper legal analysis.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     MARK'S IDEA INBOX — EDITABLE DATA BLOCK
+     ─────────────────────────────────────────────────────────────────────────
+     FOR REAL IDEAS, FEATURES & TASKS ONLY — not chat.
+     Add directly here, or Mark flags something in chat worth building.
+
+     STATUS VALUES: "new" | "queued" | "in-progress" | "done" | "noted"
+══════════════════════════════════════════════════════════════════════════ -->
+<script id="mark-ideas" type="application/json">
+[
+  {
+    "id": "idea-001",
+    "date": "2026-03-20",
+    "source": "inbox",
+    "idea": "Idea Inbox — a place to develop and iterate on ideas with Claude. Add ideas here or flag them in chat when they rise to the level of something real to build.",
+    "status": "done",
+    "claude_response": "Built — this inbox. JSON-powered, reply-per-card, Claude checks on each loop and acts on mark_reply entries.",
+    "mark_reply": ""
+  },
+  {
+    "id": "idea-002",
+    "date": "2026-03-20",
+    "source": "chat",
+    "idea": "Integrate Kalshi and Polymarket APIs to enhance SportsIQ with real-money prediction market intelligence",
+    "status": "done",
+    "claude_response": "Built — new 📈 Market Intel tab. (1) Enhanced pick card with 4-signal odds panel: SIQ AI vs Kalshi vs Polymarket vs Crowd, with live movement arrows + Smart Money alerts. (2) Market Pulse mobile screen: live aggregated odds for all active props with divergence alerts. (3) Bar TV market ticker band: Polymarket Sports WebSocket (free, zero auth) streams real-time odds. Includes moat analysis + full API notes. Regulatory warning on Kalshi (Arizona charges March 2026) included.",
+    "mark_reply": ""
+  }
+]
+</script>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Feedback
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="feedback" class="screen">
+  <div class="feedback-wrap">
+    <div class="feedback-inner">
+
+      <!-- ─── IDEA INBOX ─────────────────────────────────────── -->
+      <div>
+        <div class="inbox-top-bar">
+          <div class="idea-inbox-header" style="margin-bottom:0;">
+            <div class="idea-inbox-icon">💡</div>
+            <div>
+              <div class="idea-inbox-title">Mark's Idea Inbox
+                <span id="server-badge" style="display:none;align-items:center;gap:5px;margin-left:10px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);border-radius:20px;padding:2px 10px;font-size:10px;font-weight:700;color:#4ade80;letter-spacing:1px;vertical-align:middle;">
+                  <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;"></span> LIVE
+                </span>
+              </div>
+              <div class="idea-inbox-sub" id="inbox-sub-text">Real features, ideas, and tasks only. Type a reply → click <strong>Send Reply</strong> → done. Claude checks every hour and goes to work.</div>
+            </div>
+          </div>
+          <button class="inbox-add-btn" onclick="toggleAddForm()">＋ Add New Item</button>
+        </div>
+
+        <!-- Inline add form — hidden by default -->
+        <div class="inbox-add-form" id="inbox-add-form" style="display:none;">
+          <div style="font-size:11px;font-weight:800;color:#a59df5;letter-spacing:1.5px;margin-bottom:10px;">NEW IDEA / TASK</div>
+          <textarea id="new-idea-text" placeholder="Describe the idea, task, or feature..."></textarea>
+          <div class="inbox-form-btns">
+            <button class="inbox-form-submit" onclick="submitNewIdea()">Add to Inbox</button>
+            <button class="inbox-form-cancel" onclick="toggleAddForm()">Cancel</button>
+          </div>
+        </div>
+
+        <div id="idea-inbox-list">
+          <!-- Rendered by renderIdeaInbox() below -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+    // Must re-run scaling AFTER the screen is visible so offsetWidth is non-zero
+    requestAnimationFrame(function() {
+      applyBarScale();
+      // Second pass catches any layout jitter
+      setTimeout(applyBarScale, 80);
+    });
+  }
+
+  function toggleChip(el) {
+    el.classList.toggle('selected');
+  }
+
+  // Resolution strategy: authored at 1920×1080, CSS transform scales to any preview width.
+  // On a real Yodeck/4K TV the browser renders at the display's native resolution —
+  // no scaling needed there. For 1080p TVs the same content fills the screen perfectly.
+  function applyBarScale() {
+    const ids = ['bar-idle-inner', 'bar-pred-q-inner', 'bar-tracking-inner', 'bar-result-inner'];
+    ids.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var frame = el.closest('.tv-frame');
+      if (!frame) return;
+      var w = frame.offsetWidth;
+      if (w === 0) return; // element is hidden — skip, will be called again on tab switch
+      var scale = w / 1920;
+      el.style.transform = 'scale(' + scale + ')';
+    });
+  }
+
+  window.addEventListener('resize', applyBarScale);
+  // On first load the bar tabs are hidden so offsetWidth = 0 — that's fine.
+  // applyBarScale() is called correctly every time a bar tab is clicked.
+  setTimeout(applyBarScale, 100);
+
+  /* ══════════════════════════════════════════════════════
+     IDEA INBOX — full state management
+     - JSON block = seed data + Claude responses + mark_reply
+     - localStorage = completed flags + new items added via UI
+  ══════════════════════════════════════════════════════ */
+
+  var _ideasData = [];
+  var _serverMode = false;
+  var LS_COMPLETED = 'siq-completed-ids';
+  var LS_NEW_ITEMS = 'siq-new-items';
+
+  /* ── Detect companion server on load ─────────────────── */
+  fetch('/api/health', { signal: AbortSignal.timeout(700) })
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d && d.ok) {
+        _serverMode = true;
+        var badge = document.getElementById('server-badge');
+        if (badge) badge.style.display = 'flex';
+        reloadFromServer();
+      }
+    })
+    .catch(function() { /* file:// mode — silent */ });
+
+  function reloadFromServer() {
+    fetch('/?_=' + Date.now())
+      .then(function(r) { return r.text(); })
+      .then(function(html) {
+        var m = html.match(/<script id="mark-ideas"[^>]*>([\s\S]*?)<\/script>/);
+        if (!m) return;
+        try { _ideasData = JSON.parse(m[1].trim()); renderIdeaInbox(); } catch(e) {}
+      }).catch(function() {});
+  }
+
+  function getCompleted() {
+    try { return JSON.parse(localStorage.getItem(LS_COMPLETED) || '[]'); } catch(e) { return []; }
+  }
+  function saveCompleted(arr) { localStorage.setItem(LS_COMPLETED, JSON.stringify(arr)); }
+  function getNewItems() {
+    try { return JSON.parse(localStorage.getItem(LS_NEW_ITEMS) || '[]'); } catch(e) { return []; }
+  }
+  function saveNewItems(arr) { localStorage.setItem(LS_NEW_ITEMS, JSON.stringify(arr)); }
+
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ── Add-form toggle ──────────────────────────────── */
+  function toggleAddForm() {
+    var f = document.getElementById('inbox-add-form');
+    var ta = document.getElementById('new-idea-text');
+    if (!f) return;
+    if (f.style.display === 'none') {
+      f.style.display = 'block';
+      if (ta) { ta.value = ''; ta.focus(); }
+    } else {
+      f.style.display = 'none';
+    }
+  }
+
+  function submitNewIdea() {
+    var ta = document.getElementById('new-idea-text');
+    if (!ta || !ta.value.trim()) { ta && ta.focus(); return; }
+    var text = ta.value.trim();
+    ta.value = '';
+    document.getElementById('inbox-add-form').style.display = 'none';
+
+    if (_serverMode) {
+      /* Write directly to index.html via server */
+      fetch('/api/new-idea', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ idea: text })
+      }).then(function() { reloadFromServer(); }).catch(function(e) { alert('Server error: ' + e.message); });
+    } else {
+      /* File mode fallback — localStorage */
+      var today = new Date().toISOString().slice(0,10);
+      var id = 'ui-' + Date.now();
+      var newItems = getNewItems();
+      newItems.push({ id: id, date: today, source: 'inbox', idea: text, status: 'new', claude_response: '', mark_reply: '', _ui: true });
+      saveNewItems(newItems);
+      renderIdeaInbox();
+    }
+  }
+
+  /* ── Complete / restore ───────────────────────────── */
+  function markComplete(id) {
+    var completed = getCompleted();
+    if (completed.indexOf(id) === -1) completed.push(id);
+    saveCompleted(completed);
+    renderIdeaInbox();
+  }
+
+  function restoreToActive(id) {
+    var completed = getCompleted().filter(function(x) { return x !== id; });
+    saveCompleted(completed);
+    renderIdeaInbox();
+  }
+
+  /* ── Reply helpers ────────────────────────────────── */
+  function saveReplyLocally(id) {
+    var ta = document.getElementById('reply-' + id);
+    if (ta) localStorage.setItem('reply-' + id, ta.value);
+  }
+
+  function clearReply(id) {
+    var ta = document.getElementById('reply-' + id);
+    if (ta) { ta.value = ''; localStorage.removeItem('reply-' + id); }
+  }
+
+  function copyUpdatedEntry(id) {
+    var ta = document.getElementById('reply-' + id);
+    if (!ta || !ta.value.trim()) { alert('Reply is empty — type your response first.'); return; }
+    var reply = ta.value.trim();
+    var btn = document.getElementById('reply-btn-' + id);
+
+    function flashBtn(msg) {
+      if (!btn) return;
+      var orig = btn.textContent;
+      btn.textContent = msg;
+      btn.disabled = true;
+      setTimeout(function() { btn.textContent = orig; btn.disabled = false; }, 2500);
+    }
+
+    if (_serverMode) {
+      /* Write directly to index.html — zero copy-paste */
+      fetch('/api/reply', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id: id, reply: reply })
+      })
+      .then(function(r) {
+        if (!r.ok) throw new Error('Server returned ' + r.status);
+        ta.value = '';
+        localStorage.removeItem('reply-' + id);
+        flashBtn('✓ Saved!');
+        reloadFromServer();
+      })
+      .catch(function(e) { alert('Could not save: ' + e.message); });
+    } else {
+      /* File mode fallback — copy short chat message to clipboard */
+      var chatMsg = 'Reply for ' + id + ': ' + reply;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(chatMsg).then(function() { flashBtn('✓ Copied — paste in chat!'); });
+      } else { prompt('Paste this in chat:', chatMsg); }
+    }
+  }
+
+  /* ── Card builder ─────────────────────────────────── */
+  var statusMeta = {
+    'new':         { label: '🆕 NEW',        cls: 'badge-new' },
+    'queued':      { label: '⏳ QUEUED',      cls: 'badge-queued' },
+    'in-progress': { label: '🔨 IN PROGRESS', cls: 'badge-in-progress' },
+    'done':        { label: '✅ DONE',         cls: 'badge-done' },
+    'noted':       { label: '💬 NOTED',        cls: 'badge-noted' }
+  };
+
+  function buildCard(item, isCompleted) {
+    var sm = statusMeta[item.status] || { label: item.status.toUpperCase(), cls: 'badge-new' };
+    var cardCls = 'idea-card status-' + item.status + (isCompleted ? ' idea-card-completed' : '');
+    var savedReply = localStorage.getItem('reply-' + item.id) || (item.mark_reply || '');
+    var unsavedPill = item._ui ? '<span class="new-item-pill">Unsaved — paste JSON to persist</span>' : '';
+    var h = '';
+    h += '<div class="' + cardCls + '" id="card-' + escHtml(item.id) + '">';
+    h += '  <div class="idea-card-top">';
+    h += '    <div class="idea-text">' + escHtml(item.idea) + unsavedPill + '</div>';
+    h += '    <div class="idea-badge ' + sm.cls + '">' + sm.label + '</div>';
+    h += '  </div>';
+    h += '  <div class="idea-meta">' + escHtml(item.date) + ' &nbsp;·&nbsp; ' + escHtml(item.source) + ' &nbsp;·&nbsp; ' + escHtml(item.id) + '</div>';
+    if (item.claude_response) {
+      h += '  <div class="idea-response"><div class="idea-response-label">CLAUDE\'S UPDATE</div>' + escHtml(item.claude_response) + '</div>';
+    }
+    if (item.mark_reply && item.mark_reply.trim()) {
+      h += '  <div style="margin-top:10px;padding:10px 14px;background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.25);border-radius:10px;">';
+      h += '    <div style="font-size:10px;font-weight:800;color:#4ade80;letter-spacing:1.5px;margin-bottom:5px;">MARK\'S REPLY · IN JSON</div>';
+      h += '    <div style="font-size:13px;color:#e2e8f0;">' + escHtml(item.mark_reply) + '</div>';
+      h += '  </div>';
+    }
+    if (!isCompleted) {
+      /* Reply box */
+      h += '  <div class="idea-reply-area">';
+      h += '    <div style="font-size:10px;font-weight:800;color:rgba(34,197,94,0.8);letter-spacing:1.5px;margin-bottom:6px;">↩ YOUR REPLY TO CLAUDE</div>';
+      h += '    <textarea id="reply-' + escHtml(item.id) + '" class="idea-reply-textarea" placeholder="Type your follow-up, direction, or approval..." onInput="saveReplyLocally(\'' + escHtml(item.id) + '\')">' + escHtml(savedReply) + '</textarea>';
+      h += '    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">';
+      h += '      <button id="reply-btn-' + escHtml(item.id) + '" class="idea-copy-btn" onclick="copyUpdatedEntry(\'' + escHtml(item.id) + '\')">💬 Send Reply</button>';
+      h += '      <button class="idea-copy-btn" style="background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.3);color:#f87171;" onclick="clearReply(\'' + escHtml(item.id) + '\')">✕ Clear</button>';
+      h += '    </div>';
+      h += '  </div>';
+      /* Complete button */
+      h += '  <button class="card-complete-btn" onclick="markComplete(\'' + escHtml(item.id) + '\')">✓ Mark Complete</button>';
+    } else {
+      /* Restore button */
+      h += '  <button class="card-restore-btn" onclick="restoreToActive(\'' + escHtml(item.id) + '\')">↩ Move back to Active</button>';
+    }
+    h += '</div>';
+    return h;
+  }
+
+  /* ── Main renderer ────────────────────────────────── */
+  function renderIdeaInbox() {
+    var container = document.getElementById('idea-inbox-list');
+    if (!container) return;
+
+    /* Load seed data from JSON block */
+    var raw = document.getElementById('mark-ideas');
+    if (raw) {
+      try { _ideasData = JSON.parse(raw.textContent); } catch(e) { _ideasData = []; }
+    }
+
+    /* Merge: JSON items + UI-added items, newest first */
+    var uiItems = getNewItems();
+    var allItems = uiItems.concat(_ideasData.slice().reverse());
+
+    /* Split by completed flag */
+    var completedIds = getCompleted();
+    var active = [], completed = [];
+    allItems.forEach(function(item) {
+      if (completedIds.indexOf(item.id) !== -1) completed.push(item);
+      else active.push(item);
+    });
+
+    var html = '';
+
+    /* Active section */
+    if (active.length === 0) {
+      html += '<div class="idea-empty"><div class="idea-empty-icon">💭</div>No active ideas — click <strong>Add New Item</strong> to start.</div>';
+    } else {
+      active.forEach(function(item) { html += buildCard(item, false); });
+    }
+
+    /* Completed section */
+    if (completed.length > 0) {
+      html += '<div class="completed-section-header">';
+      html += '  <div class="completed-section-title">✅ COMPLETED</div>';
+      html += '  <div class="completed-section-count">' + completed.length + ' item' + (completed.length !== 1 ? 's' : '') + '</div>';
+      html += '</div>';
+      completed.forEach(function(item) { html += buildCard(item, true); });
+    }
+
+    container.innerHTML = html;
+  }
+
+  // Render on load
+  renderIdeaInbox();
+</script>
+</body>
+</html>
