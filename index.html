@@ -1477,18 +1477,65 @@
   }
   .tug-live-lbl { font-size: 10px; color: var(--faint); letter-spacing: 2px; margin-top: 2px; }
 
+  /* ── Mobile top bar (hidden on desktop) ─────────────────── */
+  .mob-topbar {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1500;
+    height: 52px;
+    background: rgba(4,7,15,0.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    align-items: center;
+    padding: 0 14px;
+    gap: 12px;
+  }
+  .mob-ham {
+    background: none; border: none; color: var(--text); font-size: 22px;
+    cursor: pointer; padding: 6px; line-height: 1; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 8px;
+  }
+  .mob-ham:active { background: rgba(255,255,255,0.08); }
+  .mob-screen-title {
+    flex: 1; font-size: 14px; font-weight: 700; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .mob-logo { font-size: 16px; font-weight: 900; color: var(--text); letter-spacing: -0.5px; flex-shrink: 0; }
+  .mob-logo span { color: var(--brand); }
+
+  /* Dim overlay behind drawer */
+  .mob-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 1998;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .mob-overlay.open { display: block; }
+
   /* ── Mobile responsive ──────────────────────────────────── */
   @media (max-width: 768px) {
-    /* Nav — scrollable row, no wrap */
-    .nav {
-      padding: 0 8px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+    /* Show mobile top bar */
+    .mob-topbar { display: flex; }
+
+    /* Sidebar becomes a slide-in drawer */
+    .sidenav {
+      position: fixed;
+      top: 0; bottom: 0;
+      left: -105%; /* off-screen */
+      width: 82%; max-width: 290px;
+      z-index: 1999;
+      transition: left 0.26s cubic-bezier(0.4,0,0.2,1);
+      flex-direction: column;
+      border-right: 1px solid var(--cardBorder);
     }
-    .nav::-webkit-scrollbar { display: none; }
-    .nav-logo { font-size: 17px; padding: 12px 12px 12px 4px; }
-    .tab { padding: 14px 12px; font-size: 12px; }
+    .sidenav.mob-open { left: 0; }
+
+    /* Main screens — full width, padding for top bar */
+    .screen { margin-left: 0; padding-top: 52px; }
+
+    /* Prevent body scroll when drawer open */
+    body.mob-nav-open { overflow: hidden; }
 
     /* Feedback / Idea Inbox */
     .feedback-wrap { padding: 14px 12px 40px; }
@@ -1498,30 +1545,45 @@
     .inbox-add-btn { justify-content: center; padding: 12px; font-size: 14px; }
     .inbox-form-btns { flex-direction: column; }
     .inbox-form-submit, .inbox-form-cancel { width: 100%; padding: 12px; text-align: center; }
-    .inbox-add-form textarea { font-size: 16px; } /* prevent iOS zoom */
+    .inbox-add-form textarea { font-size: 16px; }
 
     /* Cards */
     .idea-card { border-radius: 14px; }
     .idea-card-top { flex-direction: column; gap: 8px; align-items: flex-start; }
-    .idea-reply-textarea {
-      min-height: 90px;
-      font-size: 16px; /* prevent iOS zoom-in */
-    }
+    .idea-reply-textarea { min-height: 90px; font-size: 16px; }
     .idea-reply-area > div:last-child { flex-direction: column; }
-    .idea-copy-btn {
-      width: 100%; text-align: center;
-      padding: 13px 16px; font-size: 14px;
-    }
+    .idea-copy-btn { width: 100%; text-align: center; padding: 13px 16px; font-size: 14px; }
     .card-complete-btn { width: 100%; text-align: center; padding: 12px; }
     .card-restore-btn  { width: 100%; text-align: center; padding: 10px; }
 
-    /* Phone/TV frames — hide on small screens, just show content */
-    .phone-wrap, .tv-wrap, .mkt-wrap { padding: 16px 12px; }
+    /* Phone/TV frames — hide the desktop frames, inline v2 mockups still show */
+    .phone-wrap, .tv-wrap, .mkt-wrap { padding: 16px 8px; }
     .phone-frame { display: none; }
     .phone-label { display: none; }
-    /* Sidebar collapses on mobile */
-    .sidenav { width: 100%; height: auto; position: relative; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid var(--cardBorder); }
-    .screen { margin-left: 0; }
+
+    /* v2 screens: allow horizontal scroll for multi-phone layouts */
+    #home-live-v2 > div, #bar-idle-v2 > div, #bar-pred-q-v2 > div,
+    #bar-tracking-v2 > div, #bar-result-v2 > div, #trivia > div,
+    #leaderboard-v2 > div, #pick-wait-v2 > div, #notifications > div,
+    #data-intelligence > div, #onboarding-v2 > div, #pick-card-v2 > div,
+    #game-day-v2 > div, #home-idle-v2 > div, #daily-challenge-v2 > div,
+    #sports-dna-profile > div, #bar-crew-mgmt > div,
+    #referral-growth > div, #venue-onboarding > div {
+      min-height: auto;
+      padding: 20px 12px 32px;
+    }
+    /* Phone mockup rows: scroll horizontally on small screens */
+    [id$="-phones"],
+    div[style*="display:flex;gap:28px;flex-wrap:wrap"] {
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 12px;
+      gap: 16px !important;
+    }
+    /* Moat analysis cards */
+    .sfb-panel { padding: 24px 14px 40px; }
+    .sfb-inner { padding: 0; }
   }
 
   /* ══════════════════════════════════════════════════════
@@ -1624,6 +1686,14 @@
 <body>
 
 <!-- ── Left Sidebar Navigation ─────────────────────────────────────────── -->
+<!-- Mobile: dim overlay + top bar (hidden on desktop via CSS) -->
+<div class="mob-overlay" id="mob-overlay" onclick="closeMobNav()"></div>
+<div class="mob-topbar" id="mob-topbar">
+  <button class="mob-ham" id="mob-ham" onclick="toggleMobNav()" aria-label="Open navigation">&#9776;</button>
+  <div class="mob-screen-title" id="mob-screen-title">Mockups</div>
+  <div class="mob-logo">Sports<span>IQ</span></div>
+</div>
+
 <nav class="sidenav" id="sidenav">
   <div class="nav-logo">
     Sports<span>IQ</span>
@@ -3970,6 +4040,27 @@
 </div>
 
 <script>
+  /* ── Mobile nav drawer ──────────────────────────────────── */
+  function toggleMobNav() {
+    var nav = document.getElementById('sidenav');
+    var overlay = document.getElementById('mob-overlay');
+    var isOpen = nav.classList.contains('mob-open');
+    if (isOpen) {
+      nav.classList.remove('mob-open');
+      overlay.classList.remove('open');
+      document.body.classList.remove('mob-nav-open');
+    } else {
+      nav.classList.add('mob-open');
+      overlay.classList.add('open');
+      document.body.classList.add('mob-nav-open');
+    }
+  }
+  function closeMobNav() {
+    document.getElementById('sidenav').classList.remove('mob-open');
+    document.getElementById('mob-overlay').classList.remove('open');
+    document.body.classList.remove('mob-nav-open');
+  }
+
   function showScreen(id, tabEl) {
     document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
     document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
@@ -3979,6 +4070,17 @@
     var tab = tabEl;
     while (tab && !tab.classList.contains('tab')) tab = tab.parentElement;
     if (tab) tab.classList.add('active');
+    // Update mobile top bar title
+    var titleEl = document.getElementById('mob-screen-title');
+    if (titleEl && tab) {
+      var labelEl = tab.querySelector('.tab-label');
+      titleEl.textContent = labelEl ? labelEl.textContent : id;
+    }
+    // Close mobile drawer on navigation
+    closeMobNav();
+    // Scroll screen to top on mobile
+    if (screen) screen.scrollTop = 0;
+    window.scrollTo(0, 0);
     // Must re-run scaling AFTER the screen is visible so offsetWidth is non-zero
     requestAnimationFrame(function() {
       applyBarScale();
@@ -4017,30 +4119,30 @@
      NAV — days-since badges
   ══════════════════════════════════════════════════════ */
   var SCREEN_DATES = {
-    'home-live':        '2026-03-01',
-    'home-idle':        '2026-03-01',
-    'pick-card':        '2026-03-01',
-    'pick-wait':        '2026-03-01',
-    'bar-idle':         '2026-03-01',
-    'bar-pred-q':       '2026-03-01',
-    'bar-tracking':     '2026-03-01',
-    'bar-result':       '2026-03-01',
-    'mkt-intel':        '2026-03-20',
-    'venue-dashboard':  '2026-03-20',
-    'my-stats':         '2026-03-20',
-    'leaderboard':      '2026-03-20',
-    'onboarding':       '2026-03-20',
-    'daily-challenge':  '2026-03-20',
-    'game-day':         '2026-03-20',
+    'home-live':        '2026-03-21',
+    'home-idle':        '2026-03-21',
+    'pick-card':        '2026-03-21',
+    'pick-wait':        '2026-03-21',
+    'bar-idle':         '2026-03-21',
+    'bar-pred-q':       '2026-03-21',
+    'bar-tracking':     '2026-03-21',
+    'bar-result':       '2026-03-21',
+    'mkt-intel':        '2026-03-21',
+    'venue-dashboard':  '2026-03-21',
+    'my-stats':         '2026-03-21',
+    'leaderboard':      '2026-03-21',
+    'onboarding':       '2026-03-21',
+    'daily-challenge':  '2026-03-21',
+    'game-day':         '2026-03-21',
     'home-live-v2':     '2026-03-21',
     'bar-idle-v2':      '2026-03-21',
     'bar-pred-q-v2':    '2026-03-21',
     'bar-tracking-v2':  '2026-03-21',
     'bar-result-v2':    '2026-03-21',
     'trivia':           '2026-03-21',
-    'leaderboard-v2':   '2026-03-20',
-    'pick-wait-v2':     '2026-03-20',
-    'notifications':    '2026-03-20',
+    'leaderboard-v2':   '2026-03-21',
+    'pick-wait-v2':     '2026-03-21',
+    'notifications':    '2026-03-21',
     'data-intelligence':'2026-03-21',
     'onboarding-v2':    '2026-03-21',
     'pick-card-v2':     '2026-03-21',
