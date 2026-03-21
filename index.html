@@ -1851,6 +1851,9 @@
     <div class="tab" data-screen="bar-pred-q-v3" onclick="showScreen('bar-pred-q-v3',this)">
       <span class="tab-label">Bar · Live Pick v3</span><span class="tab-days" id="days-bar-pred-q-v3"></span>
     </div>
+    <div class="tab" data-screen="bar-pred-q-v4" onclick="showScreen('bar-pred-q-v4',this)">
+      <span class="tab-label">Bar · Live Pick v4</span><span class="tab-days" id="days-bar-pred-q-v4"></span>
+    </div>
     <div class="tab" data-screen="bar-tracking-v2" onclick="showScreen('bar-tracking-v2',this)">
       <span class="tab-label">Bar · Tracking v2</span><span class="tab-days" id="days-bar-tracking-v2"></span>
     </div>
@@ -3757,8 +3760,8 @@
     "date": "2026-03-21",
     "source": "inbox",
     "idea": "[bar-pred-q-v3] 1. dont show polymarket or kalshi, just show sportsiq crowd\n2. explain what you mean\n3. this whole layout needs imporvemnt. I dont like qr code locaytion either. spacing and positioning looks off.  optimize aethetics here",
-    "status": "new",
-    "claude_response": "",
+    "status": "done",
+    "claude_response": "Built Bar Live Pick v4. All Polymarket/Kalshi removed — only SportsIQ crowd shown (68%/32% split is now the visual hero). New 3-column layout: LEFT = player identity (team, name, stat line, context sentence, SportsIQ Signal dot in brand amber); CENTER = massive crowd split cards side-by-side with tug-of-war bar and player count; RIGHT = countdown timer stacked above QR + room code. QR moved to right column, smaller and cleaner. Layout breathes — generous padding throughout. Brand colors only.",
     "mark_reply": ""
   },
   {
@@ -3802,8 +3805,8 @@
     "date": "2026-03-21",
     "source": "inbox",
     "idea": "[mkt-intel] 1. its fine\n2. a little dense\n3. no\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better\n\ndont use the term AI anywhere in the app",
-    "status": "new",
-    "claude_response": "",
+    "status": "in-progress",
+    "claude_response": "CRITICAL RULE NOTED: 'AI' is banned everywhere in the app and all future mockups. Will use 'SportsIQ Intelligence', 'SportsIQ Signal', or 'SportsIQ Says' instead. Applied to Bar v4 already. Will audit all existing screens and replace any 'AI' references in the next pass. mkt-intel layout redesign queued.",
     "mark_reply": ""
   },
   {
@@ -4495,7 +4498,9 @@
     'bar-pred-q-v3':       '2026-03-21T08:21:00-07:00',
     'head-to-head':        '2026-03-21T08:21:00-07:00',
     // ── Mar 21 9:45 AM PT — My Stats v2 ──────────────────────────────
-    'my-stats-v2':         '2026-03-21T09:45:00-07:00'
+    'my-stats-v2':         '2026-03-21T09:45:00-07:00',
+    // ── Mar 21 11:30 AM PT — Bar Live Pick v4 ────────────────────────
+    'bar-pred-q-v4':       '2026-03-21T11:30:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -4915,6 +4920,16 @@
         'Does showing Polymarket 0.67 and Sharp $ on the bar screen give too much away and reduce the competitive fun, or does it make the game feel more "real" and credible?',
         'Should the market intel panel only appear when there\'s a divergence (Crowd vs Sharp $ disagree), keeping it hidden when signals align to build anticipation?',
         'Intel panel position: right column (current), or a slim horizontal banner at the very top of the screen below the timer row?'
+      ]
+    },
+    'bar-pred-q-v4': {
+      icon: '📺',
+      title: 'Bar · Live Pick v4 — SportsIQ Crowd Only · Redesigned Layout',
+      built: 'Full redesign of the bar TV live-pick screen. Key changes from v3: (1) Removed all Polymarket/Kalshi references — only SportsIQ crowd data shown. Crowd is now the hero. (2) New 3-zone layout: LEFT THIRD — player identity card (team, name, stat line, context sentence) with a "SportsIQ Signal" confidence dot in brand colors only; CENTER — massive crowd split as the visual hero (OVER/UNDER with giant %, player count, animated tug-of-war bar); RIGHT COLUMN — circular countdown timer stacked above the QR/room-code card, both centered vertically. (3) QR code repositioned to right column, smaller and cleaner, room code below it. (4) Footer strip: single-line CTA + "Free to play · Bar plays count 2×". (5) Brand palette only — no third-party colors. Layout breathes — generous padding, nothing scrunched.',
+      questions: [
+        'With only SportsIQ crowd shown (no Polymarket/Kalshi), does the screen feel authoritative enough, or does it need a "SportsIQ Intelligence" confidence indicator to give context beyond just the crowd split?',
+        'QR code in the right column stacked under the countdown — better than bottom-right corner? Or should it move to center-bottom as a full-width CTA zone?',
+        'The room code (5-digit number) — keep it alongside the QR, or put it in a separate prominent spot so people can type it manually if camera is hard?'
       ]
     },
     'my-stats-v2': {
@@ -12831,6 +12846,144 @@
   </div>
 
   <div id="sfb-panel-my-stats-v2" class="sfb-panel"></div>
+</div>
+
+<!-- ═══ BAR · LIVE PICK v4 — SportsIQ Crowd Only · Redesigned Layout · 2026-03-21 ═══ -->
+<div id="bar-pred-q-v4" class="screen" style="display:none;">
+  <div class="tv-wrap">
+    <div class="tv-label">BAR SCREEN v4 — LIVE PICK · SportsIQ crowd only · Redesigned layout · 2026-03-21</div>
+    <div class="tv-frame">
+      <div class="bar-1080" id="bar-pred-q-v4-inner" style="background:linear-gradient(135deg,#060b18 0%,#0d1829 40%,#0a1520 100%);display:grid;grid-template-columns:1fr 1.4fr 320px;grid-template-rows:1fr auto;gap:0;padding:0;overflow:hidden;">
+
+        <!-- ── LEFT: Player Identity ── -->
+        <div style="padding:56px 48px 48px 64px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(255,255,255,0.06);">
+
+          <!-- LIVE badge -->
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:40px;">
+            <div style="position:relative;width:14px;height:14px;">
+              <div style="position:absolute;inset:0;border-radius:50%;background:#22c55e;opacity:0.4;animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></div>
+              <div style="position:absolute;inset:0;border-radius:50%;background:#22c55e;"></div>
+            </div>
+            <span style="color:#22c55e;font-size:20px;font-weight:800;letter-spacing:3px;">LIVE NOW</span>
+          </div>
+
+          <!-- Team -->
+          <div style="color:#64748b;font-size:22px;font-weight:600;letter-spacing:2px;margin-bottom:12px;">KANSAS CITY CHIEFS</div>
+
+          <!-- Player name — hero -->
+          <div style="color:#f8fafc;font-size:88px;font-weight:900;line-height:0.92;letter-spacing:-3px;margin-bottom:24px;">Mahomes</div>
+
+          <!-- Stat line -->
+          <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px;">
+            <div style="color:#6366f1;font-size:72px;font-weight:900;line-height:1;letter-spacing:-2px;font-variant-numeric:tabular-nums;">267</div>
+            <div style="color:#94a3b8;font-size:26px;">passing yards</div>
+          </div>
+
+          <!-- Context sentence -->
+          <div style="background:rgba(99,102,241,0.08);border-left:3px solid #6366f1;padding:14px 18px;border-radius:0 8px 8px 0;margin-bottom:40px;">
+            <div style="color:#a5b4fc;font-size:19px;line-height:1.5;">Mahomes has cleared this line in 6 of his last 8 games</div>
+          </div>
+
+          <!-- SportsIQ Signal — brand only, no third-party refs -->
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:12px;height:12px;border-radius:50%;background:#f59e0b;box-shadow:0 0 12px #f59e0b;"></div>
+            <div style="color:#94a3b8;font-size:17px;font-weight:600;">SportsIQ Signal: <span style="color:#fbbf24;font-weight:800;">Moderate Lean OVER</span></div>
+          </div>
+        </div>
+
+        <!-- ── CENTER: Crowd Split Hero ── -->
+        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;padding:56px 40px;gap:32px;">
+
+          <!-- Question label -->
+          <div style="color:#64748b;font-size:26px;font-weight:700;letter-spacing:3px;text-align:center;">OVER  or  UNDER</div>
+
+          <!-- Crowd split cards side by side -->
+          <div style="display:flex;gap:20px;width:100%;">
+            <!-- OVER -->
+            <div style="flex:1;background:linear-gradient(160deg,rgba(99,102,241,0.18),rgba(99,102,241,0.06));border:2px solid rgba(99,102,241,0.5);border-radius:24px;padding:32px 24px;text-align:center;position:relative;overflow:hidden;">
+              <div style="position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(99,102,241,0.12),transparent 70%);"></div>
+              <div style="position:relative;">
+                <div style="color:#818cf8;font-size:32px;font-weight:800;letter-spacing:3px;margin-bottom:8px;">OVER ↑</div>
+                <div style="color:#f8fafc;font-size:96px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;">68%</div>
+                <div style="color:#64748b;font-size:20px;margin-top:12px;">125 players</div>
+              </div>
+            </div>
+            <!-- UNDER -->
+            <div style="flex:1;background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.1);border-radius:24px;padding:32px 24px;text-align:center;">
+              <div style="color:#64748b;font-size:32px;font-weight:800;letter-spacing:3px;margin-bottom:8px;">UNDER ↓</div>
+              <div style="color:#94a3b8;font-size:96px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;">32%</div>
+              <div style="color:#4b5563;font-size:20px;margin-top:12px;">59 players</div>
+            </div>
+          </div>
+
+          <!-- Tug-of-war bar -->
+          <div style="width:100%;">
+            <div style="height:16px;background:rgba(255,255,255,0.06);border-radius:8px;overflow:hidden;position:relative;">
+              <div style="height:100%;width:68%;background:linear-gradient(90deg,#6366f1,#818cf8);border-radius:8px;transition:width 0.8s ease;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:8px;">
+              <div style="font-size:15px;color:#818cf8;font-weight:700;">OVER winning</div>
+              <div style="font-size:15px;color:#64748b;">184 total picks</div>
+            </div>
+          </div>
+
+          <!-- Scan CTA -->
+          <div style="text-align:center;">
+            <div style="color:#64748b;font-size:20px;">Scan to pick from your phone · Free to play</div>
+            <div style="color:#6366f1;font-size:18px;font-weight:700;margin-top:4px;">Bar plays count 2× tonight</div>
+          </div>
+
+        </div>
+
+        <!-- ── RIGHT: Timer + QR stack ── -->
+        <div style="border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:40px;padding:48px 32px;">
+
+          <!-- Countdown -->
+          <div style="text-align:center;">
+            <div style="color:#64748b;font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:16px;">LOCKS IN</div>
+            <div style="position:relative;width:160px;height:160px;margin:0 auto;">
+              <svg width="160" height="160" viewBox="0 0 96 96">
+                <circle cx="48" cy="48" r="44" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/>
+                <circle cx="48" cy="48" r="44" fill="none" stroke="#ef4444" stroke-width="6" stroke-dasharray="276" stroke-dashoffset="100" stroke-linecap="round" transform="rotate(-90 48 48)"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <div style="color:#ef4444;font-size:42px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1;">0:42</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div style="width:60%;height:1px;background:rgba(255,255,255,0.08);"></div>
+
+          <!-- QR + Room code -->
+          <div style="text-align:center;">
+            <div style="color:#64748b;font-size:13px;font-weight:700;letter-spacing:2px;margin-bottom:14px;">SCAN TO JOIN</div>
+            <!-- QR placeholder -->
+            <div style="width:160px;height:160px;background:#0d1829;border:2px solid rgba(99,102,241,0.4);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:56px;color:rgba(99,102,241,0.6);margin:0 auto 20px;">▦</div>
+            <!-- Room code -->
+            <div style="color:#64748b;font-size:12px;letter-spacing:2px;margin-bottom:6px;">OR ENTER CODE</div>
+            <div style="color:#f8fafc;font-size:36px;font-weight:900;letter-spacing:8px;font-variant-numeric:tabular-nums;">74291</div>
+          </div>
+
+        </div>
+
+      </div><!-- /bar-1080 -->
+    </div><!-- /tv-frame -->
+  </div><!-- /tv-wrap -->
+
+  <!-- Moat analysis -->
+  <div style="max-width:900px;margin:0 auto 40px;padding:0 20px;">
+    <div style="background:linear-gradient(135deg,#0a0a1a,#1a1a2e);border:1px solid #2a2a4a;border-radius:14px;padding:24px;">
+      <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — BAR LIVE PICK v4</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+        <strong style="color:var(--text);">Proprietary crowd data is the product:</strong> By removing Polymarket/Kalshi from the bar screen, SportsIQ crowd becomes the only signal in the room. The 68/32 split is SportsIQ's data — generated by SportsIQ users, owned by SportsIQ. Every person who stares at that screen and picks OVER is generating behavioral data that Kalshi can't see. The bar TV is a data-collection flywheel disguised as entertainment.<br>
+        <strong style="color:var(--text);">The bar screen is SportsIQ's acquisition machine:</strong> Every non-user watching the bar screen is one scan away from installing the app. The QR + 5-digit room code gives two paths to join — camera-first and manual. At 50 bars with 30 spectators each, that's 1,500 potential installs per night. No paid CAC.<br>
+        <strong style="color:var(--text);">The "2× bar multiplier" creates location lock-in:</strong> Users who discover they earn twice the points when playing at a bar venue will prefer playing at bars over playing alone at home. This drives foot traffic to venues (venue owner benefit) while increasing SportsIQ engagement per session. DraftKings has no equivalent location-aware multiplier.
+      </div>
+    </div>
+  </div>
+
+  <div id="sfb-panel-bar-pred-q-v4" class="sfb-panel"></div>
 </div>
 
 </body>
