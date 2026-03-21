@@ -1775,6 +1775,13 @@
     <div class="nav-logo-sub">DESIGN MOCKUPS</div>
   </div>
 
+  <!-- 💬 INBOX — always pinned at top -->
+  <div class="nav-group" style="padding-top:6px;padding-bottom:6px;">
+    <div class="tab" data-screen="feedback" onclick="showScreen('feedback',this)" style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.35);">
+      <span class="tab-label">💬 Idea Inbox</span>
+    </div>
+  </div>
+
   <!-- 📐 v2 UPDATES -->
   <div class="nav-group">
     <div class="nav-group-label">📐 v2 Updates</div>
@@ -4224,8 +4231,9 @@
       applyBarScale();
       setTimeout(applyBarScale, 80);
     });
-    // Render per-screen feedback for this screen
+    // Render per-screen feedback for this screen (local first, then sync from server)
     renderScreenFeedback(id);
+    sfbPullFromServer(id);
   }
 
   function toggleChip(el) {
@@ -4689,7 +4697,7 @@
     }
   };
 
-  /* ── Per-screen feedback storage keys ──────────────── */
+  /* ── Per-screen feedback storage — localStorage + server sync ────── */
   function sfbKey(screenId) { return 'sfb-thread-' + screenId; }
 
   function sfbGetThread(screenId) {
@@ -4697,7 +4705,39 @@
   }
 
   function sfbSaveThread(screenId, thread) {
+    // 1. Save locally for instant UI response
     localStorage.setItem(sfbKey(screenId), JSON.stringify(thread));
+    // 2. Push to server so any device sees it immediately
+    if (_apiBase) {
+      fetch(_apiBase + '/api/threads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ screenId: screenId, thread: thread })
+      }).catch(function() {});
+    }
+  }
+
+  /** Pull thread from server; merge with localStorage; re-render if changed */
+  function sfbPullFromServer(screenId) {
+    if (!_apiBase) return;
+    fetch(_apiBase + '/api/threads?screen=' + encodeURIComponent(screenId))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (!data.thread || !data.thread.length) return;
+        var local = sfbGetThread(screenId);
+        // Merge: keep unique messages from both sides (identified by from+ts+text prefix)
+        var seen = {};
+        var merged = [];
+        local.concat(data.thread).forEach(function(msg) {
+          var key = (msg.from || '') + '|' + (msg.ts || '') + '|' + (msg.text || '').slice(0, 40);
+          if (!seen[key]) { seen[key] = true; merged.push(msg); }
+        });
+        if (merged.length !== local.length) {
+          localStorage.setItem(sfbKey(screenId), JSON.stringify(merged));
+          renderScreenFeedback(screenId); // re-render with freshly synced data
+        }
+      })
+      .catch(function() {});
   }
 
   /* ── Render a per-screen feedback panel ──────────────── */
@@ -4893,9 +4933,12 @@
     }
   }
 
-  // Render feedback for initial screen on page load
+  // Render feedback for initial screen on page load, then pull from server
   (function() {
-    setTimeout(function() { renderScreenFeedback('home-live'); }, 50);
+    setTimeout(function() {
+      renderScreenFeedback('home-live');
+      sfbPullFromServer('home-live');
+    }, 50);
   })();
 
   /* ══════════════════════════════════════════════════════

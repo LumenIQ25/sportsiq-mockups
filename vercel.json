@@ -4,6 +4,7 @@
     { "src": "/api/health",   "dest": "/api/health.js" },
     { "src": "/api/reply",    "dest": "/api/reply.js" },
     { "src": "/api/new-idea", "dest": "/api/new-idea.js" },
+    { "src": "/api/threads",  "dest": "/api/threads.js" },
     { "src": "/(.*)",         "dest": "/index.html" }
   ]
 }

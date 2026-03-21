@@ -59,4 +59,40 @@ async function writeIdeas(ideas, sha, message) {
   });
 }
 
-module.exports = { readFile, parseIdeas, writeIdeas };
+/* ── Thread storage (threads.json) ─────────────────────────────────── */
+
+const THREADS_FILE = 'threads.json';
+
+/** Read all threads from threads.json. Returns plain object { screenId: [...] } */
+async function readThreads() {
+  try {
+    const data = await ghFetch(THREADS_FILE);
+    return JSON.parse(Buffer.from(data.content, 'base64').toString('utf8'));
+  } catch(e) {
+    return {}; // file doesn't exist yet — treat as empty
+  }
+}
+
+/** Save/merge a single screen's thread into threads.json */
+async function writeThread(screenId, thread) {
+  // Read latest version first to avoid overwriting other screens' threads
+  let sha = null;
+  let threads = {};
+  try {
+    const data = await ghFetch(THREADS_FILE);
+    threads = JSON.parse(Buffer.from(data.content, 'base64').toString('utf8'));
+    sha = data.sha;
+  } catch(e) { /* file doesn't exist yet — create it */ }
+
+  threads[screenId] = thread;
+
+  const body = {
+    message: `threads: ${screenId} updated`,
+    content: Buffer.from(JSON.stringify(threads, null, 2), 'utf8').toString('base64')
+  };
+  if (sha) body.sha = sha;
+
+  await ghFetch(THREADS_FILE, { method: 'PUT', body: JSON.stringify(body) });
+}
+
+module.exports = { readFile, parseIdeas, writeIdeas, readThreads, writeThread };
