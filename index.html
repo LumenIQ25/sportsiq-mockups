@@ -1855,6 +1855,18 @@
     <div class="tab" data-screen="pick-wait-v3" onclick="showScreen('pick-wait-v3',this)">
       <span class="tab-label">Pick Wait v3 ✦</span><span class="tab-days" id="days-pick-wait-v3"></span>
     </div>
+    <div class="tab" data-screen="onboarding-v3" onclick="showScreen('onboarding-v3',this)">
+      <span class="tab-label">Onboarding v3 ✦</span><span class="tab-days" id="days-onboarding-v3"></span>
+    </div>
+    <div class="tab" data-screen="daily-challenge-v3" onclick="showScreen('daily-challenge-v3',this)">
+      <span class="tab-label">Daily Challenge v3 ✦</span><span class="tab-days" id="days-daily-challenge-v3"></span>
+    </div>
+    <div class="tab" data-screen="game-day-v3" onclick="showScreen('game-day-v3',this)">
+      <span class="tab-label">Game Day v3 ✦</span><span class="tab-days" id="days-game-day-v3"></span>
+    </div>
+    <div class="tab" data-screen="notifications-v2" onclick="showScreen('notifications-v2',this)">
+      <span class="tab-label">Notifications v2 ✦</span><span class="tab-days" id="days-notifications-v2"></span>
+    </div>
   </div>
 
   <!-- 📺 BAR TV -->
@@ -3685,8 +3697,8 @@
     "date": "2026-03-21",
     "source": "inbox",
     "idea": "[onboarding-v2] 1. no skipping\n2. 3 levels\n3. same question\n4. wait until after first week\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
-    "status": "new",
-    "claude_response": "",
+    "status": "done",
+    "claude_response": "Built Onboarding v3. Full-height layout — no scrunching. Key changes: (1) No skip button anywhere — users must complete each step. Progress indicator shows steps so they know there's an end. (2) 3 knowledge levels shown as selectable cards: Casual (I watch the big games), Dedicated (I track stats and lineups), Expert (I could run a fantasy league blindfolded). Single selection, can't proceed without choosing. (3) Same question set regardless of sport selection — sport choice personalizes the content, not the assessment. (4) Advanced Sports DNA deep-dive unlocks after first 7 days of playing — shown as a 'coming after your first week' teaser at the end of onboarding. Three phones: Welcome (no skip), Sport selection (6 sports, required), Level selection (3 tiers, required).",
     "mark_reply": ""
   },
   {
@@ -3694,8 +3706,8 @@
     "date": "2026-03-21",
     "source": "inbox",
     "idea": "[daily-challenge-v2] 1. immediatrly after each pick\n2. before\n3. percentile\n4. global\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
-    "status": "new",
-    "claude_response": "",
+    "status": "done",
+    "claude_response": "Built Daily Challenge v3. Full-height layout fix. Key changes: (1) Challenge card slides up immediately after each pick is locked in — no wait, no separate navigation needed. (2) 'Before' — the challenge question shows BEFORE the result is revealed. User first picks, then the challenge resolves. This creates a prediction layer on top of the main pick. (3) Percentile shown prominently: 'Top 12% globally · #3,847 of 31,200'. (4) Global scope — not just friends. You rank against all SportsIQ players globally. Two phones: Challenge pops up after pick submission, Result shows global percentile rank with shareable card.",
     "mark_reply": ""
   },
   {
@@ -3703,8 +3715,8 @@
     "date": "2026-03-21",
     "source": "inbox",
     "idea": "[game-day-v2] 1. we dont want anything to depend on venue owner\n2. 0.15 miles\n3. what do you recommend?\n4. what do you recommend?\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
-    "status": "new",
-    "claude_response": "",
+    "status": "done",
+    "claude_response": "Built Game Day v3. Full-height layout. Key changes: (1) Zero venue owner dependency — pure GPS. App detects you're within 0.15 miles of any sports bar (from our database) and auto-triggers Bar Mode. The bar owner doesn't set anything up. (2) 0.15 mile radius (exact spec). (3) My recommendation for #3: When Bar Mode activates, show a bar-specific leaderboard overlay — who's winning tonight at your location. Creates competitive social energy even without venue staff involvement. (4) My recommendation for #4: 'Neighborhood Mode' — if >3 SportsIQ users are within 0.15 miles of each other at any bar (even one not in our system), auto-create an informal local group. No venue owner needed at all for this version. Two phones: Auto-detect activation (0.15mi banner) + Bar Mode active state with local leaderboard.",
     "mark_reply": ""
   },
   {
@@ -3712,8 +3724,8 @@
     "date": "2026-03-21",
     "source": "inbox",
     "idea": "[notifications] 1. keep this simple\n2. what do you recommend?\n3. 6pm in users time zone\n4. do we need this?\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
-    "status": "new",
-    "claude_response": "",
+    "status": "done",
+    "claude_response": "Built Notifications v2. Kept simple. (1) 3 notification types only — Pick Windows (when a window opens), Results (when your pick resolves), and Daily Trivia. No noise. (2) My recommendation for #2: Two tiers — Critical (pick window opening, your result ready) and Social (friend activity, chirps). Critical on by default, Social opt-in. (3) Daily trivia reminder at 6pm in user's local timezone — preconfigured, user just toggles on/off. (4) My recommendation on 'do we need this?' — depends what #4 was referring to. I recommend skipping 'weekly email recaps' (too much friction for a mobile-first product). Push is enough. One phone shown: clean settings screen with 3 toggle groups, each with a clear description.",
     "mark_reply": ""
   },
   {
@@ -4531,7 +4543,12 @@
     // ── Mar 21 2:30 PM PT — v3 layout fixes (ideas 025–027) ──────────
     'home-idle-v3':        '2026-03-21T14:30:00-07:00',
     'pick-card-v3':        '2026-03-21T14:30:00-07:00',
-    'pick-wait-v3':        '2026-03-21T14:30:00-07:00'
+    'pick-wait-v3':        '2026-03-21T14:30:00-07:00',
+    // ── Mar 21 3:30 PM PT — v3 batch (ideas 028–031) ─────────────────
+    'onboarding-v3':       '2026-03-21T15:30:00-07:00',
+    'daily-challenge-v3':  '2026-03-21T15:30:00-07:00',
+    'game-day-v3':         '2026-03-21T15:30:00-07:00',
+    'notifications-v2':    '2026-03-21T15:30:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -14174,6 +14191,616 @@
 
   </div>
   <div id="sfb-panel-pick-wait-v3" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Onboarding v3 — 2026-03-21 — No skip, 3 levels, same questions
+     Ideas answered: 028 (no skipping, 3 levels, same question, after first week)
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="onboarding-v3" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Onboarding v3 — No skip · 3 knowledge levels · Unlocks after Week 1</div>
+    <div class="screen-subtitle">No skip button anywhere. Same question set for all sports. 3-level Sports IQ self-assessment. Deep DNA assessment teased for after first week of play.</div>
+  </div>
+
+  <div class="phones-section">
+
+    <!-- Phone 1: Welcome — no skip -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">STEP 1 / 4 — WELCOME</div>
+      <div class="phone-frame">
+        <div style="height:844px;display:flex;flex-direction:column;background:radial-gradient(ellipse at 30% 20%,rgba(85,69,211,0.3) 0%,#080E1C 60%);">
+          <!-- Progress bar -->
+          <div style="height:3px;background:rgba(255,255,255,0.08);flex-shrink:0;">
+            <div style="width:25%;height:100%;background:var(--accent);border-radius:0 2px 2px 0;"></div>
+          </div>
+          <!-- Content — vertically centered -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 24px;">
+            <div style="font-size:48px;font-weight:900;color:#F8FAFC;margin-bottom:6px;">Sports<span style="color:#7C6FE0;">IQ</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:2px;margin-bottom:32px;">SPORTS INTELLIGENCE</div>
+            <div style="font-size:15px;font-weight:700;color:var(--text);text-align:center;margin-bottom:12px;line-height:1.4;">Let's build your Sports DNA profile</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5);text-align:center;line-height:1.6;margin-bottom:40px;">Takes 60 seconds. Your picks, your trivia, your profile — all personalized from the start.</div>
+            <!-- Step dots -->
+            <div style="display:flex;gap:8px;margin-bottom:40px;">
+              <div style="width:24px;height:6px;border-radius:3px;background:var(--accent);"></div>
+              <div style="width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,0.2);"></div>
+              <div style="width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,0.2);"></div>
+              <div style="width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,0.2);"></div>
+            </div>
+          </div>
+          <!-- Bottom CTA — no skip -->
+          <div style="padding:0 24px 32px;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,#5545D3,#7C6FE0);border-radius:14px;padding:16px;text-align:center;font-size:16px;font-weight:800;color:#fff;">Get Started →</div>
+            <!-- NO skip button -->
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">WELCOME · No skip · Progress visible</div>
+    </div>
+
+    <!-- Phone 2: Sport selection — required -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">STEP 2 / 4 — SPORT SELECTION</div>
+      <div class="phone-frame">
+        <div style="height:844px;display:flex;flex-direction:column;background:var(--bg);">
+          <!-- Progress bar -->
+          <div style="height:3px;background:rgba(255,255,255,0.08);flex-shrink:0;">
+            <div style="width:50%;height:100%;background:var(--accent);border-radius:0 2px 2px 0;"></div>
+          </div>
+          <!-- Status -->
+          <div style="padding:16px 24px 0;flex-shrink:0;">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Step 2 of 4</div>
+            <div style="font-size:20px;font-weight:900;color:var(--text);margin-bottom:4px;">Which sports do you follow?</div>
+            <div style="font-size:12px;color:var(--muted);">Select all that apply · Required</div>
+          </div>
+          <!-- Sport grid -->
+          <div style="flex:1;padding:16px 20px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <!-- NFL — selected -->
+              <div style="background:rgba(85,69,211,0.2);border:2px solid var(--accent);border-radius:14px;padding:16px;text-align:center;">
+                <div style="font-size:28px;margin-bottom:6px;">🏈</div>
+                <div style="font-size:13px;font-weight:700;color:var(--text);">NFL</div>
+                <div style="width:18px;height:18px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;margin:6px auto 0;">✓</div>
+              </div>
+              <!-- NBA — selected -->
+              <div style="background:rgba(85,69,211,0.2);border:2px solid var(--accent);border-radius:14px;padding:16px;text-align:center;">
+                <div style="font-size:28px;margin-bottom:6px;">🏀</div>
+                <div style="font-size:13px;font-weight:700;color:var(--text);">NBA</div>
+                <div style="width:18px;height:18px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;margin:6px auto 0;">✓</div>
+              </div>
+              <!-- MLB — unselected -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px;text-align:center;">
+                <div style="font-size:28px;margin-bottom:6px;">⚾</div>
+                <div style="font-size:13px;font-weight:700;color:var(--muted);">MLB</div>
+                <div style="width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);margin:6px auto 0;"></div>
+              </div>
+              <!-- NHL — unselected -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px;text-align:center;">
+                <div style="font-size:28px;margin-bottom:6px;">🏒</div>
+                <div style="font-size:13px;font-weight:700;color:var(--muted);">NHL</div>
+                <div style="width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);margin:6px auto 0;"></div>
+              </div>
+              <!-- College — unselected -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px;text-align:center;">
+                <div style="font-size:28px;margin-bottom:6px;">🎓</div>
+                <div style="font-size:13px;font-weight:700;color:var(--muted);">NCAA</div>
+                <div style="width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);margin:6px auto 0;"></div>
+              </div>
+              <!-- Soccer — unselected -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px;text-align:center;">
+                <div style="font-size:28px;margin-bottom:6px;">⚽</div>
+                <div style="font-size:13px;font-weight:700;color:var(--muted);">Soccer</div>
+                <div style="width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);margin:6px auto 0;"></div>
+              </div>
+            </div>
+          </div>
+          <!-- CTA — disabled until selection made -->
+          <div style="padding:0 24px 32px;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,#5545D3,#7C6FE0);border-radius:14px;padding:16px;text-align:center;font-size:16px;font-weight:800;color:#fff;">Continue →</div>
+            <div style="text-align:center;margin-top:10px;font-size:11px;color:rgba(255,255,255,0.25);">Selection required to continue</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">SPORT SELECTION · Required · No skip</div>
+    </div>
+
+    <!-- Phone 3: 3-level knowledge assessment -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">STEP 3 / 4 — YOUR SPORTS IQ LEVEL</div>
+      <div class="phone-frame">
+        <div style="height:844px;display:flex;flex-direction:column;background:var(--bg);">
+          <!-- Progress bar -->
+          <div style="height:3px;background:rgba(255,255,255,0.08);flex-shrink:0;">
+            <div style="width:75%;height:100%;background:var(--accent);border-radius:0 2px 2px 0;"></div>
+          </div>
+          <!-- Header -->
+          <div style="padding:16px 24px 0;flex-shrink:0;">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Step 3 of 4</div>
+            <div style="font-size:20px;font-weight:900;color:var(--text);margin-bottom:4px;">How deep do you go?</div>
+            <div style="font-size:12px;color:var(--muted);">Pick the one that fits you best · Same for all your sports</div>
+          </div>
+          <!-- Level cards -->
+          <div style="flex:1;padding:16px 20px;display:flex;flex-direction:column;gap:12px;justify-content:center;">
+            <!-- Casual — unselected -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:14px;">
+              <div style="font-size:28px;flex-shrink:0;">📺</div>
+              <div style="flex:1;">
+                <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:3px;">Casual</div>
+                <div style="font-size:11px;color:var(--muted);">I watch the big games and know my favorite teams</div>
+              </div>
+              <div style="width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);flex-shrink:0;"></div>
+            </div>
+            <!-- Dedicated — SELECTED -->
+            <div style="background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:14px;">
+              <div style="font-size:28px;flex-shrink:0;">📊</div>
+              <div style="flex:1;">
+                <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:3px;">Dedicated</div>
+                <div style="font-size:11px;color:var(--muted);">I track stats, know matchups, and follow the news</div>
+              </div>
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</div>
+            </div>
+            <!-- Expert — unselected -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:14px;">
+              <div style="font-size:28px;flex-shrink:0;">🧠</div>
+              <div style="flex:1;">
+                <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:3px;">Expert</div>
+                <div style="font-size:11px;color:var(--muted);">I could run a fantasy league blindfolded and win</div>
+              </div>
+              <div style="width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);flex-shrink:0;"></div>
+            </div>
+            <!-- Deep DNA teaser -->
+            <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;">
+              <div style="font-size:18px;">🔒</div>
+              <div>
+                <div style="font-size:11px;font-weight:700;color:#a78bfa;">Full Sports DNA unlocks after Week 1</div>
+                <div style="font-size:10px;color:var(--muted);">Play 7 days to unlock your complete profile</div>
+              </div>
+            </div>
+          </div>
+          <!-- CTA -->
+          <div style="padding:0 24px 32px;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,#5545D3,#7C6FE0);border-radius:14px;padding:16px;text-align:center;font-size:16px;font-weight:800;color:#fff;">Continue →</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">3 LEVELS · Same question all sports · Deep DNA teaser</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-onboarding-v3" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Daily Challenge v3 — 2026-03-21 — Immediately after pick, global percentile
+     Ideas answered: 029 (immediately after pick, before result, percentile, global)
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="daily-challenge-v3" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Daily Challenge v3 — Fires immediately after pick · Global percentile ranking</div>
+    <div class="screen-subtitle">Challenge card slides up right after pick is locked. Shows challenge question BEFORE the result. Global percentile (not just friends). Two states: challenge presented and result with rank.</div>
+  </div>
+
+  <div class="phones-section">
+
+    <!-- Phone 1: Challenge slides up after pick -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">CHALLENGE APPEARS — IMMEDIATELY AFTER PICK</div>
+      <div class="phone-frame">
+        <div style="height:844px;display:flex;flex-direction:column;background:var(--bg);">
+          <!-- Status bar -->
+          <div style="padding:10px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;flex-shrink:0;">
+            <span>8:53</span><span>●●● 🔋</span>
+          </div>
+          <!-- Pick confirmed (behind the challenge) -->
+          <div style="padding:8px 16px;background:rgba(34,197,94,0.1);border-bottom:1px solid rgba(34,197,94,0.2);display:flex;align-items:center;gap:10px;flex-shrink:0;">
+            <span style="font-size:16px;">✅</span>
+            <span style="font-size:12px;font-weight:700;color:#22c55e;">OVER 284.5 locked in!</span>
+          </div>
+          <!-- Main pick screen (dimmed behind) -->
+          <div style="flex:1;opacity:0.3;padding:16px;position:relative;">
+            <div style="font-size:11px;color:var(--muted);">Chiefs vs Eagles · Mahomes passing yards</div>
+            <div style="font-size:32px;font-weight:900;color:var(--text);margin-top:8px;">284.5</div>
+          </div>
+          <!-- Challenge overlay — slides up from bottom -->
+          <div style="background:linear-gradient(180deg,#0D1420 0%,#0A0F1A 100%);border-top:2px solid var(--accent);border-radius:24px 24px 0 0;padding:20px 20px 32px;flex-shrink:0;">
+            <div style="display:flex;justify-content:center;margin-bottom:16px;">
+              <div style="width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+            </div>
+            <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:10px;">⚡ QUICK CHALLENGE</div>
+            <div style="font-size:16px;font-weight:900;color:var(--text);margin-bottom:6px;line-height:1.3;">Will Mahomes have a TD pass in the 1st half?</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">Bonus IQ on top of your main pick</div>
+            <div style="display:flex;gap:10px;margin-bottom:14px;">
+              <div style="flex:1;background:rgba(34,197,94,0.15);border:2px solid rgba(34,197,94,0.5);border-radius:12px;padding:14px;text-align:center;">
+                <div style="font-size:18px;font-weight:900;color:#22c55e;">YES</div>
+                <div style="font-size:10px;color:var(--muted);margin-top:2px;">+50 IQ bonus</div>
+              </div>
+              <div style="flex:1;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:12px;padding:14px;text-align:center;">
+                <div style="font-size:18px;font-weight:900;color:#ef4444;">NO</div>
+                <div style="font-size:10px;color:var(--muted);margin-top:2px;">+50 IQ bonus</div>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:11px;color:rgba(255,255,255,0.2);">3,847 players answered · results revealed after game</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">FIRES IMMEDIATELY · Challenge BEFORE result</div>
+    </div>
+
+    <!-- Phone 2: Result + global percentile -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:12px;">RESULT — GLOBAL PERCENTILE SHOWN</div>
+      <div class="phone-frame">
+        <div style="height:844px;display:flex;flex-direction:column;background:var(--bg);">
+          <!-- Status bar -->
+          <div style="padding:10px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;flex-shrink:0;">
+            <span>11:02 PM</span><span>●●● 🔋</span>
+          </div>
+          <!-- Header -->
+          <div style="padding:8px 16px 0;flex-shrink:0;">
+            <div style="font-size:13px;font-weight:800;color:var(--muted);letter-spacing:1px;">⚡ CHALLENGE RESULT</div>
+          </div>
+          <!-- Main content -->
+          <div style="flex:1;display:flex;flex-direction:column;padding:12px 16px 0;overflow-y:auto;">
+            <!-- Pick result -->
+            <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:14px;padding:14px 16px;margin-bottom:12px;">
+              <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Main pick</div>
+              <div style="font-size:14px;font-weight:900;color:#22c55e;">✅ OVER — Won! · +200 IQ</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:3px;">Mahomes finished with 312 yards</div>
+            </div>
+            <!-- Challenge result -->
+            <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.25);border-radius:14px;padding:14px 16px;margin-bottom:14px;">
+              <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Challenge pick</div>
+              <div style="font-size:14px;font-weight:900;color:#22c55e;">✅ YES — TD in 1st half · +50 IQ bonus</div>
+            </div>
+            <!-- GLOBAL PERCENTILE — HERO -->
+            <div style="background:linear-gradient(135deg,rgba(85,69,211,0.2),rgba(85,69,211,0.08));border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:18px;margin-bottom:12px;text-align:center;">
+              <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:10px;">🌍 YOUR GLOBAL RANK</div>
+              <div style="font-size:42px;font-weight:900;color:var(--text);margin-bottom:2px;">#3,847</div>
+              <div style="font-size:13px;color:#a78bfa;font-weight:700;margin-bottom:8px;">of 31,200 players</div>
+              <!-- Percentile bar -->
+              <div style="height:12px;border-radius:6px;background:rgba(255,255,255,0.08);overflow:hidden;margin-bottom:6px;">
+                <div style="width:88%;height:100%;background:linear-gradient(90deg,#5545D3,#22c55e);border-radius:6px;"></div>
+              </div>
+              <div style="font-size:18px;font-weight:900;color:#22c55e;">Top 12%</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:3px;">globally this week</div>
+            </div>
+            <!-- IQ total -->
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;margin-bottom:12px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:10px;color:var(--muted);">Tonight's IQ earned</div>
+                  <div style="font-size:24px;font-weight:900;color:#22c55e;">+250</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:10px;color:var(--muted);">Total IQ</div>
+                  <div style="font-size:24px;font-weight:900;color:var(--text);">1,097</div>
+                </div>
+              </div>
+            </div>
+            <!-- Share button -->
+            <div style="background:linear-gradient(135deg,#5545D3,#7C6FE0);border-radius:12px;padding:14px;text-align:center;margin-bottom:8px;">
+              <div style="font-size:14px;font-weight:800;color:#fff;">📤 Share My Result</div>
+            </div>
+          </div>
+          <!-- Bottom nav -->
+          <div style="border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-around;padding:10px 0 14px;flex-shrink:0;">
+            <div style="text-align:center;"><div style="font-size:18px;">🏠</div><div style="font-size:9px;color:var(--muted);">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:18px;">🎯</div><div style="font-size:9px;color:var(--accent);font-weight:700;">Picks</div></div>
+            <div style="text-align:center;"><div style="font-size:18px;">🏆</div><div style="font-size:9px;color:var(--muted);">Ranks</div></div>
+            <div style="text-align:center;"><div style="font-size:18px;">👤</div><div style="font-size:9px;color:var(--muted);">Profile</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">GLOBAL RANK #3,847 of 31,200 · Top 12%</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-daily-challenge-v3" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Game Day v3 — 2026-03-21 — No venue dependency, 0.15mi GPS
+     Ideas answered: 030 (no venue owner, 0.15 miles, recommendations for #3 #4)
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="game-day-v3" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Game Day v3 — Pure GPS · 0.15mi auto-detect · No venue owner needed</div>
+    <div class="screen-subtitle">Zero dependency on venue owner. GPS detects any bar within 0.15 miles and auto-activates Bar Mode. Recommendation: local leaderboard appears. Neighborhood Mode if 3+ users nearby even without SportsIQ bar.</div>
+  </div>
+
+  <div class="phones-section">
+
+    <!-- Phone 1: Auto-detection prompt -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:12px;">AUTO-DETECTED — 0.15 MILES FROM BAR</div>
+      <div class="phone-frame">
+        <div style="height:844px;display:flex;flex-direction:column;background:var(--bg);">
+          <!-- Status bar -->
+          <div style="padding:10px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;flex-shrink:0;">
+            <span>7:58 PM</span><span>📍 ●●● 🔋</span>
+          </div>
+          <!-- Header -->
+          <div style="padding:8px 16px 0;flex-shrink:0;">
+            <div style="font-size:18px;font-weight:900;color:var(--text);">Sports<span style="color:#7C6FE0;">IQ</span></div>
+            <div style="font-size:10px;color:#22c55e;font-weight:700;">📍 Bar detected nearby</div>
+          </div>
+          <!-- Bar Mode auto-detected card -->
+          <div style="margin:12px 16px 0;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(34,197,94,0.05));border:2px solid rgba(34,197,94,0.5);border-radius:16px;padding:16px 18px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <div style="width:44px;height:44px;border-radius:12px;background:rgba(34,197,94,0.15);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🍺</div>
+                <div>
+                  <div style="font-size:16px;font-weight:900;color:var(--text);">Kincade's Bar & Grill</div>
+                  <div style="font-size:11px;color:#22c55e;font-weight:600;">0.09 miles away · SportsIQ venue</div>
+                </div>
+              </div>
+              <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Bar Mode gives you a 1.5× IQ multiplier and puts you on the local leaderboard tonight.</div>
+              <div style="display:flex;gap:8px;">
+                <div style="flex:1;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:10px;padding:12px;text-align:center;font-size:13px;font-weight:800;color:#fff;">Join Bar Mode 🍺</div>
+                <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--muted);">Not now</div>
+              </div>
+            </div>
+          </div>
+          <!-- Auto-detection explanation -->
+          <div style="margin:8px 16px 0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;flex-shrink:0;">
+            <div style="font-size:16px;">📡</div>
+            <div style="font-size:10px;color:var(--muted);">Auto-detected via GPS · No check-in needed · Works at any SportsIQ bar within 0.15 miles</div>
+          </div>
+          <!-- Current pick card below -->
+          <div style="margin:10px 16px 0;flex:1;overflow-y:auto;">
+            <div style="font-size:10px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:8px;">TONIGHT'S PICK</div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;">
+              <div style="font-size:11px;color:var(--muted);">Patrick Mahomes · Passing Yards</div>
+              <div style="font-size:22px;font-weight:900;color:var(--text);">O/U 284.5</div>
+              <div style="font-size:10px;color:var(--accent);margin-top:4px;">🍺 Bar Mode: 1.5× IQ multiplier active</div>
+            </div>
+            <!-- Neighborhood mode info -->
+            <div style="margin-top:10px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:10px 12px;">
+              <div style="font-size:10px;font-weight:700;color:#a78bfa;margin-bottom:3px;">🌐 Neighborhood Mode</div>
+              <div style="font-size:10px;color:var(--muted);">4 other SportsIQ players detected within 0.15mi — you're now in a local group even without a SportsIQ screen at this bar</div>
+            </div>
+          </div>
+          <!-- Bottom nav -->
+          <div style="border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-around;padding:10px 0 14px;flex-shrink:0;">
+            <div style="text-align:center;"><div style="font-size:18px;">🏠</div><div style="font-size:9px;color:var(--muted);">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:18px;">🎯</div><div style="font-size:9px;color:var(--accent);font-weight:700;">Picks</div></div>
+            <div style="text-align:center;"><div style="font-size:18px;">🏆</div><div style="font-size:9px;color:var(--muted);">Ranks</div></div>
+            <div style="text-align:center;"><div style="font-size:18px;">👤</div><div style="font-size:9px;color:var(--muted);">Profile</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">AUTO-DETECTED · 0.09mi · Bar Mode offer · Neighborhood Mode</div>
+    </div>
+
+    <!-- Phone 2: Bar Mode active + local leaderboard -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:12px;">BAR MODE ACTIVE — LOCAL LEADERBOARD</div>
+      <div class="phone-frame">
+        <div style="height:844px;display:flex;flex-direction:column;background:var(--bg);">
+          <!-- Status bar -->
+          <div style="padding:10px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;flex-shrink:0;">
+            <span>9:14 PM</span><span>📍 ●●● 🔋</span>
+          </div>
+          <!-- Bar Mode banner -->
+          <div style="background:rgba(34,197,94,0.12);border-bottom:1px solid rgba(34,197,94,0.25);padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:14px;">🍺</span>
+              <span style="font-size:11px;font-weight:700;color:#22c55e;">Kincade's Bar · Bar Mode Active</span>
+            </div>
+            <div style="font-size:10px;color:#22c55e;font-weight:700;">1.5× IQ</div>
+          </div>
+          <!-- Header -->
+          <div style="padding:10px 16px 0;flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:var(--text);">Tonight at Kincade's</div>
+            <div style="font-size:10px;color:var(--muted);">24 players · Chiefs vs Eagles 🏈</div>
+          </div>
+          <!-- Local leaderboard -->
+          <div style="flex:1;overflow-y:auto;padding:10px 16px 0;">
+            <div style="font-size:10px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:8px;">🏆 LOCAL LEADERBOARD — TONIGHT ONLY</div>
+            <!-- Rank rows -->
+            <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+              <!-- #1 -->
+              <div style="display:flex;align-items:center;gap:10px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);border-radius:10px;padding:10px 12px;">
+                <div style="font-size:18px;width:24px;text-align:center;">🥇</div>
+                <div style="flex:1;">
+                  <div style="font-size:12px;font-weight:700;color:var(--text);">BigMike</div>
+                  <div style="font-size:10px;color:var(--muted);">3-0 tonight · OVER pick ✓</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:14px;font-weight:900;color:#fbbf24;">+450</div>
+                  <div style="font-size:9px;color:var(--muted);">IQ</div>
+                </div>
+              </div>
+              <!-- #2 — YOU -->
+              <div style="display:flex;align-items:center;gap:10px;background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:10px;padding:10px 12px;">
+                <div style="font-size:18px;width:24px;text-align:center;">🥈</div>
+                <div style="flex:1;">
+                  <div style="font-size:12px;font-weight:700;color:var(--text);">MarcD <span style="color:var(--accent);font-size:10px;">· you</span></div>
+                  <div style="font-size:10px;color:var(--muted);">2-1 tonight · OVER locked ✓</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:14px;font-weight:900;color:var(--accent);">+300</div>
+                  <div style="font-size:9px;color:var(--muted);">IQ</div>
+                </div>
+              </div>
+              <!-- #3 -->
+              <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:10px 12px;">
+                <div style="font-size:18px;width:24px;text-align:center;">🥉</div>
+                <div style="flex:1;">
+                  <div style="font-size:12px;font-weight:700;color:var(--text);">SarahK</div>
+                  <div style="font-size:10px;color:var(--muted);">2-1 tonight · UNDER locked ✗</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:14px;font-weight:900;color:var(--muted);">+250</div>
+                  <div style="font-size:9px;color:var(--muted);">IQ</div>
+                </div>
+              </div>
+              <!-- #4 -->
+              <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:10px 12px;">
+                <div style="font-size:16px;width:24px;text-align:center;color:var(--muted);">4</div>
+                <div style="flex:1;">
+                  <div style="font-size:12px;font-weight:700;color:var(--muted);">JayBird</div>
+                  <div style="font-size:10px;color:var(--muted);">1-1 tonight</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:14px;font-weight:900;color:var(--muted);">+100</div>
+                  <div style="font-size:9px;color:var(--muted);">IQ</div>
+                </div>
+              </div>
+              <!-- More players faded -->
+              <div style="text-align:center;font-size:10px;color:rgba(255,255,255,0.2);">+ 20 more players tonight</div>
+            </div>
+            <!-- Late arrival note -->
+            <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:10px 12px;margin-bottom:10px;">
+              <div style="font-size:10px;font-weight:700;color:var(--accent);margin-bottom:3px;">🕐 Arrived late?</div>
+              <div style="font-size:10px;color:var(--muted);">Your picks still count from this pick forward. Score resets tonight at 4am ET.</div>
+            </div>
+          </div>
+          <!-- Bottom nav -->
+          <div style="border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-around;padding:10px 0 14px;flex-shrink:0;">
+            <div style="text-align:center;"><div style="font-size:18px;">🏠</div><div style="font-size:9px;color:var(--muted);">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:18px;">🎯</div><div style="font-size:9px;color:var(--muted);">Picks</div></div>
+            <div style="text-align:center;"><div style="font-size:18px;">🏆</div><div style="font-size:9px;color:var(--accent);font-weight:700;">Ranks</div></div>
+            <div style="text-align:center;"><div style="font-size:18px;">👤</div><div style="font-size:9px;color:var(--muted);">Profile</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">BAR MODE ACTIVE · Local leaderboard · Late arrivals welcome</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-game-day-v3" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Notifications v2 — 2026-03-21 — Simple, 3 types, 6pm ET
+     Ideas answered: 031 (keep simple, recommendation, 6pm user timezone, do we need this)
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="notifications-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Notifications v2 — 3 types only · 6pm user timezone · Clean toggle UI</div>
+    <div class="screen-subtitle">Kept simple: Critical (Pick Windows + Results), Social (friends activity), and Daily Trivia reminder at 6pm local. Recommendation: skip email recaps entirely — push is enough. One clean settings screen.</div>
+  </div>
+
+  <div class="phones-section">
+
+    <!-- Phone 1: Notification settings -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">NOTIFICATION SETTINGS — CLEAN & SIMPLE</div>
+      <div class="phone-frame">
+        <div style="height:844px;display:flex;flex-direction:column;background:var(--bg);">
+          <!-- Status bar -->
+          <div style="padding:10px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;flex-shrink:0;">
+            <span>9:41</span><span>●●● 🔋</span>
+          </div>
+          <!-- Back header -->
+          <div style="padding:8px 16px 0;display:flex;align-items:center;gap:10px;flex-shrink:0;">
+            <div style="font-size:16px;color:var(--accent);">←</div>
+            <div style="font-size:18px;font-weight:900;color:var(--text);">Notifications</div>
+          </div>
+          <!-- Settings content -->
+          <div style="flex:1;overflow-y:auto;padding:16px;">
+
+            <!-- Critical — always on -->
+            <div style="margin-bottom:6px;">
+              <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1px;margin-bottom:8px;">⚡ CRITICAL</div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;">
+                <!-- Pick windows -->
+                <div style="padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,0.06);">
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:700;color:var(--text);">Pick Windows Open</div>
+                    <div style="font-size:11px;color:var(--muted);margin-top:2px;">When tonight's pick window opens</div>
+                  </div>
+                  <!-- Toggle ON -->
+                  <div style="width:44px;height:24px;border-radius:12px;background:var(--accent);position:relative;flex-shrink:0;">
+                    <div style="position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;"></div>
+                  </div>
+                </div>
+                <!-- Results -->
+                <div style="padding:14px 16px;display:flex;align-items:center;gap:12px;">
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:700;color:var(--text);">Your Pick Resolved</div>
+                    <div style="font-size:11px;color:var(--muted);margin-top:2px;">Win or lose — know instantly</div>
+                  </div>
+                  <!-- Toggle ON -->
+                  <div style="width:44px;height:24px;border-radius:12px;background:var(--accent);position:relative;flex-shrink:0;">
+                    <div style="position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;"></div>
+                  </div>
+                </div>
+              </div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:6px;padding:0 4px;">Critical notifications are on by default</div>
+            </div>
+
+            <!-- Social — opt-in -->
+            <div style="margin-top:14px;margin-bottom:6px;">
+              <div style="font-size:11px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:8px;">👥 SOCIAL</div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;">
+                <!-- Friends pick -->
+                <div style="padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,0.06);">
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:700;color:var(--text);">Friend Activity</div>
+                    <div style="font-size:11px;color:var(--muted);margin-top:2px;">Picks, chirps, challenges from friends</div>
+                  </div>
+                  <!-- Toggle ON -->
+                  <div style="width:44px;height:24px;border-radius:12px;background:var(--accent);position:relative;flex-shrink:0;">
+                    <div style="position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;"></div>
+                  </div>
+                </div>
+                <!-- Challenges -->
+                <div style="padding:14px 16px;display:flex;align-items:center;gap:12px;">
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:700;color:var(--text);">Challenge Invites</div>
+                    <div style="font-size:11px;color:var(--muted);margin-top:2px;">When someone challenges you</div>
+                  </div>
+                  <!-- Toggle ON -->
+                  <div style="width:44px;height:24px;border-radius:12px;background:var(--accent);position:relative;flex-shrink:0;">
+                    <div style="position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Daily trivia — 6pm local -->
+            <div style="margin-top:14px;margin-bottom:6px;">
+              <div style="font-size:11px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:8px;">🧠 DAILY TRIVIA</div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;">
+                <div style="padding:14px 16px;display:flex;align-items:center;gap:12px;">
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:700;color:var(--text);">Daily Trivia Reminder</div>
+                    <div style="font-size:11px;color:var(--muted);margin-top:2px;">Every day at 6:00 PM · your timezone</div>
+                  </div>
+                  <!-- Toggle ON -->
+                  <div style="width:44px;height:24px;border-radius:12px;background:var(--accent);position:relative;flex-shrink:0;">
+                    <div style="position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;"></div>
+                  </div>
+                </div>
+              </div>
+              <div style="background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:10px;padding:10px 12px;margin-top:6px;">
+                <div style="font-size:10px;color:#a78bfa;font-weight:600;">Reminder fires at 6pm in your local timezone — wherever you are</div>
+              </div>
+            </div>
+
+            <!-- Recommendation box: no email -->
+            <div style="margin-top:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:12px 14px;">
+              <div style="font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;">ℹ️ What we don't send</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.3);line-height:1.5;">No weekly email recaps · No marketing newsletters · No third-party promo notifications. Push only. We keep it relevant.</div>
+            </div>
+
+          </div>
+          <!-- Bottom nav -->
+          <div style="border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-around;padding:10px 0 14px;flex-shrink:0;">
+            <div style="text-align:center;"><div style="font-size:18px;">🏠</div><div style="font-size:9px;color:var(--muted);">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:18px;">🎯</div><div style="font-size:9px;color:var(--muted);">Picks</div></div>
+            <div style="text-align:center;"><div style="font-size:18px;">🏆</div><div style="font-size:9px;color:var(--muted);">Ranks</div></div>
+            <div style="text-align:center;"><div style="font-size:18px;">👤</div><div style="font-size:9px;color:var(--accent);font-weight:700;">Profile</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">3 TYPES ONLY · 6pm local trivia · No email spam</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-notifications-v2" class="sfb-panel"></div>
 </div>
 
 </body>
