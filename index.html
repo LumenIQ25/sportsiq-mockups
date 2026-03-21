@@ -1703,14 +1703,14 @@
     font-size: 9px; font-weight: 800; color: #a59df5; letter-spacing: 2px; margin-bottom: 8px;
   }
   .sfb-built-text { font-size: 13px; color: var(--muted); line-height: 1.7; }
-  /* Questions */
-  .sfb-questions { margin-bottom: 24px; }
+  /* Questions (inline inside thread bubbles) */
   .sfb-q-label {
-    font-size: 9px; font-weight: 800; color: var(--faint); letter-spacing: 2px; margin-bottom: 10px;
+    font-size: 9px; font-weight: 800; color: var(--faint); letter-spacing: 2px; margin-bottom: 12px;
   }
   .sfb-q-item {
     display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px;
   }
+  .sfb-q-item:last-child { margin-bottom: 0; }
   .sfb-q-num {
     width: 20px; height: 20px; border-radius: 50%;
     background: rgba(85,69,211,0.2); border: 1px solid rgba(85,69,211,0.35);
@@ -1728,6 +1728,11 @@
   }
   .sfb-reply-claude {
     background: rgba(85,69,211,0.08); border: 1px solid rgba(85,69,211,0.22);
+  }
+  /* Current open questions — stronger highlight to show they need answering */
+  .sfb-reply-claude.sfb-q-active {
+    background: rgba(85,69,211,0.13); border: 1px solid rgba(85,69,211,0.45);
+    box-shadow: 0 0 0 1px rgba(85,69,211,0.15);
   }
   .sfb-reply-who {
     font-size: 9px; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 5px;
@@ -1853,7 +1858,7 @@
       <span class="tab-label">Bar · Result v2</span><span class="tab-days" id="days-bar-result-v2"></span>
     </div>
     <div class="tab" data-screen="trivia" onclick="showScreen('trivia',this)">
-      <span class="tab-label">Trivia v1 🧠</span><span class="tab-days" id="days-trivia"></span>
+      <span class="tab-label">Trivia v2 🧠</span><span class="tab-days" id="days-trivia"></span>
     </div>
     <div class="tab" data-screen="bar-crew-mgmt" onclick="showScreen('bar-crew-mgmt',this)">
       <span class="tab-label">Bar Crew Mgmt v1 🍺</span><span class="tab-days" id="days-bar-crew-mgmt"></span>
@@ -4516,7 +4521,7 @@
     },
     'trivia': {
       icon: '🧠',
-      title: 'Trivia v1 — Daily Engagement Loop (updated per feedback)',
+      title: 'Trivia v2 — Daily Engagement Loop',
       built: 'Updated per your feedback. All 4 answers implemented: (1) ✅ Continuous mode — "Question 3 of ∞" replaces fixed 5-question format. Play as long as you want. (2) ✅ Trivia IQ on home screen — IQ 847 now shows in the home idle hero stats row. (3) ✅ SportsIQ triggers bar trivia — venue does not manage it, SportsIQ auto-triggers trivia rounds between prediction windows. (4) ✅ All 6 sports — trivia accuracy breakdown now shows NFL 82%, NHL 76%, NBA 71%, CFB 69%, MLB 64%, CBB 58%. Speed bonus and streak mechanics unchanged. Phone 3 stats panel expanded to show all 6 sports with accuracy bars.',
       questions: [
         'Trivia difficulty: should the questions ramp up in difficulty the longer you play in one session (adaptive difficulty), or stay randomized from a flat pool?',
@@ -4525,8 +4530,9 @@
         'Question bank: should users ever be able to contribute questions, or is it 100% curated by SportsIQ to maintain quality control?'
       ],
       seed_thread: [
+        { from: 'claude', text: 'Round 1 questions:\n1. Trivia: standalone daily 5-question challenge, or continuous mode?\n2. Should Trivia IQ Score (847) show on the home screen alongside pick win rate?\n3. Bar TV trivia: venue triggers a 5-question break, players answer on mobile — does that fit your vision for bar flow?\n4. Start NFL-only or launch with NFL + NBA together?', ts: 'Mar 20 11:10 PM' },
         { from: 'mark', text: '1. Continuous mode\n2. Yes — show Trivia IQ Score on home screen\n3. We trigger it, not venue\n4. NBA, NFL, NHL, MLB, college basketball, college football', ts: 'Mar 20 11:16 PM' },
-        { from: 'claude', text: 'All 4 implemented ✅\n• Continuous mode — "Question 3 of ∞" now shown on trivia screen\n• Trivia IQ 847 added to home idle hero row\n• Bar trivia description updated: SportsIQ triggers rounds, venues don\'t manage it\n• All 6 sports (NFL/NBA/NHL/MLB/CFB/CBB) with accuracy bars on stats panel\nNew questions above — ready for your next round of feedback.', ts: 'Mar 21 9:20 AM' }
+        { from: 'claude', text: 'All 4 implemented ✅\n• Continuous mode — "Question 3 of ∞" now shown on trivia screen\n• Trivia IQ 847 added to home idle hero row\n• Bar trivia: SportsIQ triggers rounds automatically, venues don\'t manage it\n• All 6 sports (NFL/NBA/NHL/MLB/CFB/CBB) with accuracy bars on stats panel', ts: 'Mar 21 9:20 AM' }
       ]
     },
     'leaderboard-v2': {
@@ -4803,9 +4809,32 @@
     h += '  <div class="sfb-built-text">' + escHtml(meta.built) + '</div>';
     h += '</div>';
 
-    // Questions
-    h += '<div class="sfb-questions">';
-    h += '  <div class="sfb-q-label">QUESTIONS FOR YOU</div>';
+    // ── Sequential feedback layout ────────────────────────────────────────
+    // Section 1: Previous rounds (history) — shown ABOVE questions if it exists
+    // Section 2: Current open questions — always directly above reply form
+    // This ensures reply form is always right below the questions, not buried under history
+
+    if (thread.length > 0) {
+      h += '<div class="sfb-thread">';
+      h += '<div class="sfb-q-label">PREVIOUS ROUNDS</div>';
+      thread.forEach(function(msg) {
+        var cls = msg.from === 'mark' ? 'sfb-reply-mark' : 'sfb-reply-claude';
+        var who = msg.from === 'mark' ? '✏️ MARK' : '🤖 CLAUDE';
+        var ts = msg.ts ? ' &nbsp;·&nbsp; ' + escHtml(msg.ts) : '';
+        h += '<div class="sfb-reply-item ' + cls + '">';
+        h += '  <div class="sfb-reply-who">' + who + ts + '</div>';
+        h += '  <div class="sfb-reply-text">' + escHtml(msg.text) + '</div>';
+        h += '</div>';
+      });
+      h += '</div>'; // sfb-thread
+    }
+
+    // Current open questions — immediately above reply form
+    var qHeader = thread.length > 0
+      ? '🤖 CLAUDE &nbsp;·&nbsp; CURRENT QUESTIONS'
+      : '🤖 CLAUDE &nbsp;·&nbsp; QUESTIONS FOR YOU';
+    h += '<div class="sfb-reply-item sfb-reply-claude sfb-q-active" style="margin-bottom:12px;">';
+    h += '  <div class="sfb-reply-who">' + qHeader + '</div>';
     meta.questions.forEach(function(q, i) {
       h += '  <div class="sfb-q-item">';
       h += '    <div class="sfb-q-num">' + (i + 1) + '</div>';
@@ -4814,23 +4843,7 @@
     });
     h += '</div>';
 
-    // Conversation thread
-    if (thread.length > 0) {
-      h += '<div class="sfb-thread">';
-      h += '<div class="sfb-q-label" style="margin-bottom:10px;">CONVERSATION</div>';
-      thread.forEach(function(msg) {
-        var cls = msg.from === 'mark' ? 'sfb-reply-mark' : 'sfb-reply-claude';
-        var who = msg.from === 'mark' ? '✏️ MARK' : '🤖 CLAUDE';
-        var ts = msg.ts ? ' &nbsp;·&nbsp; ' + msg.ts : '';
-        h += '<div class="sfb-reply-item ' + cls + '">';
-        h += '  <div class="sfb-reply-who">' + who + ts + '</div>';
-        h += '  <div class="sfb-reply-text">' + escHtml(msg.text) + '</div>';
-        h += '</div>';
-      });
-      h += '</div>';
-    }
-
-    // Reply form
+    // Reply form — directly below questions
     h += '<div class="sfb-reply-form">';
     h += '  <div class="sfb-form-label">↩ YOUR REPLY</div>';
     h += '  <textarea class="sfb-textarea" id="sfb-ta-' + escHtml(screenId) + '" placeholder="Type your feedback, answer a question, or give direction..."></textarea>';
@@ -7588,7 +7601,7 @@
   <div class="trivia-wrap">
     <div class="trivia-inner">
 
-      <div class="trivia-section-label">PROACTIVE BUILD · 2026-03-21 · DAILY ENGAGEMENT LOOP — v2 updated per Mark feedback</div>
+      <div class="trivia-section-label">TRIVIA v2 · 2026-03-21 · UPDATED PER FEEDBACK — continuous mode · 6 sports · SportsIQ triggers bar rounds</div>
       <div class="trivia-section-title">🧠 Sports Trivia — The Daily Hook</div>
       <div class="trivia-section-sub">Trivia fires every day, even when no game is live. It's the second addiction loop alongside live picks. Continuous mode — no fixed question count, play as long as you want. Every question answered adds to your personal Trivia IQ stat across all 6 sports (NFL, NBA, NHL, MLB, College FB, College BB) — a proprietary accuracy score no competitor can replicate. Between game prediction windows at bars, SportsIQ automatically triggers trivia rounds on the bar screen — venues don't manage it, it just happens seamlessly.</div>
 
