@@ -1660,6 +1660,9 @@
     <div class="tab" data-screen="notifications" onclick="showScreen('notifications',this)">
       <span class="tab-label">Notifications 🔔</span><span class="tab-days" id="days-notifications"></span>
     </div>
+    <div class="tab" data-screen="data-intelligence" onclick="showScreen('data-intelligence',this)">
+      <span class="tab-label">Intelligence Platform 🧬</span><span class="tab-days" id="days-data-intelligence"></span>
+    </div>
   </div>
 
   <!-- 📱 MOBILE APP -->
@@ -4010,7 +4013,8 @@
     'trivia':           '2026-03-21',
     'leaderboard-v2':   '2026-03-20',
     'pick-wait-v2':     '2026-03-20',
-    'notifications':    '2026-03-20'
+    'notifications':    '2026-03-20',
+    'data-intelligence':'2026-03-21'
   };
 
   (function initDaysBadges() {
@@ -4269,6 +4273,17 @@
         'Friends picks visibility: should you be able to see friends picks BEFORE you pick, or only after you submit?',
         'Should the tug-of-war bar show percentages or just the bar (hiding numbers adds more tension)?',
         'Chirp feature: free-form text, emoji-only, or preset chirp phrases (e.g., "Nice try 😂", "Better luck next week")?'
+      ]
+    },
+    'data-intelligence': {
+      icon: '🧬',
+      title: 'SportsIQ Intelligence Platform',
+      built: 'Full exploration of the data business inside SportsIQ. Six sections: (1) Core insight — why first-party behavioral data is gold when third-party cookies are dead. (2) The full user profile — 4 signal categories: identity, fan profile, psychographic (from trivia), behavioral. Sample compiled profile for "User #48291." (3) Trivia as psychographic instrument — 4 example questions with answer-to-segment mapping: beer/CPG, auto purchase intent, streaming/tech, lifestyle/income proxy. (4) Advertiser segments — 4 buyable segments: Sunday Bar Warriors, Daily Obsessives, High-Value Households, Social Hubs. (5) Revenue model — in-app ads ($8-15 ARPU), brand sponsorships ($50k-500k/deal), data licensing ($100k-$1M/yr). Acquisition targets: ESPN, DraftKings, NFL/NBA, AB InBev. (6) User-facing framing — "My Sports DNA" profile screen with sport depth scores, pick style, personalized perks. Privacy design principles: no PII sold, opt-in framing, user-viewable profile.',
+      questions: [
+        'Trivia question design: should we build a dedicated "psychographic question bank" separate from sports knowledge questions, or blend them in so users don\'t notice?',
+        'Data revenue: do you want to pursue brand sponsorships first (faster revenue, fewer legal hurdles) or data licensing first (higher ceiling but slower)?',
+        'User-facing profile: should "Your Sports DNA" be its own tab, or live inside the existing Profile page?',
+        'Privacy framing: "Personalize my experience" opt-in at onboarding, or let it build silently and reveal the profile after 2 weeks when it\'s impressive?'
       ]
     },
     'notifications': {
@@ -7899,6 +7914,512 @@
   </div>
 
   <div id="sfb-panel-notifications" class="sfb-panel"></div>
+</div>
+
+<!-- ============================================================
+     SPORTSIQ INTELLIGENCE PLATFORM  |  Added 2026-03-20
+     First-party data engine: user profiles, psychographic trivia,
+     advertiser segments, B2B data product
+     ============================================================ -->
+<div id="data-intelligence" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">SportsIQ Intelligence Platform — The Hidden Business</div>
+    <div class="screen-subtitle">Every game played, every pick made, every trivia answer builds a proprietary first-party data asset. This is the second revenue engine — and the real moat.</div>
+  </div>
+
+  <!-- ── SECTION 1: THE BIG IDEA ─────────────────────────────────── -->
+  <div style="max-width:960px;margin:0 auto 48px;">
+    <div style="background:linear-gradient(135deg,rgba(85,69,211,0.15),rgba(139,92,246,0.08));border:1px solid rgba(85,69,211,0.3);border-radius:16px;padding:28px 32px;margin-bottom:32px;">
+      <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:3px;margin-bottom:10px;">THE CORE INSIGHT</div>
+      <div style="font-size:22px;font-weight:900;color:var(--text);line-height:1.3;margin-bottom:14px;">SportsIQ isn't just an entertainment app.<br>It's a <span style="color:#a78bfa;">sports-fan intelligence platform</span> that happens to be fun.</div>
+      <div style="font-size:14px;color:var(--muted);line-height:1.8;max-width:700px;">
+        Every user interaction generates data that brands desperately want and can't get anywhere else. Real sports fans. Real venues. Real purchase signals. Verified by behavior, not self-reported surveys. At the moment third-party cookies are dead and brands are scrambling for first-party data, SportsIQ is building the most accurate sports-fan profile engine in existence.
+      </div>
+    </div>
+
+    <!-- Two-column value prop -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;">
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px;">
+        <div style="font-size:10px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:10px;">WHAT BRANDS PAY FOR TODAY</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+            <span style="color:var(--muted);">3rd-party cookie data</span>
+            <span style="color:#ef4444;font-weight:700;">DEAD ✗</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+            <span style="color:var(--muted);">TV demo surveys</span>
+            <span style="color:#f59e0b;font-weight:700;">STALE</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+            <span style="color:var(--muted);">Social media targeting</span>
+            <span style="color:#f59e0b;font-weight:700;">NOISY</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+            <span style="color:var(--muted);">SportsIQ behavioral profiles</span>
+            <span style="color:#22c55e;font-weight:700;">GOLD ✓</span>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px;">
+        <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:10px;">WHY SPORTSIQ DATA IS DIFFERENT</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="font-size:12px;color:var(--muted);">✓ <strong style="color:var(--text);">First-party</strong> — user gave it to us directly</div>
+          <div style="font-size:12px;color:var(--muted);">✓ <strong style="color:var(--text);">Behavioral</strong> — verified by actions, not surveys</div>
+          <div style="font-size:12px;color:var(--muted);">✓ <strong style="color:var(--text);">Real-world location</strong> — bar GPS, venue check-ins</div>
+          <div style="font-size:12px;color:var(--muted);">✓ <strong style="color:var(--text);">Longitudinal</strong> — months of history, not a snapshot</div>
+          <div style="font-size:12px;color:var(--muted);">✓ <strong style="color:var(--text);">High intent</strong> — fans in the moment, not scrolling</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 2: THE USER PROFILE ─────────────────────────────── -->
+  <div style="max-width:960px;margin:0 auto 48px;">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:3px;margin-bottom:6px;">WHAT WE KNOW ABOUT EVERY USER</div>
+    <div style="font-size:20px;font-weight:900;color:var(--text);margin-bottom:20px;">The Full Profile — Built Automatically</div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+
+      <!-- Identity & Demographics -->
+      <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:12px;padding:16px;">
+        <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:10px;">👤 IDENTITY SIGNALS</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="font-size:11px;color:var(--muted);">📍 <strong style="color:var(--text);">Location type</strong> — bar vs home vs stadium</div>
+          <div style="font-size:11px;color:var(--muted);">🕐 <strong style="color:var(--text);">Play schedule</strong> — Sunday warrior vs daily player</div>
+          <div style="font-size:11px;color:var(--muted);">📱 <strong style="color:var(--text);">Device + OS</strong> — iPhone 15 Pro vs Android mid-tier</div>
+          <div style="font-size:11px;color:var(--muted);">🌍 <strong style="color:var(--text);">City / DMA</strong> — from signup + GPS confirmation</div>
+          <div style="font-size:11px;color:var(--muted);">🏟️ <strong style="color:var(--text);">Home market</strong> — inferred from team follows</div>
+          <div style="font-size:11px;color:var(--muted);">👥 <strong style="color:var(--text);">Social tier</strong> — group creator vs follower</div>
+        </div>
+      </div>
+
+      <!-- Sports & Fan Profile -->
+      <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:12px;padding:16px;">
+        <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:10px;">🏈 FAN PROFILE</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="font-size:11px;color:var(--muted);">🏆 <strong style="color:var(--text);">Sports followed</strong> — NFL + NBA + NHL depth score</div>
+          <div style="font-size:11px;color:var(--muted);">📊 <strong style="color:var(--text);">Knowledge depth</strong> — Trivia IQ per sport (847 NFL)</div>
+          <div style="font-size:11px;color:var(--muted);">🎯 <strong style="color:var(--text);">Pick style</strong> — chalk follower vs contrarian</div>
+          <div style="font-size:11px;color:var(--muted);">💰 <strong style="color:var(--text);">Risk tolerance</strong> — conservative vs aggressive pick patterns</div>
+          <div style="font-size:11px;color:var(--muted);">🔁 <strong style="color:var(--text);">Season consistency</strong> — week 1 vs week 18 engagement</div>
+          <div style="font-size:11px;color:var(--muted);">🧠 <strong style="color:var(--text);">Fantasy overlap</strong> — picks correlate with fantasy lineup</div>
+        </div>
+      </div>
+
+      <!-- Psychographic / Purchase Intent -->
+      <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:12px;padding:16px;">
+        <div style="font-size:10px;font-weight:800;color:#fbbf24;letter-spacing:2px;margin-bottom:10px;">💎 PSYCHOGRAPHIC (from Trivia)</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="font-size:11px;color:var(--muted);">🍺 <strong style="color:var(--text);">Beer/spirits preference</strong> — craft vs domestic vs premium</div>
+          <div style="font-size:11px;color:var(--muted);">🚗 <strong style="color:var(--text);">Vehicle signals</strong> — truck, SUV, or sedan answer patterns</div>
+          <div style="font-size:11px;color:var(--muted);">💵 <strong style="color:var(--text);">Income proxy</strong> — spending style answers, device tier</div>
+          <div style="font-size:11px;color:var(--muted);">📺 <strong style="color:var(--text);">Streaming services</strong> — how they watch away games</div>
+          <div style="font-size:11px;color:var(--muted);">🛒 <strong style="color:var(--text);">Merch buyer flag</strong> — jersey/gear questions + bar spend</div>
+          <div style="font-size:11px;color:var(--muted);">✈️ <strong style="color:var(--text);">Travel intent</strong> — road game / away trip answer patterns</div>
+        </div>
+      </div>
+
+      <!-- Behavioral Engagement -->
+      <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.18);border-radius:12px;padding:16px;">
+        <div style="font-size:10px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:10px;">⚡ BEHAVIORAL SIGNALS</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="font-size:11px;color:var(--muted);">📅 <strong style="color:var(--text);">Session frequency</strong> — daily / weekly / game-day-only</div>
+          <div style="font-size:11px;color:var(--muted);">⏱️ <strong style="color:var(--text);">Session length</strong> — 2 min quick pick vs 45 min deep session</div>
+          <div style="font-size:11px;color:var(--muted);">🏪 <strong style="color:var(--text);">Venue regularity</strong> — same bar weekly, loyalty signal</div>
+          <div style="font-size:11px;color:var(--muted);">📲 <strong style="color:var(--text);">Notification response</strong> — what types they tap vs ignore</div>
+          <div style="font-size:11px;color:var(--muted);">🔥 <strong style="color:var(--text);">Streak length</strong> — habit strength indicator</div>
+          <div style="font-size:11px;color:var(--muted);">💬 <strong style="color:var(--text);">Social engagement</strong> — trash talk frequency, group activity</div>
+        </div>
+      </div>
+
+      <!-- Sample User Profile Card -->
+      <div style="background:rgba(13,20,32,0.8);border:1px solid rgba(85,69,211,0.3);border-radius:12px;padding:16px;grid-column:span 2;">
+        <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🧩 SAMPLE COMPILED PROFILE — "USER #48291"</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:700;">IDENTITY</div>
+            <div style="font-size:11px;color:var(--text);line-height:1.8;">
+              📍 Bar player — checks in at McSorley's (NYC) every Sunday<br>
+              🕐 Peak: Sun 1–11 PM · Avg session 38 min<br>
+              📱 iPhone 15 Pro · iOS 18<br>
+              🌍 New York, NY · DMA: NYC Metro<br>
+              👥 Group creator — runs 2 active groups (8 members each)
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:700;">FAN + PSYCHOGRAPHIC</div>
+            <div style="font-size:11px;color:var(--text);line-height:1.8;">
+              🏈 NFL depth: 9.2/10 · NBA: 7.1 · NHL: 4.3<br>
+              🎯 Pick style: <strong>Contrarian</strong> (bets against crowd 68% of the time)<br>
+              🍺 Beer: <strong>Craft IPA</strong> (answer pattern: always picks craft over domestic)<br>
+              🚗 Vehicle: <strong>SUV/Truck likely</strong> (tailgate + road trip answer affinity)<br>
+              💵 Income proxy: <strong>Upper-mid</strong> (iPhone Pro + $10 group pools + travel picks)
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:10px;padding:8px 10px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.2);border-radius:8px;font-size:11px;color:#fbbf24;">
+          🎯 <strong>Advertiser value:</strong> Beer brands (craft), Auto (SUV/truck), Sports streaming, NYC bar partners, DraftKings/FanDuel lookalike audience seed
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SECTION 3: TRIVIA AS PSYCHOGRAPHIC INSTRUMENT ───────────── -->
+  <div style="max-width:960px;margin:0 auto 48px;">
+    <div style="font-size:10px;font-weight:800;color:#a78bfa;letter-spacing:3px;margin-bottom:6px;">THE SECRET WEAPON</div>
+    <div style="font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;">Trivia Questions Designed to Profile Users</div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:24px;max-width:700px;line-height:1.6;">Every trivia question does double duty: it's entertaining AND it's a profiling instrument. Answer patterns across 100+ questions build a psychographic fingerprint more accurate than any survey — because users are making instinctive choices, not performing for a pollster.</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+      <!-- Question example 1: Beer -->
+      <div style="background:rgba(13,20,32,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(251,191,36,0.1);padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);">
+          <div style="font-size:9px;font-weight:800;color:#fbbf24;letter-spacing:2px;">BEER / CPG SIGNAL</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-top:3px;">What's in your hand for kickoff?</div>
+        </div>
+        <div style="padding:12px 14px;display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">🍺 Whatever's on draft</span>
+            <span style="font-size:9px;color:var(--muted);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ Casual / domestic</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">🍻 Specific craft IPA I always order</span>
+            <span style="font-size:9px;color:#a78bfa;background:rgba(139,92,246,0.15);padding:2px 6px;border-radius:4px;">→ Craft / brand loyal</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">🥃 Whiskey/bourbon — game day special</span>
+            <span style="font-size:9px;color:var(--muted);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ Premium spirits</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">🥤 Non-alcoholic — I'm the DD today</span>
+            <span style="font-size:9px;color:var(--muted);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ Non-drinker flag</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question example 2: Auto -->
+      <div style="background:rgba(13,20,32,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(34,197,94,0.08);padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);">
+          <div style="font-size:9px;font-weight:800;color:#22c55e;letter-spacing:2px;">AUTO PURCHASE INTENT SIGNAL</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-top:3px;">Best ride to a road game?</div>
+        </div>
+        <div style="padding:12px 14px;display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">🛻 F-150 with the crew in the bed</span>
+            <span style="font-size:9px;color:#22c55e;background:rgba(34,197,94,0.15);padding:2px 6px;border-radius:4px;">→ Truck owner/aspirant</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">🚙 SUV — room for gear and everyone</span>
+            <span style="font-size:9px;color:var(--muted);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ Family/SUV segment</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">✈️ Flying — it's a big game, worth it</span>
+            <span style="font-size:9px;color:var(--muted);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ High income / travel</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">🚇 Transit + rideshare from the city</span>
+            <span style="font-size:9px;color:var(--muted);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ Urban / no car</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question example 3: Streaming / tech -->
+      <div style="background:rgba(13,20,32,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(85,69,211,0.1);padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);">
+          <div style="font-size:9px;font-weight:800;color:var(--accent);letter-spacing:2px;">STREAMING / TECH SIGNAL</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-top:3px;">How do you watch away games?</div>
+        </div>
+        <div style="padding:12px 14px;display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">📺 NFL Sunday Ticket on my TV</span>
+            <span style="font-size:9px;color:var(--muted);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ YouTube TV / DirecTV</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.3);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">🏈 I find a sports bar showing it</span>
+            <span style="font-size:9px;color:var(--accent);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ Bar regular, venue partner</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">💻 Stream on my laptop / tablet</span>
+            <span style="font-size:9px;color:var(--muted);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ Digital-first, cord-cutter</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">📱 Radio / live updates on my phone</span>
+            <span style="font-size:9px;color:var(--muted);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ Mobile-only, lower HHI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question example 4: Lifestyle / income -->
+      <div style="background:rgba(13,20,32,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;">
+        <div style="background:rgba(239,68,68,0.08);padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);">
+          <div style="font-size:9px;font-weight:800;color:#f87171;letter-spacing:2px;">LIFESTYLE / INCOME PROXY SIGNAL</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-top:3px;">Dream Super Bowl experience?</div>
+        </div>
+        <div style="padding:12px 14px;display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">💎 Suite seats — don't care about the cost</span>
+            <span style="font-size:9px;color:#f87171;background:rgba(239,68,68,0.15);padding:2px 6px;border-radius:4px;">→ HHI $200k+</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">🎟️ Upper deck — just being there is enough</span>
+            <span style="font-size:9px;color:var(--muted);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ HHI $60-120k</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">🏟️ Tailgate outside — better party anyway</span>
+            <span style="font-size:9px;color:var(--muted);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ Value-oriented, social</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.04);border-radius:6px;">
+            <span style="font-size:11px;color:var(--text);flex:1;">🍕 Best sports bar in my city — same vibe</span>
+            <span style="font-size:9px;color:var(--muted);background:rgba(85,69,211,0.15);padding:2px 6px;border-radius:4px;">→ Local, bar-regular segment</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:16px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:14px 18px;">
+      <div style="font-size:10px;font-weight:800;color:#a78bfa;letter-spacing:2px;margin-bottom:6px;">THE INTELLIGENCE FLYWHEEL</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">After 50 questions answered (about 2 weeks of continuous mode), SportsIQ has enough answer patterns to classify users into psychographic segments with >80% confidence. After 200 questions (6-8 weeks), the profile is richer than a 3-year Facebook advertising history. <strong style="color:var(--text);">Users never fill out a single form.</strong> They just play trivia.</div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 4: ADVERTISER SEGMENTS (THE PRODUCT WE SELL) ─────── -->
+  <div style="max-width:960px;margin:0 auto 48px;">
+    <div style="font-size:10px;font-weight:800;color:#22c55e;letter-spacing:3px;margin-bottom:6px;">THE DATA PRODUCT</div>
+    <div style="font-size:20px;font-weight:900;color:var(--text);margin-bottom:20px;">Audience Segments — What Brands Buy</div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:20px;">
+
+      <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);border-radius:12px;padding:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div>
+            <div style="font-size:10px;font-weight:800;color:#fbbf24;letter-spacing:1px;">SEGMENT 01</div>
+            <div style="font-size:14px;font-weight:900;color:var(--text);">Sunday Bar Warriors</div>
+          </div>
+          <div style="background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.3);border-radius:6px;padding:4px 8px;text-align:right;">
+            <div style="font-size:9px;color:var(--muted);">est. reach</div>
+            <div style="font-size:12px;font-weight:900;color:#fbbf24;">~40% of MAU</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:8px;">Bar check-in ≥2 Sundays/month · Session length >30 min · NFL primary · Group member</div>
+        <div style="font-size:10px;color:var(--text);font-weight:700;">💰 Buyers: Beer brands, bar food, rideshare (Uber/Lyft), fantasy platforms</div>
+      </div>
+
+      <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:12px;padding:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div>
+            <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:1px;">SEGMENT 02</div>
+            <div style="font-size:14px;font-weight:900;color:var(--text);">Daily Obsessives</div>
+          </div>
+          <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.3);border-radius:6px;padding:4px 8px;text-align:right;">
+            <div style="font-size:9px;color:var(--muted);">est. reach</div>
+            <div style="font-size:12px;font-weight:900;color:var(--accent);">~15% of MAU</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:8px;">Plays daily · Streak >30 days · Multi-sport (3+) · Trivia IQ >800 · Answers trivia every morning</div>
+        <div style="font-size:10px;color:var(--text);font-weight:700;">💰 Buyers: ESPN+/streaming, sports merchandise, sports books, collectibles</div>
+      </div>
+
+      <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.18);border-radius:12px;padding:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div>
+            <div style="font-size:10px;font-weight:800;color:#22c55e;letter-spacing:1px;">SEGMENT 03</div>
+            <div style="font-size:14px;font-weight:900;color:var(--text);">High-Value Households</div>
+          </div>
+          <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:6px;padding:4px 8px;text-align:right;">
+            <div style="font-size:9px;color:var(--muted);">est. reach</div>
+            <div style="font-size:12px;font-weight:900;color:#22c55e;">~20% of MAU</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:8px;">iPhone Pro device · Suite/premium trivia answer pattern · $10+ group pools · Travel intent signals · 35-55 age proxy</div>
+        <div style="font-size:10px;color:var(--text);font-weight:700;">💰 Buyers: Auto (luxury/truck), travel, financial services, premium streaming</div>
+      </div>
+
+      <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:12px;padding:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div>
+            <div style="font-size:10px;font-weight:800;color:#f87171;letter-spacing:1px;">SEGMENT 04</div>
+            <div style="font-size:14px;font-weight:900;color:var(--text);">Social Hubs (Peer Influencers)</div>
+          </div>
+          <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);border-radius:6px;padding:4px 8px;text-align:right;">
+            <div style="font-size:9px;color:var(--muted);">est. reach</div>
+            <div style="font-size:12px;font-weight:900;color:#f87171;">~8% of MAU</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:8px;">Group creator · ≥2 active groups · High trash talk frequency · Friends respond within minutes · Referred ≥3 new users</div>
+        <div style="font-size:10px;color:var(--text);font-weight:700;">💰 Buyers: Brand ambassador programs, social referral campaigns, product launches</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SECTION 5: REVENUE MODEL ─────────────────────────────────── -->
+  <div style="max-width:960px;margin:0 auto 48px;">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:3px;margin-bottom:6px;">REVENUE MODEL</div>
+    <div style="font-size:20px;font-weight:900;color:var(--text);margin-bottom:20px;">How SportsIQ Monetizes the Data</div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;">
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px;">
+        <div style="font-size:22px;margin-bottom:6px;">📲</div>
+        <div style="font-size:12px;font-weight:800;color:var(--text);margin-bottom:6px;">In-App Targeted Ads</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px;">Segment-matched display + push ads inside the app. "Bud Light Pick of the Week." Beer brand to Sunday Bar Warriors only. CPM $15-40 (vs $3-8 average) because targeting is surgical.</div>
+        <div style="font-size:11px;font-weight:700;color:#22c55e;">~$8-15 ARPU/yr</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px;">
+        <div style="font-size:22px;margin-bottom:6px;">🤝</div>
+        <div style="font-size:12px;font-weight:800;color:var(--text);margin-bottom:6px;">Brand Sponsorships</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px;">Named feature sponsorships: "F-150 Trivia Power Hour." "Modelo Chelada Pick of the Week." Brand gets co-branded placement + segment reach report. Flat fee + performance bonus.</div>
+        <div style="font-size:11px;font-weight:700;color:#22c55e;">$50k-500k/deal</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px;">
+        <div style="font-size:22px;margin-bottom:6px;">📊</div>
+        <div style="font-size:12px;font-weight:800;color:var(--text);margin-bottom:6px;">Data Licensing</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px;">Sell anonymized audience segments and behavioral insights to leagues, teams, betting operators, and CPG brands. "NFL fan psychographic report" sold annually to team marketing departments.</div>
+        <div style="font-size:11px;font-weight:700;color:#22c55e;">$100k-$1M/yr</div>
+      </div>
+    </div>
+
+    <!-- Acquisition targets -->
+    <div style="background:linear-gradient(135deg,rgba(251,191,36,0.1),rgba(245,158,11,0.05));border:1px solid rgba(251,191,36,0.3);border-radius:12px;padding:20px 24px;">
+      <div style="font-size:10px;font-weight:800;color:#fbbf24;letter-spacing:2px;margin-bottom:12px;">🎯 WHO ACQUIRES SPORTSIQ FOR THIS DATA ASSET</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+        <div style="text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">📺</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text);">ESPN / Disney</div>
+          <div style="font-size:10px;color:var(--muted);">Fan engagement data to reinforce Sunday Ticket, ESPN+</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🎰</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text);">DraftKings / FanDuel</div>
+          <div style="font-size:10px;color:var(--muted);">Identify pre-bettor fans, convert to real-money product</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🏈</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text);">NFL / NBA Leagues</div>
+          <div style="font-size:10px;color:var(--muted);">Fan intelligence for broadcast deals, merchandise, ticket pricing</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🍺</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text);">AB InBev / Molson</div>
+          <div style="font-size:10px;color:var(--muted);">Direct line to bar-going sports fans at the point of consumption</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 6: USER-FACING FRAMING ──────────────────────────── -->
+  <div style="max-width:960px;margin:0 auto 48px;">
+    <div style="font-size:10px;font-weight:800;color:#22c55e;letter-spacing:3px;margin-bottom:6px;">USER EXPERIENCE</div>
+    <div style="font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;">How We Present This to Users</div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:20px;max-width:700px;line-height:1.6;">We never call it "data collection." We call it "Your Sports DNA" — a personalization system that makes SportsIQ feel more like yours the longer you use it. Users see their own profile as a feature, not a liability.</div>
+
+    <div style="display:flex;gap:24px;flex-wrap:wrap;justify-content:center;">
+      <!-- Phone: My Sports DNA screen -->
+      <div style="text-align:center;">
+        <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">MY SPORTS DNA — USER-FACING PROFILE</div>
+        <div class="phone-frame">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+            <span>9:41</span><span>●●● WiFi 🔋</span>
+          </div>
+          <div style="padding:8px 12px 4px;display:flex;align-items:center;gap:10px;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff;">M</div>
+            <div>
+              <div style="font-size:13px;font-weight:900;color:var(--text);">Mark</div>
+              <div style="font-size:9px;color:var(--muted);">SportsIQ since Oct 2024 · 847 IQ</div>
+            </div>
+          </div>
+          <!-- DNA score card -->
+          <div style="margin:6px 10px;background:linear-gradient(135deg,rgba(85,69,211,0.2),rgba(139,92,246,0.1));border:1px solid rgba(85,69,211,0.35);border-radius:10px;padding:10px 12px;">
+            <div style="font-size:9px;font-weight:800;color:var(--accent);letter-spacing:1px;margin-bottom:6px;">🧬 YOUR SPORTS DNA</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:9px;color:var(--muted);width:70px;">NFL depth</span>
+                <div style="flex:1;height:5px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;"><div style="width:92%;height:100%;background:linear-gradient(90deg,#5545D3,#a78bfa);border-radius:3px;"></div></div>
+                <span style="font-size:9px;color:var(--text);width:24px;text-align:right;">9.2</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:9px;color:var(--muted);width:70px;">NBA depth</span>
+                <div style="flex:1;height:5px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;"><div style="width:71%;height:100%;background:linear-gradient(90deg,#5545D3,#a78bfa);border-radius:3px;"></div></div>
+                <span style="font-size:9px;color:var(--text);width:24px;text-align:right;">7.1</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:9px;color:var(--muted);width:70px;">Pick style</span>
+                <div style="flex:1;height:5px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;"><div style="width:68%;height:100%;background:linear-gradient(90deg,#ef4444,#f59e0b);border-radius:3px;"></div></div>
+                <span style="font-size:9px;color:#f59e0b;width:40px;text-align:right;">Contrarian</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:9px;color:var(--muted);width:70px;">Fan type</span>
+                <div style="flex:1;"></div>
+                <span style="font-size:9px;color:#22c55e;">Bar Regular 🍺</span>
+              </div>
+            </div>
+          </div>
+          <!-- Personalization perks -->
+          <div style="margin:0 10px 4px;font-size:9px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">YOUR PERSONALIZED PERKS</div>
+          <div style="margin:0 10px;display:flex;flex-direction:column;gap:4px;">
+            <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:7px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:14px;">🍺</span>
+              <div style="flex:1;">
+                <div style="font-size:9px;font-weight:700;color:var(--text);">Craft Beer Reward</div>
+                <div style="font-size:8px;color:var(--muted);">$2 off at participating bars · Based on your pick history</div>
+              </div>
+              <span style="font-size:9px;font-weight:700;color:#fbbf24;">Claim</span>
+            </div>
+            <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.18);border-radius:7px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:14px;">🏈</span>
+              <div style="flex:1;">
+                <div style="font-size:9px;font-weight:700;color:var(--text);">NFL Gear Promo</div>
+                <div style="font-size:8px;color:var(--muted);">15% off — top NFL fans this week only</div>
+              </div>
+              <span style="font-size:9px;font-weight:700;color:#22c55e;">Claim</span>
+            </div>
+          </div>
+          <div style="margin:6px 10px 4px;background:rgba(85,69,211,0.08);border-radius:7px;padding:6px 8px;text-align:center;">
+            <div style="font-size:8px;color:var(--muted);">Perks are personalized based on your SportsIQ activity.<br><span style="color:var(--accent);text-decoration:underline;">Your data stays on SportsIQ. View privacy settings →</span></div>
+          </div>
+          <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:4px;">
+            <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--muted);">Picks</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--muted);">Leaderboard</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--accent);">Profile</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key insight box -->
+      <div style="max-width:400px;display:flex;flex-direction:column;gap:14px;justify-content:center;">
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
+          <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:8px;">THE TRANSPARENCY PLAY</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">Users see their own "Sports DNA" as a <strong style="color:var(--text);">feature</strong> — personalized perks, custom trivia difficulty, tailored content. The data collection is the product experience. No dark patterns. No buried opt-outs. This actually builds more trust and generates better quality data because engaged users with full profiles are worth 10× more to advertisers.</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.18);border-radius:12px;padding:16px;">
+          <div style="font-size:10px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:8px;">PRIVACY DESIGN PRINCIPLES</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+            ✓ <strong style="color:var(--text);">No PII sold</strong> — only anonymized segments<br>
+            ✓ <strong style="color:var(--text);">Opt-in framing</strong> — "enable personalization" not buried consent<br>
+            ✓ <strong style="color:var(--text);">User-viewable profile</strong> — see exactly what's stored<br>
+            ✓ <strong style="color:var(--text);">Delete anytime</strong> — CCPA/GDPR compliant from day 1<br>
+            ✓ <strong style="color:var(--text);">Value exchange clear</strong> — "Your data = better perks"
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Moat analysis -->
+  <div style="max-width:960px;margin:0 auto;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — SPORTSIQ INTELLIGENCE PLATFORM</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      <strong style="color:var(--text);">The data moat compounds daily:</strong> Every question answered, every pick made, every bar check-in makes the profile richer. A user with 6 months of history is worth 10× more to advertisers than a new user. This creates massive switching costs — leaving SportsIQ means losing the profile, the perks, the personalization.<br>
+      <strong style="color:var(--text);">Impossible to replicate quickly:</strong> A competitor launching today would need 18-24 months to build a comparable panel at scale. By then, SportsIQ has network effects, venue relationships, and brand partnerships locked in.<br>
+      <strong style="color:var(--text);">Third-party cookie death is a tailwind:</strong> The biggest brands in the world are desperate for first-party data. SportsIQ is building exactly what they need, targeting exactly the demographic they want (18-45M sports fans), in exactly the context they can't reach (real-world bar + live game moments).<br>
+      <strong style="color:var(--text);">The business inside the business:</strong> Even if picks/trivia were free forever, the data revenue alone could sustain and grow SportsIQ. The entertainment app is the acquisition engine. The data platform is the margin engine.
+    </div>
+  </div>
+
+  <div id="sfb-panel-data-intelligence" class="sfb-panel"></div>
 </div>
 
 </body>
