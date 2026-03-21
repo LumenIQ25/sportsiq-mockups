@@ -1684,6 +1684,9 @@
     <div class="tab" data-screen="bar-crew-mgmt" onclick="showScreen('bar-crew-mgmt',this)">
       <span class="tab-label">Bar Crew Mgmt 🍺</span><span class="tab-days" id="days-bar-crew-mgmt"></span>
     </div>
+    <div class="tab" data-screen="referral-growth" onclick="showScreen('referral-growth',this)">
+      <span class="tab-label">Referral & Growth 🚀</span><span class="tab-days" id="days-referral-growth"></span>
+    </div>
   </div>
 
   <!-- 📱 MOBILE APP -->
@@ -4042,7 +4045,8 @@
     'home-idle-v2':        '2026-03-21',
     'daily-challenge-v2':  '2026-03-21',
     'sports-dna-profile':  '2026-03-21',
-    'bar-crew-mgmt':       '2026-03-21'
+    'bar-crew-mgmt':       '2026-03-21',
+    'referral-growth':     '2026-03-21'
   };
 
   (function initDaysBadges() {
@@ -4345,6 +4349,17 @@
         'Data revenue: do you want to pursue brand sponsorships first (faster revenue, fewer legal hurdles) or data licensing first (higher ceiling but slower)?',
         'User-facing profile: should "Your Sports DNA" be its own tab, or live inside the existing Profile page?',
         'Privacy framing: "Personalize my experience" opt-in at onboarding, or let it build silently and reveal the profile after 2 weeks when it\'s impressive?'
+      ]
+    },
+    'referral-growth': {
+      icon: '🚀',
+      title: 'Referral & Viral Growth — The Acquisition Engine',
+      built: 'Three phones showing the full viral loop: (1) Invite flow — "Challenge a Friend" hero with inviter\'s IQ + rank shown as the benchmark ("Can you beat my 847 IQ?"), share via WhatsApp/iMessage/Instagram Story/copy link, dynamic preview card generated per-user (shows your stats + crew standing). Referral reward: +50 IQ per friend who joins and completes first pick. (2) Recipient experience — the "You\'ve been challenged" landing screen: inviter\'s profile card (BigMike, IQ 912, 🔥34 streak, #1 in Murphy\'s Boys), "Join Murphy\'s Boys and beat him" CTA, what you get preview (your starting IQ 500, sport selection, first pick immediately). (3) Referral dashboard — your referral stats: 8 friends recruited, +400 bonus IQ earned, leaderboard rank impact (+18 spots from referrals), "Top Recruiter" badge progress (2 away from unlocking), ranked list of who you recruited and their current IQ scores.',
+      questions: [
+        'Referral reward: IQ bonus (+50 per recruit) only, or should there also be a cash incentive for paid crew referrals (e.g. one free week of your entry fee)?',
+        'Challenge framing: "Beat my IQ" (competitive) vs "Join my crew" (social) — which drives more conversions?',
+        'Should the invite link pre-set the new user\'s crew and teams based on who invited them, or let them choose from scratch?',
+        'Top Recruiter badge: vanity only, or does it unlock a feature (e.g. ability to create a second crew, or larger crew size limit)?'
       ]
     },
     'bar-crew-mgmt': {
@@ -10717,6 +10732,255 @@
   </div>
 
   <div id="sfb-panel-bar-crew-mgmt" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Referral & Viral Growth — The Acquisition Engine
+     Added: 2026-03-21 | Autonomous loop build
+     Moat: viral loop that leverages existing social graphs, not paid ads
+     Every invite carries the inviter's identity & social pressure — conversion rate 3-5× cold installs
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="referral-growth" class="screen" style="display:none;">
+  <div style="min-height:100vh;background:#020408;padding:40px 20px;display:flex;flex-direction:column;align-items:center;">
+
+    <!-- Header -->
+    <div style="width:100%;max-width:960px;margin-bottom:32px;">
+      <div style="font-size:11px;font-weight:700;color:#5545D3;letter-spacing:3px;margin-bottom:6px;">v2 UPDATES · 2026-03-21</div>
+      <div style="font-size:28px;font-weight:900;color:#F8FAFC;margin-bottom:6px;">Referral & Viral Growth 🚀</div>
+      <div style="font-size:14px;color:#94A3B8;line-height:1.6;">The acquisition engine that costs $0. <span style="color:#F8FAFC;font-weight:700;">"Can you beat my 847 IQ?"</span> is a more compelling install prompt than any ad. Every invite carries social identity and personal challenge — conversion rates are 3-5× cold installs because the new user already knows who they're competing against.</div>
+    </div>
+
+    <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;">
+
+      <!-- ── PHONE 1: Invite / Share Flow ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 1 — SEND CHALLENGE</div>
+        <div style="width:280px;height:600px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;color:#94A3B8;">3:05 PM</div>
+            <div style="font-size:9px;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <div style="background:#0A101C;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;">
+            <div style="font-size:10px;color:#5545D3;">←</div>
+            <div style="font-size:12px;font-weight:900;color:#F8FAFC;flex:1;text-align:center;">Challenge a Friend</div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:12px;">
+
+            <!-- Your challenge card preview -->
+            <div style="background:linear-gradient(135deg,#0D1E3A,#141D2E);border:1px solid rgba(85,69,211,0.35);border-radius:14px;padding:14px;margin-bottom:14px;text-align:center;">
+              <div style="font-size:9px;font-weight:700;color:#a59df5;letter-spacing:2px;margin-bottom:10px;">YOUR CHALLENGE CARD</div>
+              <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#3D31B0);border:2px solid rgba(85,69,211,0.6);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 8px;">🏈</div>
+              <div style="font-size:14px;font-weight:900;color:#F8FAFC;margin-bottom:2px;">MarkD</div>
+              <div style="font-size:9px;color:#94A3B8;margin-bottom:10px;">Murphy's Boys · 🍺 Bar Regular</div>
+              <div style="display:flex;justify-content:center;gap:16px;margin-bottom:10px;">
+                <div style="text-align:center;">
+                  <div style="font-size:20px;font-weight:900;background:linear-gradient(135deg,#a59df5,#5545D3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">847</div>
+                  <div style="font-size:7px;color:#94A3B8;">SportsIQ</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:20px;font-weight:900;color:#22c55e;">68%</div>
+                  <div style="font-size:7px;color:#94A3B8;">Win Rate</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:20px;font-weight:900;color:#F59E0B;">🔥22</div>
+                  <div style="font-size:7px;color:#94A3B8;">Streak</div>
+                </div>
+              </div>
+              <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:8px;padding:7px;font-size:10px;font-weight:800;color:#F8FAFC;">
+                Can you beat my 847 IQ? 🧠
+              </div>
+            </div>
+
+            <!-- Referral reward -->
+            <div style="background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:8px 10px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+              <div style="font-size:16px;">🎁</div>
+              <div>
+                <div style="font-size:9px;font-weight:700;color:#22c55e;">YOU EARN +50 IQ per friend who joins</div>
+                <div style="font-size:8px;color:#94A3B8;margin-top:1px;">They must complete their first pick. 8 invited so far = +400 IQ earned.</div>
+              </div>
+            </div>
+
+            <!-- Share options -->
+            <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:8px;">SHARE VIA</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <button style="display:flex;align-items:center;gap:10px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);border-radius:10px;padding:10px 12px;font-family:Lexend,sans-serif;width:100%;cursor:pointer;">
+                <div style="font-size:18px;">💬</div>
+                <div style="text-align:left;"><div style="font-size:10px;font-weight:700;color:#25D366;">WhatsApp</div><div style="font-size:8px;color:#94A3B8;">Sends card + link to your contacts</div></div>
+              </button>
+              <button style="display:flex;align-items:center;gap:10px;background:rgba(29,161,242,0.08);border:1px solid rgba(29,161,242,0.25);border-radius:10px;padding:10px 12px;font-family:Lexend,sans-serif;width:100%;cursor:pointer;">
+                <div style="font-size:18px;">📱</div>
+                <div style="text-align:left;"><div style="font-size:10px;font-weight:700;color:#60A5FA;">iMessage / SMS</div><div style="font-size:8px;color:#94A3B8;">Text your crew directly</div></div>
+              </button>
+              <button style="display:flex;align-items:center;gap:10px;background:rgba(225,48,108,0.08);border:1px solid rgba(225,48,108,0.22);border-radius:10px;padding:10px 12px;font-family:Lexend,sans-serif;width:100%;cursor:pointer;">
+                <div style="font-size:18px;">📸</div>
+                <div style="text-align:left;"><div style="font-size:10px;font-weight:700;color:#E1306C;">Instagram Story</div><div style="font-size:8px;color:#94A3B8;">Auto-sized story with your challenge card</div></div>
+              </button>
+              <!-- Copy link -->
+              <div style="background:rgba(85,69,211,0.07);border:1px dashed rgba(85,69,211,0.3);border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:6px;margin-top:2px;">
+                <div style="font-size:9px;color:#a59df5;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">sportsiq.app/challenge/markd-847iq</div>
+                <div style="font-size:8px;font-weight:700;color:#5545D3;background:rgba(85,69,211,0.15);border-radius:5px;padding:2px 7px;flex-shrink:0;cursor:pointer;">Copy</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHONE 2: Recipient Experience ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 2 — RECIPIENT LANDS</div>
+        <div style="width:280px;height:600px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;color:#94A3B8;">3:07 PM</div>
+            <div style="font-size:9px;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:16px 14px;">
+
+            <!-- Challenge received hero -->
+            <div style="text-align:center;margin-bottom:16px;">
+              <div style="font-size:28px;margin-bottom:6px;">⚔️</div>
+              <div style="font-size:18px;font-weight:900;color:#F8FAFC;line-height:1.3;margin-bottom:4px;">You've been<br>challenged</div>
+              <div style="font-size:10px;color:#94A3B8;">MarkD wants to see if you can beat his IQ</div>
+            </div>
+
+            <!-- Challenger's card -->
+            <div style="background:linear-gradient(135deg,rgba(85,69,211,0.15),rgba(85,69,211,0.05));border:1.5px solid rgba(85,69,211,0.4);border-radius:14px;padding:14px;margin-bottom:14px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#3D31B0);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🏈</div>
+                <div>
+                  <div style="font-size:13px;font-weight:900;color:#F8FAFC;">MarkD</div>
+                  <div style="font-size:8px;color:#94A3B8;">Murphy's Boys · 🍺 Bar Regular</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:0;background:rgba(255,255,255,0.04);border-radius:8px;overflow:hidden;">
+                <div style="flex:1;text-align:center;padding:8px 4px;border-right:1px solid rgba(255,255,255,0.06);">
+                  <div style="font-size:16px;font-weight:900;background:linear-gradient(135deg,#a59df5,#5545D3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">847</div>
+                  <div style="font-size:7px;color:#94A3B8;">IQ Score</div>
+                </div>
+                <div style="flex:1;text-align:center;padding:8px 4px;border-right:1px solid rgba(255,255,255,0.06);">
+                  <div style="font-size:16px;font-weight:900;color:#22c55e;">68%</div>
+                  <div style="font-size:7px;color:#94A3B8;">Win Rate</div>
+                </div>
+                <div style="flex:1;text-align:center;padding:8px 4px;">
+                  <div style="font-size:16px;font-weight:900;color:#F59E0B;">#2</div>
+                  <div style="font-size:7px;color:#94A3B8;">In Crew</div>
+                </div>
+              </div>
+              <div style="margin-top:8px;font-size:10px;font-weight:800;color:#a59df5;text-align:center;">You start at IQ 500. Can you catch him?</div>
+            </div>
+
+            <!-- What you get preview -->
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px;margin-bottom:14px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:8px;">WHAT YOU GET</div>
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="display:flex;align-items:center;gap:7px;"><div style="font-size:11px;">🧠</div><div style="font-size:9px;color:#F8FAFC;">Your own IQ Score — climb the leaderboard</div></div>
+                <div style="display:flex;align-items:center;gap:7px;"><div style="font-size:11px;">🏆</div><div style="font-size:9px;color:#F8FAFC;">Compete in Murphy's Boys crew instantly</div></div>
+                <div style="display:flex;align-items:center;gap:7px;"><div style="font-size:11px;">📅</div><div style="font-size:9px;color:#F8FAFC;">Daily Challenge — shared picks every day</div></div>
+                <div style="display:flex;align-items:center;gap:7px;"><div style="font-size:11px;">💬</div><div style="font-size:9px;color:#F8FAFC;">Chirp MarkD when you beat him</div></div>
+              </div>
+            </div>
+
+            <!-- CTAs -->
+            <button style="width:100%;background:linear-gradient(135deg,#5545D3,#3D31B0);border:none;border-radius:12px;padding:14px;font-family:Lexend,sans-serif;font-size:12px;font-weight:800;color:#fff;cursor:pointer;margin-bottom:8px;">Accept the Challenge 🏆</button>
+            <div style="text-align:center;font-size:8px;color:#475569;">Free to join · No credit card required</div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHONE 3: Referral Dashboard ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 3 — REFERRAL STATS</div>
+        <div style="width:280px;height:600px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;color:#94A3B8;">3:09 PM</div>
+            <div style="font-size:9px;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <div style="background:#0A101C;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="font-size:12px;font-weight:900;color:#F8FAFC;text-align:center;">Your Referrals</div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:10px 12px;">
+
+            <!-- Referral IQ earned -->
+            <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.22);border-radius:10px;padding:10px;margin-bottom:10px;text-align:center;">
+              <div style="font-size:30px;font-weight:900;background:linear-gradient(135deg,#a59df5,#5545D3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">+400 IQ</div>
+              <div style="font-size:9px;color:#94A3B8;margin-top:2px;">earned from 8 successful referrals</div>
+              <div style="font-size:8px;color:#22c55e;margin-top:3px;">↑ That moved you +18 spots on the national board</div>
+            </div>
+
+            <!-- Top Recruiter badge progress -->
+            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:9px 10px;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <div style="font-size:8px;font-weight:700;color:#F59E0B;letter-spacing:1px;">🏅 TOP RECRUITER BADGE</div>
+                <div style="font-size:8px;color:#94A3B8;">8 / 10</div>
+              </div>
+              <div style="height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:4px;">
+                <div style="width:80%;height:100%;background:linear-gradient(90deg,#F59E0B,#FCD34D);border-radius:3px;"></div>
+              </div>
+              <div style="font-size:8px;color:#94A3B8;">2 more friends to unlock — share another challenge</div>
+            </div>
+
+            <!-- Referred friends list -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">YOUR RECRUITS (8)</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;background:rgba(34,197,94,0.06);border-radius:7px;">
+                  <div style="font-size:11px;">🏈</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:9px;font-weight:700;color:#F8FAFC;">TrevDog</div><div style="font-size:7px;color:#94A3B8;">IQ 412 · joined 3 days ago · 4 picks</div></div>
+                  <div style="font-size:8px;font-weight:700;color:#22c55e;">+50 IQ</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;background:rgba(34,197,94,0.06);border-radius:7px;">
+                  <div style="font-size:11px;">🏀</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:9px;font-weight:700;color:#F8FAFC;">CoachD</div><div style="font-size:7px;color:#94A3B8;">IQ 638 · joined 1 week ago · 22 picks</div></div>
+                  <div style="font-size:8px;font-weight:700;color:#22c55e;">+50 IQ</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;background:rgba(34,197,94,0.06);border-radius:7px;">
+                  <div style="font-size:11px;">⚡</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:9px;font-weight:700;color:#F8FAFC;">PeteRock</div><div style="font-size:7px;color:#94A3B8;">IQ 571 · joined 2 weeks ago · 18 picks</div></div>
+                  <div style="font-size:8px;font-weight:700;color:#22c55e;">+50 IQ</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:5px 7px;opacity:0.5;">
+                  <div style="font-size:11px;">⏳</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:9px;color:#F8FAFC;">DannyB</div><div style="font-size:7px;color:#94A3B8;">Clicked link · hasn't picked yet</div></div>
+                  <div style="font-size:8px;color:#475569;">pending</div>
+                </div>
+                <div style="text-align:center;font-size:7px;color:#475569;padding:3px 0;">+4 more · tap to expand</div>
+              </div>
+            </div>
+
+            <!-- Nudge CTA -->
+            <div style="background:rgba(85,69,211,0.07);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:9px 10px;text-align:center;">
+              <div style="font-size:9px;color:#94A3B8;margin-bottom:6px;">DannyB clicked but hasn't picked yet</div>
+              <button style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:7px;padding:6px 16px;font-family:Lexend,sans-serif;font-size:9px;font-weight:700;color:#a59df5;cursor:pointer;">💬 Nudge DannyB</button>
+            </div>
+
+          </div>
+          <!-- Bottom nav -->
+          <div style="display:flex;justify-content:space-around;padding:8px 0 10px;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:#94A3B8;">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">📅</div><div style="font-size:7px;color:#94A3B8;">Challenge</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:#94A3B8;">Board</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🧬</div><div style="font-size:7px;color:#5545D3;font-weight:700;">Profile</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /phones row -->
+
+    <!-- Moat + growth analysis -->
+    <div style="margin-top:40px;max-width:960px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+      <div style="font-size:10px;font-weight:800;color:#5545D3;letter-spacing:2px;margin-bottom:12px;">🚀 GROWTH ANALYSIS — REFERRAL LOOP</div>
+      <div style="font-size:13px;color:#94A3B8;line-height:1.8;">
+        <strong style="color:#F8FAFC;">Challenge framing converts better than feature framing:</strong> "Download SportsIQ — make better picks" is a cold value proposition. "Can you beat my 847 IQ?" is a personal challenge from someone the recipient knows. The recipient already has a mental model of the inviter's sports knowledge and a reason to compete. This framing is native to how men talk about sports — it maps to how bar arguments actually work.<br>
+        <strong style="color:#F8FAFC;">Pre-seeded social context removes onboarding friction:</strong> A new user who clicks a challenge link already knows their first crew (inviter's crew), their first competitor (the person who challenged them), and their goal (beat their IQ). That's three pieces of context that normally take weeks to develop organically. First-session pick rates for referred users should be 2-3× organic signups.<br>
+        <strong style="color:#F8FAFC;">IQ bonus rewards compound:</strong> +50 IQ per referral sounds small, but at 8 referrals that's +400 IQ — equivalent to roughly 80 successful picks. A user who recruits aggressively accelerates their own leaderboard position, which creates a second-order incentive to invite even more people. The referral loop feeds the competitive loop.<br>
+        <strong style="color:#F8FAFC;">"Nudge DannyB" closes the loop:</strong> Most referral programs stop at the click. SportsIQ shows you exactly who clicked but hasn't activated, and lets you send a personal nudge — which has a much higher completion rate than a generic automated email because it comes from a friend's message, not a system notification.
+      </div>
+    </div>
+
+  </div>
+
+  <div id="sfb-panel-referral-growth" class="sfb-panel"></div>
 </div>
 
 </body>
