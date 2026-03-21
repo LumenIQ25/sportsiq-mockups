@@ -3636,9 +3636,11 @@
   var _serverMode = false;
   var LS_COMPLETED = 'siq-completed-ids';
   var LS_NEW_ITEMS = 'siq-new-items';
+  /* Vercel API base — always call Vercel directly regardless of which host serves the HTML */
+  var _apiBase = 'https://sportsiq-mockups-ms5lhgksr-lumeniqs-projects.vercel.app';
 
   /* ── Detect companion server on load ─────────────────── */
-  fetch('/api/health', { signal: AbortSignal.timeout(700) })
+  fetch(_apiBase + '/api/health', { signal: AbortSignal.timeout(3000) })
     .then(function(r) { return r.json(); })
     .then(function(d) {
       if (d && d.ok) {
@@ -3648,10 +3650,10 @@
         reloadFromServer();
       }
     })
-    .catch(function() { /* file:// mode — silent */ });
+    .catch(function() { /* no server — silent */ });
 
   function reloadFromServer() {
-    fetch('/?_=' + Date.now())
+    fetch(_apiBase + '/?_=' + Date.now())
       .then(function(r) { return r.text(); })
       .then(function(html) {
         var m = html.match(/<script id="mark-ideas"[^>]*>([\s\S]*?)<\/script>/);
@@ -3696,7 +3698,7 @@
 
     if (_serverMode) {
       /* Write directly to index.html via server */
-      fetch('/api/new-idea', {
+      fetch(_apiBase + '/api/new-idea', {
         method: 'POST', headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ idea: text })
       }).then(function() { reloadFromServer(); }).catch(function(e) { alert('Server error: ' + e.message); });
@@ -3755,7 +3757,7 @@
 
     if (_serverMode) {
       /* Write directly to index.html — zero copy-paste */
-      fetch('/api/reply', {
+      fetch(_apiBase + '/api/reply', {
         method: 'POST', headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ id: id, reply: reply })
       })
