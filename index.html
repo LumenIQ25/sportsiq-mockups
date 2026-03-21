@@ -4256,52 +4256,67 @@
   /* ══════════════════════════════════════════════════════
      NAV — days-since badges
   ══════════════════════════════════════════════════════ */
+  // Exact timestamps pulled from git commit log — shows real "last iterated" time
   var SCREEN_DATES = {
-    'home-live':        '2026-03-21',
-    'home-idle':        '2026-03-21',
-    'pick-card':        '2026-03-21',
-    'pick-wait':        '2026-03-21',
-    'bar-idle':         '2026-03-21',
-    'bar-pred-q':       '2026-03-21',
-    'bar-tracking':     '2026-03-21',
-    'bar-result':       '2026-03-21',
-    'mkt-intel':        '2026-03-21',
-    'venue-dashboard':  '2026-03-21',
-    'my-stats':         '2026-03-21',
-    'leaderboard':      '2026-03-21',
-    'onboarding':       '2026-03-21',
-    'daily-challenge':  '2026-03-21',
-    'game-day':         '2026-03-21',
-    'home-live-v2':     '2026-03-21',
-    'bar-idle-v2':      '2026-03-21',
-    'bar-pred-q-v2':    '2026-03-21',
-    'bar-tracking-v2':  '2026-03-21',
-    'bar-result-v2':    '2026-03-21',
-    'trivia':           '2026-03-21',
-    'leaderboard-v2':   '2026-03-21',
-    'pick-wait-v2':     '2026-03-21',
-    'notifications':    '2026-03-21',
-    'data-intelligence':'2026-03-21',
-    'onboarding-v2':    '2026-03-21',
-    'pick-card-v2':     '2026-03-21',
-    'game-day-v2':      '2026-03-21',
-    'home-idle-v2':        '2026-03-21',
-    'daily-challenge-v2':  '2026-03-21',
-    'sports-dna-profile':  '2026-03-21',
-    'bar-crew-mgmt':       '2026-03-21',
-    'referral-growth':     '2026-03-21',
-    'venue-onboarding':    '2026-03-21'
+    // ── Original screens — initial commit Mar 20 7:42 PM PT ──────────────
+    'home-live':           '2026-03-20T19:42:20-07:00',
+    'home-idle':           '2026-03-20T19:42:20-07:00',
+    'pick-card':           '2026-03-20T19:42:20-07:00',
+    'pick-wait':           '2026-03-20T19:42:20-07:00',
+    'bar-idle':            '2026-03-20T19:42:20-07:00',
+    'bar-pred-q':          '2026-03-20T19:42:20-07:00',
+    'bar-tracking':        '2026-03-20T19:42:20-07:00',
+    'bar-result':          '2026-03-20T19:42:20-07:00',
+    // ── Early additions ───────────────────────────────────────────────────
+    'my-stats':            '2026-03-20T20:12:53-07:00',
+    'leaderboard':         '2026-03-20T21:13:48-07:00',
+    'onboarding':          '2026-03-20T21:53:19-07:00',
+    'venue-dashboard':     '2026-03-20T22:29:55-07:00',
+    'mkt-intel':           '2026-03-20T22:29:55-07:00',
+    // ── v2 batch — Mar 20 11:13 PM PT ────────────────────────────────────
+    'home-live-v2':        '2026-03-20T23:13:43-07:00',
+    'bar-idle-v2':         '2026-03-20T23:13:43-07:00',
+    'bar-pred-q-v2':       '2026-03-20T23:13:43-07:00',
+    'bar-tracking-v2':     '2026-03-20T23:13:43-07:00',
+    'bar-result-v2':       '2026-03-20T23:13:43-07:00',
+    'trivia':              '2026-03-20T23:13:43-07:00',
+    'daily-challenge':     '2026-03-20T23:13:43-07:00',
+    'game-day':            '2026-03-20T23:13:43-07:00',
+    // ── Mar 20 11:28 PM PT ────────────────────────────────────────────────
+    'leaderboard-v2':      '2026-03-20T23:28:42-07:00',
+    'pick-wait-v2':        '2026-03-20T23:28:42-07:00',
+    'notifications':       '2026-03-20T23:28:42-07:00',
+    // ── Mar 21 midnight–1 AM PT ───────────────────────────────────────────
+    'data-intelligence':   '2026-03-21T00:02:32-07:00',
+    'onboarding-v2':       '2026-03-21T00:05:21-07:00',
+    'pick-card-v2':        '2026-03-21T00:08:16-07:00',
+    'game-day-v2':         '2026-03-21T01:13:06-07:00',
+    // ── Mar 21 2–7 AM PT (hourly loop builds) ────────────────────────────
+    'home-idle-v2':        '2026-03-21T02:05:36-07:00',
+    'daily-challenge-v2':  '2026-03-21T03:03:46-07:00',
+    'sports-dna-profile':  '2026-03-21T04:04:09-07:00',
+    'bar-crew-mgmt':       '2026-03-21T05:03:59-07:00',
+    'referral-growth':     '2026-03-21T06:06:52-07:00',
+    'venue-onboarding':    '2026-03-21T07:03:52-07:00'
   };
 
   (function initDaysBadges() {
-    var today = new Date();
-    today.setHours(0,0,0,0);
+    var now = new Date();
     Object.keys(SCREEN_DATES).forEach(function(id) {
       var el = document.getElementById('days-' + id);
       if (!el) return;
       var d = new Date(SCREEN_DATES[id]);
-      var days = Math.round((today - d) / 86400000);
-      el.textContent = days === 0 ? 'today' : days + 'd ago';
+      var diffMs = now - d;
+      var diffMins  = Math.floor(diffMs / 60000);
+      var diffHours = Math.floor(diffMs / 3600000);
+      var diffDays  = Math.floor(diffMs / 86400000);
+      var label;
+      if (diffMins < 2)       label = 'just now';
+      else if (diffMins < 60) label = diffMins + 'm ago';
+      else if (diffHours < 24) label = diffHours + 'h ago';
+      else if (diffDays === 1) label = '1d ago';
+      else                    label = diffDays + 'd ago';
+      el.textContent = label;
     });
   })();
 
@@ -4699,10 +4714,18 @@
       sfbSaveThread(screenId, thread);
     }
     var lastChanged = SCREEN_DATES[screenId] || '2026-03-01';
-    var today = new Date(); today.setHours(0,0,0,0);
+    var now2 = new Date();
     var d = new Date(lastChanged);
-    var days = Math.round((today - d) / 86400000);
-    var daysStr = days === 0 ? 'today' : days + ' days ago';
+    var diffMs2 = now2 - d;
+    var diffMins2  = Math.floor(diffMs2 / 60000);
+    var diffHours2 = Math.floor(diffMs2 / 3600000);
+    var diffDays2  = Math.floor(diffMs2 / 86400000);
+    var daysStr;
+    if (diffMins2 < 2)        daysStr = 'just now';
+    else if (diffMins2 < 60)  daysStr = diffMins2 + ' minutes ago';
+    else if (diffHours2 < 24) daysStr = diffHours2 + ' hours ago';
+    else if (diffDays2 === 1) daysStr = '1 day ago';
+    else                      daysStr = diffDays2 + ' days ago';
 
     var h = '';
     h += '<div class="sfb-inner">';
