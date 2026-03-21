@@ -152,15 +152,6 @@
   }
   .nav-archive-toggle:hover { color: rgba(148,163,184,0.7); }
   .nav-archive-toggle::-webkit-details-marker { display: none; }
-  #nav-review-section .nav-group-label {
-    color: #f59e0b;
-  }
-  .review-queue-count {
-    display: inline-block; background: rgba(245,158,11,0.15);
-    border-radius: 99px; padding: 1px 7px;
-    font-size: 9px; font-weight: 900; color: #f59e0b;
-    margin-left: 6px; vertical-align: middle;
-  }
 
   /* ── Screens ─────────────────────────────────────────────── */
   .screen { display: none; margin-left: 210px; }
@@ -1831,12 +1822,6 @@
     <div class="tab" data-screen="feedback" onclick="showScreen('feedback',this)" style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.35);">
       <span class="tab-label">💬 Idea Inbox</span>
     </div>
-  </div>
-
-  <!-- 👁 REVIEW QUEUE — screens awaiting Mark's feedback, populated by JS below -->
-  <div id="nav-review-section" class="nav-group" style="padding-bottom:0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:0;">
-    <div class="nav-group-label" style="color:#f59e0b;">👁 NEEDS REVIEW <span class="review-queue-count" id="review-count"></span></div>
-    <div id="nav-review-queue"></div>
   </div>
 
   <!-- 📱 MOBILE — current versions only -->
@@ -4556,6 +4541,29 @@
     el.classList.toggle('selected');
   }
 
+  // ══════════════════════════════════════════════════════════════════════
+  // BAR TV SCREEN TEMPLATE — follow this exactly for every new bar screen:
+  //
+  //  <div id="screen-id" class="screen" style="display:none;">
+  //    <div class="tv-wrap">                         ← REQUIRED: dark bg + center
+  //      <div class="tv-label">LABEL · date</div>   ← REQUIRED: description
+  //      <div class="tv-frame">                      ← REQUIRED: aspect-ratio box
+  //        <div class="bar-1080" id="xyz-inner">    ← REQUIRED: class + id
+  //          ...content...
+  //        </div>
+  //      </div>
+  //    </div>
+  //    <div id="sfb-panel-screen-id" class="sfb-panel"></div>
+  //  </div>
+  //
+  // Multi-state screens: use tv-wrap style="min-height:auto;padding:0 20px 20px;"
+  //   and EACH state's tv-frame needs its own tv-wrap wrapper.
+  //   EACH state's inner div MUST use class="bar-1080" + unique id.
+  //   EACH state's id MUST be added to the applyBarScale() ids array below.
+  //
+  // NEVER use inline width:1920px;height:1080px — use class="bar-1080" instead.
+  // ══════════════════════════════════════════════════════════════════════
+
   // Resolution strategy: authored at 1920×1080, CSS transform scales to any preview width.
   // On a real Yodeck/4K TV the browser renders at the display's native resolution —
   // no scaling needed there. For 1080p TVs the same content fills the screen perfectly.
@@ -4563,7 +4571,8 @@
     const ids = ['bar-idle-inner', 'bar-pred-q-inner', 'bar-tracking-inner', 'bar-result-inner',
                  'bar-idle-v2-inner', 'bar-pred-q-v2-inner', 'bar-tracking-v2-inner', 'bar-result-v2-inner',
                  'bar-idle-v3-inner', 'bar-pred-q-v3-inner', 'bar-pred-q-v4-inner',
-                 'bar-idle-v4-inner', 'bar-tracking-v3-inner', 'bar-result-v3-inner', 'trivia-v3-inner'];
+                 'bar-idle-v4-inner', 'bar-tracking-v3-inner', 'bar-tracking-v3-result-inner',
+                 'bar-result-v3-inner', 'trivia-v3-inner', 'trivia-v3-reveal-inner'];
     ids.forEach(function(id) {
       var el = document.getElementById(id);
       if (!el) return;
@@ -5874,43 +5883,6 @@
   renderIdeaInbox();
 
   // ── Review queue: populate top-of-nav "NEEDS REVIEW" section ─────────
-  (function initReviewQueue() {
-    var queue = document.getElementById('nav-review-queue');
-    var countEl = document.getElementById('review-count');
-    if (!queue) return;
-    // Collect all .tab-review tabs from the section nav groups (not from queue itself)
-    var reviewTabs = document.querySelectorAll('.nav-group:not(#nav-review-section) .tab-review');
-    var now = new Date();
-    var html = '';
-    reviewTabs.forEach(function(tab) {
-      var screenId = tab.getAttribute('data-screen');
-      if (!screenId) return;
-      var labelEl = tab.querySelector('.tab-label');
-      var label = labelEl ? labelEl.textContent : screenId;
-      // Build days string from SCREEN_DATES
-      var daysStr = '';
-      if (SCREEN_DATES[screenId]) {
-        var d = new Date(SCREEN_DATES[screenId]);
-        var diffMs = now - d;
-        var diffMins = Math.floor(diffMs / 60000);
-        var diffHours = Math.floor(diffMs / 3600000);
-        var diffDays = Math.floor(diffMs / 86400000);
-        if (diffMins < 2) daysStr = 'just now';
-        else if (diffMins < 60) daysStr = diffMins + 'm';
-        else if (diffHours < 24) daysStr = diffHours + 'h';
-        else if (diffDays === 1) daysStr = '1d';
-        else daysStr = diffDays + 'd';
-      }
-      html += '<div class="tab tab-review" data-screen="' + screenId + '" onclick="showScreen(\'' + screenId + '\',this)" style="font-size:11px;padding:7px 14px 7px 18px;">';
-      html += '<span class="tab-label">' + label + '</span>';
-      if (daysStr) html += '<span class="tab-days" style="font-size:9px;">' + daysStr + '</span>';
-      html += '<span class="review-dot"></span>';
-      html += '</div>';
-    });
-    queue.innerHTML = html;
-    if (countEl) countEl.textContent = reviewTabs.length;
-  })();
-
   // ── Hash-based navigation: restore screen on page load / refresh ──────
   (function initHashNav() {
     var hash = location.hash.replace('#', '');
@@ -14374,8 +14346,9 @@
      idea-037 · 2026-03-21
 ══════════════════════════════════════════════════════════════════════════ -->
 <div id="bar-idle-v4" class="screen" style="display:none;">
-  <div class="screen-label">Bar · Idle v4 ✦ — Dynamic · 3 Columns · No Owner Input</div>
-  <div class="tv-frame">
+  <div class="tv-wrap">
+    <div class="tv-label">BAR SCREEN v4 — IDLE · Dynamic 3-column layout · Auto-curated · No owner input · 2026-03-21</div>
+    <div class="tv-frame">
     <div class="bar-1080" id="bar-idle-v4-inner" style="background:radial-gradient(ellipse at top left,rgba(85,69,211,0.30) 0%,transparent 50%),radial-gradient(ellipse at bottom right,rgba(34,140,136,0.24) 0%,transparent 50%),#060d1c;display:grid;grid-template-columns:340px 1fr 360px;grid-template-rows:auto 1fr;gap:0;font-family:'Lexend',sans-serif;overflow:hidden;">
 
       <!-- TOP HEADER BAR — full width -->
@@ -14574,6 +14547,7 @@
       </div>
     </div>
   </div>
+  </div><!-- /tv-wrap -->
   <div id="sfb-panel-bar-idle-v4" class="sfb-panel"></div>
 </div>
 
@@ -14582,11 +14556,16 @@
      idea-039 · 2026-03-21
 ══════════════════════════════════════════════════════════════════════════ -->
 <div id="bar-tracking-v3" class="screen" style="display:none;">
-  <div class="screen-label">Bar · Tracking v3 ✦ — Useful Stats · Result State · Today Only</div>
+  <div class="screen-header">
+    <div class="screen-title">Bar · Tracking v3 — Useful Stats · Result State</div>
+    <div class="screen-subtitle">Two states: Live tracking (stat vs line, live leaderboard) and Result revealed (win/loss, updated positions, next pick teaser). Today-only — clears 4am ET. Late arrivals climb via win-rate, not total IQ.</div>
+  </div>
 
   <!-- STATE 1: Live Tracking -->
   <div style="margin-bottom:28px;">
     <div class="screen-label" style="font-size:11px;opacity:0.6;">STATE 1 — LIVE TRACKING</div>
+    <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
+    <div class="tv-label">BAR SCREEN v3 — LIVE TRACKING · Stat progress + live leaderboard · 2026-03-21</div>
     <div class="tv-frame">
       <div class="bar-1080" id="bar-tracking-v3-inner" style="background:radial-gradient(ellipse at top left,rgba(34,197,94,0.18) 0%,transparent 50%),radial-gradient(ellipse at bottom right,rgba(85,69,211,0.22) 0%,transparent 50%),#060d1c;display:grid;grid-template-columns:1fr 440px;grid-template-rows:auto 1fr;gap:0;font-family:'Lexend',sans-serif;overflow:hidden;">
 
@@ -14704,14 +14683,17 @@
           </div>
         </div>
       </div>
-    </div>
+    </div><!-- /tv-frame STATE 1 -->
+    </div><!-- /tv-wrap STATE 1 -->
   </div>
 
   <!-- STATE 2: Result just in -->
   <div>
     <div class="screen-label" style="font-size:11px;opacity:0.6;">STATE 2 — RESULT REVEALED</div>
+    <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
+    <div class="tv-label">BAR SCREEN v3 — RESULT REVEALED · Updated leaderboard · Next pick teaser · 2026-03-21</div>
     <div class="tv-frame">
-      <div style="background:radial-gradient(ellipse at center,rgba(34,197,94,0.25) 0%,transparent 60%),radial-gradient(ellipse at top left,rgba(85,69,211,0.20) 0%,transparent 50%),#060d1c;width:1920px;height:1080px;display:grid;grid-template-columns:1fr 440px;grid-template-rows:auto 1fr;gap:0;font-family:'Lexend',sans-serif;overflow:hidden;">
+      <div class="bar-1080" id="bar-tracking-v3-result-inner" style="background:radial-gradient(ellipse at center,rgba(34,197,94,0.25) 0%,transparent 60%),radial-gradient(ellipse at top left,rgba(85,69,211,0.20) 0%,transparent 50%),#060d1c;display:grid;grid-template-columns:1fr 440px;grid-template-rows:auto 1fr;gap:0;font-family:'Lexend',sans-serif;overflow:hidden;">
         <!-- Header -->
         <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:16px 48px 14px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.3);">
           <div style="display:flex;align-items:center;gap:16px;">
@@ -14772,8 +14754,9 @@
             <div style="font-size:28px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;">2:18</div>
           </div>
         </div>
-      </div>
-    </div>
+      </div><!-- /bar-1080 STATE 2 -->
+    </div><!-- /tv-frame STATE 2 -->
+    </div><!-- /tv-wrap STATE 2 -->
   </div>
 
   <div id="sfb-panel-bar-tracking-v3" class="sfb-panel"></div>
@@ -14784,8 +14767,9 @@
      idea-040 · 2026-03-21
 ══════════════════════════════════════════════════════════════════════════ -->
 <div id="bar-result-v3" class="screen" style="display:none;">
-  <div class="screen-label">Bar · Result v3 ✦ — 60s Display · Win-Rate LB · Hot Streak for Late Arrivals</div>
-  <div class="tv-frame">
+  <div class="tv-wrap">
+    <div class="tv-label">BAR SCREEN v3 — RESULT · 60s display · Win-rate leaderboard · Hot streak for late arrivals · 2026-03-21</div>
+    <div class="tv-frame">
     <div class="bar-1080" id="bar-result-v3-inner" style="background:radial-gradient(ellipse at center top,rgba(34,197,94,0.22) 0%,transparent 55%),radial-gradient(ellipse at bottom,rgba(85,69,211,0.18) 0%,transparent 55%),#060d1c;display:grid;grid-template-columns:1fr 480px;grid-template-rows:auto 1fr auto;gap:0;font-family:'Lexend',sans-serif;overflow:hidden;">
 
       <!-- Header -->
@@ -14903,8 +14887,8 @@
         <div style="font-size:13px;color:#94a3b8;">Q4 · Patrick Mahomes Rushing Yards</div>
         <div style="font-size:13px;color:#64748b;">Scan the QR to join — room code <span style="color:#fff;font-weight:700;">73491</span></div>
       </div>
-    </div>
-  </div>
+    </div><!-- /tv-frame -->
+  </div><!-- /tv-wrap -->
   <div id="sfb-panel-bar-result-v3" class="sfb-panel"></div>
 </div>
 
@@ -14913,11 +14897,16 @@
      idea-041 · 2026-03-21
 ══════════════════════════════════════════════════════════════════════════ -->
 <div id="trivia-v3" class="screen" style="display:none;">
-  <div class="screen-label">Trivia v3 📺 ✦ — TV Screen · 10s Countdown · No Lock-In · 5s Reveal · Auto-Advance</div>
+  <div class="screen-header">
+    <div class="screen-title">Trivia v3 — TV Screen · 10s Countdown · 5s Reveal</div>
+    <div class="screen-subtitle">Two states: Question live (10s countdown bar, 4 options, tap-to-lock) and Answer revealed (5s, correct option highlighted, SportsIQ Insight, auto-advance). 100% SportsIQ-curated. ~70% correct rate target. No lock-in button, no next-question button.</div>
+  </div>
 
   <!-- STATE 1: Question live -->
   <div style="margin-bottom:28px;">
     <div class="screen-label" style="font-size:11px;opacity:0.6;">STATE 1 — QUESTION LIVE (10s countdown)</div>
+    <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
+    <div class="tv-label">BAR SCREEN — TRIVIA · Question live · 10s countdown · tap to lock · 2026-03-21</div>
     <div class="tv-frame">
       <div class="bar-1080" id="trivia-v3-inner" style="background:radial-gradient(ellipse at top,rgba(85,69,211,0.30) 0%,transparent 55%),#060d1c;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;overflow:hidden;">
 
@@ -14993,14 +14982,17 @@
           <div style="font-size:12px;color:#475569;">Speed bonus — faster correct answers earn more IQ points</div>
         </div>
       </div>
-    </div>
+    </div><!-- /tv-frame STATE 1 -->
+    </div><!-- /tv-wrap STATE 1 -->
   </div>
 
   <!-- STATE 2: Answer revealed (5s before auto-advance) -->
   <div>
     <div class="screen-label" style="font-size:11px;opacity:0.6;">STATE 2 — ANSWER REVEALED (5s then auto-advances)</div>
+    <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
+    <div class="tv-label">BAR SCREEN — TRIVIA · Answer revealed · 5s display · SportsIQ Insight · auto-advance · 2026-03-21</div>
     <div class="tv-frame">
-      <div style="background:radial-gradient(ellipse at top,rgba(34,197,94,0.22) 0%,transparent 55%),#060d1c;width:1920px;height:1080px;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;overflow:hidden;">
+      <div class="bar-1080" id="trivia-v3-reveal-inner" style="background:radial-gradient(ellipse at top,rgba(34,197,94,0.22) 0%,transparent 55%),#060d1c;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;overflow:hidden;">
 
         <!-- Header -->
         <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 48px 14px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.3);flex-shrink:0;">
@@ -15077,8 +15069,9 @@
           <div style="font-size:13px;color:#64748b;">Fastest correct: BigMike_B — 2.1 seconds · +50 IQ</div>
           <div style="font-size:13px;color:#5545D3;font-weight:700;">Next question loading automatically...</div>
         </div>
-      </div>
-    </div>
+      </div><!-- /bar-1080 STATE 2 -->
+    </div><!-- /tv-frame STATE 2 -->
+    </div><!-- /tv-wrap STATE 2 -->
   </div>
 
   <div id="sfb-panel-trivia-v3" class="sfb-panel"></div>
