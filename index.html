@@ -12,8 +12,8 @@
   //   crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword'))
   //     .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
   // Then replace the hash below and redeploy.
-  var HASH = 'a4de2abfff0dd341ba0314c03de47d3f84153a2054cecd660c07f0899952a848';
-  // Password: SportsIQ2026! — message Claude to change it
+  var HASH = 'c75cb66ae28d8ebc6eded002c28a8ba0d06d3a78c6b5cbf9b2ade051f0775ac4';
+  // Password: 69
 
   var SESSION_KEY = 'siq_auth';
   if (sessionStorage.getItem(SESSION_KEY) === HASH) return; // already verified
