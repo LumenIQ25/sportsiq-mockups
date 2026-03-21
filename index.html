@@ -1666,6 +1666,9 @@
     <div class="tab" data-screen="onboarding-v2" onclick="showScreen('onboarding-v2',this)">
       <span class="tab-label">Onboarding v2</span><span class="tab-days" id="days-onboarding-v2"></span>
     </div>
+    <div class="tab" data-screen="pick-card-v2" onclick="showScreen('pick-card-v2',this)">
+      <span class="tab-label">Pick Card v2</span><span class="tab-days" id="days-pick-card-v2"></span>
+    </div>
   </div>
 
   <!-- 📱 MOBILE APP -->
@@ -4018,7 +4021,8 @@
     'pick-wait-v2':     '2026-03-20',
     'notifications':    '2026-03-20',
     'data-intelligence':'2026-03-21',
-    'onboarding-v2':    '2026-03-21'
+    'onboarding-v2':    '2026-03-21',
+    'pick-card-v2':     '2026-03-21'
   };
 
   (function initDaysBadges() {
@@ -4277,6 +4281,17 @@
         'Friends picks visibility: should you be able to see friends picks BEFORE you pick, or only after you submit?',
         'Should the tug-of-war bar show percentages or just the bar (hiding numbers adds more tension)?',
         'Chirp feature: free-form text, emoji-only, or preset chirp phrases (e.g., "Nice try 😂", "Better luck next week")?'
+      ]
+    },
+    'pick-card-v2': {
+      icon: '🎯',
+      title: 'Pick Card v2 — Core Interaction Redesign',
+      built: 'Three phones covering the full pick flow: (1) Pre-pick card — pick window countdown timer (18:42), match header with team logos + O/U line, OVER/UNDER tap buttons with live community % shown directly on each button, 6-bar tug-of-war below, key stat context (avg scoring), friends picks preview panel. (2) OVER selected + multiplier selector — confirmed pick banner, three multiplier options (1× standard +100/–50, 2× bold +200/–100 selected, 3× all-in +300/–200), IQ preview showing current → if-win projection, "Lock It In" CTA with Final Whistle note. (3) Submitted + data capture — lock confirmation, pick summary card, psychographic micro-question ("What\'s your game day setup today?" — 4 options: bar/home/stadium, selected Bar), friend nudge ("2 friends haven\'t picked yet"). Every pick generates 8+ data points: sport, pick direction, multiplier, timing within window, community position, location context.',
+      questions: [
+        'Multiplier: should the 3× All-In option be available from day 1, or unlocked after N picks to reward experienced players and make it feel earned?',
+        'Community split: show the % before the user picks (social proof), or hide it until after they submit (preserves independent thinking, higher contrarian rate)?',
+        'Post-submit micro-question: single question every pick, or rotate it in — maybe only ask every 3rd pick so it doesn\'t feel repetitive?',
+        'Friend nudge ("2 friends haven\'t picked"): passive display only, or does tapping it send them a push notification?'
       ]
     },
     'onboarding-v2': {
@@ -8723,6 +8738,275 @@
   </div>
 
   <div id="sfb-panel-onboarding-v2" class="sfb-panel"></div>
+</div>
+
+<!-- ============================================================
+     PICK CARD v2  |  Added 2026-03-21
+     Core pick interaction redesign: live context, multiplier selector,
+     community split, friends picks, data capture in the act of picking
+     ============================================================ -->
+<div id="pick-card-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Pick Card v2 — The Core Interaction</div>
+    <div class="screen-subtitle">Redesigned pick card: richer context, multiplier selector, community split live, friends picks panel, one psychographic data point captured per pick session.</div>
+  </div>
+
+  <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;" id="pick-card-v2-phones">
+
+    <!-- Phone 1: Full pick card — pre-pick -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">FULL PICK CARD — PRE-PICK</div>
+      <div class="phone-frame">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Pick window timer -->
+        <div style="margin:4px 10px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.25);border-radius:8px;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:9px;font-weight:800;color:#fbbf24;">⏳ PICK WINDOW OPEN</div>
+          <div style="font-size:11px;font-weight:900;color:#fbbf24;">18:42</div>
+          <div style="font-size:8px;color:var(--muted);">closes at kickoff</div>
+        </div>
+        <!-- Match header -->
+        <div style="margin:4px 10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:8px 10px;">
+          <div style="font-size:8px;font-weight:800;color:var(--muted);letter-spacing:2px;margin-bottom:5px;">SUNDAY · NFL · 4:25 PM ET</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="text-align:center;flex:1;">
+              <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#ef4444);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;margin:0 auto 3px;">KC</div>
+              <div style="font-size:10px;font-weight:700;color:var(--text);">Chiefs</div>
+              <div style="font-size:8px;color:var(--muted);">-3.5 fav</div>
+            </div>
+            <div style="text-align:center;padding:0 8px;">
+              <div style="font-size:9px;color:var(--muted);">@</div>
+              <div style="font-size:10px;font-weight:700;color:var(--muted);margin-top:2px;">O/U 47.5</div>
+            </div>
+            <div style="text-align:center;flex:1;">
+              <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#166534,#22c55e);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;margin:0 auto 3px;">PHL</div>
+              <div style="font-size:10px;font-weight:700;color:var(--text);">Eagles</div>
+              <div style="font-size:8px;color:var(--muted);">+3.5</div>
+            </div>
+          </div>
+        </div>
+        <!-- The pick question -->
+        <div style="margin:6px 10px 4px;">
+          <div style="font-size:9px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:5px;">YOUR PICK</div>
+          <div style="font-size:12px;font-weight:900;color:var(--text);margin-bottom:6px;">Will this game go OVER or UNDER 47.5 total points?</div>
+          <!-- OVER/UNDER buttons -->
+          <div style="display:flex;gap:6px;">
+            <div style="flex:1;background:rgba(34,197,94,0.12);border:2px solid rgba(34,197,94,0.5);border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;">
+              <div style="font-size:14px;font-weight:900;color:#22c55e;">OVER</div>
+              <div style="font-size:9px;color:var(--muted);margin-top:2px;">47.5+</div>
+              <div style="font-size:8px;color:#22c55e;margin-top:3px;">62% picking</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;">
+              <div style="font-size:14px;font-weight:900;color:var(--muted);">UNDER</div>
+              <div style="font-size:9px;color:var(--muted);margin-top:2px;">46.5–</div>
+              <div style="font-size:8px;color:var(--muted);margin-top:3px;">38% picking</div>
+            </div>
+          </div>
+        </div>
+        <!-- Community tug-of-war -->
+        <div style="margin:4px 10px;">
+          <div style="height:6px;border-radius:3px;overflow:hidden;display:flex;">
+            <div style="flex:0.62;background:linear-gradient(90deg,#16a34a,#22c55e);"></div>
+            <div style="flex:0.38;background:linear-gradient(90deg,#dc2626,#ef4444);"></div>
+          </div>
+          <div style="font-size:8px;color:var(--muted);text-align:center;margin-top:2px;">1,847 picks cast so far</div>
+        </div>
+        <!-- Key stat context -->
+        <div style="margin:4px 10px;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.18);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:6px;">
+          <span style="font-size:10px;">📊</span>
+          <div style="flex:1;font-size:9px;color:var(--muted);">Chiefs avg 28.4 pts/game · Eagles avg 24.1 · Combined: <strong style="color:var(--text);">52.5</strong> this season</div>
+        </div>
+        <!-- Friends picks preview -->
+        <div style="margin:4px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:6px 8px;">
+          <div style="font-size:8px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">👥 FRIENDS SO FAR</div>
+          <div style="display:flex;gap:8px;">
+            <div style="display:flex;align-items:center;gap:3px;">
+              <div style="width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:6px;color:#fff;font-weight:900;">B</div>
+              <span style="font-size:8px;color:#22c55e;font-weight:700;">OVER</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:3px;">
+              <div style="width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#475569,#64748b);display:flex;align-items:center;justify-content:center;font-size:6px;color:#fff;font-weight:900;">S</div>
+              <span style="font-size:8px;color:var(--muted);">waiting</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:3px;">
+              <div style="width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;font-size:6px;color:#fff;font-weight:900;">J</div>
+              <span style="font-size:8px;color:#22c55e;font-weight:700;">OVER</span>
+            </div>
+          </div>
+        </div>
+        <!-- Bottom nav -->
+        <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:4px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--accent);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--muted);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 2: OVER selected, multiplier selector expanded -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:12px;">OVER SELECTED — CHOOSE MULTIPLIER</div>
+      <div class="phone-frame">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <div style="margin:4px 10px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.25);border-radius:8px;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:9px;font-weight:800;color:#fbbf24;">⏳ PICK WINDOW OPEN</div>
+          <div style="font-size:11px;font-weight:900;color:#fbbf24;">18:22</div>
+        </div>
+        <!-- Confirmed pick banner -->
+        <div style="margin:4px 10px;background:rgba(34,197,94,0.12);border:2px solid rgba(34,197,94,0.4);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+          <span style="font-size:18px;">✅</span>
+          <div>
+            <div style="font-size:12px;font-weight:900;color:#22c55e;">OVER selected</div>
+            <div style="font-size:8px;color:var(--muted);">Chiefs vs Eagles · Total 47.5</div>
+          </div>
+        </div>
+        <!-- Multiplier selector -->
+        <div style="margin:6px 10px;">
+          <div style="font-size:10px;font-weight:800;color:var(--text);margin-bottom:3px;">How confident are you? 🎯</div>
+          <div style="font-size:8px;color:var(--muted);margin-bottom:8px;">Higher multiplier = more IQ at stake — win more or lose more</div>
+          <!-- 1x -->
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:var(--muted);">1×</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:700;color:var(--text);">Standard</div>
+              <div style="font-size:8px;color:var(--muted);">Win +100 IQ · Lose –50 IQ</div>
+            </div>
+            <div style="font-size:8px;color:var(--muted);">72% pick this</div>
+          </div>
+          <!-- 2x — selected -->
+          <div style="background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;">2×</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:700;color:var(--text);">Bold · <span style="color:var(--accent);">Selected</span></div>
+              <div style="font-size:8px;color:var(--muted);">Win <strong style="color:#22c55e;">+200 IQ</strong> · Lose <strong style="color:#ef4444;">–100 IQ</strong></div>
+            </div>
+            <div style="width:14px;height:14px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;">✓</div>
+          </div>
+          <!-- 3x -->
+          <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:rgba(239,68,68,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#f87171;">3×</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:700;color:var(--text);">All-In 🔥</div>
+              <div style="font-size:8px;color:var(--muted);">Win <strong style="color:#22c55e;">+300 IQ</strong> · Lose <strong style="color:#ef4444;">–200 IQ</strong></div>
+            </div>
+            <div style="font-size:8px;color:#f87171;">Only 6% use this</div>
+          </div>
+        </div>
+        <!-- IQ preview -->
+        <div style="margin:6px 10px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:8px;padding:6px 10px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:8px;color:var(--muted);">Current IQ</div>
+            <div style="font-size:13px;font-weight:900;color:var(--text);">2,691</div>
+          </div>
+          <div style="font-size:10px;color:var(--muted);">→</div>
+          <div style="text-align:right;">
+            <div style="font-size:8px;color:var(--muted);">If OVER hits</div>
+            <div style="font-size:13px;font-weight:900;color:#22c55e;">2,891 <span style="font-size:9px;">+200</span></div>
+          </div>
+        </div>
+        <!-- Lock it in CTA -->
+        <div style="margin:6px 10px;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:12px;padding:11px;text-align:center;">
+          <div style="font-size:12px;font-weight:900;color:#fff;">Lock It In — OVER 2× 🔒</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.7);margin-top:2px;">Final Whistle reveal · No changing after submit</div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:4px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--accent);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--muted);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 3: Submitted + psychographic micro-question -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#a78bfa;letter-spacing:2px;margin-bottom:12px;">SUBMITTED + DATA CAPTURE MOMENT</div>
+      <div class="phone-frame" style="background:radial-gradient(ellipse at 50% 0%,rgba(34,197,94,0.1) 0%,#080E1C 50%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Submitted confirmation -->
+        <div style="text-align:center;padding:14px 14px 8px;">
+          <div style="font-size:26px;margin-bottom:4px;">🔒</div>
+          <div style="font-size:15px;font-weight:900;color:var(--text);">Pick Locked In</div>
+          <div style="font-size:9px;color:var(--muted);margin-top:2px;">OVER 47.5 · 2× multiplier · Chiefs vs Eagles</div>
+        </div>
+        <!-- Pick summary card -->
+        <div style="margin:0 10px 8px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:8px 10px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+            <div style="font-size:10px;font-weight:800;color:#22c55e;">✓ OVER 47.5</div>
+            <div style="font-size:10px;font-weight:800;color:var(--accent);">2× multiplier</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--muted);">
+            <span>Win: <strong style="color:#22c55e;">+200 IQ</strong></span>
+            <span>Lose: <strong style="color:#ef4444;">–100 IQ</strong></span>
+            <span>Current: <strong style="color:var(--text);">2,691</strong></span>
+          </div>
+        </div>
+        <!-- Psychographic micro-question -->
+        <div style="margin:0 10px 6px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);border-radius:10px;padding:10px;">
+          <div style="font-size:9px;font-weight:800;color:#a78bfa;letter-spacing:1px;margin-bottom:3px;">🧬 WHILE YOU WAIT</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:6px;">What's your game day setup today?</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:7px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+              <span style="font-size:11px;">🍺</span>
+              <span style="font-size:9px;font-weight:700;color:var(--text);flex:1;">Sports bar — packed crowd</span>
+              <div style="width:12px;height:12px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;">✓</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:7px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+              <span style="font-size:11px;">🏠</span>
+              <span style="font-size:9px;color:var(--text);flex:1;">Couch + snacks at home</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:7px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+              <span style="font-size:11px;">🏟️</span>
+              <span style="font-size:9px;color:var(--text);flex:1;">At the stadium</span>
+            </div>
+          </div>
+          <div style="font-size:8px;color:rgba(139,92,246,0.6);text-align:center;margin-top:5px;">Helps SportsIQ personalize your rewards</div>
+        </div>
+        <!-- Social share nudge -->
+        <div style="margin:0 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:8px;">
+          <span style="font-size:14px;">📣</span>
+          <div style="flex:1;font-size:9px;color:var(--muted);">2 friends haven't picked yet — remind them before the window closes</div>
+          <div style="font-size:9px;font-weight:700;color:var(--accent);">Nudge</div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:6px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--accent);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--muted);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pick-card-v2-phones -->
+
+  <!-- Design rationale -->
+  <div style="max-width:800px;margin:32px auto;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:14px;padding:20px 24px;">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🎯 DESIGN DECISIONS — PICK CARD v2</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.9;">
+      <strong style="color:var(--text);">Community split on the card itself:</strong> Showing 62% OVER before the user picks creates social proof pressure while also being a data point. Users who consistently pick with the crowd vs. against it are a distinct segment. "Contrarian" users are actually more valuable to certain advertisers (financial services, trading platforms) because they signal independent decision-making.<br>
+      <strong style="color:var(--text);">Multiplier as commitment device:</strong> The 1×/2×/3× multiplier isn't just game mechanics — users who regularly choose 2× or 3× are flagging high sports confidence and risk affinity. This is a proxy for fantasy sports and sports book propensity — extremely valuable to DraftKings/FanDuel as a lookalike audience seed.<br>
+      <strong style="color:var(--text);">Post-submit micro-question:</strong> The moment right after a pick is locked is the highest-engagement moment in the session — dopamine high, user fully present. This is when we ask the single psychographic question. Response rate at this moment is estimated 60-70% vs. 20% if asked elsewhere. The answer is logged against the pick and enriches the location/context data for every game session.<br>
+      <strong style="color:var(--text);">Friend nudge:</strong> "2 friends haven't picked yet" is a pull notification trigger built into the UI. This drives viral loops — users become organic recruiters because their group leaderboard only matters if everyone is picking.
+    </div>
+  </div>
+
+  <!-- Moat analysis -->
+  <div style="max-width:800px;margin:0 auto;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — PICK CARD v2</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      <strong style="color:var(--text);">Every pick is a data event:</strong> Sport, game, pick direction, multiplier chosen, time of pick within window (early = high conviction), community position (with vs. against crowd), context (bar/home from post-submit question). Each pick generates 8+ data points. 10 picks/week = 80+ data points/week/user.<br>
+      <strong style="color:var(--text);">Multiplier history as risk profile:</strong> After 50 picks, SportsIQ knows whether a user is consistently conservative (1×), balanced (2×), or high-risk (3×). This risk tolerance score is a financial services data product. A segment of "high-risk sports fans" is worth $15-25 CPM to investment apps, trading platforms, and sports books.<br>
+      <strong style="color:var(--text);">Pick timing intelligence:</strong> Users who pick within 5 minutes of window opening are "high conviction" fans. Users who pick in the last 2 minutes are "late movers" who may be waiting on news. Both are distinct segments. The timing data alone differentiates SportsIQ's audience from any other sports platform.
+    </div>
+  </div>
+
+  <div id="sfb-panel-pick-card-v2" class="sfb-panel"></div>
 </div>
 
 </body>
