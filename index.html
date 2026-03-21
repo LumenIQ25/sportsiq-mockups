@@ -1672,6 +1672,9 @@
     <div class="tab" data-screen="game-day-v2" onclick="showScreen('game-day-v2',this)">
       <span class="tab-label">Game Day v2 ⚡</span><span class="tab-days" id="days-game-day-v2"></span>
     </div>
+    <div class="tab" data-screen="home-idle-v2" onclick="showScreen('home-idle-v2',this)">
+      <span class="tab-label">Home Idle v2 🏠</span><span class="tab-days" id="days-home-idle-v2"></span>
+    </div>
   </div>
 
   <!-- 📱 MOBILE APP -->
@@ -4026,7 +4029,8 @@
     'data-intelligence':'2026-03-21',
     'onboarding-v2':    '2026-03-21',
     'pick-card-v2':     '2026-03-21',
-    'game-day-v2':      '2026-03-21'
+    'game-day-v2':      '2026-03-21',
+    'home-idle-v2':     '2026-03-21'
   };
 
   (function initDaysBadges() {
@@ -4329,6 +4333,17 @@
         'Data revenue: do you want to pursue brand sponsorships first (faster revenue, fewer legal hurdles) or data licensing first (higher ceiling but slower)?',
         'User-facing profile: should "Your Sports DNA" be its own tab, or live inside the existing Profile page?',
         'Privacy framing: "Personalize my experience" opt-in at onboarding, or let it build silently and reveal the profile after 2 weeks when it\'s impressive?'
+      ]
+    },
+    'home-idle-v2': {
+      icon: '🏠',
+      title: 'Home Idle v2 — Between-Game Retention Engine',
+      built: 'Three phones covering the idle state experience: (1) Main idle home — IQ Score 847 + Trivia Depth 9.2 in hero stats row, daily trivia CTA card (🔥 14-day streak, "Today\'s challenge ready — answer to keep your streak"), upcoming props feed (Ravens/Bengals Thu, Celtics/Heat Fri, Bruins/Rangers Sat). (2) Friends picks feed — social activity stream showing BigMike +200 OVER ✓, SarahK –50 UNDER ✗, JayBird +300 OVER ✓, with win/loss badges and IQ deltas; weekly recap card (6-3, +340 IQ, ranked #4 in Bar Crew); Chirp SarahK prompt below her loss. (3) Streak at risk state — 10:48 PM, 14-day streak danger, 1h12m countdown to midnight; continuous trivia question active (Peyton Manning TD record), submit button; streak-saved banner shows after correct answer. Data signals captured in idle state: trivia response patterns (psychographic), login time and frequency (behavioral), friend engagement rate, streak sensitivity as engagement proxy.',
+      questions: [
+        'Idle home hero: should it show the IQ Score + Trivia Depth side-by-side, or should the hero rotate between different stats (pick win rate, streak, leaderboard rank)?',
+        'Upcoming props feed: show odds for upcoming games, or keep it pick-count-only until the pick window opens?',
+        'Friends picks feed: real-time live feed, or daily digest card (recap of what friends picked since you last opened the app)?',
+        'Streak at risk: is the midnight deadline the right cutoff, or should it reset at 4 AM to accommodate late-night users and west coast time zones?'
       ]
     },
     'notifications': {
@@ -9300,6 +9315,293 @@
   </div>
 
   <div id="sfb-panel-game-day-v2" class="sfb-panel"></div>
+</div>
+
+<!-- ============================================================
+     HOME IDLE v2  |  Added 2026-03-21
+     No-game state: Trivia IQ on home, daily challenge streak,
+     upcoming props preview, friends picks feed
+     ============================================================ -->
+<div id="home-idle-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Home Idle v2 — Between Games, Still Hooked</div>
+    <div class="screen-subtitle">The state users see most of the time. Trivia IQ + win rate hero, daily challenge streak, upcoming props feed, friends recent picks. Based on Mark's answers (idea-008).</div>
+  </div>
+
+  <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;" id="home-idle-v2-phones">
+
+    <!-- Phone 1: Main idle state -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">HOME IDLE — MAIN STATE</div>
+      <div class="phone-frame">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Header -->
+        <div style="padding:6px 12px 4px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-size:15px;font-weight:900;color:var(--text);">Sports<span style="color:#7C6FE0;">IQ</span></div>
+            <div style="font-size:8px;color:var(--muted);">Tuesday · No games live</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:8px;color:var(--muted);">IQ Score</div>
+            <div style="font-size:15px;font-weight:900;color:#a78bfa;">847</div>
+          </div>
+        </div>
+        <!-- Hero stats row -->
+        <div style="margin:0 10px 6px;display:flex;gap:5px;">
+          <div style="flex:1;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:6px 8px;text-align:center;">
+            <div style="font-size:14px;font-weight:900;color:var(--text);">61%</div>
+            <div style="font-size:7px;color:var(--muted);">win rate</div>
+          </div>
+          <div style="flex:1;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:8px;padding:6px 8px;text-align:center;">
+            <div style="font-size:14px;font-weight:900;color:#fbbf24;">🔥 14</div>
+            <div style="font-size:7px;color:var(--muted);">day streak</div>
+          </div>
+          <div style="flex:1;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:8px;padding:6px 8px;text-align:center;">
+            <div style="font-size:14px;font-weight:900;color:#22c55e;">#2</div>
+            <div style="font-size:7px;color:var(--muted);">Bar Crew</div>
+          </div>
+          <div style="flex:1;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.15);border-radius:8px;padding:6px 8px;text-align:center;">
+            <div style="font-size:14px;font-weight:900;color:#a78bfa;">9.2</div>
+            <div style="font-size:7px;color:var(--muted);">trivia IQ</div>
+          </div>
+        </div>
+        <!-- Daily trivia CTA — streak active -->
+        <div style="margin:0 10px 6px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(85,69,211,0.1));border:1px solid rgba(139,92,246,0.35);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:10px;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(139,92,246,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🧠</div>
+          <div style="flex:1;">
+            <div style="font-size:10px;font-weight:800;color:#a78bfa;">DAILY TRIVIA — LIVE NOW</div>
+            <div style="font-size:8px;color:var(--muted);">🔥 14-day streak · 5 questions · ~3 min</div>
+          </div>
+          <div style="background:var(--accent);border-radius:7px;padding:5px 8px;font-size:9px;font-weight:800;color:#fff;">Play →</div>
+        </div>
+        <!-- Upcoming games section -->
+        <div style="margin:0 10px 4px;">
+          <div style="font-size:9px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">🗓 PICK WINDOWS OPENING SOON</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <!-- Game 1 -->
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:7px 8px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+                <div style="font-size:8px;font-weight:700;color:var(--muted);">🏈 NFL · Thu 8:20 PM ET</div>
+                <div style="font-size:8px;color:var(--accent);font-weight:700;">Opens in 2d 6h</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:10px;font-weight:700;color:var(--text);">Ravens vs Bengals</div>
+                <div style="font-size:9px;color:var(--muted);">O/U 46.5</div>
+              </div>
+              <div style="font-size:8px;color:var(--muted);margin-top:2px;">842 watching · Set reminder?</div>
+            </div>
+            <!-- Game 2 -->
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:7px 8px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+                <div style="font-size:8px;font-weight:700;color:var(--muted);">🏀 NBA · Fri 7:30 PM ET</div>
+                <div style="font-size:8px;color:var(--muted);">Opens in 3d 1h</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:10px;font-weight:700;color:var(--text);">Celtics vs Heat</div>
+                <div style="font-size:9px;color:var(--muted);">O/U 214.5</div>
+              </div>
+              <div style="font-size:8px;color:var(--muted);margin-top:2px;">1,204 watching</div>
+            </div>
+            <!-- Game 3 -->
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:7px 8px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+                <div style="font-size:8px;font-weight:700;color:var(--muted);">🏒 NHL · Sat 7:00 PM ET</div>
+                <div style="font-size:8px;color:var(--muted);">Opens in 4d 5h</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:10px;font-weight:700;color:var(--text);">Bruins vs Rangers</div>
+                <div style="font-size:9px;color:var(--muted);">O/U 5.5</div>
+              </div>
+              <div style="font-size:8px;color:var(--muted);margin-top:2px;">391 watching</div>
+            </div>
+          </div>
+        </div>
+        <!-- Bottom nav -->
+        <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:4px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--accent);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--muted);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--muted);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 2: Friends picks feed + weekly recap -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">FRIENDS PICKS FEED</div>
+      <div class="phone-frame">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <div style="padding:6px 12px 4px;display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:13px;font-weight:900;color:var(--text);">Sports<span style="color:#7C6FE0;">IQ</span></div>
+          <div style="font-size:9px;color:var(--accent);font-weight:700;">🔔 3 new</div>
+        </div>
+        <!-- Weekly recap card -->
+        <div style="margin:0 10px 6px;background:linear-gradient(135deg,rgba(85,69,211,0.15),rgba(85,69,211,0.06));border:1px solid rgba(85,69,211,0.3);border-radius:10px;padding:8px 10px;">
+          <div style="font-size:9px;font-weight:800;color:var(--accent);letter-spacing:1px;margin-bottom:5px;">📊 WEEK 12 RECAP</div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <div style="text-align:center;">
+              <div style="font-size:18px;font-weight:900;color:var(--text);">6-3</div>
+              <div style="font-size:7px;color:var(--muted);">record</div>
+            </div>
+            <div style="width:1px;height:28px;background:rgba(255,255,255,0.08);"></div>
+            <div style="text-align:center;">
+              <div style="font-size:18px;font-weight:900;color:#22c55e;">+340</div>
+              <div style="font-size:7px;color:var(--muted);">IQ gained</div>
+            </div>
+            <div style="width:1px;height:28px;background:rgba(255,255,255,0.08);"></div>
+            <div style="flex:1;">
+              <div style="font-size:9px;color:var(--text);">Climbed <strong style="color:#22c55e;">4 spots</strong> in Bar Crew</div>
+              <div style="font-size:8px;color:var(--muted);">Best week this season</div>
+            </div>
+          </div>
+        </div>
+        <!-- Friends activity feed -->
+        <div style="margin:0 10px;font-size:9px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">👥 FRIENDS' RECENT PICKS</div>
+        <div style="margin:0 10px;display:flex;flex-direction:column;gap:5px;">
+          <!-- BigMike won -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:8px;">
+            <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;flex-shrink:0;">B</div>
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:700;color:var(--text);">BigMike <span style="color:var(--muted);font-weight:400;">· 3h ago</span></div>
+              <div style="font-size:8px;color:var(--muted);">Chiefs vs Eagles · OVER 47.5 · 2×</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;font-weight:800;color:#22c55e;">+200 ✓</div>
+              <div style="font-size:7px;color:var(--muted);">IQ pts</div>
+            </div>
+          </div>
+          <!-- SarahK lost -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:8px;">
+            <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#475569,#64748b);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;flex-shrink:0;">S</div>
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:700;color:var(--text);">SarahK <span style="color:var(--muted);font-weight:400;">· 3h ago</span></div>
+              <div style="font-size:8px;color:var(--muted);">Chiefs vs Eagles · UNDER 47.5 · 1×</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;font-weight:800;color:#ef4444;">–50 ✗</div>
+              <div style="font-size:7px;color:var(--muted);">IQ pts</div>
+            </div>
+          </div>
+          <!-- JayBird won -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:8px;">
+            <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;flex-shrink:0;">J</div>
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:700;color:var(--text);">JayBird <span style="color:var(--muted);font-weight:400;">· 4h ago</span></div>
+              <div style="font-size:8px;color:var(--muted);">Chiefs vs Eagles · OVER 47.5 · 3×</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;font-weight:800;color:#22c55e;">+300 ✓</div>
+              <div style="font-size:7px;color:var(--muted);">IQ pts</div>
+            </div>
+          </div>
+          <!-- SarahK trivia -->
+          <div style="background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:8px;padding:7px 8px;display:flex;align-items:center;gap:8px;">
+            <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#475569,#64748b);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;flex-shrink:0;">S</div>
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:700;color:var(--text);">SarahK <span style="color:var(--muted);font-weight:400;">· 8h ago</span></div>
+              <div style="font-size:8px;color:var(--muted);">Daily Trivia · 5/5 perfect · 🔥 7-day streak</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;font-weight:800;color:#a78bfa;">+250</div>
+              <div style="font-size:7px;color:var(--muted);">trivia pts</div>
+            </div>
+          </div>
+        </div>
+        <!-- Chirp SarahK for the loss -->
+        <div style="margin:6px 10px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:6px;">
+          <span style="font-size:12px;">😂</span>
+          <span style="flex:1;font-size:9px;color:var(--muted);">SarahK went UNDER and lost</span>
+          <div style="font-size:9px;font-weight:700;color:var(--accent);">Chirp her</div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:4px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--accent);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--muted);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--muted);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 3: Streak at risk + trivia deep session -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#fbbf24;letter-spacing:2px;margin-bottom:12px;">STREAK AT RISK — EVENING</div>
+      <div class="phone-frame" style="background:radial-gradient(ellipse at 50% 0%,rgba(251,191,36,0.12) 0%,#080E1C 55%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>10:48 PM</span><span>●●● WiFi 🔋</span>
+        </div>
+        <div style="padding:6px 12px 4px;display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:13px;font-weight:900;color:var(--text);">Sports<span style="color:#7C6FE0;">IQ</span></div>
+          <div style="font-size:8px;color:var(--muted);">IQ: <strong style="color:#a78bfa;">847</strong></div>
+        </div>
+        <!-- Streak danger banner -->
+        <div style="margin:4px 10px 6px;background:linear-gradient(135deg,rgba(251,191,36,0.2),rgba(245,158,11,0.1));border:2px solid rgba(251,191,36,0.45);border-radius:10px;padding:9px 10px;display:flex;align-items:center;gap:10px;">
+          <div style="font-size:24px;flex-shrink:0;">🔥</div>
+          <div style="flex:1;">
+            <div style="font-size:11px;font-weight:900;color:#fbbf24;">14-day streak at risk!</div>
+            <div style="font-size:8px;color:var(--muted);">Midnight in 1h 12m · Play trivia to keep it alive</div>
+          </div>
+          <div style="background:#d97706;border-radius:7px;padding:5px 8px;font-size:9px;font-weight:800;color:#fff;">Save →</div>
+        </div>
+        <!-- Trivia in-progress (continuous mode — next question) -->
+        <div style="margin:0 10px 6px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);border-radius:10px;padding:9px 10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+            <div style="font-size:9px;font-weight:800;color:#a78bfa;">🧠 TRIVIA — CONTINUOUS MODE</div>
+            <div style="font-size:9px;color:var(--muted);">Q 3 of ∞</div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:7px;">Who threw the most TD passes in a single NFL season?</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:6px 8px;display:flex;align-items:center;gap:6px;">
+              <div style="width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--muted);">A</div>
+              <span style="font-size:9px;color:var(--text);">Tom Brady — 2007</span>
+            </div>
+            <div style="background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:7px;padding:6px 8px;display:flex;align-items:center;gap:6px;">
+              <div style="width:16px;height:16px;border-radius:4px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:700;">B</div>
+              <span style="font-size:9px;font-weight:700;color:var(--text);">Peyton Manning — 2013 ✓ selected</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:6px 8px;display:flex;align-items:center;gap:6px;">
+              <div style="width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--muted);">C</div>
+              <span style="font-size:9px;color:var(--text);">Patrick Mahomes — 2022</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:6px 8px;display:flex;align-items:center;gap:6px;">
+              <div style="width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--muted);">D</div>
+              <span style="font-size:9px;color:var(--text);">Aaron Rodgers — 2011</span>
+            </div>
+          </div>
+          <!-- Speed timer bar -->
+          <div style="margin-top:6px;height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;">
+            <div style="width:45%;height:100%;background:linear-gradient(90deg,#a78bfa,#5545D3);border-radius:2px;"></div>
+          </div>
+          <div style="font-size:7px;color:var(--muted);text-align:right;margin-top:2px;">Answer fast for speed bonus</div>
+        </div>
+        <!-- Streak saved badge -->
+        <div style="margin:0 10px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:6px 8px;text-align:center;font-size:9px;color:#22c55e;font-weight:700;">✓ Streak saved once you answer this question</div>
+        <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:6px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--accent);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--muted);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--muted);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /home-idle-v2-phones -->
+
+  <!-- Moat analysis -->
+  <div style="margin-top:40px;max-width:800px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — HOME IDLE v2</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      <strong style="color:var(--text);">IQ Score as identity:</strong> Showing the Trivia IQ (847) + Trivia Depth (9.2) on the home screen makes it the user's sports identity — not just a number. A user with a 9.2 NFL IQ has put in months of daily trivia to earn that. They will not reset to zero on a competitor app.<br>
+      <strong style="color:var(--text);">Idle state is not dead state:</strong> Most sports apps are dead on off-days. SportsIQ's idle screen drives three engagements: upcoming props browsing, friends pick feed (social), and daily trivia. All three generate data. None require a live game. This is how SportsIQ achieves 365-day DAU where competitors achieve seasonal spikes.<br>
+      <strong style="color:var(--text);">Friends feed as retention engine:</strong> Seeing that JayBird went 3× and won +300 is a pull to open the leaderboard, which is a pull to come back Sunday to compete. The idle home screen isn't a waiting room — it's a social feed that makes Sunday feel closer every day of the week.<br>
+      <strong style="color:var(--text);">Streak mechanics are proven:</strong> Duolingo's streak is the single most effective retention mechanic in mobile history. The 10:48 PM scene — "14-day streak at risk, 1h 12m to midnight" — is psychologically identical to Duolingo's owl. Three questions. Three minutes. Streak saved. User returns tomorrow.
+    </div>
+  </div>
+
+  <div id="sfb-panel-home-idle-v2" class="sfb-panel"></div>
 </div>
 
 </body>
