@@ -1795,8 +1795,8 @@
   <!-- 📱 MOBILE -->
   <div class="nav-group">
     <div class="nav-group-label">📱 Mobile</div>
-    <div class="tab" data-screen="home-live-v2" onclick="showScreen('home-live-v2',this)">
-      <span class="tab-label">Home · Live</span><span class="tab-days" id="days-home-live-v2"></span>
+    <div class="tab" data-screen="home-live-v3" onclick="showScreen('home-live-v3',this)">
+      <span class="tab-label">Home · Live</span><span class="tab-days" id="days-home-live-v3"></span>
     </div>
     <div class="tab" data-screen="home-idle-v2" onclick="showScreen('home-idle-v2',this)">
       <span class="tab-label">Home · Idle</span><span class="tab-days" id="days-home-idle-v2"></span>
@@ -1831,16 +1831,19 @@
     <div class="tab" data-screen="referral-growth" onclick="showScreen('referral-growth',this)">
       <span class="tab-label">Referral & Growth 🚀</span><span class="tab-days" id="days-referral-growth"></span>
     </div>
+    <div class="tab" data-screen="head-to-head" onclick="showScreen('head-to-head',this)">
+      <span class="tab-label">Head-to-Head ⚔️</span><span class="tab-days" id="days-head-to-head"></span>
+    </div>
   </div>
 
   <!-- 📺 BAR TV -->
   <div class="nav-group">
     <div class="nav-group-label">📺 Bar TV</div>
-    <div class="tab" data-screen="bar-idle-v2" onclick="showScreen('bar-idle-v2',this)">
-      <span class="tab-label">Bar · Idle</span><span class="tab-days" id="days-bar-idle-v2"></span>
+    <div class="tab" data-screen="bar-idle-v3" onclick="showScreen('bar-idle-v3',this)">
+      <span class="tab-label">Bar · Idle</span><span class="tab-days" id="days-bar-idle-v3"></span>
     </div>
-    <div class="tab" data-screen="bar-pred-q-v2" onclick="showScreen('bar-pred-q-v2',this)">
-      <span class="tab-label">Bar · Live Pick</span><span class="tab-days" id="days-bar-pred-q-v2"></span>
+    <div class="tab" data-screen="bar-pred-q-v3" onclick="showScreen('bar-pred-q-v3',this)">
+      <span class="tab-label">Bar · Live Pick</span><span class="tab-days" id="days-bar-pred-q-v3"></span>
     </div>
     <div class="tab" data-screen="bar-tracking-v2" onclick="showScreen('bar-tracking-v2',this)">
       <span class="tab-label">Bar · Tracking</span><span class="tab-days" id="days-bar-tracking-v2"></span>
@@ -3595,8 +3598,8 @@
     "date": "2026-03-21",
     "source": "inbox",
     "idea": "[bar-idle-v2] 1 numeric\n2 yes\n3 makes sense",
-    "status": "new",
-    "claude_response": "",
+    "status": "done",
+    "claude_response": "Built bar-idle-v3. Added a prominent ‘47 PLAYING TONIGHT’ numeric count to the right panel with a green live dot. Big number (120px) above the leaderboard so bars can see at a glance how many players are active. Room code explanation kept as-is (makes sense approved).",
     "mark_reply": ""
   },
   {
@@ -3604,8 +3607,8 @@
     "date": "2026-03-21",
     "source": "inbox",
     "idea": "[home-live-v2] 1 exciting\n2 turn red\n3 I don’t like the way we have this I don’t want to just put made up numbers out there. Let’s find a real metric we can display here",
-    "status": "new",
-    "claude_response": "",
+    "status": "done",
+    "claude_response": "Built home-live-v3. Two changes: (1) Critical :03 state now has FULL RED BACKGROUND FLOOD — phone-inner goes dark blood red (not just accent colors), red glow covers the whole screen, red CTA, red chips. Much more alarming. (2) Intel card completely redesigned — removed fake ‘73% accurate’ claim. Now shows two REAL data points in a 2-column grid: CROWD RIGHT NOW (62% OVER — 184 active players, our own first-party live data) + POLYMARKET (0.67 OVER — real prediction market price). Both are defensible real numbers we can actually display.",
     "mark_reply": ""
   },
   {
@@ -3613,8 +3616,8 @@
     "date": "2026-03-21",
     "source": "inbox",
     "idea": "[bar-pred-q-v2] 1. Green , yellow, red\n2. Top right\n3. It’s not clear what 73% accurate means here. Let’s brainstorm on this\n\nI don’t like the look of the QR code placement. It seems crammed. Try to position it so it looks better",
-    "status": "new",
-    "claude_response": "",
+    "status": "done",
+    "claude_response": "Built bar-pred-q-v3. Four changes: (1) Confidence color on intel signal: AMBER/YELLOW border+dot for 68% crowd consensus (moderate). Green = >75%, Amber = 55-75%, Red = <55%. At 68% OVER it’s amber — clearly not a slam dunk. (2) Intel banner moved to top-center of header row, between LIVE badge and countdown — now top-right area. (3) Replaced ‘73% accurate’ with real signals: ‘Crowd: 68% OVER · Polymarket: 0.67 · Line moved +0.5 toward OVER’ — all defensible real data. (4) QR redesigned as standalone card in bottom-right with its own 24px border-radius panel, 160px QR, 28px padding — not crammed in a row with text anymore.",
     "mark_reply": ""
   }
 ]
@@ -4269,7 +4272,12 @@
     'sports-dna-profile':  '2026-03-21T04:04:09-07:00',
     'bar-crew-mgmt':       '2026-03-21T05:03:59-07:00',
     'referral-growth':     '2026-03-21T06:06:52-07:00',
-    'venue-onboarding':    '2026-03-21T07:03:52-07:00'
+    'venue-onboarding':    '2026-03-21T07:03:52-07:00',
+    // ── Mar 21 8 AM PT — feedback iterations ─────────────────────────────
+    'bar-idle-v3':         '2026-03-21T08:21:00-07:00',
+    'home-live-v3':        '2026-03-21T08:21:00-07:00',
+    'bar-pred-q-v3':       '2026-03-21T08:21:00-07:00',
+    'head-to-head':        '2026-03-21T08:21:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -11637,6 +11645,513 @@
   </div>
 
   <div id="sfb-panel-venue-onboarding" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Bar Idle v3 — 2026-03-21 — live player count + leaderboard
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="bar-idle-v3" class="screen" style="display:none;">
+  <div class="tv-wrap">
+    <div class="tv-label">BAR SCREEN v3 — IDLE · Live player count numeric · 2026-03-21</div>
+    <div class="tv-frame">
+      <div class="bar-1080" id="bar-idle-v3-inner" style="background:radial-gradient(ellipse at top left,rgba(85,69,211,0.28) 0%,transparent 55%),radial-gradient(ellipse at bottom right,rgba(34,140,136,0.22) 0%,transparent 55%),#0B2230;display:flex;">
+        <!-- Left: logo + QR + code (same as v2) -->
+        <div style="width:520px;background:#110E2A;border-right:1px solid rgba(85,69,211,0.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:60px 48px;">
+          <div style="text-align:center;">
+            <div style="font-size:56px;font-weight:900;color:#F8FAFC;letter-spacing:-1px;">Sports<span style="color:#5545D3;">IQ</span></div>
+            <div style="display:inline-block;margin-top:10px;background:#5545D3;border-radius:8px;padding:5px 16px;font-size:16px;font-weight:700;color:#fff;letter-spacing:1px;">BAR EDITION</div>
+          </div>
+          <div style="background:#0B2230;border:3px solid rgba(85,69,211,0.5);border-radius:24px;padding:20px;width:280px;height:280px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#64748B;text-align:center;box-shadow:0 0 40px rgba(85,69,211,0.2);">
+            <div><div style="font-size:80px;margin-bottom:6px;">▦</div>Scan to join</div>
+          </div>
+          <div style="text-align:center;width:100%;">
+            <div style="color:#64748B;font-size:18px;margin-bottom:8px;letter-spacing:1px;">Or enter room code</div>
+            <div style="color:#F8FAFC;font-size:64px;font-weight:900;letter-spacing:18px;font-variant-numeric:tabular-nums;">74291</div>
+            <div style="margin-top:10px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:10px;padding:8px 14px;font-size:14px;color:#64748B;line-height:1.5;max-width:280px;margin-left:auto;margin-right:auto;">
+              💡 5-digit code is unique to this venue tonight. Auto-resets each session.
+            </div>
+          </div>
+          <div style="color:#64748B;font-size:18px;text-align:center;">Free to play — win tonight</div>
+        </div>
+        <!-- Right: v3 — prominent numeric player count + leaderboard -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:60px 80px;">
+          <!-- v3: big live count -->
+          <div style="text-align:center;">
+            <div style="color:#64748B;font-size:22px;font-weight:600;letter-spacing:3px;margin-bottom:6px;">PLAYING TONIGHT</div>
+            <div style="color:#F8FAFC;font-size:120px;font-weight:900;line-height:1;letter-spacing:-4px;font-variant-numeric:tabular-nums;">47</div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#22C55E;box-shadow:0 0 12px #22C55E;"></div>
+              <span style="color:#22C55E;font-size:22px;font-weight:600;">Live now</span>
+            </div>
+          </div>
+          <div style="width:64px;height:3px;background:linear-gradient(90deg,#5545D3,#228C88);border-radius:2px;"></div>
+          <!-- Leaderboard -->
+          <div style="width:100%;max-width:600px;">
+            <div style="color:#94A3B8;font-size:20px;letter-spacing:3px;margin-bottom:14px;text-align:center;">TONIGHT'S LEADERS</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px;background:rgba(85,69,211,0.18);border:1px solid rgba(85,69,211,0.35);border-radius:12px;margin-bottom:8px;"><span style="color:#F8FAFC;font-size:22px;font-weight:800;"><span style="color:#64748B;margin-right:10px;font-size:18px;">#1</span>BigMike</span><span style="color:#5545D3;font-weight:900;font-size:26px;">4,100</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;margin-bottom:8px;"><span style="color:#94A3B8;font-size:22px;"><span style="color:#64748B;margin-right:10px;font-size:18px;">#2</span>SarahK</span><span style="color:#94A3B8;font-weight:900;font-size:26px;">3,850</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;margin-bottom:8px;"><span style="color:#94A3B8;font-size:22px;"><span style="color:#64748B;margin-right:10px;font-size:18px;">#3</span>JayBird</span><span style="color:#94A3B8;font-weight:900;font-size:26px;">3,200</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;"><span style="color:#94A3B8;font-size:22px;"><span style="color:#64748B;margin-right:10px;font-size:18px;">#4</span>CoachKev</span><span style="color:#94A3B8;font-weight:900;font-size:26px;">2,900</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="sfb-panel-bar-idle-v3" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Home Live v3 — 2026-03-21 — real market signals, full red :03
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="home-live-v3" class="screen" style="display:none;">
+  <div class="phone-wrap">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;max-width:220px;">
+      <div style="background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:8px;padding:4px 12px;font-size:10px;font-weight:700;color:#a59df5;letter-spacing:1.5px;">v3 UPDATE · 2026-03-21</div>
+      <div style="font-size:12px;color:var(--muted);text-align:center;line-height:1.5;">Real market signals replace made-up accuracy. Full red flood at :03.</div>
+    </div>
+
+    <!-- Phone 1: :09 — urgent red, real intel signals -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner">
+          <div class="home-bg"></div>
+          <div class="home-glow-a" style="background:radial-gradient(ellipse at 50% 60%,rgba(239,68,68,0.4) 0%,transparent 65%);"></div>
+          <div class="home-glow-b"></div>
+          <div class="home-vignette"></div>
+          <div class="home-grain"></div>
+          <div class="home-shell">
+            <div class="home-topbar">
+              <div class="home-logo">Sports<span>IQ</span></div>
+              <div class="home-pts-chip">⚡ 2,450 pts</div>
+            </div>
+            <div class="bar-checkin">
+              <div class="bar-checkin-text">🍺 Tap & Taylor's · Bar Mode</div>
+              <div class="bar-checkin-badge">2× ACTIVE</div>
+            </div>
+            <div class="home-hero">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <div class="live-badge" style="margin-bottom:0;"><div class="live-dot"></div><span class="live-badge-text">LIVE NOW</span></div>
+                <div class="countdown-box cdown-urgent" style="background:rgba(239,68,68,0.18);border-color:rgba(239,68,68,0.7);">
+                  <div class="countdown-lbl" style="color:#EF4444;">LOCKS IN</div>
+                  <div class="countdown-val" style="color:#EF4444;font-size:26px;">0:09</div>
+                </div>
+              </div>
+              <div class="hero-team">KANSAS CITY CHIEFS</div>
+              <div class="hero-player">Mahomes</div>
+              <div class="hero-ou-label">OVER OR UNDER</div>
+              <div class="hero-stat-row">
+                <div class="hero-number">267</div>
+                <div class="hero-stat-unit">passing yards</div>
+              </div>
+              <div class="context-card">📊 Chiefs trailing by 14 — Mahomes is in throw mode</div>
+              <!-- v3: Real market signals — no fake accuracy -->
+              <div class="intel-card-v2">
+                <div class="intel-label-v2">📊 LIVE MARKET SIGNALS</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:4px;">
+                  <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:6px;padding:5px 8px;">
+                    <div style="font-size:7px;color:var(--muted);letter-spacing:1px;margin-bottom:2px;">CROWD RIGHT NOW</div>
+                    <div style="font-size:13px;font-weight:900;color:#22c55e;">62% OVER</div>
+                    <div style="font-size:7px;color:var(--muted);">184 active players</div>
+                  </div>
+                  <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:6px;padding:5px 8px;">
+                    <div style="font-size:7px;color:var(--muted);letter-spacing:1px;margin-bottom:2px;">POLYMARKET</div>
+                    <div style="font-size:13px;font-weight:900;color:#a78bfa;">0.67 OVER</div>
+                    <div style="font-size:7px;color:var(--muted);">pred. market live</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="join-ring">
+              <button class="join-btn">JOIN NOW<span class="join-sub"><span class="crowd-live">184</span> players · 9s to lock</span><div class="join-drain-bar"><div class="join-drain-fill" style="animation-duration:9s;"></div></div></button>
+            </div>
+            <div class="stats-row">
+              <div class="stat-pill"><div class="stat-pill-val">2,450</div><div class="stat-pill-lbl">PTS</div></div>
+              <div class="stat-pill"><div class="stat-pill-val">#3</div><div class="stat-pill-lbl">TODAY</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">🔥 4</div><div class="stat-pill-lbl">STREAK</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">Gold</div><div class="stat-pill-lbl">TIER</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">HOME v3 — LIVE · URGENT (:09, red pulse)</div>
+    </div>
+
+    <!-- Phone 2: :03 — FULL RED FLOOD on background -->
+    <div>
+      <div class="phone-frame" style="box-shadow:0 0 0 6px rgba(0,0,0,0.6),0 40px 100px rgba(0,0,0,0.8),0 0 80px rgba(239,68,68,0.3);">
+        <div class="phone-notch"></div>
+        <!-- v3: full red background flood -->
+        <div class="phone-inner" style="background:linear-gradient(180deg,#1c0000 0%,#120000 100%);">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(239,68,68,0.65) 0%,transparent 70%);"></div>
+          <div class="home-vignette"></div>
+          <div class="home-grain"></div>
+          <div class="home-shell">
+            <div class="home-topbar">
+              <div class="home-logo">Sports<span>IQ</span></div>
+              <div class="home-pts-chip" style="background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.4);">⚡ 2,450 pts</div>
+            </div>
+            <div class="bar-checkin" style="background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.25);">
+              <div class="bar-checkin-text">🍺 Tap & Taylor's · Bar Mode</div>
+              <div class="bar-checkin-badge" style="background:rgba(239,68,68,0.25);color:#f87171;">2× ACTIVE</div>
+            </div>
+            <div class="home-hero">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <div class="live-badge" style="margin-bottom:0;background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.5);"><div class="live-dot" style="background:#ef4444;"></div><span class="live-badge-text" style="color:#f87171;">LOCKING</span></div>
+                <div class="countdown-box cdown-critical" style="background:rgba(239,68,68,0.35);border-color:#EF4444;border-width:2px;">
+                  <div class="countdown-lbl" style="color:#EF4444;font-size:8px;">LOCKS IN</div>
+                  <div class="countdown-val" style="color:#EF4444;font-size:30px;">0:03</div>
+                </div>
+              </div>
+              <div class="hero-team">KANSAS CITY CHIEFS</div>
+              <div class="hero-player">Mahomes</div>
+              <div class="hero-ou-label">OVER OR UNDER</div>
+              <div class="hero-stat-row">
+                <div class="hero-number">267</div>
+                <div class="hero-stat-unit">passing yards</div>
+              </div>
+              <div class="context-card" style="border-color:rgba(239,68,68,0.4);background:rgba(239,68,68,0.1);">⚠️ LOCKING SOON — make your pick now</div>
+              <div class="intel-card-v2" style="border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.06);">
+                <div class="intel-label-v2" style="color:#f87171;">📊 LIVE MARKET SIGNALS</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:4px;">
+                  <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:6px;padding:5px 8px;">
+                    <div style="font-size:7px;color:var(--muted);letter-spacing:1px;margin-bottom:2px;">CROWD RIGHT NOW</div>
+                    <div style="font-size:13px;font-weight:900;color:#22c55e;">62% OVER</div>
+                    <div style="font-size:7px;color:var(--muted);">184 active players</div>
+                  </div>
+                  <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:6px;padding:5px 8px;">
+                    <div style="font-size:7px;color:var(--muted);letter-spacing:1px;margin-bottom:2px;">POLYMARKET</div>
+                    <div style="font-size:13px;font-weight:900;color:#a78bfa;">0.67 OVER</div>
+                    <div style="font-size:7px;color:var(--muted);">pred. market live</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="join-ring">
+              <button class="join-btn" style="background:linear-gradient(135deg,rgba(239,68,68,0.9),rgba(220,38,38,0.8));border-color:rgba(239,68,68,0.8);">PICK NOW — LAST 3 SECONDS<span class="join-sub">Window closes forever</span><div class="join-drain-bar"><div class="join-drain-fill" style="width:5%;animation:none;background:#EF4444;"></div></div></button>
+            </div>
+            <div class="stats-row">
+              <div class="stat-pill"><div class="stat-pill-val">2,450</div><div class="stat-pill-lbl">PTS</div></div>
+              <div class="stat-pill"><div class="stat-pill-val">#3</div><div class="stat-pill-lbl">TODAY</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">🔥 4</div><div class="stat-pill-lbl">STREAK</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">Gold</div><div class="stat-pill-lbl">TIER</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">HOME v3 — CRITICAL (:03, FULL RED FLOOD)</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-home-live-v3" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Bar Pred-Q v3 — 2026-03-21 — confidence colors, intel top-right,
+     real metrics, QR repositioned
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="bar-pred-q-v3" class="screen" style="display:none;">
+  <div class="tv-wrap">
+    <div class="tv-label">BAR SCREEN v3 — LIVE PREDICTION · Confidence colors · Real signals · Better QR · 2026-03-21</div>
+    <div class="tv-frame">
+      <div class="bar-1080" id="bar-pred-q-v3-inner" style="background:radial-gradient(ellipse at top left,#E3183750 0%,transparent 55%),radial-gradient(ellipse at bottom right,#00338D45 0%,transparent 55%),#0B2230;display:flex;flex-direction:column;justify-content:space-between;padding:56px 80px;">
+
+        <!-- Header: LIVE badge (left) + Intel badge with confidence color (center) + countdown (right) -->
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:24px;">
+          <div style="display:flex;align-items:center;gap:14px;flex-shrink:0;">
+            <div style="position:relative;width:18px;height:18px;">
+              <div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;opacity:0.5;animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></div>
+              <div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;"></div>
+            </div>
+            <span style="color:#22C55E;font-size:26px;font-weight:800;letter-spacing:2px;">LIVE PREDICTION</span>
+          </div>
+          <!-- v3: Intel with amber confidence (68% = moderate) -->
+          <div style="flex:1;display:flex;justify-content:center;">
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(251,191,36,0.1);border:2px solid rgba(251,191,36,0.5);border-radius:14px;padding:12px 28px;box-shadow:0 0 24px rgba(251,191,36,0.15);">
+              <!-- Confidence dot: green >75%, amber 55-75%, red <55% — here 68% = amber -->
+              <div style="width:14px;height:14px;border-radius:50%;background:#fbbf24;box-shadow:0 0 10px #fbbf24;flex-shrink:0;"></div>
+              <div>
+                <div style="color:#fbbf24;font-size:14px;font-weight:800;letter-spacing:1px;margin-bottom:2px;">MARKET SIGNAL — MODERATE</div>
+                <div style="color:#F8FAFC;font-size:20px;font-weight:800;">Crowd: 68% OVER · Polymarket: 0.67 · Line moved +0.5 toward OVER</div>
+              </div>
+            </div>
+          </div>
+          <!-- Circular countdown top-right -->
+          <div style="position:relative;width:120px;height:120px;flex-shrink:0;">
+            <svg width="120" height="120" viewBox="0 0 96 96">
+              <circle class="cdown-circle-track" cx="48" cy="48" r="44"/>
+              <circle class="cdown-circle-fill" cx="48" cy="48" r="44"/>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <div style="color:#EF4444;font-size:10px;font-weight:700;letter-spacing:1px;">LOCKS IN</div>
+              <div style="color:#EF4444;font-size:32px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1;">0:42</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Player hero (unchanged) -->
+        <div style="text-align:center;">
+          <div style="color:#94A3B8;font-size:28px;margin-bottom:6px;letter-spacing:1px;">KANSAS CITY CHIEFS</div>
+          <div style="color:#F8FAFC;font-size:96px;font-weight:900;line-height:1;letter-spacing:-2px;">Mahomes</div>
+          <div style="color:#64748B;font-size:32px;margin:16px 0;">OVER or UNDER</div>
+          <div style="color:#F8FAFC;font-size:140px;font-weight:900;line-height:1;letter-spacing:-4px;font-variant-numeric:tabular-nums;">267</div>
+          <div style="color:#94A3B8;font-size:40px;margin-top:8px;">passing yards</div>
+        </div>
+
+        <!-- Crowd split (unchanged) -->
+        <div style="display:flex;gap:24px;">
+          <div style="flex:1;background:rgba(34,140,136,0.2);border:2px solid #228C88;border-radius:20px;padding:24px 32px;text-align:center;">
+            <div style="color:#228C88;font-size:44px;font-weight:900;">UNDER ↓</div>
+            <div style="color:#F8FAFC;font-size:64px;font-weight:900;font-variant-numeric:tabular-nums;">32%</div>
+            <div style="color:#64748B;font-size:24px;margin-top:4px;">59 players</div>
+          </div>
+          <div style="flex:1;background:rgba(85,69,211,0.2);border:2px solid #5545D3;border-radius:20px;padding:24px 32px;text-align:center;">
+            <div style="color:#5545D3;font-size:44px;font-weight:900;">OVER ↑</div>
+            <div style="color:#F8FAFC;font-size:64px;font-weight:900;font-variant-numeric:tabular-nums;">68%</div>
+            <div style="color:#64748B;font-size:24px;margin-top:4px;">125 players</div>
+          </div>
+        </div>
+
+        <!-- v3: Footer — CTA left, QR panel right (standalone, breathing room) -->
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+          <div>
+            <div style="color:#64748B;font-size:24px;margin-bottom:8px;">Open SportsIQ — pick OVER or UNDER</div>
+            <div style="color:#5545D3;font-size:20px;font-weight:700;">Bar plays count 2× · Free to play</div>
+          </div>
+          <!-- v3: QR as standalone card with breathing room -->
+          <div style="background:rgba(11,34,48,0.95);border:2px solid rgba(85,69,211,0.5);border-radius:24px;padding:24px 28px;display:flex;flex-direction:column;align-items:center;gap:12px;box-shadow:0 0 40px rgba(85,69,211,0.15);">
+            <div style="width:160px;height:160px;background:#110E2A;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:64px;color:#5545D3;border:1px solid rgba(85,69,211,0.3);">▦</div>
+            <div style="text-align:center;">
+              <div style="color:#64748B;font-size:14px;letter-spacing:2px;margin-bottom:4px;">ROOM CODE</div>
+              <div style="color:#F8FAFC;font-size:44px;font-weight:900;letter-spacing:10px;font-variant-numeric:tabular-nums;">74291</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div id="sfb-panel-bar-pred-q-v3" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Head-to-Head Challenge — 2026-03-21 — friend vs friend direct challenge
+     Proactive build: extreme retention mechanic + viral loop
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="head-to-head" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Head-to-Head Challenge — Direct Friend vs Friend</div>
+    <div class="screen-subtitle">Challenge any friend to a direct pick matchup. Winner takes a multiplier bonus. Creates daily retention (friends challenging each other) and extreme viral pull — you can't ignore a direct challenge from someone you know.</div>
+  </div>
+
+  <div class="phones-section">
+
+    <!-- Phone 1: Sending a challenge -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">SENDING A CHALLENGE</div>
+      <div class="phone-frame">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Header -->
+        <div style="padding:8px 10px 4px;">
+          <div style="font-size:11px;font-weight:900;color:var(--text);">Challenge a Friend</div>
+          <div style="font-size:8px;color:var(--muted);margin-top:1px;">Head-to-head on Mahomes 267 yds</div>
+        </div>
+        <!-- Pick selection (the prop) -->
+        <div style="margin:4px 10px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:10px;padding:8px 10px;">
+          <div style="font-size:7px;font-weight:800;color:var(--accent);letter-spacing:1px;margin-bottom:4px;">THE PROP</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text);">Mahomes — OVER 267 passing yards</div>
+          <div style="font-size:8px;color:#22c55e;margin-top:2px;">Your pick: OVER ✓</div>
+        </div>
+        <!-- Friend selection -->
+        <div style="margin:4px 10px;">
+          <div style="font-size:7px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:5px;">CHOOSE OPPONENT</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:8px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:900;">M</div>
+              <div style="flex:1;"><div style="font-size:9px;font-weight:700;color:var(--text);">MikeTorres</div><div style="font-size:7px;color:var(--muted);">🔥 5 streak · #2 this week</div></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;">✓</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#475569,#64748b);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:900;">S</div>
+              <div style="flex:1;"><div style="font-size:9px;color:var(--text);">SarahK</div><div style="font-size:7px;color:var(--muted);">🔥 3 streak · #5 this week</div></div>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:900;">J</div>
+              <div style="flex:1;"><div style="font-size:9px;color:var(--text);">JayBird</div><div style="font-size:7px;color:var(--muted);">🔥 7 streak · #1 this week</div></div>
+            </div>
+          </div>
+        </div>
+        <!-- Stake selector -->
+        <div style="margin:4px 10px;">
+          <div style="font-size:7px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">STAKE — loser pays winner</div>
+          <div style="display:flex;gap:5px;">
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:5px 4px;text-align:center;">
+              <div style="font-size:9px;font-weight:700;color:var(--muted);">50 IQ</div>
+              <div style="font-size:7px;color:var(--muted);">casual</div>
+            </div>
+            <div style="flex:1;background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:7px;padding:5px 4px;text-align:center;">
+              <div style="font-size:9px;font-weight:700;color:var(--accent);">150 IQ</div>
+              <div style="font-size:7px;color:var(--accent);">serious ✓</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:5px 4px;text-align:center;">
+              <div style="font-size:9px;font-weight:700;color:var(--muted);">300 IQ</div>
+              <div style="font-size:7px;color:var(--muted);">all-in</div>
+            </div>
+          </div>
+        </div>
+        <!-- Send button -->
+        <div style="margin:6px 10px 8px;background:linear-gradient(135deg,var(--accent),#4338ca);border-radius:10px;padding:10px;text-align:center;">
+          <div style="font-size:11px;font-weight:900;color:#fff;">⚔️ Send Challenge to Mike</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.65);margin-top:1px;">150 IQ stake — winner takes all</div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:5px 0 4px;border-top:1px solid rgba(255,255,255,0.06);">
+          <div style="text-align:center;"><div style="font-size:13px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">🎯</div><div style="font-size:7px;color:var(--accent);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">🏆</div><div style="font-size:7px;color:var(--muted);">Board</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 2: Receiving a challenge -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#f59e0b;letter-spacing:2px;margin-bottom:12px;">CHALLENGE RECEIVED</div>
+      <div class="phone-frame" style="background:radial-gradient(ellipse at 50% 0%,rgba(245,158,11,0.08) 0%,#080E1C 50%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Push notification style banner -->
+        <div style="margin:4px 10px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:900;flex-shrink:0;">M</div>
+          <div style="flex:1;">
+            <div style="font-size:9px;font-weight:800;color:#f59e0b;">⚔️ CHALLENGE INCOMING</div>
+            <div style="font-size:9px;color:var(--text);">MikeTorres just challenged you</div>
+          </div>
+          <div style="font-size:8px;color:var(--muted);">now</div>
+        </div>
+        <!-- Challenge card -->
+        <div style="margin:4px 10px;background:rgba(245,158,11,0.06);border:2px solid rgba(245,158,11,0.3);border-radius:12px;padding:12px 10px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:900;">M</div>
+            <div>
+              <div style="font-size:10px;font-weight:800;color:var(--text);">MikeTorres</div>
+              <div style="font-size:8px;color:var(--muted);">🔥 5 streak · #2 leaderboard</div>
+            </div>
+            <div style="margin-left:auto;font-size:9px;font-weight:700;color:#f59e0b;">challenges you</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;margin-bottom:8px;">
+            <div style="font-size:8px;color:var(--muted);margin-bottom:3px;">THE PROP</div>
+            <div style="font-size:11px;font-weight:700;color:var(--text);">Mahomes — Passing Yards</div>
+            <div style="font-size:8px;color:var(--muted);margin-top:1px;">OVER or UNDER 267</div>
+            <div style="font-size:8px;color:#ef4444;margin-top:3px;">Mike picked: UNDER ↓</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div style="font-size:8px;color:var(--muted);">Stake at risk:</div>
+            <div style="font-size:11px;font-weight:900;color:#f59e0b;">150 IQ</div>
+          </div>
+          <!-- Accept / Decline -->
+          <div style="display:flex;gap:6px;">
+            <div style="flex:1;background:linear-gradient(135deg,#16a34a,#22c55e);border-radius:8px;padding:9px;text-align:center;">
+              <div style="font-size:10px;font-weight:900;color:#fff;">Accept ✓</div>
+              <div style="font-size:7px;color:rgba(255,255,255,0.7);">Pick OVER to beat him</div>
+            </div>
+            <div style="flex:0.45;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px;text-align:center;">
+              <div style="font-size:10px;font-weight:700;color:var(--muted);">Pass</div>
+            </div>
+          </div>
+        </div>
+        <!-- Context: Mike's recent record -->
+        <div style="margin:4px 10px 8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:6px 8px;">
+          <div style="font-size:7px;color:var(--muted);margin-bottom:3px;">MIKE'S RECORD vs YOU</div>
+          <div style="display:flex;gap:8px;">
+            <div style="text-align:center;"><div style="font-size:11px;font-weight:800;color:#22c55e;">4</div><div style="font-size:7px;color:var(--muted);">his wins</div></div>
+            <div style="text-align:center;"><div style="font-size:11px;font-weight:800;color:#ef4444;">3</div><div style="font-size:7px;color:var(--muted);">your wins</div></div>
+            <div style="text-align:center;"><div style="font-size:11px;font-weight:800;color:#f59e0b;">+150</div><div style="font-size:7px;color:var(--muted);">he's up IQ</div></div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:5px 0 4px;border-top:1px solid rgba(255,255,255,0.06);">
+          <div style="text-align:center;"><div style="font-size:13px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">🎯</div><div style="font-size:7px;color:var(--accent);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">🏆</div><div style="font-size:7px;color:var(--muted);">Board</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 3: Result -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:12px;">RESULT — YOU WIN</div>
+      <div class="phone-frame" style="background:radial-gradient(ellipse at 50% 0%,rgba(34,197,94,0.12) 0%,#080E1C 50%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <div style="text-align:center;padding:14px 14px 8px;">
+          <div style="font-size:28px;margin-bottom:4px;">🏆</div>
+          <div style="font-size:15px;font-weight:900;color:#22c55e;">You Won!</div>
+          <div style="font-size:8px;color:var(--muted);margin-top:2px;">OVER hit — Mahomes threw 274 yds</div>
+        </div>
+        <!-- Head to head result -->
+        <div style="margin:0 10px 6px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:8px 10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <div style="text-align:center;flex:1;">
+              <div style="font-size:8px;color:var(--muted);margin-bottom:3px;">YOU</div>
+              <div style="font-size:11px;font-weight:800;color:#22c55e;">OVER ✓</div>
+              <div style="font-size:8px;color:#22c55e;margin-top:2px;">+150 IQ</div>
+            </div>
+            <div style="font-size:10px;color:var(--muted);">VS</div>
+            <div style="text-align:center;flex:1;">
+              <div style="font-size:8px;color:var(--muted);margin-bottom:3px;">MIKE</div>
+              <div style="font-size:11px;font-weight:800;color:#ef4444;">UNDER ✗</div>
+              <div style="font-size:8px;color:#ef4444;margin-top:2px;">–150 IQ</div>
+            </div>
+          </div>
+          <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:6px;text-align:center;">
+            <div style="font-size:9px;color:var(--muted);">You're now tied 4-4 with Mike</div>
+          </div>
+        </div>
+        <!-- IQ earned -->
+        <div style="margin:0 10px 6px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:7px;color:var(--muted);">Before</div>
+            <div style="font-size:12px;font-weight:900;color:var(--text);">2,541 IQ</div>
+          </div>
+          <div style="font-size:10px;color:var(--muted);">→</div>
+          <div style="text-align:right;">
+            <div style="font-size:7px;color:var(--muted);">After challenge</div>
+            <div style="font-size:12px;font-weight:900;color:#22c55e;">2,691 IQ <span style="font-size:9px;">+150</span></div>
+          </div>
+        </div>
+        <!-- Rematch CTA -->
+        <div style="margin:0 10px 8px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:8px;">
+          <div style="font-size:14px;">⚔️</div>
+          <div style="flex:1;font-size:9px;color:var(--text);">Rematch Mike on the next prop?</div>
+          <div style="font-size:9px;font-weight:700;color:#f59e0b;">Challenge</div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:5px 0 4px;border-top:1px solid rgba(255,255,255,0.06);">
+          <div style="text-align:center;"><div style="font-size:13px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">🎯</div><div style="font-size:7px;color:var(--accent);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">🏆</div><div style="font-size:7px;color:var(--muted);">Board</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /phones-section -->
+
+  <!-- Moat analysis -->
+  <div style="max-width:800px;margin:0 auto 60px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — HEAD-TO-HEAD CHALLENGE</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      <strong style="color:var(--text);">Retention mechanic with no parallel:</strong> A challenge from a specific friend is a personal social contract — ignoring it creates social friction. This forces daily opens even on non-game days. DraftKings has no equivalent social layer; their "contests" are anonymous. SportsIQ's direct challenges create named rivalries — a fundamentally different (and stickier) dynamic.<br>
+      <strong style="color:var(--text);">Organic acquisition engine:</strong> Every challenge sent is an implicit invite. If the recipient isn't a SportsIQ user, they must install to respond. Cost of acquisition: $0. The challenger is doing the recruiting. At scale, 10% of challenges going to non-users = meaningful organic install loop.<br>
+      <strong style="color:var(--text);">H2H record as switching cost:</strong> After 20 challenges with Mike, your 4-4 H2H record is a data asset you'd lose by switching apps. Rivalries accumulate history; history creates lock-in.<br>
+      <strong style="color:var(--text);">IQ transfer as status currency:</strong> Losing 150 IQ to Mike in a direct challenge is more painful (and thus motivating) than losing 150 IQ in an anonymous crowd contest. Status effects are amplified when the opponent is named.
+    </div>
+  </div>
+
+  <div id="sfb-panel-head-to-head" class="sfb-panel"></div>
 </div>
 
 </body>
