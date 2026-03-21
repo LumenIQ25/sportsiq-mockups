@@ -1651,6 +1651,15 @@
     <div class="tab" data-screen="trivia" onclick="showScreen('trivia',this)">
       <span class="tab-label">Trivia 🧠</span><span class="tab-days" id="days-trivia"></span>
     </div>
+    <div class="tab" data-screen="leaderboard-v2" onclick="showScreen('leaderboard-v2',this)">
+      <span class="tab-label">Leaderboard v2</span><span class="tab-days" id="days-leaderboard-v2"></span>
+    </div>
+    <div class="tab" data-screen="pick-wait-v2" onclick="showScreen('pick-wait-v2',this)">
+      <span class="tab-label">Pick Wait v2</span><span class="tab-days" id="days-pick-wait-v2"></span>
+    </div>
+    <div class="tab" data-screen="notifications" onclick="showScreen('notifications',this)">
+      <span class="tab-label">Notifications 🔔</span><span class="tab-days" id="days-notifications"></span>
+    </div>
   </div>
 
   <!-- 📱 MOBILE APP -->
@@ -3998,7 +4007,10 @@
     'bar-pred-q-v2':    '2026-03-21',
     'bar-tracking-v2':  '2026-03-21',
     'bar-result-v2':    '2026-03-21',
-    'trivia':           '2026-03-21'
+    'trivia':           '2026-03-21',
+    'leaderboard-v2':   '2026-03-20',
+    'pick-wait-v2':     '2026-03-20',
+    'notifications':    '2026-03-20'
   };
 
   (function initDaysBadges() {
@@ -4232,6 +4244,39 @@
         'Should Trivia IQ Score (847) show on the home screen alongside pick win rate?',
         'Bar TV trivia: venue triggers a 5-question break, players answer on mobile, results on TV — does that fit your vision for bar flow?',
         'Start NFL-only or launch with NFL + NBA together?'
+      ]
+    },
+    'leaderboard-v2': {
+      icon: '🏆',
+      title: 'Leaderboard v2 — Groups & Prize Pools',
+      built: 'Three screens: (1) Groups tab default — My Groups summary cards (Bar Crew #2, Work Pool #1, Family #5), Bar Crew standings with rank/score/movement, active prize pool badge. (2) Inside group — prize pool breakdown ($40 total, $5/member, 60/30/10% payout), standings mini-table, live trash talk feed with reply input. (3) Create group flow — step 2 of 3, pool type selector (Bragging Rights / Entry Fee at $1/$2/$5/$10/$25 / Tip Jar), payout preview, Next CTA. Moat: social graph lock-in, money creates commitment, trash talk drives daily DAU.',
+      questions: [
+        'Prize pool: should SportsIQ take a cut (e.g., 10% rake) or keep it 100% to players to maximize virality early?',
+        'Trash talk feed — open to all group members, or only people who have made picks that game?',
+        'Group size limits? Or open-ended (like a fantasy league with 4-100 people)?',
+        'Should the "Chirp" feature let you send a push notification directly to a specific friend after they lose?'
+      ]
+    },
+    'pick-wait-v2': {
+      icon: '⏳',
+      title: 'Pick Wait v2 — Tighter, More Alive',
+      built: 'Two screens: (1) Active wait — compact tug-of-war bar (OVER 61% vs UNDER 39%), My Pick confirmation (OVER 47.5, 2× multiplier, 31 pts current), Friends Picks panel (BigMike OVER ✓, SarahK UNDER ✗, JayBird OVER ✓), real-time stat note (need 16.5 more, avg Q4 scoring 14.2 pts), Final Whistle note (no peeking, everyone finds out together). (2) Final Whistle reveal — final score, OVER HITS! +420 IQ pts, friends results, Chirp SarahK button, Next Pick CTA. Moat: delayed reveal = lottery tension, friends picks panel = social investment, chirp = emotional re-engagement.',
+      questions: [
+        'Final Whistle reveal: instant when game ends, or a short dramatic 3-second countdown animation?',
+        'Friends picks visibility: should you be able to see friends picks BEFORE you pick, or only after you submit?',
+        'Should the tug-of-war bar show percentages or just the bar (hiding numbers adds more tension)?',
+        'Chirp feature: free-form text, emoji-only, or preset chirp phrases (e.g., "Nice try 😂", "Better luck next week")?'
+      ]
+    },
+    'notifications': {
+      icon: '🔔',
+      title: 'Push Notifications — Full Catalog',
+      built: 'Two lock screen mockups: (1) Game day — 4 notifications: pick window open, friend picked same (BigMike OVER), live tracking update (OVER tracking ✅, 31 pts scored), trash talk received (SarahK). (2) Off day + streak — 4 notifications: daily trivia ready (8 AM), streak at risk (14-day streak danger), weekly recap (6-3, +340 IQ, climbed 4 spots), upcoming pick window preview. Full 10-type catalog with trigger logic: Pick Window Open, Closing (10 min), Live Tracking, Final Whistle result, Friend Picked, Trash Talk Received, Streak at Risk, Daily Trivia, Weekly Recap, Leaderboard Movement. Moat: 10 re-engagement vectors, offseason coverage, high permission value.',
+      questions: [
+        'Notification frequency control — should users set per-type toggles, or a simple "Game Day Only / All / Quiet Mode" top-level switch?',
+        'Live tracking updates: one per quarter, or triggered by score events (e.g., every time points are scored)?',
+        'Streak at risk: what time should this fire — 6 PM, 8 PM, or 2 hours before midnight based on timezone?',
+        'Weekly recap: Monday AM delivery, or Sunday night after the last game?'
       ]
     }
   };
@@ -7122,6 +7167,730 @@
     </div>
   </div>
   <div id="sfb-panel-trivia" class="sfb-panel"></div>
+</div>
+
+<!-- ============================================================
+     LEADERBOARD v2  |  Added 2026-03-20
+     Groups default + prize pools + trash talk + create group flow
+     ============================================================ -->
+<div id="leaderboard-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Leaderboard v2 — Groups & Prize Pools</div>
+    <div class="screen-subtitle">Social competition layer: group leaderboards, prize pools, trash talk feed, group creation flow</div>
+  </div>
+
+  <div style="display:flex;gap:32px;flex-wrap:wrap;justify-content:center;" id="leaderboard-v2-phones">
+
+    <!-- Phone 1: Groups default view -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">GROUPS TAB — DEFAULT</div>
+      <div class="phone-frame">
+        <!-- Status bar -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Header -->
+        <div style="padding:8px 12px 6px;">
+          <div style="font-size:15px;font-weight:900;color:var(--text);">Leaderboard</div>
+          <div style="display:flex;gap:0;margin-top:6px;background:rgba(255,255,255,0.05);border-radius:8px;overflow:hidden;">
+            <div style="flex:1;text-align:center;padding:5px 0;font-size:10px;font-weight:700;color:var(--muted);">Global</div>
+            <div style="flex:1;text-align:center;padding:5px 0;font-size:10px;font-weight:700;background:var(--accent);color:#fff;border-radius:8px;">Groups</div>
+            <div style="flex:1;text-align:center;padding:5px 0;font-size:10px;font-weight:700;color:var(--muted);">Friends</div>
+          </div>
+        </div>
+        <!-- My groups summary -->
+        <div style="margin:0 10px 8px;background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:10px;padding:8px 10px;">
+          <div style="font-size:9px;font-weight:800;color:var(--accent);letter-spacing:1px;margin-bottom:4px;">MY GROUPS (3)</div>
+          <div style="display:flex;gap:6px;">
+            <div style="flex:1;background:rgba(0,0,0,0.3);border-radius:6px;padding:5px;text-align:center;">
+              <div style="font-size:16px;">🍺</div>
+              <div style="font-size:9px;font-weight:700;color:var(--text);">Bar Crew</div>
+              <div style="font-size:9px;color:#22c55e;">🥈 #2</div>
+            </div>
+            <div style="flex:1;background:rgba(0,0,0,0.3);border-radius:6px;padding:5px;text-align:center;">
+              <div style="font-size:16px;">🏈</div>
+              <div style="font-size:9px;font-weight:700;color:var(--text);">Work Pool</div>
+              <div style="font-size:9px;color:#f59e0b;">🥇 #1</div>
+            </div>
+            <div style="flex:1;background:rgba(0,0,0,0.3);border-radius:6px;padding:5px;text-align:center;">
+              <div style="font-size:16px;">👨‍👩‍👧</div>
+              <div style="font-size:9px;font-weight:700;color:var(--text);">Family</div>
+              <div style="font-size:9px;color:var(--muted);">#5</div>
+            </div>
+          </div>
+        </div>
+        <!-- Bar Crew leaderboard -->
+        <div style="margin:0 10px;font-size:9px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">BAR CREW — WEEK 12</div>
+        <!-- Rows -->
+        <div style="margin:0 10px;display:flex;flex-direction:column;gap:4px;">
+          <div style="background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.3);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+            <div style="font-size:12px;font-weight:900;color:#fbbf24;width:14px;">1</div>
+            <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:10px;">B</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:700;color:var(--text);">BigMike</div>
+              <div style="font-size:8px;color:var(--muted);">7-2 this week</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:11px;font-weight:900;color:#fbbf24;">2,847</div>
+              <div style="font-size:8px;color:#22c55e;">+142 ↑</div>
+            </div>
+          </div>
+          <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.4);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+            <div style="font-size:12px;font-weight:900;color:var(--accent);width:14px;">2</div>
+            <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:10px;">Y</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:700;color:var(--text);">You</div>
+              <div style="font-size:8px;color:var(--muted);">6-3 this week</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:11px;font-weight:900;color:var(--text);">2,691</div>
+              <div style="font-size:8px;color:#f59e0b;">156 behind</div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+            <div style="font-size:12px;font-weight:700;color:var(--muted);width:14px;">3</div>
+            <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#475569,#64748b);display:flex;align-items:center;justify-content:center;font-size:10px;">S</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:700;color:var(--text);">SarahK</div>
+              <div style="font-size:8px;color:var(--muted);">5-4 this week</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:11px;font-weight:900;color:var(--text);">2,540</div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+            <div style="font-size:12px;font-weight:700;color:var(--muted);width:14px;">4</div>
+            <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;font-size:10px;">J</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:700;color:var(--text);">JayBird</div>
+              <div style="font-size:8px;color:var(--muted);">4-5 this week</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:11px;font-weight:900;color:var(--text);">2,388</div>
+              <div style="font-size:8px;color:#ef4444;">↓ -88</div>
+            </div>
+          </div>
+        </div>
+        <!-- Prize badge -->
+        <div style="margin:8px 10px 4px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.25);border-radius:8px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+          <span style="font-size:14px;">🏆</span>
+          <div>
+            <div style="font-size:9px;font-weight:800;color:#fbbf24;">PRIZE POOL ACTIVE — $40</div>
+            <div style="font-size:8px;color:var(--muted);">Season ends Week 18 · Tap to view</div>
+          </div>
+        </div>
+        <!-- Bottom nav -->
+        <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:6px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--muted);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--accent);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 2: Inside group — prize pool + trash talk -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">INSIDE GROUP — PRIZE POOL + TRASH TALK</div>
+      <div class="phone-frame">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Back + group header -->
+        <div style="padding:6px 10px 0;display:flex;align-items:center;gap:8px;">
+          <span style="font-size:14px;color:var(--accent);">←</span>
+          <div>
+            <div style="font-size:13px;font-weight:900;color:var(--text);">🍺 Bar Crew</div>
+            <div style="font-size:8px;color:var(--muted);">8 members · Season pool active</div>
+          </div>
+        </div>
+        <!-- Prize pool card -->
+        <div style="margin:8px 10px;background:linear-gradient(135deg,rgba(251,191,36,0.15),rgba(245,158,11,0.08));border:1px solid rgba(251,191,36,0.35);border-radius:10px;padding:10px;">
+          <div style="font-size:9px;font-weight:800;color:#fbbf24;letter-spacing:1px;margin-bottom:6px;">🏆 SEASON PRIZE POOL</div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <div style="flex:1;text-align:center;">
+              <div style="font-size:22px;font-weight:900;color:#fbbf24;">$40</div>
+              <div style="font-size:8px;color:var(--muted);">total pot</div>
+            </div>
+            <div style="width:1px;background:rgba(251,191,36,0.2);height:32px;"></div>
+            <div style="flex:1;text-align:center;">
+              <div style="font-size:12px;font-weight:900;color:var(--text);">$5</div>
+              <div style="font-size:8px;color:var(--muted);">per member</div>
+            </div>
+            <div style="width:1px;background:rgba(251,191,36,0.2);height:32px;"></div>
+            <div style="flex:1;text-align:center;">
+              <div style="font-size:12px;font-weight:900;color:#22c55e;">Wk 6 left</div>
+              <div style="font-size:8px;color:var(--muted);">to season end</div>
+            </div>
+          </div>
+          <div style="margin-top:6px;font-size:9px;color:var(--muted);">Payout: 🥇$24 · 🥈$12 · 🥉$4</div>
+        </div>
+        <!-- Current standings mini -->
+        <div style="margin:0 10px;font-size:9px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:3px;">STANDINGS</div>
+        <div style="margin:0 10px;display:flex;flex-direction:column;gap:2px;">
+          <div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span style="font-size:10px;color:#fbbf24;width:12px;">1</span>
+            <span style="font-size:10px;color:var(--text);flex:1;">BigMike</span>
+            <span style="font-size:10px;color:var(--text);">2,847</span>
+            <span style="font-size:8px;color:#22c55e;">🥇</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(85,69,211,0.1);border-radius:4px;padding-left:4px;">
+            <span style="font-size:10px;color:var(--accent);width:12px;">2</span>
+            <span style="font-size:10px;color:var(--text);flex:1;">You</span>
+            <span style="font-size:10px;color:var(--text);">2,691</span>
+            <span style="font-size:8px;color:#a78bfa;">👈</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:3px 0;">
+            <span style="font-size:10px;color:var(--muted);width:12px;">3</span>
+            <span style="font-size:10px;color:var(--muted);flex:1;">SarahK</span>
+            <span style="font-size:10px;color:var(--muted);">2,540</span>
+          </div>
+        </div>
+        <!-- Trash talk feed -->
+        <div style="margin:8px 10px 0;font-size:9px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">💬 TRASH TALK</div>
+        <div style="margin:0 10px;display:flex;flex-direction:column;gap:4px;">
+          <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:6px 8px;">
+            <div style="font-size:9px;font-weight:700;color:#fbbf24;">BigMike <span style="color:var(--muted);font-weight:400;">· 2m ago</span></div>
+            <div style="font-size:9px;color:var(--text);margin-top:2px;">That Chiefs pick was a gift 🎁 See you in the losers bracket bro 😂</div>
+          </div>
+          <div style="background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:6px 8px;">
+            <div style="font-size:9px;font-weight:700;color:var(--accent);">You <span style="color:var(--muted);font-weight:400;">· 1m ago</span></div>
+            <div style="font-size:9px;color:var(--text);margin-top:2px;">Week isn't over yet 👀 Let's see what happens Sunday night</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:6px 8px;">
+            <div style="font-size:9px;font-weight:700;color:#14b8a6;">SarahK <span style="color:var(--muted);font-weight:400;">· 45s ago</span></div>
+            <div style="font-size:9px;color:var(--text);margin-top:2px;">Both of you calm down. I've been quietly climbing 🤫</div>
+          </div>
+        </div>
+        <!-- Reply input -->
+        <div style="margin:6px 10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+          <span style="font-size:9px;color:var(--muted);flex:1;">Add some trash talk...</span>
+          <span style="font-size:12px;">😤</span>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:4px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--muted);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--accent);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 3: Create group flow -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">CREATE GROUP — POOL TYPE SELECTION</div>
+      <div class="phone-frame">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <div style="padding:6px 10px;display:flex;align-items:center;gap:8px;">
+          <span style="font-size:14px;color:var(--accent);">←</span>
+          <div style="font-size:13px;font-weight:900;color:var(--text);">Create Group</div>
+        </div>
+        <!-- Step indicator -->
+        <div style="display:flex;align-items:center;justify-content:center;gap:0;margin:0 10px 10px;padding:6px 0;background:rgba(255,255,255,0.04);border-radius:8px;">
+          <div style="display:flex;align-items:center;gap:4px;">
+            <div style="width:18px;height:18px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;">✓</div>
+            <span style="font-size:8px;color:var(--muted);">Name</span>
+          </div>
+          <div style="width:20px;height:1px;background:rgba(255,255,255,0.1);"></div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <div style="width:18px;height:18px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;">2</div>
+            <span style="font-size:8px;color:var(--text);font-weight:700;">Pool</span>
+          </div>
+          <div style="width:20px;height:1px;background:rgba(255,255,255,0.1);"></div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <div style="width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:var(--muted);">3</div>
+            <span style="font-size:8px;color:var(--muted);">Invite</span>
+          </div>
+        </div>
+        <!-- Pool type options -->
+        <div style="padding:0 10px;font-size:10px;font-weight:800;color:var(--text);margin-bottom:8px;">Choose prize pool type</div>
+        <div style="padding:0 10px;display:flex;flex-direction:column;gap:6px;">
+          <!-- No pool -->
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:10px;">
+            <div style="font-size:18px;">🏅</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:700;color:var(--text);">Bragging Rights Only</div>
+              <div style="font-size:8px;color:var(--muted);">Free · No money involved</div>
+            </div>
+            <div style="width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);"></div>
+          </div>
+          <!-- Entry fee pool — selected -->
+          <div style="background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:10px;">
+            <div style="font-size:18px;">💵</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:700;color:var(--text);">Entry Fee Pool</div>
+              <div style="font-size:8px;color:var(--muted);">Each member pays to join</div>
+              <!-- Amount selector -->
+              <div style="display:flex;align-items:center;gap:6px;margin-top:4px;">
+                <div style="background:rgba(85,69,211,0.3);border-radius:6px;padding:2px 6px;font-size:10px;color:var(--muted);">$1</div>
+                <div style="background:rgba(85,69,211,0.3);border-radius:6px;padding:2px 6px;font-size:10px;color:var(--muted);">$2</div>
+                <div style="background:var(--accent);border-radius:6px;padding:2px 6px;font-size:10px;color:#fff;font-weight:700;">$5</div>
+                <div style="background:rgba(85,69,211,0.3);border-radius:6px;padding:2px 6px;font-size:10px;color:var(--muted);">$10</div>
+                <div style="background:rgba(85,69,211,0.3);border-radius:6px;padding:2px 6px;font-size:10px;color:var(--muted);">$25</div>
+              </div>
+            </div>
+            <div style="width:16px;height:16px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;">✓</div>
+          </div>
+          <!-- Tip jar -->
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:10px;">
+            <div style="font-size:18px;">🫙</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:700;color:var(--text);">Tip Jar</div>
+              <div style="font-size:8px;color:var(--muted);">Optional contributions, any amount</div>
+            </div>
+            <div style="width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);"></div>
+          </div>
+        </div>
+        <!-- Payout preview -->
+        <div style="margin:8px 10px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:8px;padding:7px 10px;">
+          <div style="font-size:9px;color:var(--muted);">With 8 members at $5 each:</div>
+          <div style="font-size:9px;color:var(--text);margin-top:2px;">🥇 $24 (60%) · 🥈 $12 (30%) · 🥉 $4 (10%)</div>
+        </div>
+        <!-- CTA -->
+        <div style="margin:0 10px;background:var(--accent);border-radius:10px;padding:9px;text-align:center;font-size:11px;font-weight:800;color:#fff;">Next: Invite Members →</div>
+        <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:8px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--muted);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--accent);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /leaderboard-v2-phones -->
+
+  <!-- Moat analysis -->
+  <div style="margin-top:40px;max-width:800px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — GROUPS & PRIZE POOLS</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      <strong style="color:var(--text);">Social graph lock-in:</strong> Every group a user creates or joins ties them deeper into SportsIQ's social graph. Their friends, their standings, their history — all unportable. Leaving means starting over socially.<br>
+      <strong style="color:var(--text);">Money = commitment:</strong> A $5 entry fee is a low ask but creates high psychological ownership. Users who have money in a pool check the app 3-5× more often than free users.<br>
+      <strong style="color:var(--text);">Trash talk = daily habit:</strong> Trash talk feeds drive engagement even on off-days. Users open the app to chirp, not just to pick. This extends DAU beyond game windows.<br>
+      <strong style="color:var(--text);">Network effect flywheel:</strong> More users → more groups → richer group dynamics → more social pressure to join SportsIQ → more users. Hard to replicate with a cold start.
+    </div>
+  </div>
+
+  <div id="sfb-panel-leaderboard-v2" class="sfb-panel"></div>
+</div>
+
+<!-- ============================================================
+     PICK WAIT v2  |  Added 2026-03-20
+     Compact tug-of-war + friends picks panel + final whistle
+     ============================================================ -->
+<div id="pick-wait-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Pick Wait v2 — Tighter, More Alive</div>
+    <div class="screen-subtitle">Compact tug-of-war bar, friends picks panel, real-time stat ticker, Final Whistle reveal countdown</div>
+  </div>
+
+  <div style="display:flex;gap:32px;flex-wrap:wrap;justify-content:center;" id="pick-wait-v2-phones">
+
+    <!-- Phone 1: Pick submitted — watching the game -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">PICK SUBMITTED — WATCHING</div>
+      <div class="phone-frame">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Match header -->
+        <div style="padding:6px 10px 4px;">
+          <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:6px 8px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <div style="display:flex;align-items:center;gap:4px;flex:1;">
+                <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#ef4444);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;">KC</div>
+                <span style="font-size:10px;font-weight:700;color:var(--text);">Chiefs</span>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:14px;font-weight:900;color:var(--text);">17 – 14</div>
+                <div style="font-size:8px;color:#22c55e;font-weight:700;">Q3 8:22</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;flex:1;justify-content:flex-end;">
+                <span style="font-size:10px;font-weight:700;color:var(--text);">Eagles</span>
+                <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#166534,#22c55e);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;">PHL</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- My pick confirmation -->
+        <div style="margin:0 10px 6px;background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:8px;">
+          <div style="font-size:16px;">✅</div>
+          <div style="flex:1;">
+            <div style="font-size:9px;color:var(--muted);">Your pick</div>
+            <div style="font-size:11px;font-weight:800;color:var(--text);">OVER 47.5 pts · 2× multiplier</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:9px;color:var(--muted);">Current total</div>
+            <div style="font-size:13px;font-weight:900;color:#22c55e;">31 pts</div>
+          </div>
+        </div>
+        <!-- Compact tug-of-war -->
+        <div style="margin:0 10px 4px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px;">
+            <span style="font-size:8px;font-weight:700;color:#22c55e;">OVER 61%</span>
+            <span style="font-size:8px;color:var(--muted);">Community split</span>
+            <span style="font-size:8px;font-weight:700;color:#ef4444;">UNDER 39%</span>
+          </div>
+          <div style="height:8px;border-radius:4px;overflow:hidden;display:flex;">
+            <div style="flex:0.61;background:linear-gradient(90deg,#16a34a,#22c55e);"></div>
+            <div style="flex:0.39;background:linear-gradient(90deg,#dc2626,#ef4444);"></div>
+          </div>
+          <div style="font-size:8px;color:var(--muted);text-align:center;margin-top:2px;">1,284 picks cast · You're with the majority</div>
+        </div>
+        <!-- Friends picks panel -->
+        <div style="margin:6px 10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:6px 8px;">
+          <div style="font-size:9px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">👥 FRIENDS' PICKS</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:900;color:#fff;">B</div>
+              <span style="font-size:9px;color:var(--text);flex:1;">BigMike</span>
+              <span style="font-size:9px;font-weight:700;color:#22c55e;background:rgba(34,197,94,0.1);padding:1px 5px;border-radius:4px;">OVER ✓</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#475569,#64748b);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:900;color:#fff;">S</div>
+              <span style="font-size:9px;color:var(--text);flex:1;">SarahK</span>
+              <span style="font-size:9px;font-weight:700;color:#ef4444;background:rgba(239,68,68,0.1);padding:1px 5px;border-radius:4px;">UNDER ✗</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:900;color:#fff;">J</div>
+              <span style="font-size:9px;color:var(--text);flex:1;">JayBird</span>
+              <span style="font-size:9px;font-weight:700;color:#22c55e;background:rgba(34,197,94,0.1);padding:1px 5px;border-radius:4px;">OVER ✓</span>
+            </div>
+          </div>
+        </div>
+        <!-- Real-time stat -->
+        <div style="margin:0 10px 6px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:8px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+          <span style="font-size:10px;">📊</span>
+          <div style="flex:1;">
+            <div style="font-size:9px;font-weight:700;color:#fbbf24;">Total points in game: 31</div>
+            <div style="font-size:8px;color:var(--muted);">Need 16.5 more for OVER · Avg Q4 scoring: 14.2 pts</div>
+          </div>
+        </div>
+        <!-- Final whistle note -->
+        <div style="margin:0 10px 4px;text-align:center;background:rgba(85,69,211,0.08);border-radius:8px;padding:6px;">
+          <div style="font-size:9px;color:var(--muted);">Result reveals at</div>
+          <div style="font-size:12px;font-weight:900;color:var(--text);">⚡ Final Whistle</div>
+          <div style="font-size:8px;color:var(--muted);">No peeking. Everyone finds out together.</div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:4px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--accent);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--muted);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 2: Final Whistle reveal moment -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:12px;">FINAL WHISTLE — RESULT REVEAL</div>
+      <div class="phone-frame" style="background:radial-gradient(ellipse at top,rgba(34,197,94,0.15) 0%,#080E1C 50%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Final score -->
+        <div style="padding:8px 10px 4px;text-align:center;">
+          <div style="font-size:9px;font-weight:800;color:var(--muted);letter-spacing:2px;margin-bottom:4px;">FINAL</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:12px;">
+            <div style="text-align:center;">
+              <div style="font-size:10px;color:var(--muted);">Chiefs</div>
+              <div style="font-size:22px;font-weight:900;color:var(--text);">24</div>
+            </div>
+            <div style="font-size:12px;color:var(--muted);">–</div>
+            <div style="text-align:center;">
+              <div style="font-size:10px;color:var(--muted);">Eagles</div>
+              <div style="font-size:22px;font-weight:900;color:var(--text);">27</div>
+            </div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--text);margin-top:2px;">Total: 51 points</div>
+        </div>
+        <!-- Win reveal -->
+        <div style="margin:4px 10px 6px;text-align:center;padding:12px;background:rgba(34,197,94,0.12);border:2px solid rgba(34,197,94,0.4);border-radius:12px;">
+          <div style="font-size:28px;margin-bottom:4px;">🎉</div>
+          <div style="font-size:14px;font-weight:900;color:#22c55e;">OVER HITS!</div>
+          <div style="font-size:10px;color:var(--text);margin-top:2px;">51 pts cleared 47.5 · Your 2× pick wins</div>
+          <div style="font-size:18px;font-weight:900;color:#fbbf24;margin-top:4px;">+420 IQ pts</div>
+        </div>
+        <!-- Friends results -->
+        <div style="margin:0 10px;font-size:9px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">HOW FRIENDS DID</div>
+        <div style="margin:0 10px;display:flex;flex-direction:column;gap:3px;">
+          <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;background:rgba(34,197,94,0.08);border-radius:6px;">
+            <div style="width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:900;">B</div>
+            <span style="font-size:9px;color:var(--text);flex:1;">BigMike</span>
+            <span style="font-size:9px;font-weight:700;color:#22c55e;">+320 ↑</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;background:rgba(239,68,68,0.08);border-radius:6px;">
+            <div style="width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,#475569,#64748b);display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:900;">S</div>
+            <span style="font-size:9px;color:var(--text);flex:1;">SarahK</span>
+            <span style="font-size:9px;font-weight:700;color:#ef4444;">–180 ↓</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;background:rgba(34,197,94,0.08);border-radius:6px;">
+            <div style="width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:900;">J</div>
+            <span style="font-size:9px;color:var(--text);flex:1;">JayBird</span>
+            <span style="font-size:9px;font-weight:700;color:#22c55e;">+290 ↑</span>
+          </div>
+        </div>
+        <!-- Chirp SarahK button -->
+        <div style="margin:8px 10px 4px;background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.3);border-radius:8px;padding:7px;text-align:center;font-size:10px;font-weight:700;color:var(--accent);">😂 Chirp SarahK for the bad pick</div>
+        <!-- Next pick CTA -->
+        <div style="margin:0 10px;background:var(--accent);border-radius:10px;padding:8px;text-align:center;font-size:11px;font-weight:800;color:#fff;">Make Next Pick →</div>
+        <div style="display:flex;justify-content:space-around;padding:6px 0 4px;border-top:1px solid rgba(255,255,255,0.06);margin-top:6px;">
+          <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🎯</div><div style="font-size:7px;color:var(--accent);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:var(--muted);">Leaderboard</div></div>
+          <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pick-wait-v2-phones -->
+
+  <!-- Moat analysis -->
+  <div style="margin-top:40px;max-width:800px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — PICK WAIT v2</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      <strong style="color:var(--text);">Final Whistle mechanic:</strong> Hiding results until game end is a deliberate tension design. Users stay engaged throughout the game because the reveal is delayed — not just checking a score but waiting for a moment. This is closer to scratch-off lottery psychology than sports betting.<br>
+      <strong style="color:var(--text);">Friends picks panel:</strong> Knowing what your friends picked transforms a solo pick into a social bet. "SarahK went UNDER — if she's wrong I get to chirp her" = emotional investment that no solo app can replicate.<br>
+      <strong style="color:var(--text);">Chirp mechanic:</strong> One-tap trash talk after results drives re-engagement at an emotional high point. Users who chirp friends check the app 2× more in the next 24h (expectation: replying friends come back to defend themselves).
+    </div>
+  </div>
+
+  <div id="sfb-panel-pick-wait-v2" class="sfb-panel"></div>
+</div>
+
+<!-- ============================================================
+     PUSH NOTIFICATIONS  |  Added 2026-03-20
+     Lock screen mockups + full notification catalog
+     ============================================================ -->
+<div id="notifications" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Push Notifications — Full Catalog</div>
+    <div class="screen-subtitle">Every notification type SportsIQ sends — lock screen mockups + trigger logic + engagement purpose</div>
+  </div>
+
+  <div style="display:flex;gap:32px;flex-wrap:wrap;justify-content:center;margin-bottom:40px;">
+
+    <!-- Phone 1: Lock screen — game day notifications -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">LOCK SCREEN — GAME DAY</div>
+      <div class="phone-frame" style="background:linear-gradient(180deg,#0a0f1e 0%,#050912 100%);">
+        <div style="text-align:center;padding:10px 0 4px;">
+          <div style="font-size:9px;color:#94a3b8;">Friday, March 20</div>
+          <div style="font-size:28px;font-weight:200;color:#F8FAFC;">9:41</div>
+        </div>
+        <!-- Notification stack -->
+        <div style="padding:0 8px;display:flex;flex-direction:column;gap:4px;">
+          <!-- Pick window opening -->
+          <div style="background:rgba(13,20,32,0.9);backdrop-filter:blur(20px);border-radius:10px;padding:8px 10px;border:1px solid rgba(85,69,211,0.2);">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#5545D3,#3D31B0);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🎯</div>
+              <div style="flex:1;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div style="font-size:9px;font-weight:800;color:var(--text);">SportsIQ</div>
+                  <div style="font-size:8px;color:var(--muted);">now</div>
+                </div>
+                <div style="font-size:10px;font-weight:700;color:var(--text);margin-top:1px;">Pick window open 🎯</div>
+                <div style="font-size:9px;color:var(--muted);">Chiefs vs Eagles · Closes in 23 min · Make your call</div>
+              </div>
+            </div>
+          </div>
+          <!-- Friend picked same -->
+          <div style="background:rgba(13,20,32,0.9);backdrop-filter:blur(20px);border-radius:10px;padding:8px 10px;border:1px solid rgba(85,69,211,0.15);">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">B</div>
+              <div style="flex:1;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div style="font-size:9px;font-weight:800;color:var(--text);">SportsIQ</div>
+                  <div style="font-size:8px;color:var(--muted);">3m ago</div>
+                </div>
+                <div style="font-size:10px;font-weight:700;color:var(--text);margin-top:1px;">BigMike picked OVER 👀</div>
+                <div style="font-size:9px;color:var(--muted);">Same as you · You two align on 71% of picks</div>
+              </div>
+            </div>
+          </div>
+          <!-- Live score alert -->
+          <div style="background:rgba(13,20,32,0.9);backdrop-filter:blur(20px);border-radius:10px;padding:8px 10px;border:1px solid rgba(34,197,94,0.25);">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:rgba(34,197,94,0.2);border:1px solid rgba(34,197,94,0.4);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">📈</div>
+              <div style="flex:1;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div style="font-size:9px;font-weight:800;color:var(--text);">SportsIQ</div>
+                  <div style="font-size:8px;color:var(--muted);">Q3</div>
+                </div>
+                <div style="font-size:10px;font-weight:700;color:#22c55e;margin-top:1px;">Your OVER is tracking ✅</div>
+                <div style="font-size:9px;color:var(--muted);">31 pts scored · Need 17 more · On pace</div>
+              </div>
+            </div>
+          </div>
+          <!-- Trash talk -->
+          <div style="background:rgba(13,20,32,0.9);backdrop-filter:blur(20px);border-radius:10px;padding:8px 10px;border:1px solid rgba(255,255,255,0.08);">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#475569,#64748b);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">S</div>
+              <div style="flex:1;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div style="font-size:9px;font-weight:800;color:var(--text);">SportsIQ</div>
+                  <div style="font-size:8px;color:var(--muted);">5m ago</div>
+                </div>
+                <div style="font-size:10px;font-weight:700;color:var(--text);margin-top:1px;">SarahK talked trash 😂</div>
+                <div style="font-size:9px;color:var(--muted);">"Both of you calm down. I've been quietly climbing 🤫"</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 2: Lock screen — off-day + streak -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">LOCK SCREEN — OFF DAY + STREAK</div>
+      <div class="phone-frame" style="background:linear-gradient(180deg,#0a0f1e 0%,#050912 100%);">
+        <div style="text-align:center;padding:10px 0 4px;">
+          <div style="font-size:9px;color:#94a3b8;">Tuesday, March 24</div>
+          <div style="font-size:28px;font-weight:200;color:#F8FAFC;">8:03</div>
+        </div>
+        <div style="padding:0 8px;display:flex;flex-direction:column;gap:4px;">
+          <!-- Daily trivia -->
+          <div style="background:rgba(13,20,32,0.9);backdrop-filter:blur(20px);border-radius:10px;padding:8px 10px;border:1px solid rgba(139,92,246,0.25);">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.4);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🧠</div>
+              <div style="flex:1;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div style="font-size:9px;font-weight:800;color:var(--text);">SportsIQ</div>
+                  <div style="font-size:8px;color:var(--muted);">8:00 AM</div>
+                </div>
+                <div style="font-size:10px;font-weight:700;color:#a78bfa;margin-top:1px;">Daily Trivia is live 🧠</div>
+                <div style="font-size:9px;color:var(--muted);">5 questions · 3 min · Keep your streak alive</div>
+              </div>
+            </div>
+          </div>
+          <!-- Streak danger -->
+          <div style="background:rgba(13,20,32,0.9);backdrop-filter:blur(20px);border-radius:10px;padding:8px 10px;border:1px solid rgba(251,191,36,0.3);">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.35);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🔥</div>
+              <div style="flex:1;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div style="font-size:9px;font-weight:800;color:var(--text);">SportsIQ</div>
+                  <div style="font-size:8px;color:#fbbf24;">⚠️ urgent</div>
+                </div>
+                <div style="font-size:10px;font-weight:700;color:#fbbf24;margin-top:1px;">🔥 14-day streak at risk!</div>
+                <div style="font-size:9px;color:var(--muted);">Answer today's trivia before midnight to keep it alive</div>
+              </div>
+            </div>
+          </div>
+          <!-- Weekly recap -->
+          <div style="background:rgba(13,20,32,0.9);backdrop-filter:blur(20px);border-radius:10px;padding:8px 10px;border:1px solid rgba(85,69,211,0.15);">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:rgba(85,69,211,0.2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">📊</div>
+              <div style="flex:1;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div style="font-size:9px;font-weight:800;color:var(--text);">SportsIQ</div>
+                  <div style="font-size:8px;color:var(--muted);">Mon</div>
+                </div>
+                <div style="font-size:10px;font-weight:700;color:var(--text);margin-top:1px;">Your week 12 recap 📊</div>
+                <div style="font-size:9px;color:var(--muted);">6-3 record · +340 IQ · You climbed 4 spots in Bar Crew</div>
+              </div>
+            </div>
+          </div>
+          <!-- New pick window -->
+          <div style="background:rgba(13,20,32,0.9);backdrop-filter:blur(20px);border-radius:10px;padding:8px 10px;border:1px solid rgba(85,69,211,0.2);">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#5545D3,#3D31B0);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🎯</div>
+              <div style="flex:1;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div style="font-size:9px;font-weight:800;color:var(--text);">SportsIQ</div>
+                  <div style="font-size:8px;color:var(--muted);">1h ago</div>
+                </div>
+                <div style="font-size:10px;font-weight:700;color:var(--text);margin-top:1px;">Thursday Night Football pick 🏈</div>
+                <div style="font-size:9px;color:var(--muted);">Ravens vs Bengals · Opens 6 PM · Set a reminder?</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Full notification catalog -->
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="font-size:13px;font-weight:800;color:var(--text);letter-spacing:1px;margin-bottom:16px;">FULL NOTIFICATION CATALOG — 10 TYPES</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;">
+
+      <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:18px;margin-bottom:4px;">🎯</div>
+        <div style="font-size:11px;font-weight:800;color:var(--text);">Pick Window Open</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">Trigger: Pick window opens for a game the user follows. Closes X min before tipoff/kickoff. Drives immediate opens.</div>
+      </div>
+
+      <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:18px;margin-bottom:4px;">⏳</div>
+        <div style="font-size:11px;font-weight:800;color:var(--text);">Pick Window Closing</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">Trigger: 10 min before window closes, if user hasn't picked. Urgency-driven. High conversion re-engagement.</div>
+      </div>
+
+      <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:18px;margin-bottom:4px;">📈</div>
+        <div style="font-size:11px;font-weight:800;color:var(--text);">Live Tracking Update</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">Trigger: In-game stat milestone relevant to user's pick. "Your OVER needs 17 more — half to go." Keeps users checking back.</div>
+      </div>
+
+      <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:18px;margin-bottom:4px;">⚡</div>
+        <div style="font-size:11px;font-weight:800;color:var(--text);">Final Whistle — Result</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">Trigger: Game ends. Win or loss reveal. Win = celebration + share CTA. Loss = "next pick" recovery CTA. Highest open rate.</div>
+      </div>
+
+      <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:18px;margin-bottom:4px;">👥</div>
+        <div style="font-size:11px;font-weight:800;color:var(--text);">Friend Picked</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">Trigger: A friend locks in a pick on a game you also picked. "BigMike went OVER — same as you." Social validation loop.</div>
+      </div>
+
+      <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:18px;margin-bottom:4px;">😂</div>
+        <div style="font-size:11px;font-weight:800;color:var(--text);">Trash Talk Received</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">Trigger: Group member posts in trash talk feed. Pulls disengaged users back in. Emotional re-engagement at its strongest.</div>
+      </div>
+
+      <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:18px;margin-bottom:4px;">🔥</div>
+        <div style="font-size:11px;font-weight:800;color:var(--text);">Streak at Risk</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">Trigger: Day ends in 2h, user hasn't completed daily activity. Duolingo-tested mechanic. One of highest-converting push types.</div>
+      </div>
+
+      <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:18px;margin-bottom:4px;">🧠</div>
+        <div style="font-size:11px;font-weight:800;color:var(--text);">Daily Trivia Ready</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">Trigger: 8 AM daily. 5 questions = 3 min engagement even on off days. Keeps DAU alive year-round including offseason.</div>
+      </div>
+
+      <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:18px;margin-bottom:4px;">📊</div>
+        <div style="font-size:11px;font-weight:800;color:var(--text);">Weekly Recap</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">Trigger: Monday AM. W-L record, IQ gained/lost, rank movement in groups. Makes progress visible = motivation to engage next week.</div>
+      </div>
+
+      <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:18px;margin-bottom:4px;">🏆</div>
+        <div style="font-size:11px;font-weight:800;color:var(--text);">Leaderboard Movement</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">Trigger: User passes someone in a group OR someone passes user. Position-change alerts drive competitive check-ins from both parties.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Moat analysis -->
+  <div style="margin-top:40px;max-width:800px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — PUSH NOTIFICATIONS</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+      <strong style="color:var(--text);">10 distinct re-engagement vectors:</strong> Most apps have 2-3 notification types. SportsIQ has 10 distinct triggers across game lifecycle, social, streaks, and weekly recaps. This means 10 separate reasons for the user to open the app — each hitting a different psychological trigger.<br>
+      <strong style="color:var(--text);">Offseason coverage:</strong> Daily Trivia + Weekly Recap + Leaderboard notifications keep the app alive 365 days/year. Most sports apps go dark in offseason. SportsIQ never does.<br>
+      <strong style="color:var(--text);">Permission value:</strong> Users who grant push notification permission to SportsIQ are giving a high-trust signal. The notification system is designed to never abuse that trust — every notification has a clear value prop. Low opt-out = high lifetime value.
+    </div>
+  </div>
+
+  <div id="sfb-panel-notifications" class="sfb-panel"></div>
 </div>
 
 </body>
