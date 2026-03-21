@@ -135,6 +135,16 @@
   .screen { display: none; margin-left: 210px; }
   .screen.active { display: block; }
 
+  /* ── Screen layout helpers (use these on every new screen) ─ */
+  .screen-header { padding: 36px 48px 20px; }
+  .screen-title  { font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+  .screen-subtitle { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 760px; }
+  /* Centered container for phone mockup rows */
+  .phones-section {
+    display: flex; gap: 28px; flex-wrap: wrap; justify-content: center;
+    background: #020408; padding: 24px 40px 48px; min-height: 200px;
+  }
+
   /* ── Phone frame ─────────────────────────────────────────── */
   .phone-wrap {
     min-height: 100vh;
@@ -1782,105 +1792,67 @@
     </div>
   </div>
 
-  <!-- 📐 v2 UPDATES -->
+  <!-- 📱 MOBILE -->
   <div class="nav-group">
-    <div class="nav-group-label">📐 v2 Updates</div>
+    <div class="nav-group-label">📱 Mobile</div>
     <div class="tab" data-screen="home-live-v2" onclick="showScreen('home-live-v2',this)">
-      <span class="tab-label">Home Live v2</span><span class="tab-days" id="days-home-live-v2"></span>
+      <span class="tab-label">Home · Live</span><span class="tab-days" id="days-home-live-v2"></span>
     </div>
-    <div class="tab" data-screen="bar-idle-v2" onclick="showScreen('bar-idle-v2',this)">
-      <span class="tab-label">Bar Idle v2</span><span class="tab-days" id="days-bar-idle-v2"></span>
+    <div class="tab" data-screen="home-idle-v2" onclick="showScreen('home-idle-v2',this)">
+      <span class="tab-label">Home · Idle</span><span class="tab-days" id="days-home-idle-v2"></span>
     </div>
-    <div class="tab" data-screen="bar-pred-q-v2" onclick="showScreen('bar-pred-q-v2',this)">
-      <span class="tab-label">Bar Pred-Q v2</span><span class="tab-days" id="days-bar-pred-q-v2"></span>
-    </div>
-    <div class="tab" data-screen="bar-tracking-v2" onclick="showScreen('bar-tracking-v2',this)">
-      <span class="tab-label">Bar Tracking v2</span><span class="tab-days" id="days-bar-tracking-v2"></span>
-    </div>
-    <div class="tab" data-screen="bar-result-v2" onclick="showScreen('bar-result-v2',this)">
-      <span class="tab-label">Bar Result v2</span><span class="tab-days" id="days-bar-result-v2"></span>
-    </div>
-    <div class="tab" data-screen="trivia" onclick="showScreen('trivia',this)">
-      <span class="tab-label">Trivia 🧠</span><span class="tab-days" id="days-trivia"></span>
-    </div>
-    <div class="tab" data-screen="leaderboard-v2" onclick="showScreen('leaderboard-v2',this)">
-      <span class="tab-label">Leaderboard v2</span><span class="tab-days" id="days-leaderboard-v2"></span>
+    <div class="tab" data-screen="pick-card-v2" onclick="showScreen('pick-card-v2',this)">
+      <span class="tab-label">Pick Card</span><span class="tab-days" id="days-pick-card-v2"></span>
     </div>
     <div class="tab" data-screen="pick-wait-v2" onclick="showScreen('pick-wait-v2',this)">
-      <span class="tab-label">Pick Wait v2</span><span class="tab-days" id="days-pick-wait-v2"></span>
+      <span class="tab-label">Waiting</span><span class="tab-days" id="days-pick-wait-v2"></span>
+    </div>
+    <div class="tab" data-screen="onboarding-v2" onclick="showScreen('onboarding-v2',this)">
+      <span class="tab-label">Onboarding</span><span class="tab-days" id="days-onboarding-v2"></span>
+    </div>
+    <div class="tab" data-screen="daily-challenge-v2" onclick="showScreen('daily-challenge-v2',this)">
+      <span class="tab-label">Daily Challenge</span><span class="tab-days" id="days-daily-challenge-v2"></span>
+    </div>
+    <div class="tab" data-screen="game-day-v2" onclick="showScreen('game-day-v2',this)">
+      <span class="tab-label">Game Day ⚡</span><span class="tab-days" id="days-game-day-v2"></span>
     </div>
     <div class="tab" data-screen="notifications" onclick="showScreen('notifications',this)">
       <span class="tab-label">Notifications 🔔</span><span class="tab-days" id="days-notifications"></span>
     </div>
-    <div class="tab" data-screen="data-intelligence" onclick="showScreen('data-intelligence',this)">
-      <span class="tab-label">Intelligence Platform 🧬</span><span class="tab-days" id="days-data-intelligence"></span>
-    </div>
-    <div class="tab" data-screen="onboarding-v2" onclick="showScreen('onboarding-v2',this)">
-      <span class="tab-label">Onboarding v2</span><span class="tab-days" id="days-onboarding-v2"></span>
-    </div>
-    <div class="tab" data-screen="pick-card-v2" onclick="showScreen('pick-card-v2',this)">
-      <span class="tab-label">Pick Card v2</span><span class="tab-days" id="days-pick-card-v2"></span>
-    </div>
-    <div class="tab" data-screen="game-day-v2" onclick="showScreen('game-day-v2',this)">
-      <span class="tab-label">Game Day v2 ⚡</span><span class="tab-days" id="days-game-day-v2"></span>
-    </div>
-    <div class="tab" data-screen="home-idle-v2" onclick="showScreen('home-idle-v2',this)">
-      <span class="tab-label">Home Idle v2 🏠</span><span class="tab-days" id="days-home-idle-v2"></span>
-    </div>
-    <div class="tab" data-screen="daily-challenge-v2" onclick="showScreen('daily-challenge-v2',this)">
-      <span class="tab-label">Daily Challenge v2 📅</span><span class="tab-days" id="days-daily-challenge-v2"></span>
-    </div>
-    <div class="tab" data-screen="sports-dna-profile" onclick="showScreen('sports-dna-profile',this)">
-      <span class="tab-label">Sports DNA Profile 🧬</span><span class="tab-days" id="days-sports-dna-profile"></span>
-    </div>
-    <div class="tab" data-screen="bar-crew-mgmt" onclick="showScreen('bar-crew-mgmt',this)">
-      <span class="tab-label">Bar Crew Mgmt 🍺</span><span class="tab-days" id="days-bar-crew-mgmt"></span>
-    </div>
-    <div class="tab" data-screen="referral-growth" onclick="showScreen('referral-growth',this)">
-      <span class="tab-label">Referral & Growth 🚀</span><span class="tab-days" id="days-referral-growth"></span>
-    </div>
-    <div class="tab" data-screen="venue-onboarding" onclick="showScreen('venue-onboarding',this)">
-      <span class="tab-label">Venue Onboarding 🏟️</span><span class="tab-days" id="days-venue-onboarding"></span>
-    </div>
-  </div>
-
-  <!-- 📱 MOBILE APP -->
-  <div class="nav-group">
-    <div class="nav-group-label">📱 Mobile App</div>
-    <div class="tab active" data-screen="home-live" onclick="showScreen('home-live',this)">
-      <span class="tab-label">Home · Live</span><span class="tab-days" id="days-home-live"></span>
-    </div>
-    <div class="tab" data-screen="home-idle" onclick="showScreen('home-idle',this)">
-      <span class="tab-label">Home · Idle</span><span class="tab-days" id="days-home-idle"></span>
-    </div>
-    <div class="tab" data-screen="pick-card" onclick="showScreen('pick-card',this)">
-      <span class="tab-label">Pick Card</span><span class="tab-days" id="days-pick-card"></span>
-    </div>
-    <div class="tab" data-screen="pick-wait" onclick="showScreen('pick-wait',this)">
-      <span class="tab-label">Waiting</span><span class="tab-days" id="days-pick-wait"></span>
-    </div>
     <div class="tab" data-screen="my-stats" onclick="showScreen('my-stats',this)">
       <span class="tab-label">My Stats</span><span class="tab-days" id="days-my-stats"></span>
     </div>
-    <div class="tab" data-screen="leaderboard" onclick="showScreen('leaderboard',this)">
-      <span class="tab-label">Leaderboard</span><span class="tab-days" id="days-leaderboard"></span>
+    <div class="tab" data-screen="leaderboard-v2" onclick="showScreen('leaderboard-v2',this)">
+      <span class="tab-label">Leaderboard</span><span class="tab-days" id="days-leaderboard-v2"></span>
+    </div>
+    <div class="tab" data-screen="sports-dna-profile" onclick="showScreen('sports-dna-profile',this)">
+      <span class="tab-label">Sports DNA 🧬</span><span class="tab-days" id="days-sports-dna-profile"></span>
+    </div>
+    <div class="tab" data-screen="referral-growth" onclick="showScreen('referral-growth',this)">
+      <span class="tab-label">Referral & Growth 🚀</span><span class="tab-days" id="days-referral-growth"></span>
     </div>
   </div>
 
   <!-- 📺 BAR TV -->
   <div class="nav-group">
     <div class="nav-group-label">📺 Bar TV</div>
-    <div class="tab" data-screen="bar-idle" onclick="showScreen('bar-idle',this)">
-      <span class="tab-label">Bar · Idle</span><span class="tab-days" id="days-bar-idle"></span>
+    <div class="tab" data-screen="bar-idle-v2" onclick="showScreen('bar-idle-v2',this)">
+      <span class="tab-label">Bar · Idle</span><span class="tab-days" id="days-bar-idle-v2"></span>
     </div>
-    <div class="tab" data-screen="bar-pred-q" onclick="showScreen('bar-pred-q',this)">
-      <span class="tab-label">Bar · Live Pick</span><span class="tab-days" id="days-bar-pred-q"></span>
+    <div class="tab" data-screen="bar-pred-q-v2" onclick="showScreen('bar-pred-q-v2',this)">
+      <span class="tab-label">Bar · Live Pick</span><span class="tab-days" id="days-bar-pred-q-v2"></span>
     </div>
-    <div class="tab" data-screen="bar-tracking" onclick="showScreen('bar-tracking',this)">
-      <span class="tab-label">Bar · Tracking</span><span class="tab-days" id="days-bar-tracking"></span>
+    <div class="tab" data-screen="bar-tracking-v2" onclick="showScreen('bar-tracking-v2',this)">
+      <span class="tab-label">Bar · Tracking</span><span class="tab-days" id="days-bar-tracking-v2"></span>
     </div>
-    <div class="tab" data-screen="bar-result" onclick="showScreen('bar-result',this)">
-      <span class="tab-label">Bar · Result</span><span class="tab-days" id="days-bar-result"></span>
+    <div class="tab" data-screen="bar-result-v2" onclick="showScreen('bar-result-v2',this)">
+      <span class="tab-label">Bar · Result</span><span class="tab-days" id="days-bar-result-v2"></span>
+    </div>
+    <div class="tab" data-screen="trivia" onclick="showScreen('trivia',this)">
+      <span class="tab-label">Trivia 🧠</span><span class="tab-days" id="days-trivia"></span>
+    </div>
+    <div class="tab" data-screen="bar-crew-mgmt" onclick="showScreen('bar-crew-mgmt',this)">
+      <span class="tab-label">Bar Crew Mgmt 🍺</span><span class="tab-days" id="days-bar-crew-mgmt"></span>
     </div>
   </div>
 
@@ -1893,19 +1865,11 @@
     <div class="tab" data-screen="venue-dashboard" onclick="showScreen('venue-dashboard',this)">
       <span class="tab-label">Venue Owner</span><span class="tab-days" id="days-venue-dashboard"></span>
     </div>
-  </div>
-
-  <!-- 🚀 FLOWS -->
-  <div class="nav-group">
-    <div class="nav-group-label">🚀 Flows</div>
-    <div class="tab" data-screen="onboarding" onclick="showScreen('onboarding',this)">
-      <span class="tab-label">Onboarding</span><span class="tab-days" id="days-onboarding"></span>
+    <div class="tab" data-screen="venue-onboarding" onclick="showScreen('venue-onboarding',this)">
+      <span class="tab-label">Venue Onboarding 🏟️</span><span class="tab-days" id="days-venue-onboarding"></span>
     </div>
-    <div class="tab" data-screen="daily-challenge" onclick="showScreen('daily-challenge',this)">
-      <span class="tab-label">Daily Challenge</span><span class="tab-days" id="days-daily-challenge"></span>
-    </div>
-    <div class="tab" data-screen="game-day" onclick="showScreen('game-day',this)">
-      <span class="tab-label">Game Day</span><span class="tab-days" id="days-game-day"></span>
+    <div class="tab" data-screen="data-intelligence" onclick="showScreen('data-intelligence',this)">
+      <span class="tab-label">Intelligence Platform 🧬</span><span class="tab-days" id="days-data-intelligence"></span>
     </div>
   </div>
 </nav>
@@ -9233,7 +9197,7 @@
     <div class="screen-subtitle">Redesigned pick card: richer context, multiplier selector, community split live, friends picks panel, one psychographic data point captured per pick session.</div>
   </div>
 
-  <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;" id="pick-card-v2-phones">
+  <div class="phones-section" id="pick-card-v2-phones">
 
     <!-- Phone 1: Full pick card — pre-pick -->
     <div style="text-align:center;">
