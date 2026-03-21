@@ -1051,6 +1051,178 @@
   .mkt-moat-body { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
   /* ══════════════════════════════════════════════════════════
+     VENUE OWNER DASHBOARD — Added 2026-03-20
+  ══════════════════════════════════════════════════════════ */
+  .venue-wrap {
+    min-height: calc(100vh - 57px);
+    background: #020408;
+    display: flex; justify-content: center;
+    padding: 32px 20px 60px;
+  }
+  .venue-inner { max-width: 900px; width: 100%; }
+  .venue-section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+    color: var(--faint); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .venue-section-title {
+    font-size: 28px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 4px;
+  }
+  .venue-section-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+
+  /* ── Venue header bar ──────────────────────────── */
+  .venue-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px; background: var(--card);
+    border-radius: 16px; border: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 24px;
+  }
+  .venue-header-left { display: flex; align-items: center; gap: 14px; }
+  .venue-avatar {
+    width: 46px; height: 46px; border-radius: 12px;
+    background: linear-gradient(135deg, #5545D3, #3ECFB2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 900;
+  }
+  .venue-name { font-size: 17px; font-weight: 800; }
+  .venue-plan { font-size: 11px; color: var(--brand); font-weight: 700; letter-spacing: 1px; }
+  .venue-live-badge {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3);
+    padding: 6px 14px; border-radius: 50px;
+    font-size: 12px; font-weight: 700; color: var(--green);
+  }
+  .venue-live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--green); animation: pulse 2s infinite;
+  }
+
+  /* ── Stat cards grid ───────────────────────────── */
+  .venue-stat-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 680px) { .venue-stat-grid { grid-template-columns: repeat(2, 1fr); } }
+  .venue-stat-card {
+    background: var(--card); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 16px; position: relative; overflow: hidden;
+  }
+  .venue-stat-card.highlight { border-color: rgba(85,69,211,0.4); background: rgba(85,69,211,0.06); }
+  .venue-stat-label { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .venue-stat-val { font-size: 28px; font-weight: 900; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+  .venue-stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .venue-stat-delta {
+    font-size: 11px; font-weight: 700; margin-top: 4px;
+    display: flex; align-items: center; gap: 3px;
+  }
+  .delta-up { color: var(--green); }
+  .delta-down { color: #EF4444; }
+
+  /* ── Tonight view ──────────────────────────────── */
+  .venue-tonight {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 600px) { .venue-tonight { grid-template-columns: 1fr; } }
+  .venue-block {
+    background: var(--card); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 18px;
+  }
+  .venue-block-title {
+    font-size: 12px; font-weight: 700; color: var(--muted);
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px;
+  }
+
+  /* ── Activity feed ─────────────────────────────── */
+  .venue-activity-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .venue-activity-item:last-child { border-bottom: none; }
+  .activity-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .activity-dot.pick { background: var(--brand); }
+  .activity-dot.join { background: var(--green); }
+  .activity-dot.scan { background: var(--teal); }
+  .activity-text { font-size: 13px; color: var(--muted); flex: 1; }
+  .activity-text strong { color: var(--text); }
+  .activity-time { font-size: 11px; color: var(--faint); }
+
+  /* ── Leaderboard preview ───────────────────────── */
+  .venue-leader-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .venue-leader-row:last-child { border-bottom: none; }
+  .leader-rank { font-size: 13px; font-weight: 800; color: var(--faint); width: 22px; text-align: center; }
+  .leader-rank.gold { color: #F59E0B; }
+  .leader-rank.silver { color: #94A3B8; }
+  .leader-rank.bronze { color: #CD7F32; }
+  .leader-name { font-size: 14px; font-weight: 700; flex: 1; }
+  .leader-streak { font-size: 11px; color: var(--muted); }
+  .leader-pts { font-size: 14px; font-weight: 900; color: var(--brand); font-variant-numeric: tabular-nums; }
+
+  /* ── TV controls ───────────────────────────────── */
+  .venue-tv-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 600px) { .venue-tv-grid { grid-template-columns: repeat(2, 1fr); } }
+  .venue-tv-card {
+    background: var(--card); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 16px; text-align: center; cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .venue-tv-card:hover { border-color: var(--brand); }
+  .venue-tv-card.active { border-color: var(--brand); background: rgba(85,69,211,0.08); }
+  .venue-tv-icon { font-size: 26px; margin-bottom: 8px; }
+  .venue-tv-name { font-size: 12px; font-weight: 700; }
+  .venue-tv-status { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .venue-tv-live { font-size: 10px; font-weight: 700; color: var(--green); margin-top: 4px; }
+
+  /* ── Weekly analytics chart ───────────────────── */
+  .venue-chart-wrap { margin-bottom: 24px; }
+  .venue-chart-bar-row {
+    display: flex; align-items: flex-end; gap: 8px; height: 80px; margin-bottom: 6px;
+  }
+  .venue-chart-day { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 4px; }
+  .venue-chart-bar-outer { width: 100%; display: flex; align-items: flex-end; height: 70px; }
+  .venue-chart-bar {
+    width: 100%; border-radius: 4px 4px 0 0;
+    background: linear-gradient(180deg, var(--brand), rgba(85,69,211,0.4));
+    transition: height 0.3s;
+  }
+  .venue-chart-bar.today {
+    background: linear-gradient(180deg, var(--teal), rgba(62,207,178,0.4));
+  }
+  .venue-chart-label { font-size: 10px; color: var(--faint); font-weight: 600; }
+  .venue-chart-val { font-size: 11px; font-weight: 700; color: var(--muted); }
+
+  /* ── Revenue/ROI panel ─────────────────────────── */
+  .venue-roi-strip {
+    background: linear-gradient(135deg, rgba(85,69,211,0.15), rgba(62,207,178,0.08));
+    border: 1px solid rgba(85,69,211,0.3); border-radius: 16px;
+    padding: 20px 24px; margin-bottom: 24px;
+    display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+  }
+  .venue-roi-item { flex: 1; min-width: 120px; }
+  .venue-roi-label { font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+  .venue-roi-val { font-size: 24px; font-weight: 900; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
+  .venue-roi-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .venue-roi-divider { width: 1px; background: rgba(255,255,255,0.08); align-self: stretch; }
+
+  /* ── Upgrade CTA ───────────────────────────────── */
+  .venue-upgrade-cta {
+    background: linear-gradient(135deg, #5545D3, #3D31B0);
+    border-radius: 16px; padding: 20px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    cursor: pointer;
+  }
+  .venue-upgrade-text { font-size: 16px; font-weight: 800; }
+  .venue-upgrade-sub { font-size: 13px; opacity: 0.8; margin-top: 3px; }
+  .venue-upgrade-arrow { font-size: 22px; }
+
+  /* ══════════════════════════════════════════════════════════
      FEEDBACK PANEL
   ══════════════════════════════════════════════════════════ */
   .feedback-wrap {
@@ -1341,8 +1513,10 @@
   <div class="tab" onclick="showScreen('bar-tracking')">📺 Bar · Tracking</div>
   <div class="tab" onclick="showScreen('bar-result')">📺 Bar · Result</div>
   <div class="tab" onclick="showScreen('mkt-intel')">📈 Market Intel</div>
+  <div class="tab" onclick="showScreen('venue-dashboard')">🏢 Venue Owner</div>
   <div class="tab" onclick="showScreen('feedback')">💬 Feedback</div>
   <div class="tab" onclick="showScreen('my-stats')">📊 My Stats</div>
+  <div class="tab" onclick="showScreen('leaderboard')">🏆 Leaderboard</div>
 </nav>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -2500,6 +2674,370 @@
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Venue Owner Dashboard
+     Added: 2026-03-20 | B2B admin dashboard — bar owner's command center
+     Moat: Generates proprietary venue+patron data; creates deep switching costs
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="venue-dashboard" class="screen">
+<div class="venue-wrap">
+<div class="venue-inner">
+
+  <div class="venue-section-label">NEW SECTION · 2026-03-20 · B2B VENUE DASHBOARD</div>
+  <div class="venue-section-title">Venue Owner Dashboard</div>
+  <div class="venue-section-sub">Bar owners see their patron engagement, ROI, and control their SportsIQ installation — all from their phone. This is the B2B acquisition layer.</div>
+
+  <!-- ── Venue header ───────────────────────────── -->
+  <div class="venue-header">
+    <div class="venue-header-left">
+      <div class="venue-avatar">🍺</div>
+      <div>
+        <div class="venue-name">The Rusty Anchor</div>
+        <div class="venue-plan">GROWTH PLAN · $299/mo</div>
+      </div>
+    </div>
+    <div class="venue-live-badge">
+      <div class="venue-live-dot"></div>
+      GAME NIGHT LIVE
+    </div>
+  </div>
+
+  <!-- ── Tonight stats ────────────────────────────── -->
+  <div class="venue-section-label" style="margin-bottom:10px;">TONIGHT · CHIEFS VS RAVENS · 7:30 PM PT</div>
+  <div class="venue-stat-grid">
+    <div class="venue-stat-card highlight">
+      <div class="venue-stat-label">Active Players</div>
+      <div class="venue-stat-val" style="color:var(--brand);">47</div>
+      <div class="venue-stat-delta delta-up">↑ 12 from last game</div>
+    </div>
+    <div class="venue-stat-card">
+      <div class="venue-stat-label">Picks Made</div>
+      <div class="venue-stat-val">183</div>
+      <div class="venue-stat-delta delta-up">↑ 28% accuracy avg</div>
+    </div>
+    <div class="venue-stat-card">
+      <div class="venue-stat-label">QR Scans</div>
+      <div class="venue-stat-val">63</div>
+      <div class="venue-stat-sub">34 new sign-ups tonight</div>
+    </div>
+    <div class="venue-stat-card">
+      <div class="venue-stat-label">Dwell Time</div>
+      <div class="venue-stat-val">2.4h</div>
+      <div class="venue-stat-delta delta-up">↑ 22 min vs avg</div>
+    </div>
+  </div>
+
+  <!-- ── Tonight: Activity + Leaderboard ─────────── -->
+  <div class="venue-tonight">
+
+    <!-- Live Activity Feed -->
+    <div class="venue-block">
+      <div class="venue-block-title">Live Activity</div>
+      <div class="venue-activity-item">
+        <div class="activity-dot join"></div>
+        <div class="activity-text"><strong>@jessicam</strong> joined via QR scan</div>
+        <div class="activity-time">2m ago</div>
+      </div>
+      <div class="venue-activity-item">
+        <div class="activity-dot pick"></div>
+        <div class="activity-text"><strong>@kingpin47</strong> picked OVER 287 yds</div>
+        <div class="activity-time">4m ago</div>
+      </div>
+      <div class="venue-activity-item">
+        <div class="activity-dot pick"></div>
+        <div class="activity-text"><strong>@sports_gal</strong> picked UNDER 2.5 TDs</div>
+        <div class="activity-time">5m ago</div>
+      </div>
+      <div class="venue-activity-item">
+        <div class="activity-dot scan"></div>
+        <div class="activity-text">TV2 screen interaction spike</div>
+        <div class="activity-time">8m ago</div>
+      </div>
+      <div class="venue-activity-item">
+        <div class="activity-dot join"></div>
+        <div class="activity-text"><strong>@brew_dude</strong> joined via QR scan</div>
+        <div class="activity-time">11m ago</div>
+      </div>
+      <div class="venue-activity-item">
+        <div class="activity-dot pick"></div>
+        <div class="activity-text"><strong>+8 players</strong> made picks on Q2 start</div>
+        <div class="activity-time">14m ago</div>
+      </div>
+    </div>
+
+    <!-- Tonight Leaderboard -->
+    <div class="venue-block">
+      <div class="venue-block-title">Tonight's Leaderboard</div>
+      <div class="venue-leader-row">
+        <div class="leader-rank gold">1</div>
+        <div>
+          <div class="leader-name">@kingpin47</div>
+          <div class="leader-streak">🔥 7-game streak</div>
+        </div>
+        <div class="leader-pts">2,840</div>
+      </div>
+      <div class="venue-leader-row">
+        <div class="leader-rank silver">2</div>
+        <div>
+          <div class="leader-name">@sports_gal</div>
+          <div class="leader-streak">Bar Champion 🏆</div>
+        </div>
+        <div class="leader-pts">2,190</div>
+      </div>
+      <div class="venue-leader-row">
+        <div class="leader-rank bronze">3</div>
+        <div>
+          <div class="leader-name">@brew_dude</div>
+          <div class="leader-streak">3-game streak</div>
+        </div>
+        <div class="leader-pts">1,760</div>
+      </div>
+      <div class="venue-leader-row">
+        <div class="leader-rank">4</div>
+        <div>
+          <div class="leader-name">@jessicam</div>
+          <div class="leader-streak">First game tonight!</div>
+        </div>
+        <div class="leader-pts">940</div>
+      </div>
+      <div class="venue-leader-row">
+        <div class="leader-rank">5</div>
+        <div>
+          <div class="leader-name">@cheekybets</div>
+          <div class="leader-streak">Regular · 22 games</div>
+        </div>
+        <div class="leader-pts">820</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TV Display Control ──────────────────────── -->
+  <div class="venue-section-label" style="margin-bottom:10px;">TV DISPLAY CONTROL</div>
+  <div class="venue-tv-grid">
+    <div class="venue-tv-card active">
+      <div class="venue-tv-icon">📺</div>
+      <div class="venue-tv-name">Bar TV 1 · Main</div>
+      <div class="venue-tv-status">Live Pick — Chiefs vs Ravens</div>
+      <div class="venue-tv-live">● LIVE</div>
+    </div>
+    <div class="venue-tv-card active">
+      <div class="venue-tv-icon">📺</div>
+      <div class="venue-tv-name">Bar TV 2 · Side Wall</div>
+      <div class="venue-tv-status">Leaderboard + QR</div>
+      <div class="venue-tv-live">● LIVE</div>
+    </div>
+    <div class="venue-tv-card">
+      <div class="venue-tv-icon">📺</div>
+      <div class="venue-tv-name">Patio TV 1</div>
+      <div class="venue-tv-status" style="color:#EF4444;">Offline</div>
+      <div class="venue-tv-status" style="font-size:10px;margin-top:2px;">Tap to reconnect →</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;">
+    <div style="background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;color:var(--brand);">⚡ Push Pick to All TVs</div>
+    <div style="background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;">🏆 Show Leaderboard Now</div>
+    <div style="background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;">📣 Custom Message</div>
+    <div style="background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;">🎯 Reveal Result</div>
+  </div>
+
+  <!-- ── Weekly Patron Engagement Chart ─────────── -->
+  <div class="venue-section-label" style="margin-bottom:10px;">THIS WEEK · PATRON ENGAGEMENT</div>
+  <div class="venue-block venue-chart-wrap" style="background:var(--card);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:800;">Daily Active Players</div>
+      <div style="font-size:12px;color:var(--muted);">Mar 14 – Mar 20</div>
+    </div>
+    <div class="venue-chart-bar-row">
+      <div class="venue-chart-day">
+        <div class="venue-chart-bar-outer">
+          <div class="venue-chart-bar" style="height:38%;"></div>
+        </div>
+        <div class="venue-chart-label">Fri</div>
+        <div class="venue-chart-val">19</div>
+      </div>
+      <div class="venue-chart-day">
+        <div class="venue-chart-bar-outer">
+          <div class="venue-chart-bar" style="height:72%;"></div>
+        </div>
+        <div class="venue-chart-label">Sat</div>
+        <div class="venue-chart-val">36</div>
+      </div>
+      <div class="venue-chart-day">
+        <div class="venue-chart-bar-outer">
+          <div class="venue-chart-bar" style="height:54%;"></div>
+        </div>
+        <div class="venue-chart-label">Sun</div>
+        <div class="venue-chart-val">27</div>
+      </div>
+      <div class="venue-chart-day">
+        <div class="venue-chart-bar-outer">
+          <div class="venue-chart-bar" style="height:18%;"></div>
+        </div>
+        <div class="venue-chart-label">Mon</div>
+        <div class="venue-chart-val">9</div>
+      </div>
+      <div class="venue-chart-day">
+        <div class="venue-chart-bar-outer">
+          <div class="venue-chart-bar" style="height:12%;"></div>
+        </div>
+        <div class="venue-chart-label">Tue</div>
+        <div class="venue-chart-val">6</div>
+      </div>
+      <div class="venue-chart-day">
+        <div class="venue-chart-bar-outer">
+          <div class="venue-chart-bar" style="height:26%;"></div>
+        </div>
+        <div class="venue-chart-label">Wed</div>
+        <div class="venue-chart-val">13</div>
+      </div>
+      <div class="venue-chart-day">
+        <div class="venue-chart-bar-outer">
+          <div class="venue-chart-bar today" style="height:94%;"></div>
+        </div>
+        <div class="venue-chart-label" style="color:var(--teal);">Thu</div>
+        <div class="venue-chart-val" style="color:var(--teal);">47</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:24px;margin-top:12px;flex-wrap:wrap;">
+      <div><div style="font-size:11px;color:var(--muted);">Weekly Total</div><div style="font-size:18px;font-weight:900;">157 players</div></div>
+      <div><div style="font-size:11px;color:var(--muted);">vs Last Week</div><div style="font-size:18px;font-weight:900;color:var(--green);">+31%</div></div>
+      <div><div style="font-size:11px;color:var(--muted);">Avg Session</div><div style="font-size:18px;font-weight:900;">2.1 hrs</div></div>
+      <div><div style="font-size:11px;color:var(--muted);">Return Rate</div><div style="font-size:18px;font-weight:900;">68%</div></div>
+    </div>
+  </div>
+
+  <!-- ── Revenue & ROI ───────────────────────────── -->
+  <div class="venue-section-label" style="margin-bottom:10px;">REVENUE & ROI</div>
+  <div class="venue-roi-strip">
+    <div class="venue-roi-item">
+      <div class="venue-roi-label">Monthly Plan Cost</div>
+      <div class="venue-roi-val">$299</div>
+      <div class="venue-roi-sub">Growth plan</div>
+    </div>
+    <div class="venue-roi-divider"></div>
+    <div class="venue-roi-item">
+      <div class="venue-roi-label">Est. Added Revenue</div>
+      <div class="venue-roi-val" style="color:var(--green);">$4,200</div>
+      <div class="venue-roi-sub">+22 min avg dwell × 157 players</div>
+    </div>
+    <div class="venue-roi-divider"></div>
+    <div class="venue-roi-item">
+      <div class="venue-roi-label">ROI This Month</div>
+      <div class="venue-roi-val" style="color:var(--teal);">14×</div>
+      <div class="venue-roi-sub">$4,200 return on $299</div>
+    </div>
+    <div class="venue-roi-divider"></div>
+    <div class="venue-roi-item">
+      <div class="venue-roi-label">New Regulars</div>
+      <div class="venue-roi-val">12</div>
+      <div class="venue-roi-sub">First-timers → regulars this month</div>
+    </div>
+  </div>
+
+  <!-- ── Affiliate / Sportsbook Earnings ─────────── -->
+  <div class="venue-section-label" style="margin-bottom:10px;">SPORTSBOOK AFFILIATE EARNINGS</div>
+  <div class="venue-block" style="margin-bottom:24px;background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.2);border-radius:14px;padding:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+      <div style="font-size:15px;font-weight:800;">Your Venue's Referral Credits</div>
+      <div style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);border-radius:50px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--green);">BETA PROGRAM</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+      <div>
+        <div style="font-size:11px;color:var(--muted);">FanDuel Referrals</div>
+        <div style="font-size:22px;font-weight:900;color:var(--green);">7</div>
+        <div style="font-size:11px;color:var(--muted);">$2,100 earned</div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);">DraftKings Referrals</div>
+        <div style="font-size:22px;font-weight:900;color:var(--green);">4</div>
+        <div style="font-size:11px;color:var(--muted);">$1,200 earned</div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);">Total Earned</div>
+        <div style="font-size:22px;font-weight:900;color:var(--green);">$3,300</div>
+        <div style="font-size:11px;color:var(--muted);">This month</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;font-size:12px;color:var(--muted);padding:10px;background:rgba(16,185,129,0.06);border-radius:8px;">
+      💡 <strong style="color:var(--text);">How it works:</strong> When a patron signs up for FanDuel or DraftKings through SportsIQ at your venue, you share in the $300-500 CPA. Your QR code is tracked — all attribution is automatic.
+    </div>
+  </div>
+
+  <!-- ── Patron Insights ──────────────────────────── -->
+  <div class="venue-section-label" style="margin-bottom:10px;">PATRON INTELLIGENCE</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
+    <div class="venue-block">
+      <div class="venue-block-title">Top Engagement Props</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:13px;">Passing Yards</div>
+          <div style="font-size:12px;font-weight:700;color:var(--brand);">94 picks</div>
+        </div>
+        <div style="height:4px;background:rgba(255,255,255,0.07);border-radius:2px;margin-bottom:4px;"><div style="height:100%;width:84%;background:var(--brand);border-radius:2px;"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:13px;">First TD Scorer</div>
+          <div style="font-size:12px;font-weight:700;color:var(--brand);">67 picks</div>
+        </div>
+        <div style="height:4px;background:rgba(255,255,255,0.07);border-radius:2px;margin-bottom:4px;"><div style="height:100%;width:60%;background:var(--brand);border-radius:2px;"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:13px;">Game Winner</div>
+          <div style="font-size:12px;font-weight:700;color:var(--brand);">45 picks</div>
+        </div>
+        <div style="height:4px;background:rgba(255,255,255,0.07);border-radius:2px;"><div style="height:100%;width:40%;background:var(--brand);border-radius:2px;"></div></div>
+      </div>
+    </div>
+    <div class="venue-block">
+      <div class="venue-block-title">Player Segments</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:13px;font-weight:700;">Regulars</div>
+            <div style="font-size:11px;color:var(--muted);">5+ games/month</div>
+          </div>
+          <div style="font-size:18px;font-weight:900;color:var(--teal);">23</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:13px;font-weight:700;">Occasionals</div>
+            <div style="font-size:11px;color:var(--muted);">1–4 games/month</div>
+          </div>
+          <div style="font-size:18px;font-weight:900;color:var(--brand);">68</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:13px;font-weight:700;">New This Month</div>
+            <div style="font-size:11px;color:var(--muted);">First game ever</div>
+          </div>
+          <div style="font-size:18px;font-weight:900;color:var(--green);">34</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Upgrade CTA ──────────────────────────────── -->
+  <div class="venue-upgrade-cta">
+    <div>
+      <div class="venue-upgrade-text">Upgrade to Enterprise</div>
+      <div class="venue-upgrade-sub">Unlimited TVs · Multi-location · API access · Dedicated account manager</div>
+    </div>
+    <div class="venue-upgrade-arrow">→</div>
+  </div>
+
+  <!-- ── Moat Analysis Note ──────────────────────── -->
+  <div style="margin-top:28px;padding:20px;background:rgba(85,69,211,0.05);border:1px solid rgba(85,69,211,0.15);border-radius:14px;">
+    <div style="font-size:13px;font-weight:700;color:var(--brand);letter-spacing:1px;margin-bottom:10px;">🏰 MOAT ANALYSIS — WHY THIS DASHBOARD MATTERS</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;">
+      <strong style="color:var(--text);">Proprietary data:</strong> Every week SportsIQ generates venue-specific patron engagement data (dwell time vs picks correlation, highest-engagement prop types, which days drive regulars) that no competitor can access. This data improves our AI recommendations AND becomes a reporting product venues pay for.<br><br>
+      <strong style="color:var(--text);">Switching cost:</strong> A venue that has 6 months of patron history — who their regulars are, their engagement patterns, earned leaderboard rankings — cannot switch to a competitor without losing everything. The data is the lock-in.<br><br>
+      <strong style="color:var(--text);">Affiliate revenue multiplier:</strong> The sportsbook CPA layer ($300–500/conversion) transforms SportsIQ from a SaaS business into a media network. At 500 venues × 8 monthly conversions × $350 CPA = $1.4M/month in affiliate revenue.<br><br>
+      <strong style="color:var(--text);">Bar owner as sales force:</strong> An owner making $3,300/month in affiliate credits becomes an evangelist. They tell other bar owners. CAC drops to near zero at scale.
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
      MARK'S IDEA INBOX — EDITABLE DATA BLOCK
      ─────────────────────────────────────────────────────────────────────────
      FOR REAL IDEAS, FEATURES & TASKS ONLY — not chat.
@@ -2525,6 +3063,15 @@
     "idea": "Integrate Kalshi and Polymarket APIs to enhance SportsIQ with real-money prediction market intelligence",
     "status": "done",
     "claude_response": "Built — new 📈 Market Intel tab. (1) Enhanced pick card with 4-signal odds panel: SIQ AI vs Kalshi vs Polymarket vs Crowd, with live movement arrows + Smart Money alerts. (2) Market Pulse mobile screen: live aggregated odds for all active props with divergence alerts. (3) Bar TV market ticker band: Polymarket Sports WebSocket (free, zero auth) streams real-time odds. Includes moat analysis + full API notes. Regulatory warning on Kalshi (Arizona charges March 2026) included.",
+    "mark_reply": ""
+  },
+  {
+    "id": "idea-003",
+    "date": "2026-03-20",
+    "source": "autonomous-loop",
+    "idea": "Venue Owner Admin Dashboard — B2B command center for bar owners to see patron engagement, control TV displays, track ROI, and earn sportsbook affiliate credits",
+    "status": "done",
+    "claude_response": "Built — new 🏢 Venue Owner tab. Includes: (1) Tonight stats grid (active players, picks made, QR scans, dwell time with vs-last-game deltas), (2) Live activity feed + tonight's leaderboard side by side, (3) TV display controls with push-to-all, show-leaderboard, custom message, reveal-result buttons, (4) Weekly patron engagement bar chart, (5) Revenue & ROI strip (14x ROI illustration at $299/mo plan), (6) Sportsbook affiliate earnings panel ($1.4M/mo revenue model at scale), (7) Patron intelligence — top props + player segments, (8) Moat analysis note explaining switching costs and data flywheel.",
     "mark_reply": ""
   }
 ]
@@ -3319,5 +3866,388 @@
   // Render on load
   renderIdeaInbox();
 </script>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Leaderboard — Friends + Groups Social Competition
+     Added: 2026-03-21 | Hourly loop build
+     Moat: social graph lock-in, shame/pride addiction loop, viral word-of-mouth
+     Once your friend group is here, no one leaves — history + social graph = unbeatable moat
+══════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lb-wrap {
+    min-height: calc(100vh - 57px);
+    background: #020408;
+    padding: 40px 20px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .lb-inner { width: 100%; max-width: 960px; }
+  .lb-page-label { font-size: 11px; font-weight: 700; color: var(--faint); letter-spacing: 3px; margin-bottom: 6px; }
+  .lb-page-title { font-size: 28px; font-weight: 900; margin-bottom: 4px; }
+  .lb-page-sub { font-size: 13px; color: var(--muted); margin-bottom: 36px; line-height: 1.6; }
+
+  .lb-phone-row { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; align-items: flex-start; }
+  .lb-phone-col { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .lb-phone-col-label { font-size: 12px; font-weight: 700; color: var(--faint); letter-spacing: 2px; }
+
+  .lb-shell {
+    width: 390px; min-height: 820px;
+    background: var(--bg);
+    border-radius: 52px;
+    border: 1.5px solid rgba(255,255,255,0.12);
+    box-shadow: 0 0 0 6px rgba(0,0,0,0.6), 0 40px 100px rgba(0,0,0,0.8);
+    overflow: hidden; position: relative;
+    font-family: 'Lexend', sans-serif;
+  }
+  .lb-notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 34px; background: #000;
+    border-radius: 0 0 24px 24px; z-index: 10;
+  }
+  .lb-body { padding: 52px 18px 32px; }
+  .lb-statusbar { display: flex; justify-content: space-between; padding: 0 4px; margin-bottom: 14px; font-size: 11px; font-weight: 700; color: var(--faint); }
+
+  /* ── Scope tabs ────────────────────────────────────────── */
+  .lb-scope-row { display: flex; gap: 6px; margin-bottom: 18px; }
+  .lb-scope-tab {
+    flex: 1; text-align: center; padding: 8px 4px;
+    font-size: 12px; font-weight: 700; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1); color: var(--muted);
+    cursor: pointer;
+  }
+  .lb-scope-tab.active {
+    background: rgba(85,69,211,0.18); border-color: rgba(85,69,211,0.5); color: #a59df5;
+  }
+
+  /* ── Period filter ─────────────────────────────────────── */
+  .lb-period-row { display: flex; gap: 6px; margin-bottom: 20px; }
+  .lb-period-btn {
+    padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.1); color: var(--faint); cursor: pointer;
+    font-family: 'Lexend', sans-serif;
+  }
+  .lb-period-btn.active { background: rgba(85,69,211,0.15); border-color: rgba(85,69,211,0.45); color: #a59df5; }
+
+  /* ── Top 3 podium ──────────────────────────────────────── */
+  .lb-podium {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 8px; margin-bottom: 22px; padding: 0 4px;
+  }
+  .lb-podium-slot { display: flex; flex-direction: column; align-items: center; flex: 1; }
+  .lb-podium-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 900; color: white;
+    position: relative; margin-bottom: 6px;
+  }
+  .lb-podium-crown {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    font-size: 16px;
+  }
+  .lb-podium-rank {
+    font-size: 10px; font-weight: 800; color: var(--faint);
+    letter-spacing: 1px; margin-bottom: 2px;
+  }
+  .lb-podium-name { font-size: 12px; font-weight: 800; text-align: center; }
+  .lb-podium-rate { font-size: 13px; font-weight: 900; margin-top: 2px; }
+  .lb-podium-bar {
+    width: 100%; border-radius: 8px 8px 0 0; margin-top: 8px;
+  }
+  .lb-slot-1 .lb-podium-bar { height: 64px; background: linear-gradient(180deg, #fbbf24, #f59e0b); }
+  .lb-slot-2 .lb-podium-bar { height: 44px; background: linear-gradient(180deg, #94a3b8, #64748b); }
+  .lb-slot-3 .lb-podium-bar { height: 32px; background: linear-gradient(180deg, #c77f38, #a16207); }
+
+  /* ── Full list rows ────────────────────────────────────── */
+  .lb-list { display: flex; flex-direction: column; gap: 8px; }
+  .lb-row {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--card); border: 1px solid var(--cardBorder);
+    border-radius: 14px; padding: 12px 14px;
+  }
+  .lb-row.lb-me {
+    background: rgba(85,69,211,0.1); border-color: rgba(85,69,211,0.4);
+  }
+  .lb-row-rank { font-size: 13px; font-weight: 900; width: 22px; text-align: center; color: var(--muted); flex-shrink: 0; }
+  .lb-row-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 900; color: white; flex-shrink: 0;
+  }
+  .lb-row-info { flex: 1; min-width: 0; }
+  .lb-row-name { font-size: 13px; font-weight: 800; }
+  .lb-row-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .lb-row-right { text-align: right; flex-shrink: 0; }
+  .lb-row-rate { font-size: 15px; font-weight: 900; }
+  .lb-row-record { font-size: 10px; color: var(--muted); margin-top: 1px; }
+  .lb-row-delta {
+    font-size: 10px; font-weight: 800; border-radius: 20px;
+    padding: 2px 7px; margin-top: 4px; display: inline-block;
+  }
+  .lb-delta-up   { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .lb-delta-down { background: rgba(239,68,68,0.12); color: #f87171; }
+  .lb-delta-same { background: rgba(255,255,255,0.07); color: var(--faint); }
+
+  /* ── Group invite banner ───────────────────────────────── */
+  .lb-invite {
+    margin-top: 18px; background: rgba(85,69,211,0.08);
+    border: 1px dashed rgba(85,69,211,0.4); border-radius: 14px;
+    padding: 14px 16px; text-align: center;
+  }
+  .lb-invite-title { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
+  .lb-invite-sub { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+  .lb-invite-btn {
+    display: inline-block; padding: 9px 22px;
+    background: rgba(85,69,211,0.25); border: 1px solid rgba(85,69,211,0.5);
+    border-radius: 10px; font-size: 13px; font-weight: 700; color: #a59df5;
+    font-family: 'Lexend', sans-serif; cursor: pointer;
+  }
+
+  /* ── Notification screen elements ──────────────────────── */
+  .lb-notif-header { font-size: 18px; font-weight: 900; margin-bottom: 16px; }
+  .lb-notif-card {
+    background: var(--card); border: 1px solid var(--cardBorder);
+    border-radius: 16px; padding: 14px 16px; margin-bottom: 10px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .lb-notif-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .lb-notif-body { flex: 1; }
+  .lb-notif-text { font-size: 13px; line-height: 1.5; }
+  .lb-notif-text strong { color: var(--text); }
+  .lb-notif-time { font-size: 11px; color: var(--faint); margin-top: 4px; }
+  .lb-notif-cta {
+    margin-top: 8px; display: inline-block; padding: 6px 14px;
+    background: rgba(85,69,211,0.18); border: 1px solid rgba(85,69,211,0.4);
+    border-radius: 8px; font-size: 11px; font-weight: 700; color: #a59df5;
+    font-family: 'Lexend', sans-serif; cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    .lb-wrap { padding: 16px 12px 40px; }
+    .lb-shell { width: 100%; max-width: 420px; border-radius: 28px; }
+    .lb-phone-row { gap: 24px; }
+  }
+</style>
+
+<div id="leaderboard" class="screen">
+  <div class="lb-wrap">
+    <div class="lb-inner">
+      <div class="lb-page-label">MOBILE · SOCIAL COMPETITION</div>
+      <div class="lb-page-title">🏆 Leaderboard</div>
+      <div class="lb-page-sub">
+        The social graph is the moat. Once a friend group plays together, the shame/pride loop keeps everyone daily-active.
+        Phase 4 ship target: Friends leaderboard + trash-talk notifications = organic viral growth.
+      </div>
+
+      <div class="lb-phone-row">
+
+        <!-- ── PHONE 1: Friend Group Leaderboard ─────────── -->
+        <div class="lb-phone-col">
+          <div class="lb-phone-col-label">FRIEND GROUP BOARD</div>
+          <div class="lb-shell">
+            <div class="lb-notch"></div>
+            <div class="lb-body">
+
+              <div class="lb-statusbar"><span>9:41</span><span>●●●● 5G 🔋</span></div>
+
+              <!-- Scope tabs -->
+              <div class="lb-scope-row">
+                <div class="lb-scope-tab active">Friends</div>
+                <div class="lb-scope-tab">Global</div>
+                <div class="lb-scope-tab">My Groups</div>
+              </div>
+
+              <!-- Period filter -->
+              <div class="lb-period-row">
+                <button class="lb-period-btn active">Week</button>
+                <button class="lb-period-btn">Month</button>
+                <button class="lb-period-btn">Season</button>
+                <button class="lb-period-btn">All Time</button>
+              </div>
+
+              <!-- Podium top 3 -->
+              <div class="lb-podium">
+                <!-- 2nd -->
+                <div class="lb-podium-slot lb-slot-2">
+                  <div class="lb-podium-avatar" style="background:linear-gradient(135deg,#64748b,#475569);">J</div>
+                  <div class="lb-podium-rank">#2</div>
+                  <div class="lb-podium-name">Jake</div>
+                  <div class="lb-podium-rate" style="color:#94a3b8;">71%</div>
+                  <div class="lb-podium-bar"></div>
+                </div>
+                <!-- 1st -->
+                <div class="lb-podium-slot lb-slot-1">
+                  <div class="lb-podium-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">S</div>
+                  <div class="lb-podium-crown">👑</div>
+                  <div class="lb-podium-rank">#1</div>
+                  <div class="lb-podium-name">Sarah</div>
+                  <div class="lb-podium-rate" style="color:#fbbf24;">78%</div>
+                  <div class="lb-podium-bar"></div>
+                </div>
+                <!-- 3rd -->
+                <div class="lb-podium-slot lb-slot-3">
+                  <div class="lb-podium-avatar" style="background:linear-gradient(135deg,#a16207,#854d0e);">M</div>
+                  <div class="lb-podium-rank">#3</div>
+                  <div class="lb-podium-name">Mike</div>
+                  <div class="lb-podium-rate" style="color:#c77f38;">68%</div>
+                  <div class="lb-podium-bar"></div>
+                </div>
+              </div>
+
+              <!-- Full list -->
+              <div class="lb-list">
+
+                <div class="lb-row">
+                  <div class="lb-row-rank">4</div>
+                  <div class="lb-row-avatar" style="background:linear-gradient(135deg,var(--brand),var(--teal));">T</div>
+                  <div class="lb-row-info">
+                    <div class="lb-row-name">Tyler</div>
+                    <div class="lb-row-sub">🔥 5-streak · NBA hot</div>
+                  </div>
+                  <div class="lb-row-right">
+                    <div class="lb-row-rate" style="color:#a59df5;">65%</div>
+                    <div class="lb-row-record">13-7</div>
+                    <div class="lb-row-delta lb-delta-up">▲ 2</div>
+                  </div>
+                </div>
+
+                <!-- YOU — highlighted -->
+                <div class="lb-row lb-me">
+                  <div class="lb-row-rank" style="color:#a59df5;">5</div>
+                  <div class="lb-row-avatar" style="background:linear-gradient(135deg,#5542d3,#34888a);">M</div>
+                  <div class="lb-row-info">
+                    <div class="lb-row-name" style="color:#a59df5;">You</div>
+                    <div class="lb-row-sub">🔥 8-streak · NBA hot</div>
+                  </div>
+                  <div class="lb-row-right">
+                    <div class="lb-row-rate" style="color:#a59df5;">64%</div>
+                    <div class="lb-row-record">14-8</div>
+                    <div class="lb-row-delta lb-delta-up">▲ 1</div>
+                  </div>
+                </div>
+
+                <div class="lb-row">
+                  <div class="lb-row-rank">6</div>
+                  <div class="lb-row-avatar" style="background:linear-gradient(135deg,#ef4444,#b91c1c);">R</div>
+                  <div class="lb-row-info">
+                    <div class="lb-row-name">Ryan</div>
+                    <div class="lb-row-sub">❄️ Cold — 2-5 this week</div>
+                  </div>
+                  <div class="lb-row-right">
+                    <div class="lb-row-rate" style="color:#f87171;">56%</div>
+                    <div class="lb-row-record">11-9</div>
+                    <div class="lb-row-delta lb-delta-down">▼ 3</div>
+                  </div>
+                </div>
+
+                <div class="lb-row">
+                  <div class="lb-row-rank">7</div>
+                  <div class="lb-row-avatar" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">A</div>
+                  <div class="lb-row-info">
+                    <div class="lb-row-name">Alex</div>
+                    <div class="lb-row-sub">—  2 picks pending</div>
+                  </div>
+                  <div class="lb-row-right">
+                    <div class="lb-row-rate" style="color:var(--muted);">52%</div>
+                    <div class="lb-row-record">10-9</div>
+                    <div class="lb-row-delta lb-delta-same">— 0</div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Invite banner -->
+              <div class="lb-invite">
+                <div class="lb-invite-title">📲 Invite More Friends</div>
+                <div class="lb-invite-sub">Groups of 5+ unlock bonus badges and weekly prize pool entry</div>
+                <div class="lb-invite-btn">Share Group Link</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ── PHONE 2: Social Notifications ─────────────── -->
+        <div class="lb-phone-col">
+          <div class="lb-phone-col-label">SOCIAL NOTIFICATIONS</div>
+          <div class="lb-shell">
+            <div class="lb-notch"></div>
+            <div class="lb-body">
+
+              <div class="lb-statusbar"><span>9:41</span><span>●●●● 5G 🔋</span></div>
+              <div class="lb-notif-header">Activity</div>
+
+              <div class="lb-notif-card">
+                <div class="lb-notif-icon">🔥</div>
+                <div class="lb-notif-body">
+                  <div class="lb-notif-text"><strong>Jake</strong> just passed you — he's on a 6-streak. You're #5, 2 picks behind.</div>
+                  <div class="lb-notif-time">12 min ago</div>
+                  <div class="lb-notif-cta">Make a pick now →</div>
+                </div>
+              </div>
+
+              <div class="lb-notif-card">
+                <div class="lb-notif-icon">👑</div>
+                <div class="lb-notif-body">
+                  <div class="lb-notif-text"><strong>Sarah</strong> hit 78% this week — she's untouchable right now.</div>
+                  <div class="lb-notif-time">1 hr ago</div>
+                  <div class="lb-notif-cta">See her picks →</div>
+                </div>
+              </div>
+
+              <div class="lb-notif-card">
+                <div class="lb-notif-icon">💀</div>
+                <div class="lb-notif-body">
+                  <div class="lb-notif-text"><strong>Ryan</strong> went 1-4 last night. He's dropped to last place. You're clear.</div>
+                  <div class="lb-notif-time">3 hrs ago</div>
+                </div>
+              </div>
+
+              <div class="lb-notif-card">
+                <div class="lb-notif-icon">🎯</div>
+                <div class="lb-notif-body">
+                  <div class="lb-notif-text">SportsIQ called <strong>Lakers ML</strong> at 74% — Jake and Sarah both took it. You didn't. Lakers won.</div>
+                  <div class="lb-notif-time">Last night</div>
+                  <div class="lb-notif-cta">View missed pick →</div>
+                </div>
+              </div>
+
+              <div class="lb-notif-card">
+                <div class="lb-notif-icon">🏅</div>
+                <div class="lb-notif-body">
+                  <div class="lb-notif-text">You earned the <strong>NBA Pro</strong> badge — top 10% win rate in NBA picks this month.</div>
+                  <div class="lb-notif-time">Yesterday</div>
+                </div>
+              </div>
+
+              <div class="lb-notif-card">
+                <div class="lb-notif-icon">📲</div>
+                <div class="lb-notif-body">
+                  <div class="lb-notif-text"><strong>Tyler</strong> joined your group. He's already 3-0 this week.</div>
+                  <div class="lb-notif-time">2 days ago</div>
+                  <div class="lb-notif-cta">View his picks →</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /lb-phone-row -->
+
+      <!-- ── Moat analysis ───────────────────────────────── -->
+      <div style="margin-top:40px;max-width:720px;background:rgba(85,69,211,0.07);border:1px solid rgba(85,69,211,0.25);border-radius:16px;padding:20px 24px;">
+        <div style="font-size:10px;font-weight:800;color:#a59df5;letter-spacing:2px;margin-bottom:10px;">📐 MOAT ANALYSIS · LEADERBOARD</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+          <strong style="color:var(--text);">Network effect:</strong> Every friend who joins increases the value for everyone in the group. This compounds — a 7-person group is 3× more valuable than a 3-person group.<br>
+          <strong style="color:var(--text);">Social graph lock-in:</strong> When your group's 2-year history lives here, the group will never leave together. Moving requires convincing 7 friends to switch simultaneously.<br>
+          <strong style="color:var(--text);">Shame/pride loop:</strong> "Jake just passed you" = guaranteed app open. This is the same mechanic that made Duolingo's streak and Wordle's sharing viral. Daily active users 3–5×.<br>
+          <strong style="color:var(--text);">Viral acquisition:</strong> "Share Group Link" = each existing user recruits friends organically. Zero paid acquisition needed at scale.<br>
+          <strong style="color:var(--text);">Phase 4 unlock:</strong> Add $5/week group prize pools (via Stripe, not gambling — skill game exemption). Groups with money on the line have 8× retention vs. free groups.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
