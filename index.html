@@ -1678,6 +1678,9 @@
     <div class="tab" data-screen="daily-challenge-v2" onclick="showScreen('daily-challenge-v2',this)">
       <span class="tab-label">Daily Challenge v2 📅</span><span class="tab-days" id="days-daily-challenge-v2"></span>
     </div>
+    <div class="tab" data-screen="sports-dna-profile" onclick="showScreen('sports-dna-profile',this)">
+      <span class="tab-label">Sports DNA Profile 🧬</span><span class="tab-days" id="days-sports-dna-profile"></span>
+    </div>
   </div>
 
   <!-- 📱 MOBILE APP -->
@@ -4034,7 +4037,8 @@
     'pick-card-v2':     '2026-03-21',
     'game-day-v2':      '2026-03-21',
     'home-idle-v2':        '2026-03-21',
-    'daily-challenge-v2':  '2026-03-21'
+    'daily-challenge-v2':  '2026-03-21',
+    'sports-dna-profile':  '2026-03-21'
   };
 
   (function initDaysBadges() {
@@ -4337,6 +4341,17 @@
         'Data revenue: do you want to pursue brand sponsorships first (faster revenue, fewer legal hurdles) or data licensing first (higher ceiling but slower)?',
         'User-facing profile: should "Your Sports DNA" be its own tab, or live inside the existing Profile page?',
         'Privacy framing: "Personalize my experience" opt-in at onboarding, or let it build silently and reveal the profile after 2 weeks when it\'s impressive?'
+      ]
+    },
+    'sports-dna-profile': {
+      icon: '🧬',
+      title: 'Sports DNA Profile — User Identity & Switching Costs',
+      built: 'Three phones showing the full user profile: (1) Profile hero — avatar + username, IQ Score 847 as the dominant stat with Trivia IQ 9.2 below it, quick stats row (pick record 6-3, 68% win rate, 22-day streak, 847 IQ), Sports DNA card showing per-sport depth bars (NFL 9/10, NBA 7/10, NHL 5/10, MLB 3/10, CFB 6/10, CBB 4/10), Fan Type badge (Bar Regular 🍺), pick style analysis ("Contrarian Lean — you beat the crowd 71% of the time when going against it"). (2) Season record — full pick history tab, season stat strip (W-L-push, +1,240 IQ net, 14 sports covered, 847 peak IQ), recent pick history with outcome dots, "Your Best Sport: NFL (74% win rate)" callout, badge shelf (22-Day Streak 🔥, Contrarian 🧠, Bar Regular 🍺, Early Picker ⚡, Top 5% 🏆). (3) Friends view — what a friend sees on your public profile: IQ rank in Bar Crew (#2 of 12), recent form (W-W-L-W-W), Fan Type, sports DNA bars, Chirp CTA, challenge CTA.',
+      questions: [
+        'Fan Type label ("Bar Regular 🍺") — does the user see exactly what segment they\'re in, or just a fun persona label without the marketing context behind it?',
+        'Pick style analysis ("Contrarian Lean") — is this shown from day one, or does it require a minimum number of picks to display (e.g. 20+ picks before we calculate style)?',
+        'Public profile: can friends see your full Sports DNA, or just IQ Score + win rate? What\'s private vs. public?',
+        'Profile photo: avatar only, or can users set their favorite team logo as a background/banner behind their profile?'
       ]
     },
     'daily-challenge-v2': {
@@ -9968,6 +9983,395 @@
   </div><!-- /outer div -->
 
   <div id="sfb-panel-daily-challenge-v2" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Sports DNA Profile — User Identity & Switching Costs
+     Added: 2026-03-21 | Autonomous loop build
+     Moat: this IS the user's sports identity. 847 IQ, 74% NFL win rate, 22-day streak.
+     They cannot take this to a competitor. This is the #1 switching cost in the app.
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="sports-dna-profile" class="screen" style="display:none;">
+  <div style="min-height:100vh;background:#020408;padding:40px 20px;display:flex;flex-direction:column;align-items:center;">
+
+    <!-- Header -->
+    <div style="width:100%;max-width:960px;margin-bottom:32px;">
+      <div style="font-size:11px;font-weight:700;color:#5545D3;letter-spacing:3px;margin-bottom:6px;">v2 UPDATES · 2026-03-21</div>
+      <div style="font-size:28px;font-weight:900;color:#F8FAFC;margin-bottom:6px;">Sports DNA Profile 🧬</div>
+      <div style="font-size:14px;color:#94A3B8;line-height:1.6;">The user-facing identity layer. <span style="color:#F8FAFC;font-weight:700;">847 IQ. 74% NFL win rate. 22-day streak.</span> None of this transfers to a competitor. This is SportsIQ's deepest switching cost — every pick makes it harder to leave.</div>
+    </div>
+
+    <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;">
+
+      <!-- ── PHONE 1: Profile Hero ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 1 — PROFILE HOME</div>
+        <div style="width:280px;height:600px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <!-- Status bar -->
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;font-weight:700;color:#94A3B8;">11:22 AM</div>
+            <div style="font-size:9px;font-weight:700;color:#94A3B8;">📶 🔋</div>
+          </div>
+
+          <!-- Profile hero banner -->
+          <div style="background:linear-gradient(160deg,#0D1420 0%,rgba(85,69,211,0.2) 60%,rgba(85,69,211,0.05) 100%);padding:14px 14px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+              <!-- Avatar -->
+              <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#3D31B0);border:2px solid rgba(85,69,211,0.6);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;">🏈</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:15px;font-weight:900;color:#F8FAFC;">MarkD</div>
+                <div style="font-size:8px;color:#94A3B8;margin-bottom:5px;">Member since Jan 2025 · Bar Crew: Murphy's Boys</div>
+                <!-- Fan type badge -->
+                <div style="display:inline-flex;align-items:center;gap:4px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:2px 8px;">
+                  <span style="font-size:11px;">🍺</span>
+                  <span style="font-size:8px;font-weight:700;color:#F59E0B;">Bar Regular</span>
+                </div>
+              </div>
+              <div style="font-size:9px;color:#5545D3;font-weight:700;cursor:pointer;">Edit</div>
+            </div>
+
+            <!-- IQ hero -->
+            <div style="text-align:center;padding:10px 0 14px;">
+              <div style="font-size:42px;font-weight:900;background:linear-gradient(135deg,#a59df5,#5545D3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">847</div>
+              <div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-top:-2px;">SPORTSIQ SCORE</div>
+              <div style="font-size:9px;color:#22c55e;margin-top:3px;">↑ +23 this week · Top 8% nationally</div>
+            </div>
+
+            <!-- Quick stats row -->
+            <div style="display:flex;border-top:1px solid rgba(255,255,255,0.06);padding-top:10px;padding-bottom:10px;">
+              <div style="flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                <div style="font-size:14px;font-weight:900;color:#22c55e;">68%</div>
+                <div style="font-size:7px;color:#94A3B8;">Win Rate</div>
+              </div>
+              <div style="flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                <div style="font-size:14px;font-weight:900;color:#F8FAFC;">342-160</div>
+                <div style="font-size:7px;color:#94A3B8;">All-Time W-L</div>
+              </div>
+              <div style="flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                <div style="font-size:14px;font-weight:900;color:#F59E0B;">🔥22</div>
+                <div style="font-size:7px;color:#94A3B8;">Day Streak</div>
+              </div>
+              <div style="flex:1;text-align:center;">
+                <div style="font-size:14px;font-weight:900;color:#a59df5;">9.2</div>
+                <div style="font-size:7px;color:#94A3B8;">Trivia IQ</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Body scroll -->
+          <div style="flex:1;overflow-y:auto;padding:10px 12px;">
+
+            <!-- Sports DNA card -->
+            <div style="background:rgba(85,69,211,0.07);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:10px;margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#a59df5;letter-spacing:1.5px;margin-bottom:8px;">🧬 YOUR SPORTS DNA</div>
+              <!-- Sport bars -->
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div style="font-size:9px;color:#F8FAFC;width:30px;">NFL</div>
+                  <div style="flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:90%;height:100%;background:linear-gradient(90deg,#5545D3,#a59df5);border-radius:3px;"></div></div>
+                  <div style="font-size:8px;font-weight:700;color:#a59df5;width:20px;text-align:right;">9.0</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div style="font-size:9px;color:#F8FAFC;width:30px;">NBA</div>
+                  <div style="flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:70%;height:100%;background:linear-gradient(90deg,#5545D3,#a59df5);border-radius:3px;"></div></div>
+                  <div style="font-size:8px;font-weight:700;color:#a59df5;width:20px;text-align:right;">7.0</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div style="font-size:9px;color:#F8FAFC;width:30px;">CFB</div>
+                  <div style="flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:60%;height:100%;background:linear-gradient(90deg,#5545D3,#a59df5);border-radius:3px;"></div></div>
+                  <div style="font-size:8px;font-weight:700;color:#a59df5;width:20px;text-align:right;">6.0</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div style="font-size:9px;color:#F8FAFC;width:30px;">NHL</div>
+                  <div style="flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:50%;height:100%;background:linear-gradient(90deg,#5545D3,#a59df5);border-radius:3px;"></div></div>
+                  <div style="font-size:8px;font-weight:700;color:#a59df5;width:20px;text-align:right;">5.0</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div style="font-size:9px;color:#F8FAFC;width:30px;">CBB</div>
+                  <div style="flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:40%;height:100%;background:linear-gradient(90deg,#5545D3,#a59df5);border-radius:3px;"></div></div>
+                  <div style="font-size:8px;font-weight:700;color:#a59df5;width:20px;text-align:right;">4.0</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div style="font-size:9px;color:#F8FAFC;width:30px;">MLB</div>
+                  <div style="flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:30%;height:100%;background:linear-gradient(90deg,#5545D3,#a59df5);border-radius:3px;"></div></div>
+                  <div style="font-size:8px;font-weight:700;color:#a59df5;width:20px;text-align:right;">3.0</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pick style analysis -->
+            <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.18);border-radius:10px;padding:9px 10px;margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#22c55e;letter-spacing:1.5px;margin-bottom:4px;">⚡ PICK STYLE</div>
+              <div style="font-size:11px;font-weight:800;color:#F8FAFC;margin-bottom:3px;">Contrarian Lean</div>
+              <div style="font-size:8px;color:#94A3B8;line-height:1.5;">You beat the crowd 71% of the time when you go against the popular pick. You read line movement early and tend to pick before the sharp money shifts the crowd.</div>
+            </div>
+
+            <!-- Badges strip -->
+            <div style="margin-bottom:8px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">BADGES</div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:4px 7px;text-align:center;">
+                  <div style="font-size:14px;">🔥</div><div style="font-size:7px;color:#F59E0B;font-weight:700;">22-Day</div>
+                </div>
+                <div style="background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:8px;padding:4px 7px;text-align:center;">
+                  <div style="font-size:14px;">🧠</div><div style="font-size:7px;color:#a59df5;font-weight:700;">Contrarian</div>
+                </div>
+                <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:4px 7px;text-align:center;">
+                  <div style="font-size:14px;">🍺</div><div style="font-size:7px;color:#F59E0B;font-weight:700;">Bar Regular</div>
+                </div>
+                <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:8px;padding:4px 7px;text-align:center;">
+                  <div style="font-size:14px;">🏆</div><div style="font-size:7px;color:#22c55e;font-weight:700;">Top 5%</div>
+                </div>
+                <div style="background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.25);border-radius:8px;padding:4px 7px;text-align:center;">
+                  <div style="font-size:14px;">⚡</div><div style="font-size:7px;color:#60A5FA;font-weight:700;">Early Picker</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- Bottom nav -->
+          <div style="display:flex;justify-content:space-around;padding:8px 0 10px;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:#94A3B8;">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">📅</div><div style="font-size:7px;color:#94A3B8;">Challenge</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:#94A3B8;">Board</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🧬</div><div style="font-size:7px;color:#5545D3;font-weight:700;">Profile</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHONE 2: Season Record & Badges ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 2 — SEASON RECORD</div>
+        <div style="width:280px;height:600px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;font-weight:700;color:#94A3B8;">11:22 AM</div>
+            <div style="font-size:9px;font-weight:700;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <!-- Sub-nav tabs -->
+          <div style="background:#0A101C;display:flex;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="flex:1;text-align:center;padding:8px 4px;font-size:8px;font-weight:700;color:#94A3B8;cursor:pointer;">Overview</div>
+            <div style="flex:1;text-align:center;padding:8px 4px;font-size:8px;font-weight:700;color:#5545D3;border-bottom:2px solid #5545D3;cursor:pointer;">Season</div>
+            <div style="flex:1;text-align:center;padding:8px 4px;font-size:8px;font-weight:700;color:#94A3B8;cursor:pointer;">Badges</div>
+            <div style="flex:1;text-align:center;padding:8px 4px;font-size:8px;font-weight:700;color:#94A3B8;cursor:pointer;">Friends</div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:10px 12px;">
+
+            <!-- Season stat strip -->
+            <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:10px;margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#a59df5;letter-spacing:1.5px;margin-bottom:8px;">2025–26 SEASON</div>
+              <div style="display:flex;gap:0;">
+                <div style="flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                  <div style="font-size:13px;font-weight:900;color:#22c55e;">68%</div>
+                  <div style="font-size:7px;color:#94A3B8;">Win Rate</div>
+                </div>
+                <div style="flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                  <div style="font-size:13px;font-weight:900;color:#F8FAFC;">186-88</div>
+                  <div style="font-size:7px;color:#94A3B8;">W-L</div>
+                </div>
+                <div style="flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                  <div style="font-size:13px;font-weight:900;color:#22c55e;">+1,240</div>
+                  <div style="font-size:7px;color:#94A3B8;">IQ Net</div>
+                </div>
+                <div style="flex:1;text-align:center;">
+                  <div style="font-size:13px;font-weight:900;color:#a59df5;">6</div>
+                  <div style="font-size:7px;color:#94A3B8;">Sports</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Best sport callout -->
+            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:8px 10px;margin-bottom:10px;display:flex;align-items:center;gap:10px;">
+              <div style="font-size:20px;">🏈</div>
+              <div>
+                <div style="font-size:9px;font-weight:700;color:#F59E0B;">BEST SPORT THIS SEASON</div>
+                <div style="font-size:12px;font-weight:900;color:#F8FAFC;">NFL — 74% win rate</div>
+                <div style="font-size:8px;color:#94A3B8;">112-39 · +840 IQ · Top 3% nationally</div>
+              </div>
+            </div>
+
+            <!-- Recent pick history -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">RECENT PICKS</div>
+              <!-- Pick row -->
+              <div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <div style="width:14px;height:14px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:7px;color:#22c55e;">W</div>
+                <div style="flex:1;min-width:0;"><div style="font-size:8px;color:#F8FAFC;">Chiefs ML · 24-17</div><div style="font-size:7px;color:#475569;">Sun Mar 22 · NFL</div></div>
+                <div style="font-size:8px;font-weight:700;color:#22c55e;">+100</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <div style="width:14px;height:14px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:7px;color:#22c55e;">W</div>
+                <div style="flex:1;min-width:0;"><div style="font-size:8px;color:#F8FAFC;">Celtics OVER 221.5 · 228</div><div style="font-size:7px;color:#475569;">Sat Mar 21 · NBA</div></div>
+                <div style="font-size:8px;font-weight:700;color:#22c55e;">+125</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <div style="width:14px;height:14px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:7px;color:#EF4444;">L</div>
+                <div style="flex:1;min-width:0;"><div style="font-size:8px;color:#F8FAFC;">Broncos –3.5 · lost 17-21</div><div style="font-size:7px;color:#475569;">Sat Mar 21 · NFL</div></div>
+                <div style="font-size:8px;font-weight:700;color:#EF4444;">–50</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <div style="width:14px;height:14px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:7px;color:#22c55e;">W</div>
+                <div style="flex:1;min-width:0;"><div style="font-size:8px;color:#F8FAFC;">Bruins ML Clutch · 3-1</div><div style="font-size:7px;color:#475569;">Fri Mar 20 · NHL · 5×</div></div>
+                <div style="font-size:8px;font-weight:700;color:#22c55e;">+500</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;padding:5px 0;">
+                <div style="width:14px;height:14px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:7px;color:#22c55e;">W</div>
+                <div style="flex:1;min-width:0;"><div style="font-size:8px;color:#F8FAFC;">Warriors/Lakers OVER 228.5</div><div style="font-size:7px;color:#475569;">Thu Mar 19 · NBA</div></div>
+                <div style="font-size:8px;font-weight:700;color:#22c55e;">+100</div>
+              </div>
+            </div>
+
+            <!-- W-L dot strip -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:5px;">LAST 30 PICKS</div>
+              <div style="display:flex;gap:3px;flex-wrap:wrap;">
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#EF4444;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#EF4444;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#EF4444;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#EF4444;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#EF4444;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#EF4444;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#EF4444;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+              </div>
+              <div style="font-size:7px;color:#475569;margin-top:3px;">20W · 8L — 67% · ←older &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; newer→</div>
+            </div>
+
+          </div>
+          <!-- Bottom nav -->
+          <div style="display:flex;justify-content:space-around;padding:8px 0 10px;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:#94A3B8;">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">📅</div><div style="font-size:7px;color:#94A3B8;">Challenge</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:#94A3B8;">Board</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🧬</div><div style="font-size:7px;color:#5545D3;font-weight:700;">Profile</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHONE 3: Friend's Public View ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 3 — FRIEND'S VIEW</div>
+        <div style="width:280px;height:600px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;font-weight:700;color:#94A3B8;">11:23 AM</div>
+            <div style="font-size:9px;font-weight:700;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <!-- Back nav -->
+          <div style="background:#0A101C;padding:7px 14px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;">
+            <div style="font-size:10px;color:#5545D3;">← Leaderboard</div>
+            <div style="font-size:10px;font-weight:700;color:#F8FAFC;flex:1;text-align:center;">BigMike's Profile</div>
+            <div style="font-size:9px;color:#5545D3;font-weight:700;">Chirp</div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:12px;">
+
+            <!-- Public hero -->
+            <div style="text-align:center;margin-bottom:14px;">
+              <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#F59E0B,#D97706);border:2px solid rgba(245,158,11,0.5);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 8px;">🏀</div>
+              <div style="font-size:16px;font-weight:900;color:#F8FAFC;">BigMike</div>
+              <div style="font-size:9px;color:#94A3B8;margin-bottom:6px;">Murphy's Boys · 🍺 Bar Regular</div>
+              <div style="display:inline-block;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:800;color:#F59E0B;">IQ 912 · #1 in Bar Crew</div>
+            </div>
+
+            <!-- Their quick stats -->
+            <div style="display:flex;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px;margin-bottom:10px;">
+              <div style="flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                <div style="font-size:13px;font-weight:900;color:#22c55e;">72%</div>
+                <div style="font-size:7px;color:#94A3B8;">Win Rate</div>
+              </div>
+              <div style="flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                <div style="font-size:13px;font-weight:900;color:#F59E0B;">🔥34</div>
+                <div style="font-size:7px;color:#94A3B8;">Streak</div>
+              </div>
+              <div style="flex:1;text-align:center;">
+                <div style="font-size:13px;font-weight:900;color:#a59df5;">8.7</div>
+                <div style="font-size:7px;color:#94A3B8;">Trivia IQ</div>
+              </div>
+            </div>
+
+            <!-- Their DNA bars -->
+            <div style="background:rgba(85,69,211,0.07);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:9px 10px;margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#a59df5;letter-spacing:1.5px;margin-bottom:7px;">🧬 SPORTS DNA</div>
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="display:flex;align-items:center;gap:6px;"><div style="font-size:9px;color:#F8FAFC;width:30px;">NBA</div><div style="flex:1;height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:95%;height:100%;background:linear-gradient(90deg,#F59E0B,#FCD34D);border-radius:3px;"></div></div><div style="font-size:8px;color:#F59E0B;font-weight:700;width:20px;text-align:right;">9.5</div></div>
+                <div style="display:flex;align-items:center;gap:6px;"><div style="font-size:9px;color:#F8FAFC;width:30px;">NFL</div><div style="flex:1;height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:75%;height:100%;background:linear-gradient(90deg,#F59E0B,#FCD34D);border-radius:3px;"></div></div><div style="font-size:8px;color:#F59E0B;font-weight:700;width:20px;text-align:right;">7.5</div></div>
+                <div style="display:flex;align-items:center;gap:6px;"><div style="font-size:9px;color:#F8FAFC;width:30px;">CBB</div><div style="flex:1;height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:65%;height:100%;background:linear-gradient(90deg,#F59E0B,#FCD34D);border-radius:3px;"></div></div><div style="font-size:8px;color:#F59E0B;font-weight:700;width:20px;text-align:right;">6.5</div></div>
+              </div>
+            </div>
+
+            <!-- Recent form -->
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:9px 10px;margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">RECENT FORM</div>
+              <div style="display:flex;gap:5px;margin-bottom:5px;">
+                <div style="width:28px;height:20px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#22c55e;">W</div>
+                <div style="width:28px;height:20px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#22c55e;">W</div>
+                <div style="width:28px;height:20px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#22c55e;">W</div>
+                <div style="width:28px;height:20px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#EF4444;">L</div>
+                <div style="width:28px;height:20px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#22c55e;">W</div>
+              </div>
+              <div style="font-size:8px;color:#475569;">4-1 in last 5 · Currently on 3-win run</div>
+            </div>
+
+            <!-- Badges -->
+            <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;">
+              <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:3px 6px;text-align:center;"><div style="font-size:11px;">🔥</div><div style="font-size:7px;color:#F59E0B;font-weight:700;">34-Day</div></div>
+              <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:3px 6px;text-align:center;"><div style="font-size:11px;">👑</div><div style="font-size:7px;color:#F59E0B;font-weight:700;">#1 Bar</div></div>
+              <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:8px;padding:3px 6px;text-align:center;"><div style="font-size:11px;">🏆</div><div style="font-size:7px;color:#22c55e;font-weight:700;">Top 3%</div></div>
+            </div>
+
+            <!-- CTAs -->
+            <div style="display:flex;gap:6px;">
+              <button style="flex:1;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:8px;padding:9px;font-family:Lexend,sans-serif;font-size:9px;font-weight:700;color:#a59df5;cursor:pointer;">💬 Chirp BigMike</button>
+              <button style="flex:1;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:9px;font-family:Lexend,sans-serif;font-size:9px;font-weight:700;color:#F59E0B;cursor:pointer;">⚔️ Challenge</button>
+            </div>
+
+          </div>
+          <!-- Bottom nav -->
+          <div style="display:flex;justify-content:space-around;padding:8px 0 10px;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:#94A3B8;">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">📅</div><div style="font-size:7px;color:#94A3B8;">Challenge</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🏆</div><div style="font-size:7px;color:#94A3B8;">Board</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🧬</div><div style="font-size:7px;color:#5545D3;font-weight:700;">Profile</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /phones row -->
+
+    <!-- Moat analysis -->
+    <div style="margin-top:40px;max-width:960px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+      <div style="font-size:10px;font-weight:800;color:#5545D3;letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — SPORTS DNA PROFILE</div>
+      <div style="font-size:13px;color:#94A3B8;line-height:1.8;">
+        <strong style="color:#F8FAFC;">The ultimate switching cost:</strong> A user with IQ 847, a 342-160 all-time record, and 22-day streak has built an identity on SportsIQ. Every pick adds to that record. If they leave, that record disappears. No competitor offers this accumulated identity. This is stronger than a loyalty program — it's not points they're leaving behind, it's who they are as a sports fan.<br>
+        <strong style="color:#F8FAFC;">Pick style analysis as engagement hook:</strong> "Contrarian Lean — you beat the crowd 71% when going against it" is a stat only SportsIQ can show because it requires years of behavioral data. Every time a user reads this, they understand that insight only exists because they've been here long enough. It's a self-reinforcing lock-in.<br>
+        <strong style="color:#F8FAFC;">Public profile as social network layer:</strong> Phone 3 shows that profiles are social objects — BigMike's IQ, streak, and DNA are visible to friends, which creates social comparison, Chirp triggers, and competition. This turns the profile page into a social feed entry point, not just a stats page.<br>
+        <strong style="color:#F8FAFC;">Advertiser data without friction:</strong> Fan Type ("Bar Regular"), Sports DNA depth bars, and pick style together paint a complete advertiser segment without asking the user anything they'd object to. The profile they're proud to show friends is exactly the data that drives the $5–15 ARPU ad revenue model.
+      </div>
+    </div>
+
+  </div>
+
+  <div id="sfb-panel-sports-dna-profile" class="sfb-panel"></div>
 </div>
 
 </body>
