@@ -1854,6 +1854,12 @@
     <div class="tab" data-screen="bar-pred-q-v4" onclick="showScreen('bar-pred-q-v4',this)">
       <span class="tab-label">Bar · Live Pick v4</span><span class="tab-days" id="days-bar-pred-q-v4"></span>
     </div>
+    <div class="tab" data-screen="home-live-v4" onclick="showScreen('home-live-v4',this)">
+      <span class="tab-label">Home · Live v4 ✦</span><span class="tab-days" id="days-home-live-v4"></span>
+    </div>
+    <div class="tab" data-screen="challenges-v2" onclick="showScreen('challenges-v2',this)">
+      <span class="tab-label">Challenges v2 ⚔️</span><span class="tab-days" id="days-challenges-v2"></span>
+    </div>
     <div class="tab" data-screen="bar-tracking-v2" onclick="showScreen('bar-tracking-v2',this)">
       <span class="tab-label">Bar · Tracking v2</span><span class="tab-days" id="days-bar-tracking-v2"></span>
     </div>
@@ -3634,8 +3640,8 @@
     "date": "2026-03-21",
     "source": "inbox",
     "idea": "[home-live-v3] 1 - only show crowd\n2. colors good enough\n3. closes\n\nwhy Join now vs pick now? why not alsways the same. Get rid of \"Last 3 seconds\" and \"window closes forver\" on pick now button",
-    "status": "new",
-    "claude_response": "",
+    "status": "done",
+    "claude_response": "Built Home Live v4. Three changes: (1) Intel card now shows ONLY SportsIQ crowd — removed Polymarket entirely. Card shows '62% OVER · 184 players' with a mini crowd split bar. Our crowd IS the product. (2) Button always says 'PICK NOW' — no more 'JOIN NOW' on phone 1. Consistent across all urgency states. Sub-line adjusts ('184 players · 9s to lock' at :09, '3s left — go' at :03) but the CTA never changes. (3) 'LAST 3 SECONDS' and 'Window closes forever' copy removed from the red button. The full red screen flood communicates urgency — no extra copy needed.",
     "mark_reply": ""
   },
   {
@@ -3742,8 +3748,8 @@
     "date": "2026-03-21",
     "source": "inbox",
     "idea": "[head-to-head] 1. real IQ points\n2. yes - make sure this works well though\n3. clarify what we are doing with H2H and groups. this should be simple and intuitive. we shouldnt have one feature for 2 players and another for a group.\n4. make a recommendation\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
-    "status": "new",
-    "claude_response": "",
+    "status": "done",
+    "claude_response": "Built Challenges v2 — the unified feature. Recommendation: eliminate 'H2H' and 'Groups' as separate concepts. ONE tab: Challenges. When creating a challenge, you pick friends via multi-select checkboxes. 1 selected = 1v1. 2+ selected = Group Challenge. Same flow, same UI, no branching. Stake is per player, pot = stake × participants, winner takes all. IQ is real (confirmed). Three phones: (1) Create Challenge — multi-select friend list (BigMike ✓, SarahK ✓, JayBird unchecked), auto-labels '3-player Group Challenge', stake selector shows pot size, 'Send to BigMike & SarahK' CTA. (2) Active — running standings showing each player's pick direction after lock, live Mahomes stat counter, 300 IQ pot displayed. (3) Result — MarcD wins +200 IQ from BigMike and SarahK (each -100), trophy, Rematch + Chirp Them buttons.",
     "mark_reply": ""
   },
   {
@@ -4500,7 +4506,10 @@
     // ── Mar 21 9:45 AM PT — My Stats v2 ──────────────────────────────
     'my-stats-v2':         '2026-03-21T09:45:00-07:00',
     // ── Mar 21 11:30 AM PT — Bar Live Pick v4 ────────────────────────
-    'bar-pred-q-v4':       '2026-03-21T11:30:00-07:00'
+    'bar-pred-q-v4':       '2026-03-21T11:30:00-07:00',
+    // ── Mar 21 12:00 PM PT — feedback fixes + unified Challenges ─────
+    'home-live-v4':        '2026-03-21T12:00:00-07:00',
+    'challenges-v2':       '2026-03-21T12:00:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -4952,6 +4961,27 @@
         'Should you be able to challenge someone who hasn\'t picked yet (asynchronous — they see your pick hidden), or must both pick simultaneously in the same window?',
         'Maximum concurrent H2H challenges per user — should there be a cap (e.g., 3 active at once) to keep stakes feeling meaningful?',
         'Should H2H challenges show publicly on the leaderboard ("MarcD challenged BigMike") to create social spectacle, or stay private between the two players?'
+      ]
+    },
+    'home-live-v4': {
+      icon: '⚡',
+      title: 'Home Live v4 — Crowd Only · Consistent CTA · 2026-03-21',
+      built: 'Refinement of v3 based on Mark\'s feedback: (1) Intel card now shows ONLY SportsIQ crowd data — no Polymarket, no Kalshi. "CROWD RIGHT NOW: 62% OVER · 184 active players" is the single signal. Our crowd IS the product. (2) Button label is always "PICK NOW" — not "JOIN NOW" vs "PICK NOW." Consistent across all urgency states. Sub-line adjusts dynamically ("184 players · 9s to lock" at :09, "3s left — go" at :03) but the CTA label never changes. (3) "LAST 3 SECONDS" headline text and "Window closes forever" secondary text removed from the :03 red state button — those felt over-written. The visual urgency (full red flood, shaking) communicates the moment without the extra copy.',
+      questions: [
+        'Button always "PICK NOW" — does this work before you\'ve picked (joining the session) and also after picking (would it appear again)? Or does the button disappear entirely after pick is locked?',
+        'Crowd-only intel card: does "62% OVER · 184 players" give enough context, or should we add the crowd split bar (tug-of-war visualization inline on mobile) to make the 62% feel more tangible?',
+        'At :03 full red flood — should we add a 3-2-1 count-down animation in huge type that counts the final seconds, or keep the clock as-is?'
+      ]
+    },
+    'challenges-v2': {
+      icon: '⚔️',
+      title: 'Challenges v2 — Unified 1v1 + Group · 2026-03-21',
+      built: 'Unified "Challenges" feature — replaces the separate H2H and Groups concepts. Mark\'s direction: one feature, not two. Design: (1) Challenge creation screen — friend list with multi-select checkboxes. Selecting 1 friend = "1v1 Challenge." Selecting 2+ friends = "Group Challenge (X players)." Same flow, same stakes, same UI. No branching. Stake is per-player, pot = stake × participants. (2) Active group challenge (3 players: MarcD, BigMike, SarahK) — running leaderboard shows each person\'s pick direction after lock, live stat tracking, "Watching for Final Whistle" state. (3) Result — MarcD wins the 300 IQ pot (+200 net from BigMike and SarahK). Trophy, trash talk, Rematch. Recommendation: tab label is just "Challenges" — not "H2H" or "Groups." The word "Challenge" is universal for any number of participants.',
+      questions: [
+        'Unified "Challenges" tab — does this replace both the H2H concept and any separate Groups feature, or should Groups (persistent squads with ongoing leaderboards) remain a separate thing?',
+        'For group challenges (3+ players), should the stake be equal for all players (fairest) or can the challenger set different stakes per opponent?',
+        'When a challenge is active and both players have locked in, should each person\'s pick direction show immediately, or stay hidden until Final Whistle (more suspense)?',
+        'Pending/open challenges — should there be a dedicated inbox for challenges you\'ve received and sent, or surface them as notifications on the Home screen?'
       ]
     }
   };
@@ -12984,6 +13014,411 @@
   </div>
 
   <div id="sfb-panel-bar-pred-q-v4" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Home Live v4 — Crowd Only · Consistent CTA · 2026-03-21
+     Feedback fixes from idea-024: only show crowd, always PICK NOW,
+     remove "Last 3 seconds" / "window closes forever" copy
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="home-live-v4" class="screen" style="display:none;">
+  <div class="phone-wrap">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;max-width:260px;">
+      <div style="background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:8px;padding:4px 12px;font-size:10px;font-weight:700;color:#a59df5;letter-spacing:1.5px;">v4 UPDATE · 2026-03-21</div>
+      <div style="font-size:12px;color:var(--muted);text-align:center;line-height:1.6;">Crowd only. Always "PICK NOW." No extra urgency copy on button.</div>
+    </div>
+
+    <!-- Phone 1: :09 state — crowd-only intel -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner">
+          <div class="home-bg"></div>
+          <div class="home-glow-a" style="background:radial-gradient(ellipse at 50% 60%,rgba(239,68,68,0.35) 0%,transparent 65%);"></div>
+          <div class="home-glow-b"></div>
+          <div class="home-vignette"></div>
+          <div class="home-grain"></div>
+          <div class="home-shell">
+            <div class="home-topbar">
+              <div class="home-logo">Sports<span>IQ</span></div>
+              <div class="home-pts-chip">⚡ 2,450 pts</div>
+            </div>
+            <div class="bar-checkin">
+              <div class="bar-checkin-text">🍺 Tap &amp; Taylor's · Bar Mode</div>
+              <div class="bar-checkin-badge">2× ACTIVE</div>
+            </div>
+            <div class="home-hero">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <div class="live-badge" style="margin-bottom:0;"><div class="live-dot"></div><span class="live-badge-text">LIVE NOW</span></div>
+                <div class="countdown-box cdown-urgent" style="background:rgba(239,68,68,0.18);border-color:rgba(239,68,68,0.7);">
+                  <div class="countdown-lbl" style="color:#EF4444;">LOCKS IN</div>
+                  <div class="countdown-val" style="color:#EF4444;font-size:26px;">0:09</div>
+                </div>
+              </div>
+              <div class="hero-team">KANSAS CITY CHIEFS</div>
+              <div class="hero-player">Mahomes</div>
+              <div class="hero-ou-label">OVER OR UNDER</div>
+              <div class="hero-stat-row">
+                <div class="hero-number">267</div>
+                <div class="hero-stat-unit">passing yards</div>
+              </div>
+              <div class="context-card">📊 Chiefs trailing by 14 — Mahomes is in throw mode</div>
+              <!-- v4: Crowd ONLY — no Polymarket, no Kalshi -->
+              <div class="intel-card-v2" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.25);">
+                <div class="intel-label-v2" style="color:#4ade80;">👥 CROWD RIGHT NOW</div>
+                <div style="display:flex;align-items:baseline;gap:8px;margin-top:5px;">
+                  <div style="font-size:22px;font-weight:900;color:#22c55e;">62% OVER</div>
+                  <div style="font-size:9px;color:var(--muted);">184 active players</div>
+                </div>
+                <!-- Mini crowd bar -->
+                <div style="height:5px;border-radius:3px;background:rgba(255,255,255,0.08);overflow:hidden;margin-top:6px;">
+                  <div style="height:100%;width:62%;background:linear-gradient(90deg,#22c55e,#4ade80);border-radius:3px;"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:3px;font-size:7px;color:var(--muted);">
+                  <span>OVER 62%</span><span>UNDER 38%</span>
+                </div>
+              </div>
+            </div>
+            <!-- v4: Always "PICK NOW" — consistent label -->
+            <div class="join-ring">
+              <button class="join-btn">PICK NOW<span class="join-sub"><span class="crowd-live">184</span> players · 9s to lock</span><div class="join-drain-bar"><div class="join-drain-fill" style="animation-duration:9s;"></div></div></button>
+            </div>
+            <div class="stats-row">
+              <div class="stat-pill"><div class="stat-pill-val">2,450</div><div class="stat-pill-lbl">PTS</div></div>
+              <div class="stat-pill"><div class="stat-pill-val">#3</div><div class="stat-pill-lbl">TODAY</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">🔥 4</div><div class="stat-pill-lbl">STREAK</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">Gold</div><div class="stat-pill-lbl">TIER</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">HOME v4 — LIVE · :09 · Crowd Only</div>
+    </div>
+
+    <!-- Phone 2: :03 — Full red flood · clean "PICK NOW" button -->
+    <div>
+      <div class="phone-frame" style="box-shadow:0 0 0 6px rgba(0,0,0,0.6),0 40px 100px rgba(0,0,0,0.8),0 0 80px rgba(239,68,68,0.3);">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:linear-gradient(180deg,#1c0000 0%,#120000 100%);">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(239,68,68,0.65) 0%,transparent 70%);"></div>
+          <div class="home-vignette"></div>
+          <div class="home-grain"></div>
+          <div class="home-shell">
+            <div class="home-topbar">
+              <div class="home-logo">Sports<span>IQ</span></div>
+              <div class="home-pts-chip" style="background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.4);">⚡ 2,450 pts</div>
+            </div>
+            <div class="bar-checkin" style="background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.25);">
+              <div class="bar-checkin-text">🍺 Tap &amp; Taylor's · Bar Mode</div>
+              <div class="bar-checkin-badge" style="background:rgba(239,68,68,0.25);color:#f87171;">2× ACTIVE</div>
+            </div>
+            <div class="home-hero">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <div class="live-badge" style="margin-bottom:0;background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.5);"><div class="live-dot" style="background:#ef4444;"></div><span class="live-badge-text" style="color:#f87171;">LOCKING</span></div>
+                <div class="countdown-box cdown-critical" style="background:rgba(239,68,68,0.35);border-color:#EF4444;border-width:2px;">
+                  <div class="countdown-lbl" style="color:#EF4444;font-size:8px;">LOCKS IN</div>
+                  <div class="countdown-val" style="color:#EF4444;font-size:30px;">0:03</div>
+                </div>
+              </div>
+              <div class="hero-team">KANSAS CITY CHIEFS</div>
+              <div class="hero-player">Mahomes</div>
+              <div class="hero-ou-label">OVER OR UNDER</div>
+              <div class="hero-stat-row">
+                <div class="hero-number">267</div>
+                <div class="hero-stat-unit">passing yards</div>
+              </div>
+              <!-- v4: Crowd only, red-tinted -->
+              <div class="intel-card-v2" style="border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.05);">
+                <div class="intel-label-v2" style="color:#4ade80;">👥 CROWD RIGHT NOW</div>
+                <div style="display:flex;align-items:baseline;gap:8px;margin-top:5px;">
+                  <div style="font-size:22px;font-weight:900;color:#22c55e;">62% OVER</div>
+                  <div style="font-size:9px;color:var(--muted);">184 players</div>
+                </div>
+                <div style="height:5px;border-radius:3px;background:rgba(255,255,255,0.08);overflow:hidden;margin-top:6px;">
+                  <div style="height:100%;width:62%;background:linear-gradient(90deg,#22c55e,#4ade80);border-radius:3px;"></div>
+                </div>
+              </div>
+            </div>
+            <!-- v4: Clean "PICK NOW" — no "LAST 3 SECONDS", no "window closes forever" -->
+            <div class="join-ring">
+              <button class="join-btn" style="background:linear-gradient(135deg,rgba(239,68,68,0.9),rgba(220,38,38,0.8));border-color:rgba(239,68,68,0.8);">PICK NOW<span class="join-sub">3s left — go</span><div class="join-drain-bar"><div class="join-drain-fill" style="width:5%;animation:none;background:#EF4444;"></div></div></button>
+            </div>
+            <div class="stats-row">
+              <div class="stat-pill"><div class="stat-pill-val">2,450</div><div class="stat-pill-lbl">PTS</div></div>
+              <div class="stat-pill"><div class="stat-pill-val">#3</div><div class="stat-pill-lbl">TODAY</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">🔥 4</div><div class="stat-pill-lbl">STREAK</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">Gold</div><div class="stat-pill-lbl">TIER</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">HOME v4 — CRITICAL (:03 · Clean CTA)</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-home-live-v4" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Challenges v2 — Unified 1v1 + Group · 2026-03-21
+     Replaces separate H2H and Groups concepts with ONE "Challenges" feature.
+     1 opponent = 1v1. 2+ opponents = Group challenge. Same UI throughout.
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="challenges-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Challenges v2 — ONE Unified Feature for 1v1 + Groups</div>
+    <div class="screen-subtitle">Mark's direction: no separate H2H and Groups. One "Challenges" tab that scales from 1 opponent to 10. Select friends → set stake → challenge. Whether it's 1v1 or a 6-person group, the flow is identical. The pot scales with participants. Eliminates UI confusion permanently.</div>
+  </div>
+
+  <div class="phones-section">
+
+    <!-- Phone 1: Create Challenge — multi-select friends (1v1 or group) -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">CREATE A CHALLENGE</div>
+      <div class="phone-frame">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <div style="padding:8px 10px 4px;display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:12px;font-weight:900;color:var(--text);">⚔️ Challenges</div>
+          <div style="font-size:8px;color:var(--accent);font-weight:700;">+ New Challenge</div>
+        </div>
+        <!-- The Prop -->
+        <div style="margin:3px 10px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:10px;padding:8px 10px;">
+          <div style="font-size:7px;font-weight:800;color:var(--accent);letter-spacing:1px;margin-bottom:3px;">THE PROP</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text);">Mahomes — Passing Yards</div>
+          <div style="font-size:8px;color:var(--muted);margin-top:1px;">OVER or UNDER 267 · locks in 9s</div>
+          <div style="font-size:8px;color:#22c55e;margin-top:3px;">Your pick: OVER ✓</div>
+        </div>
+        <!-- Select Opponents — multi-select checkboxes -->
+        <div style="margin:4px 10px;">
+          <div style="font-size:7px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:5px;">CHOOSE OPPONENTS — select 1 or more</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <!-- BigMike — selected -->
+            <div style="background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:8px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:900;flex-shrink:0;">M</div>
+              <div style="flex:1;">
+                <div style="font-size:9px;font-weight:700;color:var(--text);">BigMike</div>
+                <div style="font-size:7px;color:var(--muted);">IQ 912 · 🔥34 · #1 this week</div>
+              </div>
+              <div style="width:16px;height:16px;border-radius:4px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;flex-shrink:0;">✓</div>
+            </div>
+            <!-- SarahK — selected -->
+            <div style="background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:8px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:900;flex-shrink:0;">S</div>
+              <div style="flex:1;">
+                <div style="font-size:9px;font-weight:700;color:var(--text);">SarahK</div>
+                <div style="font-size:7px;color:var(--muted);">IQ 734 · 🔥11 · #4 this week</div>
+              </div>
+              <div style="width:16px;height:16px;border-radius:4px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;flex-shrink:0;">✓</div>
+            </div>
+            <!-- JayBird — not selected -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:900;flex-shrink:0;">J</div>
+              <div style="flex:1;">
+                <div style="font-size:9px;color:var(--text);">JayBird</div>
+                <div style="font-size:7px;color:var(--muted);">IQ 1,041 · 🔥29 · #1 all-time</div>
+              </div>
+              <div style="width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);flex-shrink:0;"></div>
+            </div>
+          </div>
+          <!-- Auto-label: Group Challenge -->
+          <div style="margin-top:6px;text-align:center;font-size:8px;font-weight:700;color:var(--accent);">Group Challenge · 3 players (you + 2 opponents)</div>
+        </div>
+        <!-- Stake per player -->
+        <div style="margin:4px 10px;">
+          <div style="font-size:7px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">STAKE PER PLAYER — loser pays into pot</div>
+          <div style="display:flex;gap:5px;">
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:5px 4px;text-align:center;">
+              <div style="font-size:9px;font-weight:700;color:var(--muted);">50 IQ</div>
+              <div style="font-size:7px;color:var(--muted);">150 pot</div>
+            </div>
+            <div style="flex:1;background:rgba(85,69,211,0.15);border:2px solid var(--accent);border-radius:7px;padding:5px 4px;text-align:center;">
+              <div style="font-size:9px;font-weight:700;color:var(--accent);">100 IQ</div>
+              <div style="font-size:7px;color:var(--accent);">300 pot ✓</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:5px 4px;text-align:center;">
+              <div style="font-size:9px;font-weight:700;color:var(--muted);">250 IQ</div>
+              <div style="font-size:7px;color:var(--muted);">750 pot</div>
+            </div>
+          </div>
+        </div>
+        <!-- Send -->
+        <div style="margin:5px 10px 8px;background:linear-gradient(135deg,var(--accent),#4338ca);border-radius:10px;padding:10px;text-align:center;">
+          <div style="font-size:11px;font-weight:900;color:#fff;">⚔️ Send to BigMike &amp; SarahK</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.65);margin-top:1px;">100 IQ each · 300 IQ total pot · winner takes all</div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:5px 0 4px;border-top:1px solid rgba(255,255,255,0.06);">
+          <div style="text-align:center;"><div style="font-size:13px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">🎯</div><div style="font-size:var(--muted);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">⚔️</div><div style="font-size:7px;color:var(--accent);">Challenges</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+      <div class="phone-label">CHALLENGES — Create (1v1 or Group)</div>
+    </div>
+
+    <!-- Phone 2: Active group challenge — 3 players, all locked in -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#f59e0b;letter-spacing:2px;margin-bottom:12px;">CHALLENGE ACTIVE</div>
+      <div class="phone-frame">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <div style="padding:8px 10px 4px;">
+          <div style="font-size:10px;font-weight:900;color:var(--text);">⚔️ Group Challenge</div>
+          <div style="font-size:7px;color:var(--muted);margin-top:1px;">Mahomes · 267 yds · 3 players · 300 IQ pot</div>
+        </div>
+        <!-- Countdown -->
+        <div style="margin:3px 10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:8px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:8px;color:#f87171;font-weight:700;">🔴 LOCKED IN — WATCHING LIVE</div>
+          <div style="font-size:14px;font-weight:900;color:#ef4444;">Q4 4:32</div>
+        </div>
+        <!-- Mahomes live stat -->
+        <div style="margin:3px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:6px 10px;text-align:center;">
+          <div style="font-size:7px;color:var(--muted);letter-spacing:1px;">MAHOMES LIVE STATS</div>
+          <div style="font-size:18px;font-weight:900;color:var(--text);">241 <span style="font-size:10px;color:var(--muted);">yds</span></div>
+          <div style="font-size:8px;color:#ef4444;">Need 267 to go OVER · 26 yds needed</div>
+        </div>
+        <!-- Player picks leaderboard -->
+        <div style="margin:4px 10px;">
+          <div style="font-size:7px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:5px;">CHALLENGE STANDINGS</div>
+          <!-- MarcD (you) — OVER -->
+          <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:5px 8px;margin-bottom:3px;display:flex;align-items:center;gap:6px;">
+            <div style="font-size:9px;font-weight:900;color:var(--muted);width:12px;">1</div>
+            <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:900;">M</div>
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:700;color:var(--text);">MarcD <span style="color:var(--muted);font-weight:400;">(you)</span></div>
+              <div style="font-size:7px;color:var(--muted);">IQ 847</div>
+            </div>
+            <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:5px;padding:2px 6px;font-size:8px;font-weight:800;color:#22c55e;">OVER ↑</div>
+          </div>
+          <!-- BigMike — UNDER -->
+          <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:8px;padding:5px 8px;margin-bottom:3px;display:flex;align-items:center;gap:6px;">
+            <div style="font-size:9px;font-weight:900;color:var(--muted);width:12px;">2</div>
+            <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:900;">M</div>
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:700;color:var(--text);">BigMike</div>
+              <div style="font-size:7px;color:var(--muted);">IQ 912</div>
+            </div>
+            <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);border-radius:5px;padding:2px 6px;font-size:8px;font-weight:800;color:#ef4444;">UNDER ↓</div>
+          </div>
+          <!-- SarahK — OVER -->
+          <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+            <div style="font-size:9px;font-weight:900;color:var(--muted);width:12px;">3</div>
+            <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:900;">S</div>
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:700;color:var(--text);">SarahK</div>
+              <div style="font-size:7px;color:var(--muted);">IQ 734</div>
+            </div>
+            <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:5px;padding:2px 6px;font-size:8px;font-weight:800;color:#22c55e;">OVER ↑</div>
+          </div>
+        </div>
+        <!-- Pot status -->
+        <div style="margin:5px 10px 3px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:6px 10px;text-align:center;">
+          <div style="font-size:7px;color:#d97706;letter-spacing:1px;font-weight:700;">TOTAL POT</div>
+          <div style="font-size:18px;font-weight:900;color:#f59e0b;">300 IQ</div>
+          <div style="font-size:7px;color:var(--muted);">Winner takes all · Final Whistle decides</div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:5px 0 4px;border-top:1px solid rgba(255,255,255,0.06);">
+          <div style="text-align:center;"><div style="font-size:13px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">🎯</div><div style="font-size:7px;color:var(--muted);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">⚔️</div><div style="font-size:7px;color:var(--accent);">Challenges</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+      <div class="phone-label">CHALLENGES — Active Group · 3 Players</div>
+    </div>
+
+    <!-- Phone 3: Result — MarcD wins the pot -->
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:12px;">CHALLENGE RESULT</div>
+      <div class="phone-frame" style="background:radial-gradient(ellipse at 50% 0%,rgba(34,197,94,0.1) 0%,#080E1C 50%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 2px;font-size:9px;color:#94a3b8;">
+          <span>9:41</span><span>●●● WiFi 🔋</span>
+        </div>
+        <!-- Winner banner -->
+        <div style="margin:4px 10px;background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(16,185,129,0.1));border:2px solid rgba(34,197,94,0.4);border-radius:12px;padding:12px 10px;text-align:center;">
+          <div style="font-size:24px;margin-bottom:4px;">🏆</div>
+          <div style="font-size:14px;font-weight:900;color:#22c55e;">YOU WIN!</div>
+          <div style="font-size:9px;color:var(--muted);margin-top:2px;">OVER HITS · Mahomes 284 yds</div>
+        </div>
+        <!-- IQ transfer -->
+        <div style="margin:4px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:10px;">
+          <div style="font-size:7px;color:var(--muted);letter-spacing:1px;margin-bottom:6px;">IQ TRANSFER</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+            <div style="font-size:9px;color:var(--muted);">Your IQ before</div>
+            <div style="font-size:10px;font-weight:700;color:var(--text);">847</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+            <div style="font-size:9px;color:var(--muted);">Won from BigMike</div>
+            <div style="font-size:10px;font-weight:700;color:#22c55e;">+100</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <div style="font-size:9px;color:var(--muted);">Won from SarahK</div>
+            <div style="font-size:10px;font-weight:700;color:#22c55e;">+100</div>
+          </div>
+          <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:9px;font-weight:800;color:var(--text);">New IQ Total</div>
+            <div style="font-size:16px;font-weight:900;color:#22c55e;">1,047</div>
+          </div>
+        </div>
+        <!-- Standings -->
+        <div style="margin:3px 10px;">
+          <div style="font-size:7px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;">FINAL STANDINGS</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="display:flex;align-items:center;gap:6px;padding:3px 0;">
+              <div style="font-size:10px;">🥇</div>
+              <div style="font-size:9px;font-weight:700;color:#22c55e;flex:1;">MarcD (you)</div>
+              <div style="font-size:8px;color:#22c55e;font-weight:700;">+200 IQ</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;padding:3px 0;">
+              <div style="font-size:10px;">💀</div>
+              <div style="font-size:9px;color:var(--muted);flex:1;">BigMike</div>
+              <div style="font-size:8px;color:#ef4444;font-weight:700;">−100 IQ</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;padding:3px 0;">
+              <div style="font-size:10px;">💀</div>
+              <div style="font-size:9px;color:var(--muted);flex:1;">SarahK</div>
+              <div style="font-size:8px;color:#ef4444;font-weight:700;">−100 IQ</div>
+            </div>
+          </div>
+        </div>
+        <!-- Actions -->
+        <div style="margin:5px 10px;display:flex;gap:6px;">
+          <div style="flex:1;background:linear-gradient(135deg,var(--accent),#4338ca);border-radius:8px;padding:8px;text-align:center;">
+            <div style="font-size:9px;font-weight:900;color:#fff;">🔁 Rematch</div>
+          </div>
+          <div style="flex:1;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:8px;text-align:center;">
+            <div style="font-size:9px;font-weight:700;color:#f59e0b;">💬 Chirp Them</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:5px 0 4px;border-top:1px solid rgba(255,255,255,0.06);">
+          <div style="text-align:center;"><div style="font-size:13px;">🏠</div><div style="font-size:7px;color:var(--muted);">Home</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">🎯</div><div style="font-size:7px;color:var(--muted);">Picks</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">⚔️</div><div style="font-size:7px;color:var(--accent);">Challenges</div></div>
+          <div style="text-align:center;"><div style="font-size:13px;">👤</div><div style="font-size:7px;color:var(--muted);">Profile</div></div>
+        </div>
+      </div>
+      <div class="phone-label">CHALLENGES — Group Result · +200 IQ</div>
+    </div>
+
+  </div>
+
+  <!-- Design rationale -->
+  <div style="max-width:900px;margin:0 auto 40px;padding:0 20px;">
+    <div style="background:linear-gradient(135deg,#0a0a1a,#1a1a2e);border:1px solid #2a2a4a;border-radius:14px;padding:24px;">
+      <div style="font-size:10px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">⚔️ DESIGN RATIONALE — UNIFIED CHALLENGES</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+        <strong style="color:var(--text);">One concept, not two:</strong> "H2H" and "Groups" are the same interaction at different participant counts. A unified "Challenges" tab with multi-select removes the cognitive overhead of "which feature do I use?" — you just pick people. Selecting 1 = 1v1. Selecting 5 = group challenge. The UI never branches.<br>
+        <strong style="color:var(--text);">IQ pot creates real stakes:</strong> Mark confirmed — real IQ points. 100 IQ per player × 3 players = 300 IQ pot. Winner takes all. This creates a genuine economic stake that makes every challenge feel meaningful without involving real money. Legal, compelling, high retention.<br>
+        <strong style="color:var(--text);">Moat from challenges:</strong> After 20 challenges with BigMike (4-4 record, 3 rematches), that rivalry history is locked to SportsIQ. A user switching to another app loses their rivalries. Named history between specific people is a switching cost that anonymous tournament brackets can never replicate.<br>
+        <strong style="color:var(--text);">Organic acquisition built in:</strong> Challenging a non-user sends them an install link. The challenger is doing free acquisition. Every challenge = potential new install.
+      </div>
+    </div>
+  </div>
+
+  <div id="sfb-panel-challenges-v2" class="sfb-panel"></div>
 </div>
 
 </body>
