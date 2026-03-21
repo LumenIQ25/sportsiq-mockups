@@ -131,6 +131,37 @@
   .tab.active { color: var(--text); border-left-color: var(--brand); background: rgba(85,69,211,0.1); }
   .tab.active .tab-days { color: rgba(165,157,245,0.6); background: rgba(85,69,211,0.15); }
 
+  /* ── Nav status system ──────────────────────────────────── */
+  .tab-review { border-left-color: rgba(245,158,11,0.6) !important; }
+  .tab-review .tab-label { color: #f8fafc; }
+  .review-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #f59e0b; flex-shrink: 0;
+    box-shadow: 0 0 6px rgba(245,158,11,0.6);
+  }
+  .tab-archived {
+    opacity: 0.38; font-size: 11px; padding: 6px 18px;
+  }
+  .tab-archived:hover { opacity: 0.65; }
+  .nav-archive-group { border-top: 1px solid rgba(255,255,255,0.04); margin-top: 4px; }
+  .nav-archive-toggle {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 18px; font-size: 10px; font-weight: 700;
+    color: rgba(148,163,184,0.4); letter-spacing: 1.5px;
+    cursor: pointer; list-style: none; user-select: none;
+  }
+  .nav-archive-toggle:hover { color: rgba(148,163,184,0.7); }
+  .nav-archive-toggle::-webkit-details-marker { display: none; }
+  #nav-review-section .nav-group-label {
+    color: #f59e0b;
+  }
+  .review-queue-count {
+    display: inline-block; background: rgba(245,158,11,0.15);
+    border-radius: 99px; padding: 1px 7px;
+    font-size: 9px; font-weight: 900; color: #f59e0b;
+    margin-left: 6px; vertical-align: middle;
+  }
+
   /* ── Screens ─────────────────────────────────────────────── */
   .screen { display: none; margin-left: 210px; }
   .screen.active { display: block; }
@@ -1798,160 +1829,166 @@
     </div>
   </div>
 
-  <!-- 📱 MOBILE -->
+  <!-- 👁 REVIEW QUEUE — screens awaiting Mark's feedback, populated by JS below -->
+  <div id="nav-review-section" class="nav-group" style="padding-bottom:0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:0;">
+    <div class="nav-group-label" style="color:#f59e0b;">👁 NEEDS REVIEW <span class="review-queue-count" id="review-count"></span></div>
+    <div id="nav-review-queue"></div>
+  </div>
+
+  <!-- 📱 MOBILE — current versions only -->
   <div class="nav-group">
     <div class="nav-group-label">📱 Mobile</div>
-    <div class="tab" data-screen="home-live-v3" onclick="showScreen('home-live-v3',this)">
-      <span class="tab-label">Home · Live v3</span><span class="tab-days" id="days-home-live-v3"></span>
+    <div class="tab tab-review" data-screen="home-live-v4" onclick="showScreen('home-live-v4',this)">
+      <span class="tab-label">Home · Live</span><span class="tab-days" id="days-home-live-v4"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="home-idle-v2" onclick="showScreen('home-idle-v2',this)">
-      <span class="tab-label">Home · Idle v2</span><span class="tab-days" id="days-home-idle-v2"></span>
+    <div class="tab tab-review" data-screen="home-idle-v3" onclick="showScreen('home-idle-v3',this)">
+      <span class="tab-label">Home · Idle</span><span class="tab-days" id="days-home-idle-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="pick-card-v2" onclick="showScreen('pick-card-v2',this)">
-      <span class="tab-label">Pick Card v2</span><span class="tab-days" id="days-pick-card-v2"></span>
+    <div class="tab tab-review" data-screen="pick-card-v3" onclick="showScreen('pick-card-v3',this)">
+      <span class="tab-label">Pick Card</span><span class="tab-days" id="days-pick-card-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="pick-wait-v2" onclick="showScreen('pick-wait-v2',this)">
-      <span class="tab-label">Pick Wait v2</span><span class="tab-days" id="days-pick-wait-v2"></span>
+    <div class="tab tab-review" data-screen="pick-wait-v3" onclick="showScreen('pick-wait-v3',this)">
+      <span class="tab-label">Pick Wait</span><span class="tab-days" id="days-pick-wait-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="onboarding-v2" onclick="showScreen('onboarding-v2',this)">
-      <span class="tab-label">Onboarding v2</span><span class="tab-days" id="days-onboarding-v2"></span>
+    <div class="tab tab-review" data-screen="onboarding-v3" onclick="showScreen('onboarding-v3',this)">
+      <span class="tab-label">Onboarding</span><span class="tab-days" id="days-onboarding-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="daily-challenge-v2" onclick="showScreen('daily-challenge-v2',this)">
-      <span class="tab-label">Daily Challenge v2</span><span class="tab-days" id="days-daily-challenge-v2"></span>
+    <div class="tab tab-review" data-screen="daily-challenge-v3" onclick="showScreen('daily-challenge-v3',this)">
+      <span class="tab-label">Daily Challenge</span><span class="tab-days" id="days-daily-challenge-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="game-day-v2" onclick="showScreen('game-day-v2',this)">
-      <span class="tab-label">Game Day v2 ⚡</span><span class="tab-days" id="days-game-day-v2"></span>
+    <div class="tab tab-review" data-screen="game-day-v3" onclick="showScreen('game-day-v3',this)">
+      <span class="tab-label">Game Day</span><span class="tab-days" id="days-game-day-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="notifications" onclick="showScreen('notifications',this)">
-      <span class="tab-label">Notifications v1 🔔</span><span class="tab-days" id="days-notifications"></span>
+    <div class="tab tab-review" data-screen="notifications-v2" onclick="showScreen('notifications-v2',this)">
+      <span class="tab-label">Notifications</span><span class="tab-days" id="days-notifications-v2"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="my-stats-v2" onclick="showScreen('my-stats-v2',this)">
-      <span class="tab-label">My Stats v2</span><span class="tab-days" id="days-my-stats-v2"></span>
+    <div class="tab tab-review" data-screen="my-stats-v2" onclick="showScreen('my-stats-v2',this)">
+      <span class="tab-label">My Stats</span><span class="tab-days" id="days-my-stats-v2"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="leaderboard-v2" onclick="showScreen('leaderboard-v2',this)">
-      <span class="tab-label">Leaderboard v2</span><span class="tab-days" id="days-leaderboard-v2"></span>
+    <div class="tab tab-review" data-screen="leaderboard-v3" onclick="showScreen('leaderboard-v3',this)">
+      <span class="tab-label">Leaderboard</span><span class="tab-days" id="days-leaderboard-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="sports-dna-profile" onclick="showScreen('sports-dna-profile',this)">
-      <span class="tab-label">Sports DNA v2 🧬</span><span class="tab-days" id="days-sports-dna-profile"></span>
+    <div class="tab tab-review" data-screen="sports-dna-v2" onclick="showScreen('sports-dna-v2',this)">
+      <span class="tab-label">Sports DNA</span><span class="tab-days" id="days-sports-dna-v2"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="referral-growth" onclick="showScreen('referral-growth',this)">
-      <span class="tab-label">Referral & Growth v1 🚀</span><span class="tab-days" id="days-referral-growth"></span>
+    <div class="tab tab-review" data-screen="referral-v2" onclick="showScreen('referral-v2',this)">
+      <span class="tab-label">Referral</span><span class="tab-days" id="days-referral-v2"></span><span class="review-dot"></span>
+    </div>
+    <div class="tab tab-review" data-screen="trivia" onclick="showScreen('trivia',this)">
+      <span class="tab-label">Trivia (mobile)</span><span class="tab-days" id="days-trivia"></span><span class="review-dot"></span>
+    </div>
+    <div class="tab tab-review" data-screen="bar-crew-mgmt-v2" onclick="showScreen('bar-crew-mgmt-v2',this)">
+      <span class="tab-label">Bar Crew</span><span class="tab-days" id="days-bar-crew-mgmt-v2"></span><span class="review-dot"></span>
+    </div>
+    <div class="tab tab-review" data-screen="challenges-v3" onclick="showScreen('challenges-v3',this)">
+      <span class="tab-label">Challenges</span><span class="tab-days" id="days-challenges-v3"></span><span class="review-dot"></span>
     </div>
     <div class="tab" data-screen="head-to-head" onclick="showScreen('head-to-head',this)">
-      <span class="tab-label">Head-to-Head v1 ⚔️</span><span class="tab-days" id="days-head-to-head"></span>
+      <span class="tab-label">Head-to-Head</span><span class="tab-days" id="days-head-to-head"></span>
     </div>
-    <div class="tab" data-screen="home-live-v4" onclick="showScreen('home-live-v4',this)">
-      <span class="tab-label">Home · Live v4 ✦</span><span class="tab-days" id="days-home-live-v4"></span>
-    </div>
-    <div class="tab" data-screen="challenges-v2" onclick="showScreen('challenges-v2',this)">
-      <span class="tab-label">Challenges v2 ⚔️</span><span class="tab-days" id="days-challenges-v2"></span>
-    </div>
-    <div class="tab" data-screen="challenges-v3" onclick="showScreen('challenges-v3',this)">
-      <span class="tab-label">Challenges v3 ✦</span><span class="tab-days" id="days-challenges-v3"></span>
-    </div>
-    <div class="tab" data-screen="home-idle-v3" onclick="showScreen('home-idle-v3',this)">
-      <span class="tab-label">Home · Idle v3 ✦</span><span class="tab-days" id="days-home-idle-v3"></span>
-    </div>
-    <div class="tab" data-screen="pick-card-v3" onclick="showScreen('pick-card-v3',this)">
-      <span class="tab-label">Pick Card v3 ✦</span><span class="tab-days" id="days-pick-card-v3"></span>
-    </div>
-    <div class="tab" data-screen="pick-wait-v3" onclick="showScreen('pick-wait-v3',this)">
-      <span class="tab-label">Pick Wait v3 ✦</span><span class="tab-days" id="days-pick-wait-v3"></span>
-    </div>
-    <div class="tab" data-screen="onboarding-v3" onclick="showScreen('onboarding-v3',this)">
-      <span class="tab-label">Onboarding v3 ✦</span><span class="tab-days" id="days-onboarding-v3"></span>
-    </div>
-    <div class="tab" data-screen="daily-challenge-v3" onclick="showScreen('daily-challenge-v3',this)">
-      <span class="tab-label">Daily Challenge v3 ✦</span><span class="tab-days" id="days-daily-challenge-v3"></span>
-    </div>
-    <div class="tab" data-screen="game-day-v3" onclick="showScreen('game-day-v3',this)">
-      <span class="tab-label">Game Day v3 ✦</span><span class="tab-days" id="days-game-day-v3"></span>
-    </div>
-    <div class="tab" data-screen="notifications-v2" onclick="showScreen('notifications-v2',this)">
-      <span class="tab-label">Notifications v2 ✦</span><span class="tab-days" id="days-notifications-v2"></span>
-    </div>
-    <div class="tab" data-screen="my-stats-v2" onclick="showScreen('my-stats-v2',this)">
-      <span class="tab-label">My Stats v2 ✦</span><span class="tab-days" id="days-my-stats-v2b"></span>
-    </div>
-    <div class="tab" data-screen="leaderboard-v3" onclick="showScreen('leaderboard-v3',this)">
-      <span class="tab-label">Leaderboard v3 ✦</span><span class="tab-days" id="days-leaderboard-v3"></span>
-    </div>
-    <div class="tab" data-screen="sports-dna-v2" onclick="showScreen('sports-dna-v2',this)">
-      <span class="tab-label">Sports DNA v2 ✦</span><span class="tab-days" id="days-sports-dna-v2"></span>
-    </div>
-    <div class="tab" data-screen="referral-v2" onclick="showScreen('referral-v2',this)">
-      <span class="tab-label">Referral v2 ✦</span><span class="tab-days" id="days-referral-v2"></span>
-    </div>
-    <div class="tab" data-screen="trivia" onclick="showScreen('trivia',this)">
-      <span class="tab-label">Trivia v2 🧠</span><span class="tab-days" id="days-trivia"></span>
-    </div>
-    <div class="tab" data-screen="bar-crew-mgmt" onclick="showScreen('bar-crew-mgmt',this)">
-      <span class="tab-label">Bar Crew Mgmt v1 🍺</span><span class="tab-days" id="days-bar-crew-mgmt"></span>
-    </div>
-    <div class="tab" data-screen="bar-crew-mgmt-v2" onclick="showScreen('bar-crew-mgmt-v2',this)">
-      <span class="tab-label">Bar Crew Mgmt v2 ✦</span><span class="tab-days" id="days-bar-crew-mgmt-v2"></span>
-    </div>
+    <!-- ↓ Previous versions (collapsed by default) -->
+    <details class="nav-archive-group">
+      <summary class="nav-archive-toggle">↓ 10 previous versions</summary>
+      <div class="tab tab-archived" data-screen="home-live-v3" onclick="showScreen('home-live-v3',this)">
+        <span class="tab-label">Home · Live v3</span><span class="tab-days" id="days-home-live-v3"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="home-idle-v2" onclick="showScreen('home-idle-v2',this)">
+        <span class="tab-label">Home · Idle v2</span><span class="tab-days" id="days-home-idle-v2"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="pick-card-v2" onclick="showScreen('pick-card-v2',this)">
+        <span class="tab-label">Pick Card v2</span><span class="tab-days" id="days-pick-card-v2"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="pick-wait-v2" onclick="showScreen('pick-wait-v2',this)">
+        <span class="tab-label">Pick Wait v2</span><span class="tab-days" id="days-pick-wait-v2"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="onboarding-v2" onclick="showScreen('onboarding-v2',this)">
+        <span class="tab-label">Onboarding v2</span><span class="tab-days" id="days-onboarding-v2"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="daily-challenge-v2" onclick="showScreen('daily-challenge-v2',this)">
+        <span class="tab-label">Daily Challenge v2</span><span class="tab-days" id="days-daily-challenge-v2"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="game-day-v2" onclick="showScreen('game-day-v2',this)">
+        <span class="tab-label">Game Day v2</span><span class="tab-days" id="days-game-day-v2"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="notifications" onclick="showScreen('notifications',this)">
+        <span class="tab-label">Notifications v1</span><span class="tab-days" id="days-notifications"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="leaderboard-v2" onclick="showScreen('leaderboard-v2',this)">
+        <span class="tab-label">Leaderboard v2</span><span class="tab-days" id="days-leaderboard-v2"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="bar-crew-mgmt" onclick="showScreen('bar-crew-mgmt',this)">
+        <span class="tab-label">Bar Crew v1</span><span class="tab-days" id="days-bar-crew-mgmt"></span>
+      </div>
+    </details>
   </div>
 
-  <!-- 📺 BAR TV -->
+  <!-- 📺 BAR TV — current versions only -->
   <div class="nav-group">
     <div class="nav-group-label">📺 Bar TV</div>
-    <div class="tab" data-screen="bar-idle-v3" onclick="showScreen('bar-idle-v3',this)">
-      <span class="tab-label">Bar · Idle v3</span><span class="tab-days" id="days-bar-idle-v3"></span>
+    <div class="tab tab-review" data-screen="bar-idle-v4" onclick="showScreen('bar-idle-v4',this)">
+      <span class="tab-label">Bar · Idle</span><span class="tab-days" id="days-bar-idle-v4"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="bar-pred-q-v3" onclick="showScreen('bar-pred-q-v3',this)">
-      <span class="tab-label">Bar · Live Pick v3</span><span class="tab-days" id="days-bar-pred-q-v3"></span>
+    <div class="tab tab-review" data-screen="bar-pred-q-v4" onclick="showScreen('bar-pred-q-v4',this)">
+      <span class="tab-label">Bar · Live Pick</span><span class="tab-days" id="days-bar-pred-q-v4"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="bar-pred-q-v4" onclick="showScreen('bar-pred-q-v4',this)">
-      <span class="tab-label">Bar · Live Pick v4</span><span class="tab-days" id="days-bar-pred-q-v4"></span>
+    <div class="tab tab-review" data-screen="bar-tracking-v3" onclick="showScreen('bar-tracking-v3',this)">
+      <span class="tab-label">Bar · Tracking</span><span class="tab-days" id="days-bar-tracking-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="bar-tracking-v2" onclick="showScreen('bar-tracking-v2',this)">
-      <span class="tab-label">Bar · Tracking v2</span><span class="tab-days" id="days-bar-tracking-v2"></span>
+    <div class="tab tab-review" data-screen="bar-result-v3" onclick="showScreen('bar-result-v3',this)">
+      <span class="tab-label">Bar · Result</span><span class="tab-days" id="days-bar-result-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="bar-result-v2" onclick="showScreen('bar-result-v2',this)">
-      <span class="tab-label">Bar · Result v2</span><span class="tab-days" id="days-bar-result-v2"></span>
+    <div class="tab tab-review" data-screen="trivia-v3" onclick="showScreen('trivia-v3',this)">
+      <span class="tab-label">Trivia (TV)</span><span class="tab-days" id="days-trivia-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="bar-idle-v4" onclick="showScreen('bar-idle-v4',this)">
-      <span class="tab-label">Bar · Idle v4 ✦</span><span class="tab-days" id="days-bar-idle-v4"></span>
-    </div>
-    <div class="tab" data-screen="bar-tracking-v3" onclick="showScreen('bar-tracking-v3',this)">
-      <span class="tab-label">Bar · Tracking v3 ✦</span><span class="tab-days" id="days-bar-tracking-v3"></span>
-    </div>
-    <div class="tab" data-screen="bar-result-v3" onclick="showScreen('bar-result-v3',this)">
-      <span class="tab-label">Bar · Result v3 ✦</span><span class="tab-days" id="days-bar-result-v3"></span>
-    </div>
-    <div class="tab" data-screen="trivia-v3" onclick="showScreen('trivia-v3',this)">
-      <span class="tab-label">Trivia v3 📺 ✦</span><span class="tab-days" id="days-trivia-v3"></span>
-    </div>
+    <!-- ↓ Previous versions -->
+    <details class="nav-archive-group">
+      <summary class="nav-archive-toggle">↓ 5 previous versions</summary>
+      <div class="tab tab-archived" data-screen="bar-idle-v3" onclick="showScreen('bar-idle-v3',this)">
+        <span class="tab-label">Bar · Idle v3</span><span class="tab-days" id="days-bar-idle-v3"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="bar-pred-q-v3" onclick="showScreen('bar-pred-q-v3',this)">
+        <span class="tab-label">Bar · Live Pick v3</span><span class="tab-days" id="days-bar-pred-q-v3"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="bar-tracking-v2" onclick="showScreen('bar-tracking-v2',this)">
+        <span class="tab-label">Bar · Tracking v2</span><span class="tab-days" id="days-bar-tracking-v2"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="bar-result-v2" onclick="showScreen('bar-result-v2',this)">
+        <span class="tab-label">Bar · Result v2</span><span class="tab-days" id="days-bar-result-v2"></span>
+      </div>
+    </details>
   </div>
 
-  <!-- 📊 BUSINESS -->
+  <!-- 📊 BUSINESS — current versions only -->
   <div class="nav-group">
     <div class="nav-group-label">📊 Business</div>
-    <div class="tab" data-screen="mkt-intel" onclick="showScreen('mkt-intel',this)">
-      <span class="tab-label">Market Intel v1</span><span class="tab-days" id="days-mkt-intel"></span>
+    <div class="tab tab-review" data-screen="mkt-intel-v2" onclick="showScreen('mkt-intel-v2',this)">
+      <span class="tab-label">Market Intel</span><span class="tab-days" id="days-mkt-intel-v2"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="venue-dashboard" onclick="showScreen('venue-dashboard',this)">
-      <span class="tab-label">Venue Owner v1</span><span class="tab-days" id="days-venue-dashboard"></span>
+    <div class="tab tab-review" data-screen="venue-dashboard-v2" onclick="showScreen('venue-dashboard-v2',this)">
+      <span class="tab-label">Venue Dashboard</span><span class="tab-days" id="days-venue-dashboard-v2"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="venue-onboarding" onclick="showScreen('venue-onboarding',this)">
-      <span class="tab-label">Venue Onboarding v1 🏟️</span><span class="tab-days" id="days-venue-onboarding"></span>
+    <div class="tab tab-review" data-screen="venue-onboarding-v2" onclick="showScreen('venue-onboarding-v2',this)">
+      <span class="tab-label">Venue Onboarding</span><span class="tab-days" id="days-venue-onboarding-v2"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="data-intelligence" onclick="showScreen('data-intelligence',this)">
-      <span class="tab-label">Intelligence Platform v1 🧬</span><span class="tab-days" id="days-data-intelligence"></span>
+    <div class="tab tab-review" data-screen="data-intelligence-v2" onclick="showScreen('data-intelligence-v2',this)">
+      <span class="tab-label">Data Intelligence</span><span class="tab-days" id="days-data-intelligence-v2"></span><span class="review-dot"></span>
     </div>
-    <div class="tab" data-screen="mkt-intel-v2" onclick="showScreen('mkt-intel-v2',this)">
-      <span class="tab-label">Market Intel v2 ✦</span><span class="tab-days" id="days-mkt-intel-v2"></span>
-    </div>
-    <div class="tab" data-screen="venue-dashboard-v2" onclick="showScreen('venue-dashboard-v2',this)">
-      <span class="tab-label">Venue Dashboard v2 ✦</span><span class="tab-days" id="days-venue-dashboard-v2"></span>
-    </div>
-    <div class="tab" data-screen="venue-onboarding-v2" onclick="showScreen('venue-onboarding-v2',this)">
-      <span class="tab-label">Venue Onboarding v2 ✦</span><span class="tab-days" id="days-venue-onboarding-v2"></span>
-    </div>
-    <div class="tab" data-screen="data-intelligence-v2" onclick="showScreen('data-intelligence-v2',this)">
-      <span class="tab-label">Data Intelligence v2 ✦</span><span class="tab-days" id="days-data-intelligence-v2"></span>
-    </div>
+    <!-- ↓ Previous versions -->
+    <details class="nav-archive-group">
+      <summary class="nav-archive-toggle">↓ 4 previous versions</summary>
+      <div class="tab tab-archived" data-screen="mkt-intel" onclick="showScreen('mkt-intel',this)">
+        <span class="tab-label">Market Intel v1</span><span class="tab-days" id="days-mkt-intel"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="venue-dashboard" onclick="showScreen('venue-dashboard',this)">
+        <span class="tab-label">Venue Dashboard v1</span><span class="tab-days" id="days-venue-dashboard"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="venue-onboarding" onclick="showScreen('venue-onboarding',this)">
+        <span class="tab-label">Venue Onboarding v1</span><span class="tab-days" id="days-venue-onboarding"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="data-intelligence" onclick="showScreen('data-intelligence',this)">
+        <span class="tab-label">Data Intelligence v1</span><span class="tab-days" id="days-data-intelligence"></span>
+      </div>
+    </details>
   </div>
 </nav>
 
@@ -5081,6 +5118,218 @@
         'When a challenge is active and both players have locked in, should each person\'s pick direction show immediately, or stay hidden until Final Whistle (more suspense)?',
         'Pending/open challenges — should there be a dedicated inbox for challenges you\'ve received and sent, or surface them as notifications on the Home screen?'
       ]
+    },
+
+    /* ── v3/v2 batch built Mar 21 — SCREEN_META for all new screens ── */
+    'home-live-v4': {
+      icon: '⚡',
+      title: 'Home Live v4 — Crowd Only · Consistent CTA',
+      built: 'Refinement of v3 per feedback: (1) Intel card shows ONLY SportsIQ crowd data — no Polymarket, no Kalshi references. "CROWD RIGHT NOW: 62% OVER · 184 active players" is the single signal. Our crowd IS the product. (2) Button label is always "PICK NOW" regardless of urgency state — consistent across all countdown states. Sub-line adjusts dynamically ("184 players · 9s to lock" at :09, "3s left — go" at :03). (3) Over-written copy removed from the :03 red state — the full-screen red flood and shake communicate urgency without needing extra text. Two phones shown: :09 amber state and :03 full-red state.',
+      questions: [
+        'Button always "PICK NOW" — after the user has already locked a pick, does the button disappear entirely or stay visible (greyed out / "Pick Locked")?',
+        'Crowd-only intel card: does "62% OVER · 184 players" give enough context, or should we add an inline tug-of-war bar to make the 62% feel more tangible on mobile?',
+        'At :03 full red flood — should we add a 3-2-1 countdown in huge type during the final seconds, or keep the analog clock as-is?'
+      ]
+    },
+    'home-idle-v3': {
+      icon: '🏠',
+      title: 'Home Idle v3 — Personalized Feed · 2026-03-21',
+      built: 'v3 of the between-games home screen. Key upgrades: (1) Personalized upcoming props feed — shows only sports/teams the user follows based on their Sports DNA profile. No generic schedule dump. (2) Friends activity strip updated to show Trivia IQ moves in addition to pick results. (3) Daily Challenge streak card made more prominent — streak number shown larger with days-remaining badge. (4) "SportsIQ Signal Preview" teaser for the next available prop (locks in 3h) shown to logged-in users to seed anticipation and drive scheduled return.',
+      questions: [
+        'Personalized props feed vs. full schedule — should there always be a "See all sports" option, or keep it fully personalized with no override?',
+        'SportsIQ Signal Preview teaser — should the preview hint at the signal direction ("Signal leans OVER") or just say "signal available" to tease without fully spoiling?',
+        'Friends activity strip: show trivia wins alongside pick wins, or keep them separate (pick feed on home, trivia feed on trivia screen)?'
+      ]
+    },
+    'pick-card-v3': {
+      icon: '🎯',
+      title: 'Pick Card v3 — Cleaner Signal · No AI Language',
+      built: 'v3 refinement of the core pick interaction. Key changes: (1) "SportsIQ Signal" replaces any AI/model language — the signal is presented as a community intelligence indicator, not a prediction algorithm. (2) Signal display is less dense — one clear indicator with a confidence bar, not a 4-column table. (3) Post-pick calibration screen: after locking, a single-tap micro-question ("Why did you pick OVER?") captures the user\'s reasoning for the data layer. Options: Following the crowd / Going contrarian / Own stats knowledge / SportsIQ Signal. (4) Multiplier selector retained from v2 with visual improvements.',
+      questions: [
+        'Post-pick calibration question — should it appear every pick, every 3rd pick, or only on high-stakes picks (3× multiplier)?',
+        '"SportsIQ Signal" as the label — does this feel clear to a first-time user, or should it say "Community Signal" to make the source obvious?',
+        'Should the signal confidence bar show a number (e.g., 68%) or just a visual fill (no number, just color) to keep it from feeling like a fake precision?'
+      ]
+    },
+    'pick-wait-v3': {
+      icon: '⏳',
+      title: 'Pick Wait v3 — Tug-of-War Hero · Social Pressure',
+      built: 'v3 of the post-pick waiting screen. Key changes: (1) Tug-of-war bar moved to hero position — OVER 61% vs UNDER 39% fills the top third of the screen as the dominant visual. Updates live. (2) "Your pick" confirmation pill is overlaid on the bar (OVER side highlighted) so users can see their position within the crowd instantly. (3) Friends picks panel redesigned as a mini-leaderboard with live running totals, not just pick direction. (4) "Final Whistle together" message rewritten to feel less formal — "Everyone finds out at once. No peeking." (5) Result reveal screen uses a 3-count animation.',
+      questions: [
+        'Tug-of-war as hero — does a live-updating crowd split during the wait feel exciting or anxiety-inducing in a bad way?',
+        'Friends picks visibility during wait: should you see who\'s on OVER vs UNDER before the result, or hide until Final Whistle?',
+        '3-count animation on result reveal — tight 1s count, or dramatic 3s build? Or skip it entirely and snap to result?'
+      ]
+    },
+    'onboarding-v3': {
+      icon: '🚀',
+      title: 'Onboarding v3 — Faster Funnel · 3 Steps Max',
+      built: 'v3 tightens the funnel from 5 steps to 3: (1) Sports selection — 6 sports as tap-to-select tiles. No depth selector yet (moved to post-first-pick to reduce friction). One psychographic question ("How do you usually watch games?") embedded below the grid. (2) Username + notification permission — single screen, name field + allow-push CTA framed as "Get notified when your pick window opens." (3) First Pick immediately — drop them into a live or demo pick the moment they create their account. Sports DNA reveal deferred to Day 2. Moat: faster activation = higher D1 retention = more data collected.',
+      questions: [
+        'Depth selector per sport removed from onboarding — is that data critical for Day 1 ad targeting, or is it okay to collect it passively through behavior?',
+        'Notification permission at step 2 vs. after first win — which placement gets higher opt-in rate?',
+        'Demo pick for new users with no live game — yes (instant gratification) or no (wait for real game, higher authenticity)?'
+      ]
+    },
+    'daily-challenge-v3': {
+      icon: '📅',
+      title: 'Daily Challenge v3 — Streak At Risk + Share Card',
+      built: 'v3 of the Daily Challenge loop. Key additions: (1) "Streak At Risk" state — dedicated screen shown when user hasn\'t completed today\'s challenge with less than 2 hours to midnight. Streak flame animation, countdown timer, one-tap resume. (2) Share card generator — after completing a challenge, generates a Wordle-style result card (5 colored dots, score fraction, streak number) formatted for Instagram Story, WhatsApp, or copy link. This is the viral growth engine. (3) Community stats after completion: "Today 74% of players went OVER on Pick 3 — you went Under with 26%." Surfaces contrarian moments.',
+      questions: [
+        'Share card — should the card show the user\'s actual picks (OVER/UNDER for each) or just green/red dots like Wordle (no spoilers for friends who haven\'t played)?',
+        'Streak At Risk notification: how many hours before midnight? 3h, 2h, or 1h? What\'s the right urgency threshold?',
+        'Community stats post-challenge: show these immediately after result or put them on a separate "Challenge Stats" screen to reduce overwhelm?'
+      ]
+    },
+    'game-day-v3': {
+      icon: '🏟️',
+      title: 'Game Day v3 — Session Hub + Path to First',
+      built: 'v3 of Game Day Mode. Key upgrades: (1) "Session Hub" concept — a persistent screen that acts as the game night home base, showing all active picks, resolved picks, and upcoming picks in a single scroll. (2) "Path to First" math shown at all times (not just Clutch pick) — running calculation: "You need X more points. If you win the next 2 picks at 2×, you reach #1." (3) Session timer: shows how long until the session ends (end of 4th quarter / final whistle) so users know the time horizon. (4) Clutch Pick available in last 15 minutes of session, not just at session end.',
+      questions: [
+        'Session Hub as the "game night home base" — does this replace the regular Home screen during active sessions, or stack on top of it?',
+        '"Path to First" math: show it always, or only within striking distance (e.g., less than 500 pts behind #1)?',
+        'Clutch Pick window: last 15 minutes of the game, or triggered by the venue owner at a dramatic moment?'
+      ]
+    },
+    'notifications-v2': {
+      icon: '🔔',
+      title: 'Notifications v2 — Richer Previews + Segmentation',
+      built: 'v2 of the push notification catalog. Key changes: (1) Notifications now show a mini context card in the preview — Friend Picked notification shows the friend\'s pick direction and their current streak, not just their name. (2) Result notification shows final stat vs line ("Mahomes threw 312 — OVER hit! +200 IQ"). (3) Notification segmentation: Game Day pack (only during active sessions), Social pack (chirps, H2H challenges), Habit pack (streak reminders, daily challenge). User can toggle packs, not individual notification types — simpler UX, cleaner onboarding ask. (4) Quiet Hours: user sets a daily window (e.g., 11 PM–8 AM) where only streak-at-risk fires.',
+      questions: [
+        'Notification packs (Game Day / Social / Habit) vs. granular toggles per-type — which do you prefer for the settings screen?',
+        'Result notification with final stat shown ("Mahomes threw 312 — OVER hit!") — does this require us to have real game stat data, or can we pull it from a third-party feed?',
+        'Quiet Hours: user-set window, or auto-learn from when they actually open the app (if they never open after 10 PM, suppress late notifications)?'
+      ]
+    },
+    'leaderboard-v3': {
+      icon: '🏆',
+      title: 'Leaderboard v3 — Live Session + Cross-Venue',
+      built: 'v3 of the leaderboard screen. Key additions: (1) "Tonight\'s Session" tab added as first tab — shows only the current game night\'s results, resetting after each session. Gives casual bar patrons a clean slate each night so newcomers aren\'t perpetually at the bottom. (2) Cross-venue tab: a national leaderboard showing the top players across all active venues tonight. "SportsIQ Nation" feel — creates an aspirational level above the bar. (3) Movement indicators upgraded — not just up/down arrows, but exact rank change number shown (+4, -2) updated after each resolved pick. (4) Group challenges surfaced in the Groups tab with pending invites badge.',
+      questions: [
+        '"Tonight\'s Session" as default tab vs. "Friends" — which drives more engagement? Tonight creates fresh competition; Friends drives social retention.',
+        'Cross-venue "SportsIQ Nation" leaderboard — should this be opt-in (privacy concern) or opt-out (maximize scale)?',
+        'Rank change number (+4, -2): show the delta immediately after each pick, or batch-update at the end of the session?'
+      ]
+    },
+    'sports-dna-v2': {
+      icon: '🧬',
+      title: 'Sports DNA v2 — Deeper Profile · Pick Style Expanded',
+      built: 'v2 of the Sports DNA profile screen. Key upgrades: (1) Pick Style analysis expanded from one label to three dimensions: Contrarian Index (how often you beat the crowd), Timing Score (early vs late picker), and Risk Profile (multiplier preference distribution). Each dimension shown as a labeled bar. (2) Badge shelf upgraded with 3 new badges: Night Owl (most picks after 9 PM), Streak Builder (most consecutive correct), Iron Fan (100+ picks in one sport). (3) "Your edge" callout: the one stat where the user is objectively sharp — shown prominently as a personal insight card. Switching cost: a 500-pick personal record with documented pick style is irreplaceable — no competitor starts you with this.',
+      questions: [
+        'Three-dimension Pick Style (Contrarian / Timing / Risk) — is this too much data density on one screen, or does more data make the profile feel more valuable and sticky?',
+        '"Your Edge" callout — should it surface the user\'s single best stat automatically, or let them pin one stat as their featured insight?',
+        'Badge visibility: show all earned badges + locked (greyed out) badges as goals, or show earned-only to keep the shelf clean?'
+      ]
+    },
+    'referral-v2': {
+      icon: '🚀',
+      title: 'Referral v2 — Dynamic Challenge Link · IQ Stake',
+      built: 'v2 of the referral and viral growth screen. Key change: the invite is now framed as a "Challenge" rather than a plain invite. Your share link includes your IQ score and a challenge statement: "MarcD (IQ 847) challenged you to beat them on SportsIQ." The recipient lands on a page that shows your stats as the benchmark and a "Beat them" CTA. This reframes referral from "hey join this app" to "I dare you to beat me" — much higher conversion. Three phones: (1) Send challenge — your stats shown as the benchmark, share via WhatsApp/iMessage/Stories. (2) Recipient landing — "You\'ve been challenged" with the inviter\'s full stats card. (3) Referral dashboard — recruits count, bonus IQ earned, top-recruiter badge progress.',
+      questions: [
+        'Challenge framing ("Beat my IQ 847") vs. social framing ("Join my crew") — which drives more clicks? Can we A/B test both?',
+        'Should the referral bonus (+50 IQ per recruit) ever expire, or is it permanent to reward long-term advocates?',
+        'Top Recruiter badge: vanity only, or does it unlock something real (e.g., bigger crew size limit, or early access to new features)?'
+      ]
+    },
+    'bar-crew-mgmt-v2': {
+      icon: '🍺',
+      title: 'Bar Crew Management v2 — No Size Limit · User-Named',
+      built: 'v2 of Bar Crew management. Two phones: (1) My Crew — crew leaderboard showing all members ranked by IQ points with this-week delta, active trash talk feed with 3 recent chirps, prize pool total visible, "Chirp" action on each member. Crew size is unlimited — no cap imposed by SportsIQ. (2) Create Crew — simple 3-field form: crew name (user-chosen, any name allowed), emoji avatar picker, invite-by-username or share link. No complex settings shown upfront — add members first, set rules later. Design principle: frictionless creation, social pressure handles retention.',
+      questions: [
+        'Unlimited crew size — is there any operational reason to cap (e.g., leaderboard performance at 500+ members), or is unlimited the right call for virality?',
+        'Crew naming: any name allowed (user freedom) vs. moderated (content policy concern in the names people choose)?',
+        'Should the crew admin have moderation tools (kick member, mute chirps) from day 1, or add those only after launch when abuse cases emerge?'
+      ]
+    },
+    'mkt-intel-v2': {
+      icon: '📈',
+      title: 'Market Intelligence v2 — Cleaner Signal · No AI Language',
+      built: 'v2 of the Market Intelligence pick card. Key changes: (1) All AI/model language removed — "SportsIQ Signal" is the label for the crowd + signal indicator. No mention of AI, model, or algorithm anywhere on the pick card. (2) Signal display reduced to a single confidence bar with a color-coded dot (green = strong signal, amber = moderate, red = weak/noisy). Less density, more readability. (3) Post-pick calibration micro-question: after locking, one tap question ("What drove your pick?") — captures reasoning for the data layer. Options: Crowd direction / Own stats knowledge / SportsIQ Signal / Gut feel. (4) Sharp divergence alert retained — amber callout when Signal and Crowd disagree by >15%.',
+      questions: [
+        'Single confidence bar vs. the old 4-column signal table — which feels more trustworthy to a new user who doesn\'t understand what "Polymarket 0.67" means?',
+        'Post-pick calibration: "What drove your pick?" — is this a useful psychographic data point, or does it feel like a survey that breaks the flow?',
+        'Should the sharp divergence alert only appear when it\'s truly significant (>25% gap), or is 15% the right threshold?'
+      ]
+    },
+    'venue-dashboard-v2': {
+      icon: '🏢',
+      title: 'Venue Dashboard v2 — ROI Story · SportsIQ Recommendations',
+      built: 'v2 of the venue owner web dashboard. Key additions: (1) ROI story made explicit — hero metric row leads with "Est. Bar Tab Lift Tonight: +$340" as the most important number for bar owners. Secondary metrics: 47 active players, 91% check-in rate, 38 props resolved. (2) SportsIQ Recommendations panel — proactive suggestions from SportsIQ to the bar owner: "Run a prediction window at halftime — 23 players are currently idle." "Offer a drink special tied to the next OVER result." Based on session data. (3) Engagement chart shows peak activity by quarter/period. (4) Full-width browser frame to make it clear this is a web app, not mobile.',
+      questions: [
+        'SportsIQ Recommendations — should these be automatic (SportsIQ triggers the halftime window without asking), or recommendations the owner taps to approve?',
+        'Bar tab lift estimate ($340) — this is the most important selling point. How should we calculate it? Avg spend per check-in × players, or a flat multiplier vs. non-SportsIQ nights?',
+        'Should the venue dashboard have a mobile app version for owners to check on their phone, or is web-only acceptable for V1?'
+      ]
+    },
+    'venue-onboarding-v2': {
+      icon: '🏟️',
+      title: 'Venue Onboarding v2 — Separate App · 2-Field Setup',
+      built: 'v2 of the venue onboarding flow, now positioned as "SportsIQ for Venues" — a distinct product from the player app. Three screens: (1) Welcome screen — headline "Turn Every Game Night Into Your Biggest Night," ROI proof strip (avg +$340 bar tab lift, 47 players/session, 91% return rate), "Start 30-Day Free Trial" CTA. (2) Setup — only 2 required fields: venue name and city. Everything else (TV count, schedule, pricing tier) is deferred to after first session. Goal: get to first session in under 2 minutes. (3) Ready/QR screen — session is live, QR code shown full-size, room code displayed, share link for social. Design principle: venue setup should be faster than setting up a Square terminal.',
+      questions: [
+        'Separate "SportsIQ for Venues" app vs. admin mode inside the main app — which is easier for Isaac to build first, and which is better for the bar owner experience?',
+        '2-field setup (name + city) — is there any data we absolutely need before the first session that we\'re deferring? Or is this the right minimum?',
+        '30-day free trial vs. free forever with a player cap — which converts better with bar owners? Free forever removes the sales objection entirely.'
+      ]
+    },
+    'data-intelligence-v2': {
+      icon: '🧬',
+      title: 'Data Intelligence v2 — Sports DNA Explained · Home Integration',
+      built: 'v2 of the data intelligence concept. Two phones: (1) Sports DNA Profile explained — full breakdown of what we know about the user and why it\'s valuable: IQ score, pick accuracy by sport, fan depth bars, pick timing pattern, risk profile (multiplier preferences), Fan Type segment. Presented as "Your SportsIQ Profile" not as "our data about you." Frame: this data makes your experience better (personalized props, better signals). (2) Blended insights on Home screen — how Sports DNA surfaces in the UI: personalized upcoming props, tailored SportsIQ Signal context ("Your NFL accuracy is 74% — trust the signal here"), and a weekly insight card. No separate "data" screen visible to users — the DNA is woven into every screen.',
+      questions: [
+        'Sports DNA as a visible profile tab vs. invisible personalization engine — should users ever see the raw profile page, or just experience the personalization without seeing the data?',
+        'Fan Type segment shown to users ("Bar Regular 🍺") — does the user benefit from knowing their segment label, or is it better kept as an internal advertising category only?',
+        'Weekly insight card ("Your NFL accuracy climbed 8% this month") — standalone notification, or embedded in the Home idle screen as a weekly recap widget?'
+      ]
+    },
+    'challenges-v3': {
+      icon: '⚔️',
+      title: 'Challenges v3 — Unified Social + Daily + Bar · 2026-03-21',
+      built: 'v3 of the Challenges concept — now truly unified across three challenge types shown in one screen: (1) Challenge Active screen — three challenge rows shown simultaneously: a Social challenge (vs BigMike, live, OVER vs UNDER), a Daily Challenge (today 3/5 complete, 22-day streak), and a Bar Challenge (tonight\'s session at Murphy\'s, #4 of 47). Single "Challenges" tab surfaces all three. Status pills differentiate types: Social/Daily/Bar. (2) Challenge Resolved screen — result card for each type resolved: social win (+150 IQ from BigMike), daily 4/5 (+175 IQ, rank 2,341), bar result (#3 of 47, +620 session IQ). Unified IQ Summary at bottom: "+945 IQ across all challenges tonight." Moat: a single feature that merges 3 engagement loops makes the product feel uniquely complete.',
+      questions: [
+        'Unified Challenges tab showing Social + Daily + Bar simultaneously — does this feel cohesive, or would users prefer separate tabs for each type?',
+        'Unified IQ summary at the end of the night ("+945 total") — is this a compelling end-of-session moment, or does it need to be more ceremonial (animation, share card)?',
+        'Bar Challenge row in Challenges tab — should this only appear when the user is checked into a venue, or always visible (showing "Find a bar" CTA if not checked in)?'
+      ]
+    },
+    'bar-idle-v4': {
+      icon: '📺',
+      title: 'Bar TV Idle v4 — 3-Column · Zero Owner Input',
+      built: 'Full redesign of the bar idle screen: (1) Left column — SportsIQ logo, QR code (large), 5-digit room code with "Scan or enter code" label. Zero configuration needed from bar owner. (2) Center column — live session leaderboard (top 6 players tonight with IQ points and tonight-delta), automatically populated by SportsIQ from check-in data. (3) Right column — crowd stats ("47 players · 38 picks made"), next prop countdown timer, and a "SportsIQ Says" insight card auto-generated from the current session data. Everything updates automatically. Bar owner does nothing except turn on the TV.',
+      questions: [
+        'SportsIQ Says insight card on idle screen — what makes the best auto-generated insight? Options: crowd prediction summary, fun stat about a player, or a teaser for the next prop.',
+        'Zero owner input principle — should we ever offer the bar owner a way to customize the idle screen (e.g., their logo, a special offer), or keep it fully automated?',
+        'Leaderboard on idle screen: shows tonight-only points (clean slate) or all-time at this venue (rewards regulars)?'
+      ]
+    },
+    'bar-tracking-v3': {
+      icon: '📊',
+      title: 'Bar TV Tracking v3 — 2-State · Hero Stat + Live Leaderboard',
+      built: 'v3 bar tracking screen with 2 clearly labeled states: (1) LIVE state — large hero stat area (Patrick Mahomes Passing Yards: 247/over-under 264.5), progress bar showing how far we are to the line, 4 supporting stats below (completions, attempts, longest, last 4 games avg), left column shows Crowd split (OVER 68% / UNDER 32%) with player count and a running mini-leaderboard. (2) RESULT REVEALED state — same layout, stat highlighted in green (OVER HIT: 267 yds), leaderboard updates with point deltas shown (+200 for each winner), next prop countdown begins. Clean transitions between states.',
+      questions: [
+        'Progress bar toward the line — should it animate smoothly as yard-by-yard updates come in, or update at play resolution (every few minutes)?',
+        'Supporting stats panel (completions, attempts, etc.) — too much for a bar TV where people are 10-15 feet away, or does it add to the "real sports broadcast" feel?',
+        'When OVER HIT triggers, should there be a dramatic bar TV moment (flash green, crowd noise icon, full-screen flash) or a clean in-place animation?'
+      ]
+    },
+    'bar-result-v3': {
+      icon: '🏆',
+      title: 'Bar TV Result v3 — Dual Leaderboard · Hot Streak Badge',
+      built: 'v3 bar result screen. Key new features: (1) Dual leaderboard tabs: "IQ Points" (tonight\'s absolute points) and "Win Rate %" (percentage correct tonight). Win Rate tab levels the playing field for late arrivals — someone who joined at half and went 2/2 (100%) beats a veteran at 6/9 (67%). Rotates automatically every 15s. (2) Hot Streak badge for anyone on 3+ consecutive correct picks — shown as a flame badge next to their name on the leaderboard. Rewards momentum players, not just early joiners. (3) 60-second display timer with progress bar — bar owner can see exactly when the screen auto-advances to the next round. (4) "Next prop in 2:00" countdown shown prominently to keep patrons attentive.',
+      questions: [
+        'Dual leaderboard (IQ Points vs Win Rate %) — does the Win Rate % tab actually help late arrivals feel competitive, or does it feel like two different games running simultaneously?',
+        'Hot Streak badge for 3+ consecutive correct — is 3 the right threshold, or should it be 2 (lower bar, more badges shown) or 4 (rarer, more prestigious)?',
+        '60-second display timer on result screen — should bar owners be able to extend it manually (e.g., keep a dramatic result up longer), or is auto-advance always better?'
+      ]
+    },
+    'trivia-v3': {
+      icon: '🧠',
+      title: 'Bar Trivia v3 — Auto-Triggered · 2 States · No Lock Button',
+      built: 'v3 bar trivia screen (TV display). Two clearly defined states: (1) QUESTION LIVE state — question displayed in large type, 10-second countdown bar at bottom (depleting), 4 answer options shown as lettered tiles (A/B/C/D). No lock-in button — answer selection is final on first tap (faster UX, cleaner TV display). Live answer distribution shown as percentage bars updating in real-time as players answer on mobile. (2) ANSWER REVEALED state — correct answer highlighted in green, wrong answers dimmed, "% got it right" shown prominently, SportsIQ Insight stat card (the actual stat that makes the answer true — e.g., "Mahomes has thrown 358 TDs in 7 seasons"). 5-second auto-advance to next question. SportsIQ triggers all trivia rounds — no venue input needed.',
+      questions: [
+        'No lock button (first tap is final) — is this right for bar trivia speed, or does it create accidental wrong answers that frustrate players?',
+        'SportsIQ Insight stat card after each answer — this is where we showcase our data depth. Should it always show a number/stat, or sometimes show a fun contextual fact?',
+        'Auto-advance at 5 seconds — is that enough time for players to absorb the answer and SportsIQ Insight, or should it be longer (8-10s)?'
+      ]
     }
   };
 
@@ -5594,6 +5843,44 @@
 
   // Render on load
   renderIdeaInbox();
+
+  // ── Review queue: populate top-of-nav "NEEDS REVIEW" section ─────────
+  (function initReviewQueue() {
+    var queue = document.getElementById('nav-review-queue');
+    var countEl = document.getElementById('review-count');
+    if (!queue) return;
+    // Collect all .tab-review tabs from the section nav groups (not from queue itself)
+    var reviewTabs = document.querySelectorAll('.nav-group:not(#nav-review-section) .tab-review');
+    var now = new Date();
+    var html = '';
+    reviewTabs.forEach(function(tab) {
+      var screenId = tab.getAttribute('data-screen');
+      if (!screenId) return;
+      var labelEl = tab.querySelector('.tab-label');
+      var label = labelEl ? labelEl.textContent : screenId;
+      // Build days string from SCREEN_DATES
+      var daysStr = '';
+      if (SCREEN_DATES[screenId]) {
+        var d = new Date(SCREEN_DATES[screenId]);
+        var diffMs = now - d;
+        var diffMins = Math.floor(diffMs / 60000);
+        var diffHours = Math.floor(diffMs / 3600000);
+        var diffDays = Math.floor(diffMs / 86400000);
+        if (diffMins < 2) daysStr = 'just now';
+        else if (diffMins < 60) daysStr = diffMins + 'm';
+        else if (diffHours < 24) daysStr = diffHours + 'h';
+        else if (diffDays === 1) daysStr = '1d';
+        else daysStr = diffDays + 'd';
+      }
+      html += '<div class="tab tab-review" data-screen="' + screenId + '" onclick="showScreen(\'' + screenId + '\',this)" style="font-size:11px;padding:7px 14px 7px 18px;">';
+      html += '<span class="tab-label">' + label + '</span>';
+      if (daysStr) html += '<span class="tab-days" style="font-size:9px;">' + daysStr + '</span>';
+      html += '<span class="review-dot"></span>';
+      html += '</div>';
+    });
+    queue.innerHTML = html;
+    if (countEl) countEl.textContent = reviewTabs.length;
+  })();
 
   // ── Hash-based navigation: restore screen on page load / refresh ──────
   (function initHashNav() {
