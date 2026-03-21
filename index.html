@@ -4244,6 +4244,9 @@
         'Should Trivia IQ Score (847) show on the home screen alongside pick win rate?',
         'Bar TV trivia: venue triggers a 5-question break, players answer on mobile, results on TV — does that fit your vision for bar flow?',
         'Start NFL-only or launch with NFL + NBA together?'
+      ],
+      seed_thread: [
+        { from: 'mark', text: '1. Continuous mode\n2. Yes — show Trivia IQ Score on home screen\n3. We trigger it, not venue\n4. NBA, NFL, NHL, MLB, college basketball, college football', ts: 'Mar 20 11:16 PM' }
       ]
     },
     'leaderboard-v2': {
@@ -4300,6 +4303,11 @@
     if (!meta) return;
 
     var thread = sfbGetThread(screenId);
+    // Seed thread from SCREEN_META if localStorage is empty (preserves Mark's chat answers)
+    if (thread.length === 0 && meta.seed_thread && meta.seed_thread.length > 0) {
+      thread = meta.seed_thread;
+      sfbSaveThread(screenId, thread);
+    }
     var lastChanged = SCREEN_DATES[screenId] || '2026-03-01';
     var today = new Date(); today.setHours(0,0,0,0);
     var d = new Date(lastChanged);
