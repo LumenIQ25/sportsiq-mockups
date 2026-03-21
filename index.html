@@ -1681,6 +1681,9 @@
     <div class="tab" data-screen="sports-dna-profile" onclick="showScreen('sports-dna-profile',this)">
       <span class="tab-label">Sports DNA Profile 🧬</span><span class="tab-days" id="days-sports-dna-profile"></span>
     </div>
+    <div class="tab" data-screen="bar-crew-mgmt" onclick="showScreen('bar-crew-mgmt',this)">
+      <span class="tab-label">Bar Crew Mgmt 🍺</span><span class="tab-days" id="days-bar-crew-mgmt"></span>
+    </div>
   </div>
 
   <!-- 📱 MOBILE APP -->
@@ -4038,7 +4041,8 @@
     'game-day-v2':      '2026-03-21',
     'home-idle-v2':        '2026-03-21',
     'daily-challenge-v2':  '2026-03-21',
-    'sports-dna-profile':  '2026-03-21'
+    'sports-dna-profile':  '2026-03-21',
+    'bar-crew-mgmt':       '2026-03-21'
   };
 
   (function initDaysBadges() {
@@ -4341,6 +4345,17 @@
         'Data revenue: do you want to pursue brand sponsorships first (faster revenue, fewer legal hurdles) or data licensing first (higher ceiling but slower)?',
         'User-facing profile: should "Your Sports DNA" be its own tab, or live inside the existing Profile page?',
         'Privacy framing: "Personalize my experience" opt-in at onboarding, or let it build silently and reveal the profile after 2 weeks when it\'s impressive?'
+      ]
+    },
+    'bar-crew-mgmt': {
+      icon: '🍺',
+      title: 'Bar Crew Management — Social Group Creation & Hub',
+      built: 'Three phones: (1) Create a Bar Crew — crew name field, emoji/avatar picker, invite friends (contacts list with checkboxes + shareable link), prize pool type selector (Free / Paid with entry amount), trash talk toggle. (2) Crew Management — active members list with admin/member badges, each member\'s IQ + win rate + streak, invite more button, prize pool settings (total pot $240, split 60/30/10, current leader BigMike), trash talk feed showing 3 recent chirps, Game Day session link card ("Link to Murphy\'s Bar venue session"). (3) Crew Home (member view) — crew name hero "Murphy\'s Boys 🍺 12 members", mini leaderboard (top 5 with this-week standings), recent chirps/trash talk feed with react buttons, "Next Game" card with CTA to pick, weekly winner callout.',
+      questions: [
+        'Crew creation: open (anyone can join via link) vs. closed (admin must approve each member)? Or both, user chooses when creating?',
+        'Prize pool: should SportsIQ hold the money (require payment processing + licenses), or is it purely social with no real money involved initially?',
+        'Crew size limit: should there be a cap (e.g. 50 max) to keep competition tight, or unlimited?',
+        'Can a user be in multiple crews? (e.g. one for bar friends, one for work friends)'
       ]
     },
     'sports-dna-profile': {
@@ -10372,6 +10387,336 @@
   </div>
 
   <div id="sfb-panel-sports-dna-profile" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Bar Crew Management — Social Group Hub
+     Added: 2026-03-21 | Autonomous loop build
+     Moat: groups = switching cost for entire social graph, not just one user
+     Prize pools + trash talk = emotional investment that outlasts any single game
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="bar-crew-mgmt" class="screen" style="display:none;">
+  <div style="min-height:100vh;background:#020408;padding:40px 20px;display:flex;flex-direction:column;align-items:center;">
+
+    <!-- Header -->
+    <div style="width:100%;max-width:960px;margin-bottom:32px;">
+      <div style="font-size:11px;font-weight:700;color:#5545D3;letter-spacing:3px;margin-bottom:6px;">v2 UPDATES · 2026-03-21</div>
+      <div style="font-size:28px;font-weight:900;color:#F8FAFC;margin-bottom:6px;">Bar Crew Management 🍺</div>
+      <div style="font-size:14px;color:#94A3B8;line-height:1.6;">The social backbone of SportsIQ. <span style="color:#F8FAFC;font-weight:700;">Every screen references "Bar Crew" — this is where it's created.</span> Groups create a second-order switching cost: a user won't leave because their entire crew is here. 12 friends locked in is harder to displace than any single user.</div>
+    </div>
+
+    <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;">
+
+      <!-- ── PHONE 1: Create a Bar Crew ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 1 — CREATE CREW</div>
+        <div style="width:280px;height:600px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;color:#94A3B8;">2:14 PM</div>
+            <div style="font-size:9px;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <div style="background:#0A101C;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;">
+            <div style="font-size:10px;color:#5545D3;">←</div>
+            <div style="font-size:12px;font-weight:900;color:#F8FAFC;flex:1;text-align:center;">Create a Bar Crew</div>
+            <div style="font-size:10px;color:#5545D3;font-weight:700;">Next</div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:12px;">
+
+            <!-- Crew avatar picker -->
+            <div style="text-align:center;margin-bottom:14px;">
+              <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#F59E0B);border:2px dashed rgba(85,69,211,0.5);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 6px;cursor:pointer;">🍺</div>
+              <div style="font-size:8px;color:#5545D3;font-weight:700;">Tap to change emoji</div>
+            </div>
+
+            <!-- Crew name -->
+            <div style="margin-bottom:12px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:5px;">CREW NAME</div>
+              <div style="background:#0A101C;border:1.5px solid rgba(85,69,211,0.5);border-radius:8px;padding:10px 12px;font-size:11px;font-weight:700;color:#F8FAFC;">Murphy's Boys</div>
+            </div>
+
+            <!-- Invite friends -->
+            <div style="margin-bottom:12px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">INVITE FRIENDS</div>
+              <!-- Contact rows -->
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.3);border-radius:8px;">
+                  <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#F59E0B,#D97706);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">🏀</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:9px;font-weight:700;color:#F8FAFC;">BigMike</div><div style="font-size:7px;color:#94A3B8;">On SportsIQ · IQ 912</div></div>
+                  <div style="width:16px;height:16px;background:#5545D3;border-radius:4px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;color:#fff;font-weight:800;">✓</span></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.3);border-radius:8px;">
+                  <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#EC4899,#BE185D);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">⚡</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:9px;font-weight:700;color:#F8FAFC;">SarahK</div><div style="font-size:7px;color:#94A3B8;">On SportsIQ · IQ 731</div></div>
+                  <div style="width:16px;height:16px;background:#5545D3;border-radius:4px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;color:#fff;font-weight:800;">✓</span></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.3);border-radius:8px;">
+                  <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">🏈</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:9px;font-weight:700;color:#F8FAFC;">JayBird</div><div style="font-size:7px;color:#94A3B8;">On SportsIQ · IQ 680</div></div>
+                  <div style="width:16px;height:16px;background:#5545D3;border-radius:4px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;color:#fff;font-weight:800;">✓</span></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;">
+                  <div style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">👤</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:9px;font-weight:700;color:#F8FAFC;">TrevDog</div><div style="font-size:7px;color:#F59E0B;">Not on SportsIQ — invite by text</div></div>
+                  <div style="width:16px;height:16px;background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.4);border-radius:4px;display:flex;align-items:center;justify-content:center;"><span style="font-size:7px;color:#F59E0B;font-weight:800;">+</span></div>
+                </div>
+              </div>
+              <!-- Share link -->
+              <div style="margin-top:8px;background:rgba(85,69,211,0.06);border:1px dashed rgba(85,69,211,0.3);border-radius:8px;padding:7px 9px;display:flex;align-items:center;gap:6px;">
+                <div style="font-size:9px;color:#a59df5;flex:1;">sportsiq.app/crew/murphys-boys</div>
+                <div style="font-size:8px;font-weight:700;color:#5545D3;background:rgba(85,69,211,0.15);border-radius:5px;padding:2px 6px;">Copy</div>
+              </div>
+            </div>
+
+            <!-- Prize pool type -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">PRIZE POOL</div>
+              <div style="display:flex;gap:6px;">
+                <div style="flex:1;background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.4);border-radius:8px;padding:8px;text-align:center;">
+                  <div style="font-size:11px;font-weight:800;color:#22c55e;">Free</div>
+                  <div style="font-size:7px;color:#94A3B8;margin-top:2px;">IQ points only</div>
+                </div>
+                <div style="flex:1;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:8px;text-align:center;">
+                  <div style="font-size:11px;font-weight:800;color:#F59E0B;">Paid</div>
+                  <div style="font-size:7px;color:#94A3B8;margin-top:2px;">Entry fee + pot split</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trash talk toggle -->
+            <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:9px 10px;">
+              <div style="flex:1;">
+                <div style="font-size:9px;font-weight:700;color:#F8FAFC;">Trash Talk / Chirps</div>
+                <div style="font-size:7px;color:#94A3B8;margin-top:1px;">Members can chirp each other after results</div>
+              </div>
+              <div style="width:32px;height:18px;background:#5545D3;border-radius:9px;position:relative;cursor:pointer;"><div style="position:absolute;right:2px;top:2px;width:14px;height:14px;background:#fff;border-radius:50%;"></div></div>
+            </div>
+
+          </div>
+          <div style="padding:10px 12px 16px;">
+            <button style="width:100%;background:linear-gradient(135deg,#5545D3,#3D31B0);border:none;border-radius:10px;padding:12px;font-family:Lexend,sans-serif;font-size:11px;font-weight:800;color:#fff;cursor:pointer;">Create Murphy's Boys 🍺</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHONE 2: Crew Admin Dashboard ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 2 — CREW ADMIN</div>
+        <div style="width:280px;height:600px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;color:#94A3B8;">2:18 PM</div>
+            <div style="font-size:9px;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <div style="background:#0A101C;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;">
+            <div style="font-size:10px;color:#5545D3;">←</div>
+            <div style="font-size:12px;font-weight:900;color:#F8FAFC;flex:1;text-align:center;">Murphy's Boys ⚙️</div>
+            <div style="font-size:9px;color:#F59E0B;">Admin</div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:10px 12px;">
+
+            <!-- Prize pool card -->
+            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.22);border-radius:10px;padding:9px 10px;margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#F59E0B;letter-spacing:1.5px;margin-bottom:6px;">💰 PRIZE POOL — WEEK 12</div>
+              <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:4px;">
+                <div style="font-size:22px;font-weight:900;color:#F8FAFC;">$240</div>
+                <div style="font-size:8px;color:#94A3B8;">total · 12 members × $20</div>
+              </div>
+              <div style="display:flex;gap:8px;font-size:8px;color:#94A3B8;margin-bottom:8px;">
+                <span style="color:#F59E0B;font-weight:700;">1st: $144 (60%)</span>
+                <span>2nd: $72 (30%)</span>
+                <span>3rd: $24 (10%)</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(245,158,11,0.1);border-radius:6px;padding:5px 7px;">
+                <div style="font-size:9px;">👑</div>
+                <div style="font-size:8px;color:#F59E0B;font-weight:700;">Current leader: BigMike (IQ +480 this week)</div>
+              </div>
+            </div>
+
+            <!-- Members list -->
+            <div style="margin-bottom:10px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;">MEMBERS (12)</div>
+                <div style="font-size:8px;color:#5545D3;font-weight:700;">+ Invite</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;background:rgba(245,158,11,0.06);border-radius:7px;">
+                  <div style="font-size:12px;">🏀</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:9px;font-weight:700;color:#F8FAFC;">BigMike</div><div style="font-size:7px;color:#94A3B8;">IQ 912 · 72% · 🔥34</div></div>
+                  <div style="font-size:7px;color:#F59E0B;font-weight:700;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);border-radius:4px;padding:1px 4px;">#1</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;background:rgba(85,69,211,0.08);border-radius:7px;">
+                  <div style="font-size:12px;">🏈</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:9px;font-weight:700;color:#a59df5;">You (MarkD)</div><div style="font-size:7px;color:#94A3B8;">IQ 847 · 68% · 🔥22 · Admin</div></div>
+                  <div style="font-size:7px;color:#a59df5;font-weight:700;background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.25);border-radius:4px;padding:1px 4px;">#2</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;border-bottom:1px solid rgba(255,255,255,0.04);">
+                  <div style="font-size:12px;">⚡</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:9px;font-weight:700;color:#F8FAFC;">JayBird</div><div style="font-size:7px;color:#94A3B8;">IQ 680 · 65% · 🔥8</div></div>
+                  <div style="font-size:7px;color:#94A3B8;font-weight:700;padding:1px 4px;">#3</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;border-bottom:1px solid rgba(255,255,255,0.04);">
+                  <div style="font-size:12px;">💫</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:9px;font-weight:700;color:#F8FAFC;">SarahK</div><div style="font-size:7px;color:#94A3B8;">IQ 731 · 61% · 🔥5</div></div>
+                  <div style="font-size:7px;color:#94A3B8;font-weight:700;padding:1px 4px;">#4</div>
+                </div>
+                <div style="padding:5px 7px;text-align:center;font-size:8px;color:#475569;">+8 more members · tap to expand</div>
+              </div>
+            </div>
+
+            <!-- Trash talk feed -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">💬 RECENT CHIRPS</div>
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:6px 8px;">
+                  <div style="font-size:8px;font-weight:700;color:#F59E0B;margin-bottom:2px;">BigMike → SarahK</div>
+                  <div style="font-size:8px;color:#F8FAFC;">"Told you UNDER was cooked 😂 pay up"</div>
+                  <div style="font-size:7px;color:#475569;margin-top:2px;">After Chiefs game · 2 reactions 💀</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:6px 8px;">
+                  <div style="font-size:8px;font-weight:700;color:#EC4899;margin-bottom:2px;">SarahK → BigMike</div>
+                  <div style="font-size:8px;color:#F8FAFC;">"One week bro. One week."</div>
+                  <div style="font-size:7px;color:#475569;margin-top:2px;">3 hrs ago · 5 reactions 🔥</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Game day link -->
+            <div style="background:rgba(85,69,211,0.07);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:8px 10px;">
+              <div style="font-size:8px;font-weight:700;color:#a59df5;letter-spacing:1px;margin-bottom:4px;">🏟️ GAME DAY SESSION</div>
+              <div style="font-size:8px;color:#94A3B8;margin-bottom:6px;">Link this crew to Murphy's Bar venue sessions</div>
+              <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.35);border-radius:6px;padding:5px 8px;font-size:8px;color:#a59df5;font-weight:700;text-align:center;cursor:pointer;">🔗 Connect to Venue Session</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHONE 3: Crew Home (Member View) ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 3 — CREW HOME</div>
+        <div style="width:280px;height:600px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;color:#94A3B8;">2:22 PM</div>
+            <div style="font-size:9px;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <!-- Crew hero -->
+          <div style="background:linear-gradient(160deg,#0A101C,rgba(245,158,11,0.1));padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+              <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#F59E0B,#D97706);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🍺</div>
+              <div>
+                <div style="font-size:14px;font-weight:900;color:#F8FAFC;">Murphy's Boys</div>
+                <div style="font-size:8px;color:#94A3B8;">12 members · Paid pool $240 · Week 12</div>
+              </div>
+            </div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:10px 12px;">
+
+            <!-- This week mini leaderboard -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">THIS WEEK'S STANDINGS</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 8px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:7px;">
+                  <div style="font-size:10px;width:14px;text-align:center;">👑</div>
+                  <div style="flex:1;font-size:9px;font-weight:700;color:#F8FAFC;">BigMike</div>
+                  <div style="font-size:8px;color:#22c55e;font-weight:700;">+480 IQ</div>
+                  <div style="font-size:8px;color:#94A3B8;">4-1</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 8px;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:7px;">
+                  <div style="font-size:10px;width:14px;text-align:center;font-weight:800;color:#94A3B8;">2</div>
+                  <div style="flex:1;font-size:9px;font-weight:700;color:#a59df5;">You</div>
+                  <div style="font-size:8px;color:#22c55e;font-weight:700;">+340 IQ</div>
+                  <div style="font-size:8px;color:#94A3B8;">3-2</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 8px;">
+                  <div style="font-size:10px;width:14px;text-align:center;font-weight:800;color:#94A3B8;">3</div>
+                  <div style="flex:1;font-size:9px;color:#F8FAFC;">JayBird</div>
+                  <div style="font-size:8px;color:#22c55e;font-weight:700;">+280 IQ</div>
+                  <div style="font-size:8px;color:#94A3B8;">3-2</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 8px;">
+                  <div style="font-size:10px;width:14px;text-align:center;font-weight:800;color:#94A3B8;">4</div>
+                  <div style="flex:1;font-size:9px;color:#F8FAFC;">SarahK</div>
+                  <div style="font-size:8px;color:#EF4444;font-weight:700;">–40 IQ</div>
+                  <div style="font-size:8px;color:#94A3B8;">1-4</div>
+                </div>
+                <div style="text-align:center;font-size:7px;color:#475569;padding:3px 0;">+ 8 more · tap to see full board</div>
+              </div>
+            </div>
+
+            <!-- Last week winner -->
+            <div style="background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:7px 9px;margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+              <div style="font-size:16px;">🏆</div>
+              <div>
+                <div style="font-size:8px;font-weight:700;color:#22c55e;">WEEK 11 WINNER</div>
+                <div style="font-size:10px;font-weight:800;color:#F8FAFC;">JayBird took $144 💰</div>
+                <div style="font-size:8px;color:#94A3B8;">4-1 week, 3× multiplier on Chiefs</div>
+              </div>
+            </div>
+
+            <!-- Chirps feed -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">💬 CREW CHIRPS</div>
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:6px 8px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:2px;">
+                    <div style="font-size:8px;font-weight:700;color:#F59E0B;">BigMike</div>
+                    <div style="font-size:7px;color:#475569;">2h ago</div>
+                  </div>
+                  <div style="font-size:8px;color:#F8FAFC;">"SarahK 1-4 this week 💀 just Venmo me now"</div>
+                  <div style="display:flex;gap:6px;margin-top:4px;">
+                    <span style="font-size:10px;cursor:pointer;">💀</span>
+                    <span style="font-size:10px;cursor:pointer;">🔥</span>
+                    <span style="font-size:10px;cursor:pointer;">😂</span>
+                  </div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:6px 8px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:2px;">
+                    <div style="font-size:8px;font-weight:700;color:#EC4899;">SarahK</div>
+                    <div style="font-size:7px;color:#475569;">1h ago</div>
+                  </div>
+                  <div style="font-size:8px;color:#F8FAFC;">"Sunday night. Chiefs game. We will see who's laughing 😤"</div>
+                  <div style="display:flex;gap:6px;margin-top:4px;">
+                    <span style="font-size:10px;cursor:pointer;">🔥</span>
+                    <span style="font-size:10px;cursor:pointer;">🙏</span>
+                    <span style="font-size:10px;cursor:pointer;">👀</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Next game CTA -->
+            <div style="background:linear-gradient(135deg,rgba(85,69,211,0.2),rgba(85,69,211,0.08));border:1px solid rgba(85,69,211,0.3);border-radius:10px;padding:10px;text-align:center;">
+              <div style="font-size:9px;color:#94A3B8;margin-bottom:3px;">NEXT CREW PICK WINDOW</div>
+              <div style="font-size:11px;font-weight:800;color:#F8FAFC;margin-bottom:6px;">Chiefs vs Chargers · Sun 4:25 PM</div>
+              <button style="background:linear-gradient(135deg,#5545D3,#3D31B0);border:none;border-radius:8px;padding:8px 20px;font-family:Lexend,sans-serif;font-size:9px;font-weight:800;color:#fff;cursor:pointer;">Get Your Pick In 🎯</button>
+            </div>
+
+          </div>
+          <!-- Bottom nav -->
+          <div style="display:flex;justify-content:space-around;padding:8px 0 10px;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="text-align:center;"><div style="font-size:14px;">🏠</div><div style="font-size:7px;color:#94A3B8;">Home</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">📅</div><div style="font-size:7px;color:#94A3B8;">Challenge</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">🍺</div><div style="font-size:7px;color:#5545D3;font-weight:700;">Crew</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;">👤</div><div style="font-size:7px;color:#94A3B8;">Profile</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /phones row -->
+
+    <!-- Moat analysis -->
+    <div style="margin-top:40px;max-width:960px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+      <div style="font-size:10px;font-weight:800;color:#5545D3;letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — BAR CREW MANAGEMENT</div>
+      <div style="font-size:13px;color:#94A3B8;line-height:1.8;">
+        <strong style="color:#F8FAFC;">Group switching costs multiply individual switching costs:</strong> A single user leaving SportsIQ loses their IQ score and history. A 12-person crew leaving would require coordinating 12 people to move simultaneously, set up the same group elsewhere, and convince the platform to honor their history. This is essentially impossible. The first person to leave the crew loses their social context — the crew is the app's stickiest feature.<br>
+        <strong style="color:#F8FAFC;">Prize pools create financial lock-in:</strong> Once a crew has paid $20 each into a weekly pool, they have $240 riding on that week. Every member now has a financial reason to engage with every pick window. This converts passive users into active ones — paid pools are likely to drive 3-5× the pick rate vs. free crews.<br>
+        <strong style="color:#F8FAFC;">Trash talk is engagement infrastructure:</strong> The Chirp/trash talk feed transforms the app from a stats tool into a social communication channel. Every loss is a social event. SarahK going 1-4 isn't just a bad week — it's content that drives 5 reactions and two follow-up chirps. This creates engagement that has nothing to do with sports or picks, and everything to do with friendship and competition.<br>
+        <strong style="color:#F8FAFC;">Venue connection creates B2B lock-in too:</strong> When crews connect to a venue (Murphy's Bar), the venue owner now has 12 loyal customers who specifically come to that bar for Game Day Mode. This is a direct line from the social product to the B2B revenue — venue operators will pay to be the "home" of active crews.
+      </div>
+    </div>
+
+  </div>
+
+  <div id="sfb-panel-bar-crew-mgmt" class="sfb-panel"></div>
 </div>
 
 </body>
