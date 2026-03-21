@@ -1687,6 +1687,9 @@
     <div class="tab" data-screen="referral-growth" onclick="showScreen('referral-growth',this)">
       <span class="tab-label">Referral & Growth 🚀</span><span class="tab-days" id="days-referral-growth"></span>
     </div>
+    <div class="tab" data-screen="venue-onboarding" onclick="showScreen('venue-onboarding',this)">
+      <span class="tab-label">Venue Onboarding 🏟️</span><span class="tab-days" id="days-venue-onboarding"></span>
+    </div>
   </div>
 
   <!-- 📱 MOBILE APP -->
@@ -4046,7 +4049,8 @@
     'daily-challenge-v2':  '2026-03-21',
     'sports-dna-profile':  '2026-03-21',
     'bar-crew-mgmt':       '2026-03-21',
-    'referral-growth':     '2026-03-21'
+    'referral-growth':     '2026-03-21',
+    'venue-onboarding':    '2026-03-21'
   };
 
   (function initDaysBadges() {
@@ -4349,6 +4353,17 @@
         'Data revenue: do you want to pursue brand sponsorships first (faster revenue, fewer legal hurdles) or data licensing first (higher ceiling but slower)?',
         'User-facing profile: should "Your Sports DNA" be its own tab, or live inside the existing Profile page?',
         'Privacy framing: "Personalize my experience" opt-in at onboarding, or let it build silently and reveal the profile after 2 weeks when it\'s impressive?'
+      ]
+    },
+    'venue-onboarding': {
+      icon: '🏟️',
+      title: 'Venue B2B Onboarding — Sales Flow & First Session',
+      built: 'Three screens covering the complete B2B funnel: (1) Venue sales landing page (mobile) — social proof headline "Murphy\'s Bar: +42% bar spend on game nights", three ROI metrics (avg 34 players/night, $2,100 est. bar spend, 91% return visit rate), how it works (3 steps: install TV app, players scan QR, watch engagement), two testimonial pull-quotes from bar owners, "Get SportsIQ Free — 30-day trial" CTA. (2) Venue setup flow — venue name + address, number of TVs, game schedule picker (NFL Sun/Mon/Thu, NBA Tue/Wed, etc.), first session date, SportsIQ subscription tier selector (Starter free / Pro $49/mo / Enterprise custom). Session QR code generated immediately on completion. (3) First session live — "Your first session is live! 🎉" banner, real-time stats: 23 players checked in, 19 picks submitted, est. $1,840 bar spend tonight, top prop (Chiefs ML 74% picked OVER), live leaderboard top 5, "Share this session" link to post on bar\'s Instagram, upgrade CTA if on free tier.',
+      questions: [
+        'B2B pricing: free forever (venue-side) with SportsIQ monetizing users, OR charge venues a monthly SaaS fee ($49-$99/mo)? Both have merit — free maximizes venue adoption speed, paid signals serious intent and funds ops.',
+        'Venue discovery: how does a bar owner first find SportsIQ? Inbound (user recommends their bar), outbound sales reps, or partnership with a POS system (Toast, Square)?',
+        'Should the venue owner app be a separate app, or a venue-admin mode inside the main SportsIQ app (tap to switch between patron view and admin view)?',
+        'Trial length: 30-day free trial, or unlimited free tier with a venue cap (e.g. free up to 20 players/session, pay for more)?'
       ]
     },
     'referral-growth': {
@@ -10981,6 +10996,306 @@
   </div>
 
   <div id="sfb-panel-referral-growth" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Venue B2B Onboarding — Sales Flow & First Session
+     Added: 2026-03-21 | Autonomous loop build
+     Moat: venue network is a two-sided marketplace moat — more venues → more users → more venues
+     B2B flywheel: each signed venue drives 20-50 new consumer installs organically
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="venue-onboarding" class="screen" style="display:none;">
+  <div style="min-height:100vh;background:#020408;padding:40px 20px;display:flex;flex-direction:column;align-items:center;">
+
+    <!-- Header -->
+    <div style="width:100%;max-width:960px;margin-bottom:32px;">
+      <div style="font-size:11px;font-weight:700;color:#5545D3;letter-spacing:3px;margin-bottom:6px;">v2 UPDATES · 2026-03-21</div>
+      <div style="font-size:28px;font-weight:900;color:#F8FAFC;margin-bottom:6px;">Venue B2B Onboarding 🏟️</div>
+      <div style="font-size:14px;color:#94A3B8;line-height:1.6;">The B2B flywheel: <span style="color:#F8FAFC;font-weight:700;">each venue that signs up drives 20–50 new consumer installs.</span> A bar owner doesn't need to understand the product — they need to see one number: how much more money they make on game nights. Everything else is secondary.</div>
+    </div>
+
+    <div style="display:flex;gap:28px;flex-wrap:wrap;justify-content:center;">
+
+      <!-- ── PHONE 1: Venue Sales Landing ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 1 — SALES LANDING</div>
+        <div style="width:280px;height:600px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;color:#94A3B8;">4:00 PM</div>
+            <div style="font-size:9px;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <!-- Hero banner -->
+          <div style="background:linear-gradient(160deg,#060D1A,rgba(85,69,211,0.25));padding:16px 14px 12px;border-bottom:1px solid rgba(85,69,211,0.2);">
+            <div style="font-size:11px;font-weight:900;color:#F8FAFC;margin-bottom:6px;">Sports<span style="color:#5545D3;">IQ</span> <span style="font-weight:400;color:#94A3B8;">for Venues</span></div>
+            <div style="font-size:18px;font-weight:900;color:#F8FAFC;line-height:1.3;margin-bottom:6px;">Turn game night into your most profitable night of the week.</div>
+            <div style="font-size:9px;color:#94A3B8;">Free 30-day trial. No hardware required.</div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:10px 12px;">
+
+            <!-- Social proof quote -->
+            <div style="background:rgba(245,158,11,0.07);border-left:3px solid #F59E0B;border-radius:0 8px 8px 0;padding:8px 10px;margin-bottom:12px;">
+              <div style="font-size:9px;color:#F8FAFC;font-style:italic;line-height:1.5;margin-bottom:4px;">"We went from 22 covers on a Thursday NFL night to 67. SportsIQ keeps them here through the fourth quarter."</div>
+              <div style="font-size:8px;color:#F59E0B;font-weight:700;">— Murphy's Bar, Boston · avg +42% bar spend</div>
+            </div>
+
+            <!-- ROI metrics -->
+            <div style="display:flex;gap:5px;margin-bottom:12px;">
+              <div style="flex:1;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:8px 4px;text-align:center;">
+                <div style="font-size:16px;font-weight:900;color:#22c55e;">34</div>
+                <div style="font-size:7px;color:#94A3B8;line-height:1.3;">avg players<br>per night</div>
+              </div>
+              <div style="flex:1;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:8px 4px;text-align:center;">
+                <div style="font-size:16px;font-weight:900;color:#a59df5;">$2.1K</div>
+                <div style="font-size:7px;color:#94A3B8;line-height:1.3;">est. bar spend<br>per session</div>
+              </div>
+              <div style="flex:1;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:8px 4px;text-align:center;">
+                <div style="font-size:16px;font-weight:900;color:#F59E0B;">91%</div>
+                <div style="font-size:7px;color:#94A3B8;line-height:1.3;">patron return<br>rate</div>
+              </div>
+            </div>
+
+            <!-- How it works -->
+            <div style="margin-bottom:12px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:7px;">HOW IT WORKS</div>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="display:flex;align-items:flex-start;gap:8px;">
+                  <div style="width:20px;height:20px;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#a59df5;flex-shrink:0;">1</div>
+                  <div style="font-size:9px;color:#F8FAFC;padding-top:2px;">Install the SportsIQ TV app on your bar screens — takes 5 minutes</div>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:8px;">
+                  <div style="width:20px;height:20px;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#a59df5;flex-shrink:0;">2</div>
+                  <div style="font-size:9px;color:#F8FAFC;padding-top:2px;">Patrons scan the QR code and join the session on their phones</div>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:8px;">
+                  <div style="width:20px;height:20px;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#a59df5;flex-shrink:0;">3</div>
+                  <div style="font-size:9px;color:#F8FAFC;padding-top:2px;">They compete, stay longer, spend more — you see it live in your dashboard</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Second quote -->
+            <div style="background:rgba(85,69,211,0.06);border-left:3px solid #5545D3;border-radius:0 8px 8px 0;padding:8px 10px;margin-bottom:12px;">
+              <div style="font-size:9px;color:#F8FAFC;font-style:italic;line-height:1.5;margin-bottom:4px;">"My regulars now come in for games they never cared about before. The leaderboard keeps them invested."</div>
+              <div style="font-size:8px;color:#a59df5;font-weight:700;">— Fenway Sports Bar, Chicago</div>
+            </div>
+
+            <!-- CTA -->
+            <button style="width:100%;background:linear-gradient(135deg,#5545D3,#3D31B0);border:none;border-radius:12px;padding:13px;font-family:Lexend,sans-serif;font-size:11px;font-weight:800;color:#fff;cursor:pointer;margin-bottom:6px;">Get SportsIQ Free — 30-Day Trial</button>
+            <div style="text-align:center;font-size:8px;color:#475569;">No credit card · Cancel any time · Setup in 5 min</div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHONE 2: Venue Setup Flow ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 2 — SETUP FLOW</div>
+        <div style="width:280px;height:600px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;color:#94A3B8;">4:04 PM</div>
+            <div style="font-size:9px;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <div style="background:#0A101C;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <!-- Progress bar -->
+            <div style="display:flex;gap:3px;margin-bottom:5px;">
+              <div style="flex:1;height:3px;border-radius:2px;background:#5545D3;"></div>
+              <div style="flex:1;height:3px;border-radius:2px;background:#5545D3;"></div>
+              <div style="flex:1;height:3px;border-radius:2px;background:#5545D3;"></div>
+              <div style="flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,0.12);"></div>
+            </div>
+            <div style="font-size:9px;color:#94A3B8;">Step 3 of 4 — Game Schedule</div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:12px;">
+
+            <!-- Venue name (filled in) -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:4px;">VENUE</div>
+              <div style="background:#0A101C;border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:9px 11px;display:flex;align-items:center;gap:6px;">
+                <div style="font-size:10px;color:#F8FAFC;flex:1;">Murphy's Bar · Boston, MA</div>
+                <div style="font-size:10px;color:#22c55e;">✓</div>
+              </div>
+            </div>
+
+            <!-- TV count (filled) -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:4px;">NUMBER OF TVs</div>
+              <div style="display:flex;gap:5px;">
+                <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:7px;text-align:center;font-size:10px;font-weight:700;color:#94A3B8;">1-2</div>
+                <div style="flex:1;background:rgba(85,69,211,0.15);border:1.5px solid #5545D3;border-radius:7px;padding:7px;text-align:center;font-size:10px;font-weight:700;color:#a59df5;">3-6</div>
+                <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:7px;text-align:center;font-size:10px;font-weight:700;color:#94A3B8;">7+</div>
+              </div>
+            </div>
+
+            <!-- Game schedule -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">GAME SCHEDULE — PICK YOUR NIGHTS</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <!-- NFL -->
+                <div style="background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:7px 9px;">
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                    <div style="font-size:10px;">🏈</div>
+                    <div style="font-size:9px;font-weight:700;color:#F8FAFC;flex:1;">NFL</div>
+                    <div style="width:14px;height:14px;background:#22c55e;border-radius:3px;display:flex;align-items:center;justify-content:center;"><span style="font-size:8px;color:#fff;font-weight:800;">✓</span></div>
+                  </div>
+                  <div style="display:flex;gap:4px;">
+                    <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:4px;padding:2px 5px;font-size:7px;color:#22c55e;font-weight:700;">Sun</div>
+                    <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:4px;padding:2px 5px;font-size:7px;color:#22c55e;font-weight:700;">Mon</div>
+                    <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:4px;padding:2px 5px;font-size:7px;color:#22c55e;font-weight:700;">Thu</div>
+                  </div>
+                </div>
+                <!-- NBA -->
+                <div style="background:rgba(85,69,211,0.07);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:7px 9px;">
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                    <div style="font-size:10px;">🏀</div>
+                    <div style="font-size:9px;font-weight:700;color:#F8FAFC;flex:1;">NBA</div>
+                    <div style="width:14px;height:14px;background:#5545D3;border-radius:3px;display:flex;align-items:center;justify-content:center;"><span style="font-size:8px;color:#fff;font-weight:800;">✓</span></div>
+                  </div>
+                  <div style="display:flex;gap:4px;">
+                    <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.3);border-radius:4px;padding:2px 5px;font-size:7px;color:#a59df5;font-weight:700;">Tue</div>
+                    <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.3);border-radius:4px;padding:2px 5px;font-size:7px;color:#a59df5;font-weight:700;">Wed</div>
+                    <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.3);border-radius:4px;padding:2px 5px;font-size:7px;color:#a59df5;font-weight:700;">Fri</div>
+                  </div>
+                </div>
+                <!-- NHL off -->
+                <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:7px 9px;display:flex;align-items:center;gap:6px;opacity:0.6;">
+                  <div style="font-size:10px;">🏒</div>
+                  <div style="font-size:9px;color:#94A3B8;flex:1;">NHL</div>
+                  <div style="width:14px;height:14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:3px;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tier selector -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">PLAN</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.25);border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+                  <div style="flex:1;"><div style="font-size:10px;font-weight:800;color:#22c55e;">Starter — Free</div><div style="font-size:8px;color:#94A3B8;margin-top:1px;">Up to 20 players/session · Basic dashboard</div></div>
+                  <div style="width:14px;height:14px;background:#22c55e;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:8px;color:#fff;font-weight:800;">●</span></div>
+                </div>
+                <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:8px;opacity:0.7;">
+                  <div style="flex:1;"><div style="font-size:10px;font-weight:800;color:#a59df5;">Pro — $49/mo</div><div style="font-size:8px;color:#94A3B8;margin-top:1px;">Unlimited players · Analytics · Sportsbook affiliate</div></div>
+                  <div style="width:14px;height:14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:50%;flex-shrink:0;"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div style="padding:10px 12px 14px;">
+            <button style="width:100%;background:linear-gradient(135deg,#5545D3,#3D31B0);border:none;border-radius:10px;padding:12px;font-family:Lexend,sans-serif;font-size:11px;font-weight:800;color:#fff;cursor:pointer;">Generate My QR Code →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHONE 3: First Session Live ── -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:2px;margin-bottom:12px;">PHONE 3 — FIRST SESSION</div>
+        <div style="width:280px;height:600px;background:#0D1420;border-radius:36px;border:2px solid rgba(85,69,211,0.4);overflow:hidden;display:flex;flex-direction:column;font-family:'Lexend',sans-serif;">
+          <div style="background:#0A101C;padding:8px 16px 6px;display:flex;justify-content:space-between;">
+            <div style="font-size:9px;color:#94A3B8;">8:43 PM</div>
+            <div style="font-size:9px;color:#94A3B8;">📶 🔋</div>
+          </div>
+          <!-- First session live banner -->
+          <div style="background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(34,197,94,0.08));padding:11px 14px;border-bottom:1px solid rgba(34,197,94,0.2);display:flex;align-items:center;gap:8px;">
+            <div style="font-size:18px;">🎉</div>
+            <div>
+              <div style="font-size:12px;font-weight:900;color:#22c55e;">Your first session is LIVE!</div>
+              <div style="font-size:8px;color:#94A3B8;">Murphy's Bar · NFL Thursday Night</div>
+            </div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:10px 12px;">
+
+            <!-- Real-time headline stats -->
+            <div style="display:flex;gap:5px;margin-bottom:10px;">
+              <div style="flex:1;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:8px 4px;text-align:center;">
+                <div style="font-size:20px;font-weight:900;color:#22c55e;">23</div>
+                <div style="font-size:7px;color:#94A3B8;">players in</div>
+              </div>
+              <div style="flex:1;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:8px 4px;text-align:center;">
+                <div style="font-size:20px;font-weight:900;color:#a59df5;">19</div>
+                <div style="font-size:7px;color:#94A3B8;">picks in</div>
+              </div>
+              <div style="flex:1;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:8px 4px;text-align:center;">
+                <div style="font-size:20px;font-weight:900;color:#F59E0B;">$1.8K</div>
+                <div style="font-size:7px;color:#94A3B8;">est. spend</div>
+              </div>
+            </div>
+
+            <!-- Top prop tonight -->
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px 10px;margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:5px;">🔥 TONIGHT'S TOP PROP</div>
+              <div style="font-size:10px;font-weight:800;color:#F8FAFC;margin-bottom:3px;">Chiefs ML vs Chargers</div>
+              <div style="display:flex;gap:0;background:rgba(255,255,255,0.04);border-radius:6px;overflow:hidden;">
+                <div style="width:74%;background:rgba(34,197,94,0.15);padding:4px 6px;">
+                  <div style="font-size:8px;font-weight:700;color:#22c55e;">OVER — 74%</div>
+                </div>
+                <div style="width:26%;background:rgba(239,68,68,0.1);padding:4px 6px;">
+                  <div style="font-size:8px;font-weight:700;color:#EF4444;text-align:right;">26%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live leaderboard top 5 -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;margin-bottom:6px;">LIVE LEADERBOARD</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;background:rgba(245,158,11,0.06);border-radius:6px;">
+                  <div style="font-size:10px;width:14px;text-align:center;">👑</div>
+                  <div style="flex:1;font-size:9px;font-weight:700;color:#F8FAFC;">BigMike</div>
+                  <div style="font-size:8px;color:#22c55e;font-weight:700;">+280 IQ</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;">
+                  <div style="font-size:9px;font-weight:800;color:#94A3B8;width:14px;text-align:center;">2</div>
+                  <div style="flex:1;font-size:9px;color:#F8FAFC;">CoachD</div>
+                  <div style="font-size:8px;color:#22c55e;font-weight:700;">+220 IQ</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;">
+                  <div style="font-size:9px;font-weight:800;color:#94A3B8;width:14px;text-align:center;">3</div>
+                  <div style="flex:1;font-size:9px;color:#F8FAFC;">SarahK</div>
+                  <div style="font-size:8px;color:#22c55e;font-weight:700;">+180 IQ</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;">
+                  <div style="font-size:9px;font-weight:800;color:#94A3B8;width:14px;text-align:center;">4</div>
+                  <div style="flex:1;font-size:9px;color:#F8FAFC;">JayBird</div>
+                  <div style="font-size:8px;color:#22c55e;font-weight:700;">+150 IQ</div>
+                </div>
+                <div style="text-align:center;font-size:7px;color:#475569;padding:2px;">+ 19 more</div>
+              </div>
+            </div>
+
+            <!-- Share + upgrade CTAs -->
+            <div style="display:flex;gap:6px;margin-bottom:10px;">
+              <button style="flex:1;background:rgba(225,48,108,0.1);border:1px solid rgba(225,48,108,0.25);border-radius:8px;padding:8px;font-family:Lexend,sans-serif;font-size:8px;font-weight:700;color:#E1306C;cursor:pointer;">📸 Share on Instagram</button>
+              <button style="flex:1;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25);border-radius:8px;padding:8px;font-family:Lexend,sans-serif;font-size:8px;font-weight:700;color:#25D366;cursor:pointer;">💬 Share on WhatsApp</button>
+            </div>
+
+            <!-- Upgrade nudge -->
+            <div style="background:rgba(85,69,211,0.07);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:8px 10px;text-align:center;">
+              <div style="font-size:8px;color:#94A3B8;margin-bottom:4px;">You hit 20 players — Starter limit</div>
+              <div style="font-size:8px;font-weight:700;color:#a59df5;margin-bottom:5px;">Upgrade to Pro to unlock 4 more in the queue</div>
+              <button style="background:rgba(85,69,211,0.25);border:1px solid rgba(85,69,211,0.5);border-radius:6px;padding:5px 14px;font-family:Lexend,sans-serif;font-size:8px;font-weight:700;color:#a59df5;cursor:pointer;">Upgrade to Pro — $49/mo</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /phones -->
+
+    <!-- Strategic analysis -->
+    <div style="margin-top:40px;max-width:960px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:16px;padding:22px 26px;">
+      <div style="font-size:10px;font-weight:800;color:#5545D3;letter-spacing:2px;margin-bottom:12px;">🏰 MOAT ANALYSIS — B2B VENUE FLYWHEEL</div>
+      <div style="font-size:13px;color:#94A3B8;line-height:1.8;">
+        <strong style="color:#F8FAFC;">Each venue is a consumer acquisition channel:</strong> A bar with 23 players per session generates 23 SportsIQ app installs that night. If 10 of those players come back the next week, they bring the app with them — to other bars, to friends, to home viewing. A network of 500 venues is an organic acquisition machine producing ~11,500 active users per game week at zero marginal cost per install.<br>
+        <strong style="color:#F8FAFC;">The free tier is a Trojan horse:</strong> Starter free with a 20-player cap creates immediate value, then hits the wall at exactly the moment success is visible. The upgrade prompt fires when the bar owner is watching 23 players compete in real time — conversion from free to paid happens at peak emotional engagement, not during a cold sales call.<br>
+        <strong style="color:#F8FAFC;">Venue lock-in mirrors consumer lock-in:</strong> A bar owner who has promoted SportsIQ to their regulars, printed QR codes, and built a crew of loyal Thursday night players has created a social contract with their customers. Switching to a competitor would require telling those 23 regulars the game has changed — an awkward conversation no bar owner wants to have.<br>
+        <strong style="color:#F8FAFC;">Sportsbook affiliate revenue makes the B2B sell effortless:</strong> If SportsIQ generates $50-200/month in affiliate revenue for the venue (by deepening player engagement with sports betting adjacent content), the venue is effectively being paid to adopt the product. CAC for B2B drops toward zero when the product pays for itself.
+      </div>
+    </div>
+
+  </div>
+
+  <div id="sfb-panel-venue-onboarding" class="sfb-panel"></div>
 </div>
 
 </body>
