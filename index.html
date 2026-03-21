@@ -1517,6 +1517,7 @@
   <div class="tab" onclick="showScreen('feedback')">💬 Feedback</div>
   <div class="tab" onclick="showScreen('my-stats')">📊 My Stats</div>
   <div class="tab" onclick="showScreen('leaderboard')">🏆 Leaderboard</div>
+  <div class="tab" onclick="showScreen('onboarding')">🚀 Onboarding</div>
 </nav>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -3091,6 +3092,15 @@
     "status": "in-progress",
     "claude_response": "Built and live — Leaderboard tab. Phone 1: Friend group board with gold/silver/bronze podium, ranked list with position change and streak badges, Invite Friends banner. Scope: Friends / Global / My Groups. Periods: Week / Month / Season / All Time. Phone 2: Social notification feed — missed pick alerts, rank change alerts, badge unlocks, friend join. Questions for you: (1) Should friends see each other picks in real time or only after the game? (2) For Phase 4 — do you want group prize pools? (3) Should trash-talk be a feature? (4) What does My Groups look like — can you be in multiple groups?",
     "mark_reply": ""
+  },
+  {
+    "id": "idea-006",
+    "date": "2026-03-20",
+    "source": "autonomous-loop",
+    "idea": "Onboarding Flow — 5-step first-time user experience: Welcome value prop, sport/team personalization, first AI pick (with sharp money locked behind the pick), badge reveal + notification opt-in, and friend invite with seeded leaderboard.",
+    "status": "in-progress",
+    "claude_response": "Built and live — Onboarding tab. 5 phone mockups: (1) Welcome screen with AI win rate, venue count, member count, and value prop. (2) Sport/team personalization — multi-select grid, team pills, feeds the AI personalization engine immediately. (3) First Pick — tonight's sharpest pick pre-loaded, sharp money signal intentionally blurred until pick is made (creates urgency to pick). (4) Reveal — pick confirmed, sharp money unlocked, First Pick badge earned, notification opt-in nudge. (5) Invite Friends — leaderboard seeded with just the user and empty spots, creating a social vacuum. Also includes moat analysis, addiction loop breakdown, and conversion funnel targets (71% first-pick rate goal). Questions for you: (1) Should Step 2 include a quick profile photo or keep it frictionless? (2) On Step 3, should we show the user's friends' picks alongside sharp money, or keep it AI-only for new users? (3) For the notification opt-in — single push notif permission, or ask separately for game alerts vs leaderboard alerts? (4) Should there be a Skip button visible throughout, or force the full flow?",
+    "mark_reply": ""
   }
 ]
 </script>
@@ -4268,6 +4278,316 @@
     </div>
   </div>
 </div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Onboarding Flow — First-Time User Experience
+     Added: 2026-03-20 · 5-step flow: Welcome → Sports → Pick → Reveal → Friends
+══════════════════════════════════════════════════════════════════════════ -->
+<style>
+  /* ── Onboarding screen styles ───────────────────────── */
+  .ob-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+  .ob-title { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .ob-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 40px; line-height: 1.6; }
+  .ob-phones { display: flex; gap: 28px; align-items: flex-start; flex-wrap: wrap; }
+  .ob-phone-col { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .ob-step-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; color: #a59df5; text-align: center; }
+  .ob-phone { width: 200px; min-height: 390px; background: #0D1420; border: 2px solid rgba(85,69,211,0.5); border-radius: 30px; padding: 0; overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.5); flex-shrink: 0; }
+  .ob-notch { background: #050912; height: 26px; border-radius: 0 0 14px 14px; margin: 0 auto; width: 80px; }
+  .ob-screen { padding: 12px 14px 18px; }
+  /* Progress dots */
+  .ob-dots { display: flex; gap: 5px; justify-content: center; margin-bottom: 14px; }
+  .ob-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+  .ob-dot.active { background: #5545D3; width: 16px; border-radius: 3px; }
+  /* Sport pill grid */
+  .ob-sport-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 10px 0; }
+  .ob-sport-pill { background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 8px 6px; text-align: center; font-size: 11px; font-weight: 700; color: var(--muted); cursor: pointer; }
+  .ob-sport-pill.sel { background: rgba(85,69,211,0.2); border-color: #5545D3; color: #a59df5; }
+  /* Pick card in onboarding */
+  .ob-pick-card { background: rgba(85,69,211,0.08); border: 1px solid rgba(85,69,211,0.3); border-radius: 12px; padding: 12px; margin: 8px 0; }
+  .ob-pick-prop { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .ob-pick-line { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+  .ob-conf-bar { height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; margin-bottom: 4px; overflow: hidden; }
+  .ob-conf-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #5545D3, #34D399); }
+  .ob-conf-label { font-size: 10px; color: #34D399; font-weight: 700; }
+  /* Blurred row */
+  .ob-blur { filter: blur(4px); user-select: none; }
+  .ob-lock-hint { font-size: 10px; color: #f59e0b; text-align: center; margin: 4px 0; }
+  /* CTA button */
+  .ob-cta { width: 100%; background: linear-gradient(135deg,#5545D3,#3D31B0); border: none; border-radius: 10px; padding: 10px; color: #fff; font-size: 12px; font-weight: 800; font-family: Lexend,sans-serif; cursor: pointer; margin-top: 8px; }
+  .ob-cta-ghost { width: 100%; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 8px; color: var(--muted); font-size: 11px; font-weight: 600; font-family: Lexend,sans-serif; cursor: pointer; margin-top: 4px; }
+  /* Reveal state */
+  .ob-badge-pop { text-align: center; background: rgba(85,69,211,0.1); border: 1px solid rgba(85,69,211,0.3); border-radius: 10px; padding: 12px 8px; margin: 10px 0; }
+  .ob-badge-icon { font-size: 32px; }
+  .ob-badge-name { font-size: 11px; font-weight: 800; color: #a59df5; margin-top: 4px; }
+  /* Friend row */
+  .ob-friend-row { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 7px 10px; margin-bottom: 5px; }
+  .ob-friend-av { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg,#5545D3,#34D399); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #fff; flex-shrink: 0; }
+  .ob-friend-name { font-size: 11px; font-weight: 700; color: var(--text); flex: 1; }
+  .ob-friend-pos { font-size: 10px; color: var(--muted); }
+  @media (max-width: 768px) {
+    .ob-phones { flex-direction: column; align-items: center; }
+    .ob-phone { width: 240px; }
+  }
+</style>
+
+<div id="onboarding" class="screen">
+  <div class="ob-wrap">
+    <div class="ob-title">🚀 Onboarding Flow</div>
+    <div class="ob-subtitle">
+      First-time user experience — 5 steps from download to hooked.<br>
+      Goal: get the user to make their first pick within 90 seconds, earn a badge, and invite one friend.<br>
+      Each step collects data that personalizes the AI forever.
+    </div>
+
+    <div class="ob-phones">
+
+      <!-- ── Step 1: Welcome ───────────────────────── -->
+      <div class="ob-phone-col">
+        <div class="ob-step-label">STEP 1 · WELCOME</div>
+        <div class="ob-phone">
+          <div style="background:linear-gradient(180deg,#0B0F1F 0%,#050912 100%);min-height:390px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;text-align:center;">
+            <!-- Logo -->
+            <div style="font-size:36px;font-weight:900;color:#F8FAFC;line-height:1;margin-bottom:4px;">Sports<span style="color:#5545D3">IQ</span></div>
+            <div style="font-size:9px;color:#475569;letter-spacing:3px;margin-bottom:24px;">AI SPORTS INTELLIGENCE</div>
+            <!-- Hero stat strip -->
+            <div style="display:flex;gap:12px;margin-bottom:22px;">
+              <div style="text-align:center;">
+                <div style="font-size:18px;font-weight:900;color:#34D399;">64%</div>
+                <div style="font-size:9px;color:#475569;">AI Win Rate</div>
+              </div>
+              <div style="width:1px;background:rgba(255,255,255,0.08);"></div>
+              <div style="text-align:center;">
+                <div style="font-size:18px;font-weight:900;color:#a59df5;">50+</div>
+                <div style="font-size:9px;color:#475569;">Bar Venues</div>
+              </div>
+              <div style="width:1px;background:rgba(255,255,255,0.08);"></div>
+              <div style="text-align:center;">
+                <div style="font-size:18px;font-weight:900;color:#f59e0b;">12K</div>
+                <div style="font-size:9px;color:#475569;">Members</div>
+              </div>
+            </div>
+            <!-- Value prop -->
+            <div style="font-size:12px;color:#94A3B8;line-height:1.6;margin-bottom:22px;">
+              Beat your friends.<br>Outsmart the house.<br>Know what sharp money knows.
+            </div>
+            <!-- CTA -->
+            <button class="ob-cta" style="width:160px;">Get Started →</button>
+            <div style="font-size:10px;color:#334155;margin-top:10px;">Free · No credit card</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Step 2: Pick Your Sports ───────────────── -->
+      <div class="ob-phone-col">
+        <div class="ob-step-label">STEP 2 · PERSONALIZE</div>
+        <div class="ob-phone">
+          <div style="background:#050912;min-height:390px;padding:16px 14px;">
+            <div class="ob-dots">
+              <div class="ob-dot"></div>
+              <div class="ob-dot active"></div>
+              <div class="ob-dot"></div>
+              <div class="ob-dot"></div>
+              <div class="ob-dot"></div>
+            </div>
+            <div style="font-size:14px;font-weight:800;color:#F8FAFC;margin-bottom:3px;">What sports do you follow?</div>
+            <div style="font-size:10px;color:#475569;margin-bottom:12px;">Your AI picks will be tailored to these</div>
+            <div class="ob-sport-grid">
+              <div class="ob-sport-pill sel">🏈 NFL</div>
+              <div class="ob-sport-pill sel">🏀 NBA</div>
+              <div class="ob-sport-pill">⚾ MLB</div>
+              <div class="ob-sport-pill sel">🏒 NHL</div>
+              <div class="ob-sport-pill">⚽ Soccer</div>
+              <div class="ob-sport-pill">🏌️ Golf</div>
+              <div class="ob-sport-pill">🥊 MMA</div>
+              <div class="ob-sport-pill">🎓 CFB</div>
+            </div>
+            <div style="margin:10px 0;font-size:10px;color:#5545D3;font-weight:700;">3 sports selected</div>
+            <!-- Team quick-select -->
+            <div style="font-size:11px;font-weight:700;color:#F8FAFC;margin-bottom:6px;">Favorite teams <span style="color:#475569;font-weight:400;">(optional)</span></div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;">
+              <div style="background:rgba(85,69,211,0.2);border:1px solid #5545D3;border-radius:6px;padding:4px 8px;font-size:10px;font-weight:700;color:#a59df5;">Chiefs</div>
+              <div style="background:rgba(85,69,211,0.2);border:1px solid #5545D3;border-radius:6px;padding:4px 8px;font-size:10px;font-weight:700;color:#a59df5;">Lakers</div>
+              <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 8px;font-size:10px;color:#475569;">+ Add</div>
+            </div>
+            <button class="ob-cta">Continue →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Step 3: First Pick ─────────────────────── -->
+      <div class="ob-phone-col">
+        <div class="ob-step-label">STEP 3 · FIRST PICK</div>
+        <div class="ob-phone">
+          <div style="background:#050912;min-height:390px;padding:16px 14px;">
+            <div class="ob-dots">
+              <div class="ob-dot"></div>
+              <div class="ob-dot"></div>
+              <div class="ob-dot active"></div>
+              <div class="ob-dot"></div>
+              <div class="ob-dot"></div>
+            </div>
+            <div style="font-size:13px;font-weight:800;color:#F8FAFC;margin-bottom:2px;">Tonight's sharpest pick</div>
+            <div style="font-size:10px;color:#34D399;font-weight:700;margin-bottom:10px;">🔥 Trending with sharp money</div>
+            <div class="ob-pick-card">
+              <div style="font-size:9px;color:#475569;font-weight:700;letter-spacing:1px;margin-bottom:5px;">NFL · Chiefs @ Eagles · 8:20 PM</div>
+              <div class="ob-pick-prop">Patrick Mahomes</div>
+              <div class="ob-pick-line">OVER 285.5 Passing Yards · -110</div>
+              <div class="ob-conf-bar"><div class="ob-conf-fill" style="width:78%;"></div></div>
+              <div class="ob-conf-label">78% AI Confidence · Sharp</div>
+              <!-- Smart money row -->
+              <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">
+                <div style="font-size:9px;color:#475569;margin-bottom:4px;font-weight:700;">SIGNAL PANEL</div>
+                <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:700;">
+                  <span style="color:#34D399;">SIQ AI 78%</span>
+                  <span class="ob-blur" style="color:#a59df5;">Kalshi 73%</span>
+                  <span class="ob-blur" style="color:#f59e0b;">Smart $</span>
+                </div>
+              </div>
+            </div>
+            <div class="ob-lock-hint">🔒 Make your pick to unlock sharp money data</div>
+            <!-- Pick buttons -->
+            <div style="display:flex;gap:6px;margin:8px 0;">
+              <button style="flex:1;background:rgba(52,211,153,0.15);border:1.5px solid #34D399;border-radius:8px;padding:9px;color:#34D399;font-size:11px;font-weight:800;font-family:Lexend,sans-serif;cursor:pointer;">✓ OVER</button>
+              <button style="flex:1;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px;color:#475569;font-size:11px;font-weight:800;font-family:Lexend,sans-serif;cursor:pointer;">✗ UNDER</button>
+            </div>
+            <div style="font-size:9px;color:#334155;text-align:center;">No money required · Pure skill game</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Step 4: Reveal + Badge ──────────────────── -->
+      <div class="ob-phone-col">
+        <div class="ob-step-label">STEP 4 · REVEAL</div>
+        <div class="ob-phone">
+          <div style="background:#050912;min-height:390px;padding:16px 14px;">
+            <div class="ob-dots">
+              <div class="ob-dot"></div>
+              <div class="ob-dot"></div>
+              <div class="ob-dot"></div>
+              <div class="ob-dot active"></div>
+              <div class="ob-dot"></div>
+            </div>
+            <!-- Pick locked confirmation -->
+            <div style="background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);border-radius:10px;padding:8px 10px;text-align:center;margin-bottom:10px;">
+              <div style="font-size:11px;font-weight:800;color:#34D399;">✓ Pick Locked In!</div>
+              <div style="font-size:10px;color:#94A3B8;margin-top:2px;">Mahomes OVER 285.5 yds</div>
+            </div>
+            <!-- Signal unlocked -->
+            <div style="font-size:10px;font-weight:800;color:#a59df5;letter-spacing:1px;margin-bottom:6px;">🔓 SHARP MONEY UNLOCKED</div>
+            <div style="display:flex;justify-content:space-between;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:8px 10px;font-size:11px;font-weight:700;margin-bottom:10px;">
+              <span style="color:#34D399;">SIQ AI 78%</span>
+              <span style="color:#a59df5;">Kalshi 73%</span>
+              <span style="color:#f59e0b;">Smart $ ↑</span>
+            </div>
+            <div style="font-size:10px;color:#94A3B8;line-height:1.5;margin-bottom:10px;">
+              You agree with sharp money. <span style="color:#34D399;font-weight:700;">+14 pts</span> if this hits.
+            </div>
+            <!-- Badge pop -->
+            <div class="ob-badge-pop">
+              <div class="ob-badge-icon">🏅</div>
+              <div class="ob-badge-name">FIRST PICK</div>
+              <div style="font-size:9px;color:#475569;margin-top:2px;">Badge earned</div>
+            </div>
+            <!-- Notification nudge -->
+            <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:8px 10px;font-size:10px;color:#f59e0b;text-align:center;margin-top:8px;">
+              🔔 Get alerted when this pick moves
+            </div>
+            <button class="ob-cta" style="margin-top:10px;">Allow Notifications</button>
+            <button class="ob-cta-ghost">Not Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Step 5: Invite + Leaderboard ───────────── -->
+      <div class="ob-phone-col">
+        <div class="ob-step-label">STEP 5 · INVITE FRIENDS</div>
+        <div class="ob-phone">
+          <div style="background:#050912;min-height:390px;padding:16px 14px;">
+            <div class="ob-dots">
+              <div class="ob-dot"></div>
+              <div class="ob-dot"></div>
+              <div class="ob-dot"></div>
+              <div class="ob-dot"></div>
+              <div class="ob-dot active"></div>
+            </div>
+            <div style="font-size:13px;font-weight:800;color:#F8FAFC;margin-bottom:2px;">You're on the board 🎉</div>
+            <div style="font-size:10px;color:#475569;margin-bottom:10px;">Invite friends to compete</div>
+            <!-- Mini leaderboard seeded with user -->
+            <div style="font-size:9px;font-weight:800;letter-spacing:1px;color:#475569;margin-bottom:6px;">LEADERBOARD · THIS WEEK</div>
+            <div class="ob-friend-row" style="background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.25);">
+              <div style="font-size:11px;font-weight:900;color:#a59df5;width:16px;">1</div>
+              <div class="ob-friend-av">Y</div>
+              <div class="ob-friend-name">You <span style="background:#5545D3;color:#fff;font-size:8px;padding:1px 5px;border-radius:4px;margin-left:4px;">NEW</span></div>
+              <div class="ob-friend-pos" style="color:#f59e0b;">0 picks</div>
+            </div>
+            <div class="ob-friend-row" style="opacity:0.35;">
+              <div style="font-size:11px;font-weight:900;color:#94A3B8;width:16px;">2</div>
+              <div class="ob-friend-av" style="background:rgba(255,255,255,0.08);">?</div>
+              <div class="ob-friend-name" style="color:#334155;">Invite a friend</div>
+              <div class="ob-friend-pos">—</div>
+            </div>
+            <div class="ob-friend-row" style="opacity:0.35;">
+              <div style="font-size:11px;font-weight:900;color:#94A3B8;width:16px;">3</div>
+              <div class="ob-friend-av" style="background:rgba(255,255,255,0.08);">?</div>
+              <div class="ob-friend-name" style="color:#334155;">Invite a friend</div>
+              <div class="ob-friend-pos">—</div>
+            </div>
+            <!-- Invite nudge -->
+            <div style="font-size:10px;color:#94A3B8;text-align:center;margin:8px 0 4px;">
+              Invite 3 friends to unlock <span style="color:#a59df5;font-weight:700;">Group Champ</span> badge
+            </div>
+            <button class="ob-cta">📲 Invite Friends</button>
+            <button class="ob-cta-ghost">Skip → Explore Picks</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /ob-phones -->
+
+    <!-- ── Onboarding moat analysis ────────────────────────────────── -->
+    <div style="margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;">
+
+      <div style="background:rgba(85,69,211,0.07);border:1px solid rgba(85,69,211,0.25);border-radius:16px;padding:20px 24px;">
+        <div style="font-size:10px;font-weight:800;color:#a59df5;letter-spacing:2px;margin-bottom:10px;">📐 MOAT ANALYSIS · ONBOARDING</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+          <strong style="color:var(--text);">Data flywheel step 1:</strong> Sport + team preferences collected in 30 seconds. Immediately personalizes AI picks. No other app does this this fast.<br>
+          <strong style="color:var(--text);">First pick = first data point:</strong> Every pick adds to the user's irreplaceable pick history. After 30 picks, they'll never leave — too much personal data invested.<br>
+          <strong style="color:var(--text);">Badge moment:</strong> First Pick badge creates an emotional hook. Duolingo's biggest retention driver is streak protection — badges do the same.<br>
+          <strong style="color:var(--text);">Viral loop seeded:</strong> Leaderboard with empty spots creates a social vacuum users feel compelled to fill. Invite Friends is the viral growth engine.
+        </div>
+      </div>
+
+      <div style="background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.2);border-radius:16px;padding:20px 24px;">
+        <div style="font-size:10px;font-weight:800;color:#34D399;letter-spacing:2px;margin-bottom:10px;">⚡ ADDICTION LOOPS INSTALLED</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+          <strong style="color:var(--text);">Hourly:</strong> Push notification when a locked pick starts trending. Forces app opens during game hours.<br>
+          <strong style="color:var(--text);">Daily:</strong> "Here are tonight's 3 sharpest picks" briefing. Notification opt-in captured in Step 4.<br>
+          <strong style="color:var(--text);">Weekly:</strong> Leaderboard rank change alerts. "Jake just passed you" = guaranteed open + a new pick to compete.<br>
+          <strong style="color:var(--text);">Season:</strong> Win rate and badge progression create a long-arc goal. Giving up = losing a season-long investment.<br>
+          <strong style="color:var(--text);">Time to hook: &lt;90 seconds</strong> from install to first pick locked and badge earned.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Conversion funnel note ──────────────────────────────── -->
+    <div style="margin-top:20px;max-width:900px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:16px;padding:20px 24px;">
+      <div style="font-size:10px;font-weight:800;color:#f59e0b;letter-spacing:2px;margin-bottom:10px;">📊 CONVERSION FUNNEL TARGETS</div>
+      <div style="display:flex;gap:0;overflow:hidden;border-radius:8px;font-size:11px;font-weight:700;text-align:center;">
+        <div style="flex:1;background:rgba(85,69,211,0.3);padding:10px 4px;color:#a59df5;">Install<br><span style="font-size:14px;color:#F8FAFC;">100%</span></div>
+        <div style="flex:1;background:rgba(85,69,211,0.22);padding:10px 4px;color:#a59df5;">Sports sel.<br><span style="font-size:14px;color:#F8FAFC;">82%</span></div>
+        <div style="flex:1;background:rgba(85,69,211,0.15);padding:10px 4px;color:#a59df5;">First pick<br><span style="font-size:14px;color:#F8FAFC;">71%</span></div>
+        <div style="flex:1;background:rgba(85,69,211,0.10);padding:10px 4px;color:#a59df5;">Notif on<br><span style="font-size:14px;color:#F8FAFC;">54%</span></div>
+        <div style="flex:1;background:rgba(52,211,153,0.12);padding:10px 4px;color:#34D399;">Invite sent<br><span style="font-size:14px;color:#F8FAFC;">38%</span></div>
+      </div>
+      <div style="font-size:11px;color:#475569;margin-top:8px;line-height:1.6;">
+        Industry benchmarks: Duolingo D1 retention 55%, Robinhood onboarding 73% first trade. SportsIQ targets 71% first-pick rate — achievable because the pick is fast, free, and immediately rewarded.
+      </div>
+    </div>
+
+  </div>
+</div><!-- /onboarding screen -->
 
 </body>
 </html>
