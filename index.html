@@ -1833,8 +1833,8 @@
     <div class="tab tab-review" data-screen="home-idle-v6" onclick="showScreen('home-idle-v6',this)">
       <span class="tab-label">Home · Idle</span><span class="tab-days" id="days-home-idle-v6"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="pick-card-v4" onclick="showScreen('pick-card-v4',this)">
-      <span class="tab-label">Pick Card</span><span class="tab-days" id="days-pick-card-v4"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="pick-card-v5" onclick="showScreen('pick-card-v5',this)">
+      <span class="tab-label">Pick Card</span><span class="tab-days" id="days-pick-card-v5"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="pick-wait-v3" onclick="showScreen('pick-wait-v3',this)">
       <span class="tab-label">Pick Wait</span><span class="tab-days" id="days-pick-wait-v3"></span><span class="review-dot"></span>
@@ -1895,7 +1895,10 @@
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 31 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 32 previous versions</summary>
+      <div class="tab tab-archived" data-screen="pick-card-v4" onclick="showScreen('pick-card-v4',this)">
+        <span class="tab-label">Pick Card v4</span><span class="tab-days" id="days-pick-card-v4-arc"></span>
+      </div>
       <div class="tab tab-archived" data-screen="home-idle-v5" onclick="showScreen('home-idle-v5',this)">
         <span class="tab-label">Home · Idle v5</span><span class="tab-days" id="days-home-idle-v5-arc"></span>
       </div>
@@ -5031,6 +5034,8 @@
     'notifications-v4':    '2026-03-22T19:00:00-07:00',
     // ── Mar 22 autonomous loop — Home Idle v6: bar regular archetype · identity-forward personalization ──
     'home-idle-v6':        '2026-03-22T20:00:00-07:00',
+    // ── Mar 22 autonomous loop — Pick Card v5: archetype edge · multiplier selector · 2× free / 5× Pro ──
+    'pick-card-v5':        '2026-03-22T21:00:00-07:00',
     // ── Mar 21 4:30 PM PT — stats/leaderboard/DNA/referral (032–035) ──
     'leaderboard-v3':      '2026-03-21T16:30:00-07:00',
     'leaderboard-v4':      '2026-03-21T20:00:00-07:00',
@@ -5593,6 +5598,17 @@
         'Personalized props feed vs. full schedule — should there always be a "See all sports" option, or keep it fully personalized with no override?',
         'SportsIQ Signal Preview teaser — should the preview hint at the signal direction ("Signal leans OVER") or just say "signal available" to tease without fully spoiling?',
         'Friends activity strip: show trivia wins alongside pick wins, or keep them separate (pick feed on home, trivia feed on trivia screen)?'
+      ]
+    },
+    'pick-card-v5': {
+      icon: '🎯',
+      title: 'Pick Card v5 — Archetype Edge Activation · Multiplier Selector (2× Free / 5× Pro) · Mar 22 2026',
+      built: 'Two critical gaps fixed: (1) Archetype integration — if your pick-history archetype (e.g. "The Dome King") matches the current game context, a banner fires BEFORE you pick: "🏟️ Dome King edge active — you\'re 8-2 in domes. Dome game." This makes the pick feel personalized and high-stakes, drives engagement, and creates a moment where identity and action collide. (2) Multiplier selector — v4 showed "Multiplier unlocks after you pick" as a placeholder. Isaac had nothing to build. v5 shows the full selector: after you tap OVER/UNDER, a bottom sheet slides up with 5 tiers: 1× (+100/-50 IQ), 2× (+200/-100 IQ, "Max Free"), then 3×/4×/5× locked with Pro badge and greyed. "Go 5× on this one → Try Pro Free" amber pill. Pro 5× pick state (Phone 3) shows all tiers unlocked, 5× is gold and vivid ("ALL-IN · +500/-250 IQ"), plus archetype contrarian boost label ("1.5× extra if going against crowd"). The multiplier selector is the single most important revenue mechanic in the app — every pick is a conversion touchpoint. Isaac now has a complete spec to build from.',
+      questions: [
+        'Multiplier free cap: 2× or 3×? v3 had 3× as "all-in" for free. Pro value stack says 5× Pro / 2× free. Needs to be consistent everywhere before Isaac builds. Which cap is right?',
+        'Archetype edge banner: always show when archetype matches context, or only show if the edge has statistical significance (>70% win rate in that context)? Low-sample archetypes could be misleading.',
+        'Loss stake: at 2× free, a wrong pick costs -100 IQ. At 5× Pro, wrong pick costs -250. Is that loss steep enough to create meaningful stakes without frustrating users off the app?',
+        'After you lock your multiplier and submit, do we show the multiplier on the "pick locked" confirmation screen? Confirming "OVER · 2× · +200 IQ if right" reinforces the stakes and sets expectation for the result screen.'
       ]
     },
     'pick-card-v4': {
@@ -17336,6 +17352,347 @@
   </div>
   <div id="sfb-panel-pick-card-v4" class="sfb-panel"></div>
 </div><!-- /screen pick-card-v4 -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PICK CARD v5 — Archetype Edge Activation · Multiplier Selector · Mar 22 2026
+     Two gaps fixed: (1) archetype edge fires before pick in matching context
+     (2) full multiplier selector (2× free / 5× Pro) — Isaac now has a spec
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="pick-card-v5" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Pick Card v5 — Archetype Edge Activation · Multiplier Selector (2× Free / 5× Pro)</div>
+    <div class="screen-desc">Mar 22 2026 · Two critical gaps fixed. (1) Archetype integration: when your archetype (e.g. "The Dome King") matches the current game context, a banner fires before you pick. Identity + action collide at peak intent. (2) Multiplier selector: v4 said "unlocks after you pick" — Isaac had nothing to build. v5 shows the full post-pick selector: 1×/2× free (2× = Max Free), 3×/4×/5× locked with Pro badge. Pro state (Phone 3): all 5 unlocked, 5× gold "ALL-IN." This is the primary revenue mechanic. Every pick is a conversion touchpoint.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: Pre-pick — archetype edge activation ──────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>8:52 AM</span><span>🔋</span></div>
+
+          <!-- Header + free picks counter -->
+          <div style="padding:8px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div>
+              <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Chiefs vs Eagles</div>
+              <div style="font-size:10px;color:#8b949e;">🏈 NFL · Tonight 8:20 PM ET</div>
+            </div>
+            <div style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35);border-radius:16px;padding:4px 10px;display:flex;align-items:center;gap:5px;">
+              <div style="display:flex;gap:3px;align-items:center;">
+                <div style="width:7px;height:7px;border-radius:50%;background:#f59e0b;"></div>
+                <div style="width:7px;height:7px;border-radius:50%;background:#f59e0b;"></div>
+                <div style="width:7px;height:7px;border-radius:50%;background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.4);"></div>
+              </div>
+              <span style="font-size:10px;color:#f59e0b;font-weight:700;">2 of 3</span>
+            </div>
+          </div>
+
+          <!-- Window open pill -->
+          <div style="margin:0 16px 8px;display:flex;align-items:center;">
+            <div style="display:flex;align-items:center;gap:5px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:16px;padding:4px 10px;">
+              <div style="width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px #22c55e;"></div>
+              <span style="font-size:10px;color:#22c55e;font-weight:700;">Window open · closes in 1:42:33</span>
+            </div>
+          </div>
+
+          <!-- ★ ARCHETYPE EDGE ACTIVATION — new in v5 -->
+          <div style="margin:0 16px 8px;background:linear-gradient(135deg,rgba(85,69,211,0.14),rgba(85,69,211,0.05));border:1.5px solid rgba(85,69,211,0.4);border-radius:12px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🏟️</div>
+            <div style="flex:1;">
+              <div style="color:#a78bfa;font-size:11px;font-weight:800;margin-bottom:1px;">Dome King edge active</div>
+              <div style="color:#64748b;font-size:10px;line-height:1.4;">You're 8-2 in dome games · Arrowhead is a dome · Your best prop type</div>
+            </div>
+            <div style="color:#6d5ef0;font-size:10px;font-weight:700;flex-shrink:0;">80%</div>
+          </div>
+
+          <!-- Prop line -->
+          <div style="margin:0 16px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;flex-shrink:0;">
+            <div style="font-size:10px;color:#8b949e;margin-bottom:3px;">Patrick Mahomes · Passing Yards</div>
+            <div style="font-size:30px;font-weight:900;color:#f0f6fc;letter-spacing:-1px;">284.5</div>
+            <div style="font-size:10px;color:#8b949e;margin-top:1px;">Season avg: 297.4 · Last 5: 312.2</div>
+          </div>
+
+          <!-- SportsIQ Signal -->
+          <div style="margin:0 16px 8px;background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(245,158,11,0.04));border:1px solid rgba(245,158,11,0.38);border-radius:14px;padding:12px 16px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#f59e0b;"></div>
+              <span style="font-size:10px;font-weight:800;color:#f59e0b;letter-spacing:1px;">SPORTSIQ SIGNAL</span>
+            </div>
+            <div style="font-size:17px;font-weight:900;color:#f0f6fc;margin-bottom:4px;">Leaning <span style="color:#22c55e;">OVER ↑</span></div>
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+              <div style="flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,0.08);overflow:hidden;"><div style="width:63%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:3px;"></div></div>
+              <span style="font-size:10px;color:#f59e0b;font-weight:700;white-space:nowrap;">63% picked OVER</span>
+            </div>
+            <!-- Friend picks -->
+            <div style="border-top:1px solid rgba(245,158,11,0.15);padding-top:8px;display:flex;align-items:center;gap:8px;">
+              <div style="display:flex;">
+                <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);border:1.5px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;margin-right:-6px;z-index:3;">B</div>
+                <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);border:1.5px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;margin-right:-6px;z-index:2;">S</div>
+                <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#374151,#4b5563);border:1.5px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#94a3b8;z-index:1;">+1</div>
+              </div>
+              <span style="font-size:11px;color:#94a3b8;"><span style="color:#f0f6fc;font-weight:700;">BigMike + 2 others</span> picked OVER</span>
+            </div>
+          </div>
+
+          <!-- Crowd bar -->
+          <div style="margin:0 16px 10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+              <span style="font-size:11px;font-weight:800;color:#22c55e;">OVER 63%</span>
+              <span style="font-size:9px;color:#8b949e;">1,284 live</span>
+              <span style="font-size:11px;font-weight:800;color:#ef4444;">UNDER 37%</span>
+            </div>
+            <div style="height:8px;border-radius:4px;overflow:hidden;display:flex;">
+              <div style="flex:0.63;background:linear-gradient(90deg,#16a34a,#22c55e);"></div>
+              <div style="flex:0.37;background:linear-gradient(90deg,#dc2626,#ef4444);"></div>
+            </div>
+          </div>
+
+          <!-- Pick buttons -->
+          <div style="display:flex;gap:12px;padding:0 16px 10px;">
+            <div style="flex:1;background:linear-gradient(135deg,rgba(34,197,94,0.18),rgba(34,197,94,0.07));border:2px solid rgba(34,197,94,0.45);border-radius:16px;padding:18px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#22c55e;">OVER</div>
+              <div style="font-size:11px;color:#8b949e;margin-top:2px;">284.5+ yds</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:18px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#f0f6fc;">UNDER</div>
+              <div style="font-size:11px;color:#8b949e;margin-top:2px;">284.4 or less</div>
+            </div>
+          </div>
+
+          <!-- Bottom nav -->
+          <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;margin-top:auto;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(88,166,255,.6));">🎯</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Picks</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Ranks</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 1 — Pre-pick: 🏟️ Dome King edge banner · archetype activates before you pick</div>
+    </div><!-- /phone 1 -->
+
+    <!-- ── PHONE 2: Post-pick multiplier selector — FREE TIER ────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow:hidden;position:relative;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;flex-shrink:0;"><span>8:54 AM</span><span>🔋</span></div>
+
+          <!-- Dimmed pick card behind (post-pick state) -->
+          <div style="padding:8px 16px 6px;display:flex;align-items:center;justify-content:space-between;opacity:0.45;flex-shrink:0;">
+            <div>
+              <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Chiefs vs Eagles</div>
+              <div style="font-size:10px;color:#8b949e;">🏈 NFL · Tonight 8:20 PM ET</div>
+            </div>
+          </div>
+          <div style="margin:0 16px;opacity:0.4;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,rgba(34,197,94,0.18),rgba(34,197,94,0.07));border:2px solid rgba(34,197,94,0.45);border-radius:16px;padding:10px 12px;text-align:center;">
+              <div style="font-size:18px;font-weight:900;color:#22c55e;">OVER ✓</div>
+              <div style="font-size:10px;color:#4ade80;">284.5+ yds · Pick locked</div>
+            </div>
+          </div>
+
+          <!-- ★ MULTIPLIER SELECTOR SHEET — slides up from bottom -->
+          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,#111827 0%,#0d1117 100%);border-radius:20px 20px 0 0;border-top:1px solid rgba(255,255,255,0.1);padding:14px 16px 28px;z-index:10;">
+            <div style="width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 14px;"></div>
+
+            <!-- Header -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <div style="color:#f0f6fc;font-size:15px;font-weight:900;">How confident are you?</div>
+              <div style="color:#4ade80;font-size:12px;font-weight:700;">OVER · 284.5+</div>
+            </div>
+            <div style="color:#64748b;font-size:11px;margin-bottom:14px;">Pick your IQ stake. You earn or lose this amount.</div>
+
+            <!-- Multiplier options -->
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+
+              <!-- 1× -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#94a3b8;">1×</div>
+                  <div>
+                    <div style="color:#f0f6fc;font-size:12px;font-weight:700;">Standard</div>
+                    <div style="color:#64748b;font-size:10px;">Win +100 IQ · Lose -50 IQ</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2× — MAX FREE, selected -->
+              <div style="background:linear-gradient(135deg,rgba(85,69,211,0.14),rgba(85,69,211,0.06));border:2px solid rgba(85,69,211,0.5);border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;position:relative;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;">2×</div>
+                  <div>
+                    <div style="color:#a78bfa;font-size:12px;font-weight:800;">Bold</div>
+                    <div style="color:#6d5ef0;font-size:10px;">Win +200 IQ · Lose -100 IQ</div>
+                  </div>
+                </div>
+                <!-- Max Free badge -->
+                <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:8px;padding:3px 8px;">
+                  <div style="font-size:9px;color:#a78bfa;font-weight:700;">MAX FREE</div>
+                </div>
+              </div>
+
+              <!-- 3× LOCKED -->
+              <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;opacity:0.55;cursor:default;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="width:32px;height:32px;border-radius:9px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#64748b;">3×</div>
+                  <div>
+                    <div style="color:#64748b;font-size:12px;font-weight:700;">High Stakes</div>
+                    <div style="color:#475569;font-size:10px;">Win +300 IQ · Lose -150 IQ</div>
+                  </div>
+                </div>
+                <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:3px 8px;">
+                  <div style="font-size:9px;color:#f59e0b;font-weight:700;">⚡ PRO</div>
+                </div>
+              </div>
+
+              <!-- 5× LOCKED (hero locked tier) -->
+              <div style="background:rgba(245,158,11,0.04);border:1px dashed rgba(245,158,11,0.25);border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;opacity:0.6;cursor:default;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="width:32px;height:32px;border-radius:9px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#78716c;">5×</div>
+                  <div>
+                    <div style="color:#78716c;font-size:12px;font-weight:700;">All-In</div>
+                    <div style="color:#57534e;font-size:10px;">Win +500 IQ · Lose -250 IQ</div>
+                  </div>
+                </div>
+                <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:3px 8px;">
+                  <div style="font-size:9px;color:#f59e0b;font-weight:700;">⚡ PRO</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Pro upgrade amber pill -->
+            <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <div style="color:#94a3b8;font-size:11px;">Go 5× on this one?</div>
+              <div style="background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(217,119,6,0.15));border:1px solid rgba(245,158,11,0.4);border-radius:7px;padding:5px 10px;cursor:pointer;">
+                <span style="font-size:10px;font-weight:700;color:#fbbf24;">Try Pro Free →</span>
+              </div>
+            </div>
+
+            <!-- Lock In CTA -->
+            <div style="background:linear-gradient(135deg,#5545D3,#7c3aed);border-radius:14px;padding:14px;text-align:center;cursor:pointer;">
+              <div style="color:#fff;font-size:15px;font-weight:900;">Lock In · 2× · OVER</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:10px;margin-top:2px;">Win +200 IQ · Lose -100 IQ</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 2 — Multiplier selector (FREE): 1× / 2× free, 3× / 5× locked Pro · "Try Pro Free" at pick moment</div>
+    </div><!-- /phone 2 -->
+
+    <!-- ── PHONE 3: Post-pick multiplier selector — PRO TIER ──────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow:hidden;position:relative;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;flex-shrink:0;"><span>8:05 AM</span><span>🔋</span></div>
+
+          <!-- Pro early access banner -->
+          <div style="margin:4px 16px 6px;background:linear-gradient(135deg,rgba(227,179,65,0.12),rgba(227,179,65,0.04));border:1.5px solid rgba(227,179,65,0.4);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:14px;">⚡</span>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:700;color:#e3b341;">Pro Early Access · 15 min head start</div>
+            </div>
+            <span style="font-size:9px;background:rgba(227,179,65,0.15);border:1px solid rgba(227,179,65,0.3);border-radius:6px;padding:2px 6px;color:#e3b341;font-weight:600;">⚡ PRO</span>
+          </div>
+
+          <!-- Dimmed OVER confirmation -->
+          <div style="margin:0 16px;opacity:0.5;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,rgba(34,197,94,0.18),rgba(34,197,94,0.07));border:2px solid rgba(34,197,94,0.45);border-radius:14px;padding:9px 12px;text-align:center;">
+              <div style="font-size:16px;font-weight:900;color:#22c55e;">OVER ✓ · Mahomes Passing</div>
+            </div>
+          </div>
+
+          <!-- ★ PRO MULTIPLIER SHEET — all 5 unlocked -->
+          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,#111827 0%,#0d1117 100%);border-radius:20px 20px 0 0;border-top:1px solid rgba(245,158,11,0.25);padding:14px 16px 28px;z-index:10;">
+            <div style="width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 14px;"></div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <div style="color:#f0f6fc;font-size:15px;font-weight:900;">How confident are you?</div>
+              <div style="color:#4ade80;font-size:12px;font-weight:700;">OVER · Pro pick</div>
+            </div>
+
+            <!-- Archetype contrarian note -->
+            <div style="background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:8px;padding:6px 10px;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+              <span style="font-size:11px;">🏟️</span>
+              <span style="color:#a78bfa;font-size:10px;font-weight:700;">Dome King: 1.5× extra IQ if you go contrarian at 5×</span>
+            </div>
+
+            <!-- All 5 tiers unlocked -->
+            <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
+
+              <!-- 1× -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#94a3b8;">1×</div>
+                  <div><div style="color:#94a3b8;font-size:11px;font-weight:700;">Standard</div><div style="color:#475569;font-size:10px;">+100 / -50 IQ</div></div>
+                </div>
+              </div>
+
+              <!-- 2× -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(85,69,211,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#a78bfa;">2×</div>
+                  <div><div style="color:#f0f6fc;font-size:11px;font-weight:700;">Bold</div><div style="color:#64748b;font-size:10px;">+200 / -100 IQ</div></div>
+                </div>
+              </div>
+
+              <!-- 3× -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(245,158,11,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fbbf24;">3×</div>
+                  <div><div style="color:#f0f6fc;font-size:11px;font-weight:700;">High Stakes</div><div style="color:#64748b;font-size:10px;">+300 / -150 IQ</div></div>
+                </div>
+              </div>
+
+              <!-- 4× -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(245,158,11,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#f59e0b;">4×</div>
+                  <div><div style="color:#f0f6fc;font-size:11px;font-weight:700;">Pro Level</div><div style="color:#64748b;font-size:10px;">+400 / -200 IQ</div></div>
+                </div>
+              </div>
+
+              <!-- 5× ALL-IN — gold hero, selected -->
+              <div style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(217,119,6,0.1));border:2px solid rgba(245,158,11,0.6);border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;box-shadow:0 0 20px rgba(245,158,11,0.15);">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;box-shadow:0 0 12px rgba(245,158,11,0.4);">5×</div>
+                  <div>
+                    <div style="color:#fbbf24;font-size:13px;font-weight:900;">ALL-IN</div>
+                    <div style="color:#d97706;font-size:10px;font-weight:700;">Win +500 IQ · Lose -250 IQ</div>
+                  </div>
+                </div>
+                <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:8px;padding:4px 10px;">
+                  <div style="font-size:9px;color:#fff;font-weight:800;">SELECTED</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Lock In — gold CTA -->
+            <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:14px;padding:14px;text-align:center;cursor:pointer;box-shadow:0 4px 20px rgba(245,158,11,0.3);">
+              <div style="color:#fff;font-size:15px;font-weight:900;">Lock In · 5× · ALL-IN</div>
+              <div style="color:rgba(255,255,255,0.8);font-size:10px;margin-top:2px;">Win +500 IQ · Lose -250 IQ</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 3 — Pro multiplier: all 5 unlocked · 5× gold ALL-IN selected · archetype 1.5× contrarian boost</div>
+    </div><!-- /phone 3 -->
+
+  </div>
+  <div id="sfb-panel-pick-card-v5" class="sfb-panel"></div>
+</div><!-- /screen pick-card-v5 -->
 
 <div id="pick-card-v3" class="screen" style="display:none;">
   <div class="screen-header">
