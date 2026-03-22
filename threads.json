@@ -158,5 +158,32 @@
       "text": "1. a/b test 2. we need to discuss expiration of points in a comprehensive way. Lets find a policy that is optimal across the whole app and ecosystem 3. should unlock something real",
       "ts": "Mar 21 10:59 PM"
     }
+  ],
+  "trivia": [
+    {
+      "from": "mark",
+      "text": "1. Continuous mode\n2. Yes — show Trivia IQ Score on home screen\n3. We trigger it, not venue\n4. NBA, NFL, NHL, MLB, college basketball, college football",
+      "ts": "Mar 20 11:16 PM"
+    },
+    {
+      "from": "claude",
+      "text": "All 4 implemented ✅\n• Continuous mode — \"Question 3 of ∞\" now shown on trivia screen\n• Trivia IQ 847 added to home idle hero row\n• Bar trivia description updated: SportsIQ triggers rounds, venues don't manage it\n• All 6 sports (NFL/NBA/NHL/MLB/CFB/CBB) with accuracy bars on stats panel\nNew questions above — ready for your next round of feedback.",
+      "ts": "Mar 21 9:20 AM"
+    },
+    {
+      "from": "mark",
+      "text": "1. keep it easy withiout being way too easy. we want the average user to get 70% correct\n2. not sure, make a reccomendation\n3. on the tv screen\n4. 100% curated by sportsiq\n\nto clarify when it comes to playing trivia on phone oir in bar:\nwe dont want lock in answer button. when a user chooses an ansewr its locked in. if they choose a different anseerr it is liocked in. they earn points based on how much time remained when they locked in thoer final answer. we already buyilt this logic before.\n\nther should not be a next question button. the flow is. question displayed, 10 seconds countdoen, answer is reveealed ad shown for 5 seconds. we already built this logic before\n\nif these designs are meant only to apply to some separate daily thing that happens in addition to our trivia thats fine if you want to do this, but I think there is value in keeping all of our screens and looks very consistent",
+      "ts": "Mar 21 10:10 AM"
+    },
+    {
+      "from": "mark",
+      "text": "1. keep it easy withiout being way too easy. we want the average user to get 70% correct 2. not sure, make a reccomendation 3. on the tv screen 4. 100% curated by sportsiq",
+      "ts": "Mar 21 4:02 PM"
+    },
+    {
+      "from": "mark",
+      "text": "1. keep it easy withiout being way too easy. we want the average user to get 70% correct 2. not sure, make a reccomendation 3. on the tv screen 4. 100% curated by sportsiq",
+      "ts": "Mar 21 10:59 PM"
+    }
   ]
 }
