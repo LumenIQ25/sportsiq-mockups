@@ -1878,6 +1878,9 @@
     <div class="tab tab-review" data-screen="sports-dna-v2" onclick="showScreen('sports-dna-v2',this)">
       <span class="tab-label">Sports DNA</span><span class="tab-days" id="days-sports-dna-v2"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="sports-dna-v3" onclick="showScreen('sports-dna-v3',this)">
+      <span class="tab-label">Sports DNA v3</span><span class="tab-days" id="days-sports-dna-v3"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="referral-v2" onclick="showScreen('referral-v2',this)">
       <span class="tab-label">Referral</span><span class="tab-days" id="days-referral-v2"></span><span class="review-dot"></span>
     </div>
@@ -4136,6 +4139,15 @@
     "mark_reply": ""
   },
   {
+    "id": "idea-064",
+    "date": "2026-03-22",
+    "source": "autonomous-loop",
+    "idea": "Sports DNA v3 — Pentagon radar chart, DNA Signal in pick flow, shareable viral DNA card",
+    "status": "done",
+    "claude_response": "Built Sports DNA v3. Three advances over v2: (1) Pentagon radar chart (SVG) — 5 axes: NFL, Contrarian, Early Bird, Bar Mode, NBA. Your filled pentagon overlaid on a dimmed average-player reference pentagon. Instantly shows your shape vs the field. 3-word summary: 'Contrarian · Early Bird · NFL Specialist'. (2) DNA Signal integrated into the pick card — when Mahomes pick window opens, a 'Your DNA Signal' banner synthesizes 3 specific signals: 4-1 OVER on Mahomes, contrarian bias, Early Bird +16% accuracy edge. Output: 'DNA Says: OVER ↑'. OVER button shows 'DNA recommends', UNDER shows 'Go against DNA'. This is the core moat: proprietary behavioral data driving a unique recommendation for each user on each pick — can't be replicated without your specific history. (3) Viral share card — mini pentagon on card, archetype 3-word summary, win rate + streak + rank stats, 'Can you beat my DNA?' hook with sportsiq.app CTA. Instagram Story + WhatsApp + Copy Link share options.",
+    "mark_reply": ""
+  },
+  {
     "id": "idea-063",
     "date": "2026-03-22",
     "source": "inbox",
@@ -4992,6 +5004,7 @@
     'leaderboard-v3':      '2026-03-21T16:30:00-07:00',
     'leaderboard-v4':      '2026-03-21T20:00:00-07:00',
     'sports-dna-v2':       '2026-03-21T16:30:00-07:00',
+    'sports-dna-v3':       '2026-03-22T22:00:00-07:00',
     'referral-v2':         '2026-03-21T16:30:00-07:00',
     // ── Mar 21 5:30 PM PT — Bar TV v3 batch (ideas 037,039–041) ─────────
     'bar-idle-v4':         '2026-03-21T17:30:00-07:00',
@@ -5657,6 +5670,16 @@
         '"Tonight\'s Session" as default tab vs. "Friends" — which drives more engagement? Tonight creates fresh competition; Friends drives social retention.',
         'Cross-venue "SportsIQ Nation" leaderboard — should this be opt-in (privacy concern) or opt-out (maximize scale)?',
         'Rank change number (+4, -2): show the delta immediately after each pick, or batch-update at the end of the session?'
+      ]
+    },
+    'sports-dna-v3': {
+      icon: '🧬',
+      title: 'Sports DNA v3 — Radar Chart · DNA Signal in Picks · Shareable DNA Card',
+      built: 'v3 makes DNA feel alive and actionable, not just a profile page. Three key advances over v2: (1) Radar/pentagon visualization — 5 axes: NFL · NBA · Contrarian · Early Bird · Bar Mode. Your DNA fills the pentagon; average player fills a dimmer reference pentagon. Instantly shows your shape vs the field. (2) DNA Signal in pick flow — the killer moat feature. On the pick card, a "Your DNA says..." banner appears, synthesizing your tendencies into a directional signal. Example: "Contrarian bias + 4-1 OVER on Mahomes + Early Bird edge = DNA Signal: OVER." This is the thing that is truly impossible to replicate — it\'s your specific data driving your specific recommendation. (3) Shareable DNA card — actual share card showing pentagon shape, archetype, 3-word summary, "Can you beat my DNA?" hook. Designed for Instagram/WhatsApp share. Viral loop: every share = SportsIQ branding + unique hook that makes friends want their own DNA read.',
+      questions: [
+        'DNA Signal in picks — should this appear on every pick or only when your DNA strongly aligns with one side (e.g., only show when you have 3+ picks on that player)?',
+        'Pentagon/radar chart: is a visual shape more compelling than the bar charts in v2, or is it harder to read quickly on mobile?',
+        'DNA evolution: should we show how the profile changed over time (Month 1 vs Month 3 overlaid) to show that the system is learning? Or keep it current-state only?'
       ]
     },
     'sports-dna-v2': {
@@ -20053,6 +20076,335 @@
 
   </div>
   <div id="sfb-panel-sports-dna-v2" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Sports DNA v3 — 2026-03-22 — Radar chart, DNA Signal in picks, shareable card
+     Proactive improvement: v2 is static — v3 makes DNA actionable and viral
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="sports-dna-v3" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Sports DNA v3 — Pentagon Radar · DNA Signal in Picks · Shareable DNA Card</div>
+    <div class="screen-subtitle">3 advances: (1) Radar/pentagon visualization — your shape vs average player. (2) DNA Signal on pick card — synthesizes your tendencies into a directional signal for each pick. (3) Viral share card with "Can you beat my DNA?" hook. The key moat: your proprietary behavioral data driving your specific recommendations.</div>
+  </div>
+
+  <div class="phones-row">
+
+    <!-- PHONE 1: Full DNA — Pentagon radar + profile -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#060d1f;">
+              <span style="font-size:13px;color:#475569;">← Profile</span>
+              <span style="font-size:14px;font-weight:900;color:#f1f5f9;">Sports DNA</span>
+              <span style="font-size:11px;color:#a78bfa;font-weight:700;">Share</span>
+            </div>
+
+            <!-- Archetype row -->
+            <div style="padding:8px 16px 0;display:flex;align-items:center;gap:12px;">
+              <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:20px;border:2px solid rgba(139,92,246,0.4);">🦁</div>
+              <div>
+                <div style="font-size:15px;font-weight:900;color:#f1f5f9;">SharpBettor</div>
+                <div style="display:flex;gap:5px;margin-top:3px;">
+                  <span style="background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.35);border-radius:20px;padding:2px 8px;font-size:9px;color:#a78bfa;font-weight:700;">Contrarian</span>
+                  <span style="background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.35);border-radius:20px;padding:2px 8px;font-size:9px;color:#a78bfa;font-weight:700;">Early Bird</span>
+                  <span style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:20px;padding:2px 8px;font-size:9px;color:#4ade80;font-weight:700;">NFL Specialist</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pentagon radar chart — SVG -->
+            <div style="padding:8px 16px 0;display:flex;flex-direction:column;align-items:center;">
+              <svg width="200" height="190" viewBox="0 0 200 190" style="overflow:visible;">
+                <!-- Grid pentagons (reference) -->
+                <!-- Level 3 (outer) -->
+                <polygon points="100,20 174,67 147,153 53,153 26,67" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                <!-- Level 2 -->
+                <polygon points="100,43 152,77 133,137 67,137 48,77" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                <!-- Level 1 (inner) -->
+                <polygon points="100,66 130,87 119,121 81,121 70,87" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                <!-- Axis lines -->
+                <line x1="100" y1="95" x2="100" y2="20" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="100" y1="95" x2="174" y2="67" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="100" y1="95" x2="147" y2="153" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="100" y1="95" x2="53" y2="153" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="100" y1="95" x2="26" y2="67" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <!-- Average player shape (dim reference) -->
+                <polygon points="100,50 147,77 133,137 67,137 53,77" fill="rgba(100,116,139,0.08)" stroke="rgba(100,116,139,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <!-- YOUR DNA shape (vivid) -->
+                <!-- NFL: 74% → near top vertex, Early Bird: 82% → right top, Bar Mode: 65% → bottom right, NBA: 71% → bottom left, Contrarian: 71% → left top -->
+                <polygon points="100,28 162,70 140,148 60,148 38,70" fill="rgba(139,92,246,0.18)" stroke="rgba(139,92,246,0.7)" stroke-width="2"/>
+                <!-- Dots at vertices -->
+                <circle cx="100" cy="28" r="4" fill="#a78bfa"/>
+                <circle cx="162" cy="70" r="4" fill="#a78bfa"/>
+                <circle cx="140" cy="148" r="4" fill="#a78bfa"/>
+                <circle cx="60" cy="148" r="4" fill="#a78bfa"/>
+                <circle cx="38" cy="70" r="4" fill="#a78bfa"/>
+                <!-- Center dot -->
+                <circle cx="100" cy="95" r="3" fill="rgba(255,255,255,0.3)"/>
+                <!-- Labels -->
+                <text x="100" y="13" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="700">NFL 74%</text>
+                <text x="180" y="67" text-anchor="start" font-size="9" fill="#94a3b8" font-weight="700">Early Bird</text>
+                <text x="152" y="168" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="700">Bar Mode</text>
+                <text x="48" y="168" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="700">NBA 71%</text>
+                <text x="14" y="67" text-anchor="start" font-size="9" fill="#94a3b8" font-weight="700">Contrarian</text>
+                <!-- Legend -->
+                <rect x="56" y="175" width="10" height="3" rx="1" fill="rgba(139,92,246,0.7)"/>
+                <text x="70" y="178" font-size="8" fill="#a78bfa">You</text>
+                <rect x="96" y="175" width="10" height="3" rx="1" fill="none" stroke="rgba(100,116,139,0.4)" stroke-width="1" stroke-dasharray="3,3"/>
+                <text x="110" y="178" font-size="8" fill="#64748b">Avg player</text>
+              </svg>
+            </div>
+
+            <!-- 3-word summary -->
+            <div style="margin:0 16px;background:rgba(139,92,246,0.1);border:1.5px solid rgba(139,92,246,0.25);border-radius:12px;padding:10px;text-align:center;">
+              <div style="font-size:10px;color:#64748b;font-weight:600;letter-spacing:1.5px;margin-bottom:4px;">YOUR DNA IN 3 WORDS</div>
+              <div style="font-size:15px;font-weight:900;color:#f1f5f9;">Contrarian · Early Bird · NFL Specialist</div>
+            </div>
+
+            <!-- Trait bars (compact) -->
+            <div style="padding:10px 16px 0;flex:1;overflow-y:auto;">
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:11px;color:#64748b;width:80px;">NFL</span>
+                  <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                    <div style="width:74%;height:100%;background:linear-gradient(90deg,#22c55e,#4ade80);border-radius:3px;"></div>
+                  </div>
+                  <span style="font-size:10px;color:#4ade80;font-weight:700;width:28px;text-align:right;">74%</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:11px;color:#64748b;width:80px;">Contrarian</span>
+                  <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                    <div style="width:71%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:3px;"></div>
+                  </div>
+                  <span style="font-size:10px;color:#a78bfa;font-weight:700;width:28px;text-align:right;">71%</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:11px;color:#64748b;width:80px;">Early Bird</span>
+                  <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                    <div style="width:82%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:3px;"></div>
+                  </div>
+                  <span style="font-size:10px;color:#f59e0b;font-weight:700;width:28px;text-align:right;">82%</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:11px;color:#64748b;width:80px;">NBA</span>
+                  <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                    <div style="width:71%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:3px;"></div>
+                  </div>
+                  <span style="font-size:10px;color:#60a5fa;font-weight:700;width:28px;text-align:right;">71%</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:11px;color:#64748b;width:80px;">Bar Mode</span>
+                  <div style="flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                    <div style="width:65%;height:100%;background:linear-gradient(90deg,#ec4899,#f472b6);border-radius:3px;"></div>
+                  </div>
+                  <span style="font-size:10px;color:#f472b6;font-weight:700;width:28px;text-align:right;">65%</span>
+                </div>
+              </div>
+
+              <!-- Share CTA -->
+              <div style="margin-top:10px;background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:13px;padding:11px;text-align:center;">
+                <div style="font-size:12px;font-weight:800;color:#fff;">Share My DNA Card →</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">PENTAGON RADAR · Your shape vs avg player · 3-word summary · 502 picks of data</div>
+      </div>
+    </div>
+
+    <!-- PHONE 2: DNA Signal on the pick card -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#060d1f;">
+              <span style="font-size:11px;color:#475569;font-weight:600;">8:47 PM</span>
+              <span style="font-size:10px;color:#a78bfa;font-weight:800;letter-spacing:1px;">PICK WINDOW OPEN</span>
+              <span style="font-size:9px;color:#475569;">●●●●</span>
+            </div>
+
+            <!-- Game header -->
+            <div style="padding:6px 16px 0;display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <div style="font-size:11px;color:#64748b;font-weight:600;">NFL · KC vs PHI · Q3 8:44</div>
+                <div style="font-size:10px;color:#475569;margin-top:1px;">Chiefs 17 — Eagles 14 · LIVE</div>
+              </div>
+              <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:20px;padding:2px 8px;font-size:9px;color:#4ade80;font-weight:700;">LIVE</div>
+            </div>
+
+            <!-- Player -->
+            <div style="padding:10px 16px 0;display:flex;align-items:center;gap:10px;">
+              <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:18px;">🏈</div>
+              <div>
+                <div style="font-size:16px;font-weight:900;color:#f1f5f9;">P. Mahomes</div>
+                <div style="font-size:10px;color:#64748b;">Kansas City Chiefs · QB</div>
+              </div>
+            </div>
+
+            <!-- Line + crowd signal -->
+            <div style="padding:8px 16px 0;text-align:center;">
+              <div style="font-size:11px;color:#64748b;margin-bottom:2px;">Passing Yards</div>
+              <div style="font-size:32px;font-weight:900;color:#f1f5f9;line-height:1.1;">287.5</div>
+
+              <!-- Crowd bar -->
+              <div style="margin:8px 0 2px;display:flex;align-items:center;gap:6px;">
+                <div style="flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,0.06);overflow:hidden;">
+                  <div style="width:63%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:3px;"></div>
+                </div>
+                <span style="font-size:10px;color:#f59e0b;font-weight:700;white-space:nowrap;">63% of 1,284 picked OVER</span>
+              </div>
+            </div>
+
+            <!-- DNA SIGNAL — THE KEY MOAT FEATURE -->
+            <div style="margin:10px 12px 0;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(124,58,237,0.12));border:2px solid rgba(139,92,246,0.5);border-radius:14px;padding:12px;">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+                <span style="font-size:14px;">🧬</span>
+                <span style="font-size:10px;font-weight:900;color:#a78bfa;letter-spacing:1.5px;">YOUR DNA SIGNAL</span>
+              </div>
+
+              <!-- Signal breakdown -->
+              <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:6px;height:6px;border-radius:50%;background:#4ade80;flex-shrink:0;"></div>
+                  <span style="font-size:10px;color:#94a3b8;">4-1 OVER on Mahomes this season</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:6px;height:6px;border-radius:50%;background:#4ade80;flex-shrink:0;"></div>
+                  <span style="font-size:10px;color:#94a3b8;">Contrarian bias: 71% — crowd is OVER, your edge is OVER too</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:6px;height:6px;border-radius:50%;background:#f59e0b;flex-shrink:0;"></div>
+                  <span style="font-size:10px;color:#94a3b8;">Early Bird: +16% accuracy when picking within 5 min (now)</span>
+                </div>
+              </div>
+
+              <!-- Signal output -->
+              <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:10px;padding:8px;text-align:center;">
+                <div style="font-size:11px;font-weight:900;color:#a78bfa;letter-spacing:1px;">DNA SAYS: OVER ↑</div>
+                <div style="font-size:10px;color:#64748b;margin-top:2px;">3 signals align · Your historical edge on this pick</div>
+              </div>
+            </div>
+
+            <!-- Pick buttons -->
+            <div style="padding:10px 12px 14px;margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div style="background:linear-gradient(135deg,#059669,#10b981);border-radius:12px;padding:12px;text-align:center;box-shadow:0 4px 14px rgba(16,185,129,0.35);">
+                <div style="font-size:13px;font-weight:900;color:#fff;">OVER ↑</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.8);margin-top:2px;">DNA recommends</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px;text-align:center;">
+                <div style="font-size:13px;font-weight:700;color:#64748b;">UNDER ↓</div>
+                <div style="font-size:10px;color:#475569;margin-top:2px;">Go against DNA</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">DNA SIGNAL IN PICK FLOW · 3 signals synthesized · "Your DNA says OVER" · Unique to you</div>
+      </div>
+    </div>
+
+    <!-- PHONE 3: Shareable DNA card -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#060d1f;">
+              <span style="font-size:13px;color:#475569;">← DNA</span>
+              <span style="font-size:13px;font-weight:800;color:#f1f5f9;">Share DNA</span>
+              <span style="font-size:9px;color:#475569;">●●●●</span>
+            </div>
+
+            <div style="padding:6px 16px 8px;">
+              <div style="font-size:12px;color:#475569;">Your DNA card — unique to your 502 picks</div>
+            </div>
+
+            <!-- Share card preview -->
+            <div style="margin:0 12px;background:linear-gradient(145deg,#0d1426,#111827);border:2px solid rgba(139,92,246,0.4);border-radius:20px;padding:18px;overflow:hidden;position:relative;">
+
+              <!-- Background glow -->
+              <div style="position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:radial-gradient(circle,rgba(139,92,246,0.25) 0%,transparent 70%);pointer-events:none;"></div>
+
+              <!-- Card header -->
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+                <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:16px;border:1.5px solid rgba(255,255,255,0.15);">🦁</div>
+                <div>
+                  <div style="font-size:13px;font-weight:900;color:#f1f5f9;">SharpBettor</div>
+                  <div style="font-size:9px;color:#64748b;">502 picks · 68% all-time</div>
+                </div>
+                <div style="margin-left:auto;font-size:12px;font-weight:900;background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SportsIQ</div>
+              </div>
+
+              <!-- Pentagon mini -->
+              <div style="display:flex;justify-content:center;margin-bottom:12px;">
+                <svg width="100" height="95" viewBox="0 0 200 190">
+                  <polygon points="100,20 174,67 147,153 53,153 26,67" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                  <polygon points="100,28 162,70 140,148 60,148 38,70" fill="rgba(139,92,246,0.2)" stroke="rgba(139,92,246,0.7)" stroke-width="2.5"/>
+                  <polygon points="100,50 147,77 133,137 67,137 53,77" fill="rgba(100,116,139,0.06)" stroke="rgba(100,116,139,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                </svg>
+              </div>
+
+              <!-- 3-word summary -->
+              <div style="text-align:center;margin-bottom:12px;">
+                <div style="font-size:14px;font-weight:900;color:#f1f5f9;">Contrarian · Early Bird</div>
+                <div style="font-size:14px;font-weight:900;color:#4ade80;">NFL Specialist</div>
+              </div>
+
+              <!-- Key stats -->
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px;">
+                <div style="text-align:center;background:rgba(255,255,255,0.05);border-radius:8px;padding:7px 4px;">
+                  <div style="font-size:14px;font-weight:900;color:#4ade80;">68%</div>
+                  <div style="font-size:8px;color:#475569;margin-top:1px;">Win Rate</div>
+                </div>
+                <div style="text-align:center;background:rgba(255,255,255,0.05);border-radius:8px;padding:7px 4px;">
+                  <div style="font-size:14px;font-weight:900;color:#f59e0b;">🔥 22</div>
+                  <div style="font-size:8px;color:#475569;margin-top:1px;">Streak</div>
+                </div>
+                <div style="text-align:center;background:rgba(255,255,255,0.05);border-radius:8px;padding:7px 4px;">
+                  <div style="font-size:14px;font-weight:900;color:#a78bfa;">#4</div>
+                  <div style="font-size:8px;color:#475569;margin-top:1px;">Season Rank</div>
+                </div>
+              </div>
+
+              <!-- Challenge hook -->
+              <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:10px;padding:8px;text-align:center;">
+                <div style="font-size:11px;font-weight:800;color:#a78bfa;">Can you beat my DNA? 🧬</div>
+                <div style="font-size:9px;color:#475569;margin-top:2px;">sportsiq.app · Get your own read</div>
+              </div>
+            </div>
+
+            <!-- Share buttons -->
+            <div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:7px;margin-top:auto;">
+              <div style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:12px;padding:11px;text-align:center;">
+                <div style="font-size:12px;font-weight:800;color:#fff;">📤 Share to Instagram Story</div>
+              </div>
+              <div style="display:flex;gap:6px;">
+                <div style="flex:1;background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.3);border-radius:10px;padding:8px;text-align:center;">
+                  <div style="font-size:10px;font-weight:700;color:#4ade80;">WhatsApp</div>
+                </div>
+                <div style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px;text-align:center;">
+                  <div style="font-size:10px;font-weight:700;color:#94a3b8;">Copy Link</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">VIRAL DNA CARD · Pentagon shape + 3-word summary + "Can you beat my DNA?" hook</div>
+      </div>
+    </div>
+
+  </div><!-- end phones-row -->
+
+  <div id="sfb-panel-sports-dna-v3" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
