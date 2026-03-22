@@ -1890,6 +1890,9 @@
     <div class="tab tab-review" data-screen="sportsiq-pro" onclick="showScreen('sportsiq-pro',this)">
       <span class="tab-label">SportsIQ Pro ⚡</span><span class="tab-days" id="days-sportsiq-pro"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="sportsiq-pro-v2" onclick="showScreen('sportsiq-pro-v2',this)">
+      <span class="tab-label">SportsIQ Pro v2 ⚡</span><span class="tab-days" id="days-sportsiq-pro-v2"></span><span class="review-dot"></span>
+    </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
       <summary class="nav-archive-toggle">↓ 10 previous versions</summary>
@@ -3990,6 +3993,15 @@
     "status": "done",
     "claude_response": "Built SportsIQ Pro (idea-051). Three phones: (1) Upgrade prompt \u2014 soft paywall sheet slides up when free user taps 3\u00d7 multiplier. Blurred pick card behind it, 4 perk grid (5\u00d7 multiplier, +15 min early access, real-time sharp alerts, full Sports DNA), $4.99/mo primary CTA + $39.99/yr, soft dismiss to continue free. (2) Full comparison screen \u2014 Free vs Pro feature grid across 3 sections: Picks (max multiplier, early access, pick history), Intelligence (sharp alerts, Pre-Game Brief, Sports DNA), Social (crew size, Pro badge). Dual pricing: $39.99/yr primary (save 33%) + $4.99/mo secondary. (3) Pro activated \u2014 gold glow, \u26a1 badge, 4 perks confirmed with explanations, 'Start Picking' CTA. Moat note: the +15 min early window is 2nd-order powerful \u2014 Pro users establish the crowd split percentage that free users see when their window opens, creating an information asymmetry that compounds over time.",
     "mark_reply": ""
+  },
+  {
+    "id": "idea-052",
+    "date": "2026-03-21",
+    "source": "inbox",
+    "idea": "SportsIQ Pro v2 \u2014 Mark feedback: '$4.99 confirmed but current perks not worth it, need more value for paid subscribers.' Iterate with 4 richer perks: (1) Personal Prop Coach \u2014 AI weekly breakdown of your own win patterns from pick history, (2) SportsIQ Sharp \u2014 daily sharp money digest push, (3) Contrarian IQ Boost \u2014 Pro earns 1.5\u00d7 IQ on contrarian wins vs 1\u00d7 for free, (4) \u26a1 Pro badge on all leaderboards creating FOMO for free users.",
+    "status": "done",
+    "claude_response": "Built SportsIQ Pro v2 (idea-052). Three phones with richer value stack: (1) Upgrade prompt with stronger hook \u2014 Prop Coach weekly insight teaser front and center ('You\u2019re 8-2 on Mahomes in domes. Stop betting UNDER in cold weather.'), 8-perk value grid replaces old 4-perk, $4.99/mo CTA. (2) Full 8-perk value grid \u2014 Picks (5\u00d7 multiplier, +15 min early window, 1.5\u00d7 contrarian boost), Intel (sharp digest every morning, Pre-Game Brief full version, full Sports DNA), Social (unlimited crew, \u26a1 badge on all leaderboards), Coach (Personal Prop Coach). (3) Personal Prop Coach screen \u2014 the proprietary perks that justifies $4.99 and is hardest to replicate: AI-analyzed pick history showing your patterns, your blind spots, your best bet archetypes. Moat: this data is personal and accumulates over time \u2014 a user with 6 months of coaching data cannot recreate that elsewhere.",
+    "mark_reply": ""
   }
 ]
 </script>
@@ -4717,7 +4729,9 @@
     'pick-result-v2':      '2026-03-21T22:00:00-07:00',
     // ── Mar 21 autonomous loop — Pre-Game Brief + SportsIQ Pro (idea-050, idea-051) ──
     'pregame-brief':       '2026-03-21T23:30:00-07:00',
-    'sportsiq-pro':        '2026-03-21T23:30:00-07:00'
+    'sportsiq-pro':        '2026-03-21T23:30:00-07:00',
+    // ── Mar 21 — SportsIQ Pro v2: richer value stack per Mark feedback (idea-052) ──
+    'sportsiq-pro-v2':     '2026-03-21T23:59:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -5448,6 +5462,17 @@
         'Should the brief show friends picks-in-progress (who has already picked for tonight) or keep it pure intelligence and save the social layer for the pick card?'
       ]
     },
+    'sportsiq-pro-v2': {
+      icon: '⚡',
+      title: 'SportsIQ Pro v2 — Richer Value Stack · $4.99/mo · More Perks',
+      built: 'Updated per Mark feedback (idea-052): $4.99/mo confirmed, needs more value. Added 4 high-value Pro perks beyond multipliers: (1) SportsIQ Sharp — daily sharp money digest pushed every morning, proprietary intel no free user gets, (2) Personal Prop Coach — weekly AI breakdown of your personal win patterns and blind spots built from your pick history ("You\'re 8-2 on Mahomes in domes, 2-6 UNDER in cold weather — stop betting UNDER in December"), (3) Contrarian IQ Boost — Pro members earn 1.5× IQ on contrarian wins (free = 1×), making winning against the crowd even more rewarding, (4) ⚡ Pro Badge visible on ALL leaderboards — free users see Pro players ranked above them with gold ⚡. Three phones: (1) Upgrade prompt with stronger hook (weekly Prop Coach teaser), (2) Full value grid showing all 8 Pro perks, (3) Personal Prop Coach screen — the proprietary insight that justifies the $4.99.',
+      questions: [
+        'Personal Prop Coach: weekly push (Sunday morning) or on-demand tap? My recommendation: weekly for now — creates a weekly habit touchpoint separate from games.',
+        'SportsIQ Sharp digest: standalone push or part of Pre-Game Brief? My recommendation: standalone — different audience moment (sharp money moves overnight, brief is game-day). Two separate reasons to open the app.',
+        'Contrarian IQ Boost (1.5× for Pro): does this feel like an unfair advantage or a clear perk? It\'s visible on the leaderboard to free users — seeing a Pro player with more IQ from the same wins creates upgrade FOMO.',
+        '⚡ badge everywhere vs profile-only: everywhere is more aggressive FOMO but might feel pay-to-win. Your call on the social pressure intensity.'
+      ]
+    },
     'sportsiq-pro': {
       icon: '⚡',
       title: 'SportsIQ Pro — Subscription · Monetization · Premium Tier',
@@ -5609,20 +5634,50 @@
     sfbSaveThread(screenId, thread);
     ta.value = '';
 
-    // Also push to server as a new idea (prefixed with screen id so Claude sees it)
+    // Show inline "sending" → "✓ sent to Claude" feedback
+    var panel = document.getElementById('sfb-panel-' + screenId);
+    var statusId = 'sfb-send-status-' + screenId;
+    var existing = document.getElementById(statusId);
+    if (!existing && panel) {
+      existing = document.createElement('div');
+      existing.id = statusId;
+      existing.style.cssText = 'text-align:center;font-size:11px;font-weight:700;letter-spacing:1px;padding:6px 0;color:#64748b;transition:color 0.3s;';
+      panel.appendChild(existing);
+    }
+    if (existing) {
+      existing.textContent = 'Sending to Claude…';
+      existing.style.color = '#64748b';
+    }
+
+    // Push to server as a new idea (prefixed with screen id so Claude reads it in its hourly loop)
     var idea = '[' + screenId + '] ' + text;
-    if (_serverMode) {
-      fetch(_apiBase + '/api/new-idea', {
+    var sendPromise;
+    if (_apiBase) {
+      sendPromise = fetch(_apiBase + '/api/new-idea', {
         method: 'POST', headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ idea: idea })
-      }).catch(function() {});
+      }).then(function(r) {
+        if (existing) {
+          existing.textContent = r.ok ? '✓ Reply sent — Claude reads these every hour' : '⚠ Server error — reply saved locally only';
+          existing.style.color = r.ok ? '#4ade80' : '#f59e0b';
+        }
+      }).catch(function() {
+        if (existing) {
+          existing.textContent = '⚠ Offline — reply saved locally only';
+          existing.style.color = '#f59e0b';
+        }
+      });
     } else {
-      // Store locally as a new idea item
+      // No server — store locally as a new idea item
       var today2 = new Date().toISOString().slice(0,10);
       var id = 'sfb-' + screenId + '-' + Date.now();
       var newItems = getNewItems();
       newItems.push({ id: id, date: today2, source: screenId, idea: idea, status: 'new', claude_response: '', mark_reply: '', _ui: true });
       saveNewItems(newItems);
+      if (existing) {
+        existing.textContent = '⚠ No server — reply saved locally. Use Export to share with Claude.';
+        existing.style.color = '#f59e0b';
+      }
     }
 
     renderScreenFeedback(screenId);
@@ -18888,6 +18943,314 @@
   </div>
   <div id="sfb-panel-sportsiq-pro" class="sfb-panel"></div>
 </div><!-- /screen sportsiq-pro -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: SportsIQ Pro v2 — Mar 21 2026 — Richer value stack per Mark feedback
+     $4.99/mo confirmed. Added: Sharp Digest, Personal Prop Coach, Contrarian Boost, ⚡ badge
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="sportsiq-pro-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">⚡ SportsIQ Pro v2</div>
+    <div class="screen-desc">Mar 21 2026 · Updated per Mark: $4.99/mo confirmed, needs more value. Added 4 richer perks: Daily Sharp Digest, Personal Prop Coach (your weekly pick pattern breakdown), 1.5× Contrarian IQ Boost, and ⚡ Pro badge on all leaderboards. The Prop Coach is the killer perk — no competitor has personalized prop history analysis at this depth.</div>
+  </div>
+
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: Upgrade prompt v2 — Prop Coach as hero perk ──────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow:hidden;position:relative;">
+
+          <!-- Dimmed pick card behind -->
+          <div style="position:absolute;inset:0;background:#0a0f1e;opacity:0.55;z-index:1;"></div>
+          <div style="position:absolute;top:0;left:0;right:0;bottom:210px;z-index:2;padding:20px;display:flex;flex-direction:column;gap:8px;filter:blur(2px);">
+            <div style="height:34px;"></div>
+            <div style="background:rgba(85,69,211,0.2);border-radius:12px;height:60px;"></div>
+            <div style="background:rgba(255,255,255,0.06);border-radius:12px;height:80px;"></div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:rgba(85,69,211,0.3);border-radius:12px;height:56px;"></div>
+              <div style="flex:1;background:rgba(34,140,136,0.3);border-radius:12px;height:56px;"></div>
+            </div>
+          </div>
+
+          <!-- Upgrade sheet -->
+          <div style="position:absolute;bottom:0;left:0;right:0;z-index:10;background:linear-gradient(180deg,#0F1520 0%,#0B1020 100%);border-radius:24px 24px 0 0;border-top:1px solid rgba(245,158,11,0.35);padding:18px 18px 28px;">
+            <div style="width:40px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 16px;"></div>
+
+            <!-- Hero: Personal Prop Coach teaser -->
+            <div style="background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(217,119,6,0.08));border:1px solid rgba(245,158,11,0.3);border-radius:14px;padding:14px;margin-bottom:14px;">
+              <div style="color:#fbbf24;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;">YOUR WEEKLY PROP COACH SAYS</div>
+              <div style="color:#f8fafc;font-size:13px;font-weight:700;line-height:1.5;font-style:italic;">"You're 8-2 on Mahomes in domes. You're 2-6 betting UNDER in cold weather games. Stop picking UNDER in December."</div>
+              <div style="color:#64748b;font-size:10px;margin-top:6px;">Based on your last 47 picks · Pro only</div>
+            </div>
+
+            <div style="color:#f8fafc;font-size:16px;font-weight:800;margin-bottom:4px;">Unlock SportsIQ Pro</div>
+            <div style="color:#94a3b8;font-size:12px;line-height:1.5;margin-bottom:14px;">Your personal pick coach, sharp money digest, 5× multipliers, and more — for less than a beer a month.</div>
+
+            <!-- 4 key perks — compact row -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px;">
+              <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.18);border-radius:10px;padding:9px 10px;">
+                <div style="color:#fbbf24;font-size:14px;margin-bottom:3px;">🧠</div>
+                <div style="color:#f8fafc;font-size:11px;font-weight:700;">Prop Coach</div>
+                <div style="color:#64748b;font-size:10px;">Weekly win pattern breakdown</div>
+              </div>
+              <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.18);border-radius:10px;padding:9px 10px;">
+                <div style="color:#fbbf24;font-size:14px;margin-bottom:3px;">📡</div>
+                <div style="color:#f8fafc;font-size:11px;font-weight:700;">Sharp Digest</div>
+                <div style="color:#64748b;font-size:10px;">Daily sharp money moves</div>
+              </div>
+              <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.18);border-radius:10px;padding:9px 10px;">
+                <div style="color:#fbbf24;font-size:14px;margin-bottom:3px;">⚡</div>
+                <div style="color:#f8fafc;font-size:11px;font-weight:700;">5× multiplier</div>
+                <div style="color:#64748b;font-size:10px;">Free caps at 2×</div>
+              </div>
+              <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.18);border-radius:10px;padding:9px 10px;">
+                <div style="color:#fbbf24;font-size:14px;margin-bottom:3px;">⏰</div>
+                <div style="color:#f8fafc;font-size:11px;font-weight:700;">+15 min early access</div>
+                <div style="color:#64748b;font-size:10px;">Pick before the crowd</div>
+              </div>
+            </div>
+
+            <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:14px;padding:13px;text-align:center;margin-bottom:8px;">
+              <div style="color:#fff;font-size:15px;font-weight:900;">Go Pro — $4.99/mo</div>
+              <div style="color:rgba(255,255,255,0.8);font-size:11px;margin-top:2px;">or $39.99/yr · Cancel anytime</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="color:#64748b;font-size:11px;">Continue with free tier</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">UPGRADE PROMPT v2 · Prop Coach as hero · "Less than a beer a month"</div>
+    </div>
+
+    <!-- ── PHONE 2: Full Pro value stack — all 8 perks ───────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow:hidden;">
+
+          <div style="background:linear-gradient(180deg,#1a1208 0%,#050912 55%);flex-shrink:0;">
+            <div style="height:34px;"></div>
+            <div style="text-align:center;padding:16px 20px 14px;">
+              <div style="width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;box-shadow:0 0 30px rgba(245,158,11,0.35);">
+                <div style="color:#fff;font-size:22px;">⚡</div>
+              </div>
+              <div style="color:#fbbf24;font-size:20px;font-weight:900;">SportsIQ Pro</div>
+              <div style="color:#94a3b8;font-size:12px;margin-top:3px;">$4.99/mo · Cancel anytime</div>
+            </div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:0 14px 14px;">
+
+            <!-- Intelligence perks -->
+            <div style="margin-bottom:12px;">
+              <div style="color:#64748b;font-size:9px;font-weight:700;letter-spacing:2px;padding:8px 2px 6px;">INTELLIGENCE</div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+
+                <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;">
+                  <div style="font-size:20px;flex-shrink:0;">🧠</div>
+                  <div>
+                    <div style="color:#fbbf24;font-size:12px;font-weight:900;margin-bottom:2px;">Personal Prop Coach</div>
+                    <div style="color:#94a3b8;font-size:11px;line-height:1.5;">Weekly breakdown of YOUR win patterns and blind spots. Built from your pick history. No generic advice — your data, your tendencies.</div>
+                    <div style="background:rgba(245,158,11,0.15);border-radius:6px;padding:5px 8px;margin-top:7px;">
+                      <div style="color:#fbbf24;font-size:10px;font-style:italic;">"You're 8-2 on Mahomes in domes. Stop betting UNDER in December."</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;">
+                  <div style="font-size:20px;flex-shrink:0;">📡</div>
+                  <div>
+                    <div style="color:#fbbf24;font-size:12px;font-weight:900;margin-bottom:2px;">Daily Sharp Digest</div>
+                    <div style="color:#94a3b8;font-size:11px;line-height:1.5;">Every morning: where sharp money moved overnight. Free users get the data delayed 5 min in-app. Pro gets it as a standalone push before markets open.</div>
+                  </div>
+                </div>
+
+                <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;">
+                  <div style="font-size:20px;flex-shrink:0;">📋</div>
+                  <div>
+                    <div style="color:#fbbf24;font-size:12px;font-weight:900;margin-bottom:2px;">Full Pre-Game Brief</div>
+                    <div style="color:#94a3b8;font-size:11px;line-height:1.5;">Deep intel version with prop history, line movement timeline, and sharp vs crowd divergence score. Free: condensed brief only.</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Picks perks -->
+            <div style="margin-bottom:12px;">
+              <div style="color:#64748b;font-size:9px;font-weight:700;letter-spacing:2px;padding:4px 2px 6px;">PICKS</div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+                  <div style="display:flex;gap:10px;align-items:center;">
+                    <div style="font-size:16px;">⚡</div>
+                    <div><div style="color:#f8fafc;font-size:12px;font-weight:700;">5× max multiplier</div><div style="color:#64748b;font-size:10px;">Free caps at 2×</div></div>
+                  </div>
+                  <div style="background:rgba(245,158,11,0.15);border-radius:6px;padding:3px 8px;"><div style="color:#fbbf24;font-size:11px;font-weight:700;">PRO</div></div>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+                  <div style="display:flex;gap:10px;align-items:center;">
+                    <div style="font-size:16px;">⏰</div>
+                    <div><div style="color:#f8fafc;font-size:12px;font-weight:700;">+15 min early pick window</div><div style="color:#64748b;font-size:10px;">Pick before crowd forms</div></div>
+                  </div>
+                  <div style="background:rgba(245,158,11,0.15);border-radius:6px;padding:3px 8px;"><div style="color:#fbbf24;font-size:11px;font-weight:700;">PRO</div></div>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+                  <div style="display:flex;gap:10px;align-items:center;">
+                    <div style="font-size:16px;">🎯</div>
+                    <div><div style="color:#f8fafc;font-size:12px;font-weight:700;">1.5× Contrarian IQ Boost</div><div style="color:#64748b;font-size:10px;">Win against crowd as Pro = 1.5× IQ (free = 1×)</div></div>
+                  </div>
+                  <div style="background:rgba(245,158,11,0.15);border-radius:6px;padding:3px 8px;"><div style="color:#fbbf24;font-size:11px;font-weight:700;">PRO</div></div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Social perks -->
+            <div style="margin-bottom:14px;">
+              <div style="color:#64748b;font-size:9px;font-weight:700;letter-spacing:2px;padding:4px 2px 6px;">SOCIAL</div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+                  <div style="display:flex;gap:10px;align-items:center;">
+                    <div style="font-size:16px;">⚡</div>
+                    <div><div style="color:#f8fafc;font-size:12px;font-weight:700;">⚡ Pro badge on all leaderboards</div><div style="color:#64748b;font-size:10px;">Visible to all — friends see you're serious</div></div>
+                  </div>
+                  <div style="background:rgba(245,158,11,0.15);border-radius:6px;padding:3px 8px;"><div style="color:#fbbf24;font-size:11px;font-weight:700;">PRO</div></div>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+                  <div style="display:flex;gap:10px;align-items:center;">
+                    <div style="font-size:16px;">👥</div>
+                    <div><div style="color:#f8fafc;font-size:12px;font-weight:700;">Unlimited crew size</div><div style="color:#64748b;font-size:10px;">Free: 20 max</div></div>
+                  </div>
+                  <div style="background:rgba(245,158,11,0.15);border-radius:6px;padding:3px 8px;"><div style="color:#fbbf24;font-size:11px;font-weight:700;">PRO</div></div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom pricing -->
+          <div style="padding:10px 14px 22px;flex-shrink:0;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:14px;padding:13px;text-align:center;margin-bottom:8px;">
+              <div style="color:#fff;font-size:15px;font-weight:900;">Go Pro — $39.99/yr</div>
+              <div style="color:rgba(255,255,255,0.85);font-size:11px;margin-top:1px;">$3.33/mo · Save 33% vs monthly</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:11px;text-align:center;">
+              <div style="color:#94a3b8;font-size:12px;font-weight:600;">Monthly — $4.99/mo · Cancel anytime</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">PRO VALUE STACK v2 · 8 perks · Prop Coach + Sharp Digest as hero perks</div>
+    </div>
+
+    <!-- ── PHONE 3: Personal Prop Coach — the proprietary killer perk ── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow:hidden;">
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;"></div>
+
+          <!-- Header -->
+          <div style="padding:12px 20px 10px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div>
+              <div style="color:#64748b;font-size:10px;font-weight:700;letter-spacing:2px;">WEEK OF MAR 17–23</div>
+              <div style="color:#f8fafc;font-size:18px;font-weight:900;letter-spacing:-0.5px;">Your Prop Coach</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:8px;padding:4px 10px;">
+              <div style="color:#fff;font-size:10px;font-weight:800;">⚡ PRO</div>
+            </div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:14px 16px;">
+
+            <!-- Win pattern hero -->
+            <div style="background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(34,140,136,0.07));border:1px solid rgba(34,197,94,0.2);border-radius:16px;padding:14px;margin-bottom:12px;">
+              <div style="color:#4ade80;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:8px;">YOUR STRONGEST PATTERN</div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="text-align:center;flex-shrink:0;">
+                  <div style="color:#22c55e;font-size:32px;font-weight:900;line-height:1;">8-2</div>
+                  <div style="color:#4ade80;font-size:10px;font-weight:700;">80%</div>
+                </div>
+                <div style="border-left:1px solid rgba(255,255,255,0.08);padding-left:12px;">
+                  <div style="color:#f8fafc;font-size:13px;font-weight:800;">Mahomes · Passing Yards</div>
+                  <div style="color:#94a3b8;font-size:11px;margin-top:3px;line-height:1.5;">Home or dome games only. Your best prop by any metric. Keep betting this.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Blind spot warning -->
+            <div style="background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:14px;padding:14px;margin-bottom:12px;">
+              <div style="color:#ef4444;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:8px;">⚠ BLIND SPOT — STOP THIS</div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="text-align:center;flex-shrink:0;">
+                  <div style="color:#ef4444;font-size:32px;font-weight:900;line-height:1;">2-6</div>
+                  <div style="color:#fca5a5;font-size:10px;font-weight:700;">25%</div>
+                </div>
+                <div style="border-left:1px solid rgba(255,255,255,0.08);padding-left:12px;">
+                  <div style="color:#f8fafc;font-size:13px;font-weight:800;">UNDER picks in cold weather</div>
+                  <div style="color:#94a3b8;font-size:11px;margin-top:3px;line-height:1.5;">You keep going UNDER when temps are below 35°F. Cold weather doesn't suppress passing as much as you think. Stop it.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- This week's recs -->
+            <div style="margin-bottom:12px;">
+              <div style="color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:8px;">THIS WEEK · COACH RECS</div>
+
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px 12px;margin-bottom:7px;display:flex;align-items:center;gap:10px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0;"></div>
+                <div style="color:#94a3b8;font-size:11px;line-height:1.5;"><span style="color:#f8fafc;font-weight:700;">Chiefs vs Ravens:</span> You're 8-2 on Mahomes domes. M&T Bank is a dome. <span style="color:#4ade80;">Lean OVER.</span></div>
+              </div>
+
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px 12px;margin-bottom:7px;display:flex;align-items:center;gap:10px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#fbbf24;flex-shrink:0;"></div>
+                <div style="color:#94a3b8;font-size:11px;line-height:1.5;"><span style="color:#f8fafc;font-weight:700;">Bears vs Packers:</span> Lambeau. 28°F forecast. <span style="color:#fbbf24;">Avoid UNDER</span> — your pattern says you'll get burned.</div>
+              </div>
+
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#a78bfa;flex-shrink:0;"></div>
+                <div style="color:#94a3b8;font-size:11px;line-height:1.5;"><span style="color:#f8fafc;font-weight:700;">Your timing:</span> You win 72% when you pick in the first 5 min of a window. You win 54% when you wait. <span style="color:#a78bfa;">Pick early.</span></div>
+              </div>
+            </div>
+
+            <!-- Season arc -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;margin-bottom:14px;">
+              <div style="color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;">YOUR SEASON ARC</div>
+              <div style="color:#64748b;font-size:11px;line-height:1.6;">You started 7-2. Then a 4-game cold streak in Week 9. Then 12-5 over the last 17 picks. You recover well from bad stretches — don't tilt. Your floor is 62%, your ceiling in your best prop types is 80%+.</div>
+            </div>
+
+          </div>
+
+          <!-- CTA -->
+          <div style="padding:10px 16px 20px;flex-shrink:0;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:11px;text-align:center;">
+              <div style="color:#fbbf24;font-size:12px;font-weight:700;">Next Prop Coach drops Sunday 9am</div>
+              <div style="color:#64748b;font-size:10px;margin-top:1px;">Based on all your picks this week</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">PERSONAL PROP COACH · 8-2 dome edge + 2-6 cold weather blind spot + timing insight</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-sportsiq-pro-v2" class="sfb-panel"></div>
+</div><!-- /screen sportsiq-pro-v2 -->
 
 </body>
 </html>

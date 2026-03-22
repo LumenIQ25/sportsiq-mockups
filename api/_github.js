@@ -2,6 +2,10 @@
  * Shared GitHub API helpers for Vercel serverless functions.
  * Reads/writes the mark-ideas JSON block in index.html via GitHub API.
  * All credentials stay in Vercel env vars — never exposed to the browser.
+ *
+ * NOTE: index.html exceeds GitHub's 1MB Content API limit.
+ * readFile() uses the raw URL for content + API for SHA.
+ * writeIdeas() also uses raw URL for read, then API for write.
  */
 
 const OWNER = process.env.GITHUB_OWNER || 'LumenIQ25';
@@ -24,11 +28,20 @@ async function ghFetch(path, opts = {}) {
   return data;
 }
 
-/** Read index.html from GitHub. Returns { content: string, sha: string } */
+/**
+ * Read index.html from GitHub.
+ * Uses raw.githubusercontent.com to bypass the 1MB GitHub API content limit.
+ * Returns { content: string, sha: string }
+ */
 async function readFile() {
-  const data = await ghFetch(FILE);
-  const content = Buffer.from(data.content, 'base64').toString('utf8');
-  return { content, sha: data.sha };
+  const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${FILE}?nocache=${Date.now()}`;
+  const [rawRes, meta] = await Promise.all([
+    fetch(rawUrl),
+    ghFetch(FILE)          // only used for SHA — content field may be empty for large files
+  ]);
+  if (!rawRes.ok) throw new Error(`Raw file fetch failed: ${rawRes.status}`);
+  const content = await rawRes.text();
+  return { content, sha: meta.sha };
 }
 
 /** Extract ideas array from HTML content */
@@ -38,13 +51,21 @@ function parseIdeas(html) {
   return JSON.parse(m[1].trim());
 }
 
-/** Write ideas array back into HTML and commit to GitHub */
-async function writeIdeas(ideas, sha, message) {
-  // re-read to get latest sha + content in one call
-  const freshData = await ghFetch(FILE);
-  const html = Buffer.from(freshData.content, 'base64').toString('utf8');
+/**
+ * Write ideas array back into HTML and commit to GitHub.
+ * Uses raw URL to read current content (bypasses 1MB limit).
+ */
+async function writeIdeas(ideas, _sha, message) {
+  // Always re-read fresh to get latest SHA + content
+  const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${FILE}?nocache=${Date.now()}`;
+  const [rawRes, freshMeta] = await Promise.all([
+    fetch(rawUrl),
+    ghFetch(FILE)
+  ]);
+  if (!rawRes.ok) throw new Error(`Raw file fetch failed: ${rawRes.status}`);
+  const html = await rawRes.text();
+
   const json = JSON.stringify(ideas, null, 2);
-  // Use function replacer to avoid $ in json being treated as regex backreferences
   const updated = html.replace(
     /(<script id="mark-ideas"[^>]*>)([\s\S]*?)(<\/script>)/,
     (_, open, _body, close) => open + '\n' + json + '\n' + close
@@ -54,7 +75,7 @@ async function writeIdeas(ideas, sha, message) {
     body: JSON.stringify({
       message: message || 'design: update idea inbox',
       content: Buffer.from(updated, 'utf8').toString('base64'),
-      sha: freshData.sha
+      sha: freshMeta.sha
     })
   });
 }
@@ -75,14 +96,13 @@ async function readThreads() {
 
 /** Save/merge a single screen's thread into threads.json */
 async function writeThread(screenId, thread) {
-  // Read latest version first to avoid overwriting other screens' threads
   let sha = null;
   let threads = {};
   try {
     const data = await ghFetch(THREADS_FILE);
     threads = JSON.parse(Buffer.from(data.content, 'base64').toString('utf8'));
     sha = data.sha;
-  } catch(e) { /* file doesn't exist yet — create it */ }
+  } catch(e) { /* create fresh */ }
 
   threads[screenId] = thread;
 

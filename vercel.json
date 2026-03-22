@@ -1,10 +1,10 @@
 {
   "version": 2,
   "routes": [
-    { "src": "/api/health",   "dest": "/api/health.js" },
-    { "src": "/api/reply",    "dest": "/api/reply.js" },
-    { "src": "/api/new-idea", "dest": "/api/new-idea.js" },
-    { "src": "/api/threads",  "dest": "/api/threads.js" },
+    { "src": "/api/health",    "dest": "/api/health.js",    "methods": ["GET","OPTIONS"] },
+    { "src": "/api/reply",     "dest": "/api/reply.js",     "methods": ["POST","OPTIONS"] },
+    { "src": "/api/new-idea",  "dest": "/api/new-idea.js",  "methods": ["POST","OPTIONS"] },
+    { "src": "/api/threads",   "dest": "/api/threads.js",   "methods": ["GET","POST","OPTIONS"] },
     {
       "src": "/(.*)",
       "dest": "/index.html",
