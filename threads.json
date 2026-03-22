@@ -93,5 +93,17 @@
       "text": "1. replace 2. striking distance 3. we dont want venue owner to do anything",
       "ts": "Mar 21 9:25 PM"
     }
+  ],
+  "notifications-v2": [
+    {
+      "from": "mark",
+      "text": "1. simple\n2. use real game stats for everything\n3. auto-learn",
+      "ts": "Mar 21 3:15 PM"
+    },
+    {
+      "from": "mark",
+      "text": "1. simple 2. use real game stats for everything 3. auto-learn",
+      "ts": "Mar 21 9:25 PM"
+    }
   ]
 }
