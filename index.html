@@ -1838,6 +1838,9 @@
     <div class="tab tab-review" data-screen="mobile-3screen-v1" onclick="showScreen('mobile-3screen-v1',this)" style="border-color:rgba(34,197,94,0.6);background:rgba(34,197,94,0.10);">
       <span class="tab-label" style="color:#4ade80;font-weight:900;">★ 3-Screen Architecture v1</span><span class="tab-days" id="days-mobile-3screen-v1"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="bar-experience-v1" onclick="showScreen('bar-experience-v1',this)" style="border-color:rgba(251,191,36,0.5);background:rgba(251,191,36,0.07);">
+      <span class="tab-label" style="color:#fbbf24;font-weight:900;">🍺 Bar Experience v1</span><span class="tab-days" id="days-bar-experience-v1"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="home-live-v5" onclick="showScreen('home-live-v5',this)">
       <span class="tab-label">Home · Live</span><span class="tab-days" id="days-home-live-v5"></span><span class="review-dot"></span>
     </div>
@@ -29299,6 +29302,835 @@
   </div>
 
 </div><!-- /screen mobile-3screen-v1 -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     BAR EXPERIENCE v1 — Full 3-Screen Flow for Playing at a Venue
+     Date: 2026-03-22
+     Shows exactly which screen/state activates at each moment of a bar night,
+     plus the bar-specific UI layers that make the experience seamless.
+═══════════════════════════════════════════════════════════════════════════ -->
+<div id="bar-experience-v1" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Bar Experience v1 — Full Evening Flow · Pick · Result · Leaderboard · 2026-03-22</div>
+    <div class="screen-desc">Every screen and state mapped to the bar journey — from walking in to last call. Shows which states activate when, what bar-specific UI layers appear, and how the phone connects to the bar TV display. The bar is SportsIQ's killer context: high emotion, social pressure, real stakes, instant gratification.</div>
+  </div>
+
+  <!-- ── EVENING TIMELINE DIAGRAM ───────────────────────────────────── -->
+  <div style="margin:0 48px 36px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:32px 40px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;margin-bottom:24px;">BAR NIGHT TIMELINE — 6 MOMENTS, 3 SCREENS</div>
+
+    <div style="display:flex;align-items:flex-start;gap:0;position:relative;">
+      <!-- Timeline line -->
+      <div style="position:absolute;top:22px;left:28px;right:28px;height:2px;background:linear-gradient(90deg,rgba(85,69,211,0.4),rgba(245,158,11,0.4),rgba(34,197,94,0.4),rgba(239,68,68,0.4),rgba(34,197,94,0.6),rgba(251,191,36,0.5));border-radius:1px;"></div>
+
+      <!-- Moment 1 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1;">
+        <div style="width:44px;height:44px;border-radius:50%;background:#5545D3;display:flex;align-items:center;justify-content:center;font-size:18px;border:3px solid #050912;">📍</div>
+        <div style="text-align:center;">
+          <div style="color:#a78bfa;font-size:10px;font-weight:800;">Arrive</div>
+          <div style="color:#64748b;font-size:9px;margin-top:2px;">Check in</div>
+          <div style="background:rgba(85,69,211,0.15);border-radius:5px;padding:2px 5px;margin-top:3px;font-size:8px;color:#818cf8;">PICK · Idle</div>
+        </div>
+      </div>
+
+      <!-- Moment 2 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1;">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(245,158,11,0.8);display:flex;align-items:center;justify-content:center;font-size:18px;border:3px solid #050912;">🎯</div>
+        <div style="text-align:center;">
+          <div style="color:#fbbf24;font-size:10px;font-weight:800;">Pick opens</div>
+          <div style="color:#64748b;font-size:9px;margin-top:2px;">Make your pick</div>
+          <div style="background:rgba(245,158,11,0.1);border-radius:5px;padding:2px 5px;margin-top:3px;font-size:8px;color:#fbbf24;">PICK · Active</div>
+        </div>
+      </div>
+
+      <!-- Moment 3 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1;">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(100,116,139,0.5);display:flex;align-items:center;justify-content:center;font-size:18px;border:3px solid #050912;">🔒</div>
+        <div style="text-align:center;">
+          <div style="color:#94a3b8;font-size:10px;font-weight:800;">Game starts</div>
+          <div style="color:#64748b;font-size:9px;margin-top:2px;">Watch + track</div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:5px;padding:2px 5px;margin-top:3px;font-size:8px;color:#64748b;">RESULT · Live</div>
+        </div>
+      </div>
+
+      <!-- Moment 4 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1;">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(239,68,68,0.7);display:flex;align-items:center;justify-content:center;font-size:18px;border:3px solid #050912;">⚔️</div>
+        <div style="text-align:center;">
+          <div style="color:#f87171;font-size:10px;font-weight:800;">Bar battle</div>
+          <div style="color:#64748b;font-size:9px;margin-top:2px;">Challenge crew</div>
+          <div style="background:rgba(239,68,68,0.08);border-radius:5px;padding:2px 5px;margin-top:3px;font-size:8px;color:#f87171;">LB · Venue</div>
+        </div>
+      </div>
+
+      <!-- Moment 5 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1;">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(34,197,94,0.8);display:flex;align-items:center;justify-content:center;font-size:18px;border:3px solid #050912;">🏆</div>
+        <div style="text-align:center;">
+          <div style="color:#4ade80;font-size:10px;font-weight:800;">Result hits</div>
+          <div style="color:#64748b;font-size:9px;margin-top:2px;">Win/lose</div>
+          <div style="background:rgba(34,197,94,0.08);border-radius:5px;padding:2px 5px;margin-top:3px;font-size:8px;color:#22c55e;">RESULT · Win</div>
+        </div>
+      </div>
+
+      <!-- Moment 6 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1;">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(251,191,36,0.7);display:flex;align-items:center;justify-content:center;font-size:18px;border:3px solid #050912;">🍺</div>
+        <div style="text-align:center;">
+          <div style="color:#fbbf24;font-size:10px;font-weight:800;">End of night</div>
+          <div style="color:#64748b;font-size:9px;margin-top:2px;">Final board</div>
+          <div style="background:rgba(251,191,36,0.08);border-radius:5px;padding:2px 5px;margin-top:3px;font-size:8px;color:#fbbf24;">LB · Venue</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bar TV connection note -->
+    <div style="margin-top:24px;background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:10px 16px;display:flex;align-items:center;gap:12px;">
+      <div style="font-size:18px;">📺</div>
+      <div style="flex:1;font-size:10px;color:#64748b;line-height:1.5;">
+        <span style="color:#4ade80;font-weight:700;">Bar TV (SportsIQ Barscreen)</span> mirrors the Venue leaderboard throughout the night. Player names appear on the big screen when they make picks and win. The bar TV and phone are in sync — the crowd sees what you're doing. This is the hook that makes strangers engage each other.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BAR-SPECIFIC HEADER LAYER (applies to ALL screens) ─────────── -->
+  <div style="margin:0 48px 8px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;">BAR LAYER — PERSISTENT ACROSS ALL 3 SCREENS</div>
+    <div style="color:#64748b;font-size:12px;margin-top:4px;">Once checked in to a venue, every screen gets a bar context strip in the header. Always visible, always live.</div>
+  </div>
+
+  <!-- Single phone showing bar header layer -->
+  <div style="margin:0 48px 36px;">
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
+
+      <!-- Before check-in -->
+      <div>
+        <div class="phone-frame" style="height:260px;">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;">
+            <div style="padding:44px 16px 10px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+              <div style="display:flex;gap:6px;">
+                <div style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:3px 8px;font-size:10px;color:#fbbf24;font-weight:700;">🔥 7</div>
+                <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">2,840 IQ ▸</div>
+              </div>
+            </div>
+            <!-- Check-in CTA -->
+            <div style="margin:0 14px;background:rgba(34,197,94,0.06);border:1px dashed rgba(34,197,94,0.25);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:10px;color:#64748b;">📍 At a sports bar?</div>
+              <div style="background:#22c55e;border-radius:6px;padding:3px 10px;font-size:10px;font-weight:800;color:#0d1117;">Check In</div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label" style="font-size:10px;">BEFORE CHECK-IN<br>Home mode · Check-in CTA visible</div>
+      </div>
+
+      <!-- Arrow -->
+      <div style="display:flex;align-items:center;padding-top:100px;font-size:24px;color:#2d3748;">→</div>
+
+      <!-- After check-in - bar mode header -->
+      <div>
+        <div class="phone-frame" style="height:260px;">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;">
+            <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+              <div style="display:flex;gap:6px;">
+                <div style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:3px 8px;font-size:10px;color:#fbbf24;font-weight:700;">🔥 7</div>
+                <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">2,840 IQ ▸</div>
+              </div>
+            </div>
+            <!-- Bar context strip -->
+            <div style="margin:0 14px 4px;background:linear-gradient(90deg,rgba(34,197,94,0.12),rgba(34,197,94,0.04));border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:5px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px #22c55e;"></div>
+                <span style="font-size:9px;color:#4ade80;font-weight:800;">🍺 Sideline Bar &amp; Grill</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:9px;color:#64748b;">23 playing</span>
+                <span style="font-size:9px;color:#fbbf24;font-weight:700;">You: #5 📺</span>
+              </div>
+            </div>
+            <div style="margin:0 14px;background:rgba(255,255,255,0.02);border-radius:8px;padding:6px 10px;font-size:9px;color:#475569;">
+              Bar Battle active · Top scorer wins a round 🍺 · <span style="color:#22c55e;">2 picks remaining</span>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label" style="font-size:10px;">AFTER CHECK-IN — BAR MODE<br>Venue strip · Rank · Bar Battle status · TV sync 📺</div>
+      </div>
+
+      <!-- Bar layer description -->
+      <div style="flex:1;min-width:280px;padding-top:20px;">
+        <div style="font-size:11px;font-weight:700;color:#475569;letter-spacing:2px;margin-bottom:12px;">WHAT BAR MODE ADDS TO EVERY SCREEN</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div style="color:#22c55e;font-size:12px;flex-shrink:0;margin-top:1px;">●</div>
+            <div style="font-size:11px;color:#94a3b8;"><span style="color:#f0f6fc;font-weight:700;">Venue strip</span> — always visible below header. Shows bar name, player count, your rank, and 📺 TV sync indicator.</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div style="color:#fbbf24;font-size:12px;flex-shrink:0;margin-top:1px;">●</div>
+            <div style="font-size:11px;color:#94a3b8;"><span style="color:#f0f6fc;font-weight:700;">Bar Battle status</span> — runs all night. Top scorer at the bar wins a social prize (round of drinks, discount). Creates urgency.</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div style="color:#a78bfa;font-size:12px;flex-shrink:0;margin-top:1px;">●</div>
+            <div style="font-size:11px;color:#94a3b8;"><span style="color:#f0f6fc;font-weight:700;">📺 TV sync</span> — phone mirrors what's on the bar TV. Your wins and picks appear on the big screen. Public = pressure = engagement.</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div style="color:#f87171;font-size:12px;flex-shrink:0;margin-top:1px;">●</div>
+            <div style="font-size:11px;color:#94a3b8;"><span style="color:#f0f6fc;font-weight:700;">Social pick context</span> — every pick card shows "N others here picked OVER" not just the global crowd %.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ MOMENT 1: ARRIVE & CHECK IN ════════ -->
+  <div style="margin:0 48px 8px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;">MOMENT 1 — ARRIVE AT THE BAR · PICK SCREEN · Idle State</div>
+    <div style="color:#64748b;font-size:12px;margin-top:4px;">User walks in. App detects nearby venue or they tap check-in. Idle state transforms: upcoming games now show who at the bar is picking them.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- Pick Idle + Bar mode -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow-y:auto;">
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+            <div style="display:flex;gap:6px;">
+              <div style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:3px 8px;font-size:10px;color:#fbbf24;font-weight:700;">🔥 7</div>
+              <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">2,840 IQ ▸</div>
+            </div>
+          </div>
+          <!-- Bar strip -->
+          <div style="margin:0 14px 8px;background:linear-gradient(90deg,rgba(34,197,94,0.12),rgba(34,197,94,0.04));border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:5px;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></div>
+              <span style="font-size:9px;color:#4ade80;font-weight:800;">🍺 Sideline Bar &amp; Grill</span>
+            </div>
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;">You: #5 of 23 📺</div>
+          </div>
+          <!-- Bar Battle banner -->
+          <div style="margin:0 14px 8px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;">⚔️ Bar Battle · Top score wins round 🍺</div>
+            <div style="font-size:9px;color:#94a3b8;">3 picks left</div>
+          </div>
+          <!-- Upcoming games — bar-aware -->
+          <div style="margin:0 14px 8px;">
+            <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:2px;margin-bottom:7px;">TONIGHT'S PICKS</div>
+            <!-- Game 1 with bar context -->
+            <div style="background:linear-gradient(135deg,rgba(34,197,94,0.06),rgba(34,197,94,0.02));border:1.5px solid rgba(34,197,94,0.3);border-radius:12px;padding:10px 12px;margin-bottom:6px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-size:9px;color:#22c55e;font-weight:700;">🔴 PICK OPEN · closes 8:20 PM</div>
+                <div style="font-size:9px;color:#22c55e;font-weight:700;">🍺 16 here picking</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="color:#f0f6fc;font-size:12px;font-weight:800;">Chiefs vs Eagles</div>
+                  <div style="font-size:9px;color:#64748b;">Bar split: 11 OVER · 5 UNDER</div>
+                </div>
+                <div style="background:#22c55e;border-radius:8px;padding:5px 10px;font-size:10px;font-weight:900;color:#0d1117;">Pick →</div>
+              </div>
+            </div>
+            <!-- Game 2 -->
+            <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 12px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-size:9px;color:#64748b;">Opens 10:30 PM</div>
+                <div style="font-size:9px;color:#64748b;">🍺 4 here interested</div>
+              </div>
+              <div style="color:#f0f6fc;font-size:12px;font-weight:800;">Lakers vs Celtics</div>
+            </div>
+          </div>
+          <!-- Who's here -->
+          <div style="margin:0 14px 10px;">
+            <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:2px;margin-bottom:6px;">AT THIS BAR TONIGHT</div>
+            <div style="display:flex;gap:-4px;align-items:center;margin-bottom:4px;">
+              <div style="width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#b45309,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;border:2px solid #050912;">D</div>
+              <div style="width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;border:2px solid #050912;margin-left:-6px;">J</div>
+              <div style="width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#16a34a,#4ade80);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;border:2px solid #050912;margin-left:-6px;">R</div>
+              <div style="width:26px;height:26px;border-radius:8px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:9px;color:#64748b;border:2px solid #050912;margin-left:-6px;">+20</div>
+              <div style="margin-left:8px;font-size:9px;color:#64748b;">23 players checked in</div>
+            </div>
+          </div>
+          <!-- Nav dots -->
+          <div style="text-align:center;padding-bottom:12px;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <div style="width:20px;height:4px;border-radius:2px;background:#5545D3;"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">PICK · Idle · Bar Mode<br>Venue strip · Bar split on picks · Who's here</div>
+    </div>
+
+    <!-- Bar TV at this moment -->
+    <div>
+      <div style="background:rgba(15,23,42,0.8);border:2px solid rgba(34,197,94,0.3);border-radius:14px;width:280px;padding:16px 18px;font-family:'Lexend',sans-serif;">
+        <div style="font-size:9px;color:#22c55e;font-weight:700;letter-spacing:2px;margin-bottom:12px;">📺 BAR TV AT THIS MOMENT</div>
+        <div style="background:#0a1628;border-radius:10px;padding:12px;margin-bottom:10px;">
+          <div style="font-size:9px;color:#475569;font-weight:700;margin-bottom:8px;">⚡ SPORTSIQ · SIDELINE BAR</div>
+          <div style="font-size:11px;color:#4ade80;font-weight:800;margin-bottom:10px;">Chiefs vs Eagles — pick now open!</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;font-size:10px;">
+              <span style="color:#fbbf24;">🥇 DraftKing Dave</span><span style="color:#fbbf24;">1,250 IQ</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;font-size:10px;">
+              <span style="color:#94a3b8;">🥈 Rachel</span><span style="color:#94a3b8;">980 IQ</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;font-size:10px;background:rgba(85,69,211,0.15);border-radius:5px;padding:3px 5px;">
+              <span style="color:#a78bfa;">🥉 Dome King (you)</span><span style="color:#a78bfa;">750 IQ</span>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:9px;color:#475569;line-height:1.5;">The bar TV shows the live leaderboard and announces when the pick window opens. Everyone in the bar sees it — creates FOMO for people not yet playing.</div>
+      </div>
+      <div class="phone-label" style="width:280px;">BAR TV · Pre-game state<br>Leaderboard visible · Pick window announcement</div>
+    </div>
+
+  </div>
+
+  <!-- ════════ MOMENT 2: MAKING THE PICK ════════ -->
+  <div style="margin:0 48px 8px;margin-top:28px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;">MOMENT 2 — PICK WINDOW OPENS · PICK SCREEN · Active State</div>
+    <div style="color:#64748b;font-size:12px;margin-top:4px;">Bar-specific additions: "N at this bar picked OVER", archetype edge active, quick-pick optimized for noisy environment (big tap targets, minimal reading).</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- Pick Active + bar context -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow-y:auto;">
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+            <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">2,840 IQ ▸</div>
+          </div>
+          <!-- Bar strip -->
+          <div style="margin:0 14px 6px;background:linear-gradient(90deg,rgba(34,197,94,0.12),rgba(34,197,94,0.04));border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></div><span style="font-size:9px;color:#4ade80;font-weight:800;">🍺 Sideline Bar</span></div>
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;">You: #5 · Bar Battle 📺</div>
+          </div>
+          <!-- Prop -->
+          <div style="margin:0 14px 6px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+              <div style="font-size:9px;color:#64748b;">Patrick Mahomes · Passing Yards</div>
+              <div style="font-size:9px;color:#ef4444;font-weight:700;">47 min left</div>
+            </div>
+            <div style="font-size:28px;font-weight:900;color:#f0f6fc;letter-spacing:-1px;margin-bottom:2px;">284.5</div>
+            <div style="font-size:9px;color:#475569;">Season avg 297 · Last 5 avg 312</div>
+          </div>
+          <!-- BAR-SPECIFIC: who here picked what -->
+          <div style="margin:0 14px 6px;background:linear-gradient(135deg,rgba(251,191,36,0.08),rgba(251,191,36,0.03));border:1px solid rgba(251,191,36,0.25);border-radius:10px;padding:8px 12px;flex-shrink:0;">
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;margin-bottom:5px;">🍺 AT SIDELINE BAR</div>
+            <div style="display:flex;gap:6px;margin-bottom:4px;">
+              <div style="flex:1;background:rgba(34,197,94,0.1);border-radius:6px;padding:5px;text-align:center;">
+                <div style="color:#22c55e;font-size:14px;font-weight:900;">11</div>
+                <div style="color:#22c55e;font-size:8px;">OVER</div>
+              </div>
+              <div style="flex:1;background:rgba(239,68,68,0.08);border-radius:6px;padding:5px;text-align:center;">
+                <div style="color:#ef4444;font-size:14px;font-weight:900;">5</div>
+                <div style="color:#ef4444;font-size:8px;">UNDER</div>
+              </div>
+            </div>
+            <div style="font-size:9px;color:#64748b;">Jake: OVER · DraftKing Dave: OVER · Rachel: UNDER</div>
+          </div>
+          <!-- Signal -->
+          <div style="margin:0 14px 6px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:10px;padding:6px 10px;flex-shrink:0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:9px;color:#f59e0b;font-weight:700;">⚡ SPORTSIQ SIGNAL</div>
+              <div style="font-size:11px;font-weight:900;color:#22c55e;">OVER ↑ 63%</div>
+            </div>
+          </div>
+          <!-- BIG pick buttons (bar-optimized: large tap target) -->
+          <div style="margin:0 14px 6px;display:flex;gap:8px;flex-shrink:0;">
+            <div style="flex:1;background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(34,197,94,0.1));border:2px solid #22c55e;border-radius:16px;padding:16px;text-align:center;">
+              <div style="color:#22c55e;font-size:16px;font-weight:900;">OVER ↑</div>
+              <div style="color:#4ade80;font-size:22px;font-weight:900;">+250</div>
+              <div style="color:#22c55e;font-size:8px;">IQ Points</div>
+            </div>
+            <div style="flex:1;background:rgba(239,68,68,0.07);border:1.5px solid rgba(239,68,68,0.2);border-radius:16px;padding:16px;text-align:center;opacity:0.6;">
+              <div style="color:#ef4444;font-size:16px;font-weight:900;">UNDER ↓</div>
+              <div style="color:#f87171;font-size:22px;font-weight:900;">+250</div>
+              <div style="color:#ef4444;font-size:8px;">IQ Points</div>
+            </div>
+          </div>
+          <!-- Multiplier row -->
+          <div style="margin:0 14px 10px;display:flex;gap:5px;flex-shrink:0;">
+            <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:8px;padding:5px;text-align:center;font-size:9px;color:#94a3b8;">1×</div>
+            <div style="flex:1;background:rgba(85,69,211,0.2);border:1.5px solid rgba(85,69,211,0.5);border-radius:8px;padding:5px;text-align:center;font-size:9px;color:#a78bfa;font-weight:900;">2× MAX</div>
+            <div style="flex:1;background:rgba(255,255,255,0.02);border-radius:8px;padding:5px;text-align:center;font-size:9px;color:#2d3748;">3× 🔒</div>
+            <div style="flex:1;background:rgba(255,255,255,0.02);border-radius:8px;padding:5px;text-align:center;font-size:9px;color:#2d3748;">5× 🔒</div>
+          </div>
+          <!-- Nav dots -->
+          <div style="text-align:center;padding-bottom:10px;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <div style="width:20px;height:4px;border-radius:2px;background:#5545D3;"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">PICK · Active · Bar Mode<br>Bar split visible · Large tap targets · Signal</div>
+    </div>
+
+    <!-- Pick made — waiting, bar context -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow-y:auto;">
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+            <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">2,840 IQ ▸</div>
+          </div>
+          <!-- Bar strip -->
+          <div style="margin:0 14px 6px;background:linear-gradient(90deg,rgba(34,197,94,0.12),rgba(34,197,94,0.04));border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></div><span style="font-size:9px;color:#4ade80;font-weight:800;">🍺 Sideline Bar</span></div>
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;">You: #5 📺</div>
+          </div>
+          <!-- TV announcement -->
+          <div style="margin:0 14px 6px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.3);border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;flex-shrink:0;">
+            <span style="font-size:10px;">📺</span>
+            <div style="font-size:9px;color:#a78bfa;font-weight:700;">Your pick just appeared on the bar TV!</div>
+          </div>
+          <!-- Pick locked -->
+          <div style="margin:0 14px 6px;background:linear-gradient(135deg,rgba(85,69,211,0.15),rgba(85,69,211,0.05));border:2px solid rgba(85,69,211,0.5);border-radius:12px;padding:10px 14px;text-align:center;flex-shrink:0;">
+            <div style="font-size:16px;margin-bottom:3px;">🔒</div>
+            <div style="color:#a78bfa;font-size:10px;font-weight:900;letter-spacing:1px;">PICK LOCKED IN</div>
+            <div style="color:#f0f6fc;font-size:13px;font-weight:900;">OVER · Mahomes 284.5</div>
+            <div style="color:#64748b;font-size:9px;margin-top:2px;">2× · +500 IQ if correct</div>
+          </div>
+          <!-- Bar crew picks -->
+          <div style="margin:0 14px 6px;flex-shrink:0;">
+            <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:5px;">BAR CREW ON THIS PICK</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(34,197,94,0.04);border-radius:7px;padding:5px 8px;">
+                <div style="width:18px;height:18px;border-radius:6px;background:linear-gradient(135deg,#b45309,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;">D</div>
+                <div style="flex:1;font-size:9px;color:#94a3b8;">DraftKing Dave · OVER ✓ same</div>
+                <div style="font-size:8px;color:#22c55e;">aligned</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.02);border-radius:7px;padding:5px 8px;">
+                <div style="width:18px;height:18px;border-radius:6px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#64748b;">R</div>
+                <div style="flex:1;font-size:9px;color:#94a3b8;">Rachel · UNDER — bold</div>
+                <div style="font-size:8px;color:#ef4444;">opposite</div>
+              </div>
+            </div>
+          </div>
+          <!-- H2H challenge at bar -->
+          <div style="margin:0 14px 10px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:9px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;">⚔️ Dave challenged you · same pick, winner takes bar points</div>
+            <div style="background:#f59e0b;border-radius:6px;padding:3px 8px;font-size:9px;font-weight:900;color:#0d1117;flex-shrink:0;">Go</div>
+          </div>
+          <!-- Nav dots -->
+          <div style="text-align:center;padding-bottom:10px;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <div style="width:20px;height:4px;border-radius:2px;background:#5545D3;"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">PICK · Waiting · Bar Mode<br>TV confirmation · Bar crew picks · H2H at bar</div>
+    </div>
+
+  </div>
+
+  <!-- ════════ MOMENT 3: GAME LIVE — WATCHING & TRACKING ════════ -->
+  <div style="margin:0 48px 8px;margin-top:28px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;">MOMENT 3 — GAME IN PROGRESS · RESULT SCREEN · Pending State</div>
+    <div style="color:#64748b;font-size:12px;margin-top:4px;">User glances at phone between plays. Result screen shows pick progress with live score. Bar context shows rank movement in real time. Designed for quick glances — 2 seconds of info.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- Result pending - bar mode -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow-y:auto;">
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+            <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">2,840 IQ ▸</div>
+          </div>
+          <!-- Bar strip with rank movement -->
+          <div style="margin:0 14px 6px;background:linear-gradient(90deg,rgba(34,197,94,0.12),rgba(34,197,94,0.04));border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></div><span style="font-size:9px;color:#4ade80;font-weight:800;">🍺 Sideline Bar</span></div>
+            <div style="font-size:9px;font-weight:700;"><span style="color:#22c55e;">You: #4 ↑</span><span style="color:#64748b;"> 📺</span></div>
+          </div>
+          <!-- Pick progress - GLANCEABLE -->
+          <div style="margin:0 14px 6px;background:linear-gradient(135deg,rgba(85,69,211,0.12),rgba(85,69,211,0.04));border:1.5px solid rgba(85,69,211,0.35);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div style="font-size:9px;color:#a78bfa;font-weight:700;">YOUR PICK · OVER 284.5</div>
+              <div style="font-size:9px;color:#64748b;">Q3 · 4:12</div>
+            </div>
+            <!-- Giant progress indicator for bar glancing -->
+            <div style="text-align:center;margin-bottom:6px;">
+              <div style="font-size:11px;color:#64748b;margin-bottom:2px;">Mahomes yards</div>
+              <div style="font-size:36px;font-weight:900;color:#22c55e;line-height:1;">214</div>
+              <div style="font-size:10px;color:#64748b;">need <span style="color:#f0f6fc;font-weight:700;">71 more</span> · 1 quarter left</div>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+              <div style="width:75%;height:100%;background:linear-gradient(90deg,#5545D3,#22c55e);border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- Live score glanceable -->
+          <div style="margin:0 14px 6px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="text-align:center;"><div style="font-size:9px;color:#64748b;">KC</div><div style="font-size:22px;font-weight:900;color:#f0f6fc;">17</div></div>
+            <div style="color:#475569;font-size:10px;">Q3 · 4:12</div>
+            <div style="text-align:center;"><div style="font-size:9px;color:#64748b;">PHI</div><div style="font-size:22px;font-weight:900;color:#f0f6fc;">14</div></div>
+          </div>
+          <!-- Bar rank in this moment -->
+          <div style="margin:0 14px 6px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.18);border-radius:9px;padding:7px 10px;flex-shrink:0;">
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;margin-bottom:3px;">⚔️ BAR BATTLE · you moved up!</div>
+            <div style="font-size:9px;color:#64748b;">Rachel just missed her pick · you gained on her · now #4</div>
+          </div>
+          <!-- Swipe hint to leaderboard -->
+          <div style="margin:0 14px 10px;background:rgba(255,255,255,0.02);border-radius:8px;padding:6px 10px;text-align:center;flex-shrink:0;">
+            <div style="font-size:9px;color:#475569;">swipe right to see bar leaderboard →</div>
+          </div>
+          <!-- Nav dots -->
+          <div style="text-align:center;padding-bottom:10px;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:20px;height:4px;border-radius:2px;background:#22c55e;"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">RESULT · Live · Bar Mode<br>Giant glanceable progress · Rank movement · Bar Battle</div>
+    </div>
+
+    <!-- Leaderboard venue tab during game -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow-y:auto;">
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+            <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">2,840 IQ ▸</div>
+          </div>
+          <!-- Bar strip -->
+          <div style="margin:0 14px 6px;background:linear-gradient(90deg,rgba(34,197,94,0.12),rgba(34,197,94,0.04));border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></div><span style="font-size:9px;color:#4ade80;font-weight:800;">🍺 Sideline Bar · LIVE</span></div>
+            <div style="font-size:9px;color:#22c55e;font-weight:700;">📺 on screen</div>
+          </div>
+          <!-- Tab bar - Venue active -->
+          <div style="margin:0 14px 8px;display:flex;background:rgba(255,255,255,0.03);border-radius:8px;padding:2px;gap:1px;flex-shrink:0;">
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Friends</div>
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Global</div>
+            <div style="flex:1;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:6px;padding:5px;text-align:center;font-size:8px;font-weight:800;color:#22c55e;">🍺 Venue</div>
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Challenge</div>
+          </div>
+          <!-- Live bar leaderboard -->
+          <div style="margin:0 14px 8px;flex-shrink:0;">
+            <div style="font-size:9px;color:#475569;font-weight:700;letter-spacing:1px;margin-bottom:5px;">SIDELINE BAR · TONIGHT</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.18);border-radius:9px;padding:7px 9px;">
+                <div style="font-size:11px;">🥇</div>
+                <div style="width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#b45309,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;">D</div>
+                <div style="flex:1;"><div style="font-size:10px;color:#fbbf24;font-weight:800;">DraftKing Dave</div><div style="font-size:8px;color:#64748b;">3-0 · OVER correct</div></div>
+                <div style="color:#fbbf24;font-size:11px;font-weight:900;">+750</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.03);border-radius:9px;padding:7px 9px;">
+                <div style="font-size:11px;">🥈</div>
+                <div style="width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#94a3b8;">R</div>
+                <div style="flex:1;"><div style="font-size:10px;color:#94a3b8;font-weight:700;">Rachel</div><div style="font-size:8px;color:#64748b;">2-1 · lost last one</div></div>
+                <div style="color:#22c55e;font-size:11px;font-weight:700;">+500</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.02);border-radius:9px;padding:7px 9px;">
+                <div style="font-size:11px;">🥉</div>
+                <div style="width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:9px;color:#64748b;">T</div>
+                <div style="flex:1;"><div style="font-size:10px;color:#64748b;font-weight:700;">Tommy</div><div style="font-size:8px;color:#64748b;">2-0 · waiting on pick</div></div>
+                <div style="color:#22c55e;font-size:11px;font-weight:700;">+500</div>
+              </div>
+              <!-- YOU - moving up -->
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(85,69,211,0.15);border:1.5px solid rgba(85,69,211,0.4);border-radius:9px;padding:7px 9px;">
+                <div style="color:#818cf8;font-size:9px;font-weight:900;">#4</div>
+                <div style="width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:12px;">🏟️</div>
+                <div style="flex:1;"><div style="font-size:10px;color:#a78bfa;font-weight:800;">You · pick in progress</div><div style="font-size:8px;color:#64748b;">1-0 · OVER locked in</div></div>
+                <div style="color:#22c55e;font-size:10px;font-weight:700;">↑2 🔥</div>
+              </div>
+            </div>
+          </div>
+          <!-- Bar battle note -->
+          <div style="margin:0 14px 10px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:9px;padding:7px 10px;flex-shrink:0;">
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;">⚔️ 285 IQ behind Dave for the lead</div>
+            <div style="font-size:8px;color:#64748b;margin-top:2px;">Win your OVER pick → jump to #1 · win the bar battle 🍺</div>
+          </div>
+          <!-- Nav dots -->
+          <div style="text-align:center;padding-bottom:10px;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:20px;height:4px;border-radius:2px;background:#fbbf24;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">LEADERBOARD · Venue · Bar Mode<br>Live bar board · Real-time rank · Win = bar battle lead</div>
+    </div>
+
+  </div>
+
+  <!-- ════════ MOMENT 4-5: WIN AT BAR ════════ -->
+  <div style="margin:0 48px 8px;margin-top:28px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;">MOMENT 4–5 — PICK RESOLVES · RESULT SCREEN · Win State · Bar Edition</div>
+    <div style="color:#64748b;font-size:12px;margin-top:4px;">The peak moment. Win explodes on phone AND on the bar TV simultaneously. Social share card is optimized to turn the phone screen toward a friend — readable at arm's length. Loss state is fast and redirects to the next pick immediately.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- Win - bar mode -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#011a0d;display:flex;flex-direction:column;overflow:hidden;position:relative;">
+          <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,0.45) 0%,transparent 65%);pointer-events:none;z-index:0;"></div>
+          <!-- Header -->
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:2;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+            <div style="background:rgba(34,197,94,0.2);border:1px solid rgba(34,197,94,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#4ade80;font-weight:800;">3,340 IQ ▸</div>
+          </div>
+          <!-- BAR WIN ANNOUNCEMENT -->
+          <div style="margin:0 14px 6px;background:linear-gradient(90deg,rgba(251,191,36,0.2),rgba(251,191,36,0.05));border:2px solid rgba(251,191,36,0.6);border-radius:10px;padding:7px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:2;">
+            <div style="font-size:9px;color:#fbbf24;font-weight:900;">📺 YOU'RE ON THE BAR TV!</div>
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;">Now #1 🥇</div>
+          </div>
+          <!-- Win core -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 16px;position:relative;z-index:2;gap:7px;">
+            <div style="background:rgba(34,197,94,0.18);border:2px solid #22c55e;border-radius:12px;padding:5px 22px;">
+              <div style="color:#22c55e;font-size:11px;font-weight:900;letter-spacing:4px;">YOU WON</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="color:#22c55e;font-size:70px;font-weight:900;line-height:1;letter-spacing:-3px;">+500</div>
+              <div style="color:#4ade80;font-size:13px;font-weight:700;letter-spacing:2px;">IQ POINTS</div>
+            </div>
+            <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:8px 14px;width:100%;text-align:center;">
+              <div style="color:#f0f6fc;font-size:12px;font-weight:800;">OVER ✓ · Mahomes 319 yds</div>
+              <div style="color:#4ade80;font-size:10px;margin-top:2px;">You beat 71% of the crowd</div>
+            </div>
+            <div style="display:flex;gap:5px;align-items:center;">
+              <span style="font-size:13px;">🔥</span>
+              <div style="color:#fbbf24;font-size:11px;font-weight:800;">8-Pick Streak!</div>
+            </div>
+          </div>
+          <!-- BAR SHARE CARD — arm-length readable -->
+          <div style="margin:0 14px;margin-bottom:6px;position:relative;z-index:2;">
+            <div style="background:linear-gradient(135deg,#0a2010,#011a0d);border:2px solid #22c55e;border-radius:14px;padding:14px;text-align:center;">
+              <div style="font-size:9px;color:#4ade80;font-weight:700;letter-spacing:2px;margin-bottom:4px;">⚡ SPORTSIQ</div>
+              <div style="font-size:26px;font-weight:900;color:#22c55e;margin-bottom:2px;">I CALLED IT 🎯</div>
+              <div style="font-size:12px;color:#f0f6fc;font-weight:700;">OVER · Mahomes · 319 yds</div>
+              <div style="font-size:10px;color:#64748b;margin-top:4px;">Dome King · #1 at Sideline Bar tonight</div>
+            </div>
+          </div>
+          <!-- Actions -->
+          <div style="padding:0 14px 10px;position:relative;z-index:2;display:flex;gap:6px;">
+            <div style="flex:1;background:linear-gradient(135deg,#5545D3,#22c55e);border-radius:9px;padding:9px;text-align:center;font-size:11px;font-weight:800;color:#fff;">Show at bar 📱</div>
+            <div style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:9px;text-align:center;font-size:11px;color:#64748b;">Share →</div>
+          </div>
+          <!-- Nav dots -->
+          <div style="text-align:center;padding-bottom:10px;position:relative;z-index:2;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:20px;height:4px;border-radius:2px;background:#22c55e;"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">RESULT · Win · Bar Mode<br>TV announcement · Bar share card · "Show at bar" CTA</div>
+    </div>
+
+    <!-- Loss - bar mode - fast redirect -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d0508;display:flex;flex-direction:column;overflow-y:auto;position:relative;">
+          <div style="position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(239,68,68,0.14) 0%,transparent 65%);pointer-events:none;z-index:0;"></div>
+          <!-- Header -->
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:2;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+            <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">2,840 IQ ▸</div>
+          </div>
+          <!-- Bar strip -->
+          <div style="margin:0 14px 6px;background:linear-gradient(90deg,rgba(34,197,94,0.08),rgba(34,197,94,0.02));border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:2;">
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></div><span style="font-size:9px;color:#4ade80;font-weight:800;">🍺 Sideline Bar</span></div>
+            <div style="font-size:9px;color:#64748b;">Still #4 of 23</div>
+          </div>
+          <!-- Loss - brief -->
+          <div style="margin:0 14px 6px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:10px 14px;text-align:center;flex-shrink:0;position:relative;z-index:2;">
+            <div style="font-size:14px;margin-bottom:3px;">😤</div>
+            <div style="color:#f87171;font-size:11px;font-weight:900;">JUST MISSED</div>
+            <div style="color:#f0f6fc;font-size:12px;font-weight:800;margin:3px 0;">UNDER · Mahomes threw 319</div>
+            <div style="color:#64748b;font-size:9px;">35 yards too many · so close</div>
+          </div>
+          <!-- Near-miss bar -->
+          <div style="margin:0 14px 6px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:9px;padding:8px 10px;flex-shrink:0;position:relative;z-index:2;">
+            <div style="height:4px;background:rgba(255,255,255,0.04);border-radius:2px;overflow:hidden;margin-bottom:3px;">
+              <div style="width:89%;height:100%;background:linear-gradient(90deg,#ef4444,#f87171);border-radius:2px;"></div>
+            </div>
+            <div style="font-size:9px;color:#64748b;">35 yds over · 89% of the way there</div>
+          </div>
+          <!-- BAR REDEMPTION - fast redirect to next pick -->
+          <div style="margin:0 14px 6px;background:linear-gradient(135deg,rgba(85,69,211,0.18),rgba(85,69,211,0.06));border:2px solid rgba(85,69,211,0.45);border-radius:12px;padding:10px 12px;flex-shrink:0;position:relative;z-index:2;">
+            <div style="font-size:9px;color:#a78bfa;font-weight:800;margin-bottom:5px;">REDEMPTION PICK AVAILABLE</div>
+            <div style="font-size:12px;color:#f0f6fc;font-weight:800;margin-bottom:2px;">Bills vs Dolphins — now open</div>
+            <div style="font-size:9px;color:#64748b;margin-bottom:7px;">Win this → jump from #4 to #2 at the bar</div>
+            <div style="background:#5545D3;border-radius:8px;padding:8px;text-align:center;font-size:11px;font-weight:900;color:#fff;">Pick Now — Stay in the Battle →</div>
+          </div>
+          <!-- Consolation -->
+          <div style="margin:0 14px 10px;background:rgba(85,69,211,0.06);border-radius:8px;padding:6px 10px;display:flex;justify-content:space-between;flex-shrink:0;position:relative;z-index:2;">
+            <div style="font-size:9px;color:#64748b;">Participation bonus · still in it</div>
+            <div style="font-size:10px;color:#818cf8;font-weight:700;">+25 IQ</div>
+          </div>
+          <!-- Nav dots -->
+          <div style="text-align:center;padding-bottom:10px;position:relative;z-index:2;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:20px;height:4px;border-radius:2px;background:#22c55e;"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">RESULT · Loss · Bar Mode<br>Brief loss state · Redemption pick CTA · Bar rank context</div>
+    </div>
+
+  </div>
+
+  <!-- ════════ MOMENT 6: END OF NIGHT ════════ -->
+  <div style="margin:0 48px 8px;margin-top:28px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;">MOMENT 6 — END OF NIGHT · LEADERBOARD SCREEN · Venue State · Final Standings</div>
+    <div style="color:#64748b;font-size:12px;margin-top:4px;">Last call. Final bar leaderboard locked. Winner celebrated on TV. Social moment — people share scores, challenges fly for next game night. Organic word-of-mouth engine.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- Final bar standings -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow-y:auto;">
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+            <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">3,340 IQ ▸</div>
+          </div>
+          <!-- Bar strip - final -->
+          <div style="margin:0 14px 6px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:9px;color:#fbbf24;font-weight:800;">🍺 Sideline Bar · FINAL SCORES</div>
+            <div style="font-size:9px;color:#fbbf24;">Game over</div>
+          </div>
+          <!-- Final podium -->
+          <div style="margin:0 14px 8px;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,rgba(251,191,36,0.12),rgba(251,191,36,0.04));border:2px solid rgba(251,191,36,0.4);border-radius:14px;padding:12px;text-align:center;margin-bottom:8px;">
+              <div style="font-size:22px;margin-bottom:2px;">🥇</div>
+              <div style="color:#fbbf24;font-size:14px;font-weight:900;">You won the Bar Battle!</div>
+              <div style="color:#64748b;font-size:9px;margin-top:2px;">3-1 tonight · 1,500 IQ earned · wins the round 🍺</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.02);border-radius:9px;padding:7px 9px;">
+                <div style="font-size:11px;">🥈</div>
+                <div style="width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,#b45309,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;">D</div>
+                <div style="flex:1;font-size:10px;color:#64748b;">DraftKing Dave · 1,250 IQ</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.02);border-radius:9px;padding:7px 9px;">
+                <div style="font-size:11px;">🥉</div>
+                <div style="width:20px;height:20px;border-radius:6px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:8px;color:#64748b;">R</div>
+                <div style="flex:1;font-size:10px;color:#64748b;">Rachel · 1,000 IQ</div>
+              </div>
+            </div>
+          </div>
+          <!-- Next visit hook -->
+          <div style="margin:0 14px 6px;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:9px 12px;flex-shrink:0;">
+            <div style="font-size:9px;color:#a78bfa;font-weight:700;margin-bottom:4px;">COME BACK THURSDAY</div>
+            <div style="font-size:10px;color:#94a3b8;">Cowboys vs Giants · 8 PM · Defend your title</div>
+            <div style="display:flex;gap:6px;margin-top:6px;">
+              <div style="flex:1;background:#5545D3;border-radius:7px;padding:5px;text-align:center;font-size:9px;font-weight:800;color:#fff;">Set reminder</div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:7px;padding:5px;text-align:center;font-size:9px;color:#64748b;">Share result</div>
+            </div>
+          </div>
+          <!-- Challenge for next time -->
+          <div style="margin:0 14px 10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:9px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:9px;color:#64748b;">Dave: "Rematch Thursday?" 🍺</div>
+            <div style="background:rgba(245,158,11,0.2);border-radius:6px;padding:3px 8px;font-size:9px;color:#fbbf24;font-weight:700;">Accept ⚔️</div>
+          </div>
+          <!-- Nav dots -->
+          <div style="text-align:center;padding-bottom:10px;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:20px;height:4px;border-radius:2px;background:#fbbf24;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">LEADERBOARD · Venue · Final<br>You won · Bar Battle result · Rematch hook</div>
+    </div>
+
+    <!-- Bar TV final state -->
+    <div>
+      <div style="background:rgba(15,23,42,0.8);border:2px solid rgba(251,191,36,0.4);border-radius:14px;width:300px;padding:18px 20px;font-family:'Lexend',sans-serif;">
+        <div style="font-size:9px;color:#fbbf24;font-weight:700;letter-spacing:2px;margin-bottom:12px;">📺 BAR TV · FINAL STANDINGS</div>
+        <div style="background:#0a1628;border-radius:10px;padding:14px;margin-bottom:12px;">
+          <div style="text-align:center;margin-bottom:12px;">
+            <div style="font-size:11px;color:#fbbf24;font-weight:800;letter-spacing:2px;">TONIGHT'S WINNER</div>
+            <div style="font-size:24px;font-weight:900;color:#fbbf24;margin:4px 0;">🥇 Dome King</div>
+            <div style="font-size:11px;color:#22c55e;">3-1 · 1,500 IQ · wins a round 🍺</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;"><span>🥈 DraftKing Dave</span><span>1,250 IQ</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;"><span>🥉 Rachel</span><span>1,000 IQ</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;"><span>#4 Tommy</span><span>750 IQ</span></div>
+          </div>
+        </div>
+        <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.3);border-radius:8px;padding:8px 12px;text-align:center;">
+          <div style="font-size:10px;color:#a78bfa;font-weight:700;">Next Bar Battle</div>
+          <div style="font-size:12px;color:#f0f6fc;font-weight:800;">Thursday 8PM · Download SportsIQ</div>
+          <div style="font-size:9px;color:#64748b;margin-top:2px;">sportsiq.com</div>
+        </div>
+        <div style="margin-top:10px;font-size:9px;color:#475569;line-height:1.5;">The bar TV shows final standings + prompts people who watched but didn't play to download SportsIQ before next game night.</div>
+      </div>
+      <div class="phone-label" style="width:300px;">BAR TV · Final state<br>Winner announced · Download CTA for non-players</div>
+    </div>
+
+  </div>
+
+  <!-- ── BAR FLOW SUMMARY ───────────────────────────────────────── -->
+  <div style="margin:32px 48px 48px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:28px 36px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;margin-bottom:20px;">BAR EXPERIENCE DESIGN PRINCIPLES</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">
+      <div>
+        <div style="color:#22c55e;font-size:12px;font-weight:800;margin-bottom:8px;">📱 Phone is the controller</div>
+        <div style="font-size:10px;color:#64748b;line-height:1.6;">Pick on your phone. Results on your phone. But your name appears on the big screen — creating public stakes that make the game more thrilling and make others want in.</div>
+      </div>
+      <div>
+        <div style="color:#fbbf24;font-size:12px;font-weight:800;margin-bottom:8px;">🍺 Bar Battle is the hook</div>
+        <div style="font-size:10px;color:#64748b;line-height:1.6;">Not just IQ points — a real social prize at the bar. Top scorer wins a round, a discount, recognition. Tangible reward makes every pick feel higher stakes.</div>
+      </div>
+      <div>
+        <div style="color:#a78bfa;font-size:12px;font-weight:800;margin-bottom:8px;">📺 TV creates FOMO</div>
+        <div style="font-size:10px;color:#64748b;line-height:1.6;">Non-players watch the bar TV, see friends winning, see the leaderboard — and want in. The bar TV is SportsIQ's best acquisition tool. Every bar night creates new users.</div>
+      </div>
+      <div>
+        <div style="color:#f87171;font-size:12px;font-weight:800;margin-bottom:8px;">⚡ Glanceable UI</div>
+        <div style="font-size:10px;color:#64748b;line-height:1.6;">Bar environment: loud, distracted, beer in one hand. Every screen optimized for 2-second glances. Huge numbers, minimal text, clear color coding (green = winning).</div>
+      </div>
+      <div>
+        <div style="color:#4ade80;font-size:12px;font-weight:800;margin-bottom:8px;">🔄 Loss = immediate next pick</div>
+        <div style="font-size:10px;color:#64748b;line-height:1.6;">Losses at the bar are the highest-risk churn moment. Redemption pick CTA fires instantly: "Win this → jump from #4 to #2." No wallowing — always a path back.</div>
+      </div>
+      <div>
+        <div style="color:#818cf8;font-size:12px;font-weight:800;margin-bottom:8px;">📅 End of night = next visit hook</div>
+        <div style="font-size:10px;color:#64748b;line-height:1.6;">Final standings fire a "Rematch?" challenge and a "Defend your title Thursday" reminder. Turns a one-time bar visit into a recurring weekly ritual.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /screen bar-experience-v1 -->
 
 </body>
 </html>
