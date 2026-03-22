@@ -1839,8 +1839,8 @@
     <div class="tab tab-review" data-screen="pick-wait-v3" onclick="showScreen('pick-wait-v3',this)">
       <span class="tab-label">Pick Wait</span><span class="tab-days" id="days-pick-wait-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="onboarding-v4" onclick="showScreen('onboarding-v4',this)">
-      <span class="tab-label">Onboarding</span><span class="tab-days" id="days-onboarding-v4"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="onboarding-v5" onclick="showScreen('onboarding-v5',this)">
+      <span class="tab-label">Onboarding</span><span class="tab-days" id="days-onboarding-v5"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="daily-challenge-v4" onclick="showScreen('daily-challenge-v4',this)">
       <span class="tab-label">Daily Challenge</span><span class="tab-days" id="days-daily-challenge-v4"></span><span class="review-dot"></span>
@@ -1895,7 +1895,10 @@
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 27 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 28 previous versions</summary>
+      <div class="tab tab-archived" data-screen="onboarding-v4" onclick="showScreen('onboarding-v4',this)">
+        <span class="tab-label">Onboarding v4</span><span class="tab-days" id="days-onboarding-v4-arc"></span>
+      </div>
       <div class="tab tab-archived" data-screen="pick-result-v2" onclick="showScreen('pick-result-v2',this)">
         <span class="tab-label">Pick Result v2</span><span class="tab-days" id="days-pick-result-v2-arc"></span>
       </div>
@@ -5009,6 +5012,8 @@
     // ── Mar 21 3:30 PM PT — v3 batch (ideas 028–031) ─────────────────
     'onboarding-v3':       '2026-03-21T15:30:00-07:00',
     'onboarding-v4':       '2026-03-22T10:00:00-07:00',
+    // ── Mar 22 autonomous loop — Onboarding v5: social proof splash · real first pick · friend discovery ──
+    'onboarding-v5':       '2026-03-22T17:00:00-07:00',
     'daily-challenge-v3':  '2026-03-21T15:30:00-07:00',
     'daily-challenge-v4':  '2026-03-22T12:00:00-07:00',
     'game-day-v3':         '2026-03-21T15:30:00-07:00',
@@ -5616,6 +5621,17 @@
         'Depth selector per sport removed from onboarding — is that data critical for Day 1 ad targeting, or is it okay to collect it passively through behavior?',
         'Notification permission at step 2 vs. after first win — which placement gets higher opt-in rate?',
         'Demo pick for new users with no live game — yes (instant gratification) or no (wait for real game, higher authenticity)?'
+      ]
+    },
+    'onboarding-v5': {
+      icon: '🚀',
+      title: 'Onboarding v5 — Social Proof Splash · Real First Pick · Friend Discovery · Mar 22 2026',
+      built: 'Activation-focused redesign targeting the D1 retention problem. The core change: social proof BEFORE any commitment, and a real pick instead of a tutorial pick. 4 phones: (1) Social Proof Splash — first screen users see, zero ask. Shows "22,847 picks today", avatar stack of contacts playing, live leaderboard snapshot with a "...you" empty slot at the bottom. CTA is "Join them free →" not "Sign up." (2) Name + sports — same minimal ask as v4 but now positioned as step 2, after user already wants in. (3) First REAL pick — no "practice" framing. A live game, full sharp money signal visible (no paywall for first pick), OVER/UNDER. User is a real player from pick 1. (4) Post-first-pick friend discovery — "3 players at your location also picked OVER" + bar context card + DNA forming. Moat: every new user starts contributing to crowd signal from the first real pick, not from a fake tutorial pick. Key strategic shift: tutorial pick signals "this is complicated." Real pick signals "this is live and you matter."',
+      questions: [
+        'Social proof splash: should we show REAL contact names ("Alex, Marcus + 3") which requires contacts permission, or fake-personalized ("3 people near you are already playing") which requires only location?',
+        'Leaderboard snapshot on splash: does showing a leaderboard before they\'ve played make new users feel behind/intimidated, or does it create motivation to catch up?',
+        'First pick no tutorial: some users will be confused by "what is OVER/UNDER" without tutorial coaching. Keep the v4 tutorial overlays optional (e.g., a "?" help button) or remove entirely?',
+        'Post-pick friend discovery: this requires either contacts or location. Which permission do we ask for first, and at what moment in onboarding?'
       ]
     },
     'onboarding-v4': {
@@ -18100,6 +18116,368 @@
      SCREEN: Onboarding v4 — 2026-03-22 — Passive DNA · Demo Pick · Zero Friction
      Ideas answered: 058 (passively, my decision, yes demo pick)
 ══════════════════════════════════════════════════════════════════════════ -->
+<!-- SCREEN: Onboarding v5 — Social Proof Splash · Real First Pick · Friend Discovery -->
+<div id="onboarding-v5" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Onboarding v5 — Social Proof Splash · Real First Pick · Friend Discovery · 2026-03-22</div>
+    <div class="screen-desc">Activation-focused redesign. Social FOMO before any ask. Real pick instead of tutorial. 4-phone flow: (1) Splash — community context before name/sports. (2) Name + sport (fast). (3) First real pick, full signal visible. (4) Post-pick friend discovery + DNA forming.</div>
+  </div>
+
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: SOCIAL PROOF SPLASH — before any ask ────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#060d1f;overflow:hidden;position:relative;">
+
+          <!-- Background glow -->
+          <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(85,69,211,0.25) 0%,rgba(34,197,94,0.08) 50%,transparent 70%);pointer-events:none;z-index:0;"></div>
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;position:relative;z-index:1;"></div>
+
+          <!-- Logo -->
+          <div style="padding:10px 24px 0;text-align:center;position:relative;z-index:1;">
+            <div style="font-size:26px;font-weight:900;background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px;margin-bottom:2px;">SportsIQ</div>
+            <div style="font-size:10px;color:#475569;letter-spacing:2px;font-weight:700;">KNOW MORE. WIN MORE.</div>
+          </div>
+
+          <!-- Live activity pulse card -->
+          <div style="margin:14px 16px 0;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:16px;padding:14px 16px;position:relative;z-index:1;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+              <div style="width:7px;height:7px;border-radius:50%;background:#22c55e;animation:pulse 1.5s infinite;"></div>
+              <span style="font-size:10px;font-weight:700;color:#4ade80;letter-spacing:1px;">LIVE RIGHT NOW</span>
+            </div>
+            <div style="font-size:36px;font-weight:900;color:#f8fafc;line-height:1;letter-spacing:-1px;">22,847</div>
+            <div style="font-size:13px;color:#4ade80;font-weight:600;margin-top:2px;">picks made today</div>
+            <!-- Activity bar -->
+            <div style="margin-top:10px;display:flex;gap:3px;align-items:flex-end;height:28px;">
+              <div style="flex:1;background:rgba(34,197,94,0.25);border-radius:2px;height:40%;"></div>
+              <div style="flex:1;background:rgba(34,197,94,0.3);border-radius:2px;height:55%;"></div>
+              <div style="flex:1;background:rgba(34,197,94,0.35);border-radius:2px;height:65%;"></div>
+              <div style="flex:1;background:rgba(34,197,94,0.4);border-radius:2px;height:45%;"></div>
+              <div style="flex:1;background:rgba(34,197,94,0.45);border-radius:2px;height:80%;"></div>
+              <div style="flex:1;background:rgba(34,197,94,0.5);border-radius:2px;height:70%;"></div>
+              <div style="flex:1;background:rgba(34,197,94,0.55);border-radius:2px;height:90%;"></div>
+              <div style="flex:1;background:rgba(34,197,94,0.6);border-radius:2px;height:100%;"></div>
+            </div>
+          </div>
+
+          <!-- Contacts / social proof strip -->
+          <div style="margin:10px 16px 0;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;position:relative;z-index:1;">
+            <!-- Avatar stack -->
+            <div style="display:flex;flex-shrink:0;">
+              <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);border:2px solid #060d1f;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;z-index:5;margin-right:-8px;">A</div>
+              <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#0d9488,#22c55e);border:2px solid #060d1f;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;z-index:4;margin-right:-8px;">M</div>
+              <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#f97316);border:2px solid #060d1f;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;z-index:3;margin-right:-8px;">J</div>
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);border:2px solid #060d1f;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#94a3b8;z-index:2;">+3</div>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:12px;font-weight:700;color:#f8fafc;line-height:1.3;">Alex, Marcus + 3 others near you are already playing</div>
+              <div style="font-size:10px;color:#64748b;margin-top:2px;">Your contacts are on the leaderboard</div>
+            </div>
+          </div>
+
+          <!-- Mini leaderboard preview -->
+          <div style="margin:10px 16px 0;position:relative;z-index:1;">
+            <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:2px;margin-bottom:6px;">TODAY'S LEADERBOARD</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;align-items:center;gap:8px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:10px;padding:7px 10px;">
+                <div style="color:#fbbf24;font-size:11px;font-weight:800;width:16px;">1</div>
+                <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;">A</div>
+                <div style="flex:1;font-size:11px;font-weight:700;color:#f8fafc;">AlexSharp</div>
+                <div style="font-size:11px;font-weight:800;color:#fbbf24;">4,820 IQ</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:7px 10px;">
+                <div style="color:#94a3b8;font-size:11px;font-weight:800;width:16px;">2</div>
+                <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#0d9488,#22c55e);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;">M</div>
+                <div style="flex:1;font-size:11px;font-weight:700;color:#f8fafc;">BigMike</div>
+                <div style="font-size:11px;font-weight:800;color:#94a3b8;">3,940 IQ</div>
+              </div>
+              <!-- "You" empty slot -->
+              <div style="display:flex;align-items:center;gap:8px;background:rgba(85,69,211,0.08);border:1.5px dashed rgba(85,69,211,0.35);border-radius:10px;padding:7px 10px;">
+                <div style="color:#a78bfa;font-size:11px;font-weight:800;width:16px;">?</div>
+                <div style="width:22px;height:22px;border-radius:50%;background:rgba(85,69,211,0.15);border:1.5px dashed rgba(85,69,211,0.4);display:flex;align-items:center;justify-content:center;font-size:12px;">👤</div>
+                <div style="flex:1;font-size:11px;font-weight:700;color:#a78bfa;font-style:italic;">You (join to rank up)</div>
+                <div style="font-size:11px;font-weight:800;color:#5545D3;">0 IQ</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div style="padding:12px 16px 16px;flex:1;display:flex;flex-direction:column;justify-content:flex-end;position:relative;z-index:1;">
+            <div style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:14px;padding:14px;text-align:center;margin-bottom:8px;">
+              <div style="font-size:15px;font-weight:900;color:#fff;">Join them free →</div>
+            </div>
+            <div style="text-align:center;font-size:10px;color:#334155;">No email. No password. No payment required.</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">SOCIAL PROOF SPLASH · 22,847 picks · contacts stack · leaderboard "you" slot · "Join them free"</div>
+    </div>
+
+    <!-- ── PHONE 2: NAME + SPORTS — Step 2, after intent established ─────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+          <!-- Progress dots -->
+          <div style="height:44px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;gap:6px;flex-shrink:0;">
+            <div style="width:20px;height:4px;border-radius:2px;background:#7c3aed;"></div>
+            <div style="width:20px;height:4px;border-radius:2px;background:rgba(139,92,246,0.5);"></div>
+            <div style="width:20px;height:4px;border-radius:2px;background:rgba(139,92,246,0.2);"></div>
+          </div>
+
+          <!-- Header -->
+          <div style="padding:10px 24px 0;text-align:center;">
+            <div style="font-size:18px;font-weight:800;color:#f1f5f9;margin-bottom:4px;">What should we call you?</div>
+            <div style="font-size:11px;color:#475569;">One tap. No sign-up. Play immediately.</div>
+          </div>
+
+          <!-- Name input -->
+          <div style="padding:12px 16px 0;">
+            <div style="background:rgba(255,255,255,0.06);border:1.5px solid rgba(139,92,246,0.5);border-radius:12px;padding:13px 16px;display:flex;align-items:center;gap:10px;">
+              <span style="font-size:16px;">👤</span>
+              <span style="font-size:15px;color:#a78bfa;font-weight:600;">SharpBettor</span>
+              <span style="width:2px;height:18px;background:#a78bfa;border-radius:1px;animation:blink 1s infinite;margin-left:2px;"></span>
+            </div>
+          </div>
+
+          <!-- Sport tiles -->
+          <div style="padding:12px 16px 0;">
+            <div style="font-size:10px;font-weight:800;color:#64748b;letter-spacing:2px;margin-bottom:8px;text-align:center;">YOUR SPORTS</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;">
+              <div style="background:rgba(139,92,246,0.2);border:2px solid #a78bfa;border-radius:11px;padding:9px 5px;text-align:center;">
+                <div style="font-size:20px;margin-bottom:2px;">🏈</div>
+                <div style="font-size:10px;font-weight:700;color:#a78bfa;">NFL</div>
+              </div>
+              <div style="background:rgba(139,92,246,0.2);border:2px solid #a78bfa;border-radius:11px;padding:9px 5px;text-align:center;">
+                <div style="font-size:20px;margin-bottom:2px;">🏀</div>
+                <div style="font-size:10px;font-weight:700;color:#a78bfa;">NBA</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:11px;padding:9px 5px;text-align:center;">
+                <div style="font-size:20px;margin-bottom:2px;">⚾</div>
+                <div style="font-size:10px;font-weight:600;color:#475569;">MLB</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:11px;padding:9px 5px;text-align:center;">
+                <div style="font-size:20px;margin-bottom:2px;">🏒</div>
+                <div style="font-size:10px;font-weight:600;color:#475569;">NHL</div>
+              </div>
+              <div style="background:rgba(139,92,246,0.2);border:2px solid #a78bfa;border-radius:11px;padding:9px 5px;text-align:center;">
+                <div style="font-size:20px;margin-bottom:2px;">🎓</div>
+                <div style="font-size:10px;font-weight:700;color:#a78bfa;">CFB</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:11px;padding:9px 5px;text-align:center;">
+                <div style="font-size:20px;margin-bottom:2px;">🎾</div>
+                <div style="font-size:10px;font-weight:600;color:#475569;">Tennis</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div style="padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;justify-content:flex-end;">
+            <div style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:14px;padding:14px;text-align:center;">
+              <div style="font-size:15px;font-weight:800;color:#fff;letter-spacing:0.5px;">Let's go →</div>
+            </div>
+            <div style="text-align:center;margin-top:8px;font-size:10px;color:#334155;">We learn your style as you play. No surveys.</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">STEP 2 OF 3 · Name + sports only · "Let's go →" · No surveys</div>
+    </div>
+
+    <!-- ── PHONE 3: FIRST REAL PICK — no tutorial, full signal visible ────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#060d1f;overflow:hidden;">
+
+          <!-- Progress dots -->
+          <div style="height:44px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;gap:6px;flex-shrink:0;">
+            <div style="width:20px;height:4px;border-radius:2px;background:#7c3aed;"></div>
+            <div style="width:20px;height:4px;border-radius:2px;background:#7c3aed;"></div>
+            <div style="width:20px;height:4px;border-radius:2px;background:rgba(139,92,246,0.5);"></div>
+          </div>
+
+          <!-- Header -->
+          <div style="padding:4px 16px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div>
+              <div style="font-size:14px;font-weight:800;color:#f1f5f9;">Your first pick is live</div>
+              <div style="font-size:10px;color:#64748b;">Real IQ points on the line</div>
+            </div>
+            <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.35);border-radius:20px;padding:3px 10px;display:flex;align-items:center;gap:4px;">
+              <div style="width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pulse 1.5s infinite;"></div>
+              <span style="font-size:10px;color:#22c55e;font-weight:700;">LIVE Q3</span>
+            </div>
+          </div>
+
+          <!-- Pick card — full signal, no blur -->
+          <div style="margin:0 12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;flex-shrink:0;">
+
+            <!-- Game context -->
+            <div style="background:rgba(85,69,211,0.15);border-bottom:1px solid rgba(85,69,211,0.2);padding:8px 12px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:10px;font-weight:700;color:#a78bfa;">NFL · KC vs PHI · Q3 8:44</div>
+              <div style="font-size:10px;color:#64748b;">KC 17 – PHI 14</div>
+            </div>
+
+            <!-- Player + line -->
+            <div style="padding:12px 14px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:18px;">🏈</div>
+                <div>
+                  <div style="font-size:15px;font-weight:800;color:#f1f5f9;">P. Mahomes</div>
+                  <div style="font-size:10px;color:#64748b;">Kansas City Chiefs · QB · Passing Yards</div>
+                </div>
+              </div>
+
+              <div style="text-align:center;margin-bottom:10px;">
+                <div style="font-size:32px;font-weight:900;color:#f1f5f9;letter-spacing:-1px;">287.5</div>
+              </div>
+
+              <!-- Signal card — fully visible (no paywall for first pick) -->
+              <div style="background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:12px;padding:9px 12px;margin-bottom:10px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+                  <span style="font-size:9px;font-weight:700;color:#a78bfa;letter-spacing:1px;">SHARP SIGNAL</span>
+                  <span style="font-size:9px;color:#64748b;">1 free view</span>
+                </div>
+                <div style="display:flex;gap:12px;align-items:center;">
+                  <div style="text-align:center;">
+                    <div style="font-size:20px;font-weight:900;color:#22c55e;">63%</div>
+                    <div style="font-size:9px;color:#64748b;">crowd OVER</div>
+                  </div>
+                  <div style="width:1px;background:rgba(255,255,255,0.06);height:28px;"></div>
+                  <div style="text-align:center;">
+                    <div style="font-size:20px;font-weight:900;color:#a78bfa;">71%</div>
+                    <div style="font-size:9px;color:#64748b;">sharps OVER</div>
+                  </div>
+                  <div style="width:1px;background:rgba(255,255,255,0.06);height:28px;"></div>
+                  <div style="text-align:center;">
+                    <div style="font-size:20px;font-weight:900;color:#fbbf24;">↑2.5</div>
+                    <div style="font-size:9px;color:#64748b;">line moved</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- OVER / UNDER buttons -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div style="background:linear-gradient(135deg,#059669,#10b981);border-radius:12px;padding:13px;text-align:center;box-shadow:0 4px 16px rgba(16,185,129,0.3);cursor:pointer;">
+                  <div style="font-size:13px;font-weight:900;color:#fff;letter-spacing:1px;">OVER ↑</div>
+                  <div style="font-size:10px;color:rgba(255,255,255,0.75);margin-top:2px;">63% picked</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px;text-align:center;cursor:pointer;">
+                  <div style="font-size:13px;font-weight:700;color:#64748b;letter-spacing:1px;">UNDER ↓</div>
+                  <div style="font-size:10px;color:#475569;margin-top:2px;">37% picked</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Friendly note — not a tutorial, just context -->
+          <div style="margin:8px 12px 0;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.03);border-radius:10px;padding:8px 10px;flex-shrink:0;">
+            <span style="font-size:14px;">💡</span>
+            <div style="font-size:11px;color:#64748b;line-height:1.4;">Pick OVER if you think Mahomes will throw more than 287.5 yards. UNDER if fewer. Sharp money says OVER.</div>
+          </div>
+
+          <!-- Free picks note -->
+          <div style="margin:6px 12px 0;display:flex;align-items:center;justify-content:center;gap:4px;flex-shrink:0;">
+            <div style="display:flex;gap:3px;">
+              <div style="width:7px;height:7px;border-radius:50%;background:#f59e0b;"></div>
+              <div style="width:7px;height:7px;border-radius:50%;background:rgba(245,158,11,0.25);border:1px solid rgba(245,158,11,0.4);"></div>
+              <div style="width:7px;height:7px;border-radius:50%;background:rgba(245,158,11,0.25);border:1px solid rgba(245,158,11,0.4);"></div>
+            </div>
+            <span style="font-size:10px;color:#94a3b8;">1 of 3 free picks today</span>
+          </div>
+
+          <div style="flex:1;"></div>
+
+        </div>
+      </div>
+      <div class="phone-label">STEP 3 — FIRST REAL PICK · Full signal visible · No paywall · No "practice" framing · Real IQ points</div>
+    </div>
+
+    <!-- ── PHONE 4: POST-PICK FRIEND DISCOVERY + DNA FORMING ─────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#060d1f;overflow:hidden;">
+
+          <!-- Status bar -->
+          <div style="height:44px;display:flex;align-items:center;padding:0 16px;flex-shrink:0;">
+            <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:10px;padding:4px 12px;display:flex;align-items:center;gap:6px;">
+              <span style="font-size:12px;">✅</span>
+              <span style="font-size:11px;font-weight:700;color:#22c55e;">OVER locked in! IQ points earned.</span>
+            </div>
+          </div>
+
+          <!-- You're playing with: -->
+          <div style="margin:6px 14px 0;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:16px;padding:14px;flex-shrink:0;">
+            <div style="font-size:10px;font-weight:700;color:#a78bfa;letter-spacing:2px;margin-bottom:10px;">YOU'RE PLAYING WITH</div>
+
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;">A</div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:#f8fafc;">AlexSharp</div>
+                <div style="font-size:10px;color:#64748b;">Also picked OVER · 4-pick streak 🔥</div>
+              </div>
+              <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.25);border-radius:8px;padding:4px 8px;">
+                <div style="font-size:10px;font-weight:700;color:#4ade80;">OVER</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#f97316);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;">J</div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:#f8fafc;">Jay_NFLPicks</div>
+                <div style="font-size:10px;color:#64748b;">Also picked OVER · Near you</div>
+              </div>
+              <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.25);border-radius:8px;padding:4px 8px;">
+                <div style="font-size:10px;font-weight:700;color:#4ade80;">OVER</div>
+              </div>
+            </div>
+
+            <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:6px;">
+              <span style="font-size:13px;">🍺</span>
+              <span style="font-size:11px;color:#94a3b8;">12 people at Champ's Bar are watching this game</span>
+            </div>
+          </div>
+
+          <!-- DNA forming card -->
+          <div style="margin:10px 14px 0;background:rgba(139,92,246,0.07);border:1.5px solid rgba(139,92,246,0.2);border-radius:14px;padding:12px 14px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div style="font-size:10px;font-weight:800;color:#a78bfa;letter-spacing:1.5px;">⚡ SPORTS DNA FORMING</div>
+              <div style="font-size:9px;color:#475569;background:rgba(139,92,246,0.1);border-radius:8px;padding:2px 6px;">PICK 1</div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;">
+              <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:20px;padding:3px 9px;font-size:9px;color:#a78bfa;font-weight:600;">⚡ Prefers OVER</div>
+              <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:20px;padding:3px 9px;font-size:9px;color:#a78bfa;font-weight:600;">🏈 NFL Primary</div>
+              <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:20px;padding:3px 9px;font-size:9px;color:#a78bfa;font-weight:600;">🌙 Night Player</div>
+            </div>
+            <div style="font-size:10px;color:#475569;margin-top:6px;">Make 2 more picks to see your full profile →</div>
+          </div>
+
+          <!-- CTA -->
+          <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;justify-content:flex-end;">
+            <div style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:14px;padding:14px;text-align:center;margin-bottom:8px;">
+              <div style="font-size:14px;font-weight:800;color:#fff;">See the live game →</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.7);margin-top:2px;">Watch your pick settle in real time</div>
+            </div>
+            <div style="text-align:center;font-size:10px;color:#334155;">Notifications optional · Turn on to protect your streak</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">POST-PICK DISCOVERY · Friends who also picked OVER · Bar context · DNA forming · "See the live game →"</div>
+    </div>
+
+  </div>
+
+  <div id="sfb-panel-onboarding-v5" class="sfb-panel"></div>
+</div><!-- /screen onboarding-v5 -->
+
 <div id="onboarding-v4" class="screen" style="display:none;">
   <div class="screen-header">
     <div class="screen-title">Onboarding v4 — Passive DNA · Demo Pick · Zero Friction</div>
