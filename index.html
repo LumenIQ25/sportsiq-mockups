@@ -15318,6 +15318,196 @@
      Feedback fixes from idea-024: only show crowd, always PICK NOW,
      remove "Last 3 seconds" / "window closes forever" copy
 ══════════════════════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════════════════════
+     HOME LIVE v5 — idea-054 — Mar 22 2026
+     From Mark feedback on v4: tug-of-war crowd bar + pick locked state
+     Three phones: :09 tug-of-war, :03 red flood, pick locked confirmation
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div id="home-live-v5" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Home · Live v5 — Tug-of-War Bar + Pick Locked State</div>
+    <div class="screen-subtitle">From Mark's v4 feedback: (1) Full tug-of-war crowd bar — green OVER vs amber UNDER with % labels. (2) PICK NOW button disappears after lock — replaced by confirmation card showing OVER·2×, IQ earned, live stat tracker. (3) :03 clock kept as-is, no countdown animation.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- Phone 1: :09 — tug-of-war crowd bar -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner">
+          <div class="home-bg"></div>
+          <div class="home-glow-a" style="background:radial-gradient(ellipse at 50% 60%,rgba(239,68,68,0.35) 0%,transparent 65%);"></div>
+          <div class="home-glow-b"></div>
+          <div class="home-vignette"></div>
+          <div class="home-grain"></div>
+          <div class="home-shell">
+            <div class="home-topbar"><div class="home-logo">Sports<span>IQ</span></div><div class="home-pts-chip">⚡ 2,450 pts</div></div>
+            <div class="bar-checkin"><div class="bar-checkin-text">🍺 Tap &amp; Taylor's · Bar Mode</div><div class="bar-checkin-badge">2× ACTIVE</div></div>
+            <div class="home-hero">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <div class="live-badge" style="margin-bottom:0;"><div class="live-dot"></div><span class="live-badge-text">LIVE NOW</span></div>
+                <div class="countdown-box cdown-urgent" style="background:rgba(239,68,68,0.18);border-color:rgba(239,68,68,0.7);">
+                  <div class="countdown-lbl" style="color:#EF4444;">LOCKS IN</div>
+                  <div class="countdown-val" style="color:#EF4444;font-size:26px;">0:09</div>
+                </div>
+              </div>
+              <div class="hero-team">KANSAS CITY CHIEFS</div>
+              <div class="hero-player">Mahomes</div>
+              <div class="hero-ou-label">OVER OR UNDER</div>
+              <div class="hero-stat-row"><div class="hero-number">267</div><div class="hero-stat-unit">passing yards</div></div>
+              <div class="context-card">📊 Chiefs trailing by 14 — Mahomes is in throw mode</div>
+              <div class="intel-card-v2" style="background:rgba(15,20,30,0.7);border-color:rgba(255,255,255,0.1);padding:10px 12px;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                  <span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;">👥 Crowd Right Now</span>
+                  <span style="font-size:9px;color:var(--muted);">184 players</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                  <div><div style="font-size:15px;font-weight:800;color:#22c55e;">62%</div><div style="font-size:8px;color:#22c55e;font-weight:600;">OVER</div></div>
+                  <div style="text-align:right;"><div style="font-size:15px;font-weight:800;color:#f59e0b;">38%</div><div style="font-size:8px;color:#f59e0b;font-weight:600;">UNDER</div></div>
+                </div>
+                <div style="height:10px;border-radius:5px;overflow:hidden;display:flex;">
+                  <div style="width:62%;background:linear-gradient(90deg,#16a34a,#22c55e);border-radius:5px 0 0 5px;"></div>
+                  <div style="width:2px;background:#0d1117;"></div>
+                  <div style="flex:1;background:linear-gradient(90deg,#d97706,#f59e0b);border-radius:0 5px 5px 0;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="join-ring"><button class="join-btn">PICK NOW<span class="join-sub"><span class="crowd-live">184</span> players · 9s to lock</span><div class="join-drain-bar"><div class="join-drain-fill" style="animation-duration:9s;"></div></div></button></div>
+            <div class="stats-row">
+              <div class="stat-pill"><div class="stat-pill-val">2,450</div><div class="stat-pill-lbl">PTS</div></div>
+              <div class="stat-pill"><div class="stat-pill-val">#3</div><div class="stat-pill-lbl">TODAY</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">🔥 4</div><div class="stat-pill-lbl">STREAK</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">Gold</div><div class="stat-pill-lbl">TIER</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">HOME v5 — :09 · Tug-of-War Crowd Bar</div>
+    </div>
+
+    <!-- Phone 2: :03 — red flood + tug-of-war -->
+    <div>
+      <div class="phone-frame" style="box-shadow:0 0 0 6px rgba(0,0,0,0.6),0 40px 100px rgba(0,0,0,0.8),0 0 80px rgba(239,68,68,0.3);">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:linear-gradient(180deg,#1c0000 0%,#120000 100%);">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(239,68,68,0.65) 0%,transparent 70%);"></div>
+          <div class="home-vignette"></div><div class="home-grain"></div>
+          <div class="home-shell">
+            <div class="home-topbar"><div class="home-logo">Sports<span>IQ</span></div><div class="home-pts-chip" style="background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.4);">⚡ 2,450 pts</div></div>
+            <div class="bar-checkin" style="background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.25);"><div class="bar-checkin-text">🍺 Tap &amp; Taylor's · Bar Mode</div><div class="bar-checkin-badge" style="background:rgba(239,68,68,0.25);color:#f87171;">2× ACTIVE</div></div>
+            <div class="home-hero">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <div class="live-badge" style="margin-bottom:0;background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.5);"><div class="live-dot" style="background:#ef4444;"></div><span class="live-badge-text" style="color:#f87171;">LOCKING</span></div>
+                <div class="countdown-box cdown-critical" style="background:rgba(239,68,68,0.35);border-color:#EF4444;border-width:2px;">
+                  <div class="countdown-lbl" style="color:#EF4444;font-size:8px;">LOCKS IN</div>
+                  <div class="countdown-val" style="color:#EF4444;font-size:30px;">0:03</div>
+                </div>
+              </div>
+              <div class="hero-team">KANSAS CITY CHIEFS</div>
+              <div class="hero-player">Mahomes</div>
+              <div class="hero-ou-label">OVER OR UNDER</div>
+              <div class="hero-stat-row"><div class="hero-number">267</div><div class="hero-stat-unit">passing yards</div></div>
+              <div class="intel-card-v2" style="background:rgba(15,5,5,0.8);border-color:rgba(239,68,68,0.2);padding:10px 12px;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                  <span style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.6px;">👥 Crowd Right Now</span>
+                  <span style="font-size:9px;color:rgba(255,255,255,0.3);">184 players</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                  <div><div style="font-size:15px;font-weight:800;color:#22c55e;">62%</div><div style="font-size:8px;color:#22c55e;font-weight:600;">OVER</div></div>
+                  <div style="text-align:right;"><div style="font-size:15px;font-weight:800;color:#f59e0b;">38%</div><div style="font-size:8px;color:#f59e0b;font-weight:600;">UNDER</div></div>
+                </div>
+                <div style="height:10px;border-radius:5px;overflow:hidden;display:flex;">
+                  <div style="width:62%;background:linear-gradient(90deg,#16a34a,#22c55e);border-radius:5px 0 0 5px;"></div>
+                  <div style="width:2px;background:#0d1117;"></div>
+                  <div style="flex:1;background:linear-gradient(90deg,#d97706,#f59e0b);border-radius:0 5px 5px 0;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="join-ring"><button class="join-btn" style="background:linear-gradient(135deg,rgba(239,68,68,0.9),rgba(220,38,38,0.8));border-color:rgba(239,68,68,0.8);">PICK NOW<span class="join-sub">3s left — go</span><div class="join-drain-bar"><div class="join-drain-fill" style="width:5%;animation:none;background:#EF4444;"></div></div></button></div>
+            <div class="stats-row">
+              <div class="stat-pill"><div class="stat-pill-val">2,450</div><div class="stat-pill-lbl">PTS</div></div>
+              <div class="stat-pill"><div class="stat-pill-val">#3</div><div class="stat-pill-lbl">TODAY</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">🔥 4</div><div class="stat-pill-lbl">STREAK</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">Gold</div><div class="stat-pill-lbl">TIER</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">HOME v5 — :03 · Red Flood · Tug-of-War</div>
+    </div>
+
+    <!-- Phone 3: Pick Locked — button gone, confirmation card -->
+    <div>
+      <div class="phone-frame" style="box-shadow:0 0 0 6px rgba(0,0,0,0.6),0 40px 100px rgba(0,0,0,0.8),0 0 60px rgba(34,197,94,0.2);">
+        <div class="phone-notch"></div>
+        <div class="phone-inner">
+          <div class="home-bg"></div>
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,rgba(34,197,94,0.2) 0%,transparent 65%);"></div>
+          <div class="home-vignette"></div><div class="home-grain"></div>
+          <div class="home-shell">
+            <div class="home-topbar"><div class="home-logo">Sports<span>IQ</span></div><div class="home-pts-chip" style="background:rgba(34,197,94,0.15);border-color:rgba(34,197,94,0.35);color:#4ade80;">⚡ 2,450 pts</div></div>
+            <div class="bar-checkin"><div class="bar-checkin-text">🍺 Tap &amp; Taylor's · Bar Mode</div><div class="bar-checkin-badge">2× ACTIVE</div></div>
+            <div class="home-hero">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <div class="live-badge" style="margin-bottom:0;background:rgba(34,197,94,0.15);border-color:rgba(34,197,94,0.4);"><div class="live-dot" style="background:#22c55e;"></div><span class="live-badge-text" style="color:#4ade80;">LOCKED IN</span></div>
+                <div class="countdown-box" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.15);">
+                  <div class="countdown-lbl">TRACKING</div>
+                  <div class="countdown-val" style="font-size:16px;color:var(--muted);">4Q 9:12</div>
+                </div>
+              </div>
+              <div class="hero-team">KANSAS CITY CHIEFS</div>
+              <div class="hero-player">Mahomes</div>
+              <div class="hero-ou-label">OVER OR UNDER</div>
+              <div class="hero-stat-row"><div class="hero-number">267</div><div class="hero-stat-unit">passing yards</div></div>
+              <div class="context-card" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.2);color:#4ade80;">📈 Mahomes: 231 yds · needs 37 more · OVER tracking</div>
+              <div class="intel-card-v2" style="background:rgba(15,20,30,0.7);border-color:rgba(255,255,255,0.1);padding:10px 12px;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                  <span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;">👥 Final Crowd Split</span>
+                  <span style="font-size:9px;color:var(--muted);">locked</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                  <div><div style="font-size:15px;font-weight:800;color:#22c55e;">68%</div><div style="font-size:8px;color:#22c55e;font-weight:600;">OVER</div></div>
+                  <div style="text-align:right;"><div style="font-size:15px;font-weight:800;color:#f59e0b;">32%</div><div style="font-size:8px;color:#f59e0b;font-weight:600;">UNDER</div></div>
+                </div>
+                <div style="height:10px;border-radius:5px;overflow:hidden;display:flex;">
+                  <div style="width:68%;background:linear-gradient(90deg,#16a34a,#22c55e);border-radius:5px 0 0 5px;"></div>
+                  <div style="width:2px;background:#0d1117;"></div>
+                  <div style="flex:1;background:linear-gradient(90deg,#d97706,#f59e0b);border-radius:0 5px 5px 0;"></div>
+                </div>
+              </div>
+            </div>
+            <!-- PICK NOW button is completely GONE — replaced by locked confirmation -->
+            <div style="margin:0 6px 8px;background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(34,197,94,0.06));border:1.5px solid rgba(34,197,94,0.4);border-radius:16px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="width:36px;height:36px;border-radius:50%;background:rgba(34,197,94,0.2);border:1.5px solid rgba(34,197,94,0.5);display:flex;align-items:center;justify-content:center;font-size:18px;">✓</div>
+                  <div>
+                    <div style="font-size:14px;font-weight:800;color:#4ade80;">OVER · 2×</div>
+                    <div style="font-size:10px;color:var(--muted);margin-top:1px;">Locked in · With the crowd</div>
+                  </div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:18px;font-weight:800;color:#4ade80;">+98 IQ</div>
+                  <div style="font-size:9px;color:var(--muted);">if correct</div>
+                </div>
+              </div>
+            </div>
+            <div class="stats-row">
+              <div class="stat-pill"><div class="stat-pill-val">2,450</div><div class="stat-pill-lbl">PTS</div></div>
+              <div class="stat-pill"><div class="stat-pill-val">#3</div><div class="stat-pill-lbl">TODAY</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">🔥 4</div><div class="stat-pill-lbl">STREAK</div></div>
+              <div class="stat-pill"><div class="stat-pill-val" style="color:#F59E0B">Gold</div><div class="stat-pill-lbl">TIER</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">HOME v5 — LOCKED · Button Gone · Confirmation Card</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-home-live-v5" class="sfb-panel"></div>
+</div><!-- /screen home-live-v5 -->
+
 <div id="home-live-v4" class="screen" style="display:none;">
   <div class="screen-header">
     <div class="screen-title">Home · Live v4 — Pick Window Open</div>

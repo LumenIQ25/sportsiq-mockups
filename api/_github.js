@@ -4,8 +4,9 @@
  * All credentials stay in Vercel env vars — never exposed to the browser.
  *
  * NOTE: index.html exceeds GitHub's 1MB Content API limit.
- * readFile() uses the raw URL for content + API for SHA.
- * writeIdeas() also uses raw URL for read, then API for write.
+ * We use the Git Blobs API (by blob SHA) to fetch content — this bypasses
+ * BOTH the 1MB limit AND raw.githubusercontent.com CDN caching, which was
+ * causing stale reads that would overwrite recent commits on write-back.
  */
 
 const OWNER = process.env.GITHUB_OWNER || 'LumenIQ25';
@@ -29,18 +30,29 @@ async function ghFetch(path, opts = {}) {
 }
 
 /**
+ * Fetch a git blob by its SHA using the Git Data API.
+ * Returns the decoded UTF-8 string content.
+ * This bypasses the 1MB Contents API limit AND the raw CDN cache.
+ */
+async function fetchBlob(blobSha) {
+  const res = await fetch(
+    `https://api.github.com/repos/${OWNER}/${REPO}/git/blobs/${blobSha}`,
+    { headers: { Authorization: `token ${TOKEN}`, Accept: 'application/vnd.github.v3+json' } }
+  );
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || `Blob fetch error ${res.status}`);
+  // GitHub returns base64 with newlines — strip them before decoding
+  return Buffer.from(data.content.replace(/\n/g, ''), 'base64').toString('utf8');
+}
+
+/**
  * Read index.html from GitHub.
- * Uses raw.githubusercontent.com to bypass the 1MB GitHub API content limit.
+ * Uses Git Blobs API (by SHA) — no CDN cache, no size limit.
  * Returns { content: string, sha: string }
  */
 async function readFile() {
-  const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${FILE}?nocache=${Date.now()}`;
-  const [rawRes, meta] = await Promise.all([
-    fetch(rawUrl),
-    ghFetch(FILE)          // only used for SHA — content field may be empty for large files
-  ]);
-  if (!rawRes.ok) throw new Error(`Raw file fetch failed: ${rawRes.status}`);
-  const content = await rawRes.text();
+  const meta = await ghFetch(FILE);   // gets current SHA; content field empty for >1MB files
+  const content = await fetchBlob(meta.sha);
   return { content, sha: meta.sha };
 }
 
@@ -53,17 +65,12 @@ function parseIdeas(html) {
 
 /**
  * Write ideas array back into HTML and commit to GitHub.
- * Uses raw URL to read current content (bypasses 1MB limit).
+ * Reads fresh content via Git Blobs API to avoid CDN stale-read bug.
  */
 async function writeIdeas(ideas, _sha, message) {
-  // Always re-read fresh to get latest SHA + content
-  const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${FILE}?nocache=${Date.now()}`;
-  const [rawRes, freshMeta] = await Promise.all([
-    fetch(rawUrl),
-    ghFetch(FILE)
-  ]);
-  if (!rawRes.ok) throw new Error(`Raw file fetch failed: ${rawRes.status}`);
-  const html = await rawRes.text();
+  // Always re-read via blob SHA — guaranteed fresh, no CDN involved
+  const freshMeta = await ghFetch(FILE);
+  const html = await fetchBlob(freshMeta.sha);
 
   const json = JSON.stringify(ideas, null, 2);
   const updated = html.replace(
