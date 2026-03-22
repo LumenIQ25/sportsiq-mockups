@@ -1824,6 +1824,14 @@
     </div>
   </div>
 
+  <!-- 🚀 V1 LAUNCH — condensed core loop -->
+  <div class="nav-group">
+    <div class="nav-group-label" style="color:#22c55e;">🚀 V1 Launch Spec</div>
+    <div class="tab tab-review" data-screen="v1-launch" onclick="showScreen('v1-launch',this)" style="border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.06);">
+      <span class="tab-label" style="color:#4ade80;">V1 Core Loop</span><span class="tab-days" id="days-v1-launch"></span><span class="review-dot"></span>
+    </div>
+  </div>
+
   <!-- 📱 MOBILE — current versions only -->
   <div class="nav-group">
     <div class="nav-group-label">📱 Mobile</div>
@@ -2068,6 +2076,324 @@
 <!-- ══════════════════════════════════════════════════════════════════════════
      SCREEN: Mobile Home — LIVE STATE
 ══════════════════════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════════════
+     V1 LAUNCH SPEC — Condensed Core Loop · Mar 22 2026
+     Per Mark: "simple, no friction, addictive. Prioritize and sequence."
+     The whole game is 3 screens: Home → Pick Card → Pick Result.
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="v1-launch" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">🚀 V1 Launch Spec — Condensed Core Loop</div>
+    <div class="screen-desc">Mar 22 2026 · Per Mark: "Easy to use, simple, no friction, addictive. Prioritize and sequence so we can roll out a little bit at a time." The entire V1 app is these 3 screens. Home → Pick Card → Pick Result. Key simplification vs. existing screens: multiplier is INLINE on the pick card (toggle, not a bottom sheet). One screen, two taps, you're in. V2 adds social. V3 adds intelligence. V4 adds venue.</div>
+  </div>
+
+  <!-- V1 LAUNCH SEQUENCE OVERVIEW -->
+  <div style="max-width:720px;margin:0 auto 24px;padding:0 8px;">
+    <div style="background:linear-gradient(135deg,rgba(34,197,94,0.08),rgba(34,197,94,0.03));border:1.5px solid rgba(34,197,94,0.25);border-radius:16px;padding:18px 20px;">
+      <div style="color:#4ade80;font-size:11px;font-weight:700;letter-spacing:2px;margin-bottom:12px;">LAUNCH SEQUENCE</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <!-- V1 -->
+        <div style="flex:1;min-width:160px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:12px;padding:12px 14px;">
+          <div style="color:#22c55e;font-size:12px;font-weight:900;margin-bottom:6px;">V1 · Launch</div>
+          <div style="color:#94a3b8;font-size:10px;line-height:1.8;">• Onboarding (3 taps)<br>• Home (signal + streak + rank)<br>• Pick Card (inline multiplier)<br>• Pick Result (win/loss)<br>• Notifications ask<br>• Pro soft paywall</div>
+        </div>
+        <!-- V2 -->
+        <div style="flex:1;min-width:160px;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:12px;padding:12px 14px;">
+          <div style="color:#a78bfa;font-size:12px;font-weight:900;margin-bottom:6px;">V2 · Social</div>
+          <div style="color:#94a3b8;font-size:10px;line-height:1.8;">• Full leaderboard tab<br>• Referral + share card<br>• Friends feed tab<br>• Bar Mode check-in<br>• Challenges / H2H<br>• Daily Challenge tab</div>
+        </div>
+        <!-- V3 -->
+        <div style="flex:1;min-width:160px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.18);border-radius:12px;padding:12px 14px;">
+          <div style="color:#fbbf24;font-size:12px;font-weight:900;margin-bottom:6px;">V3 · Intelligence</div>
+          <div style="color:#94a3b8;font-size:10px;line-height:1.8;">• Prop Coach (Pro)<br>• Sports DNA / archetypes<br>• Sharp Digest (Pro)<br>• Full Stats screen<br>• Trivia</div>
+        </div>
+        <!-- V4 -->
+        <div style="flex:1;min-width:160px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:12px;padding:12px 14px;">
+          <div style="color:#f87171;font-size:12px;font-weight:900;margin-bottom:6px;">V4 · Venue</div>
+          <div style="color:#94a3b8;font-size:10px;line-height:1.8;">• Venue onboarding<br>• Bar dashboard<br>• Admin in-app<br>• B2B revenue layer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: V1 HOME — stripped to essentials ──────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>7:48 PM</span><span>🔋</span></div>
+
+          <!-- Header: rank chip + IQ only -->
+          <div style="padding:6px 16px 8px;display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:20px;font-weight:800;color:#f0f6fc;">Sports<span style="color:#58a6ff;">IQ</span></div>
+            <div style="display:flex;align-items:center;gap:7px;">
+              <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.28);border-radius:14px;padding:4px 9px;">
+                <span style="font-size:10px;color:#4ade80;font-weight:700;">#47 Today</span>
+              </div>
+              <div style="background:rgba(227,179,65,.12);border:1px solid rgba(227,179,65,.35);border-radius:14px;padding:4px 9px;">
+                <span style="font-size:10px;color:#e3b341;font-weight:700;">⚡ 2,450</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Streak chip -->
+          <div style="margin:0 16px 10px;display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(248,81,73,0.08);border:1px solid rgba(248,81,73,0.22);border-radius:10px;padding:5px 10px;">
+              <span style="font-size:13px;">🔥</span>
+              <span style="font-size:11px;font-weight:700;color:#f85149;">4-pick streak</span>
+              <span style="font-size:10px;color:#64748b;">· trivia closes 11:59pm</span>
+            </div>
+            <div style="background:rgba(248,81,73,0.12);border:1px solid rgba(248,81,73,0.3);border-radius:8px;padding:4px 9px;cursor:pointer;">
+              <span style="font-size:10px;font-weight:700;color:#f85149;">Play →</span>
+            </div>
+          </div>
+
+          <!-- TODAY'S SIGNAL — the hero card -->
+          <div style="margin:0 16px 10px;background:linear-gradient(135deg,rgba(88,166,255,.14),rgba(88,166,255,.04));border:1.5px solid rgba(88,166,255,.4);border-radius:16px;padding:14px 16px;">
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div>
+                <div style="font-size:11px;color:#8b949e;font-weight:600;margin-bottom:2px;">🏈 NFL · Pick window open</div>
+                <div style="font-size:17px;font-weight:900;color:#f0f6fc;letter-spacing:-0.3px;">Mahomes Passing Yds</div>
+                <div style="font-size:12px;color:#8b949e;">KC vs LAC · 284.5 line</div>
+              </div>
+              <div style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);border-radius:10px;padding:6px 10px;text-align:center;">
+                <div style="color:#22c55e;font-size:16px;font-weight:900;">↑</div>
+                <div style="color:#4ade80;font-size:9px;font-weight:700;">OVER</div>
+              </div>
+            </div>
+
+            <!-- Crowd bar -->
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:10px;font-weight:800;color:#22c55e;">OVER 63%</span>
+              <span style="font-size:9px;color:#8b949e;">1,284 picking</span>
+              <span style="font-size:10px;font-weight:800;color:#ef4444;">UNDER 37%</span>
+            </div>
+            <div style="height:6px;border-radius:3px;overflow:hidden;display:flex;margin-bottom:10px;">
+              <div style="flex:0.63;background:linear-gradient(90deg,#16a34a,#22c55e);"></div>
+              <div style="flex:0.37;background:linear-gradient(90deg,#dc2626,#ef4444);"></div>
+            </div>
+
+            <!-- Free picks counter + CTA -->
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:5px;">
+                <div style="display:flex;gap:3px;">
+                  <div style="width:7px;height:7px;border-radius:50%;background:#f59e0b;"></div>
+                  <div style="width:7px;height:7px;border-radius:50%;background:#f59e0b;"></div>
+                  <div style="width:7px;height:7px;border-radius:50%;background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.4);"></div>
+                </div>
+                <span style="font-size:10px;color:#f59e0b;font-weight:600;">2 of 3 picks left</span>
+              </div>
+              <div style="background:linear-gradient(135deg,#5545D3,#7c3aed);border-radius:10px;padding:8px 16px;cursor:pointer;">
+                <span style="font-size:12px;font-weight:900;color:#fff;">Pick Now →</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Friends activity — 2 rows only -->
+          <div style="margin:0 16px 6px;font-size:10px;font-weight:600;color:#8b949e;text-transform:uppercase;letter-spacing:.6px;">Friends</div>
+          <div style="margin:0 16px;display:flex;flex-direction:column;gap:4px;">
+            <div style="background:#161b22;border-radius:8px;border:1px solid #21262d;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;">B</div>
+              <div style="flex:1;font-size:11px;color:#f0f6fc;">BigMike picked OVER ✓</div>
+              <div style="font-size:11px;font-weight:700;color:#4ade80;">+196</div>
+            </div>
+            <div style="background:#161b22;border-radius:8px;border:1px solid #21262d;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;">S</div>
+              <div style="flex:1;font-size:11px;color:#94a3b8;">Sarah hasn't picked yet</div>
+              <div style="font-size:10px;color:#5545D3;font-weight:600;cursor:pointer;">Nudge</div>
+            </div>
+          </div>
+
+          <!-- 4-tab nav — V1 version -->
+          <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;margin-top:14px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 5px rgba(88,166,255,.7));">🏠</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">📊</span><span style="font-size:9px;color:#8b949e;">History</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Rank</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">V1 HOME — signal card + streak chip + 2 friend rows + "Pick Now" CTA · 4-tab nav</div>
+    </div><!-- /phone 1 -->
+
+    <!-- ── PHONE 2: V1 PICK CARD — inline multiplier, one screen ─── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>7:49 PM</span><span>🔋</span></div>
+
+          <!-- Pick header -->
+          <div style="padding:8px 16px 6px;display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="font-size:18px;cursor:pointer;color:#8b949e;">←</div>
+              <div>
+                <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Chiefs vs Eagles</div>
+                <div style="font-size:10px;color:#8b949e;">🏈 NFL · Window closes 1:42:33</div>
+              </div>
+            </div>
+            <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:14px;padding:4px 9px;display:flex;align-items:center;gap:4px;">
+              <div style="width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 4px #22c55e;"></div>
+              <span style="font-size:10px;color:#22c55e;font-weight:700;">Live</span>
+            </div>
+          </div>
+
+          <!-- Prop line -->
+          <div style="margin:0 16px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;">
+            <div style="font-size:10px;color:#8b949e;margin-bottom:3px;">Patrick Mahomes · Passing Yards</div>
+            <div style="font-size:32px;font-weight:900;color:#f0f6fc;letter-spacing:-1px;">284.5</div>
+            <div style="font-size:10px;color:#8b949e;margin-top:1px;">Season avg: 297.4 · Last 5: 312.2</div>
+          </div>
+
+          <!-- Signal -->
+          <div style="margin:0 16px 8px;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(245,158,11,0.03));border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:10px 14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:10px;color:#f59e0b;font-weight:700;letter-spacing:1px;margin-bottom:3px;">SPORTSIQ SIGNAL</div>
+                <div style="font-size:15px;font-weight:900;color:#f0f6fc;">Leaning <span style="color:#22c55e;">OVER ↑</span></div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:16px;font-weight:900;color:#22c55e;">63%</div>
+                <div style="font-size:9px;color:#8b949e;">crowd OVER</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pick buttons -->
+          <div style="display:flex;gap:10px;padding:0 16px 10px;">
+            <div style="flex:1;background:linear-gradient(135deg,rgba(34,197,94,0.18),rgba(34,197,94,0.07));border:2.5px solid rgba(34,197,94,0.5);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#22c55e;">OVER</div>
+              <div style="font-size:10px;color:#8b949e;margin-top:2px;">284.5+ yds</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#f0f6fc;">UNDER</div>
+              <div style="font-size:10px;color:#8b949e;margin-top:2px;">284.4 or less</div>
+            </div>
+          </div>
+
+          <!-- ★ INLINE MULTIPLIER — no bottom sheet, same screen -->
+          <div style="margin:0 16px 10px;">
+            <div style="color:#64748b;font-size:10px;font-weight:600;margin-bottom:6px;">IQ STAKE</div>
+            <div style="display:flex;gap:8px;">
+
+              <!-- 1× -->
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 8px;text-align:center;cursor:pointer;">
+                <div style="font-size:15px;font-weight:900;color:#94a3b8;">1×</div>
+                <div style="font-size:9px;color:#475569;margin-top:2px;">+100/-50</div>
+              </div>
+
+              <!-- 2× — MAX FREE, selected -->
+              <div style="flex:1;background:linear-gradient(135deg,rgba(85,69,211,0.18),rgba(85,69,211,0.08));border:2px solid rgba(85,69,211,0.55);border-radius:12px;padding:10px 8px;text-align:center;cursor:pointer;">
+                <div style="font-size:15px;font-weight:900;color:#a78bfa;">2×</div>
+                <div style="font-size:9px;color:#6d5ef0;font-weight:700;margin-top:2px;">+200/-100</div>
+                <div style="font-size:8px;color:#5545D3;font-weight:700;margin-top:1px;">MAX FREE</div>
+              </div>
+
+              <!-- 5× — locked -->
+              <div style="flex:1;background:rgba(245,158,11,0.04);border:1px dashed rgba(245,158,11,0.22);border-radius:12px;padding:10px 8px;text-align:center;cursor:pointer;opacity:0.6;">
+                <div style="font-size:15px;font-weight:900;color:#78716c;">5×</div>
+                <div style="font-size:9px;color:#57534e;margin-top:2px;">+500/-250</div>
+                <div style="font-size:8px;color:#f59e0b;font-weight:700;margin-top:1px;">⚡ PRO</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Lock In CTA + free picks counter -->
+          <div style="padding:0 16px 10px;">
+            <div style="background:linear-gradient(135deg,#5545D3,#7c3aed);border-radius:14px;padding:14px;text-align:center;cursor:pointer;margin-bottom:8px;">
+              <div style="color:#fff;font-size:16px;font-weight:900;">Lock In · 2× · OVER</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:10px;margin-top:2px;">Win +200 IQ · Lose -100 IQ · Final Whistle</div>
+            </div>
+            <div style="text-align:center;">
+              <span style="font-size:10px;color:#475569;">2 of 3 picks remaining today</span>
+            </div>
+          </div>
+
+          <!-- Bottom nav -->
+          <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;margin-top:auto;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(88,166,255,.6));">📊</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">History</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Rank</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">V1 PICK CARD — signal + OVER/UNDER + inline 1×/2×/5×(locked) · ONE screen, no sheets</div>
+    </div><!-- /phone 2 -->
+
+    <!-- ── PHONE 3: V1 PICK RESULT — tight win state ───────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#64748b;"><span>9:43 PM</span><span>🔋</span></div>
+
+          <!-- Win state — big celebration -->
+          <div style="padding:20px 20px 0;text-align:center;">
+            <div style="font-size:48px;margin-bottom:4px;">🏆</div>
+            <div style="font-size:13px;font-weight:700;color:#4ade80;letter-spacing:2px;margin-bottom:4px;">CORRECT PICK</div>
+            <div style="font-size:26px;font-weight:900;color:#f8fafc;letter-spacing:-1px;margin-bottom:2px;">Mahomes · 297 yds</div>
+            <div style="font-size:13px;color:#64748b;">OVER 284.5 ✓ · Your pick</div>
+          </div>
+
+          <!-- IQ earned — big -->
+          <div style="margin:16px 20px;background:linear-gradient(135deg,rgba(34,197,94,0.12),rgba(34,197,94,0.04));border:1.5px solid rgba(34,197,94,0.3);border-radius:16px;padding:16px;text-align:center;">
+            <div style="color:#64748b;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:4px;">IQ EARNED</div>
+            <div style="color:#22c55e;font-size:40px;font-weight:900;line-height:1;letter-spacing:-1px;">+200</div>
+            <div style="color:#4ade80;font-size:11px;margin-top:4px;">2× multiplier · 2,650 IQ total · #44 Today (↑3)</div>
+          </div>
+
+          <!-- Streak + crowd beat -->
+          <div style="display:flex;gap:10px;margin:0 20px 14px;">
+            <div style="flex:1;background:rgba(248,81,73,0.08);border:1px solid rgba(248,81,73,0.2);border-radius:12px;padding:10px;text-align:center;">
+              <div style="font-size:20px;margin-bottom:2px;">🔥</div>
+              <div style="color:#f85149;font-size:14px;font-weight:900;">5 streak</div>
+              <div style="color:#64748b;font-size:9px;">+1 tonight</div>
+            </div>
+            <div style="flex:1;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:12px;padding:10px;text-align:center;">
+              <div style="font-size:20px;margin-bottom:2px;">👥</div>
+              <div style="color:#a78bfa;font-size:14px;font-weight:900;">Top 37%</div>
+              <div style="color:#64748b;font-size:9px;">beat the crowd</div>
+            </div>
+          </div>
+
+          <!-- Share + Home CTAs -->
+          <div style="padding:0 20px 12px;display:flex;flex-direction:column;gap:8px;">
+            <div style="background:linear-gradient(135deg,#5545D3,#7c3aed);border-radius:14px;padding:13px;text-align:center;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+              <span style="font-size:14px;">📤</span>
+              <span style="color:#fff;font-size:14px;font-weight:800;">Share Win</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:11px;text-align:center;cursor:pointer;">
+              <span style="color:#94a3b8;font-size:13px;font-weight:600;">Back to Home</span>
+            </div>
+          </div>
+
+          <!-- Bottom nav -->
+          <div style="background:#0d1117;border-top:1px solid #161b22;display:flex;justify-content:space-around;padding:10px 0 20px;margin-top:auto;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">📊</span><span style="font-size:9px;color:#8b949e;">History</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Rank</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">V1 PICK RESULT — +200 IQ · 5-streak · rank moved ↑3 · Share Win + Back to Home</div>
+    </div><!-- /phone 3 -->
+
+  </div>
+  <div id="sfb-panel-v1-launch" class="sfb-panel"></div>
+</div><!-- /screen v1-launch -->
+
 <div id="home-live" class="screen active">
   <div class="phone-wrap">
 
@@ -5036,6 +5362,8 @@
     'home-idle-v6':        '2026-03-22T20:00:00-07:00',
     // ── Mar 22 autonomous loop — Pick Card v5: archetype edge · multiplier selector · 2× free / 5× Pro ──
     'pick-card-v5':        '2026-03-22T21:00:00-07:00',
+    // ── Mar 22 — V1 Launch Spec: condensed core loop per Mark's "simple, no friction, addictive" directive ──
+    'v1-launch':           '2026-03-22T22:00:00-07:00',
     // ── Mar 21 4:30 PM PT — stats/leaderboard/DNA/referral (032–035) ──
     'leaderboard-v3':      '2026-03-21T16:30:00-07:00',
     'leaderboard-v4':      '2026-03-21T20:00:00-07:00',
@@ -5598,6 +5926,17 @@
         'Personalized props feed vs. full schedule — should there always be a "See all sports" option, or keep it fully personalized with no override?',
         'SportsIQ Signal Preview teaser — should the preview hint at the signal direction ("Signal leans OVER") or just say "signal available" to tease without fully spoiling?',
         'Friends activity strip: show trivia wins alongside pick wins, or keep them separate (pick feed on home, trivia feed on trivia screen)?'
+      ]
+    },
+    'v1-launch': {
+      icon: '🚀',
+      title: 'V1 Launch Spec — Condensed Core Loop · Simple · No Friction · Addictive · Mar 22 2026',
+      built: 'Built in response to Mark\'s directive: "Easy to use, simple, no friction, addictive. If the app is huge or complicated it might deter or slow down adoption." Three phones showing the complete V1 experience. Core principle: Home → Pick Card → Pick Result. That\'s the game. The critical simplification vs. v5: the multiplier selector is INLINE on the pick card (1× / 2× as toggle buttons under the OVER/UNDER), not a separate bottom sheet. User sees the entire pick in one screen, no steps. V1 features: (1) Home — game window countdown + signal lean + streak chip + rank chip + 2 friend picks. Nothing else. Trivia/challenges/stats all stripped. (2) Pick Card — signal + OVER/UNDER + inline 1×/2× toggle + Lock In. One screen, 2 taps to pick. (3) Pick Result — win/loss + IQ delta + share. What\'s intentionally NOT in V1: full leaderboard tab (just rank chip in header), Friends Feed tab (just 2-row strip on home), Daily Challenge tab (streak card on home), Sports DNA/Prop Coach (V3), Bar Mode (V2), Challenges (V2), full Stats screen (V2). V2 adds social. V3 adds intelligence. V4 adds venue.',
+      questions: [
+        'Free picks per day: 3 (hits paywall faster) or 5 (more habit forms before the ask)? Needs a definitive answer before Isaac builds the counter.',
+        'V1 nav: 4 tabs (Home / History / Rank / Profile) or 3 tabs (Home / Picks / Profile)? Fewer tabs = cleaner. The pick card could be a modal that fires from Home, removing the Picks tab entirely.',
+        'For V1 launch: should the multiplier default to 1× (lower risk for new users) or 2× (higher dopamine on first win)? Auto-defaulting to 2× means the first win feels bigger — critical for hook.',
+        'Approval question: does this V1 spec match your vision? Once you approve, I\'ll update every existing screen to have a V1/V2/V3 label so Isaac knows what to build first.'
       ]
     },
     'pick-card-v5': {
