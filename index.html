@@ -1862,8 +1862,8 @@
     <div class="tab tab-review" data-screen="my-stats-v3" onclick="showScreen('my-stats-v3',this)">
       <span class="tab-label">My Stats</span><span class="tab-days" id="days-my-stats-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="leaderboard-v4" onclick="showScreen('leaderboard-v4',this)">
-      <span class="tab-label">Leaderboard</span><span class="tab-days" id="days-leaderboard-v4"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="leaderboard-v5" onclick="showScreen('leaderboard-v5',this)">
+      <span class="tab-label">Leaderboard</span><span class="tab-days" id="days-leaderboard-v5"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="sports-dna-v3" onclick="showScreen('sports-dna-v3',this)">
       <span class="tab-label">Sports DNA</span><span class="tab-days" id="days-sports-dna-v3"></span><span class="review-dot"></span>
@@ -1903,7 +1903,7 @@
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 34 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 35 previous versions</summary>
       <div class="tab tab-archived" data-screen="sportsiq-pro-v2" onclick="showScreen('sportsiq-pro-v2',this)">
         <span class="tab-label">SportsIQ Pro v2</span><span class="tab-days" id="days-sportsiq-pro-v2-arc"></span>
       </div>
@@ -1954,6 +1954,9 @@
       </div>
       <div class="tab tab-archived" data-screen="my-stats-v2" onclick="showScreen('my-stats-v2',this)">
         <span class="tab-label">My Stats v2</span><span class="tab-days" id="days-my-stats-v2-arc"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="leaderboard-v4" onclick="showScreen('leaderboard-v4',this)">
+        <span class="tab-label">Leaderboard v4</span><span class="tab-days" id="days-leaderboard-v4-arc"></span>
       </div>
       <div class="tab tab-archived" data-screen="leaderboard-v3" onclick="showScreen('leaderboard-v3',this)">
         <span class="tab-label">Leaderboard v3</span><span class="tab-days" id="days-leaderboard-v3-arc"></span>
@@ -5377,6 +5380,8 @@
     // ── Mar 21 4:30 PM PT — stats/leaderboard/DNA/referral (032–035) ──
     'leaderboard-v3':      '2026-03-21T16:30:00-07:00',
     'leaderboard-v4':      '2026-03-21T20:00:00-07:00',
+    // ── Mar 22 autonomous loop — Leaderboard v5: V1 Rank tab, combined rank+history ──
+    'leaderboard-v5':      '2026-03-22T11:00:00-07:00',
     'sports-dna-v2':       '2026-03-21T16:30:00-07:00',
     'sports-dna-v3':       '2026-03-22T22:00:00-07:00',
     'referral-v2':         '2026-03-21T16:30:00-07:00',
@@ -27331,6 +27336,286 @@
   </div><!-- /phone-wrap -->
   <div id="sfb-panel-sportsiq-pro-v3" class="sfb-panel"></div>
 </div><!-- /screen sportsiq-pro-v3 -->
+
+
+<!-- ============================================================
+     LEADERBOARD v5 — V1 Rank tab · Rank + History combined
+     Mar 22 2026 · Autonomous loop
+
+     Mark directive: "condense and combine where possible"
+     v4 had: IQ pools, rake display, 3 sub-tabs, rivalry engine,
+             weekly payouts — too complex for V1.
+
+     v5 = ONE screen, TWO jobs: your rank + your pick history.
+     No sub-tabs. No IQ rake. Instant read.
+     This is the Rank tab in the 4-tab V1 nav.
+     ============================================================ -->
+<div id="leaderboard-v5" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">🏆 Leaderboard v5 — V1 Rank Tab · Rank + History combined</div>
+    <div class="screen-desc">Mar 22 2026 · Applying Mark's "condense and combine" directive. V4 was pre-simplicity: IQ pools, 30% rake display, 3 sub-tabs, rivalry engine — too much cognitive load for V1. V5 collapses the Rank tab AND the History tab into one screen. Top half: your rank card (archetype badge + rank number + one rival). Bottom half: your last 5 picks with won/lost/pending status + IQ earned. No sub-tabs. No IQ pool. Instant scan. This IS the Rank tab in the V1 4-tab nav.</div>
+  </div>
+
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: Rank tab — your position + your rival ─────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow-y:auto;">
+
+          <!-- Status bar -->
+          <div style="padding:44px 18px 4px;display:flex;justify-content:space-between;font-size:11px;color:#475569;flex-shrink:0;">
+            <span>9:41</span><span>🔋</span>
+          </div>
+
+          <!-- Header -->
+          <div style="padding:4px 18px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:20px;font-weight:900;color:#f0f6fc;">Rank</div>
+            <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:4px 10px;font-size:10px;color:#64748b;font-weight:600;">Week 12 · Sun</div>
+          </div>
+
+          <!-- YOUR RANK CARD -->
+          <div style="margin:0 14px 14px;background:linear-gradient(135deg,rgba(85,69,211,0.18),rgba(85,69,211,0.06));border:1.5px solid rgba(85,69,211,0.4);border-radius:20px;padding:18px;flex-shrink:0;">
+
+            <!-- Archetype + rank number -->
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+              <div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 20px rgba(85,69,211,0.4);">
+                <span style="font-size:24px;">🏟️</span>
+              </div>
+              <div style="flex:1;">
+                <div style="color:#a78bfa;font-size:11px;font-weight:800;letter-spacing:0.5px;">THE DOME KING</div>
+                <div style="color:#f0f6fc;font-size:22px;font-weight:900;letter-spacing:-0.5px;">#847</div>
+              </div>
+              <!-- Rank movement -->
+              <div style="text-align:right;">
+                <div style="color:#22c55e;font-size:16px;font-weight:900;">↑12</div>
+                <div style="color:#64748b;font-size:10px;">this week</div>
+              </div>
+            </div>
+
+            <!-- Stats row -->
+            <div style="display:flex;gap:0;border:1px solid rgba(255,255,255,0.07);border-radius:12px;overflow:hidden;margin-bottom:14px;">
+              <div style="flex:1;padding:9px 6px;text-align:center;border-right:1px solid rgba(255,255,255,0.07);">
+                <div style="color:#f0f6fc;font-size:14px;font-weight:900;">2,840</div>
+                <div style="color:#475569;font-size:9px;font-weight:600;">IQ</div>
+              </div>
+              <div style="flex:1;padding:9px 6px;text-align:center;border-right:1px solid rgba(255,255,255,0.07);">
+                <div style="color:#f0f6fc;font-size:14px;font-weight:900;">🔥 5</div>
+                <div style="color:#475569;font-size:9px;font-weight:600;">STREAK</div>
+              </div>
+              <div style="flex:1;padding:9px 6px;text-align:center;border-right:1px solid rgba(255,255,255,0.07);">
+                <div style="color:#f0f6fc;font-size:14px;font-weight:900;">67%</div>
+                <div style="color:#475569;font-size:9px;font-weight:600;">WIN RATE</div>
+              </div>
+              <div style="flex:1;padding:9px 6px;text-align:center;">
+                <div style="color:#f0f6fc;font-size:14px;font-weight:900;">Top 7%</div>
+                <div style="color:#475569;font-size:9px;font-weight:600;">GLOBAL</div>
+              </div>
+            </div>
+
+            <!-- Beat your rival CTA -->
+            <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">🎯</div>
+              <div style="flex:1;">
+                <div style="color:#fbbf24;font-size:11px;font-weight:800;">Beat MikeT to move up</div>
+                <div style="color:#64748b;font-size:10px;">He's #846 · 60 IQ ahead of you · 64% win rate</div>
+              </div>
+              <div style="color:#fbbf24;font-size:18px;">›</div>
+            </div>
+          </div>
+
+          <!-- PICKS AROUND YOU section label -->
+          <div style="padding:0 18px 8px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <div style="color:#475569;font-size:10px;font-weight:700;letter-spacing:1.5px;">AROUND YOU</div>
+            <div style="flex:1;height:1px;background:rgba(255,255,255,0.05);"></div>
+          </div>
+
+          <!-- Rank rows: 3 above + you + 2 below -->
+          <div style="padding:0 14px;display:flex;flex-direction:column;gap:6px;flex-shrink:0;">
+
+            <!-- #845 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);">
+              <div style="color:#64748b;font-size:11px;font-weight:700;width:28px;text-align:right;">#845</div>
+              <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#1e3a5f,#2563eb);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">⚡</div>
+              <div style="flex:1;"><div style="color:#94a3b8;font-size:12px;font-weight:700;">SharpShooter</div><div style="color:#475569;font-size:10px;">3,010 IQ · 71%</div></div>
+              <div style="color:#64748b;font-size:10px;">🔥4</div>
+            </div>
+
+            <!-- #846 RIVAL -->
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);">
+              <div style="color:#fbbf24;font-size:11px;font-weight:700;width:28px;text-align:right;">#846</div>
+              <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#78350f,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🎯</div>
+              <div style="flex:1;"><div style="color:#fbbf24;font-size:12px;font-weight:800;">MikeT <span style="color:#64748b;font-size:9px;font-weight:400;">← beat him</span></div><div style="color:#64748b;font-size:10px;">2,900 IQ · 64%</div></div>
+              <div style="color:#fbbf24;font-size:10px;">🔥2</div>
+            </div>
+
+            <!-- YOU — highlighted -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:rgba(85,69,211,0.15);border:1.5px solid rgba(85,69,211,0.45);">
+              <div style="color:#818cf8;font-size:11px;font-weight:900;width:28px;text-align:right;">#847</div>
+              <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🏟️</div>
+              <div style="flex:1;"><div style="color:#f0f6fc;font-size:13px;font-weight:900;">You · Dome King</div><div style="color:#64748b;font-size:10px;">2,840 IQ · 67%</div></div>
+              <div style="color:#22c55e;font-size:11px;font-weight:700;">↑12</div>
+            </div>
+
+            <!-- #848 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);">
+              <div style="color:#64748b;font-size:11px;font-weight:700;width:28px;text-align:right;">#848</div>
+              <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#1c1c1c,#374151);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🦅</div>
+              <div style="flex:1;"><div style="color:#94a3b8;font-size:12px;font-weight:700;">Contrarian99</div><div style="color:#475569;font-size:10px;">2,790 IQ · 61%</div></div>
+              <div style="color:#64748b;font-size:10px;">—</div>
+            </div>
+
+            <!-- #849 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);">
+              <div style="color:#64748b;font-size:11px;font-weight:700;width:28px;text-align:right;">#849</div>
+              <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#1a2e1a,#16a34a);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🌧️</div>
+              <div style="flex:1;"><div style="color:#94a3b8;font-size:12px;font-weight:700;">RainKing</div><div style="color:#475569;font-size:10px;">2,720 IQ · 58%</div></div>
+              <div style="color:#f87171;font-size:10px;">↓3</div>
+            </div>
+
+          </div>
+
+          <!-- MY PICKS section -->
+          <div style="padding:16px 18px 8px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <div style="color:#475569;font-size:10px;font-weight:700;letter-spacing:1.5px;">MY RECENT PICKS</div>
+            <div style="flex:1;height:1px;background:rgba(255,255,255,0.05);"></div>
+          </div>
+
+          <div style="padding:0 14px 24px;display:flex;flex-direction:column;gap:6px;">
+
+            <!-- Pick row: WON -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);">
+              <div style="width:8px;height:8px;border-radius:4px;background:#22c55e;flex-shrink:0;"></div>
+              <div style="flex:1;"><div style="color:#f0f6fc;font-size:12px;font-weight:700;">KC -6.5</div><div style="color:#475569;font-size:10px;">Chiefs vs Chargers · NFL</div></div>
+              <div style="text-align:right;"><div style="color:#22c55e;font-size:12px;font-weight:800;">+200 IQ</div><div style="color:#475569;font-size:9px;">2× · Won</div></div>
+            </div>
+
+            <!-- Pick row: WON -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);">
+              <div style="width:8px;height:8px;border-radius:4px;background:#22c55e;flex-shrink:0;"></div>
+              <div style="flex:1;"><div style="color:#f0f6fc;font-size:12px;font-weight:700;">BUF -3.5</div><div style="color:#475569;font-size:10px;">Bills vs Dolphins · NFL</div></div>
+              <div style="text-align:right;"><div style="color:#22c55e;font-size:12px;font-weight:800;">+100 IQ</div><div style="color:#475569;font-size:9px;">1× · Won</div></div>
+            </div>
+
+            <!-- Pick row: LOST -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);">
+              <div style="width:8px;height:8px;border-radius:4px;background:#f87171;flex-shrink:0;"></div>
+              <div style="flex:1;"><div style="color:#94a3b8;font-size:12px;font-weight:700;">GB +4.5</div><div style="color:#475569;font-size:10px;">Packers vs Bears · NFL</div></div>
+              <div style="text-align:right;"><div style="color:#f87171;font-size:12px;font-weight:800;">−100 IQ</div><div style="color:#475569;font-size:9px;">1× · Lost</div></div>
+            </div>
+
+            <!-- Pick row: PENDING -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:rgba(129,140,248,0.06);border:1px solid rgba(129,140,248,0.2);">
+              <div style="width:8px;height:8px;border-radius:4px;background:#818cf8;flex-shrink:0;animation:pulse 2s infinite;"></div>
+              <div style="flex:1;"><div style="color:#f0f6fc;font-size:12px;font-weight:700;">SF -2.5</div><div style="color:#475569;font-size:10px;">49ers vs Seahawks · Pending</div></div>
+              <div style="text-align:right;"><div style="color:#818cf8;font-size:12px;font-weight:800;">+200 IQ</div><div style="color:#475569;font-size:9px;">2× · Live now</div></div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">RANK TAB · Rank card + rival + picks around you + recent picks history</div>
+    </div>
+
+    <!-- ── PHONE 2: Global top 10 — simple scroll ─────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow-y:auto;">
+
+          <div style="padding:44px 18px 4px;display:flex;justify-content:space-between;font-size:11px;color:#475569;">
+            <span>9:41</span><span>🔋</span>
+          </div>
+
+          <div style="padding:4px 18px 10px;display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:20px;font-weight:900;color:#f0f6fc;">Rank</div>
+            <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:4px 10px;font-size:10px;color:#64748b;font-weight:600;">Week 12 · Sun</div>
+          </div>
+
+          <!-- Toggle: My Rank / Global -->
+          <div style="margin:0 14px 14px;display:flex;background:rgba(255,255,255,0.04);border-radius:10px;padding:3px;">
+            <div style="flex:1;padding:7px;text-align:center;font-size:11px;color:#64748b;font-weight:600;">My Rank</div>
+            <div style="flex:1;background:#5545D3;border-radius:8px;padding:7px;text-align:center;font-size:11px;font-weight:700;color:#fff;">Global Top</div>
+          </div>
+
+          <!-- You at a glance -->
+          <div style="margin:0 14px 12px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.3);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:18px;">🏟️</span>
+            <div style="flex:1;color:#a78bfa;font-size:12px;font-weight:800;">You are #847 globally</div>
+            <div style="color:#22c55e;font-size:12px;font-weight:700;">↑12 this week</div>
+          </div>
+
+          <!-- Global top 10 -->
+          <div style="padding:0 14px;display:flex;flex-direction:column;gap:5px;">
+
+            <!-- #1 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);">
+              <div style="font-size:16px;">🥇</div>
+              <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#78350f,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:16px;">👑</div>
+              <div style="flex:1;"><div style="color:#fbbf24;font-size:13px;font-weight:900;">TheGOAT</div><div style="color:#64748b;font-size:10px;">8,240 IQ · 84% win rate</div></div>
+              <div style="color:#fbbf24;font-size:10px;font-weight:700;">🔥12</div>
+            </div>
+
+            <!-- #2 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;background:rgba(255,255,255,0.03);">
+              <div style="font-size:14px;">🥈</div>
+              <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#1e3a5f,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:14px;">⚡</div>
+              <div style="flex:1;"><div style="color:#f0f6fc;font-size:12px;font-weight:700;">BlitzPicker</div><div style="color:#475569;font-size:10px;">7,890 IQ · 81%</div></div>
+              <div style="color:#64748b;font-size:10px;">🔥9</div>
+            </div>
+
+            <!-- #3 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;background:rgba(255,255,255,0.03);">
+              <div style="font-size:14px;">🥉</div>
+              <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#1a2e1a,#16a34a);display:flex;align-items:center;justify-content:center;font-size:14px;">🌊</div>
+              <div style="flex:1;"><div style="color:#f0f6fc;font-size:12px;font-weight:700;">TidalWave</div><div style="color:#475569;font-size:10px;">7,440 IQ · 78%</div></div>
+              <div style="color:#64748b;font-size:10px;">🔥7</div>
+            </div>
+
+            <!-- #4–6 collapsed style -->
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.02);">
+                <div style="color:#475569;font-size:11px;font-weight:700;width:20px;">#4</div>
+                <div style="width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:12px;">🦅</div>
+                <div style="flex:1;color:#94a3b8;font-size:11px;font-weight:600;">EagleEye · 7,120 IQ</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.02);">
+                <div style="color:#475569;font-size:11px;font-weight:700;width:20px;">#5</div>
+                <div style="width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:12px;">🏔️</div>
+                <div style="flex:1;color:#94a3b8;font-size:11px;font-weight:600;">MountainTop · 6,890 IQ</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.02);">
+                <div style="color:#475569;font-size:11px;font-weight:700;width:20px;">#6</div>
+                <div style="width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:12px;">🌙</div>
+                <div style="flex:1;color:#94a3b8;font-size:11px;font-weight:600;">NightOwl · 6,540 IQ</div>
+              </div>
+            </div>
+
+            <!-- Gap indicator -->
+            <div style="text-align:center;padding:8px;color:#2d3748;font-size:11px;letter-spacing:1px;">• • •</div>
+
+            <!-- You highlighted at #847 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:rgba(85,69,211,0.15);border:1.5px solid rgba(85,69,211,0.4);">
+              <div style="color:#818cf8;font-size:11px;font-weight:900;width:28px;">#847</div>
+              <div style="width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:14px;">🏟️</div>
+              <div style="flex:1;"><div style="color:#f0f6fc;font-size:12px;font-weight:900;">You · Dome King</div><div style="color:#64748b;font-size:10px;">2,840 IQ · 67%</div></div>
+              <div style="color:#22c55e;font-size:11px;font-weight:700;">↑12</div>
+            </div>
+
+          </div>
+
+          <div style="height:24px;"></div>
+
+        </div>
+      </div>
+      <div class="phone-label">GLOBAL VIEW · My Rank / Global toggle · Top 10 + your position</div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+  <div id="sfb-panel-leaderboard-v5" class="sfb-panel"></div>
+</div><!-- /screen leaderboard-v5 -->
 
 
 </body>
