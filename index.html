@@ -1854,6 +1854,9 @@
     <div class="tab tab-review" data-screen="game-day-v3" onclick="showScreen('game-day-v3',this)">
       <span class="tab-label">Game Day</span><span class="tab-days" id="days-game-day-v3"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="game-day-v4" onclick="showScreen('game-day-v4',this)">
+      <span class="tab-label">Game Day v4</span><span class="tab-days" id="days-game-day-v4"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="notifications-v2" onclick="showScreen('notifications-v2',this)">
       <span class="tab-label">Notifications</span><span class="tab-days" id="days-notifications-v2"></span><span class="review-dot"></span>
     </div>
@@ -4104,8 +4107,8 @@
     "date": "2026-03-22",
     "source": "inbox",
     "idea": "[game-day-v3] 1. replace 2. striking distance 3. we dont want venue owner to do anything",
-    "status": "noted",
-    "claude_response": "Got it. Game Day v4: Session Hub REPLACES the Home screen when a session is active (not stacked on top). Path to First math only visible within striking distance of #1. Clutch Pick is automatic — no venue owner trigger needed, fires based on time/score data. I'll build this as game-day-v4.",
+    "status": "done",
+    "claude_response": "Built Game Day v4. 3 phones: (1) Session Hub as full Home replacement — rank (#4 of 28), session IQ, mini leaderboard top 3 + you, active picks with live status, Next Pick CTA. This IS your home screen when a session is active. (2) Clutch Pick auto-fires — close game detected (Chiefs 21 Eagles 20, Q4 1:47, within 1 pt). Card slides up from bottom with 3× multiplier, 90-second lock window, crowd split, skip option. Zero venue owner involvement. Trigger conditions: within 3 pts in final 12 min, or Q4 under 2 min. (3) Path to First within striking distance — 180 IQ behind #1 BetKing (1,220 vs 1,400). Shows the math: 'Win 1 pick at 2× = +400 IQ — one win covers the gap'. Shows best available pick. Info note explains it only appears within 500 IQ of #1.",
     "mark_reply": ""
   },
   {
@@ -4840,6 +4843,7 @@
     'daily-challenge-v3':  '2026-03-21T15:30:00-07:00',
     'daily-challenge-v4':  '2026-03-22T12:00:00-07:00',
     'game-day-v3':         '2026-03-21T15:30:00-07:00',
+    'game-day-v4':         '2026-03-22T14:00:00-07:00',
     'notifications-v2':    '2026-03-21T15:30:00-07:00',
     // ── Mar 21 4:30 PM PT — stats/leaderboard/DNA/referral (032–035) ──
     'leaderboard-v3':      '2026-03-21T16:30:00-07:00',
@@ -5440,6 +5444,16 @@
         'Share card shows picks that could spoil friends\' daily challenge — is this the right call, or should we add a "Spoiler toggle" (hide picks until friend completes)?',
         '6pm local expiry: does this feel right for NFL Sunday (games start 1pm ET)? Should weekend expiry extend to 10pm to catch evening games?',
         'Streak At Risk: auto-push notification at 1 hour before expiry, or let the app badge handle it silently?'
+      ]
+    },
+    'game-day-v4': {
+      icon: '🏟️',
+      title: 'Game Day v4 — Session Hub Replaces Home · Auto Clutch Pick · Striking Distance Path',
+      built: 'v4 applies Mark\'s decisions: (1) Session Hub REPLACES Home during active sessions — not stacked on top. When a session is active, opening the app shows the Session Hub directly. (2) Path to First math only appears within striking distance of #1 — I set the threshold at 500 IQ gap (roughly 2 picks away). Outside that range, show rank only. Inside, show the full math. (3) Clutch Pick is fully automatic — no venue owner trigger. System fires it when: game is within 3 pts in final 12 minutes OR 4th quarter with less than 2 min. Dramatic moment = auto-trigger. 3 phones: (1) Session Hub as Home replacement — live picks, bar leaderboard, session timer. (2) Clutch Pick auto-fires — close game detected, card slides up. (3) Path to First within striking distance — 180 IQ behind #1, math shown.',
+      questions: [
+        'Session Hub replaces Home — what should happen to Home content? Deferred to post-session, or home becomes a "Sessions" tab?',
+        'Striking distance threshold: I set it at 500 IQ (roughly 2 picks away). Does that feel right, or should it be tighter (e.g., 300 IQ / 1 pick away)?',
+        'Clutch Pick auto-trigger: should users be able to opt out of Clutch Picks, or is it mandatory for everyone in-session?'
       ]
     },
     'game-day-v3': {
@@ -18194,6 +18208,290 @@
 
   </div>
   <div id="sfb-panel-game-day-v3" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Game Day v4 — 2026-03-22 — Session Hub replaces Home, auto Clutch Pick, striking distance Path to First
+     Ideas answered: 060 (replace Home, striking distance, no venue owner trigger)
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="game-day-v4" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Game Day v4 — Session Hub Replaces Home · Auto Clutch Pick · Striking Distance Path to First</div>
+    <div class="screen-subtitle">Mark's decisions applied: Session Hub replaces Home entirely during active sessions. Path to First math only shows within 500 IQ of #1. Clutch Pick auto-fires when game is within 3 pts in final 12 minutes — no venue owner needed.</div>
+  </div>
+
+  <div class="phones-row">
+
+    <!-- PHONE 1: Session Hub — replaces Home during active session -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#060d1f;">
+              <span style="font-size:11px;color:#475569;font-weight:600;">8:47 PM</span>
+              <span style="font-size:10px;color:#4ade80;font-weight:800;letter-spacing:1px;">SESSION LIVE</span>
+              <span style="font-size:9px;color:#475569;">●●●●</span>
+            </div>
+
+            <!-- Session identity bar -->
+            <div style="padding:4px 16px 8px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:14px;font-weight:900;color:#f1f5f9;">Rookie's Bar</div>
+                <div style="font-size:10px;color:#475569;">Q3 · 4:22 · Chiefs 17 — Eagles 14</div>
+              </div>
+              <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:20px;padding:4px 10px;">
+                <div style="font-size:10px;color:#a78bfa;font-weight:700;">28 players here</div>
+              </div>
+            </div>
+
+            <!-- Your session rank — hero row -->
+            <div style="margin:0 12px;background:linear-gradient(135deg,rgba(139,92,246,0.18),rgba(124,58,237,0.1));border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;padding:12px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="font-size:10px;color:#64748b;font-weight:600;letter-spacing:1px;">YOUR RANK</div>
+                  <div style="display:flex;align-items:baseline;gap:6px;margin-top:2px;">
+                    <div style="font-size:30px;font-weight:900;color:#f1f5f9;line-height:1;">#4</div>
+                    <div style="font-size:12px;color:#a78bfa;font-weight:700;">of 28</div>
+                  </div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:10px;color:#64748b;font-weight:600;">SESSION IQ</div>
+                  <div style="font-size:24px;font-weight:900;color:#4ade80;line-height:1.1;">+850</div>
+                </div>
+              </div>
+              <!-- Mini leaderboard: top 3 + you -->
+              <div style="margin-top:10px;display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="font-size:10px;color:#f59e0b;font-weight:800;width:14px;">🥇</span>
+                    <span style="font-size:11px;color:#94a3b8;">BetKing</span>
+                  </div>
+                  <span style="font-size:11px;color:#f1f5f9;font-weight:700;">1,400</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="font-size:10px;color:#94a3b8;font-weight:800;width:14px;">#2</span>
+                    <span style="font-size:11px;color:#94a3b8;">SarahK</span>
+                  </div>
+                  <span style="font-size:11px;color:#f1f5f9;font-weight:700;">1,100</span>
+                </div>
+                <div style="height:1px;background:rgba(255,255,255,0.05);margin:2px 0;"></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="font-size:10px;color:#a78bfa;font-weight:800;width:14px;">#4</span>
+                    <span style="font-size:11px;color:#a78bfa;font-weight:700;">You</span>
+                  </div>
+                  <span style="font-size:11px;color:#a78bfa;font-weight:800;">850</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Active picks -->
+            <div style="padding:10px 12px 0;">
+              <div style="font-size:10px;font-weight:700;color:#475569;letter-spacing:1.5px;margin-bottom:7px;">YOUR PICKS</div>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;">
+                  <div>
+                    <div style="font-size:11px;color:#f1f5f9;font-weight:600;">Mahomes Pass Yds OVER 284.5</div>
+                    <div style="font-size:10px;color:#4ade80;">Settled · 312 yds · +200 IQ ✓</div>
+                  </div>
+                  <div style="width:22px;height:22px;border-radius:50%;background:#4ade80;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#000;">✓</div>
+                </div>
+                <div style="background:rgba(139,92,246,0.1);border:1.5px solid rgba(139,92,246,0.3);border-radius:10px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;">
+                  <div>
+                    <div style="font-size:11px;color:#f1f5f9;font-weight:600;">DeVonta Smith Rec OVER 4.5</div>
+                    <div style="font-size:10px;color:#a78bfa;">Live · 3 catches so far · Q3</div>
+                  </div>
+                  <div style="background:rgba(139,92,246,0.2);border-radius:20px;padding:2px 7px;font-size:9px;color:#a78bfa;font-weight:700;">LIVE</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Next pick CTA -->
+            <div style="padding:10px 12px 12px;margin-top:auto;">
+              <div style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:13px;padding:12px;text-align:center;">
+                <div style="font-size:13px;font-weight:800;color:#fff;">Next Pick Available →</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.7);margin-top:2px;">Hurts Rush Yds · Chiefs D</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">SESSION HUB · Replaces Home entirely · Rank + picks + leaderboard in one</div>
+      </div>
+    </div>
+
+    <!-- PHONE 2: Clutch Pick auto-fires (close game Q4) -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#0a0512;">
+              <span style="font-size:11px;color:#581c87;font-weight:600;">10:08 PM</span>
+              <span style="font-size:10px;color:#e879f9;font-weight:900;letter-spacing:1px;">⚡ CLUTCH MOMENT</span>
+              <span style="font-size:9px;color:#581c87;">●●●●</span>
+            </div>
+
+            <!-- Clutch pick card sliding up from bottom -->
+            <div style="flex:1;position:relative;overflow:hidden;">
+              <!-- Dimmed game context behind -->
+              <div style="padding:8px 16px;opacity:0.25;">
+                <div style="font-size:12px;color:#94a3b8;font-weight:600;">Chiefs 21 — Eagles 20 · Q4 1:47</div>
+              </div>
+
+              <!-- Clutch overlay from bottom -->
+              <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,#150522 0%,#0a0110 100%);border-top:2px solid #a855f7;border-radius:24px 24px 0 0;padding:18px 16px 20px;">
+                <!-- Drag handle -->
+                <div style="display:flex;justify-content:center;margin-bottom:14px;">
+                  <div style="width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+                </div>
+
+                <div style="text-align:center;margin-bottom:14px;">
+                  <div style="font-size:10px;font-weight:900;color:#e879f9;letter-spacing:2.5px;margin-bottom:4px;">⚡ CLUTCH PICK — AUTO TRIGGERED</div>
+                  <div style="font-size:11px;color:#475569;">Chiefs within 1 pt · Q4 1:47 · Auto-detected</div>
+                </div>
+
+                <!-- Clutch pick card -->
+                <div style="background:rgba(168,85,247,0.08);border:1.5px solid rgba(168,85,247,0.3);border-radius:14px;padding:14px;margin-bottom:14px;">
+                  <div style="text-align:center;margin-bottom:10px;">
+                    <div style="font-size:11px;color:#94a3b8;margin-bottom:3px;">Patrick Mahomes</div>
+                    <div style="font-size:11px;color:#64748b;">Will Chiefs cover in regulation?</div>
+                    <div style="font-size:26px;font-weight:900;color:#f1f5f9;margin:4px 0;">YES / NO</div>
+                  </div>
+
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                    <div style="background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:12px;padding:12px;text-align:center;box-shadow:0 4px 16px rgba(168,85,247,0.4);">
+                      <div style="font-size:13px;font-weight:900;color:#fff;">YES</div>
+                      <div style="font-size:10px;color:rgba(255,255,255,0.75);margin-top:2px;">3× multiplier</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px;text-align:center;">
+                      <div style="font-size:13px;font-weight:700;color:#64748b;">NO</div>
+                      <div style="font-size:10px;color:#475569;margin-top:2px;">3× multiplier</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Urgency + context -->
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                  <div style="font-size:11px;color:#94a3b8;">57% of bar picked YES</div>
+                  <div style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:20px;padding:3px 10px;">
+                    <div style="font-size:10px;color:#f87171;font-weight:800;">⏱ 90 sec to lock</div>
+                  </div>
+                </div>
+
+                <div style="text-align:center;font-size:10px;color:#475569;">Skip — watch without playing</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">CLUTCH AUTO-TRIGGER · Chiefs within 1 pt Q4 1:47 · No venue owner · 3× multiplier</div>
+      </div>
+    </div>
+
+    <!-- PHONE 3: Path to First — striking distance only -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#060d1f;">
+              <span style="font-size:11px;color:#475569;font-weight:600;">10:02 PM</span>
+              <span style="font-size:10px;color:#4ade80;font-weight:800;letter-spacing:1px;">SESSION LIVE</span>
+              <span style="font-size:9px;color:#475569;">●●●●</span>
+            </div>
+
+            <!-- Session rank + context -->
+            <div style="padding:8px 16px 0;">
+              <div style="font-size:13px;font-weight:900;color:#f1f5f9;">Rookie's Bar</div>
+              <div style="font-size:10px;color:#475569;">Q4 · 6:14 · Chiefs 21 — Eagles 20</div>
+            </div>
+
+            <!-- Path to First — striking distance card (hero) -->
+            <div style="margin:10px 12px 0;background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(217,119,6,0.08));border:2px solid rgba(245,158,11,0.4);border-radius:16px;padding:14px;">
+              <div style="font-size:10px;font-weight:900;color:#f59e0b;letter-spacing:2px;margin-bottom:10px;">🎯 PATH TO FIRST</div>
+
+              <!-- Gap display -->
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                <div style="text-align:center;">
+                  <div style="font-size:9px;color:#64748b;font-weight:600;">YOU</div>
+                  <div style="font-size:22px;font-weight:900;color:#f1f5f9;">1,220</div>
+                </div>
+                <div style="flex:1;mx:10px;text-align:center;">
+                  <div style="font-size:10px;color:#f59e0b;font-weight:800;">↑ 180 IQ GAP</div>
+                  <div style="height:2px;background:linear-gradient(90deg,#f59e0b,#fbbf24);margin:4px 10px;border-radius:1px;"></div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:9px;color:#64748b;font-weight:600;">#1 BetKing</div>
+                  <div style="font-size:22px;font-weight:900;color:#f59e0b;">1,400</div>
+                </div>
+              </div>
+
+              <!-- The math -->
+              <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:10px 12px;margin-bottom:10px;">
+                <div style="font-size:10px;font-weight:700;color:#f59e0b;letter-spacing:1px;margin-bottom:6px;">THE MATH</div>
+                <div style="display:flex;flex-direction:column;gap:5px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-size:11px;color:#94a3b8;">Win 1 pick at 2×</span>
+                    <span style="font-size:11px;color:#4ade80;font-weight:700;">+400 IQ</span>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-size:11px;color:#94a3b8;">Gap to close</span>
+                    <span style="font-size:11px;color:#f59e0b;font-weight:700;">180 IQ</span>
+                  </div>
+                  <div style="height:1px;background:rgba(255,255,255,0.06);"></div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-size:12px;font-weight:800;color:#f1f5f9;">One 2× win = you're #1</span>
+                    <span style="font-size:14px;">🏆</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Best pick to take -->
+              <div style="font-size:10px;color:#64748b;margin-bottom:6px;font-weight:600;">BEST PICK AVAILABLE NOW</div>
+              <div style="background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.25);border-radius:10px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#f1f5f9;">Hurts Rush Yds OVER 34.5</div>
+                  <div style="font-size:10px;color:#a78bfa;">High signal · 2× available</div>
+                </div>
+                <div style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:800;color:#fff;">Pick →</div>
+              </div>
+            </div>
+
+            <!-- Context note: only showing because striking distance -->
+            <div style="margin:8px 12px 0;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.03);border-radius:10px;padding:8px 10px;">
+              <span style="font-size:12px;">ℹ️</span>
+              <span style="font-size:10px;color:#475569;line-height:1.4;">Path to First only appears when you're within 500 IQ of #1. Outside that range, you just see your rank.</span>
+            </div>
+
+            <!-- Current leaderboard (condensed) -->
+            <div style="padding:10px 12px 12px;margin-top:auto;">
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;color:#f59e0b;">🥇</span><span style="font-size:11px;color:#94a3b8;">BetKing</span></div>
+                  <span style="font-size:11px;color:#f59e0b;font-weight:700;">1,400</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;color:#a78bfa;font-weight:700;">#4</span><span style="font-size:11px;color:#a78bfa;font-weight:700;">You</span></div>
+                  <span style="font-size:11px;color:#a78bfa;font-weight:800;">1,220</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">PATH TO FIRST · Only within 500 IQ gap · One 2× win = #1 · Math shown clearly</div>
+      </div>
+    </div>
+
+  </div><!-- end phones-row -->
+
+  <div id="sfb-panel-game-day-v4" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
