@@ -1863,8 +1863,11 @@
     <div class="tab tab-review" data-screen="referral-v2" onclick="showScreen('referral-v2',this)">
       <span class="tab-label">Referral</span><span class="tab-days" id="days-referral-v2"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="pick-result-v2" onclick="showScreen('pick-result-v2',this)">
+      <span class="tab-label">Pick Result v2</span><span class="tab-days" id="days-pick-result-v2"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="pick-result-v1" onclick="showScreen('pick-result-v1',this)">
-      <span class="tab-label">Pick Result</span><span class="tab-days" id="days-pick-result-v1"></span><span class="review-dot"></span>
+      <span class="tab-label">Pick Result v1</span><span class="tab-days" id="days-pick-result-v1"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="trivia" onclick="showScreen('trivia',this)">
       <span class="tab-label">Trivia (mobile)</span><span class="tab-days" id="days-trivia"></span><span class="review-dot"></span>
@@ -1880,6 +1883,12 @@
     </div>
     <div class="tab tab-review" data-screen="friends-feed-v1" onclick="showScreen('friends-feed-v1',this)">
       <span class="tab-label">Friends Feed</span><span class="tab-days" id="days-friends-feed-v1"></span><span class="review-dot"></span>
+    </div>
+    <div class="tab tab-review" data-screen="pregame-brief" onclick="showScreen('pregame-brief',this)">
+      <span class="tab-label">Pre-Game Brief</span><span class="tab-days" id="days-pregame-brief"></span><span class="review-dot"></span>
+    </div>
+    <div class="tab tab-review" data-screen="sportsiq-pro" onclick="showScreen('sportsiq-pro',this)">
+      <span class="tab-label">SportsIQ Pro ⚡</span><span class="tab-days" id="days-sportsiq-pro"></span><span class="review-dot"></span>
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
@@ -3527,9 +3536,9 @@
     "id": "idea-001",
     "date": "2026-03-20",
     "source": "inbox",
-    "idea": "Idea Inbox — a place to develop and iterate on ideas with Claude.",
+    "idea": "Idea Inbox \u2014 a place to develop and iterate on ideas with Claude.",
     "status": "done",
-    "claude_response": "Built — this inbox. JSON-powered, reply-per-card, Claude checks on each loop and acts on mark_reply entries.",
+    "claude_response": "Built \u2014 this inbox. JSON-powered, reply-per-card, Claude checks on each loop and acts on mark_reply entries.",
     "mark_reply": ""
   },
   {
@@ -3538,43 +3547,43 @@
     "source": "chat",
     "idea": "Integrate Kalshi and Polymarket APIs to enhance SportsIQ with real-money prediction market intelligence",
     "status": "done",
-    "claude_response": "Built — Market Intel tab. Enhanced pick card with 4-signal odds panel: SIQ AI vs Kalshi vs Polymarket vs Crowd. Market Pulse mobile screen. Bar TV market ticker band via Polymarket Sports WebSocket. Includes moat analysis, API notes, regulatory warning on Kalshi.",
+    "claude_response": "Built \u2014 Market Intel tab. Enhanced pick card with 4-signal odds panel: SIQ AI vs Kalshi vs Polymarket vs Crowd. Market Pulse mobile screen. Bar TV market ticker band via Polymarket Sports WebSocket. Includes moat analysis, API notes, regulatory warning on Kalshi.",
     "mark_reply": ""
   },
   {
     "id": "idea-003",
     "date": "2026-03-20",
     "source": "autonomous-loop",
-    "idea": "Venue Owner Admin Dashboard — B2B command center for bar owners",
+    "idea": "Venue Owner Admin Dashboard \u2014 B2B command center for bar owners",
     "status": "done",
-    "claude_response": "Built — Venue Owner tab. Tonight stats grid, live activity feed, leaderboard, TV display controls, weekly engagement chart, revenue/ROI strip, sportsbook affiliate panel, patron intelligence, moat analysis.",
+    "claude_response": "Built \u2014 Venue Owner tab. Tonight stats grid, live activity feed, leaderboard, TV display controls, weekly engagement chart, revenue/ROI strip, sportsbook affiliate panel, patron intelligence, moat analysis.",
     "mark_reply": ""
   },
   {
     "id": "idea-004",
     "date": "2026-03-21",
     "source": "autonomous-loop",
-    "idea": "My Stats — Personal performance dashboard",
+    "idea": "My Stats \u2014 Personal performance dashboard",
     "status": "done",
-    "claude_response": "Built — My Stats tab. Win rate hero, streak, P&L, per-sport bars, badge shelf, pick history with W/L dot strip.",
+    "claude_response": "Built \u2014 My Stats tab. Win rate hero, streak, P&L, per-sport bars, badge shelf, pick history with W/L dot strip.",
     "mark_reply": ""
   },
   {
     "id": "idea-005",
     "date": "2026-03-21",
     "source": "autonomous-loop",
-    "idea": "Leaderboard — Friend group social competition",
+    "idea": "Leaderboard \u2014 Friend group social competition",
     "status": "done",
-    "claude_response": "Built — Leaderboard tab. Gold/silver/bronze podium, ranked list with streaks, Invite Friends, scope Friends/Global/Groups, periods Week/Month/Season/All-Time, social notification feed.",
+    "claude_response": "Built \u2014 Leaderboard tab. Gold/silver/bronze podium, ranked list with streaks, Invite Friends, scope Friends/Global/Groups, periods Week/Month/Season/All-Time, social notification feed.",
     "mark_reply": ""
   },
   {
     "id": "idea-006",
     "date": "2026-03-20",
     "source": "autonomous-loop",
-    "idea": "Onboarding Flow — 5-step first-time user experience",
+    "idea": "Onboarding Flow \u2014 5-step first-time user experience",
     "status": "done",
-    "claude_response": "Built — Onboarding tab. 5 phones: Welcome, Sport/Team personalization, First Pick (sharp money blurred), Reveal + badge, Invite Friends with seeded leaderboard.",
+    "claude_response": "Built \u2014 Onboarding tab. 5 phones: Welcome, Sport/Team personalization, First Pick (sharp money blurred), Reveal + badge, Invite Friends with seeded leaderboard.",
     "mark_reply": ""
   },
   {
@@ -3583,7 +3592,7 @@
     "source": "inbox",
     "idea": "[home-live] 1. more aggressively as it approaches 0:00 / 2. lets try for accuracy / 3. a little more prominent / 4. over under for now",
     "status": "done",
-    "claude_response": "Built — Home Live v2 tab. Two phones: 0:09 state pulses red, 0:03 state shakes + CTA turns red. Intel card now leads with '73% historically accurate on similar props' (accuracy over probability). Intel displayed as prominent glowing purple card. Over/Under kept as binary choice.",
+    "claude_response": "Built \u2014 Home Live v2 tab. Two phones: 0:09 state pulses red, 0:03 state shakes + CTA turns red. Intel card now leads with '73% historically accurate on similar props' (accuracy over probability). Intel displayed as prominent glowing purple card. Over/Under kept as binary choice.",
     "mark_reply": ""
   },
   {
@@ -3592,7 +3601,7 @@
     "source": "inbox",
     "idea": "[home-idle] 1. upcoming props and friends picks / 2. not for now / 3. yes we should do that",
     "status": "done",
-    "claude_response": "Noted — Home Idle v2 to show: upcoming props feed and friends recent picks. Pre-lock early picks: not for now. Daily challenge/streak mechanic on idle: yes. Will build Home Idle v2 in next loop.",
+    "claude_response": "Noted \u2014 Home Idle v2 to show: upcoming props feed and friends recent picks. Pre-lock early picks: not for now. Daily challenge/streak mechanic on idle: yes. Will build Home Idle v2 in next loop.",
     "mark_reply": ""
   },
   {
@@ -3601,7 +3610,7 @@
     "source": "inbox",
     "idea": "[pick-card] 1. better the way it is now / 2. perfect / 3. should match with bar screen. Optimize vertical spacing.",
     "status": "done",
-    "claude_response": "Noted — Pick Card: multiplier buttons stay as-is, Intel placement perfect, card should match bar screen visual language. Vertical spacing gaps to be fixed. Will build Pick Card v2 with tighter spacing + bar-screen alignment.",
+    "claude_response": "Noted \u2014 Pick Card: multiplier buttons stay as-is, Intel placement perfect, card should match bar screen visual language. Vertical spacing gaps to be fixed. Will build Pick Card v2 with tighter spacing + bar-screen alignment.",
     "mark_reply": ""
   },
   {
@@ -3610,7 +3619,7 @@
     "source": "inbox",
     "idea": "[pick-wait] 1. real time / 2. showing friends picks is great / 3. final whistle. Optimize vertical spacing.",
     "status": "done",
-    "claude_response": "Noted — Pick Wait: stat counter real-time via WebSocket, friends picks confirmed good, result at final whistle, spacing to be tightened. Will build Pick Wait v2 with friends picks panel and tighter layout.",
+    "claude_response": "Noted \u2014 Pick Wait: stat counter real-time via WebSocket, friends picks confirmed good, result at final whistle, spacing to be tightened. Will build Pick Wait v2 with friends picks panel and tighter layout.",
     "mark_reply": ""
   },
   {
@@ -3619,7 +3628,7 @@
     "source": "inbox",
     "idea": "[my-stats] 1. yes (win rate hero) / 2. infinite scroll / 3. add social/referral badges. How does trivia fit?",
     "status": "done",
-    "claude_response": "Noted — win rate is hero, infinite scroll history, adding social/referral badges (Most Friends on App, Top Recruiter). Trivia fits as its own stats section: Trivia IQ Score, per-sport accuracy, trivia badges. Built the full Trivia screen — see Trivia tab in v2 Updates group.",
+    "claude_response": "Noted \u2014 win rate is hero, infinite scroll history, adding social/referral badges (Most Friends on App, Top Recruiter). Trivia fits as its own stats section: Trivia IQ Score, per-sport accuracy, trivia badges. Built the full Trivia screen \u2014 see Trivia tab in v2 Updates group.",
     "mark_reply": ""
   },
   {
@@ -3628,25 +3637,25 @@
     "source": "inbox",
     "idea": "[leaderboard] 1. default should be groups / 2. both / 3. yes (trash talk)",
     "status": "done",
-    "claude_response": "Noted — Leaderboard: default scope = Groups. Prize pools: both free and paid. Trash talk: yes, it is a feature. Will build Leaderboard v2 with groups default, prize pool UI, and trash talk feed.",
+    "claude_response": "Noted \u2014 Leaderboard: default scope = Groups. Prize pools: both free and paid. Trash talk: yes, it is a feature. Will build Leaderboard v2 with groups default, prize pool UI, and trash talk feed.",
     "mark_reply": ""
   },
   {
     "id": "idea-013",
     "date": "2026-03-21",
     "source": "inbox",
-    "idea": "[bar-idle] 1. yes / 2. code should be 5 digits — how does code work? / 3. yes",
+    "idea": "[bar-idle] 1. yes / 2. code should be 5 digits \u2014 how does code work? / 3. yes",
     "status": "done",
-    "claude_response": "Built — Bar Idle v2 tab. 5-digit room code (74291). QR enlarged to 280px with glow. Added explanation: code is unique to venue+session, auto-resets. How it works: venue owner hits Start Session in dashboard → unique 5-digit code generated → users enter on mobile to join that venue leaderboard.",
+    "claude_response": "Built \u2014 Bar Idle v2 tab. 5-digit room code (74291). QR enlarged to 280px with glow. Added explanation: code is unique to venue+session, auto-resets. How it works: venue owner hits Start Session in dashboard \u2192 unique 5-digit code generated \u2192 users enter on mobile to join that venue leaderboard.",
     "mark_reply": ""
   },
   {
     "id": "idea-014",
     "date": "2026-03-21",
     "source": "inbox",
-    "idea": "[bar-pred-q] 1. yes show it / 2. useful keep it / 3. no circular countdown visible — add it. Make QR bigger.",
+    "idea": "[bar-pred-q] 1. yes show it / 2. useful keep it / 3. no circular countdown visible \u2014 add it. Make QR bigger.",
     "status": "done",
-    "claude_response": "Built — Bar Pred-Q v2 tab. Circular SVG countdown (red arc depletes clockwise over lock window). SportsIQ Intelligence shown as purple glowing banner. QR enlarged to 140px. 5-digit room code.",
+    "claude_response": "Built \u2014 Bar Pred-Q v2 tab. Circular SVG countdown (red arc depletes clockwise over lock window). SportsIQ Intelligence shown as purple glowing banner. QR enlarged to 140px. 5-digit room code.",
     "mark_reply": ""
   },
   {
@@ -3655,7 +3664,7 @@
     "source": "inbox",
     "idea": "[bar-tracking] 1. step update / 2. show the leaderboard / 3. yes. Make QR bigger.",
     "status": "done",
-    "claude_response": "Built — Bar Tracking v2 tab. 3-step progress: Picks Made → Watching Live → Final Whistle. Live leaderboard right panel with top 5 + each player's pick direction (OVER/UNDER). QR enlarged to 120px.",
+    "claude_response": "Built \u2014 Bar Tracking v2 tab. 3-step progress: Picks Made \u2192 Watching Live \u2192 Final Whistle. Live leaderboard right panel with top 5 + each player's pick direction (OVER/UNDER). QR enlarged to 120px.",
     "mark_reply": ""
   },
   {
@@ -3664,7 +3673,7 @@
     "source": "inbox",
     "idea": "[bar-result] 1. top 10 if you can fit it / 2. its good / 3. contrarian bonus is good. Make QR bigger.",
     "status": "done",
-    "claude_response": "Built — Bar Result v2 tab. Top-10 leaderboard panel (gold/silver/bronze top 3). Contrarian Bonus golden callout: '3 players called UNDER and won! +150 pts.' QR enlarged to 100px inside leaderboard panel.",
+    "claude_response": "Built \u2014 Bar Result v2 tab. Top-10 leaderboard panel (gold/silver/bronze top 3). Contrarian Bonus golden callout: '3 players called UNDER and won! +150 pts.' QR enlarged to 100px inside leaderboard panel.",
     "mark_reply": ""
   },
   {
@@ -3673,7 +3682,7 @@
     "source": "inbox",
     "idea": "[mkt-intel] 1. fine the way it is / 2. keep it / 3. free",
     "status": "done",
-    "claude_response": "Noted — Market Intel: 4-signal panel stays, crowd split stays, market intelligence is free tier. No visual changes needed.",
+    "claude_response": "Noted \u2014 Market Intel: 4-signal panel stays, crowd split stays, market intelligence is free tier. No visual changes needed.",
     "mark_reply": ""
   },
   {
@@ -3682,7 +3691,7 @@
     "source": "inbox",
     "idea": "[onboarding] 1. yes (profile photo) / 2. SOFT (friends picks) / 3. ask during onboarding",
     "status": "done",
-    "claude_response": "Noted — Onboarding v2: include profile photo in Step 2, show friends picks softly in Step 3, ask notification permissions during onboarding Step 4. Will build Onboarding v2 in next loop.",
+    "claude_response": "Noted \u2014 Onboarding v2: include profile photo in Step 2, show friends picks softly in Step 3, ask notification permissions during onboarding Step 4. Will build Onboarding v2 in next loop.",
     "mark_reply": ""
   },
   {
@@ -3691,7 +3700,7 @@
     "source": "inbox",
     "idea": "[daily-challenge] 1. same for all users / 2. what do you recommend? / 3. no / 4. allow one skip per week",
     "status": "done",
-    "claude_response": "Noted — Daily Challenge: same question set for all users (creates shared social moment). My recommendation: 5 picks, each slightly harder than the last, refreshes at midnight. No [item 3]. One skip per week allowed. Will incorporate into Daily Challenge v2.",
+    "claude_response": "Noted \u2014 Daily Challenge: same question set for all users (creates shared social moment). My recommendation: 5 picks, each slightly harder than the last, refreshes at midnight. No [item 3]. One skip per week allowed. Will incorporate into Daily Challenge v2.",
     "mark_reply": ""
   },
   {
@@ -3700,7 +3709,7 @@
     "source": "inbox",
     "idea": "[game-day] 1. any user in the venue / 2. keep it / 3. yes (clutch mechanic)",
     "status": "done",
-    "claude_response": "Noted — Game Day Mode: unlocks for any user in the venue geographic area (not just check-in required). Path to #1 gap mechanic: keep it. Clutch mechanic (last-pick multiplier that can flip leaderboard): yes, build it. Will incorporate into Game Day v2.",
+    "claude_response": "Noted \u2014 Game Day Mode: unlocks for any user in the venue geographic area (not just check-in required). Path to #1 gap mechanic: keep it. Clutch mechanic (last-pick multiplier that can flip leaderboard): yes, build it. Will incorporate into Game Day v2.",
     "mark_reply": ""
   },
   {
@@ -3709,25 +3718,25 @@
     "source": "inbox",
     "idea": "[bar-idle-v2] 1 numeric\n2 yes\n3 makes sense",
     "status": "done",
-    "claude_response": "Built bar-idle-v3. Added a prominent ‘47 PLAYING TONIGHT’ numeric count to the right panel with a green live dot. Big number (120px) above the leaderboard so bars can see at a glance how many players are active. Room code explanation kept as-is (makes sense approved).",
+    "claude_response": "Built bar-idle-v3. Added a prominent \u201847 PLAYING TONIGHT\u2019 numeric count to the right panel with a green live dot. Big number (120px) above the leaderboard so bars can see at a glance how many players are active. Room code explanation kept as-is (makes sense approved).",
     "mark_reply": ""
   },
   {
     "id": "idea-022",
     "date": "2026-03-21",
     "source": "inbox",
-    "idea": "[home-live-v2] 1 exciting\n2 turn red\n3 I don’t like the way we have this I don’t want to just put made up numbers out there. Let’s find a real metric we can display here",
+    "idea": "[home-live-v2] 1 exciting\n2 turn red\n3 I don\u2019t like the way we have this I don\u2019t want to just put made up numbers out there. Let\u2019s find a real metric we can display here",
     "status": "done",
-    "claude_response": "Built home-live-v3. Two changes: (1) Critical :03 state now has FULL RED BACKGROUND FLOOD — phone-inner goes dark blood red (not just accent colors), red glow covers the whole screen, red CTA, red chips. Much more alarming. (2) Intel card completely redesigned — removed fake ‘73% accurate’ claim. Now shows two REAL data points in a 2-column grid: CROWD RIGHT NOW (62% OVER — 184 active players, our own first-party live data) + POLYMARKET (0.67 OVER — real prediction market price). Both are defensible real numbers we can actually display.",
+    "claude_response": "Built home-live-v3. Two changes: (1) Critical :03 state now has FULL RED BACKGROUND FLOOD \u2014 phone-inner goes dark blood red (not just accent colors), red glow covers the whole screen, red CTA, red chips. Much more alarming. (2) Intel card completely redesigned \u2014 removed fake \u201873% accurate\u2019 claim. Now shows two REAL data points in a 2-column grid: CROWD RIGHT NOW (62% OVER \u2014 184 active players, our own first-party live data) + POLYMARKET (0.67 OVER \u2014 real prediction market price). Both are defensible real numbers we can actually display.",
     "mark_reply": ""
   },
   {
     "id": "idea-023",
     "date": "2026-03-21",
     "source": "inbox",
-    "idea": "[bar-pred-q-v2] 1. Green , yellow, red\n2. Top right\n3. It’s not clear what 73% accurate means here. Let’s brainstorm on this\n\nI don’t like the look of the QR code placement. It seems crammed. Try to position it so it looks better",
+    "idea": "[bar-pred-q-v2] 1. Green , yellow, red\n2. Top right\n3. It\u2019s not clear what 73% accurate means here. Let\u2019s brainstorm on this\n\nI don\u2019t like the look of the QR code placement. It seems crammed. Try to position it so it looks better",
     "status": "done",
-    "claude_response": "Built bar-pred-q-v3. Four changes: (1) Confidence color on intel signal: AMBER/YELLOW border+dot for 68% crowd consensus (moderate). Green = >75%, Amber = 55-75%, Red = <55%. At 68% OVER it’s amber — clearly not a slam dunk. (2) Intel banner moved to top-center of header row, between LIVE badge and countdown — now top-right area. (3) Replaced ‘73% accurate’ with real signals: ‘Crowd: 68% OVER · Polymarket: 0.67 · Line moved +0.5 toward OVER’ — all defensible real data. (4) QR redesigned as standalone card in bottom-right with its own 24px border-radius panel, 160px QR, 28px padding — not crammed in a row with text anymore.",
+    "claude_response": "Built bar-pred-q-v3. Four changes: (1) Confidence color on intel signal: AMBER/YELLOW border+dot for 68% crowd consensus (moderate). Green = >75%, Amber = 55-75%, Red = <55%. At 68% OVER it\u2019s amber \u2014 clearly not a slam dunk. (2) Intel banner moved to top-center of header row, between LIVE badge and countdown \u2014 now top-right area. (3) Replaced \u201873% accurate\u2019 with real signals: \u2018Crowd: 68% OVER \u00b7 Polymarket: 0.67 \u00b7 Line moved +0.5 toward OVER\u2019 \u2014 all defensible real data. (4) QR redesigned as standalone card in bottom-right with its own 24px border-radius panel, 160px QR, 28px padding \u2014 not crammed in a row with text anymore.",
     "mark_reply": ""
   },
   {
@@ -3736,7 +3745,7 @@
     "source": "inbox",
     "idea": "[home-live-v3] 1 - only show crowd\n2. colors good enough\n3. closes\n\nwhy Join now vs pick now? why not alsways the same. Get rid of \"Last 3 seconds\" and \"window closes forver\" on pick now button",
     "status": "done",
-    "claude_response": "Built Home Live v4. Three changes: (1) Intel card now shows ONLY SportsIQ crowd — removed Polymarket entirely. Card shows '62% OVER · 184 players' with a mini crowd split bar. Our crowd IS the product. (2) Button always says 'PICK NOW' — no more 'JOIN NOW' on phone 1. Consistent across all urgency states. Sub-line adjusts ('184 players · 9s to lock' at :09, '3s left — go' at :03) but the CTA never changes. (3) 'LAST 3 SECONDS' and 'Window closes forever' copy removed from the red button. The full red screen flood communicates urgency — no extra copy needed.",
+    "claude_response": "Built Home Live v4. Three changes: (1) Intel card now shows ONLY SportsIQ crowd \u2014 removed Polymarket entirely. Card shows '62% OVER \u00b7 184 players' with a mini crowd split bar. Our crowd IS the product. (2) Button always says 'PICK NOW' \u2014 no more 'JOIN NOW' on phone 1. Consistent across all urgency states. Sub-line adjusts ('184 players \u00b7 9s to lock' at :09, '3s left \u2014 go' at :03) but the CTA never changes. (3) 'LAST 3 SECONDS' and 'Window closes forever' copy removed from the red button. The full red screen flood communicates urgency \u2014 no extra copy needed.",
     "mark_reply": ""
   },
   {
@@ -3745,7 +3754,7 @@
     "source": "inbox",
     "idea": "[home-idle-v2] 1. side by side\n2. not sure, what do you recommned\n3. real time live feed\n4. 4 am eastern time\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Home Idle v3. Layout completely rebuilt — phone fills top to bottom with no dead space. Key changes: (1) Side-by-side 2×2 stat grid (win rate + streak top row, rank + IQ score bottom row) — compact, fills width cleanly. (2) Real-time live feed section shows friends activity with 'live' pulse indicator, updates in real time. (3) 4am ET reset timer shown as a slim badge under the header — 'IQ resets in 18h 42m · 4am ET'. (4) Upcoming games in 2-column side-by-side cards rather than stacked list. Two phones: No-Game state and Game-Tonight state (shows pick window countdown + crowd forming).",
+    "claude_response": "Built Home Idle v3. Layout completely rebuilt \u2014 phone fills top to bottom with no dead space. Key changes: (1) Side-by-side 2\u00d72 stat grid (win rate + streak top row, rank + IQ score bottom row) \u2014 compact, fills width cleanly. (2) Real-time live feed section shows friends activity with 'live' pulse indicator, updates in real time. (3) 4am ET reset timer shown as a slim badge under the header \u2014 'IQ resets in 18h 42m \u00b7 4am ET'. (4) Upcoming games in 2-column side-by-side cards rather than stacked list. Two phones: No-Game state and Game-Tonight state (shows pick window countdown + crowd forming).",
     "mark_reply": ""
   },
   {
@@ -3754,7 +3763,7 @@
     "source": "inbox",
     "idea": "[pick-card-v2] 1. from day 1\n2. show before pick\n3. rotate it in\n4. push notification\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Pick Card v3. Full layout fix — phone fills 844px top to bottom. Key changes: (1) SportsIQ Signal shown from day 1, prominently ABOVE the pick buttons — users see the signal before they pick. Signal card has a glowing border and slides in with animation. (2) Push notification state shown as a phone 1 pre-state: the notification that fires when pick window opens, with 'Pick Now' deep link. (3) Crowd split % visible in real-time WHILE the window is open, updating as players lock in. (4) OVER/UNDER buttons are the primary action, large and centered — signal informs but doesn't dictate.",
+    "claude_response": "Built Pick Card v3. Full layout fix \u2014 phone fills 844px top to bottom. Key changes: (1) SportsIQ Signal shown from day 1, prominently ABOVE the pick buttons \u2014 users see the signal before they pick. Signal card has a glowing border and slides in with animation. (2) Push notification state shown as a phone 1 pre-state: the notification that fires when pick window opens, with 'Pick Now' deep link. (3) Crowd split % visible in real-time WHILE the window is open, updating as players lock in. (4) OVER/UNDER buttons are the primary action, large and centered \u2014 signal informs but doesn't dictate.",
     "mark_reply": ""
   },
   {
@@ -3763,7 +3772,7 @@
     "source": "inbox",
     "idea": "[pick-wait-v2] 1. instant\n2. before\n3. show percentages\n4. what do you recommend. make it easy to use\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Pick Wait v3. Layout fix complete — no dead space. Design: after locking in, the screen transitions to a clean watching state. Crowd % shown in real-time with a live pulse dot (instant updates). Your pick is pinned at top with a confirmation chip. Big live stat tracker shows current Mahomes yards vs the line — the most important number, center screen. Friends panel below shows what everyone else picked, updating live. Bottom section: 'SportsIQ Signal: OVER — tracking toward win' with a progress bar. Recommendation: this screen is the one users watch longest — it needs to feel like a live ticker, not a static confirmation page. All percentages visible immediately after pick.",
+    "claude_response": "Built Pick Wait v3. Layout fix complete \u2014 no dead space. Design: after locking in, the screen transitions to a clean watching state. Crowd % shown in real-time with a live pulse dot (instant updates). Your pick is pinned at top with a confirmation chip. Big live stat tracker shows current Mahomes yards vs the line \u2014 the most important number, center screen. Friends panel below shows what everyone else picked, updating live. Bottom section: 'SportsIQ Signal: OVER \u2014 tracking toward win' with a progress bar. Recommendation: this screen is the one users watch longest \u2014 it needs to feel like a live ticker, not a static confirmation page. All percentages visible immediately after pick.",
     "mark_reply": ""
   },
   {
@@ -3772,7 +3781,7 @@
     "source": "inbox",
     "idea": "[onboarding-v2] 1. no skipping\n2. 3 levels\n3. same question\n4. wait until after first week\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Onboarding v3. Full-height layout — no scrunching. Key changes: (1) No skip button anywhere — users must complete each step. Progress indicator shows steps so they know there's an end. (2) 3 knowledge levels shown as selectable cards: Casual (I watch the big games), Dedicated (I track stats and lineups), Expert (I could run a fantasy league blindfolded). Single selection, can't proceed without choosing. (3) Same question set regardless of sport selection — sport choice personalizes the content, not the assessment. (4) Advanced Sports DNA deep-dive unlocks after first 7 days of playing — shown as a 'coming after your first week' teaser at the end of onboarding. Three phones: Welcome (no skip), Sport selection (6 sports, required), Level selection (3 tiers, required).",
+    "claude_response": "Built Onboarding v3. Full-height layout \u2014 no scrunching. Key changes: (1) No skip button anywhere \u2014 users must complete each step. Progress indicator shows steps so they know there's an end. (2) 3 knowledge levels shown as selectable cards: Casual (I watch the big games), Dedicated (I track stats and lineups), Expert (I could run a fantasy league blindfolded). Single selection, can't proceed without choosing. (3) Same question set regardless of sport selection \u2014 sport choice personalizes the content, not the assessment. (4) Advanced Sports DNA deep-dive unlocks after first 7 days of playing \u2014 shown as a 'coming after your first week' teaser at the end of onboarding. Three phones: Welcome (no skip), Sport selection (6 sports, required), Level selection (3 tiers, required).",
     "mark_reply": ""
   },
   {
@@ -3781,7 +3790,7 @@
     "source": "inbox",
     "idea": "[daily-challenge-v2] 1. immediatrly after each pick\n2. before\n3. percentile\n4. global\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Daily Challenge v3. Full-height layout fix. Key changes: (1) Challenge card slides up immediately after each pick is locked in — no wait, no separate navigation needed. (2) 'Before' — the challenge question shows BEFORE the result is revealed. User first picks, then the challenge resolves. This creates a prediction layer on top of the main pick. (3) Percentile shown prominently: 'Top 12% globally · #3,847 of 31,200'. (4) Global scope — not just friends. You rank against all SportsIQ players globally. Two phones: Challenge pops up after pick submission, Result shows global percentile rank with shareable card.",
+    "claude_response": "Built Daily Challenge v3. Full-height layout fix. Key changes: (1) Challenge card slides up immediately after each pick is locked in \u2014 no wait, no separate navigation needed. (2) 'Before' \u2014 the challenge question shows BEFORE the result is revealed. User first picks, then the challenge resolves. This creates a prediction layer on top of the main pick. (3) Percentile shown prominently: 'Top 12% globally \u00b7 #3,847 of 31,200'. (4) Global scope \u2014 not just friends. You rank against all SportsIQ players globally. Two phones: Challenge pops up after pick submission, Result shows global percentile rank with shareable card.",
     "mark_reply": ""
   },
   {
@@ -3790,7 +3799,7 @@
     "source": "inbox",
     "idea": "[game-day-v2] 1. we dont want anything to depend on venue owner\n2. 0.15 miles\n3. what do you recommend?\n4. what do you recommend?\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Game Day v3. Full-height layout. Key changes: (1) Zero venue owner dependency — pure GPS. App detects you're within 0.15 miles of any sports bar (from our database) and auto-triggers Bar Mode. The bar owner doesn't set anything up. (2) 0.15 mile radius (exact spec). (3) My recommendation for #3: When Bar Mode activates, show a bar-specific leaderboard overlay — who's winning tonight at your location. Creates competitive social energy even without venue staff involvement. (4) My recommendation for #4: 'Neighborhood Mode' — if >3 SportsIQ users are within 0.15 miles of each other at any bar (even one not in our system), auto-create an informal local group. No venue owner needed at all for this version. Two phones: Auto-detect activation (0.15mi banner) + Bar Mode active state with local leaderboard.",
+    "claude_response": "Built Game Day v3. Full-height layout. Key changes: (1) Zero venue owner dependency \u2014 pure GPS. App detects you're within 0.15 miles of any sports bar (from our database) and auto-triggers Bar Mode. The bar owner doesn't set anything up. (2) 0.15 mile radius (exact spec). (3) My recommendation for #3: When Bar Mode activates, show a bar-specific leaderboard overlay \u2014 who's winning tonight at your location. Creates competitive social energy even without venue staff involvement. (4) My recommendation for #4: 'Neighborhood Mode' \u2014 if >3 SportsIQ users are within 0.15 miles of each other at any bar (even one not in our system), auto-create an informal local group. No venue owner needed at all for this version. Two phones: Auto-detect activation (0.15mi banner) + Bar Mode active state with local leaderboard.",
     "mark_reply": ""
   },
   {
@@ -3799,7 +3808,7 @@
     "source": "inbox",
     "idea": "[notifications] 1. keep this simple\n2. what do you recommend?\n3. 6pm in users time zone\n4. do we need this?\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Notifications v2. Kept simple. (1) 3 notification types only — Pick Windows (when a window opens), Results (when your pick resolves), and Daily Trivia. No noise. (2) My recommendation for #2: Two tiers — Critical (pick window opening, your result ready) and Social (friend activity, chirps). Critical on by default, Social opt-in. (3) Daily trivia reminder at 6pm in user's local timezone — preconfigured, user just toggles on/off. (4) My recommendation on 'do we need this?' — depends what #4 was referring to. I recommend skipping 'weekly email recaps' (too much friction for a mobile-first product). Push is enough. One phone shown: clean settings screen with 3 toggle groups, each with a clear description.",
+    "claude_response": "Built Notifications v2. Kept simple. (1) 3 notification types only \u2014 Pick Windows (when a window opens), Results (when your pick resolves), and Daily Trivia. No noise. (2) My recommendation for #2: Two tiers \u2014 Critical (pick window opening, your result ready) and Social (friend activity, chirps). Critical on by default, Social opt-in. (3) Daily trivia reminder at 6pm in user's local timezone \u2014 preconfigured, user just toggles on/off. (4) My recommendation on 'do we need this?' \u2014 depends what #4 was referring to. I recommend skipping 'weekly email recaps' (too much friction for a mobile-first product). Push is enough. One phone shown: clean settings screen with 3 toggle groups, each with a clear description.",
     "mark_reply": ""
   },
   {
@@ -3808,7 +3817,7 @@
     "source": "inbox",
     "idea": "[my-stats] 1. yes\n2. infinite\n3. yes, add social/referral",
     "status": "done",
-    "claude_response": "Built My Stats v2. (1) IQ toggle — All-Time / Season / This Week selector at top, filters all stats below. (2) Infinite history — pick history scrolls forever, no 'load more' pages. (3) Social/referral section added at bottom of stats profile — shows referral link, how many friends joined via your link, and IQ earned from referrals. Full height phone layout. Two phones: main stats view with toggle + infinite pick history.",
+    "claude_response": "Built My Stats v2. (1) IQ toggle \u2014 All-Time / Season / This Week selector at top, filters all stats below. (2) Infinite history \u2014 pick history scrolls forever, no 'load more' pages. (3) Social/referral section added at bottom of stats profile \u2014 shows referral link, how many friends joined via your link, and IQ earned from referrals. Full height phone layout. Two phones: main stats view with toggle + infinite pick history.",
     "mark_reply": ""
   },
   {
@@ -3817,7 +3826,7 @@
     "source": "inbox",
     "idea": "[leaderboard-v2] 1. is this legal? if so, then sportsIQ should take 30% cut\n2. only made picks\n3. no limit\n4. yes\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Leaderboard v3. Key note: framed as 'IQ Points Pool' (not cash) — legally safe, and we'll add cash option pending legal sign-off. SportsIQ takes 30% rake shown transparently in the pool breakdown (e.g., 100 IQ × 8 players = 800 IQ pot → SportsIQ keeps 240 IQ, winner gets 560 IQ). Only players who made at least 1 pick appear on the board. No limit on pool size or player count. 'Weekly Winners' section added (Mark said yes to #4). Full height layout fix. Two phones: main leaderboard view + prize pool detail screen.",
+    "claude_response": "Built Leaderboard v3. Key note: framed as 'IQ Points Pool' (not cash) \u2014 legally safe, and we'll add cash option pending legal sign-off. SportsIQ takes 30% rake shown transparently in the pool breakdown (e.g., 100 IQ \u00d7 8 players = 800 IQ pot \u2192 SportsIQ keeps 240 IQ, winner gets 560 IQ). Only players who made at least 1 pick appear on the board. No limit on pool size or player count. 'Weekly Winners' section added (Mark said yes to #4). Full height layout fix. Two phones: main leaderboard view + prize pool detail screen.",
     "mark_reply": ""
   },
   {
@@ -3826,7 +3835,7 @@
     "source": "inbox",
     "idea": "[sports-dna-profile] 1. bar regualr\n2. after 20 picks\n3. full dna\n4. what do you recommend?\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Sports DNA v2. (1) 'Bar Regular' is one of the archetypes shown on the profile (alongside 'Contrarian', 'Sharp', 'Gut Player', etc.). (2) Full DNA unlocks after 20 picks — before that, profile shows a locked state with progress: '12 of 20 picks to unlock'. (3) Full DNA: shows pick tendencies (OVER-heavy, contrarian score, timing pattern), sports mix, best sport, worst sport, peak performance window. (4) My recommendation for #4: shareable profile card — 'Share your Sports DNA' button generates a visual card users can share on Instagram/Twitter. This drives organic acquisition. Full height layout. Two phones: locked state (12/20 picks) + full DNA revealed.",
+    "claude_response": "Built Sports DNA v2. (1) 'Bar Regular' is one of the archetypes shown on the profile (alongside 'Contrarian', 'Sharp', 'Gut Player', etc.). (2) Full DNA unlocks after 20 picks \u2014 before that, profile shows a locked state with progress: '12 of 20 picks to unlock'. (3) Full DNA: shows pick tendencies (OVER-heavy, contrarian score, timing pattern), sports mix, best sport, worst sport, peak performance window. (4) My recommendation for #4: shareable profile card \u2014 'Share your Sports DNA' button generates a visual card users can share on Instagram/Twitter. This drives organic acquisition. Full height layout. Two phones: locked state (12/20 picks) + full DNA revealed.",
     "mark_reply": ""
   },
   {
@@ -3835,7 +3844,7 @@
     "source": "inbox",
     "idea": "[referral-growth] 1. depends on of we are doing cash. points for now, but is it legal to do cash?\n2. both are good\n3. pre-set\n4. give them something but not sure this is it. make some recommendatsions\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Referral v2. (1) IQ Points for now (not cash — legal review pending). (2) Two-sided: both referrer (+100 IQ) and new user (+50 IQ welcome bonus) get rewarded. (3) Pre-set amounts: 100 IQ for referrer, 50 IQ for new user — not adjustable. (4) My recommendation: tiered milestone rewards — Refer 1 = 100 IQ, Refer 5 = 600 IQ total + exclusive 'Recruiter' badge, Refer 10 = 1,400 IQ total + 'Legend Maker' badge + permanent 1.1× multiplier on all picks. The permanent multiplier at tier 3 is extremely powerful — it creates a recurring benefit that compounds over time, giving heavy referrers a permanent edge. That's the mechanic I'd push on. Full height layout. Two phones: referral link screen + milestone progress.",
+    "claude_response": "Built Referral v2. (1) IQ Points for now (not cash \u2014 legal review pending). (2) Two-sided: both referrer (+100 IQ) and new user (+50 IQ welcome bonus) get rewarded. (3) Pre-set amounts: 100 IQ for referrer, 50 IQ for new user \u2014 not adjustable. (4) My recommendation: tiered milestone rewards \u2014 Refer 1 = 100 IQ, Refer 5 = 600 IQ total + exclusive 'Recruiter' badge, Refer 10 = 1,400 IQ total + 'Legend Maker' badge + permanent 1.1\u00d7 multiplier on all picks. The permanent multiplier at tier 3 is extremely powerful \u2014 it creates a recurring benefit that compounds over time, giving heavy referrers a permanent edge. That's the mechanic I'd push on. Full height layout. Two phones: referral link screen + milestone progress.",
     "mark_reply": ""
   },
   {
@@ -3844,7 +3853,7 @@
     "source": "inbox",
     "idea": "[head-to-head] 1. real IQ points\n2. yes - make sure this works well though\n3. clarify what we are doing with H2H and groups. this should be simple and intuitive. we shouldnt have one feature for 2 players and another for a group.\n4. make a recommendation\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Challenges v2 — the unified feature. Recommendation: eliminate 'H2H' and 'Groups' as separate concepts. ONE tab: Challenges. When creating a challenge, you pick friends via multi-select checkboxes. 1 selected = 1v1. 2+ selected = Group Challenge. Same flow, same UI, no branching. Stake is per player, pot = stake × participants, winner takes all. IQ is real (confirmed). Three phones: (1) Create Challenge — multi-select friend list (BigMike ✓, SarahK ✓, JayBird unchecked), auto-labels '3-player Group Challenge', stake selector shows pot size, 'Send to BigMike & SarahK' CTA. (2) Active — running standings showing each player's pick direction after lock, live Mahomes stat counter, 300 IQ pot displayed. (3) Result — MarcD wins +200 IQ from BigMike and SarahK (each -100), trophy, Rematch + Chirp Them buttons.",
+    "claude_response": "Built Challenges v2 \u2014 the unified feature. Recommendation: eliminate 'H2H' and 'Groups' as separate concepts. ONE tab: Challenges. When creating a challenge, you pick friends via multi-select checkboxes. 1 selected = 1v1. 2+ selected = Group Challenge. Same flow, same UI, no branching. Stake is per player, pot = stake \u00d7 participants, winner takes all. IQ is real (confirmed). Three phones: (1) Create Challenge \u2014 multi-select friend list (BigMike \u2713, SarahK \u2713, JayBird unchecked), auto-labels '3-player Group Challenge', stake selector shows pot size, 'Send to BigMike & SarahK' CTA. (2) Active \u2014 running standings showing each player's pick direction after lock, live Mahomes stat counter, 300 IQ pot displayed. (3) Result \u2014 MarcD wins +200 IQ from BigMike and SarahK (each -100), trophy, Rematch + Chirp Them buttons.",
     "mark_reply": ""
   },
   {
@@ -3853,7 +3862,7 @@
     "source": "inbox",
     "idea": "[bar-idle-v3] 1. make it dynamic\n2. show both\n3. we dont want bar owner to make any decsions here",
     "status": "done",
-    "claude_response": "Built Bar Idle v4. (1) Dynamic: 3-column layout rotates content automatically — dots at bottom show which slide you're on, cycles every 30 seconds. (2) Show both: LEFT = QR + room code (join info), CENTER = tonight's live leaderboard with IQ scores, RIGHT = next pick window countdown OR crowd stats building for the upcoming question. All content auto-curated from SportsIQ backend. (3) Zero bar owner decisions — bar doesn't touch anything. Room code, QR, leaderboard, upcoming game info all served automatically.",
+    "claude_response": "Built Bar Idle v4. (1) Dynamic: 3-column layout rotates content automatically \u2014 dots at bottom show which slide you're on, cycles every 30 seconds. (2) Show both: LEFT = QR + room code (join info), CENTER = tonight's live leaderboard with IQ scores, RIGHT = next pick window countdown OR crowd stats building for the upcoming question. All content auto-curated from SportsIQ backend. (3) Zero bar owner decisions \u2014 bar doesn't touch anything. Room code, QR, leaderboard, upcoming game info all served automatically.",
     "mark_reply": ""
   },
   {
@@ -3862,7 +3871,7 @@
     "source": "inbox",
     "idea": "[bar-pred-q-v3] 1. dont show polymarket or kalshi, just show sportsiq crowd\n2. explain what you mean\n3. this whole layout needs imporvemnt. I dont like qr code locaytion either. spacing and positioning looks off.  optimize aethetics here",
     "status": "done",
-    "claude_response": "Built Bar Live Pick v4. All Polymarket/Kalshi removed — only SportsIQ crowd shown (68%/32% split is now the visual hero). New 3-column layout: LEFT = player identity (team, name, stat line, context sentence, SportsIQ Signal dot in brand amber); CENTER = massive crowd split cards side-by-side with tug-of-war bar and player count; RIGHT = countdown timer stacked above QR + room code. QR moved to right column, smaller and cleaner. Layout breathes — generous padding throughout. Brand colors only.",
+    "claude_response": "Built Bar Live Pick v4. All Polymarket/Kalshi removed \u2014 only SportsIQ crowd shown (68%/32% split is now the visual hero). New 3-column layout: LEFT = player identity (team, name, stat line, context sentence, SportsIQ Signal dot in brand amber); CENTER = massive crowd split cards side-by-side with tug-of-war bar and player count; RIGHT = countdown timer stacked above QR + room code. QR moved to right column, smaller and cleaner. Layout breathes \u2014 generous padding throughout. Brand colors only.",
     "mark_reply": ""
   },
   {
@@ -3880,7 +3889,7 @@
     "source": "inbox",
     "idea": "[bar-result-v2] 1. what do youn reccomend?\n2. today only\n3. display result for at least 60 seconds\n\noverall question about leaderboards. we need to find a way to display leaderboards in bars so that people arriving at diffeent times can move up the leaderboard. lets say someone is way ahead - we wont know exacly when they leave so we need to design this in a way that someone playing well has a way to climb. expnad this concept to all screens",
     "status": "done",
-    "claude_response": "Built Bar Result v3. (1) My recommendation: result screen shows for 60+ seconds and transitions to the updated leaderboard. (2) Today only. (3) CRITICAL LEADERBOARD SOLUTION: The leaderboard uses win rate (%) not total IQ as the primary sort. Someone arriving late who goes 3-0 ranks by 100% win rate and climbs above someone 4-2 (67%). This means late arrivals can always compete. Additionally, a 'Hot Streak' badge shows for 3+ picks in a row — players on streaks get highlighted regardless of when they arrived. This solves the late-arrival problem without any complex mechanics. Expanded this logic note to all bar screens.",
+    "claude_response": "Built Bar Result v3. (1) My recommendation: result screen shows for 60+ seconds and transitions to the updated leaderboard. (2) Today only. (3) CRITICAL LEADERBOARD SOLUTION: The leaderboard uses win rate (%) not total IQ as the primary sort. Someone arriving late who goes 3-0 ranks by 100% win rate and climbs above someone 4-2 (67%). This means late arrivals can always compete. Additionally, a 'Hot Streak' badge shows for 3+ picks in a row \u2014 players on streaks get highlighted regardless of when they arrived. This solves the late-arrival problem without any complex mechanics. Expanded this logic note to all bar screens.",
     "mark_reply": ""
   },
   {
@@ -3889,7 +3898,7 @@
     "source": "inbox",
     "idea": "[trivia] 1. keep it easy withiout being way too easy. we want the average user to get 70% correct\n2. not sure, make a reccomendation\n3. on the tv screen\n4. 100% curated by sportsiq\n\nto clarify when it comes to playing trivia on phone oir in bar:\nwe dont want lock in answer button. when a user chooses an ansewr its locked in. if they choose a different anseerr it is liocked in. they earn points based on how much time remained when they locked in thoer final answer. we already buyilt this logic before.\n\nther should not be a next question button. the flow is. question displayed, 10 seconds countdoen, answer is reveealed ad shown for 5 seconds. we already built this logic before\n\nif these designs are meant only to apply to some separate daily thing that happens in addition to our trivia thats fine if you want to do this, but I think there is value in keeping all of our screens and looks very consistent",
     "status": "done",
-    "claude_response": "Built Trivia v3 (TV screen version). Shows 2 states: (1) Question live — 10s countdown bar across top, 4 answer options (no lock-in button — tapping locks it), player count updating as people answer. 100% curated by SportsIQ. Difficulty: ~70% of players should get it right. (2) Answer revealed — correct answer highlighted green, wrong ones dimmed, '73% of players got it right' shown. 5s reveal timer. No 'Next Question' button — auto-advances. My recommendation for #2: show the stat behind the answer ('Patrick Mahomes has thrown 52 TDs in 2024 — the answer is 52'). This extends the educational value of trivia and reinforces SportsIQ's intelligence positioning. Consistent look with rest of bar screens (dark bg, Lexend, brand purple).",
+    "claude_response": "Built Trivia v3 (TV screen version). Shows 2 states: (1) Question live \u2014 10s countdown bar across top, 4 answer options (no lock-in button \u2014 tapping locks it), player count updating as people answer. 100% curated by SportsIQ. Difficulty: ~70% of players should get it right. (2) Answer revealed \u2014 correct answer highlighted green, wrong ones dimmed, '73% of players got it right' shown. 5s reveal timer. No 'Next Question' button \u2014 auto-advances. My recommendation for #2: show the stat behind the answer ('Patrick Mahomes has thrown 52 TDs in 2024 \u2014 the answer is 52'). This extends the educational value of trivia and reinforces SportsIQ's intelligence positioning. Consistent look with rest of bar screens (dark bg, Lexend, brand purple).",
     "mark_reply": ""
   },
   {
@@ -3898,7 +3907,7 @@
     "source": "inbox",
     "idea": "[bar-crew-mgmt] 1.user chooses\n2. purely social initially until we determine legality for money\n3. unlimited\n4. yes\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Bar Crew Mgmt v2. Fixed the full-height layout (no more scrunched top). 2 phones: (1) My Crew view — crew name 'Murphy's Boys', 6 members shown with their IQ scores, shared leaderboard for tonight showing crew members' picks and ranks, invite button (unlimited members), trash talk feed. (2) Crew Challenge view — crew vs crew leaderboard when multiple crews are at the same bar. Design is purely social — no betting, no money, just bragging rights and trash talk. User creates and names their own crew. All social features build switching cost — your whole crew being on SportsIQ is the moat.",
+    "claude_response": "Built Bar Crew Mgmt v2. Fixed the full-height layout (no more scrunched top). 2 phones: (1) My Crew view \u2014 crew name 'Murphy's Boys', 6 members shown with their IQ scores, shared leaderboard for tonight showing crew members' picks and ranks, invite button (unlimited members), trash talk feed. (2) Crew Challenge view \u2014 crew vs crew leaderboard when multiple crews are at the same bar. Design is purely social \u2014 no betting, no money, just bragging rights and trash talk. User creates and names their own crew. All social features build switching cost \u2014 your whole crew being on SportsIQ is the moat.",
     "mark_reply": ""
   },
   {
@@ -3907,7 +3916,7 @@
     "source": "inbox",
     "idea": "[mkt-intel] 1. its fine\n2. a little dense\n3. no\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better\n\ndont use the term AI anywhere in the app",
     "status": "done",
-    "claude_response": "Built Market Intel v2. Removed all 'AI' language — replaced with 'SportsIQ Intelligence'. Reduced density: from 4 data sources shown simultaneously to 2 (Polymarket + crowd consensus), larger text, more breathing room. Layout fixed — full-height phone, content fills screen naturally. Shows 3 things: (1) SportsIQ signal strength (directional, not exact) above the pick buttons, (2) Market consensus (OVER 68% Polymarket), (3) crowd split. No raw numbers or model scores exposed — just directional signals. Cleaner and easier to scan.",
+    "claude_response": "Built Market Intel v2. Removed all 'AI' language \u2014 replaced with 'SportsIQ Intelligence'. Reduced density: from 4 data sources shown simultaneously to 2 (Polymarket + crowd consensus), larger text, more breathing room. Layout fixed \u2014 full-height phone, content fills screen naturally. Shows 3 things: (1) SportsIQ signal strength (directional, not exact) above the pick buttons, (2) Market consensus (OVER 68% Polymarket), (3) crowd split. No raw numbers or model scores exposed \u2014 just directional signals. Cleaner and easier to scan.",
     "mark_reply": ""
   },
   {
@@ -3916,7 +3925,7 @@
     "source": "inbox",
     "idea": "[venue-dashboard] 1. too complex\n2. we need to do a great job here. its very important. make recommendations\n3. web only for now",
     "status": "done",
-    "claude_response": "Built Venue Dashboard v2 (web-only layout). Simplified to 4 hero metrics: Players Tonight, New App Installs Attributed, Weekly Engagement Score, Revenue Share Earned. My 3 recommendations for what matters most to bar owners: (1) 'Players tonight' — the daily number they check to know SportsIQ is working. (2) 'New installs attributed to your bar' — proves ROI: SportsIQ brought X new users who scanned your QR. (3) 'Hot nights' — show which game nights drove the most engagement so they can promote those matchups. Also added an Action Recommendations section: 3 AI-generated (SportsIQ Intelligence) suggestions like 'Post on Instagram tonight — Ravens game has 40% more interest than last week.' This makes bar owners feel SportsIQ is a partner, not just a tool.",
+    "claude_response": "Built Venue Dashboard v2 (web-only layout). Simplified to 4 hero metrics: Players Tonight, New App Installs Attributed, Weekly Engagement Score, Revenue Share Earned. My 3 recommendations for what matters most to bar owners: (1) 'Players tonight' \u2014 the daily number they check to know SportsIQ is working. (2) 'New installs attributed to your bar' \u2014 proves ROI: SportsIQ brought X new users who scanned your QR. (3) 'Hot nights' \u2014 show which game nights drove the most engagement so they can promote those matchups. Also added an Action Recommendations section: 3 AI-generated (SportsIQ Intelligence) suggestions like 'Post on Instagram tonight \u2014 Ravens game has 40% more interest than last week.' This makes bar owners feel SportsIQ is a partner, not just a tool.",
     "mark_reply": ""
   },
   {
@@ -3925,7 +3934,7 @@
     "source": "inbox",
     "idea": "[venue-onboarding] 1. make recommendations\n2. all of this - make recommendations\n3. sepatate app\n4. 30 day\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Venue Onboarding v2. Separate app feel (slightly different branding — 'SportsIQ for Venues'). Fixed layout. 4 screens: (1) Welcome + value prop ('Free for 30 days. No hardware. Works tonight.'). (2) Setup: enter venue name + confirm address (pre-filled from Google). My recommendation: make setup take under 3 minutes — only 2 required fields. (3) Ready screen: QR code generated instantly, room code ready, 'Go live tonight' CTA. My recommendation: show a live preview of what the TV screen looks like right now. (4) Trial status: '27 days remaining. 47 players so far.' My recommendation for converting trial to paid: show ROI ('SportsIQ has driven an estimated 12 new downloads from your venue this week') on day 15 when they're deep enough to care.",
+    "claude_response": "Built Venue Onboarding v2. Separate app feel (slightly different branding \u2014 'SportsIQ for Venues'). Fixed layout. 4 screens: (1) Welcome + value prop ('Free for 30 days. No hardware. Works tonight.'). (2) Setup: enter venue name + confirm address (pre-filled from Google). My recommendation: make setup take under 3 minutes \u2014 only 2 required fields. (3) Ready screen: QR code generated instantly, room code ready, 'Go live tonight' CTA. My recommendation: show a live preview of what the TV screen looks like right now. (4) Trial status: '27 days remaining. 47 players so far.' My recommendation for converting trial to paid: show ROI ('SportsIQ has driven an estimated 12 new downloads from your venue this week') on day 15 when they're deep enough to care.",
     "mark_reply": ""
   },
   {
@@ -3934,7 +3943,7 @@
     "source": "inbox",
     "idea": "[data-intelligence] 1. blend them in\n2. make recommendartions here\n3. explain, not sure what you mean by this or by sports DNA\n4. need to discuss this - its very important",
     "status": "done",
-    "claude_response": "Built Data Intelligence v2. Addressing your questions: (3) Sports DNA = a profile of what kind of sports fan you are, built from your picks. E.g. 'Contrarian (picks against the crowd 67% of the time)', 'Pass-heavy (prefers QB stats 80%)', 'Clutch (win rate jumps to 74% in Q4 picks)'. It's a personality profile, not analytics. 'Blend in' = instead of a separate Data section, I've shown how these insights surface contextually: on the Pick Card ('SportsIQ Signal: 71% OVER'), in the post-pick calibration card (how you compared to the crowd), and in the weekly recap ('You outperformed the crowd by +12% this week'). (4) The data business: SportsIQ's moat is the behavioral signal — we know that User #48291 picks OVER on pass-heavy games in Q3, arrives at bars on Sunday nights, and lost a 5-game streak last week. That profile is worth $8-15/year in ad targeting alone. This is not something competitors can replicate without the same user base. We should discuss how much of this to expose vs. keep proprietary.",
+    "claude_response": "Built Data Intelligence v2. Addressing your questions: (3) Sports DNA = a profile of what kind of sports fan you are, built from your picks. E.g. 'Contrarian (picks against the crowd 67% of the time)', 'Pass-heavy (prefers QB stats 80%)', 'Clutch (win rate jumps to 74% in Q4 picks)'. It's a personality profile, not analytics. 'Blend in' = instead of a separate Data section, I've shown how these insights surface contextually: on the Pick Card ('SportsIQ Signal: 71% OVER'), in the post-pick calibration card (how you compared to the crowd), and in the weekly recap ('You outperformed the crowd by +12% this week'). (4) The data business: SportsIQ's moat is the behavioral signal \u2014 we know that User #48291 picks OVER on pass-heavy games in Q3, arrives at bars on Sunday nights, and lost a 5-game streak last week. That profile is worth $8-15/year in ad targeting alone. This is not something competitors can replicate without the same user base. We should discuss how much of this to expose vs. keep proprietary.",
     "mark_reply": ""
   },
   {
@@ -3943,25 +3952,43 @@
     "source": "inbox",
     "idea": "[challenges-v2] 1. unified would be best but make sure you execute it well\n2. equal\n3. immediately\n4. yes\n\nwhy is all of this vertically scrunched with big open spaces? optimize layouts",
     "status": "done",
-    "claude_response": "Built Challenges v3. Unified challenge system — one flow handles daily, bar, and social challenges. Fixed layout (full-height phone, no scrunching). My design: the challenge fires immediately after a pick is made (no separate opt-in). Equal conditions: everyone in the challenge sees the same pick at the same time, no time advantage. 2 phones: (1) Challenge just fired — pick card transforms with challenge banner at top showing who accepted ('BigMike accepted your challenge'), both players' picks, crowd context. (2) Challenge resolved — side-by-side result card showing win/loss, IQ delta, streak protection. Challenge types unified: Daily (vs SportsIQ's model), Bar (vs everyone at your bar), Social (vs a specific friend).",
+    "claude_response": "Built Challenges v3. Unified challenge system \u2014 one flow handles daily, bar, and social challenges. Fixed layout (full-height phone, no scrunching). My design: the challenge fires immediately after a pick is made (no separate opt-in). Equal conditions: everyone in the challenge sees the same pick at the same time, no time advantage. 2 phones: (1) Challenge just fired \u2014 pick card transforms with challenge banner at top showing who accepted ('BigMike accepted your challenge'), both players' picks, crowd context. (2) Challenge resolved \u2014 side-by-side result card showing win/loss, IQ delta, streak protection. Challenge types unified: Daily (vs SportsIQ's model), Bar (vs everyone at your bar), Social (vs a specific friend).",
     "mark_reply": ""
   },
   {
     "id": "idea-048",
     "date": "2026-03-21",
     "source": "autonomous-loop",
-    "idea": "Pick Result Celebration Screen — the dopamine moment when a pick resolves. Win state, loss state, and shareable win card.",
+    "idea": "Pick Result Celebration Screen \u2014 the dopamine moment when a pick resolves. Win state, loss state, and shareable win card.",
     "status": "done",
-    "claude_response": "Built Pick Result v1 (proactive). Three states shown across 3 phones: (1) WIN — full green color flood, +250 IQ ticker, streak +1 badge, 'You beat 68% of the crowd', share card preview. (2) LOSS — dignified dark screen, exact breakdown of what happened, streak maintained callout, next pick window teaser. (3) Share Card — portrait format for Instagram Stories, brand purple, pick call-out, IQ score, @SportsIQ tag. This is the most important retention/acquisition moment in the app — the celebration drives return visits and the share card drives organic installs.",
+    "claude_response": "Built Pick Result v1 (proactive). Three states shown across 3 phones: (1) WIN \u2014 full green color flood, +250 IQ ticker, streak +1 badge, 'You beat 68% of the crowd', share card preview. (2) LOSS \u2014 dignified dark screen, exact breakdown of what happened, streak maintained callout, next pick window teaser. (3) Share Card \u2014 portrait format for Instagram Stories, brand purple, pick call-out, IQ score, @SportsIQ tag. This is the most important retention/acquisition moment in the app \u2014 the celebration drives return visits and the share card drives organic installs.",
     "mark_reply": ""
   },
   {
     "id": "idea-049",
     "date": "2026-03-21",
     "source": "autonomous-loop",
-    "idea": "Friends Activity Feed — social graph screen. Real-time friend picks, rivalry tracking, bar squad view. The social moat that makes SportsIQ irreplaceable.",
+    "idea": "Friends Activity Feed \u2014 social graph screen. Real-time friend picks, rivalry tracking, bar squad view. The social moat that makes SportsIQ irreplaceable.",
     "status": "done",
-    "claude_response": "Built Friends Feed v1 (proactive, idea-049). Two phone views: (1) Activity Feed — rivalry card at top (You vs BigMike: 8-6 this week, you're ahead), live friend pick stream showing who just picked what with emoji reactions, 'At Kincade's right now' bar squad section with 6 friends shown. (2) Rival Detail — drill-in showing full H2H record, last 10 picks side by side, streak comparison, IQ points gap. The social graph data this generates (friend networks, rival histories, bar squads, pick-by-pick comparisons) is 2+ years of irreplaceable moat data. A well-funded competitor cannot buy or rebuild this.",
+    "claude_response": "Built Friends Feed v1 (proactive, idea-049). Two phone views: (1) Activity Feed \u2014 rivalry card at top (You vs BigMike: 8-6 this week, you're ahead), live friend pick stream showing who just picked what with emoji reactions, 'At Kincade's right now' bar squad section with 6 friends shown. (2) Rival Detail \u2014 drill-in showing full H2H record, last 10 picks side by side, streak comparison, IQ points gap. The social graph data this generates (friend networks, rival histories, bar squads, pick-by-pick comparisons) is 2+ years of irreplaceable moat data. A well-funded competitor cannot buy or rebuild this.",
+    "mark_reply": ""
+  },
+  {
+    "id": "idea-050",
+    "date": "2026-03-21",
+    "source": "inbox",
+    "idea": "Pre-Game Brief \u2014 proactive build. Daily habit driver that fires every game morning as a push notification, opening to a personalized intelligence brief showing tonight's props, your historical accuracy on similar prop types, where sharp money is positioning, and friends activity. The moat: 'Your 8-2 record on Mahomes passing yards' is data no competitor has because they don't have your history.",
+    "status": "done",
+    "claude_response": "Built Pre-Game Brief (idea-050). Three phones: (1) Push notification \u2014 lock screen at 9:14am, branded SportsIQ notification with game name, your record summary, and time until pick windows. (2) Full brief screen \u2014 your track record hero card (8-2, 80%), tonight's 3 props each with compact signal stack (sharp money direction, crowd lean, line movement), friends already active crew row, CTA to set pick window reminder. (3) Prop deep-dive \u2014 drill into Mahomes passing yards: your pick history dots (W-W-L-W-W-W-L-W-W-W), full signal stack in detail cards, line movement from open to now, Mahomes context paragraph. The brief fires from SportsIQ's first-party behavioral data \u2014 no competitor can show your personal prop history because they don't have it. This is the daily app open driver for non-live hours.",
+    "mark_reply": ""
+  },
+  {
+    "id": "idea-051",
+    "date": "2026-03-21",
+    "source": "inbox",
+    "idea": "SportsIQ Pro \u2014 proactive build. The monetization screen every VC asks to see. $4.99/mo or $39.99/yr subscription with a soft paywall on 3\u00d7 and above multipliers. Key perks: 5\u00d7 multiplier (free caps at 2\u00d7), +15 min early pick window access, real-time sharp money alerts (free gets 5 min delay), full Sports DNA profile, unlimited crew size. The early access window is the killer perk \u2014 Pro users pick 15 min before free users see any crowd data, meaning Pro users SET the crowd signal that free users react to.",
+    "status": "done",
+    "claude_response": "Built SportsIQ Pro (idea-051). Three phones: (1) Upgrade prompt \u2014 soft paywall sheet slides up when free user taps 3\u00d7 multiplier. Blurred pick card behind it, 4 perk grid (5\u00d7 multiplier, +15 min early access, real-time sharp alerts, full Sports DNA), $4.99/mo primary CTA + $39.99/yr, soft dismiss to continue free. (2) Full comparison screen \u2014 Free vs Pro feature grid across 3 sections: Picks (max multiplier, early access, pick history), Intelligence (sharp alerts, Pre-Game Brief, Sports DNA), Social (crew size, Pro badge). Dual pricing: $39.99/yr primary (save 33%) + $4.99/mo secondary. (3) Pro activated \u2014 gold glow, \u26a1 badge, 4 perks confirmed with explanations, 'Start Picking' CTA. Moat note: the +15 min early window is 2nd-order powerful \u2014 Pro users establish the crowd split percentage that free users see when their window opens, creating an information asymmetry that compounds over time.",
     "mark_reply": ""
   }
 ]
@@ -4685,7 +4712,12 @@
     // ── Mar 21 autonomous loop — pick result celebration (idea-048) ─────
     'pick-result-v1':      '2026-03-21T19:30:00-07:00',
     // ── Mar 21 autonomous loop — friends activity feed (idea-049) ────────
-    'friends-feed-v1':     '2026-03-21T20:30:00-07:00'
+    'friends-feed-v1':     '2026-03-21T20:30:00-07:00',
+    // ── Mar 21 — pick result v2: InfluenceIQ D7 receipt prompt + cohesiveness ──
+    'pick-result-v2':      '2026-03-21T22:00:00-07:00',
+    // ── Mar 21 autonomous loop — Pre-Game Brief + SportsIQ Pro (idea-050, idea-051) ──
+    'pregame-brief':       '2026-03-21T23:30:00-07:00',
+    'sportsiq-pro':        '2026-03-21T23:30:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -5383,6 +5415,17 @@
         'Should the WIN screen have sound? A satisfying "cha-ching" sound effect could dramatically increase the dopamine hit — but needs to be optional given bar/silent contexts.'
       ]
     },
+    'pick-result-v2': {
+      icon: '🎉',
+      title: 'Pick Result v2 — D7 InfluenceIQ Receipt Prompt · Contrarian Win · 2026-03-21',
+      built: 'v2 of the pick result screen. Key additions: (1) InfluenceIQ receipt follow prompt — the "You think differently." section from Directive 7, shown below the share button on every win. Two paths: standard win (≥30% crowd picked same) → shows Nova Finance (@novafinancetips, "Daily money intel for people who think ahead."); contrarian win (<30% crowd) → shows Psyche (@PsycheMind, "Your instincts are sharper than most. Here\'s the science."). This doubles as the D7 implementation reference mockup for Isaac. (2) LOSS state improved — removed the emoji bottom nav (inconsistent with all other core screens), replaced with a clean single CTA. (3) Three phones cover all outcome states: standard win + Nova prompt, contrarian win + Psyche prompt, and dignified loss.',
+      questions: [
+        'InfluenceIQ prompt timing — should it appear immediately with the win, or slide in 2s after the celebration so it doesn\'t compete with the +IQ ticker?',
+        'The contrarian win (beating under 30% of crowd) — should we make the celebration MORE intense for contrarian wins to reward the harder call?',
+        'Follow button label: "Follow" (compact) vs "Follow on Instagram" (explicit) — compact fits better but explicit sets expectation for newer users.',
+        'Should we show a "You\'ve been contrarian 3 picks in a row" badge on the Psyche prompt for users who consistently beat the crowd?'
+      ]
+    },
     'friends-feed-v1': {
       icon: '👥',
       title: 'Friends Feed v1 — Social Activity · Rivalry Tracking · Between-Picks',
@@ -5392,6 +5435,28 @@
         'Should you see what friends picked BEFORE you lock in your own pick, or only after? Showing it before creates social influence (moat) but might feel like cheating to some players.',
         'Rival system: auto-assign a "top rival" based on pick history, or let users manually choose rivals? Auto-assign is more engaging but might pair people who don\'t know each other.',
         'Should the feed show picks from ALL friends or only friends who are actively playing tonight? All-time feed feels richer but gets noisy — tonight-only keeps it relevant to the current game.'
+      ]
+    },
+    'pregame-brief': {
+      icon: '📋',
+      title: 'Pre-Game Brief — Daily Intelligence Push · Morning of Game Day',
+      built: 'The daily habit driver that opens the app even before pick windows go live. Fires every game-day morning as a push notification ("Your Chiefs brief is ready — 3 props tonight"). Tapping opens the Pre-Game Brief: a personalized intelligence summary showing tonight\'s featured props, your historical accuracy on similar props, where smart money is positioning, and how many friends are already active. Two phones: (1) Push notification + brief overview (your record, sharp money direction, friends activity, pick window ETA). (2) Prop deep-dive — drill into one prop with full signal stack (crowd lean, sharp money, line movement, your personal history on this exact prop type). The brief is built from SportsIQ\'s proprietary first-party behavioral data — no competitor can show "your 8-2 record on Mahomes passing yards in home games" because they don\'t have your history. This is the screen that turns SportsIQ from an app you open when games are live into an app you open every morning.',
+      questions: [
+        'Brief timing: push at 9am, at noon, or 2 hours before first pick window? My recommendation: 2 hours before first pick — context is most relevant right when action is approaching.',
+        'Should the brief be personalized per user (based on their history + favorite teams) or show the same featured props for everyone? My recommendation: personalized — it\'s the moat. Same-for-everyone is what ESPN does.',
+        'How much history to surface? My recommendation: "Your record on this prop type" (e.g., 8-2 on Mahomes passing yards) rather than full history — one number is more actionable than a table.',
+        'Should the brief show friends picks-in-progress (who has already picked for tonight) or keep it pure intelligence and save the social layer for the pick card?'
+      ]
+    },
+    'sportsiq-pro': {
+      icon: '⚡',
+      title: 'SportsIQ Pro — Subscription · Monetization · Premium Tier',
+      built: 'The monetization layer — the screen every VC asks to see. SportsIQ Pro at $4.99/mo or $39.99/yr. Three phones: (1) Upgrade prompt — appears when a free user hits a limit (e.g. tries to use 3× multiplier). Soft paywall with clear value proposition, no hard block on core pick mechanics. (2) Full Pro comparison screen — Free vs Pro side-by-side with every feature listed. Pro perks: 5× multipliers (free caps at 2×), pick window early access (+15 min), full Sports DNA dashboard, real-time sharp money alerts (free gets 5-min delay), unlimited bar crew size, priority in venue leaderboards. (3) Pro activated — success state with perks unlocked, multiplier selector now shows 5×, sharp money badge appears on home screen. Moat analysis: the early access window is the most powerful perk — a 15-minute head start on pick windows means Pro users set the initial crowd percentage that free users then see. This creates a second-order advantage: Pro users influence the crowd signal that everyone else reacts to.',
+      questions: [
+        'Pricing: $4.99/mo + $39.99/yr (current design) vs $9.99/mo + $79.99/yr? My recommendation: start at $4.99 — lower friction to convert. Raise price once the product proves itself. You can always go up, hard to go down.',
+        'Early access window (15 min early): does this feel valuable enough to be a Pro-exclusive, or should it be a shorter window (5 min) so it doesn\'t feel like an unfair advantage to free users?',
+        'Hard paywall vs soft paywall: should the 3× and above multipliers be completely locked (can\'t pick with them) or show the option but prompt upgrade when tapped? Soft = less friction, more trial + conversion. Hard = clearer signal of what Pro gets you.',
+        'Free tier ceiling: should free users get 2× max multiplier forever, or should multiplier access be time-limited (2× for first 30 days, then 1× only) to drive upgrades?'
       ]
     }
   };
@@ -17894,6 +17959,935 @@
   </div>
   <div id="sfb-panel-friends-feed-v1" class="sfb-panel"></div>
 </div><!-- /screen friends-feed-v1 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Pick Result v2 — D7 InfluenceIQ Receipt Prompt + Cohesiveness Fix
+     2026-03-21 · Cohesiveness iteration
+     v2 upgrades: (1) D7 "You think differently." follow prompt in win receipt
+     (2) Nova vs Psyche persona routing based on contrarian logic
+     (3) Loss state: removed emoji nav bar, clean consistent CTA
+     Isaac D7 implementation reference — exact layout matches directive spec
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="pick-result-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Pick Result v2 — InfluenceIQ Receipt Prompt · D7 Visual Reference · 2026-03-21</div>
+    <div class="screen-subtitle">Three win/loss states with D7 InfluenceIQ follow prompt built in. Standard win (≥30% crowd same pick) → Nova Finance. Contrarian win (&lt;30% crowd) → Psyche. Loss → dignified, no emoji nav. This is Isaac's D7 implementation reference — layout matches the directive spec exactly.</div>
+  </div>
+
+  <div class="phone-wrap">
+
+    <!-- ─── PHONE 1: STANDARD WIN + NOVA FOLLOW PROMPT ─────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#022A14;overflow:hidden;position:relative;">
+
+          <!-- Glow burst -->
+          <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,0.45) 0%,rgba(34,197,94,0.12) 45%,transparent 70%);pointer-events:none;z-index:0;animation:glow 2.5s ease-in-out infinite;"></div>
+
+          <!-- Confetti -->
+          <div style="position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;">
+            <div style="position:absolute;top:14%;left:18%;width:10px;height:10px;border-radius:50%;background:#f59e0b;animation:fadeUp 0.6s ease 0.1s both;"></div>
+            <div style="position:absolute;top:18%;left:72%;width:7px;height:7px;border-radius:50%;background:#5545D3;animation:fadeUp 0.5s ease 0.2s both;"></div>
+            <div style="position:absolute;top:10%;left:52%;width:12px;height:5px;border-radius:2px;background:#22c55e;transform:rotate(35deg);animation:fadeUp 0.7s ease 0.15s both;"></div>
+            <div style="position:absolute;top:22%;left:33%;width:8px;height:8px;border-radius:50%;background:#f97316;animation:fadeUp 0.5s ease 0.25s both;"></div>
+          </div>
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;position:relative;z-index:2;"></div>
+
+          <!-- Win celebration area -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0 20px;position:relative;z-index:2;">
+
+            <!-- YOU WON badge -->
+            <div style="background:rgba(34,197,94,0.18);border:2px solid #22c55e;border-radius:16px;padding:8px 28px;animation:fadeUp 0.4s ease both;">
+              <div style="color:#22c55e;font-size:13px;font-weight:900;letter-spacing:4px;">YOU WON</div>
+            </div>
+
+            <!-- IQ Points -->
+            <div style="text-align:center;animation:fadeUp 0.5s ease 0.1s both;">
+              <div style="color:#22c55e;font-size:80px;font-weight:900;line-height:1;letter-spacing:-3px;">+250</div>
+              <div style="color:#4ade80;font-size:16px;font-weight:700;letter-spacing:2px;">IQ POINTS</div>
+            </div>
+
+            <!-- Pick result box -->
+            <div style="background:rgba(0,0,0,0.35);border-radius:14px;padding:12px 16px;width:100%;text-align:center;animation:fadeUp 0.5s ease 0.2s both;">
+              <div style="color:#94a3b8;font-size:11px;letter-spacing:2px;margin-bottom:6px;">PICK RESULT</div>
+              <div style="color:#f8fafc;font-size:18px;font-weight:800;">OVER ✓</div>
+              <div style="color:#4ade80;font-size:13px;margin-top:4px;">Mahomes — 284 yds · Target was 267</div>
+            </div>
+
+            <!-- Crowd context -->
+            <div style="text-align:center;animation:fadeUp 0.5s ease 0.25s both;">
+              <div style="color:#64748b;font-size:12px;">You beat <span style="color:#22c55e;font-weight:700;">68% of the crowd</span></div>
+            </div>
+
+            <!-- Streak badge -->
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:10px;padding:8px 16px;animation:fadeUp 0.5s ease 0.3s both;">
+              <span style="font-size:18px;">🔥</span>
+              <div>
+                <div style="color:#fbbf24;font-size:13px;font-weight:800;">3-Pick Streak</div>
+                <div style="color:#94a3b8;font-size:10px;">Next pick in Q3</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Share win button -->
+          <div style="padding:0 16px;margin-bottom:10px;position:relative;z-index:2;">
+            <div style="background:linear-gradient(135deg,#5545D3,#228C88);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="color:#fff;font-size:13px;font-weight:800;">Share your win</div>
+                <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:1px;">Let them know you called it</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.18);border-radius:8px;padding:6px 14px;">
+                <div style="color:#fff;font-size:12px;font-weight:800;">Share →</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── D7 INFLUENCEIQ FOLLOW PROMPT — "You think differently." ── -->
+          <div style="border-top:1px solid rgba(255,255,255,0.08);padding:14px 16px 10px;position:relative;z-index:2;">
+            <div style="font-size:15px;font-weight:700;color:#f8fafc;margin-bottom:10px;">You think differently.</div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <!-- Nova avatar placeholder circle -->
+              <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#7C6FE0);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <div style="color:#fff;font-size:14px;font-weight:900;">N</div>
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div style="color:#f8fafc;font-size:13px;font-weight:700;line-height:1.2;">Nova Finance</div>
+                <div style="color:#64748b;font-size:11px;margin-top:1px;">@novafinancetips</div>
+                <div style="color:#94a3b8;font-size:11px;margin-top:2px;line-height:1.4;">Daily money intel for people who think ahead.</div>
+              </div>
+              <div style="background:#E1306C;border-radius:8px;padding:6px 12px;flex-shrink:0;">
+                <div style="color:#fff;font-size:11px;font-weight:700;">Follow</div>
+              </div>
+            </div>
+          </div>
+          <!-- ── END D7 FOLLOW PROMPT ── -->
+
+          <!-- Bottom CTA -->
+          <div style="display:flex;gap:8px;padding:10px 16px 16px;position:relative;z-index:2;flex-shrink:0;">
+            <div style="flex:1;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:12px;padding:12px;text-align:center;">
+              <div style="color:#4ade80;font-size:12px;font-weight:700;">Leaderboard</div>
+            </div>
+            <div style="flex:2;background:#22c55e;border-radius:12px;padding:12px;text-align:center;">
+              <div style="color:#022A14;font-size:13px;font-weight:900;">Next Pick →</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">WIN · Nova follow prompt · crowd ≥30% same pick</div>
+    </div>
+
+    <!-- ─── PHONE 2: CONTRARIAN WIN + PSYCHE FOLLOW PROMPT ──────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#021A14;overflow:hidden;position:relative;">
+
+          <!-- Glow burst — purple tint for contrarian win -->
+          <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(85,69,211,0.4) 0%,rgba(34,197,94,0.2) 45%,transparent 70%);pointer-events:none;z-index:0;animation:glow 2.5s ease-in-out infinite;"></div>
+
+          <!-- Confetti — more purple for contrarian -->
+          <div style="position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;">
+            <div style="position:absolute;top:14%;left:18%;width:10px;height:10px;border-radius:50%;background:#a78bfa;animation:fadeUp 0.6s ease 0.1s both;"></div>
+            <div style="position:absolute;top:18%;left:72%;width:7px;height:7px;border-radius:50%;background:#22c55e;animation:fadeUp 0.5s ease 0.2s both;"></div>
+            <div style="position:absolute;top:10%;left:52%;width:12px;height:5px;border-radius:2px;background:#c4b5fd;transform:rotate(35deg);animation:fadeUp 0.7s ease 0.15s both;"></div>
+            <div style="position:absolute;top:22%;left:33%;width:8px;height:8px;border-radius:50%;background:#f59e0b;animation:fadeUp 0.5s ease 0.25s both;"></div>
+            <div style="position:absolute;top:8%;left:80%;width:6px;height:12px;border-radius:2px;background:#5545D3;transform:rotate(-20deg);animation:fadeUp 0.6s ease 0.3s both;"></div>
+          </div>
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;position:relative;z-index:2;"></div>
+
+          <!-- Win celebration area — contrarian flavour -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0 20px;position:relative;z-index:2;">
+
+            <!-- CONTRARIAN WIN badge — purple -->
+            <div style="background:rgba(85,69,211,0.2);border:2px solid #5545D3;border-radius:16px;padding:8px 20px;animation:fadeUp 0.4s ease both;">
+              <div style="color:#a78bfa;font-size:11px;font-weight:900;letter-spacing:3px;">CONTRARIAN WIN</div>
+            </div>
+
+            <!-- IQ Points — bigger reward callout -->
+            <div style="text-align:center;animation:fadeUp 0.5s ease 0.1s both;">
+              <div style="color:#22c55e;font-size:80px;font-weight:900;line-height:1;letter-spacing:-3px;">+340</div>
+              <div style="color:#4ade80;font-size:16px;font-weight:700;letter-spacing:2px;">IQ POINTS</div>
+            </div>
+
+            <!-- Contrarian context -->
+            <div style="background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:14px;padding:12px 16px;width:100%;text-align:center;animation:fadeUp 0.5s ease 0.2s both;">
+              <div style="color:#a78bfa;font-size:11px;letter-spacing:2px;margin-bottom:6px;">RARE PICK</div>
+              <div style="color:#f8fafc;font-size:18px;font-weight:800;">UNDER ✓</div>
+              <div style="color:#4ade80;font-size:13px;margin-top:4px;">Mahomes — 218 yds · Target was 267</div>
+              <div style="margin-top:8px;color:#64748b;font-size:11px;">Only <span style="color:#a78bfa;font-weight:700;">22% of players</span> called this</div>
+            </div>
+
+            <!-- Beat the crowd -->
+            <div style="text-align:center;animation:fadeUp 0.5s ease 0.25s both;">
+              <div style="color:#64748b;font-size:12px;">You beat <span style="color:#22c55e;font-weight:700;">78% of the crowd</span> · Rare pick bonus applied</div>
+            </div>
+
+          </div>
+
+          <!-- Share win button -->
+          <div style="padding:0 16px;margin-bottom:10px;position:relative;z-index:2;">
+            <div style="background:linear-gradient(135deg,#5545D3,#228C88);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="color:#fff;font-size:13px;font-weight:800;">Share your contrarian win</div>
+                <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:1px;">Only 22% saw this coming</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.18);border-radius:8px;padding:6px 14px;">
+                <div style="color:#fff;font-size:12px;font-weight:800;">Share →</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── D7 PSYCHE FOLLOW PROMPT — contrarian path ── -->
+          <div style="border-top:1px solid rgba(255,255,255,0.08);padding:14px 16px 10px;position:relative;z-index:2;">
+            <div style="font-size:15px;font-weight:700;color:#f8fafc;margin-bottom:10px;">You think differently.</div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <!-- Psyche avatar placeholder -->
+              <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#228C88,#0d9488);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <div style="color:#fff;font-size:14px;font-weight:900;">P</div>
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div style="color:#f8fafc;font-size:13px;font-weight:700;line-height:1.2;">Psyche</div>
+                <div style="color:#64748b;font-size:11px;margin-top:1px;">@PsycheMind</div>
+                <div style="color:#94a3b8;font-size:11px;margin-top:2px;line-height:1.4;">Your instincts are sharper than most. Here's the science.</div>
+              </div>
+              <div style="background:#E1306C;border-radius:8px;padding:6px 12px;flex-shrink:0;">
+                <div style="color:#fff;font-size:11px;font-weight:700;">Follow</div>
+              </div>
+            </div>
+          </div>
+          <!-- ── END D7 PSYCHE PROMPT ── -->
+
+          <!-- Bottom CTA -->
+          <div style="display:flex;gap:8px;padding:10px 16px 16px;position:relative;z-index:2;flex-shrink:0;">
+            <div style="flex:1;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.3);border-radius:12px;padding:12px;text-align:center;">
+              <div style="color:#a78bfa;font-size:12px;font-weight:700;">Leaderboard</div>
+            </div>
+            <div style="flex:2;background:#5545D3;border-radius:12px;padding:12px;text-align:center;">
+              <div style="color:#fff;font-size:13px;font-weight:900;">Next Pick →</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">CONTRARIAN WIN · Psyche follow prompt · crowd &lt;30% same pick · Rare pick bonus</div>
+    </div>
+
+    <!-- ─── PHONE 3: LOSS STATE — cohesiveness fix (no emoji nav) ──────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:var(--bg);overflow:hidden;">
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;"></div>
+
+          <!-- Dignified header -->
+          <div style="padding:16px 20px 10px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:36px;height:36px;border-radius:50%;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;">
+                <div style="font-size:16px;">📉</div>
+              </div>
+              <div>
+                <div style="color:#f8fafc;font-size:15px;font-weight:800;">This one didn't land</div>
+                <div style="color:#64748b;font-size:11px;">Mahomes · Passing Yards</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main content -->
+          <div style="flex:1;overflow-y:auto;padding:0 16px;">
+
+            <!-- What happened -->
+            <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.14);border-radius:14px;padding:16px;margin-bottom:12px;">
+              <div style="color:#94a3b8;font-size:10px;letter-spacing:2px;font-weight:700;margin-bottom:10px;">WHAT HAPPENED</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="color:#64748b;font-size:13px;">Your pick</span>
+                <span style="color:#f8fafc;font-size:15px;font-weight:800;">OVER 267</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="color:#64748b;font-size:13px;">Final stat</span>
+                <span style="color:#ef4444;font-size:15px;font-weight:800;">218 yds</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="color:#64748b;font-size:13px;">Result</span>
+                <span style="color:#ef4444;font-size:15px;font-weight:800;">UNDER won</span>
+              </div>
+              <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.05);">
+                <div style="color:#64748b;font-size:11px;line-height:1.6;">Mahomes needed 49 more yards. Bengals defense held strong in Q4.</div>
+              </div>
+            </div>
+
+            <!-- Crowd split -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:14px;margin-bottom:12px;">
+              <div style="color:#94a3b8;font-size:10px;letter-spacing:2px;font-weight:700;margin-bottom:10px;">CROWD SPLIT</div>
+              <div style="display:flex;gap:0;border-radius:8px;overflow:hidden;height:32px;margin-bottom:8px;">
+                <div style="width:68%;background:rgba(85,69,211,0.35);display:flex;align-items:center;padding-left:10px;">
+                  <span style="color:#c4b5fd;font-size:12px;font-weight:800;">68% OVER</span>
+                </div>
+                <div style="width:32%;background:rgba(34,140,136,0.35);display:flex;align-items:center;justify-content:flex-end;padding-right:10px;">
+                  <span style="color:#6ee7e1;font-size:12px;font-weight:800;">32%</span>
+                </div>
+              </div>
+              <div style="color:#64748b;font-size:11px;">Crowd also went OVER — a tough loss for everyone.</div>
+            </div>
+
+            <!-- Streak protection -->
+            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.18);border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;">
+              <span style="font-size:20px;">🔥</span>
+              <div>
+                <div style="color:#fbbf24;font-size:12px;font-weight:800;">2-Pick Streak maintained</div>
+                <div style="color:#64748b;font-size:10px;margin-top:1px;">One skip/week doesn't break your streak</div>
+              </div>
+            </div>
+
+            <!-- Next pick teaser -->
+            <div style="background:linear-gradient(135deg,rgba(85,69,211,0.12),rgba(34,140,136,0.08));border:1px solid rgba(85,69,211,0.2);border-radius:12px;padding:14px;margin-bottom:16px;">
+              <div style="color:#a78bfa;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;">NEXT PICK</div>
+              <div style="color:#f8fafc;font-size:14px;font-weight:700;">Ravens vs Bengals · Q3 Opening</div>
+              <div style="color:#64748b;font-size:11px;margin-top:3px;">Pick window opens at 8:04 PM · 6 min away</div>
+              <div style="margin-top:10px;background:var(--brand);border-radius:8px;padding:10px;text-align:center;">
+                <div style="color:#fff;font-size:12px;font-weight:800;">Get notified when it opens</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom: clean CTA only — no emoji nav bar -->
+          <div style="padding:10px 16px 20px;flex-shrink:0;border-top:1px solid rgba(255,255,255,0.05);">
+            <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:12px;text-align:center;">
+              <div style="color:#94a3b8;font-size:12px;font-weight:600;">Back to Home</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">LOSS STATE v2 — Dignified · No emoji nav · Clean CTA</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-pick-result-v2" class="sfb-panel"></div>
+</div><!-- /screen pick-result-v2 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Pre-Game Brief — Mar 21 2026 — Daily habit driver, game-day morning
+     Push notification → personalized intelligence summary before pick windows open
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="pregame-brief" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">📋 Pre-Game Brief</div>
+    <div class="screen-desc">Mar 21 2026 · Daily habit driver — pushes every game morning, opens to personalized intel before pick windows go live. The "SportsIQ as sports news source" moment.</div>
+  </div>
+
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: Push notification + Brief overview ─────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow:hidden;">
+
+          <!-- Lock screen / notification view -->
+          <div style="background:linear-gradient(180deg,#0e1a2d 0%,#050912 100%);flex:1;display:flex;flex-direction:column;padding:0;">
+
+            <!-- Status bar -->
+            <div style="height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px;">
+              <div style="color:#94a3b8;font-size:11px;font-weight:600;">9:14 AM</div>
+              <div style="display:flex;gap:6px;align-items:center;">
+                <div style="color:#94a3b8;font-size:10px;">●●●●</div>
+                <div style="color:#94a3b8;font-size:10px;">WiFi</div>
+                <div style="color:#94a3b8;font-size:10px;">🔋</div>
+              </div>
+            </div>
+
+            <!-- Lock screen time -->
+            <div style="text-align:center;padding:24px 0 20px;">
+              <div style="color:#f8fafc;font-size:52px;font-weight:200;letter-spacing:-2px;line-height:1;">9:14</div>
+              <div style="color:#94a3b8;font-size:14px;margin-top:4px;">Sunday, March 22</div>
+            </div>
+
+            <!-- Push notification card -->
+            <div style="margin:0 14px;background:rgba(255,255,255,0.09);backdrop-filter:blur(20px);border-radius:18px;padding:14px 16px;border:1px solid rgba(255,255,255,0.12);">
+              <!-- App icon + name row -->
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#5545D3,#228C88);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <div style="color:#fff;font-size:14px;font-weight:900;">S</div>
+                </div>
+                <div style="flex:1;">
+                  <div style="color:#f8fafc;font-size:12px;font-weight:700;">SportsIQ</div>
+                  <div style="color:#64748b;font-size:10px;">now</div>
+                </div>
+              </div>
+              <!-- Notification body -->
+              <div style="color:#f8fafc;font-size:14px;font-weight:700;line-height:1.3;margin-bottom:4px;">🏈 Your Chiefs brief is ready</div>
+              <div style="color:#94a3b8;font-size:12px;line-height:1.5;">3 props tonight · Your record on Mahomes passing: 8-2 · Smart money moving. Pick windows open at 7:15 PM.</div>
+              <!-- Quick action -->
+              <div style="margin-top:10px;display:flex;gap:8px;">
+                <div style="flex:1;background:rgba(85,69,211,0.25);border:1px solid rgba(85,69,211,0.4);border-radius:10px;padding:8px;text-align:center;">
+                  <div style="color:#a78bfa;font-size:11px;font-weight:700;">Read Brief</div>
+                </div>
+                <div style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px;text-align:center;">
+                  <div style="color:#64748b;font-size:11px;font-weight:600;">Dismiss</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Spacer -->
+            <div style="flex:1;"></div>
+
+            <!-- Swipe hint -->
+            <div style="text-align:center;padding-bottom:20px;">
+              <div style="color:#64748b;font-size:11px;">Tap to open your brief →</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">PUSH NOTIFICATION · 9:14am game day · "Your Chiefs brief is ready"</div>
+    </div>
+
+    <!-- ── PHONE 2: Full Pre-Game Brief screen ──────────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow:hidden;">
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;"></div>
+
+          <!-- Header -->
+          <div style="padding:12px 20px 10px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;">TODAY'S BRIEF</div>
+              <div style="color:#f8fafc;font-size:20px;font-weight:900;letter-spacing:-0.5px;margin-top:2px;">Chiefs vs Ravens</div>
+              <div style="color:#64748b;font-size:11px;margin-top:1px;">Sunday 8:20 PM ET · M&T Bank Stadium</div>
+            </div>
+            <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.35);border-radius:12px;padding:6px 12px;text-align:center;">
+              <div style="color:#a78bfa;font-size:10px;font-weight:700;">PICK WINDOW</div>
+              <div style="color:#f8fafc;font-size:14px;font-weight:900;">7:15 PM</div>
+              <div style="color:#64748b;font-size:9px;">opens in 10h 1m</div>
+            </div>
+          </div>
+
+          <!-- Your record hero card -->
+          <div style="margin:0 16px 12px;background:linear-gradient(135deg,rgba(85,69,211,0.18),rgba(34,140,136,0.12));border:1px solid rgba(85,69,211,0.3);border-radius:16px;padding:14px;">
+            <div style="color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:8px;">YOUR TRACK RECORD</div>
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div style="text-align:center;flex-shrink:0;">
+                <div style="color:#22c55e;font-size:36px;font-weight:900;line-height:1;">8-2</div>
+                <div style="color:#4ade80;font-size:10px;font-weight:700;letter-spacing:1px;">80% WIN</div>
+              </div>
+              <div style="flex:1;border-left:1px solid rgba(255,255,255,0.08);padding-left:14px;">
+                <div style="color:#f8fafc;font-size:13px;font-weight:700;line-height:1.3;">Mahomes Passing Yards</div>
+                <div style="color:#94a3b8;font-size:11px;margin-top:4px;line-height:1.5;">Home games · Last 10 picks · Your best prop type across all players</div>
+                <div style="margin-top:6px;display:flex;gap:4px;">
+                  <div style="background:#22c55e;height:6px;border-radius:2px;width:80%;"></div>
+                  <div style="background:rgba(239,68,68,0.4);height:6px;border-radius:2px;flex:1;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scrollable content -->
+          <div style="flex:1;overflow-y:auto;padding:0 16px;">
+
+            <!-- Tonight's props -->
+            <div style="margin-bottom:14px;">
+              <div style="color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:10px;">TONIGHT'S PROPS</div>
+
+              <!-- Prop 1 — Mahomes -->
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(85,69,211,0.25);border-radius:14px;padding:12px 14px;margin-bottom:8px;position:relative;overflow:hidden;">
+                <!-- Sharp money indicator bar -->
+                <div style="position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,#22c55e,#16a34a);border-radius:4px 0 0 4px;"></div>
+                <div style="padding-left:8px;">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+                    <div>
+                      <div style="color:#f8fafc;font-size:14px;font-weight:800;">Mahomes · Passing Yards</div>
+                      <div style="color:#64748b;font-size:11px;margin-top:1px;">O/U 267.5</div>
+                    </div>
+                    <div style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:4px 10px;">
+                      <div style="color:#4ade80;font-size:11px;font-weight:700;">YOUR EDGE</div>
+                    </div>
+                  </div>
+                  <!-- Signal stack — compact -->
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                    <div style="background:rgba(85,69,211,0.15);border-radius:6px;padding:4px 8px;display:flex;align-items:center;gap:4px;">
+                      <div style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></div>
+                      <div style="color:#94a3b8;font-size:10px;font-weight:600;">Sharp: <span style="color:#22c55e;">72% OVER</span></div>
+                    </div>
+                    <div style="background:rgba(85,69,211,0.15);border-radius:6px;padding:4px 8px;display:flex;align-items:center;gap:4px;">
+                      <div style="width:6px;height:6px;border-radius:50%;background:#a78bfa;"></div>
+                      <div style="color:#94a3b8;font-size:10px;font-weight:600;">Crowd: <span style="color:#a78bfa;">58% OVER</span></div>
+                    </div>
+                    <div style="background:rgba(85,69,211,0.15);border-radius:6px;padding:4px 8px;display:flex;align-items:center;gap:4px;">
+                      <div style="width:6px;height:6px;border-radius:50%;background:#fbbf24;"></div>
+                      <div style="color:#94a3b8;font-size:10px;font-weight:600;">Line moved: <span style="color:#fbbf24;">+0.5 toward OVER</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Prop 2 — Lamar -->
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:12px 14px;margin-bottom:8px;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;width:4px;height:100%;background:rgba(100,116,139,0.4);border-radius:4px 0 0 4px;"></div>
+                <div style="padding-left:8px;">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+                    <div>
+                      <div style="color:#f8fafc;font-size:14px;font-weight:800;">Lamar Jackson · Rush Yards</div>
+                      <div style="color:#64748b;font-size:11px;margin-top:1px;">O/U 44.5</div>
+                    </div>
+                    <div style="background:rgba(100,116,139,0.12);border:1px solid rgba(100,116,139,0.2);border-radius:8px;padding:4px 10px;">
+                      <div style="color:#64748b;font-size:11px;font-weight:700;">3-3 yours</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:6px;">
+                    <div style="background:rgba(85,69,211,0.15);border-radius:6px;padding:4px 8px;">
+                      <div style="color:#94a3b8;font-size:10px;font-weight:600;">Sharp: <span style="color:#ef4444;">61% UNDER</span></div>
+                    </div>
+                    <div style="background:rgba(85,69,211,0.15);border-radius:6px;padding:4px 8px;">
+                      <div style="color:#94a3b8;font-size:10px;font-weight:600;">Crowd: <span style="color:#a78bfa;">52% OVER</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Prop 3 — Total points -->
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:12px 14px;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;width:4px;height:100%;background:rgba(100,116,139,0.4);border-radius:4px 0 0 4px;"></div>
+                <div style="padding-left:8px;">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+                    <div>
+                      <div style="color:#f8fafc;font-size:14px;font-weight:800;">Total Points</div>
+                      <div style="color:#64748b;font-size:11px;margin-top:1px;">O/U 46.5</div>
+                    </div>
+                    <div style="background:rgba(100,116,139,0.12);border:1px solid rgba(100,116,139,0.2);border-radius:8px;padding:4px 10px;">
+                      <div style="color:#64748b;font-size:11px;font-weight:700;">5-5 yours</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:6px;">
+                    <div style="background:rgba(85,69,211,0.15);border-radius:6px;padding:4px 8px;">
+                      <div style="color:#94a3b8;font-size:10px;font-weight:600;">Crowd: <span style="color:#a78bfa;">55% UNDER</span></div>
+                    </div>
+                    <div style="background:rgba(85,69,211,0.15);border-radius:6px;padding:4px 8px;">
+                      <div style="color:#94a3b8;font-size:10px;font-weight:600;">No line movement</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Friends already active -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:12px 14px;margin-bottom:14px;">
+              <div style="color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:8px;">CREW ACTIVITY</div>
+              <div style="color:#f8fafc;font-size:13px;font-weight:700;margin-bottom:6px;">4 of your friends are already prepping</div>
+              <div style="display:flex;gap:-4px;margin-bottom:6px;">
+                <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#228C88);border:2px solid #050912;display:flex;align-items:center;justify-content:center;"><div style="color:#fff;font-size:9px;font-weight:800;">BM</div></div>
+                <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);border:2px solid #050912;display:flex;align-items:center;justify-content:center;margin-left:-6px;"><div style="color:#fff;font-size:9px;font-weight:800;">SK</div></div>
+                <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);border:2px solid #050912;display:flex;align-items:center;justify-content:center;margin-left:-6px;"><div style="color:#fff;font-size:9px;font-weight:800;">JB</div></div>
+                <div style="width:28px;height:28px;border-radius:50%;background:rgba(100,116,139,0.3);border:2px solid #050912;display:flex;align-items:center;justify-content:center;margin-left:-6px;"><div style="color:#94a3b8;font-size:9px;font-weight:800;">+1</div></div>
+              </div>
+              <div style="color:#64748b;font-size:11px;">BigMike read his brief 2h ago</div>
+            </div>
+
+          </div>
+
+          <!-- Bottom CTA -->
+          <div style="padding:12px 16px 20px;flex-shrink:0;border-top:1px solid rgba(255,255,255,0.05);">
+            <div style="background:linear-gradient(135deg,#5545D3,#228C88);border-radius:14px;padding:14px;text-align:center;">
+              <div style="color:#fff;font-size:14px;font-weight:900;">Get Notified When Picks Open</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:11px;margin-top:2px;">Window opens at 7:15 PM · 10h 1m from now</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">PRE-GAME BRIEF · Full screen · Your record 8-2 · 3 props · Signal stack</div>
+    </div>
+
+    <!-- ── PHONE 3: Prop deep-dive view ─────────────────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow:hidden;">
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;"></div>
+
+          <!-- Back + header -->
+          <div style="padding:10px 20px 12px;flex-shrink:0;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="color:#5545D3;font-size:20px;cursor:pointer;">←</div>
+            <div>
+              <div style="color:#f8fafc;font-size:16px;font-weight:900;">Mahomes · Passing Yards</div>
+              <div style="color:#64748b;font-size:11px;">O/U 267.5 · Chiefs vs Ravens</div>
+            </div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:14px 16px;">
+
+            <!-- Your edge hero -->
+            <div style="background:linear-gradient(135deg,rgba(34,197,94,0.12),rgba(34,140,136,0.08));border:1px solid rgba(34,197,94,0.25);border-radius:16px;padding:16px;margin-bottom:14px;text-align:center;">
+              <div style="color:#4ade80;font-size:11px;font-weight:700;letter-spacing:2px;margin-bottom:4px;">YOUR EDGE ON THIS PROP</div>
+              <div style="color:#22c55e;font-size:48px;font-weight:900;line-height:1;letter-spacing:-2px;">8-2</div>
+              <div style="color:#4ade80;font-size:13px;font-weight:700;margin-top:2px;">80% win rate · Last 10 picks</div>
+              <div style="color:#64748b;font-size:11px;margin-top:6px;line-height:1.5;">You've called Mahomes passing yards correctly in 8 of your last 10 picks. Best prop in your portfolio.</div>
+            </div>
+
+            <!-- Full signal stack -->
+            <div style="margin-bottom:14px;">
+              <div style="color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:10px;">INTELLIGENCE SIGNALS</div>
+
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(34,197,94,0.2);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;">
+                  <div>
+                    <div style="color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:1px;">SHARP MONEY</div>
+                    <div style="color:#f8fafc;font-size:14px;font-weight:800;margin-top:2px;">72% OVER</div>
+                  </div>
+                  <div style="width:40px;height:40px;border-radius:50%;background:rgba(34,197,94,0.15);border:2px solid rgba(34,197,94,0.4);display:flex;align-items:center;justify-content:center;">
+                    <div style="color:#22c55e;font-size:10px;font-weight:800;">↑</div>
+                  </div>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(85,69,211,0.2);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;">
+                  <div>
+                    <div style="color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:1px;">SPORTSIQ CROWD</div>
+                    <div style="color:#f8fafc;font-size:14px;font-weight:800;margin-top:2px;">58% OVER</div>
+                    <div style="color:#64748b;font-size:10px;margin-top:2px;">224 picks placed so far</div>
+                  </div>
+                  <div style="background:rgba(85,69,211,0.2);border-radius:8px;padding:6px 10px;">
+                    <div style="color:#a78bfa;font-size:12px;font-weight:700;">OVER</div>
+                  </div>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(245,158,11,0.2);border-radius:12px;padding:12px 14px;">
+                  <div style="color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:6px;">LINE MOVEMENT</div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="color:#64748b;font-size:12px;">Open: 265.5</div>
+                    <div style="color:#fbbf24;font-size:12px;">→</div>
+                    <div style="color:#f8fafc;font-size:14px;font-weight:800;">267.5</div>
+                    <div style="background:rgba(245,158,11,0.12);border-radius:6px;padding:3px 8px;margin-left:auto;">
+                      <div style="color:#fbbf24;font-size:10px;font-weight:700;">+2 toward OVER</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;">
+                  <div style="color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:6px;">CONTEXT</div>
+                  <div style="color:#94a3b8;font-size:12px;line-height:1.6;">Mahomes averages 287 yds at home. Ravens allow 268 avg. This is a classic edge — Mahomes at home against a middle-tier pass defense with revenge motivation (lost here last season).</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pick history mini chart -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;margin-bottom:14px;">
+              <div style="color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:8px;">YOUR PICK HISTORY · THIS PROP</div>
+              <div style="display:flex;gap:5px;align-items:center;">
+                <div style="width:22px;height:22px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;"><div style="color:#fff;font-size:9px;font-weight:800;">W</div></div>
+                <div style="width:22px;height:22px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;"><div style="color:#fff;font-size:9px;font-weight:800;">W</div></div>
+                <div style="width:22px;height:22px;border-radius:50%;background:rgba(239,68,68,0.3);border:1px solid rgba(239,68,68,0.5);display:flex;align-items:center;justify-content:center;"><div style="color:#ef4444;font-size:9px;font-weight:800;">L</div></div>
+                <div style="width:22px;height:22px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;"><div style="color:#fff;font-size:9px;font-weight:800;">W</div></div>
+                <div style="width:22px;height:22px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;"><div style="color:#fff;font-size:9px;font-weight:800;">W</div></div>
+                <div style="width:22px;height:22px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;"><div style="color:#fff;font-size:9px;font-weight:800;">W</div></div>
+                <div style="width:22px;height:22px;border-radius:50%;background:rgba(239,68,68,0.3);border:1px solid rgba(239,68,68,0.5);display:flex;align-items:center;justify-content:center;"><div style="color:#ef4444;font-size:9px;font-weight:800;">L</div></div>
+                <div style="width:22px;height:22px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;"><div style="color:#fff;font-size:9px;font-weight:800;">W</div></div>
+                <div style="width:22px;height:22px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;"><div style="color:#fff;font-size:9px;font-weight:800;">W</div></div>
+                <div style="width:22px;height:22px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;"><div style="color:#fff;font-size:9px;font-weight:800;">W</div></div>
+              </div>
+              <div style="color:#64748b;font-size:10px;margin-top:6px;">← oldest · newest →</div>
+            </div>
+
+          </div>
+
+          <!-- CTA -->
+          <div style="padding:12px 16px 20px;flex-shrink:0;border-top:1px solid rgba(255,255,255,0.05);">
+            <div style="background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:14px;padding:12px;text-align:center;">
+              <div style="color:#a78bfa;font-size:12px;font-weight:700;">Set a reminder for when this picks open</div>
+              <div style="color:#64748b;font-size:10px;margin-top:2px;">7:15 PM tonight · You'll get a push</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">PROP DEEP-DIVE · Your 8-2 record · Full signal stack · Pick history dots</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-pregame-brief" class="sfb-panel"></div>
+</div><!-- /screen pregame-brief -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: SportsIQ Pro — Mar 21 2026 — Subscription / Monetization / Premium tier
+     The screen every VC asks to see. Upgrade prompt + feature comparison + activated state.
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="sportsiq-pro" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">⚡ SportsIQ Pro</div>
+    <div class="screen-desc">Mar 21 2026 · The monetization layer — $4.99/mo or $39.99/yr. Three states: soft upgrade prompt (when free user hits a limit), full comparison screen, and Pro activated success state. The early pick window access (+15 min) is the killer perk — Pro users set the crowd signal that free users react to.</div>
+  </div>
+
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: Upgrade prompt (soft paywall sheet) ──────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow:hidden;position:relative;">
+
+          <!-- Dimmed background — the Pick Card behind the sheet -->
+          <div style="position:absolute;inset:0;background:#0a0f1e;opacity:0.6;z-index:1;"></div>
+
+          <!-- Blurred pick card peek -->
+          <div style="position:absolute;top:0;left:0;right:0;bottom:200px;z-index:2;padding:20px;display:flex;flex-direction:column;gap:8px;filter:blur(2px);">
+            <div style="height:34px;"></div>
+            <div style="background:rgba(85,69,211,0.2);border-radius:12px;height:60px;"></div>
+            <div style="background:rgba(255,255,255,0.06);border-radius:12px;height:80px;"></div>
+            <div style="display:flex;gap:8px;"><div style="flex:1;background:rgba(85,69,211,0.3);border-radius:12px;height:56px;"></div><div style="flex:1;background:rgba(34,140,136,0.3);border-radius:12px;height:56px;"></div></div>
+          </div>
+
+          <!-- Upgrade sheet — slides up from bottom -->
+          <div style="position:absolute;bottom:0;left:0;right:0;z-index:10;background:linear-gradient(180deg,#0F1520 0%,#0B1020 100%);border-radius:24px 24px 0 0;border-top:1px solid rgba(85,69,211,0.3);padding:20px 20px 32px;">
+
+            <!-- Sheet handle -->
+            <div style="width:40px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 20px;"></div>
+
+            <!-- Pro badge -->
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+              <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;">
+                <div style="color:#fff;font-size:18px;">⚡</div>
+              </div>
+              <div>
+                <div style="color:#fbbf24;font-size:13px;font-weight:900;letter-spacing:1px;">SPORTSIQ PRO</div>
+                <div style="color:#64748b;font-size:11px;">Unlock the multiplier</div>
+              </div>
+            </div>
+
+            <!-- Unlock message -->
+            <div style="color:#f8fafc;font-size:17px;font-weight:800;line-height:1.3;margin-bottom:6px;">3× multiplier is a Pro feature</div>
+            <div style="color:#94a3b8;font-size:12px;line-height:1.5;margin-bottom:16px;">Free players cap at 2×. Go Pro to unlock 3×, 4×, and 5× multipliers — plus early pick access and real-time sharp money alerts.</div>
+
+            <!-- Key perks — compact 2-column -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+              <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:10px;">
+                <div style="color:#fbbf24;font-size:16px;margin-bottom:4px;">⚡</div>
+                <div style="color:#f8fafc;font-size:11px;font-weight:700;">Up to 5× multiplier</div>
+                <div style="color:#64748b;font-size:10px;margin-top:1px;">Free: max 2×</div>
+              </div>
+              <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:10px;">
+                <div style="color:#fbbf24;font-size:16px;margin-bottom:4px;">⏰</div>
+                <div style="color:#f8fafc;font-size:11px;font-weight:700;">+15 min early access</div>
+                <div style="color:#64748b;font-size:10px;margin-top:1px;">Pick before the crowd</div>
+              </div>
+              <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:10px;">
+                <div style="color:#fbbf24;font-size:16px;margin-bottom:4px;">📊</div>
+                <div style="color:#f8fafc;font-size:11px;font-weight:700;">Real-time sharp alerts</div>
+                <div style="color:#64748b;font-size:10px;margin-top:1px;">Free: 5 min delay</div>
+              </div>
+              <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:10px;">
+                <div style="color:#fbbf24;font-size:16px;margin-bottom:4px;">🧬</div>
+                <div style="color:#f8fafc;font-size:11px;font-weight:700;">Full Sports DNA</div>
+                <div style="color:#64748b;font-size:10px;margin-top:1px;">Deep profile unlock</div>
+              </div>
+            </div>
+
+            <!-- Pricing CTAs -->
+            <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:14px;padding:14px;text-align:center;margin-bottom:10px;">
+              <div style="color:#fff;font-size:15px;font-weight:900;">Start Pro — $4.99/mo</div>
+              <div style="color:rgba(255,255,255,0.8);font-size:11px;margin-top:2px;">Cancel anytime · or $39.99/yr (save 33%)</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="color:#64748b;font-size:11px;">Continue with 2× max — stay free</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">UPGRADE PROMPT · Soft paywall · 3× blocked · Sheet slides up</div>
+    </div>
+
+    <!-- ── PHONE 2: Full Pro comparison screen ───────────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow:hidden;">
+
+          <!-- Gradient hero -->
+          <div style="background:linear-gradient(180deg,#1a1208 0%,#050912 60%);flex-shrink:0;padding:0 0 0;">
+            <div style="height:34px;"></div>
+            <div style="text-align:center;padding:20px 20px 16px;">
+              <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
+                <div style="color:#fff;font-size:24px;">⚡</div>
+              </div>
+              <div style="color:#fbbf24;font-size:22px;font-weight:900;letter-spacing:-0.5px;">SportsIQ Pro</div>
+              <div style="color:#94a3b8;font-size:13px;margin-top:4px;line-height:1.5;">Play smarter. Win more. Pick before the crowd.</div>
+            </div>
+          </div>
+
+          <!-- Scrollable comparison -->
+          <div style="flex:1;overflow-y:auto;padding:0 16px 16px;">
+
+            <!-- Free vs Pro header -->
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0;margin-bottom:4px;padding:0 4px;">
+              <div></div>
+              <div style="width:64px;text-align:center;color:#64748b;font-size:10px;font-weight:700;padding:6px 0;">FREE</div>
+              <div style="width:64px;text-align:center;color:#fbbf24;font-size:10px;font-weight:700;padding:6px 0;">PRO ⚡</div>
+            </div>
+
+            <!-- Feature rows -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;overflow:hidden;margin-bottom:14px;">
+
+              <!-- Section: Picks -->
+              <div style="padding:10px 14px 4px;background:rgba(255,255,255,0.02);">
+                <div style="color:#64748b;font-size:9px;font-weight:700;letter-spacing:2px;">PICKS</div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr auto auto;gap:0;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);">
+                <div><div style="color:#f8fafc;font-size:12px;font-weight:600;">Max multiplier</div><div style="color:#64748b;font-size:10px;">Higher = more IQ earned</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#94a3b8;font-size:12px;font-weight:700;">2×</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#fbbf24;font-size:12px;font-weight:900;">5×</div></div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr auto auto;gap:0;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);">
+                <div><div style="color:#f8fafc;font-size:12px;font-weight:600;">Pick window early access</div><div style="color:#64748b;font-size:10px;">Pick before crowd forms</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#64748b;font-size:13px;">—</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#22c55e;font-size:12px;font-weight:700;">+15 min</div></div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr auto auto;gap:0;padding:10px 14px;">
+                <div><div style="color:#f8fafc;font-size:12px;font-weight:600;">Pick history</div><div style="color:#64748b;font-size:10px;">How far back you can scroll</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#94a3b8;font-size:10px;font-weight:600;">30 days</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#fbbf24;font-size:10px;font-weight:700;">Unlimited</div></div>
+              </div>
+
+              <!-- Section: Intelligence -->
+              <div style="padding:10px 14px 4px;background:rgba(255,255,255,0.02);border-top:1px solid rgba(255,255,255,0.04);">
+                <div style="color:#64748b;font-size:9px;font-weight:700;letter-spacing:2px;">INTELLIGENCE</div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr auto auto;gap:0;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);">
+                <div><div style="color:#f8fafc;font-size:12px;font-weight:600;">Sharp money alerts</div><div style="color:#64748b;font-size:10px;">When smart money moves</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#94a3b8;font-size:10px;">5 min<br>delay</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#22c55e;font-size:10px;font-weight:700;">Real-time</div></div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr auto auto;gap:0;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);">
+                <div><div style="color:#f8fafc;font-size:12px;font-weight:600;">Pre-Game Brief</div><div style="color:#64748b;font-size:10px;">Daily intelligence push</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#94a3b8;font-size:10px;">Basic</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#fbbf24;font-size:10px;font-weight:700;">Full + Deep</div></div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr auto auto;gap:0;padding:10px 14px;">
+                <div><div style="color:#f8fafc;font-size:12px;font-weight:600;">Sports DNA Profile</div><div style="color:#64748b;font-size:10px;">Full behavioral analysis</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#94a3b8;font-size:10px;">Partial</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#22c55e;font-size:10px;font-weight:700;">Full unlock</div></div>
+              </div>
+
+              <!-- Section: Social -->
+              <div style="padding:10px 14px 4px;background:rgba(255,255,255,0.02);border-top:1px solid rgba(255,255,255,0.04);">
+                <div style="color:#64748b;font-size:9px;font-weight:700;letter-spacing:2px;">SOCIAL & COMPETITION</div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr auto auto;gap:0;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);">
+                <div><div style="color:#f8fafc;font-size:12px;font-weight:600;">Bar crew size limit</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#94a3b8;font-size:10px;">20 max</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#fbbf24;font-size:10px;font-weight:700;">Unlimited</div></div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr auto auto;gap:0;padding:10px 14px;">
+                <div><div style="color:#f8fafc;font-size:12px;font-weight:600;">Pro badge on profile</div><div style="color:#64748b;font-size:10px;">⚡ visible to friends</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#64748b;font-size:13px;">—</div></div>
+                <div style="width:64px;text-align:center;display:flex;align-items:center;justify-content:center;"><div style="color:#fbbf24;font-size:14px;">✓</div></div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Fixed bottom pricing -->
+          <div style="padding:12px 16px 24px;flex-shrink:0;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:14px;padding:14px;text-align:center;margin-bottom:8px;">
+              <div style="color:#fff;font-size:15px;font-weight:900;">Go Pro — $39.99/yr</div>
+              <div style="color:rgba(255,255,255,0.85);font-size:11px;margin-top:2px;">Save 33% vs monthly · $3.33/mo billed annually</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:center;">
+              <div style="color:#94a3b8;font-size:12px;font-weight:600;">Try monthly first — $4.99/mo</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">PRO COMPARISON · Free vs Pro feature grid · Yearly/monthly pricing</div>
+    </div>
+
+    <!-- ── PHONE 3: Pro activated — success state ─────────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow:hidden;position:relative;">
+
+          <!-- Gold glow -->
+          <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,0.25) 0%,rgba(217,119,6,0.1) 45%,transparent 70%);pointer-events:none;z-index:0;"></div>
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;position:relative;z-index:2;"></div>
+
+          <!-- Success content -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:0 24px;position:relative;z-index:2;">
+
+            <!-- Pro badge large -->
+            <div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(245,158,11,0.4);">
+              <div style="color:#fff;font-size:32px;">⚡</div>
+            </div>
+
+            <div style="text-align:center;">
+              <div style="color:#fbbf24;font-size:22px;font-weight:900;letter-spacing:-0.5px;">You're Pro now</div>
+              <div style="color:#94a3b8;font-size:13px;margin-top:6px;line-height:1.6;">Your perks are live. You now pick 15 minutes before everyone else. Use it wisely.</div>
+            </div>
+
+            <!-- Perks activated list -->
+            <div style="width:100%;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="color:#fbbf24;font-size:16px;flex-shrink:0;">✓</div>
+                <div><div style="color:#f8fafc;font-size:13px;font-weight:700;">5× multiplier unlocked</div><div style="color:#64748b;font-size:11px;">Was capped at 2× on free</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="color:#fbbf24;font-size:16px;flex-shrink:0;">✓</div>
+                <div><div style="color:#f8fafc;font-size:13px;font-weight:700;">+15 min early pick access</div><div style="color:#64748b;font-size:11px;">You'll pick before free users see any crowd data</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="color:#fbbf24;font-size:16px;flex-shrink:0;">✓</div>
+                <div><div style="color:#f8fafc;font-size:13px;font-weight:700;">Real-time sharp money alerts</div><div style="color:#64748b;font-size:11px;">No more 5-minute delay</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="color:#fbbf24;font-size:16px;flex-shrink:0;">✓</div>
+                <div><div style="color:#f8fafc;font-size:13px;font-weight:700;">⚡ Pro badge on your profile</div><div style="color:#64748b;font-size:11px;">Friends can see you're serious</div></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom CTA -->
+          <div style="padding:0 20px 28px;position:relative;z-index:2;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,#5545D3,#228C88);border-radius:14px;padding:14px;text-align:center;">
+              <div style="color:#fff;font-size:14px;font-weight:900;">Start Picking →</div>
+              <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:2px;">Tonight's first window opens at 7:15 PM</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">PRO ACTIVATED · Gold glow · 4 perks confirmed · Start Picking CTA</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-sportsiq-pro" class="sfb-panel"></div>
+</div><!-- /screen sportsiq-pro -->
 
 </body>
 </html>
