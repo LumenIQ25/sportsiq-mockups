@@ -1910,6 +1910,9 @@
     <div class="tab tab-review" data-screen="sports-dna" onclick="showScreen('sports-dna',this)">
       <span class="tab-label">Sports DNA 🧬</span><span class="tab-days" id="days-sports-dna"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="active-picks" onclick="showScreen('active-picks',this)">
+      <span class="tab-label">Active Picks ⚡</span><span class="tab-days" id="days-active-picks"></span><span class="review-dot"></span>
+    </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
       <summary class="nav-archive-toggle">↓ 45 previous versions</summary>
@@ -5450,7 +5453,8 @@
     // ── Mar 22 autonomous loop — Share Card v3: archetype identity · venue rank brag · IG story format ──
     'share-card-v3':       '2026-03-22T16:00:00-07:00',
     // ── Mar 22 autonomous loop — Sports DNA Profile: archetype reveal · skill fingerprint · public sharp profile ──
-    'sports-dna':          '2026-03-22T17:00:00-07:00'
+    'sports-dna':          '2026-03-22T17:00:00-07:00',
+    'active-picks':        '2026-03-22T16:30:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -6382,6 +6386,16 @@
         'DNA calibration: 3 questions feels right to me but is there a question you\'d replace or add? The 3 I have: experience level, boldness, homer lock teams.',
         'Crew invite during onboarding: show contact list immediately (requires contacts permission) or share a link first? Link-first is less friction but less likely to result in actual crew formation at install.',
         'First pick: should it be a specific real-sounding prop we pre-select (feels smart, personalized) or let them choose from 3 options (more agency, but adds a step)?'
+      ]
+    },
+    'active-picks': {
+      icon: '⚡',
+      title: 'Active Picks Tray — Overlapping Cadence · Micro-Picks (5–7 min) · Pro Unlimited · Mar 22 2026',
+      built: 'Core engagement architecture: game-level picks (2–4hr) and micro-picks (5–7min) run simultaneously. Something always resolving in minutes, something always live for hours — the addiction loop. Three phones: (1) Home — Active Picks tray, free user at 2/2 cap. Game-level pick (Chiefs ML, live Q3, winning 🟢) + micro-pick (Chiefs score this drive? 4:12 remaining). Third micro-pick visible but Pro-gated with dashed border. Free cap creates natural upgrade pressure. (2) Micro-pick card — 5-7 min format. Countdown ring timer. Big YES/NO buttons. 1×/2× only (simpler than game picks). Game context line ("Chiefs driving, 1st & 10 at EAG 35"). Friend picks shown below buttons. Resolves when drive ends. (3) Pro state — 4 simultaneous picks. Win flash banner at top (micro-pick just resolved: +100 IQ). Chiefs ML, Mahomes OVER 284.5, another micro-pick, Lakers OVER for tonight. "Add another pick" CTA always visible. "⚡ Unlimited" label replaces the 2/2 cap. Moat: micro-pick question generation requires live game data + question engine — proprietary and hard to replicate. The cadence keeps users checking the app every 5 minutes during any live game.',
+      questions: [
+        'Micro-pick question types: Yes/No (current) vs. two-option (Over/Under for a short window, or Team A/Team B for next score) — which feels more natural for a 5-min resolve? My rec: Yes/No is fastest and clearest.',
+        'Free cap: 2 simultaneous active picks (current) vs. 3 — at 2 they hit the wall fast during a single game with micro-picks flying. Is 2 aggressive enough, or should free users get 3 and Pro gets unlimited?',
+        'Micro-pick IQ stakes: ±50 IQ at 1× (current) — should micro-picks have smaller stakes than game picks to reflect their speed/frequency, or same stakes to keep it simple?'
       ]
     },
     'sports-dna': {
@@ -27034,6 +27048,286 @@
 
   <div id="sfb-panel-sports-dna" class="sfb-panel"></div>
 </div><!-- /screen sports-dna -->
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     ACTIVE PICKS TRAY — Multi-pick cadence · Micro-picks (5–7 min) · Live game picks
+     Mar 22 2026 · Core engagement loop: something always resolving, something always live
+     Architecture: game-level picks (2–4hr) + micro-picks (5–7min) overlap simultaneously
+     Free gate: max 2 active · Pro: unlimited
+     ═══════════════════════════════════════════════════════════════════════ -->
+<div id="active-picks" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>⚡ Active Picks Tray — Overlapping Cadence · Micro-Picks · Live Game Banner</h2>
+    <p class="screen-subtitle">Mar 22 2026 · The core engagement architecture. Two pick types run simultaneously: (1) Game-level picks (2–4hr) — Chiefs ML, Mahomes OVER 284.5 — sit live in a tray while the game plays. (2) Micro-picks (5–7 min) — "Will the next drive score?" — fast-fire, always fresh, resolve and refresh automatically. You always have something resolving in minutes AND something sitting live for hours. Free users: 2 active picks max. Pro: unlimited. Three screens: (1) Home with Active Picks tray — free user at 2/2 cap. (2) Micro-pick card — 5-min fast-fire format. (3) Pro state — 4 simultaneous picks, one just resolved with win flash.</p>
+  </div>
+  <div class="phone-wrap" style="gap:40px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Home — Active Picks Tray (Free, 2/2) -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#22c55e;letter-spacing:.5px;">📱 HOME — ACTIVE PICKS TRAY</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(34,197,94,0.2);">
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>8:52 AM</span><span>🔋</span>
+        </div>
+
+        <!-- Header -->
+        <div style="padding:6px 16px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div style="font-size:16px;font-weight:900;color:#f0f6fc;">SportsIQ</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);border-radius:12px;padding:4px 10px;font-size:11px;font-weight:700;color:#a78bfa;">1,847 IQ</div>
+            <div style="width:28px;height:28px;background:rgba(255,255,255,0.06);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;">📍</div>
+          </div>
+        </div>
+
+        <!-- ACTIVE PICKS TRAY -->
+        <div style="padding:0 12px 8px;flex-shrink:0;">
+          <!-- Tray header -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:7px;height:7px;border-radius:50%;background:#ef4444;"></div>
+              <span style="font-size:12px;font-weight:800;color:#f0f6fc;">Active Picks</span>
+            </div>
+            <!-- Free cap indicator -->
+            <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:3px 8px;display:flex;align-items:center;gap:4px;">
+              <span style="font-size:9px;font-weight:700;color:#f59e0b;">2/2 free</span>
+              <span style="font-size:9px;color:#78716c;">·</span>
+              <span style="font-size:9px;font-weight:700;color:#f59e0b;">⚡ Upgrade</span>
+            </div>
+          </div>
+
+          <!-- Pick card 1: Game-level — Chiefs ML (live, Q3) -->
+          <div style="background:rgba(34,197,94,0.06);border:1.5px solid rgba(34,197,94,0.25);border-radius:14px;padding:10px 12px;margin-bottom:7px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+              <div style="font-size:10px;color:#8b949e;font-weight:600;">🏈 NFL · Game pick</div>
+              <div style="display:flex;align-items:center;gap:4px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);border-radius:6px;padding:2px 7px;">
+                <div style="width:5px;height:5px;border-radius:50%;background:#22c55e;"></div>
+                <span style="font-size:9px;font-weight:700;color:#4ade80;">WINNING</span>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Chiefs ML <span style="color:#4ade80;">✓</span></div>
+                <div style="font-size:10px;color:#6b7280;margin-top:1px;">Chiefs 14 · Eagles 10 · Q3 8:42</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:14px;font-weight:800;color:#22c55e;">+200 IQ</div>
+                <div style="font-size:9px;color:#6b7280;">if holds</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pick card 2: Micro-pick — resolving in 4:12 -->
+          <div style="background:rgba(167,139,250,0.06);border:1.5px solid rgba(167,139,250,0.3);border-radius:14px;padding:10px 12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+              <div style="font-size:10px;color:#8b949e;font-weight:600;">⚡ Micro-pick</div>
+              <div style="display:flex;align-items:center;gap:4px;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.3);border-radius:6px;padding:2px 7px;">
+                <span style="font-size:9px;font-weight:700;color:#c4b5fd;">⏱ 4:12</span>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:12px;font-weight:800;color:#f0f6fc;">Chiefs score this drive?</div>
+                <div style="font-size:10px;color:#a78bfa;margin-top:1px;">You picked: YES · 2×</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:14px;font-weight:800;color:#a78bfa;">+100 IQ</div>
+                <div style="font-size:9px;color:#6b7280;">if yes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- New micro-pick available — blocked at 2/2 -->
+        <div style="padding:0 12px 8px;flex-shrink:0;">
+          <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:14px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;opacity:.6;">
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#64748b;">New micro-pick available</div>
+              <div style="font-size:10px;color:#475569;margin-top:1px;">"Will next punt go for a touchback?"</div>
+            </div>
+            <div style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:4px 9px;">
+              <span style="font-size:9px;font-weight:700;color:#f59e0b;">⚡ Pro</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="margin-top:auto;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Free cap at 2/2 blocks the 3rd micro-pick — natural Pro upgrade pressure with zero friction.</div>
+    </div>
+
+    <!-- PHONE 2: Micro-Pick Card -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.5px;">📱 MICRO-PICK CARD (5–7 MIN)</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(167,139,250,0.2);">
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>8:54 AM</span><span>🔋</span>
+        </div>
+
+        <!-- Micro-pick card content -->
+        <div style="padding:0 16px;display:flex;flex-direction:column;gap:12px;flex:1;overflow:hidden;">
+
+          <!-- Label + timer -->
+          <div style="display:flex;align-items:center;justify-content:space-between;padding-top:8px;">
+            <div style="background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.3);border-radius:16px;padding:5px 12px;font-size:11px;font-weight:700;color:#c4b5fd;">⚡ Micro-Pick</div>
+            <!-- Countdown ring -->
+            <div style="width:48px;height:48px;border-radius:50%;background:conic-gradient(#7c3aed 65%, rgba(255,255,255,0.08) 0%);display:flex;align-items:center;justify-content:center;">
+              <div style="width:36px;height:36px;border-radius:50%;background:#0d1117;display:flex;align-items:center;justify-content:center;">
+                <span style="font-size:12px;font-weight:800;color:#a78bfa;">1:23</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Game context -->
+          <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:8px 12px;font-size:11px;color:#6b7280;">
+            🏈 Chiefs vs Eagles · Q3 8:42 · Chiefs driving · 1st &amp; 10 at EAG 35
+          </div>
+
+          <!-- The question -->
+          <div style="text-align:center;padding:8px 0;">
+            <div style="font-size:11px;color:#6b7280;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">The question</div>
+            <div style="font-size:22px;font-weight:900;color:#f0f6fc;line-height:1.2;">Will the Chiefs score on this drive?</div>
+            <div style="font-size:11px;color:#475569;margin-top:6px;">Resolves in ~5 min when drive ends</div>
+          </div>
+
+          <!-- YES / NO buttons -->
+          <div style="display:flex;gap:10px;">
+            <div style="flex:1;background:linear-gradient(135deg,rgba(34,197,94,0.18),rgba(34,197,94,0.07));border:2.5px solid rgba(34,197,94,0.5);border-radius:16px;padding:20px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#22c55e;">YES</div>
+              <div style="font-size:10px;color:#6b7280;margin-top:3px;">+50 IQ win</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#f0f6fc;">NO</div>
+              <div style="font-size:10px;color:#6b7280;margin-top:3px;">+50 IQ win</div>
+            </div>
+          </div>
+
+          <!-- Multiplier — simplified 1× / 2× only for micro-picks -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 14px;">
+            <div style="font-size:10px;color:#6b7280;margin-bottom:7px;font-weight:600;">Stake</div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:rgba(255,255,255,0.06);border-radius:10px;padding:8px;text-align:center;border:1px solid rgba(255,255,255,0.1);">
+                <div style="font-size:13px;font-weight:800;color:#94a3b8;">1×</div>
+                <div style="font-size:9px;color:#475569;">±50 IQ</div>
+              </div>
+              <div style="flex:1;background:linear-gradient(135deg,rgba(85,69,211,0.14),rgba(85,69,211,0.06));border-radius:10px;padding:8px;text-align:center;border:2px solid rgba(85,69,211,0.4);">
+                <div style="font-size:13px;font-weight:800;color:#a78bfa;">2×</div>
+                <div style="font-size:9px;color:#6d5ef0;">±100 IQ</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Friend context -->
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="display:flex;">
+              <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);border:1.5px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;margin-right:-5px;z-index:1;">B</div>
+              <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);border:1.5px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;">S</div>
+            </div>
+            <span style="font-size:10px;color:#8b949e;"><span style="color:#f0f6fc;font-weight:700;">BigMike + Sam</span> both said YES</span>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(88,166,255,.6));">🎯</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Micro-picks use 1×/2× only — simpler stakes, faster decision. Countdown ring creates urgency without pressure.</div>
+    </div>
+
+    <!-- PHONE 3: Pro state — 4 simultaneous picks, one just resolved (WIN) -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#facc15;letter-spacing:.5px;">📱 PRO — UNLIMITED PICKS</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(250,204,21,0.2);">
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>8:52 AM</span><span>🔋</span>
+        </div>
+
+        <!-- Header -->
+        <div style="padding:6px 16px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div style="font-size:16px;font-weight:900;color:#f0f6fc;">SportsIQ</div>
+          <div style="background:linear-gradient(135deg,rgba(250,204,21,0.2),rgba(245,158,11,0.1));border:1px solid rgba(250,204,21,0.4);border-radius:12px;padding:4px 10px;font-size:11px;font-weight:700;color:#facc15;">⚡ Pro · 4,210 IQ</div>
+        </div>
+
+        <!-- WIN FLASH BANNER — micro-pick just resolved -->
+        <div style="margin:0 12px 8px;background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(16,185,129,0.1));border:1.5px solid rgba(34,197,94,0.5);border-radius:14px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div>
+            <div style="font-size:10px;color:#4ade80;font-weight:700;margin-bottom:2px;">⚡ Micro-pick resolved!</div>
+            <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Chiefs scored · YES ✓</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:18px;font-weight:900;color:#22c55e;">+100</div>
+            <div style="font-size:9px;color:#6b7280;">IQ earned</div>
+          </div>
+        </div>
+
+        <!-- Active picks — 4 simultaneous -->
+        <div style="padding:0 12px;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:5px;">
+              <div style="width:7px;height:7px;border-radius:50%;background:#ef4444;"></div>
+              <span style="font-size:12px;font-weight:800;color:#f0f6fc;">Active Picks</span>
+            </div>
+            <span style="font-size:10px;color:#4ade80;font-weight:600;">⚡ Unlimited</span>
+          </div>
+
+          <!-- Pick 1: Chiefs ML -->
+          <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:12px;padding:8px 11px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div><div style="font-size:12px;font-weight:800;color:#f0f6fc;">Chiefs ML</div><div style="font-size:9px;color:#6b7280;">14–10 · Q3</div></div>
+            <div style="font-size:12px;font-weight:800;color:#22c55e;">+200 IQ 🟢</div>
+          </div>
+
+          <!-- Pick 2: Mahomes OVER -->
+          <div style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:12px;padding:8px 11px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div><div style="font-size:12px;font-weight:800;color:#f0f6fc;">Mahomes OVER 284.5</div><div style="font-size:9px;color:#6b7280;">187 yds · Q3</div></div>
+            <div style="font-size:12px;font-weight:800;color:#f59e0b;">+200 IQ ⏳</div>
+          </div>
+
+          <!-- Pick 3: Micro — 2:31 -->
+          <div style="background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.2);border-radius:12px;padding:8px 11px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div><div style="font-size:12px;font-weight:800;color:#f0f6fc;">Next drive scores? YES</div><div style="font-size:9px;color:#a78bfa;">⏱ 2:31 remaining</div></div>
+            <div style="font-size:12px;font-weight:800;color:#a78bfa;">+100 IQ</div>
+          </div>
+
+          <!-- Pick 4: Lakers OVER -->
+          <div style="background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.15);border-radius:12px;padding:8px 11px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div><div style="font-size:12px;font-weight:800;color:#f0f6fc;">Lakers OVER 225.5</div><div style="font-size:9px;color:#6b7280;">🏀 Tip-off 10:30 PM</div></div>
+            <div style="font-size:12px;font-weight:800;color:#64748b;">+400 IQ ⏸</div>
+          </div>
+
+          <!-- + Add pick CTA -->
+          <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:12px;padding:8px 11px;display:flex;align-items:center;justify-content:center;gap:6px;flex-shrink:0;">
+            <span style="font-size:13px;color:#475569;">+</span>
+            <span style="font-size:11px;color:#475569;font-weight:600;">Add another pick</span>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;margin-top:auto;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">4 simultaneous picks. Win flash at top shows resolved micro-pick. "Add another pick" CTA is always visible — unlimited upside for Pro.</div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+
+  <div id="sfb-panel-active-picks" class="sfb-panel"></div>
+</div><!-- /screen active-picks -->
 
 <div id="share-card" class="screen" style="display:none;">
   <div class="screen-header">
