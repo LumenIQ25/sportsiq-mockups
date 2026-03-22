@@ -1892,8 +1892,8 @@
     <div class="tab tab-review" data-screen="pregame-brief" onclick="showScreen('pregame-brief',this)">
       <span class="tab-label">Pre-Game Brief</span><span class="tab-days" id="days-pregame-brief"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="sportsiq-pro-v2" onclick="showScreen('sportsiq-pro-v2',this)">
-      <span class="tab-label">SportsIQ Pro ⚡</span><span class="tab-days" id="days-sportsiq-pro-v2"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="sportsiq-pro-v3" onclick="showScreen('sportsiq-pro-v3',this)">
+      <span class="tab-label">SportsIQ Pro ⚡</span><span class="tab-days" id="days-sportsiq-pro-v3"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="crew-picks" onclick="showScreen('crew-picks',this)">
       <span class="tab-label">Crew Picks 🏆</span><span class="tab-days" id="days-crew-picks"></span><span class="review-dot"></span>
@@ -1903,7 +1903,10 @@
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 33 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 34 previous versions</summary>
+      <div class="tab tab-archived" data-screen="sportsiq-pro-v2" onclick="showScreen('sportsiq-pro-v2',this)">
+        <span class="tab-label">SportsIQ Pro v2</span><span class="tab-days" id="days-sportsiq-pro-v2-arc"></span>
+      </div>
       <div class="tab tab-archived" data-screen="onboarding-v5" onclick="showScreen('onboarding-v5',this)">
         <span class="tab-label">Onboarding v5</span><span class="tab-days" id="days-onboarding-v5-arc"></span>
       </div>
@@ -5404,6 +5407,8 @@
     'sportsiq-pro':        '2026-03-21T23:30:00-07:00',
     // ── Mar 21 — SportsIQ Pro v2: richer value stack per Mark feedback (idea-052) ──
     'sportsiq-pro-v2':     '2026-03-21T23:59:00-07:00',
+    // ── Mar 22 autonomous loop — SportsIQ Pro v3: contextual single-hook paywall ──
+    'sportsiq-pro-v3':     '2026-03-22T10:00:00-07:00',
     // ── Mar 21 autonomous loop — Crew Picks (idea-053) ──
     'crew-picks':          '2026-03-21T23:59:00-07:00',
     // ── Mar 22 autonomous loop — Share Card (idea-055) + Home Idle v4 (idea-054) ──
@@ -27096,6 +27101,237 @@
   </div><!-- /phone-wrap -->
   <div id="sfb-panel-home-idle-v4" class="sfb-panel"></div>
 </div><!-- /screen home-idle-v4 -->
+
+
+<!-- ============================================================
+     SPORTSIQ PRO v3 — Contextual single-hook paywall
+     Mar 22 2026 · Autonomous loop
+     Insight: simple paywalls convert better than feature grids.
+     Each trigger is personal + contextual. One benefit. One button.
+     ============================================================ -->
+<div id="sportsiq-pro-v3" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">⚡ SportsIQ Pro v3</div>
+    <div class="screen-desc">Mar 22 2026 · Strategic refinement: v2 had 8 perks in a grid — too much cognitive load at the moment of decision. v3 applies the V1 "simple, no friction" rule to the paywall itself. Three contextual triggers, each with a SINGLE personal hook instead of a feature list. The Prop Coach quote references real user data ("Your Dome King edge"). Conversion science says single-benefit paywalls outperform feature grids by 30-40%. No change to price ($4.99) or perks — just a radically cleaner presentation.</div>
+  </div>
+
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: Multiplier lock trigger — tapped 5× on pick card ──── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow:hidden;position:relative;">
+
+          <!-- Blurred pick card behind -->
+          <div style="position:absolute;inset:0;z-index:1;background:#050912;opacity:0.45;"></div>
+          <div style="position:absolute;top:0;left:0;right:0;bottom:220px;z-index:2;padding:20px;display:flex;flex-direction:column;gap:8px;filter:blur(3px);">
+            <div style="height:34px;"></div>
+            <div style="background:rgba(85,69,211,0.2);border-radius:12px;height:56px;"></div>
+            <div style="background:rgba(255,255,255,0.06);border-radius:12px;height:72px;"></div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:rgba(85,69,211,0.3);border-radius:12px;height:52px;"></div>
+              <div style="flex:1;background:rgba(34,140,136,0.3);border-radius:12px;height:52px;"></div>
+            </div>
+            <!-- Multiplier row in background -->
+            <div style="display:flex;gap:6px;">
+              <div style="flex:1;background:rgba(255,255,255,0.05);border-radius:10px;height:44px;border:1px solid rgba(255,255,255,0.1);"></div>
+              <div style="flex:1;background:rgba(85,69,211,0.2);border-radius:10px;height:44px;border:1px solid rgba(85,69,211,0.4);"></div>
+              <div style="flex:1;background:rgba(245,158,11,0.1);border-radius:10px;height:44px;border:2px solid rgba(245,158,11,0.5);"></div>
+            </div>
+          </div>
+
+          <!-- Upgrade sheet — slides up -->
+          <div style="position:absolute;bottom:0;left:0;right:0;z-index:10;background:linear-gradient(180deg,#0F1726 0%,#0B1120 100%);border-radius:24px 24px 0 0;border-top:1.5px solid rgba(245,158,11,0.4);padding:20px 20px 32px;">
+            <div style="width:36px;height:4px;background:rgba(255,255,255,0.12);border-radius:2px;margin:0 auto 20px;"></div>
+
+            <!-- Context line — why they're seeing this -->
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+              <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-size:14px;">🏟️</span>
+              </div>
+              <div>
+                <div style="color:#a78bfa;font-size:11px;font-weight:800;letter-spacing:0.5px;">DOME KING EDGE ACTIVE</div>
+                <div style="color:#64748b;font-size:10px;">5× is locked for free users</div>
+              </div>
+            </div>
+
+            <!-- Single hero perk — Prop Coach quote using real user data -->
+            <div style="background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(217,119,6,0.06));border:1.5px solid rgba(245,158,11,0.3);border-radius:16px;padding:16px;margin-bottom:20px;">
+              <div style="color:#fbbf24;font-size:9px;font-weight:800;letter-spacing:2px;margin-bottom:8px;">YOUR PROP COACH</div>
+              <div style="color:#f0f6fc;font-size:13px;font-weight:700;line-height:1.55;font-style:italic;">"You're 8-2 in dome games. This game is at Arrowhead — a dome. Your edge is real. Riding it at 5× IQ is the move. This is exactly the spot the data says to go big."</div>
+              <div style="color:#64748b;font-size:10px;margin-top:8px;">Analyzing your last 52 picks · Pro only</div>
+            </div>
+
+            <!-- Price + single CTA -->
+            <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:14px;padding:14px 16px;text-align:center;margin-bottom:10px;">
+              <div style="color:#fff;font-size:16px;font-weight:900;">Unlock Pro — $4.99/mo</div>
+              <div style="color:rgba(255,255,255,0.75);font-size:11px;margin-top:2px;">7-day free trial · Cancel anytime</div>
+            </div>
+            <div style="text-align:center;">
+              <span style="color:#475569;font-size:11px;">Go 2× instead (free)</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">TRIGGER 1: Multiplier lock · Archetype context · Single Prop Coach quote</div>
+    </div>
+
+    <!-- ── PHONE 2: Daily pick limit — tried to make 6th pick ──────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow:hidden;position:relative;">
+
+          <!-- Blurred home feed behind -->
+          <div style="position:absolute;inset:0;z-index:1;background:#050912;opacity:0.4;"></div>
+          <div style="position:absolute;top:0;left:0;right:0;bottom:230px;z-index:2;padding:20px;display:flex;flex-direction:column;gap:8px;filter:blur(3px);">
+            <div style="height:34px;"></div>
+            <div style="background:rgba(34,197,94,0.1);border-radius:12px;height:48px;"></div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:12px;height:80px;"></div>
+            <div style="background:rgba(255,255,255,0.04);border-radius:12px;height:64px;"></div>
+          </div>
+
+          <!-- Upgrade sheet -->
+          <div style="position:absolute;bottom:0;left:0;right:0;z-index:10;background:linear-gradient(180deg,#0F1726 0%,#0B1120 100%);border-radius:24px 24px 0 0;border-top:1.5px solid rgba(85,69,211,0.4);padding:20px 20px 32px;">
+            <div style="width:36px;height:4px;background:rgba(255,255,255,0.12);border-radius:2px;margin:0 auto 20px;"></div>
+
+            <!-- Context + streak -->
+            <div style="text-align:center;margin-bottom:18px;">
+              <div style="font-size:28px;margin-bottom:8px;">🔒</div>
+              <div style="color:#f0f6fc;font-size:17px;font-weight:900;margin-bottom:4px;">You've hit 5 picks today</div>
+              <!-- Streak visualization -->
+              <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin:10px 0;">
+                <div style="background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(34,197,94,0.1));border:1px solid rgba(34,197,94,0.4);border-radius:8px;padding:5px 10px;">
+                  <span style="color:#4ade80;font-size:13px;font-weight:800;">🔥 3-day streak</span>
+                </div>
+                <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:5px 10px;">
+                  <span style="color:#94a3b8;font-size:13px;font-weight:700;">2,840 IQ</span>
+                </div>
+              </div>
+              <div style="color:#64748b;font-size:12px;line-height:1.5;">3 more games tip tonight.<br>Free users are locked out. Pro picks all day.</div>
+            </div>
+
+            <!-- Single benefit highlighted -->
+            <div style="background:rgba(85,69,211,0.1);border:1.5px solid rgba(85,69,211,0.3);border-radius:14px;padding:14px;margin-bottom:18px;display:flex;align-items:center;gap:12px;">
+              <div style="font-size:24px;flex-shrink:0;">♾️</div>
+              <div>
+                <div style="color:#818cf8;font-size:12px;font-weight:900;margin-bottom:3px;">Unlimited picks · Pro only</div>
+                <div style="color:#64748b;font-size:11px;line-height:1.5;">Never get locked out on a hot streak. Pick every game, every day.</div>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="background:linear-gradient(135deg,#5545D3,#7c3aed);border-radius:14px;padding:14px 16px;text-align:center;margin-bottom:10px;">
+              <div style="color:#fff;font-size:16px;font-weight:900;">Go Pro — $4.99/mo</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:11px;margin-top:2px;">7-day free trial · Cancel anytime</div>
+            </div>
+            <div style="text-align:center;">
+              <span style="color:#475569;font-size:11px;">Come back tomorrow for 5 more free picks</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">TRIGGER 2: Daily limit · Streak urgency · "3 games tip tonight"</div>
+    </div>
+
+    <!-- ── PHONE 3: Archetype unlock — tapped locked Prop Coach on Home ── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#050912;overflow:hidden;position:relative;">
+
+          <!-- Partial archetype card behind (context) -->
+          <div style="position:absolute;inset:0;z-index:1;background:#050912;opacity:0.35;"></div>
+          <div style="position:absolute;top:0;left:0;right:0;bottom:250px;z-index:2;padding:20px;filter:blur(2px);">
+            <div style="height:34px;"></div>
+            <!-- Archetype card ghost -->
+            <div style="background:linear-gradient(135deg,rgba(85,69,211,0.18),rgba(85,69,211,0.08));border:1.5px solid rgba(85,69,211,0.35);border-radius:16px;padding:14px;margin-top:8px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;">
+                  <span style="font-size:18px;">🏟️</span>
+                </div>
+                <div>
+                  <div style="color:#f0f6fc;font-size:16px;font-weight:900;">The Dome King</div>
+                  <div style="color:#64748b;font-size:11px;">8-2 · 80% · Top 8%</div>
+                </div>
+              </div>
+              <!-- Locked section ghost -->
+              <div style="margin-top:10px;background:rgba(85,69,211,0.08);border:1px dashed rgba(85,69,211,0.25);border-radius:10px;padding:10px;display:flex;align-items:center;gap:8px;">
+                <span style="color:#475569;font-size:16px;">🔒</span>
+                <span style="color:#475569;font-size:11px;">Prop Coach · Pro only</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upgrade sheet — contextual to Dome King identity -->
+          <div style="position:absolute;bottom:0;left:0;right:0;z-index:10;background:linear-gradient(180deg,#0D1020 0%,#080D18 100%);border-radius:24px 24px 0 0;border-top:1.5px solid rgba(85,69,211,0.45);padding:20px 20px 32px;">
+            <div style="width:36px;height:4px;background:rgba(255,255,255,0.12);border-radius:2px;margin:0 auto 18px;"></div>
+
+            <!-- Identity header -->
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+              <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-size:20px;">🏟️</span>
+              </div>
+              <div>
+                <div style="color:#a78bfa;font-size:12px;font-weight:800;">YOUR PROP COACH IS READY</div>
+                <div style="color:#f0f6fc;font-size:15px;font-weight:900;">The Dome King</div>
+              </div>
+            </div>
+
+            <!-- What they'd see — preview locked patterns -->
+            <div style="background:linear-gradient(135deg,rgba(85,69,211,0.12),rgba(85,69,211,0.06));border:1.5px solid rgba(85,69,211,0.3);border-radius:14px;padding:14px;margin-bottom:16px;">
+              <div style="color:#818cf8;font-size:9px;font-weight:800;letter-spacing:2px;margin-bottom:10px;">PATTERNS DISCOVERED (8 TOTAL)</div>
+              <!-- Preview rows — top 2 visible, rest blurred -->
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:6px;height:6px;border-radius:3px;background:#22c55e;flex-shrink:0;"></div>
+                  <div style="color:#f0f6fc;font-size:11px;font-weight:700;">8-2 · Dome games ✓</div>
+                  <div style="margin-left:auto;color:#22c55e;font-size:10px;font-weight:700;">+80%</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:6px;height:6px;border-radius:3px;background:#f87171;flex-shrink:0;"></div>
+                  <div style="color:#f0f6fc;font-size:11px;font-weight:700;">2-6 · Cold weather UNDER ✗</div>
+                  <div style="margin-left:auto;color:#f87171;font-size:10px;font-weight:700;">−25%</div>
+                </div>
+                <!-- Blurred remaining -->
+                <div style="filter:blur(3.5px);display:flex;flex-direction:column;gap:7px;pointer-events:none;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="width:6px;height:6px;border-radius:3px;background:#818cf8;"></div>
+                    <div style="color:#f0f6fc;font-size:11px;">6-2 · xxxxxxxx xxxxxxx ✓</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="width:6px;height:6px;border-radius:3px;background:#fbbf24;"></div>
+                    <div style="color:#f0f6fc;font-size:11px;">5-1 · xxxxxxxxx xx xxx ✓</div>
+                  </div>
+                </div>
+              </div>
+              <div style="text-align:center;margin-top:10px;">
+                <span style="color:#5545D3;font-size:10px;font-weight:700;">+ 4 more patterns · 2 blind spots · Unlock Pro →</span>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="background:linear-gradient(135deg,#5545D3,#4338ca);border-radius:14px;padding:14px 16px;text-align:center;margin-bottom:10px;">
+              <div style="color:#fff;font-size:16px;font-weight:900;">Unlock Your Coach — $4.99/mo</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:11px;margin-top:2px;">7-day free trial · Cancel anytime</div>
+            </div>
+            <div style="text-align:center;">
+              <span style="color:#475569;font-size:11px;">Keep 2 patterns for free</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">TRIGGER 3: Archetype coach unlock · Real patterns preview · Blurred blind spots</div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+  <div id="sfb-panel-sportsiq-pro-v3" class="sfb-panel"></div>
+</div><!-- /screen sportsiq-pro-v3 -->
+
 
 </body>
 </html>
