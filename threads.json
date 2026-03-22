@@ -238,5 +238,17 @@
       "text": "1. all of those are good 2. not in this version, maybe down the road 3. today only leaderboard too wide and left panel is too narrow (room code should fit on one line)",
       "ts": "Mar 21 11:00 PM"
     }
+  ],
+  "bar-tracking-v3": [
+    {
+      "from": "mark",
+      "text": "1. you decide\n2. yes, add it if there is space\n3. dramatic\n\nimporve the vertical spacing in state 1",
+      "ts": "Mar 21 4:09 PM"
+    },
+    {
+      "from": "mark",
+      "text": "1. you decide 2. yes, add it if there is space 3. dramatic imporve the vertical spacing in state 1",
+      "ts": "Mar 21 11:00 PM"
+    }
   ]
 }
