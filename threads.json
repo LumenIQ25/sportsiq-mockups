@@ -298,5 +298,17 @@
       "text": "1. owner should not have to do anything 2. give me some recommendations. should be accurate and powerful 3. web only is acceptable for v1",
       "ts": "Mar 21 11:01 PM"
     }
+  ],
+  "venue-onboarding-v2": [
+    {
+      "from": "mark",
+      "text": "1. admin inside main app\n2. lets discuss this further. we need a rock solid plan here\n3. 30 day free",
+      "ts": "Mar 21 4:16 PM"
+    },
+    {
+      "from": "mark",
+      "text": "1. admin inside main app 2. lets discuss this further. we need a rock solid plan here 3. 30 day free",
+      "ts": "Mar 21 11:01 PM"
+    }
   ]
 }
