@@ -69,5 +69,17 @@
       "text": "1. passively 2. you decide 3. yes demo pick",
       "ts": "Mar 21 9:25 PM"
     }
+  ],
+  "daily-challenge-v3": [
+    {
+      "from": "mark",
+      "text": "1 show actual picks\n2. we decided on 6pm in users local time\n3. immediately",
+      "ts": "Mar 21 3:14 PM"
+    },
+    {
+      "from": "mark",
+      "text": "1 show actual picks 2. we decided on 6pm in users local time 3. immediately",
+      "ts": "Mar 21 9:25 PM"
+    }
   ]
 }
