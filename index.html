@@ -1833,8 +1833,8 @@
     <div class="tab tab-review" data-screen="home-idle-v5" onclick="showScreen('home-idle-v5',this)">
       <span class="tab-label">Home · Idle</span><span class="tab-days" id="days-home-idle-v5"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="pick-card-v3" onclick="showScreen('pick-card-v3',this)">
-      <span class="tab-label">Pick Card</span><span class="tab-days" id="days-pick-card-v3"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="pick-card-v4" onclick="showScreen('pick-card-v4',this)">
+      <span class="tab-label">Pick Card</span><span class="tab-days" id="days-pick-card-v4"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="pick-wait-v3" onclick="showScreen('pick-wait-v3',this)">
       <span class="tab-label">Pick Wait</span><span class="tab-days" id="days-pick-wait-v3"></span><span class="review-dot"></span>
@@ -1895,7 +1895,10 @@
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 25 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 26 previous versions</summary>
+      <div class="tab tab-archived" data-screen="pick-card-v3" onclick="showScreen('pick-card-v3',this)">
+        <span class="tab-label">Pick Card v3</span><span class="tab-days" id="days-pick-card-v3-arc"></span>
+      </div>
       <div class="tab tab-archived" data-screen="share-card" onclick="showScreen('share-card',this)">
         <span class="tab-label">Share Card v1</span><span class="tab-days" id="days-share-card-arc"></span>
       </div>
@@ -5048,7 +5051,9 @@
     // ── Mar 22 autonomous loop — Home Idle v5: Pro teaser + rank badge + streak urgency ──
     'home-idle-v5':        '2026-03-22T13:00:00-07:00',
     // ── Mar 22 autonomous loop — Share Card v2: bold variant · streak milestone · brutal beat loss ──
-    'share-card-v2':       '2026-03-22T14:00:00-07:00'
+    'share-card-v2':       '2026-03-22T14:00:00-07:00',
+    // ── Mar 22 autonomous loop — Pick Card v4: free picks counter · friend social proof · pro paywall ──
+    'pick-card-v4':        '2026-03-22T15:00:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -5565,6 +5570,17 @@
         'Personalized props feed vs. full schedule — should there always be a "See all sports" option, or keep it fully personalized with no override?',
         'SportsIQ Signal Preview teaser — should the preview hint at the signal direction ("Signal leans OVER") or just say "signal available" to tease without fully spoiling?',
         'Friends activity strip: show trivia wins alongside pick wins, or keep them separate (pick feed on home, trivia feed on trivia screen)?'
+      ]
+    },
+    'pick-card-v4': {
+      icon: '🎯',
+      title: 'Pick Card v4 — Free Picks Counter · Friend Social Proof · Pro Paywall State · Mar 22 2026',
+      built: 'Three additions to the core pick action: (1) Free picks counter — "2 of 3 picks used today" chip in header, amber at 2/3, red at 3/3 with "Get more" CTA. This is the most contextually appropriate Pro conversion trigger in the app — users are mid-action, they want more, they upgrade. (2) Friend social proof at decision moment — "BigMike + 2 others picked OVER" shown below the signal card, BEFORE the user picks. Seeing friends on a side triggers social alignment behavior and makes every pick feel like a group event, not a solo decision. Also adds mild FOMO (BigMike is already in — am I late?). (3) Pro paywall state — when free picks are exhausted, the pick card shows a soft paywall: "You\'ve used your 3 free picks today · Upgrade to unlock 10 more tonight" with Pro value snapshot. This is the highest-converting upsell moment in the app — user is engaged, wants to keep going, has built up habit. Phone 3 shows what Pro pick experience looks like: "⚡ Pro Early Access · Window opened 14 min early for you · You set the initial crowd signal."',
+      questions: [
+        'Free picks counter: show it from pick 1 (always visible) or only appear when you\'re on your last pick? Always-visible creates ongoing mild urgency; last-pick-only is less intrusive.',
+        'Friend picks at decision: show which side your friends are on BEFORE you pick (creates social influence, possible groupthink) or ONLY after lock-in (prevents anchoring)? This is the key design tension.',
+        'Soft paywall: "Come back tomorrow" as the fallback CTA (free option) vs. no fallback at all — force upgrade or nothing? The aggressive version converts better short-term, the gentle version has less churn.',
+        'Pro Early Access window: 15 minutes before free users (v2 spec). In v4 it shows on the pick card "You set the crowd signal." Is that framing powerful enough to justify the upgrade alone?'
       ]
     },
     'pick-card-v3': {
@@ -16935,6 +16951,314 @@
      SCREEN: Pick Card v3 — 2026-03-21 — Signal before pick, layout fix
      Ideas answered: 026 (signal from day 1, show before pick, rotate in, push notif)
 ══════════════════════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Pick Card v4 — Free Picks Counter · Friend Social Proof · Pro Paywall
+     2026-03-22 · autonomous loop · strategic refinement
+     Core product action. Three additions: free picks counter (Pro trigger),
+     friend picks before you decide (social hook), paywall state (Pro convert).
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="pick-card-v4" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Pick Card v4 — Free Picks Counter · Friend Social Proof · Pro Paywall State</div>
+    <div class="screen-subtitle">Three additions to the core pick action: (1) Free picks counter in header — amber at 2/3, triggers Pro prompt. (2) Friend picks before you decide — "BigMike + 2 others picked OVER" below signal. Social proof at decision moment. (3) Pro paywall state — soft paywall when 3/3 picks used, with Pro value snapshot and "Upgrade for 10 more." Most natural Pro conversion moment in the app.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- Phone 1: Pick card — 2 of 3 free picks used, friend social proof -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>8:52 AM</span><span>🔋</span></div>
+
+          <!-- Header: game + FREE PICKS COUNTER -->
+          <div style="padding:8px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div>
+              <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Chiefs vs Eagles</div>
+              <div style="font-size:10px;color:#8b949e;">🏈 NFL · Tonight 8:20 PM ET</div>
+            </div>
+            <!-- FREE PICKS COUNTER — new in v4 -->
+            <div style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35);border-radius:16px;padding:4px 10px;display:flex;align-items:center;gap:5px;">
+              <div style="display:flex;gap:3px;align-items:center;">
+                <div style="width:7px;height:7px;border-radius:50%;background:#f59e0b;"></div>
+                <div style="width:7px;height:7px;border-radius:50%;background:#f59e0b;"></div>
+                <div style="width:7px;height:7px;border-radius:50%;background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.4);"></div>
+              </div>
+              <span style="font-size:10px;color:#f59e0b;font-weight:700;">2 of 3</span>
+            </div>
+          </div>
+
+          <!-- Window open pill -->
+          <div style="margin:0 16px 8px;display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:5px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:16px;padding:4px 10px;">
+              <div style="width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px #22c55e;"></div>
+              <span style="font-size:10px;color:#22c55e;font-weight:700;">Window open · closes in 1:42:33</span>
+            </div>
+          </div>
+
+          <!-- Prop line -->
+          <div style="margin:0 16px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;flex-shrink:0;">
+            <div style="font-size:10px;color:#8b949e;margin-bottom:3px;">Patrick Mahomes · Passing Yards</div>
+            <div style="font-size:30px;font-weight:900;color:#f0f6fc;letter-spacing:-1px;">284.5</div>
+            <div style="font-size:10px;color:#8b949e;margin-top:1px;">Season avg: 297.4 · Last 5: 312.2</div>
+          </div>
+
+          <!-- SportsIQ Signal -->
+          <div style="margin:0 16px 8px;background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(245,158,11,0.04));border:1px solid rgba(245,158,11,0.38);border-radius:14px;padding:14px 16px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#f59e0b;"></div>
+              <span style="font-size:10px;font-weight:800;color:#f59e0b;letter-spacing:1px;">SPORTSIQ SIGNAL</span>
+            </div>
+            <div style="font-size:17px;font-weight:900;color:#f0f6fc;margin-bottom:5px;">Leaning <span style="color:#22c55e;">OVER ↑</span></div>
+            <div style="font-size:11px;color:#8b949e;line-height:1.5;margin-bottom:8px;">Season avg 297.4 yds · Eagles rank 29th vs pass</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+              <div style="flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,0.08);overflow:hidden;"><div style="width:63%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:3px;"></div></div>
+              <span style="font-size:10px;color:#f59e0b;font-weight:700;white-space:nowrap;">63% of 1,284 picked OVER</span>
+            </div>
+
+            <!-- FRIEND PICKS — new in v4 -->
+            <div style="border-top:1px solid rgba(245,158,11,0.15);padding-top:10px;display:flex;align-items:center;gap:8px;">
+              <div style="display:flex;">
+                <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);border:1.5px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;margin-right:-6px;z-index:3;">B</div>
+                <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);border:1.5px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;margin-right:-6px;z-index:2;">S</div>
+                <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#374151,#4b5563);border:1.5px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#94a3b8;z-index:1;">+1</div>
+              </div>
+              <span style="font-size:11px;color:#94a3b8;"><span style="color:#f0f6fc;font-weight:700;">BigMike + 2 others</span> picked OVER</span>
+            </div>
+          </div>
+
+          <!-- Crowd split -->
+          <div style="margin:0 16px 10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+              <span style="font-size:11px;font-weight:800;color:#22c55e;">OVER 63%</span>
+              <span style="font-size:9px;color:#8b949e;">1,284 live</span>
+              <span style="font-size:11px;font-weight:800;color:#ef4444;">UNDER 37%</span>
+            </div>
+            <div style="height:8px;border-radius:4px;overflow:hidden;display:flex;">
+              <div style="flex:0.63;background:linear-gradient(90deg,#16a34a,#22c55e);"></div>
+              <div style="flex:0.37;background:linear-gradient(90deg,#dc2626,#ef4444);"></div>
+            </div>
+          </div>
+
+          <!-- Pick buttons -->
+          <div style="display:flex;gap:12px;padding:0 16px 10px;">
+            <div style="flex:1;background:linear-gradient(135deg,rgba(34,197,94,0.18),rgba(34,197,94,0.07));border:2px solid rgba(34,197,94,0.45);border-radius:16px;padding:18px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#22c55e;">OVER</div>
+              <div style="font-size:11px;color:#8b949e;margin-top:2px;">284.5+ yds</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:18px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#f0f6fc;">UNDER</div>
+              <div style="font-size:11px;color:#8b949e;margin-top:2px;">284.4 or less</div>
+            </div>
+          </div>
+
+          <!-- Multiplier row -->
+          <div style="margin:0 16px 8px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:8px 12px;text-align:center;">
+            <span style="font-size:10px;color:#a78bfa;font-weight:700;">🎚 Multiplier unlocks after you pick · Early birds get 2× bonus</span>
+          </div>
+
+          <!-- Bottom nav -->
+          <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;margin-top:8px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(88,166,255,.6));">🎯</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Picks</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Ranks</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 1 — Pick card: free picks counter + friend social proof · 2026-03-22</div>
+    </div>
+
+    <!-- Phone 2: 3/3 picks used — soft Pro paywall -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>9:14 AM</span><span>🔋</span></div>
+
+          <!-- Header with LAST PICK counter red -->
+          <div style="padding:8px 16px 6px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Chiefs vs Eagles</div>
+              <div style="font-size:10px;color:#8b949e;">🏈 NFL · Tonight 8:20 PM ET</div>
+            </div>
+            <!-- Counter at 3/3 — glowing red -->
+            <div style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);border-radius:16px;padding:4px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 0 10px rgba(239,68,68,0.2);">
+              <div style="display:flex;gap:3px;align-items:center;">
+                <div style="width:7px;height:7px;border-radius:50%;background:#ef4444;"></div>
+                <div style="width:7px;height:7px;border-radius:50%;background:#ef4444;"></div>
+                <div style="width:7px;height:7px;border-radius:50%;background:#ef4444;"></div>
+              </div>
+              <span style="font-size:10px;color:#f87171;font-weight:700;">3 of 3</span>
+            </div>
+          </div>
+
+          <!-- Blurred/locked pick area — soft paywall overlay -->
+          <div style="position:relative;margin:0 16px 0;">
+
+            <!-- Blurred pick card underneath -->
+            <div style="filter:blur(3px);opacity:0.35;pointer-events:none;">
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;margin-bottom:8px;">
+                <div style="font-size:10px;color:#8b949e;margin-bottom:3px;">LeBron James · Points</div>
+                <div style="font-size:28px;font-weight:900;color:#f0f6fc;">24.5</div>
+              </div>
+              <div style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:14px;padding:14px 16px;margin-bottom:8px;">
+                <div style="font-size:16px;font-weight:900;color:#f0f6fc;">Leaning <span style="color:#22c55e;">OVER ↑</span></div>
+              </div>
+              <div style="display:flex;gap:12px;">
+                <div style="flex:1;background:rgba(34,197,94,0.12);border:2px solid rgba(34,197,94,0.3);border-radius:16px;padding:18px;text-align:center;"><div style="font-size:20px;font-weight:900;color:#22c55e;">OVER</div></div>
+                <div style="flex:1;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.08);border-radius:16px;padding:18px;text-align:center;"><div style="font-size:20px;font-weight:900;color:#f0f6fc;">UNDER</div></div>
+              </div>
+            </div>
+
+            <!-- Paywall overlay -->
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;">
+              <div style="background:linear-gradient(135deg,#0d1117,#161b22);border:1.5px solid rgba(227,179,65,0.45);border-radius:18px;padding:20px 18px;width:100%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.6);">
+                <!-- Lock -->
+                <div style="font-size:32px;margin-bottom:8px;">🔒</div>
+                <div style="font-size:17px;font-weight:900;color:#f0f6fc;margin-bottom:4px;">Free picks used for today</div>
+                <div style="font-size:12px;color:#64748b;margin-bottom:16px;">You've made 3 great calls today. Want more?</div>
+
+                <!-- Pro value snapshot -->
+                <div style="background:rgba(227,179,65,0.08);border:1px solid rgba(227,179,65,0.25);border-radius:12px;padding:12px;margin-bottom:14px;text-align:left;">
+                  <div style="font-size:10px;font-weight:700;color:#e3b341;letter-spacing:1.5px;margin-bottom:8px;">⚡ SPORTSIQ PRO</div>
+                  <div style="display:flex;flex-direction:column;gap:5px;">
+                    <div style="display:flex;align-items:center;gap:7px;"><span style="font-size:11px;color:#4ade80;">✓</span><span style="font-size:12px;color:#f0f6fc;font-weight:600;">10 picks every day</span><span style="font-size:10px;color:#64748b;">(you get 3)</span></div>
+                    <div style="display:flex;align-items:center;gap:7px;"><span style="font-size:11px;color:#4ade80;">✓</span><span style="font-size:12px;color:#f0f6fc;font-weight:600;">Window opens 15 min early</span></div>
+                    <div style="display:flex;align-items:center;gap:7px;"><span style="font-size:11px;color:#4ade80;">✓</span><span style="font-size:12px;color:#f0f6fc;font-weight:600;">3× IQ on streak picks</span></div>
+                  </div>
+                </div>
+
+                <!-- Tonight's remaining -->
+                <div style="background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.2);border-radius:10px;padding:8px 12px;margin-bottom:14px;font-size:11px;color:#94a3b8;">
+                  🏈 <span style="color:#58a6ff;font-weight:700;">7 more props open tonight</span> — Pro members are still picking
+                </div>
+
+                <!-- CTAs -->
+                <div style="background:linear-gradient(135deg,#e3b341,#b8861c);border-radius:12px;padding:12px;margin-bottom:8px;cursor:pointer;">
+                  <div style="font-size:14px;font-weight:800;color:#000;">Try 7 Days Free</div>
+                  <div style="font-size:10px;color:rgba(0,0,0,0.6);margin-top:1px;">Then $4.99/mo · Cancel any time</div>
+                </div>
+                <div style="font-size:11px;color:#475569;cursor:pointer;">Come back tomorrow for 3 free picks</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom nav -->
+          <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;margin-top:auto;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(88,166,255,.6));">🎯</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Picks</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Ranks</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 2 — 3/3 picks used: soft Pro paywall · "7 more open tonight" · 2026-03-22</div>
+    </div>
+
+    <!-- Phone 3: Pro pick experience — early access, unlimited picks -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>8:05 AM</span><span>🔋</span></div>
+
+          <!-- Header — Pro early access state -->
+          <div style="padding:8px 16px 6px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Chiefs vs Eagles</div>
+              <div style="font-size:10px;color:#8b949e;">🏈 NFL · Tonight 8:20 PM ET</div>
+            </div>
+            <!-- Pro unlimited counter -->
+            <div style="background:rgba(227,179,65,0.15);border:1px solid rgba(227,179,65,0.4);border-radius:16px;padding:4px 10px;display:flex;align-items:center;gap:5px;">
+              <span style="font-size:11px;color:#e3b341;">⚡</span>
+              <span style="font-size:10px;color:#e3b341;font-weight:700;">10 picks</span>
+            </div>
+          </div>
+
+          <!-- PRO EARLY ACCESS BANNER — new in v4 -->
+          <div style="margin:0 16px 8px;background:linear-gradient(135deg,rgba(227,179,65,0.12),rgba(227,179,65,0.04));border:1.5px solid rgba(227,179,65,0.4);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:18px;">⚡</span>
+            <div style="flex:1;">
+              <div style="font-size:12px;font-weight:700;color:#e3b341;margin-bottom:1px;">Pro Early Access · 15 min head start</div>
+              <div style="font-size:10px;color:#94a3b8;">You're setting the initial crowd signal — free users see what you pick</div>
+            </div>
+          </div>
+
+          <!-- Prop line -->
+          <div style="margin:0 16px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;">
+            <div style="font-size:10px;color:#8b949e;margin-bottom:3px;">Patrick Mahomes · Passing Yards</div>
+            <div style="font-size:30px;font-weight:900;color:#f0f6fc;letter-spacing:-1px;">284.5</div>
+            <div style="font-size:10px;color:#8b949e;margin-top:1px;">Season avg: 297.4 · Last 5: 312.2</div>
+          </div>
+
+          <!-- SportsIQ Signal (Pro sees fuller version) -->
+          <div style="margin:0 16px 8px;background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(245,158,11,0.04));border:1.5px solid rgba(245,158,11,0.45);border-radius:14px;padding:14px 16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:#f59e0b;"></div>
+                <span style="font-size:10px;font-weight:800;color:#f59e0b;letter-spacing:1px;">SPORTSIQ SIGNAL</span>
+              </div>
+              <span style="font-size:9px;background:rgba(227,179,65,0.15);border:1px solid rgba(227,179,65,0.3);border-radius:6px;padding:2px 6px;color:#e3b341;font-weight:600;">⚡ Pro Full View</span>
+            </div>
+            <div style="font-size:17px;font-weight:900;color:#f0f6fc;margin-bottom:5px;">Leaning <span style="color:#22c55e;">OVER ↑</span></div>
+            <div style="font-size:11px;color:#8b949e;line-height:1.5;margin-bottom:8px;">Season avg 297.4 yds · Eagles rank 29th vs pass · 3 of last 5 opponents gave up 300+</div>
+            <!-- Pro sees full signal breakdown -->
+            <div style="background:rgba(245,158,11,0.06);border-radius:8px;padding:8px 10px;font-size:10px;color:#8b949e;">
+              <div style="color:#e3b341;font-weight:700;margin-bottom:4px;">Sharp money alignment (Pro):</div>
+              <div>67% of sharp accounts picked OVER in last 2 hours · Line moved from 280.5 → 284.5</div>
+            </div>
+          </div>
+
+          <!-- Pro early access crowd (only 22 picks so far) -->
+          <div style="margin:0 16px 10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+              <span style="font-size:11px;font-weight:800;color:#22c55e;">OVER 68%</span>
+              <span style="font-size:9px;color:#8b949e;">22 Pro picks · early</span>
+              <span style="font-size:11px;font-weight:800;color:#ef4444;">UNDER 32%</span>
+            </div>
+            <div style="height:8px;border-radius:4px;overflow:hidden;display:flex;">
+              <div style="flex:0.68;background:linear-gradient(90deg,#16a34a,#22c55e);"></div>
+              <div style="flex:0.32;background:linear-gradient(90deg,#dc2626,#ef4444);"></div>
+            </div>
+            <div style="font-size:9px;color:#475569;margin-top:4px;">Free users will see this crowd signal in 15 min</div>
+          </div>
+
+          <!-- Pick buttons -->
+          <div style="display:flex;gap:12px;padding:0 16px 10px;">
+            <div style="flex:1;background:linear-gradient(135deg,rgba(34,197,94,0.18),rgba(34,197,94,0.07));border:2px solid rgba(34,197,94,0.5);border-radius:16px;padding:18px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#22c55e;">OVER</div>
+              <div style="font-size:11px;color:#8b949e;margin-top:2px;">284.5+ yds</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:18px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#f0f6fc;">UNDER</div>
+              <div style="font-size:11px;color:#8b949e;margin-top:2px;">284.4 or less</div>
+            </div>
+          </div>
+
+          <!-- Bottom nav -->
+          <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;margin-top:8px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(88,166,255,.6));">🎯</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Picks</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Ranks</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 3 — Pro pick: 15-min early access · sets crowd signal · full signal breakdown · 2026-03-22</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-pick-card-v4" class="sfb-panel"></div>
+</div><!-- /screen pick-card-v4 -->
+
 <div id="pick-card-v3" class="screen" style="display:none;">
   <div class="screen-header">
     <div class="screen-title">Pick Card v3 — SportsIQ Signal BEFORE you pick · Push notification · Layout fix</div>
