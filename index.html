@@ -4735,6 +4735,8 @@
     'my-stats-v2':         '2026-03-21T09:45:00-07:00',
     // ── Mar 21 11:30 AM PT — Bar Live Pick v4 ────────────────────────
     'bar-pred-q-v4':       '2026-03-21T11:30:00-07:00',
+    // ── Mar 22 — Home Live v5 (tug-of-war + pick locked) ────────────
+    'home-live-v5':        '2026-03-22T00:00:00-07:00',
     // ── Mar 21 12:00 PM PT — feedback fixes + unified Challenges ─────
     'home-live-v4':        '2026-03-21T12:00:00-07:00',
     'challenges-v2':       '2026-03-21T12:00:00-07:00',
@@ -5251,6 +5253,18 @@
         'For group challenges (3+ players), should the stake be equal for all players (fairest) or can the challenger set different stakes per opponent?',
         'When a challenge is active and both players have locked in, should each person\'s pick direction show immediately, or stay hidden until Final Whistle (more suspense)?',
         'Pending/open challenges — should there be a dedicated inbox for challenges you\'ve received and sent, or surface them as notifications on the Home screen?'
+      ]
+    },
+
+    /* ── Mar 22 — Home Live v5 ── */
+    'home-live-v5': {
+      icon: '⚡',
+      title: 'Home Live v5 — Tug-of-War Bar · Pick Locked State · Mar 22 2026',
+      built: 'v5 from Mark feedback on v4: (1) Button disappears after pick is locked — replaced by a green confirmation card showing OVER·2×, +98 IQ if correct, "With the crowd" context, and live stat tracker (Mahomes: 231 yds · needs 37 more). (2) Crowd intel card upgraded to full tug-of-war bar — wide bar, green OVER side vs amber UNDER side with % labels above each end. Much more visceral than the slim 5px mini bar in v4. (3) Clock kept as-is at :03 — no 3-2-1 countdown animation. Three phones: :09 state (tug-of-war bar, PICK NOW), :03 full red flood (tug-of-war bar, PICK NOW red), Pick Locked (button completely gone, confirmation card).',
+      questions: [
+        'Pick locked confirmation card — should it show the crowd\'s current lean so you can see whether you\'re with or against the crowd after locking? Currently shows "With the crowd" text.',
+        'Post-lock: does anything animate or change after locking in? Should the live stat (Mahomes: 231 yds) update in real time on this screen, or is that a separate "watching" state?',
+        'Tug-of-war bar colors: green OVER / amber UNDER (current) or blue OVER / red UNDER to avoid implying OVER is always "good"?'
       ]
     },
 
