@@ -1842,6 +1842,9 @@
     <div class="tab tab-review" data-screen="onboarding-v3" onclick="showScreen('onboarding-v3',this)">
       <span class="tab-label">Onboarding</span><span class="tab-days" id="days-onboarding-v3"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="onboarding-v4" onclick="showScreen('onboarding-v4',this)">
+      <span class="tab-label">Onboarding v4</span><span class="tab-days" id="days-onboarding-v4"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="daily-challenge-v3" onclick="showScreen('daily-challenge-v3',this)">
       <span class="tab-label">Daily Challenge</span><span class="tab-days" id="days-daily-challenge-v3"></span><span class="review-dot"></span>
     </div>
@@ -4080,8 +4083,8 @@
     "date": "2026-03-22",
     "source": "inbox",
     "idea": "[onboarding-v3] 1. passively 2. you decide 3. yes demo pick",
-    "status": "new",
-    "claude_response": "",
+    "status": "done",
+    "claude_response": "Built Onboarding v4. 3 phones: (1) Welcome — name input + 6 sport tiles, zero depth quiz, zero survey. We start collecting DNA passively from the first sports they tap. (2) Demo Pick Tutorial — real pick UI (Mahomes 287.5 passing yards) with translucent coach overlays teaching 'what is a line', 'OVER vs UNDER', 'what the crowd signal means'. Pre-scripted to always WIN for dopamine hit. (3) Sports DNA forming — immediate post-demo state. DNA card in 'Building...' mode (0 games in). Already shows 3 passive signals captured from onboarding itself: Prefers OVER, NFL Primary, Night Player. Unlock gate: 3 real picks to see full DNA profile. I chose 3 picks as the gate — enough data to show something meaningful, fast enough to hook before they lose interest.",
     "mark_reply": ""
   },
   {
@@ -4089,8 +4092,8 @@
     "date": "2026-03-22",
     "source": "inbox",
     "idea": "[daily-challenge-v3] 1 show actual picks 2. we decided on 6pm in users local time 3. immediately",
-    "status": "new",
-    "claude_response": "",
+    "status": "noted",
+    "claude_response": "Got it. Daily Challenge v4 will show actual picks on the share card (not Wordle dots). Expiry is 6pm local time. Results fire immediately after the pick, no delay. I'll build this as an improvement to daily-challenge-v3.",
     "mark_reply": ""
   },
   {
@@ -4098,8 +4101,8 @@
     "date": "2026-03-22",
     "source": "inbox",
     "idea": "[game-day-v3] 1. replace 2. striking distance 3. we dont want venue owner to do anything",
-    "status": "new",
-    "claude_response": "",
+    "status": "noted",
+    "claude_response": "Got it. Game Day v4: Session Hub REPLACES the Home screen when a session is active (not stacked on top). Path to First math only visible within striking distance of #1. Clutch Pick is automatic — no venue owner trigger needed, fires based on time/score data. I'll build this as game-day-v4.",
     "mark_reply": ""
   },
   {
@@ -4107,8 +4110,8 @@
     "date": "2026-03-22",
     "source": "inbox",
     "idea": "[notifications-v2] 1. simple 2. use real game stats for everything 3. auto-learn",
-    "status": "new",
-    "claude_response": "",
+    "status": "noted",
+    "claude_response": "Got it. Notifications v3: simple pack toggles (not individual notification controls). All content uses real game stats — no placeholder/generic text. System auto-learns notification timing preferences from user behavior (no manual quiet-hours setting required). I'll build this as notifications-v3.",
     "mark_reply": ""
   },
   {
@@ -4116,8 +4119,8 @@
     "date": "2026-03-22",
     "source": "inbox",
     "idea": "[my-stats-v2] 1. you decide 2. you deicde 3. too dense to show always, you can show his record against Mike when he is going to play H2H agianst mike again 4. too dense to show always this data is all great but we cant show all of it all the time. you needs to decide what is best to show and when its best to show it",
-    "status": "new",
-    "claude_response": "",
+    "status": "noted",
+    "claude_response": "Got it. My Stats v3 will be context-aware — surfaces the right data at the right moment, not everything at once. Key rules I'm designing around: (1) H2H record vs a specific opponent only shown when that opponent match is upcoming. (2) Sport-specific stats only shown when that sport has a live pick or recent game. (3) Notification permission timing — my call: I'll ask after the first real pick win (higher opt-in). (4) Overall stat density is my UX call — I'll build a clean priority hierarchy. Will build as my-stats-v3.",
     "mark_reply": ""
   },
   {
@@ -4125,8 +4128,8 @@
     "date": "2026-03-22",
     "source": "inbox",
     "idea": "[leaderboard-v3] 1. I like both. But we should use Today instead of Tonight 2. yes, why do we need opt? we should always show this 3. I dont understand this, explain.",
-    "status": "new",
-    "claude_response": "",
+    "status": "noted",
+    "claude_response": "Got it on 1 and 2. 'Today' is correct — will use that everywhere. Cross-venue leaderboard always on, no opt-in gate. On #3 (rank delta explanation): Rank delta is the number that shows how many positions you moved up or down. Example: if you were #7 yesterday and you're #4 today, your delta is +3 (moved up 3 spots). I show this as a small arrow and number next to your rank: '↑3 today'. Two deltas: today's movement and this week's movement. It helps you see momentum — are you climbing fast, stalling, or dropping? Makes the leaderboard feel alive instead of a static snapshot. Confirmed I'll keep this in leaderboard-v4 (already built) and all future versions.",
     "mark_reply": ""
   }
 ]
@@ -4830,6 +4833,7 @@
     'pick-wait-v3':        '2026-03-21T14:30:00-07:00',
     // ── Mar 21 3:30 PM PT — v3 batch (ideas 028–031) ─────────────────
     'onboarding-v3':       '2026-03-21T15:30:00-07:00',
+    'onboarding-v4':       '2026-03-22T10:00:00-07:00',
     'daily-challenge-v3':  '2026-03-21T15:30:00-07:00',
     'game-day-v3':         '2026-03-21T15:30:00-07:00',
     'notifications-v2':    '2026-03-21T15:30:00-07:00',
@@ -5402,6 +5406,16 @@
         'Depth selector per sport removed from onboarding — is that data critical for Day 1 ad targeting, or is it okay to collect it passively through behavior?',
         'Notification permission at step 2 vs. after first win — which placement gets higher opt-in rate?',
         'Demo pick for new users with no live game — yes (instant gratification) or no (wait for real game, higher authenticity)?'
+      ]
+    },
+    'onboarding-v4': {
+      icon: '🚀',
+      title: 'Onboarding v4 — Passive DNA · Demo Pick · Zero Friction',
+      built: 'v4 collapses onboarding to its absolute minimum. Based on Mark\'s directive: collect sports depth data passively (behavior, not surveys), my call on notification timing, include a demo pick. 3 states: (1) Welcome — name input + sport tiles only, no depth/questionnaire. Zero friction before first play. (2) Demo Pick Tutorial — real pick card with translucent coach overlays. Teaches "what\'s a line", "why OVER/UNDER", "what you win". Interactive-feeling but pre-scripted result. (3) Sports DNA forming — post-demo, shows the DNA card in "Building..." state. Passive signals already accumulating: sport selected, pick direction, time-of-day. Plants the DNA hook immediately. Moat: every new user starts contributing to the proprietary crowd signal dataset from tap #1.',
+      questions: [
+        'Notification permission: ask during onboarding step 1 (before demo pick), or fire it after the demo pick win ("Get notified when your streak is at risk")? Post-win timing gets higher opt-in.',
+        'Demo pick result: always shows WIN for the new user (dopamine hit) or real historical result (authenticity)? I\'d go always-win but want your call.',
+        'Sports DNA unlock gate: first real pick resolves, or after 5 picks? I lean 3 picks — enough data to show something meaningful, fast enough to not lose them.'
       ]
     },
     'daily-challenge-v3': {
@@ -17192,6 +17206,291 @@
 
   </div>
   <div id="sfb-panel-onboarding-v3" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Onboarding v4 — 2026-03-22 — Passive DNA · Demo Pick · Zero Friction
+     Ideas answered: 058 (passively, my decision, yes demo pick)
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="onboarding-v4" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Onboarding v4 — Passive DNA · Demo Pick · Zero Friction</div>
+    <div class="screen-subtitle">3 states: (1) Welcome — name + sport tiles, zero survey. (2) Demo Pick Tutorial — real pick UI with coach overlays teaching the mechanic. (3) Sports DNA forming — passive signals accumulating from tap #1. Mark's answers: collect depth data passively, include demo pick.</div>
+  </div>
+
+  <div class="phones-row">
+
+    <!-- PHONE 1: Welcome — Name + Sport tiles, zero friction -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <!-- top glow -->
+            <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:300px;height:300px;background:radial-gradient(circle,rgba(139,92,246,0.18) 0%,transparent 70%);pointer-events:none;"></div>
+
+            <!-- Logo / hero -->
+            <div style="padding:52px 24px 0;text-align:center;position:relative;z-index:1;">
+              <div style="font-size:28px;font-weight:900;background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px;margin-bottom:2px;">SportsIQ</div>
+              <div style="font-size:12px;color:#64748b;letter-spacing:2px;font-weight:600;margin-bottom:20px;">KNOW MORE. WIN MORE.</div>
+              <div style="font-size:18px;font-weight:700;color:#f1f5f9;margin-bottom:4px;">What's your name?</div>
+              <div style="font-size:12px;color:#475569;margin-bottom:14px;">No email. No password. One tap to play.</div>
+
+              <!-- Name input -->
+              <div style="background:rgba(255,255,255,0.06);border:1.5px solid rgba(139,92,246,0.5);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+                <span style="font-size:16px;">👤</span>
+                <span style="font-size:15px;color:#a78bfa;font-weight:600;">SharpBettor</span>
+                <span style="width:2px;height:18px;background:#a78bfa;border-radius:1px;animation:blink 1s infinite;margin-left:2px;"></span>
+              </div>
+            </div>
+
+            <!-- Sport tiles -->
+            <div style="padding:0 16px;position:relative;z-index:1;">
+              <div style="font-size:10px;font-weight:800;color:#64748b;letter-spacing:2px;margin-bottom:10px;text-align:center;">PICK YOUR SPORTS</div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
+                <!-- NFL — selected -->
+                <div style="background:rgba(139,92,246,0.2);border:2px solid #a78bfa;border-radius:12px;padding:10px 6px;text-align:center;">
+                  <div style="font-size:22px;margin-bottom:3px;">🏈</div>
+                  <div style="font-size:10px;font-weight:700;color:#a78bfa;">NFL</div>
+                </div>
+                <!-- NBA — selected -->
+                <div style="background:rgba(139,92,246,0.2);border:2px solid #a78bfa;border-radius:12px;padding:10px 6px;text-align:center;">
+                  <div style="font-size:22px;margin-bottom:3px;">🏀</div>
+                  <div style="font-size:10px;font-weight:700;color:#a78bfa;">NBA</div>
+                </div>
+                <!-- MLB — unselected -->
+                <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 6px;text-align:center;">
+                  <div style="font-size:22px;margin-bottom:3px;">⚾</div>
+                  <div style="font-size:10px;font-weight:600;color:#475569;">MLB</div>
+                </div>
+                <!-- NHL -->
+                <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 6px;text-align:center;">
+                  <div style="font-size:22px;margin-bottom:3px;">🏒</div>
+                  <div style="font-size:10px;font-weight:600;color:#475569;">NHL</div>
+                </div>
+                <!-- CFB — selected -->
+                <div style="background:rgba(139,92,246,0.2);border:2px solid #a78bfa;border-radius:12px;padding:10px 6px;text-align:center;">
+                  <div style="font-size:22px;margin-bottom:3px;">🎓</div>
+                  <div style="font-size:10px;font-weight:700;color:#a78bfa;">CFB</div>
+                </div>
+                <!-- Tennis -->
+                <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 6px;text-align:center;">
+                  <div style="font-size:22px;margin-bottom:3px;">🎾</div>
+                  <div style="font-size:10px;font-weight:600;color:#475569;">Tennis</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="padding:0 16px 16px;position:relative;z-index:1;">
+              <div style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:14px;padding:14px;text-align:center;">
+                <div style="font-size:15px;font-weight:800;color:#fff;letter-spacing:0.5px;">Let's Play →</div>
+              </div>
+              <div style="text-align:center;margin-top:10px;font-size:10px;color:#334155;">No sign-up. No payment. We learn you as you play.</div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">NAME + SPORTS ONLY · No depth quiz · Passive learning starts here</div>
+      </div>
+    </div>
+
+    <!-- PHONE 2: Demo Pick Tutorial -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <!-- Status bar -->
+            <div style="padding:44px 16px 4px;display:flex;justify-content:space-between;align-items:center;background:#060d1f;">
+              <span style="font-size:11px;color:#475569;font-weight:600;">9:41 AM</span>
+              <span style="font-size:10px;color:#a78bfa;font-weight:800;letter-spacing:1px;">TUTORIAL PICK</span>
+              <span style="font-size:9px;color:#475569;">●●●●</span>
+            </div>
+
+            <!-- Coach overlay bubble 1 -->
+            <div style="margin:6px 12px 0;background:rgba(139,92,246,0.15);border:1.5px solid rgba(139,92,246,0.4);border-radius:12px;padding:8px 12px;position:relative;">
+              <div style="font-size:10px;font-weight:800;color:#a78bfa;letter-spacing:1px;margin-bottom:2px;">👆 THIS IS A PICK LINE</div>
+              <div style="font-size:11px;color:#94a3b8;line-height:1.4;">Books set a number. You say OVER or UNDER. SportsIQ tells you what 1,284 sharp players chose.</div>
+              <!-- Arrow pointing down -->
+              <div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:8px solid rgba(139,92,246,0.4);"></div>
+            </div>
+
+            <!-- Mini pick card (tutorial) -->
+            <div style="margin:10px 12px 0;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:12px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <div style="font-size:10px;color:#64748b;font-weight:600;">NFL · KC vs PHI · Q3 8:44</div>
+                <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:20px;padding:2px 8px;font-size:9px;color:#4ade80;font-weight:700;">LIVE</div>
+              </div>
+
+              <!-- Player row -->
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:16px;">🏈</div>
+                <div>
+                  <div style="font-size:14px;font-weight:800;color:#f1f5f9;">P. Mahomes</div>
+                  <div style="font-size:10px;color:#64748b;">Kansas City Chiefs · QB</div>
+                </div>
+              </div>
+
+              <!-- Line -->
+              <div style="text-align:center;margin-bottom:10px;">
+                <div style="font-size:11px;color:#64748b;margin-bottom:2px;">Passing Yards</div>
+                <div style="font-size:28px;font-weight:900;color:#f1f5f9;">287.5</div>
+              </div>
+
+              <!-- OVER / UNDER buttons (OVER highlighted as "tapped") -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div style="background:linear-gradient(135deg,#059669,#10b981);border-radius:12px;padding:12px;text-align:center;box-shadow:0 4px 16px rgba(16,185,129,0.4);">
+                  <div style="font-size:12px;font-weight:900;color:#fff;letter-spacing:1px;">OVER ↑</div>
+                  <div style="font-size:10px;color:rgba(255,255,255,0.8);margin-top:2px;">63% picked this</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px;text-align:center;">
+                  <div style="font-size:12px;font-weight:700;color:#64748b;letter-spacing:1px;">UNDER ↓</div>
+                  <div style="font-size:10px;color:#475569;margin-top:2px;">37% picked this</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Coach overlay bubble 2 -->
+            <div style="margin:8px 12px 0;background:rgba(16,185,129,0.12);border:1.5px solid rgba(16,185,129,0.35);border-radius:12px;padding:8px 12px;">
+              <div style="font-size:10px;font-weight:800;color:#4ade80;letter-spacing:1px;margin-bottom:2px;">👆 TAP OVER OR UNDER</div>
+              <div style="font-size:11px;color:#94a3b8;line-height:1.4;">63% of sharp players went OVER. You earn IQ points when you're right — and more for going against the crowd.</div>
+            </div>
+
+            <!-- Next hint -->
+            <div style="flex:1;display:flex;align-items:flex-end;padding:8px 12px 16px;">
+              <div style="width:100%;text-align:center;">
+                <div style="font-size:10px;color:#475569;margin-bottom:6px;">This is a practice pick. No points yet.</div>
+                <div style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:12px;padding:12px;text-align:center;">
+                  <div style="font-size:13px;font-weight:800;color:#fff;">Lock In OVER →</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">DEMO PICK · Coach overlays teach the mechanic · Always a WIN</div>
+      </div>
+    </div>
+
+    <!-- PHONE 3: Sports DNA forming -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <!-- Status bar -->
+            <div style="padding:44px 16px 4px;display:flex;justify-content:space-between;align-items:center;background:#060d1f;">
+              <span style="font-size:11px;color:#475569;font-weight:600;">9:41 AM</span>
+              <span style="font-size:10px;color:#a78bfa;font-weight:800;letter-spacing:1px;">✓ PICK LOCKED</span>
+              <span style="font-size:9px;color:#475569;">●●●●</span>
+            </div>
+
+            <!-- Win banner -->
+            <div style="margin:6px 12px 0;background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(5,150,105,0.15));border:1.5px solid rgba(16,185,129,0.4);border-radius:14px;padding:10px 14px;text-align:center;">
+              <div style="font-size:18px;margin-bottom:2px;">🎉</div>
+              <div style="font-size:14px;font-weight:900;color:#4ade80;">Mahomes threw 312 yds!</div>
+              <div style="font-size:11px;color:#94a3b8;margin-top:2px;">OVER hit · Tutorial pick · You've got instincts</div>
+            </div>
+
+            <!-- DNA card — forming state -->
+            <div style="margin:10px 12px 0;background:rgba(139,92,246,0.08);border:1.5px solid rgba(139,92,246,0.25);border-radius:16px;padding:14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                <div>
+                  <div style="font-size:11px;font-weight:800;color:#a78bfa;letter-spacing:1.5px;">SPORTS DNA</div>
+                  <div style="font-size:10px;color:#475569;margin-top:1px;">Building your profile...</div>
+                </div>
+                <div style="background:rgba(139,92,246,0.2);border-radius:20px;padding:3px 10px;font-size:9px;color:#a78bfa;font-weight:700;">0 GAMES IN</div>
+              </div>
+
+              <!-- DNA strands — partially populated -->
+              <div style="display:flex;flex-direction:column;gap:8px;">
+
+                <!-- NFL — active from sports selection -->
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:13px;">🏈</span>
+                  <div style="flex:1;">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                      <span style="font-size:10px;color:#94a3b8;font-weight:600;">NFL</span>
+                      <span style="font-size:10px;color:#a78bfa;font-weight:700;">Signal forming</span>
+                    </div>
+                    <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                      <div style="width:20%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:3px;"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- NBA — active -->
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:13px;">🏀</span>
+                  <div style="flex:1;">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                      <span style="font-size:10px;color:#94a3b8;font-weight:600;">NBA</span>
+                      <span style="font-size:10px;color:#a78bfa;font-weight:700;">Signal forming</span>
+                    </div>
+                    <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                      <div style="width:15%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:3px;"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CFB — active -->
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:13px;">🎓</span>
+                  <div style="flex:1;">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                      <span style="font-size:10px;color:#94a3b8;font-weight:600;">CFB</span>
+                      <span style="font-size:10px;color:#a78bfa;font-weight:700;">Signal forming</span>
+                    </div>
+                    <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                      <div style="width:10%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:3px;"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Passive signals already captured -->
+                <div style="margin-top:4px;background:rgba(255,255,255,0.04);border-radius:10px;padding:8px 10px;">
+                  <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:1.5px;margin-bottom:6px;">SIGNALS CAPTURED</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                    <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.25);border-radius:20px;padding:2px 8px;font-size:9px;color:#a78bfa;font-weight:600;">⚡ Prefers OVER</div>
+                    <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.25);border-radius:20px;padding:2px 8px;font-size:9px;color:#a78bfa;font-weight:600;">🏈 NFL Primary</div>
+                    <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.25);border-radius:20px;padding:2px 8px;font-size:9px;color:#a78bfa;font-weight:600;">🌙 Night Player</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- DNA unlock teaser -->
+            <div style="margin:10px 12px 0;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px;">
+              <div style="width:32px;height:32px;border-radius:10px;background:rgba(139,92,246,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🔒</div>
+              <div style="flex:1;">
+                <div style="font-size:11px;font-weight:700;color:#94a3b8;">Full DNA Profile</div>
+                <div style="font-size:10px;color:#475569;margin-top:1px;">Make 3 real picks to unlock your accuracy streaks, sport rankings, and rival matchups</div>
+              </div>
+            </div>
+
+            <!-- CTA to first real pick -->
+            <div style="flex:1;display:flex;align-items:flex-end;padding:8px 12px 16px;">
+              <div style="width:100%;">
+                <div style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:14px;padding:14px;text-align:center;">
+                  <div style="font-size:14px;font-weight:800;color:#fff;">Make Your First Real Pick →</div>
+                  <div style="font-size:10px;color:rgba(255,255,255,0.7);margin-top:3px;">Live games open now</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">SPORTS DNA FORMING · Passive signals from tap #1 · Unlock hook at 3 picks</div>
+      </div>
+    </div>
+
+  </div><!-- end phones-row -->
+
+  <div id="sfb-panel-onboarding-v4" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
