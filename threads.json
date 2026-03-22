@@ -214,5 +214,17 @@
       "text": "1. real IQ points 2. yes - make sure this works well though 3. clarify what we are doing with H2H and groups. this should be simple and intuitive. we shouldnt have one feature for 2 players and another for a group. 4. make a recommendation",
       "ts": "Mar 21 10:59 PM"
     }
+  ],
+  "friends-feed-v1": [
+    {
+      "from": "mark",
+      "text": "1. reactions but keep it simple\n2. before\n3. manual\n4. all friends",
+      "ts": "Mar 21 4:19 PM"
+    },
+    {
+      "from": "mark",
+      "text": "1. reactions but keep it simple 2. before 3. manual 4. all friends",
+      "ts": "Mar 21 11:00 PM"
+    }
   ]
 }
