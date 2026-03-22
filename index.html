@@ -1848,6 +1848,9 @@
     <div class="tab tab-review" data-screen="daily-challenge-v3" onclick="showScreen('daily-challenge-v3',this)">
       <span class="tab-label">Daily Challenge</span><span class="tab-days" id="days-daily-challenge-v3"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="daily-challenge-v4" onclick="showScreen('daily-challenge-v4',this)">
+      <span class="tab-label">Daily Challenge v4</span><span class="tab-days" id="days-daily-challenge-v4"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="game-day-v3" onclick="showScreen('game-day-v3',this)">
       <span class="tab-label">Game Day</span><span class="tab-days" id="days-game-day-v3"></span><span class="review-dot"></span>
     </div>
@@ -4092,8 +4095,8 @@
     "date": "2026-03-22",
     "source": "inbox",
     "idea": "[daily-challenge-v3] 1 show actual picks 2. we decided on 6pm in users local time 3. immediately",
-    "status": "noted",
-    "claude_response": "Got it. Daily Challenge v4 will show actual picks on the share card (not Wordle dots). Expiry is 6pm local time. Results fire immediately after the pick, no delay. I'll build this as an improvement to daily-challenge-v3.",
+    "status": "done",
+    "claude_response": "Built Daily Challenge v4. 4 phones: (1) Active challenge — 5 picks, 3 resolved with live results inline, expiry countdown showing 3h 46m to 6pm. (2) Immediate result flash — pick 4 (Curry 3-pointers OVER) just settled, shows stat vs line vs your pick in real-time, list updates live. (3) Streak At Risk — 14-day streak, 47 min to 6pm, one-tap resume CTA. (4) Share card — actual OVER/UNDER picks listed with sport emoji, stat result, and win/loss dot. Not Wordle dots. Global rank shown on card. WhatsApp/Instagram/Copy share options. Key question back to Mark: should we add a spoiler toggle on the share card for friends who haven't played yet?",
     "mark_reply": ""
   },
   {
@@ -4835,6 +4838,7 @@
     'onboarding-v3':       '2026-03-21T15:30:00-07:00',
     'onboarding-v4':       '2026-03-22T10:00:00-07:00',
     'daily-challenge-v3':  '2026-03-21T15:30:00-07:00',
+    'daily-challenge-v4':  '2026-03-22T12:00:00-07:00',
     'game-day-v3':         '2026-03-21T15:30:00-07:00',
     'notifications-v2':    '2026-03-21T15:30:00-07:00',
     // ── Mar 21 4:30 PM PT — stats/leaderboard/DNA/referral (032–035) ──
@@ -5426,6 +5430,16 @@
         'Share card — should the card show the user\'s actual picks (OVER/UNDER for each) or just green/red dots like Wordle (no spoilers for friends who haven\'t played)?',
         'Streak At Risk notification: how many hours before midnight? 3h, 2h, or 1h? What\'s the right urgency threshold?',
         'Community stats post-challenge: show these immediately after result or put them on a separate "Challenge Stats" screen to reduce overwhelm?'
+      ]
+    },
+    'daily-challenge-v4': {
+      icon: '📅',
+      title: 'Daily Challenge v4 — Actual Picks · 6pm Expiry · Immediate Results',
+      built: 'v4 applies Mark\'s decisions: (1) Share card shows actual picks — each pick shown as OVER/UNDER with sport emoji and result dot. More personal, more shareable, spoils for friends who haven\'t played (accepted tradeoff). (2) 6pm local time expiry — creates a morning-to-afternoon urgency window. Streak At Risk fires when less than 1 hour remains. (3) Immediate result per pick — result fires the moment each individual pick resolves, not batch at the end. Creates more micro-dopamine moments throughout the day. 4 phones: (1) Challenge active with expiry countdown + per-pick results updating live. (2) Pick result fires immediately inline (pick 3 just resolved). (3) Streak At Risk — 47 min to 6pm, streak flame, one-tap resume. (4) Share card — actual picks listed with OVER/UNDER, emoji, win/loss dot, score, global rank.',
+      questions: [
+        'Share card shows picks that could spoil friends\' daily challenge — is this the right call, or should we add a "Spoiler toggle" (hide picks until friend completes)?',
+        '6pm local expiry: does this feel right for NFL Sunday (games start 1pm ET)? Should weekend expiry extend to 10pm to catch evening games?',
+        'Streak At Risk: auto-push notification at 1 hour before expiry, or let the app badge handle it silently?'
       ]
     },
     'game-day-v3': {
@@ -17619,6 +17633,393 @@
 
   </div>
   <div id="sfb-panel-daily-challenge-v3" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Daily Challenge v4 — 2026-03-22 — Actual picks, 6pm expiry, immediate results
+     Ideas answered: 059 (show actual picks, 6pm local, immediately)
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="daily-challenge-v4" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Daily Challenge v4 — Actual Picks · 6pm Local Expiry · Per-Pick Immediate Results</div>
+    <div class="screen-subtitle">3 key changes from v3: (1) Share card shows your actual OVER/UNDER picks — not Wordle dots. (2) Challenge expires at 6pm in user's local time — morning-to-afternoon urgency window. (3) Results fire immediately after each individual pick resolves, not batch at end. 4 states shown.</div>
+  </div>
+
+  <div class="phones-row">
+
+    <!-- PHONE 1: Challenge active — live results updating -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#060d1f;">
+              <span style="font-size:11px;color:#475569;font-weight:600;">2:14 PM</span>
+              <span style="font-size:10px;color:#f59e0b;font-weight:800;letter-spacing:1px;">3h 46m LEFT</span>
+              <span style="font-size:9px;color:#475569;">●●●●</span>
+            </div>
+
+            <!-- Challenge header -->
+            <div style="padding:8px 16px 0;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:15px;font-weight:900;color:#f1f5f9;">Daily Challenge</div>
+                <div style="font-size:10px;color:#475569;">Streak 🔥 14 days · Expires 6:00 PM</div>
+              </div>
+              <div style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.35);border-radius:20px;padding:4px 10px;">
+                <div style="font-size:10px;color:#f59e0b;font-weight:800;">3/5 done</div>
+              </div>
+            </div>
+
+            <!-- Pick list with live results -->
+            <div style="padding:10px 16px 0;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:7px;">
+
+              <!-- Pick 1 — resolved WIN -->
+              <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:12px;padding:10px 12px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:14px;">🏈</span>
+                    <div>
+                      <div style="font-size:11px;font-weight:700;color:#f1f5f9;">Mahomes · Pass Yds</div>
+                      <div style="font-size:10px;color:#4ade80;font-weight:700;">OVER 284.5 · 312 yds ✓</div>
+                    </div>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:12px;font-weight:900;color:#4ade80;">+200</div>
+                    <div style="font-size:9px;color:#475569;">IQ</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pick 2 — resolved LOSS -->
+              <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:12px;padding:10px 12px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:14px;">🏀</span>
+                    <div>
+                      <div style="font-size:11px;font-weight:700;color:#f1f5f9;">LeBron · Pts+Reb</div>
+                      <div style="font-size:10px;color:#f87171;font-weight:700;">OVER 32.5 · 29.0 ✗</div>
+                    </div>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:12px;font-weight:900;color:#f87171;">+0</div>
+                    <div style="font-size:9px;color:#475569;">IQ</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pick 3 — resolved WIN -->
+              <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:12px;padding:10px 12px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:14px;">🏈</span>
+                    <div>
+                      <div style="font-size:11px;font-weight:700;color:#f1f5f9;">Jefferson · Rec Yds</div>
+                      <div style="font-size:10px;color:#4ade80;font-weight:700;">UNDER 78.5 · 71 yds ✓</div>
+                    </div>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:12px;font-weight:900;color:#4ade80;">+200</div>
+                    <div style="font-size:9px;color:#475569;">IQ</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pick 4 — pending -->
+              <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.4);border-radius:12px;padding:10px 12px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:14px;">🏀</span>
+                    <div>
+                      <div style="font-size:11px;font-weight:700;color:#f1f5f9;">Curry · 3-Pointers</div>
+                      <div style="font-size:10px;color:#a78bfa;font-weight:700;">OVER 4.5 · Live Q2</div>
+                    </div>
+                  </div>
+                  <div style="background:rgba(139,92,246,0.2);border-radius:20px;padding:3px 8px;">
+                    <div style="font-size:9px;color:#a78bfa;font-weight:700;">LIVE</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pick 5 — pending (game not started) -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px 12px;opacity:0.6;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:14px;">🏈</span>
+                    <div>
+                      <div style="font-size:11px;font-weight:700;color:#94a3b8;">Burrow · Pass TDs</div>
+                      <div style="font-size:10px;color:#475569;">Unlocks at 8:20 PM</div>
+                    </div>
+                  </div>
+                  <div style="font-size:9px;color:#475569;">SNF</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Running IQ total -->
+            <div style="padding:8px 16px 14px;border-top:1px solid rgba(255,255,255,0.06);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-size:11px;color:#64748b;">Today's IQ</span>
+                <span style="font-size:18px;font-weight:900;color:#4ade80;">+400</span>
+              </div>
+              <div style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:12px;padding:10px;text-align:center;">
+                <div style="font-size:12px;font-weight:800;color:#fff;">📤 Share My Picks</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">ACTIVE CHALLENGE · 3/5 resolved · Results live as each pick settles</div>
+      </div>
+    </div>
+
+    <!-- PHONE 2: Immediate result fires for pick 4 -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#060d1f;">
+              <span style="font-size:11px;color:#475569;font-weight:600;">3:47 PM</span>
+              <span style="font-size:10px;color:#f59e0b;font-weight:800;letter-spacing:1px;">2h 13m LEFT</span>
+              <span style="font-size:9px;color:#475569;">●●●●</span>
+            </div>
+
+            <!-- Game-over result flash (pick 4 just resolved) -->
+            <div style="margin:6px 12px 0;background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(5,150,105,0.15));border:2px solid rgba(16,185,129,0.5);border-radius:14px;padding:12px 14px;text-align:center;">
+              <div style="font-size:10px;font-weight:800;color:#4ade80;letter-spacing:1.5px;margin-bottom:4px;">⚡ PICK JUST SETTLED</div>
+              <div style="font-size:16px;font-weight:900;color:#f1f5f9;margin-bottom:2px;">Curry — OVER 4.5 ✅</div>
+              <div style="font-size:12px;color:#94a3b8;">Hit 5 three-pointers · +200 IQ</div>
+              <div style="margin-top:8px;display:flex;justify-content:center;gap:12px;">
+                <div style="text-align:center;">
+                  <div style="font-size:9px;color:#64748b;font-weight:600;">RESULT</div>
+                  <div style="font-size:18px;font-weight:900;color:#4ade80;">5</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:9px;color:#64748b;font-weight:600;">LINE</div>
+                  <div style="font-size:18px;font-weight:900;color:#94a3b8;">4.5</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:9px;color:#64748b;font-weight:600;">YOUR PICK</div>
+                  <div style="font-size:18px;font-weight:900;color:#4ade80;">OVER</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Updated list (4/5 done) -->
+            <div style="padding:10px 12px 0;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;">
+              <div style="font-size:10px;font-weight:700;color:#475569;letter-spacing:1.5px;margin-bottom:2px;">4/5 COMPLETE</div>
+
+              <!-- Picks 1-4 condensed -->
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:11px;color:#94a3b8;">🏈 Mahomes Pass Yds OVER</span><span style="font-size:11px;color:#4ade80;font-weight:700;">+200 ✓</span>
+                </div>
+                <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:11px;color:#94a3b8;">🏀 LeBron Pts+Reb OVER</span><span style="font-size:11px;color:#f87171;font-weight:700;">+0 ✗</span>
+                </div>
+                <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:11px;color:#94a3b8;">🏈 Jefferson Rec Yds UNDER</span><span style="font-size:11px;color:#4ade80;font-weight:700;">+200 ✓</span>
+                </div>
+                <div style="background:rgba(34,197,94,0.12);border:1.5px solid rgba(34,197,94,0.4);border-radius:10px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:11px;color:#f1f5f9;font-weight:700;">🏀 Curry 3-Pointers OVER</span><span style="font-size:11px;color:#4ade80;font-weight:800;">+200 ✓ NEW</span>
+                </div>
+                <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:10px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:11px;color:#475569;">🏈 Burrow Pass TDs</span><span style="font-size:10px;color:#475569;">SNF · 8:20 PM</span>
+                </div>
+              </div>
+
+              <!-- Running total -->
+              <div style="margin-top:8px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);border-radius:12px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:10px;color:#64748b;">Today's IQ so far</div>
+                  <div style="font-size:22px;font-weight:900;color:#4ade80;">+600</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:10px;color:#64748b;">Global rank</div>
+                  <div style="font-size:16px;font-weight:800;color:#a78bfa;">#2,841</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom -->
+            <div style="padding:8px 12px 14px;">
+              <div style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:12px;padding:10px;text-align:center;">
+                <div style="font-size:12px;font-weight:800;color:#fff;">📤 Share My Picks</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">IMMEDIATE RESULT · Pick 4 just settled · No waiting for all picks</div>
+      </div>
+    </div>
+
+    <!-- PHONE 3: Streak At Risk — 47 min to 6pm -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#1a0a00;">
+              <span style="font-size:11px;color:#92400e;font-weight:600;">5:13 PM</span>
+              <span style="font-size:10px;color:#f59e0b;font-weight:900;letter-spacing:1px;">⚠ 47 MIN LEFT</span>
+              <span style="font-size:9px;color:#92400e;">●●●●</span>
+            </div>
+
+            <!-- Streak at risk hero -->
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;text-align:center;">
+              <!-- Flame + streak count -->
+              <div style="font-size:52px;margin-bottom:4px;">🔥</div>
+              <div style="font-size:42px;font-weight:900;color:#f59e0b;line-height:1;margin-bottom:2px;">14</div>
+              <div style="font-size:13px;font-weight:700;color:#fbbf24;margin-bottom:16px;">day streak at risk</div>
+
+              <!-- Urgency bar -->
+              <div style="width:100%;height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;margin-bottom:16px;">
+                <div style="width:87%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px;"></div>
+              </div>
+
+              <div style="font-size:14px;color:#94a3b8;line-height:1.5;margin-bottom:20px;">Challenge closes at <span style="color:#f59e0b;font-weight:800;">6:00 PM</span><br/>You've completed <span style="color:#f1f5f9;font-weight:700;">2 of 5</span> picks today</div>
+
+              <!-- 47 minute countdown -->
+              <div style="background:rgba(245,158,11,0.12);border:2px solid rgba(245,158,11,0.4);border-radius:16px;padding:14px 24px;margin-bottom:20px;">
+                <div style="font-size:32px;font-weight:900;color:#f59e0b;font-variant-numeric:tabular-nums;">47:23</div>
+                <div style="font-size:10px;color:#92400e;font-weight:700;letter-spacing:1.5px;margin-top:2px;">UNTIL STREAK BREAKS</div>
+              </div>
+
+              <!-- CTA -->
+              <div style="width:100%;">
+                <div style="background:linear-gradient(135deg,#d97706,#f59e0b);border-radius:14px;padding:14px;text-align:center;margin-bottom:8px;">
+                  <div style="font-size:15px;font-weight:900;color:#fff;">Keep My Streak →</div>
+                </div>
+                <div style="font-size:10px;color:#475569;text-align:center;">3 quick picks. Takes 60 seconds.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">STREAK AT RISK · 47 min to 6pm · 14-day streak · One-tap resume</div>
+      </div>
+    </div>
+
+    <!-- PHONE 4: Share card with actual picks -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#060d1f;">
+              <span style="font-size:11px;color:#475569;font-weight:600;">6:42 PM</span>
+              <span style="font-size:10px;color:#4ade80;font-weight:800;letter-spacing:1px;">✓ CHALLENGE COMPLETE</span>
+              <span style="font-size:9px;color:#475569;">●●●●</span>
+            </div>
+
+            <div style="padding:8px 16px 0;">
+              <div style="font-size:14px;font-weight:900;color:#f1f5f9;">Share Your Picks</div>
+              <div style="font-size:10px;color:#475569;margin-top:1px;">Shows your actual picks — friends see what you called</div>
+            </div>
+
+            <!-- Share card preview -->
+            <div style="margin:10px 12px 0;background:linear-gradient(145deg,#0d1426,#111827);border:1.5px solid rgba(139,92,246,0.35);border-radius:18px;padding:16px;flex:1;overflow:hidden;">
+
+              <!-- Card header -->
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                <div>
+                  <div style="font-size:13px;font-weight:900;background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SportsIQ</div>
+                  <div style="font-size:9px;color:#475569;margin-top:1px;">SharpBettor · 🔥 15 days</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:9px;color:#475569;">Today</div>
+                  <div style="font-size:14px;font-weight:900;color:#4ade80;">4/5 ✓</div>
+                </div>
+              </div>
+
+              <!-- Actual picks listed -->
+              <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:18px;height:18px;border-radius:50%;background:#4ade80;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#000;flex-shrink:0;">✓</div>
+                  <div style="flex:1;">
+                    <span style="font-size:11px;color:#f1f5f9;font-weight:600;">🏈 Mahomes Pass Yds</span>
+                    <span style="font-size:10px;color:#4ade80;font-weight:800;margin-left:4px;">OVER</span>
+                    <span style="font-size:9px;color:#475569;margin-left:4px;">312 yds</span>
+                  </div>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:18px;height:18px;border-radius:50%;background:#f87171;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;flex-shrink:0;">✗</div>
+                  <div style="flex:1;">
+                    <span style="font-size:11px;color:#f1f5f9;font-weight:600;">🏀 LeBron Pts+Reb</span>
+                    <span style="font-size:10px;color:#f87171;font-weight:800;margin-left:4px;">OVER</span>
+                    <span style="font-size:9px;color:#475569;margin-left:4px;">29 pts</span>
+                  </div>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:18px;height:18px;border-radius:50%;background:#4ade80;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#000;flex-shrink:0;">✓</div>
+                  <div style="flex:1;">
+                    <span style="font-size:11px;color:#f1f5f9;font-weight:600;">🏈 Jefferson Rec Yds</span>
+                    <span style="font-size:10px;color:#4ade80;font-weight:800;margin-left:4px;">UNDER</span>
+                    <span style="font-size:9px;color:#475569;margin-left:4px;">71 yds</span>
+                  </div>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:18px;height:18px;border-radius:50%;background:#4ade80;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#000;flex-shrink:0;">✓</div>
+                  <div style="flex:1;">
+                    <span style="font-size:11px;color:#f1f5f9;font-weight:600;">🏀 Curry 3-Pointers</span>
+                    <span style="font-size:10px;color:#4ade80;font-weight:800;margin-left:4px;">OVER</span>
+                    <span style="font-size:9px;color:#475569;margin-left:4px;">5 made</span>
+                  </div>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:18px;height:18px;border-radius:50%;background:#4ade80;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#000;flex-shrink:0;">✓</div>
+                  <div style="flex:1;">
+                    <span style="font-size:11px;color:#f1f5f9;font-weight:600;">🏈 Burrow Pass TDs</span>
+                    <span style="font-size:10px;color:#4ade80;font-weight:800;margin-left:4px;">OVER</span>
+                    <span style="font-size:9px;color:#475569;margin-left:4px;">3 TDs</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Global rank on card -->
+              <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.25);border-radius:10px;padding:8px;text-align:center;">
+                <div style="font-size:9px;color:#64748b;font-weight:700;letter-spacing:1px;">GLOBAL RANK</div>
+                <div style="font-size:18px;font-weight:900;color:#a78bfa;">#2,841 · Top 9%</div>
+              </div>
+
+              <!-- CTA text -->
+              <div style="margin-top:8px;text-align:center;font-size:9px;color:#334155;">sportsiq.app · Can you beat me?</div>
+            </div>
+
+            <!-- Share buttons -->
+            <div style="padding:8px 12px 14px;display:flex;gap:8px;">
+              <div style="flex:1;background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.3);border-radius:12px;padding:9px;text-align:center;">
+                <div style="font-size:11px;font-weight:700;color:#4ade80;">WhatsApp</div>
+              </div>
+              <div style="flex:1;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:12px;padding:9px;text-align:center;">
+                <div style="font-size:11px;font-weight:700;color:#a78bfa;">Instagram</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:9px;text-align:center;">
+                <div style="font-size:11px;font-weight:700;color:#94a3b8;">Copy</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">SHARE CARD · Actual OVER/UNDER picks shown · Not Wordle dots</div>
+      </div>
+    </div>
+
+  </div><!-- end phones-row -->
+
+  <div id="sfb-panel-daily-challenge-v4" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
