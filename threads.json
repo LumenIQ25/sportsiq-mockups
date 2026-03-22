@@ -286,5 +286,17 @@
       "text": "1. we can use multiple as long as they all have value 2. breaks the flow 3. significant improve vertical spacing",
       "ts": "Mar 21 11:01 PM"
     }
+  ],
+  "venue-dashboard-v2": [
+    {
+      "from": "mark",
+      "text": "1. owner should not have to do anything\n2. give me some recommendations. should be accurate and powerful\n3. web only is acceptable for v1",
+      "ts": "Mar 21 4:15 PM"
+    },
+    {
+      "from": "mark",
+      "text": "1. owner should not have to do anything 2. give me some recommendations. should be accurate and powerful 3. web only is acceptable for v1",
+      "ts": "Mar 21 11:01 PM"
+    }
   ]
 }
