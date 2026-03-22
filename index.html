@@ -1866,6 +1866,9 @@
     <div class="tab tab-review" data-screen="my-stats-v2" onclick="showScreen('my-stats-v2',this)">
       <span class="tab-label">My Stats</span><span class="tab-days" id="days-my-stats-v2"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="my-stats-v3" onclick="showScreen('my-stats-v3',this)">
+      <span class="tab-label">My Stats v3</span><span class="tab-days" id="days-my-stats-v3"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="leaderboard-v3" onclick="showScreen('leaderboard-v3',this)">
       <span class="tab-label">Leaderboard</span><span class="tab-days" id="days-leaderboard-v3"></span><span class="review-dot"></span>
     </div>
@@ -4128,8 +4131,8 @@
     "date": "2026-03-22",
     "source": "inbox",
     "idea": "[my-stats-v2] 1. you decide 2. you deicde 3. too dense to show always, you can show his record against Mike when he is going to play H2H agianst mike again 4. too dense to show always this data is all great but we cant show all of it all the time. you needs to decide what is best to show and when its best to show it",
-    "status": "noted",
-    "claude_response": "Got it. My Stats v3 will be context-aware — surfaces the right data at the right moment, not everything at once. Key rules I'm designing around: (1) H2H record vs a specific opponent only shown when that opponent match is upcoming. (2) Sport-specific stats only shown when that sport has a live pick or recent game. (3) Notification permission timing — my call: I'll ask after the first real pick win (higher opt-in). (4) Overall stat density is my UX call — I'll build a clean priority hierarchy. Will build as my-stats-v3.",
+    "status": "done",
+    "claude_response": "Built My Stats v3. Context-aware architecture: same screen, 3 surface states. (1) Default/mid-week — essentials only: overall 68% win rate, 22-day streak, season rank #4, top sport NFL 74%, sport bars. Clean. No H2H table, no deep analytics. 'More stats surface when games are live' note at bottom. (2) Pre-game context — pick window for Mahomes opening in 8 min. Screen auto-surfaces: your Mahomes-specific record (4-1, 80%, you lean OVER), your passing yards accuracy (74% on NFL QBs), core stats collapsed to one row so context is hero. (3) H2H scouting mode — H2H match vs Mike in 2 days. Screen surfaces: 4-2 record this season, +150 IQ lead, Mike's tendencies (3-1 UNDER on passing yards, weak CFB), your edge vs his specific patterns. Core stats still visible at bottom. The system decides which state to show — not the user.",
     "mark_reply": ""
   },
   {
@@ -4829,6 +4832,7 @@
     'head-to-head':        '2026-03-21T08:21:00-07:00',
     // ── Mar 21 9:45 AM PT — My Stats v2 ──────────────────────────────
     'my-stats-v2':         '2026-03-21T09:45:00-07:00',
+    'my-stats-v3':         '2026-03-22T18:00:00-07:00',
     // ── Mar 21 11:30 AM PT — Bar Live Pick v4 ────────────────────────
     'bar-pred-q-v4':       '2026-03-21T11:30:00-07:00',
     // ── Mar 22 — Home Live v5 (tug-of-war + pick locked) ────────────
@@ -5311,6 +5315,16 @@
         'With only SportsIQ crowd shown (no Polymarket/Kalshi), does the screen feel authoritative enough, or does it need a "SportsIQ Intelligence" confidence indicator to give context beyond just the crowd split?',
         'QR code in the right column stacked under the countdown — better than bottom-right corner? Or should it move to center-bottom as a full-width CTA zone?',
         'The room code (5-digit number) — keep it alongside the QR, or put it in a separate prominent spot so people can type it manually if camera is hard?'
+      ]
+    },
+    'my-stats-v3': {
+      icon: '📊',
+      title: 'My Stats v3 — Context-Aware Data Surfacing · Right Stat at Right Time',
+      built: 'v3 redesigns the information architecture around context, not data completeness. Mark\'s directive: "too dense to show always — you decide what to show and when." Design principle: 3 surface states based on what\'s happening now. (1) Default/mid-week state — shows only the essentials: overall accuracy, current streak, season rank, top sport. No deep stats, no H2H table. Clean. (2) Pre-game context state — when a pick window for a player you track is open, the stats screen surfaces your specific stats for that player/prop type. "You\'re 4-1 OVER on Mahomes this season. Pick window opens in 8 min." (3) H2H preview state — triggered ONLY when an H2H match against a specific opponent is upcoming. Shows that specific H2H record: "You\'re 4-2 against Mike this season. He\'s 3-1 on passing yards — watch for his picks." Data lives in the system; the screen decides when it\'s relevant to show it.',
+      questions: [
+        'Context switching — should the stats screen actively change layout based on what\'s happening, or show a single default layout with a "Game Day Mode" banner that expands contextual info?',
+        'H2H record surfaced before a match — should this appear as a banner on the stats screen, or as a push notification that opens a dedicated H2H preview page?',
+        'When nothing is happening (off-season, no active games) — what\'s the most engaging content to surface? Season recap? Cross-sport comparison? Or is this when we prompt engagement with a challenge?'
       ]
     },
     'my-stats-v2': {
@@ -14668,6 +14682,289 @@
   </div>
 
   <div id="sfb-panel-my-stats-v2" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: My Stats v3 — 2026-03-22 — Context-aware data surfacing
+     Ideas answered: 062 (my call on density, H2H shown when opponent match upcoming)
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="my-stats-v3" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">My Stats v3 — Context-Aware Data Surfacing · Right Stat at Right Time</div>
+    <div class="screen-subtitle">Not everything always. 3 context states: (1) Default — essentials only, clean layout. (2) Pre-game — your stats for the specific player/prop in the upcoming pick window. (3) H2H preview — your H2H record vs upcoming opponent, surfaced only when that match is near. Same data, smarter timing.</div>
+  </div>
+
+  <div class="phones-row">
+
+    <!-- PHONE 1: Default state — essentials only -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <!-- Header -->
+            <div style="background:linear-gradient(160deg,#1e1b4b 0%,#312e81 60%,#4c1d95 100%);padding:48px 16px 16px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+                <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid rgba(255,255,255,0.2);">🦁</div>
+                <div>
+                  <div style="font-size:16px;font-weight:900;color:#fff;">SharpBettor</div>
+                  <div style="font-size:10px;color:#a5b4fc;margin-top:1px;">Level 14 · 3,240 XP</div>
+                </div>
+                <div style="margin-left:auto;background:rgba(255,255,255,0.1);border-radius:20px;padding:4px 12px;">
+                  <div style="font-size:10px;color:#c4b5fd;font-weight:700;">Top 12%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Core stats — essentials only -->
+            <div style="padding:14px 16px 0;flex:1;overflow-y:auto;">
+
+              <!-- Win rate hero -->
+              <div style="background:rgba(139,92,246,0.1);border:1.5px solid rgba(139,92,246,0.25);border-radius:14px;padding:14px;margin-bottom:12px;text-align:center;">
+                <div style="font-size:10px;color:#64748b;font-weight:600;letter-spacing:1.5px;margin-bottom:4px;">ALL-TIME WIN RATE</div>
+                <div style="font-size:38px;font-weight:900;color:#f1f5f9;line-height:1;">68%</div>
+                <div style="font-size:11px;color:#a78bfa;margin-top:2px;">342 W — 160 L · 502 total picks</div>
+              </div>
+
+              <!-- Key numbers row -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px;text-align:center;">
+                  <div style="font-size:10px;color:#64748b;font-weight:600;margin-bottom:3px;">STREAK</div>
+                  <div style="font-size:22px;font-weight:900;color:#f59e0b;">🔥 22</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px;text-align:center;">
+                  <div style="font-size:10px;color:#64748b;font-weight:600;margin-bottom:3px;">SEASON RANK</div>
+                  <div style="font-size:22px;font-weight:900;color:#a78bfa;">#4</div>
+                </div>
+              </div>
+
+              <!-- Top sport highlight -->
+              <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:12px;padding:12px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:22px;">🏈</span>
+                  <div>
+                    <div style="font-size:12px;font-weight:800;color:#f1f5f9;">NFL is your best sport</div>
+                    <div style="font-size:10px;color:#4ade80;">74% win rate · 89 picks</div>
+                  </div>
+                </div>
+                <div style="font-size:11px;color:#4ade80;font-weight:700;">⭐ Best</div>
+              </div>
+
+              <!-- Sport bars (condensed — not all expanded) -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:12px;margin-bottom:12px;">
+                <div style="font-size:10px;font-weight:700;color:#475569;letter-spacing:1.5px;margin-bottom:10px;">BY SPORT</div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:12px;width:18px;">🏈</span>
+                    <div style="flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                      <div style="width:74%;height:100%;background:linear-gradient(90deg,#22c55e,#4ade80);border-radius:3px;"></div>
+                    </div>
+                    <span style="font-size:11px;color:#4ade80;font-weight:700;width:28px;text-align:right;">74%</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:12px;width:18px;">🏀</span>
+                    <div style="flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                      <div style="width:71%;height:100%;background:linear-gradient(90deg,#6366f1,#818cf8);border-radius:3px;"></div>
+                    </div>
+                    <span style="font-size:11px;color:#94a3b8;font-weight:600;width:28px;text-align:right;">71%</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:12px;width:18px;">🎓</span>
+                    <div style="flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                      <div style="width:70%;height:100%;background:linear-gradient(90deg,#6366f1,#818cf8);border-radius:3px;"></div>
+                    </div>
+                    <span style="font-size:11px;color:#94a3b8;font-weight:600;width:28px;text-align:right;">70%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Context note — no game happening -->
+              <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.08);border-radius:10px;padding:10px 12px;text-align:center;">
+                <div style="font-size:10px;color:#334155;line-height:1.5;">No active pick windows · Next game in 4h<br/><span style="color:#475569;">More stats surface when games are live</span></div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">DEFAULT STATE · Mid-week, no active games · Essentials only · Clean</div>
+      </div>
+    </div>
+
+    <!-- PHONE 2: Pre-game context — pick window opening -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <!-- Header with game-day context banner -->
+            <div style="background:linear-gradient(160deg,#1e1b4b 0%,#312e81 60%,#4c1d95 100%);padding:48px 16px 12px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:18px;border:2px solid rgba(255,255,255,0.2);">🦁</div>
+                <div>
+                  <div style="font-size:14px;font-weight:900;color:#fff;">SharpBettor</div>
+                  <div style="font-size:10px;color:#a5b4fc;">68% all-time · 🔥 22 streak</div>
+                </div>
+              </div>
+              <!-- Context mode banner -->
+              <div style="background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.4);border-radius:10px;padding:6px 10px;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:12px;">⚡</span>
+                <span style="font-size:10px;color:#fbbf24;font-weight:700;">Pick window opens in 8 min · Context mode active</span>
+              </div>
+            </div>
+
+            <!-- Context-surfaced stats (Mahomes specific) -->
+            <div style="padding:12px 16px 0;flex:1;overflow-y:auto;">
+
+              <div style="font-size:10px;font-weight:800;color:#f59e0b;letter-spacing:2px;margin-bottom:10px;">TONIGHT'S PICK: MAHOMES PASS YDS</div>
+
+              <!-- Your Mahomes-specific stats -->
+              <div style="background:rgba(245,158,11,0.1);border:1.5px solid rgba(245,158,11,0.3);border-radius:14px;padding:12px;margin-bottom:10px;">
+                <div style="font-size:10px;font-weight:700;color:#f59e0b;letter-spacing:1px;margin-bottom:8px;">YOUR MAHOMES RECORD</div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                  <div style="text-align:center;">
+                    <div style="font-size:22px;font-weight:900;color:#4ade80;">4-1</div>
+                    <div style="font-size:9px;color:#64748b;margin-top:1px;">season record</div>
+                  </div>
+                  <div style="text-align:center;">
+                    <div style="font-size:22px;font-weight:900;color:#f1f5f9;">80%</div>
+                    <div style="font-size:9px;color:#64748b;margin-top:1px;">win rate</div>
+                  </div>
+                  <div style="text-align:center;">
+                    <div style="font-size:22px;font-weight:900;color:#a78bfa;">OVER</div>
+                    <div style="font-size:9px;color:#64748b;margin-top:1px;">your lean</div>
+                  </div>
+                </div>
+                <div style="background:rgba(0,0,0,0.3);border-radius:8px;padding:7px 10px;">
+                  <div style="font-size:10px;color:#64748b;line-height:1.4;">You've gone OVER 4 of 5 times on Mahomes this year. He's averaged 304.2 yds vs tonight's line of 287.5.</div>
+                </div>
+              </div>
+
+              <!-- Passing yards prop type stats -->
+              <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:12px;padding:12px;margin-bottom:10px;">
+                <div style="font-size:10px;font-weight:700;color:#a78bfa;letter-spacing:1px;margin-bottom:8px;">YOUR PASSING YDS ACCURACY</div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="flex:1;">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                      <span style="font-size:10px;color:#94a3b8;">vs NFL QBs</span>
+                      <span style="font-size:10px;color:#a78bfa;font-weight:700;">74% (34-12)</span>
+                    </div>
+                    <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                      <div style="width:74%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:3px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Core stats (collapsed, context above is hero) -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:10px 12px;display:flex;justify-content:space-around;">
+                <div style="text-align:center;"><div style="font-size:9px;color:#475569;margin-bottom:2px;">OVERALL</div><div style="font-size:14px;font-weight:800;color:#f1f5f9;">68%</div></div>
+                <div style="text-align:center;"><div style="font-size:9px;color:#475569;margin-bottom:2px;">STREAK</div><div style="font-size:14px;font-weight:800;color:#f59e0b;">🔥 22</div></div>
+                <div style="text-align:center;"><div style="font-size:9px;color:#475569;margin-bottom:2px;">RANK</div><div style="font-size:14px;font-weight:800;color:#a78bfa;">#4</div></div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">PRE-GAME CONTEXT · Mahomes window opening · Your specific stats for this prop surface automatically</div>
+      </div>
+    </div>
+
+    <!-- PHONE 3: H2H preview — Mike match is upcoming -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <!-- Header -->
+            <div style="background:linear-gradient(160deg,#1e1b4b 0%,#312e81 60%,#4c1d95 100%);padding:48px 16px 12px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:18px;border:2px solid rgba(255,255,255,0.2);">🦁</div>
+                <div>
+                  <div style="font-size:14px;font-weight:900;color:#fff;">SharpBettor</div>
+                  <div style="font-size:10px;color:#a5b4fc;">68% all-time · 🔥 22 streak</div>
+                </div>
+              </div>
+              <!-- H2H context banner -->
+              <div style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.35);border-radius:10px;padding:6px 10px;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:12px;">⚔️</span>
+                <span style="font-size:10px;color:#f87171;font-weight:700;">H2H vs Mike starts in 2 days · Scouting mode active</span>
+              </div>
+            </div>
+
+            <!-- H2H preview card — hero -->
+            <div style="padding:12px 16px 0;flex:1;overflow-y:auto;">
+
+              <div style="font-size:10px;font-weight:800;color:#f87171;letter-spacing:2px;margin-bottom:10px;">H2H SCOUTING: BIGMIKE</div>
+
+              <!-- Head-to-head record card -->
+              <div style="background:rgba(239,68,68,0.1);border:1.5px solid rgba(239,68,68,0.3);border-radius:14px;padding:14px;margin-bottom:10px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                  <div style="text-align:center;">
+                    <div style="font-size:9px;color:#64748b;margin-bottom:2px;">YOU</div>
+                    <div style="font-size:28px;font-weight:900;color:#4ade80;">4</div>
+                    <div style="font-size:9px;color:#4ade80;font-weight:700;">wins</div>
+                  </div>
+                  <div style="text-align:center;">
+                    <div style="font-size:11px;font-weight:800;color:#94a3b8;">VS</div>
+                    <div style="font-size:11px;color:#475569;margin-top:2px;">this season</div>
+                  </div>
+                  <div style="text-align:center;">
+                    <div style="font-size:9px;color:#64748b;margin-bottom:2px;">MIKE</div>
+                    <div style="font-size:28px;font-weight:900;color:#f87171;">2</div>
+                    <div style="font-size:9px;color:#f87171;font-weight:700;">wins</div>
+                  </div>
+                </div>
+
+                <!-- Record bar -->
+                <div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:8px;">
+                  <div style="flex:4;background:linear-gradient(90deg,#22c55e,#4ade80);"></div>
+                  <div style="flex:2;background:linear-gradient(90deg,#f87171,#ef4444);"></div>
+                </div>
+                <div style="text-align:center;font-size:10px;font-weight:700;color:#4ade80;">You lead 4-2 · +150 IQ up on him</div>
+              </div>
+
+              <!-- Mike's tendencies (intel for the match) -->
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;margin-bottom:10px;">
+                <div style="font-size:10px;font-weight:700;color:#64748b;letter-spacing:1.5px;margin-bottom:8px;">MIKE'S TENDENCIES</div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="width:6px;height:6px;border-radius:50%;background:#f59e0b;flex-shrink:0;"></div>
+                    <span style="font-size:10px;color:#94a3b8;">3-1 UNDER on passing yards this season</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="width:6px;height:6px;border-radius:50%;background:#f59e0b;flex-shrink:0;"></div>
+                    <span style="font-size:10px;color:#94a3b8;">Strong on NBA · Weak on CFB (54%)</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="width:6px;height:6px;border-radius:50%;background:#4ade80;flex-shrink:0;"></div>
+                    <span style="font-size:10px;color:#94a3b8;">You're 4-1 OVER on Mahomes — he's 1-4</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Core stats condensed -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:10px 12px;display:flex;justify-content:space-around;">
+                <div style="text-align:center;"><div style="font-size:9px;color:#475569;margin-bottom:2px;">OVERALL</div><div style="font-size:14px;font-weight:800;color:#f1f5f9;">68%</div></div>
+                <div style="text-align:center;"><div style="font-size:9px;color:#475569;margin-bottom:2px;">STREAK</div><div style="font-size:14px;font-weight:800;color:#f59e0b;">🔥 22</div></div>
+                <div style="text-align:center;"><div style="font-size:9px;color:#475569;margin-bottom:2px;">RANK</div><div style="font-size:14px;font-weight:800;color:#a78bfa;">#4</div></div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">H2H SCOUTING MODE · Mike match in 2 days · His tendencies + your edge surfaced automatically</div>
+      </div>
+    </div>
+
+  </div><!-- end phones-row -->
+
+  <div id="sfb-panel-my-stats-v3" class="sfb-panel"></div>
 </div>
 
 <!-- ═══ BAR · LIVE PICK v4 — SportsIQ Crowd Only · Redesigned Layout · 2026-03-21 ═══ -->
