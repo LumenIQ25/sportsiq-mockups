@@ -1847,8 +1847,8 @@
     <div class="tab tab-review" data-screen="home-idle-v6" onclick="showScreen('home-idle-v6',this)">
       <span class="tab-label">Home · Idle</span><span class="tab-days" id="days-home-idle-v6"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="pick-card-v5" onclick="showScreen('pick-card-v5',this)">
-      <span class="tab-label">Pick Card</span><span class="tab-days" id="days-pick-card-v5"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="pick-card-v6" onclick="showScreen('pick-card-v6',this)">
+      <span class="tab-label">Pick Card</span><span class="tab-days" id="days-pick-card-v6"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="pick-wait-v3" onclick="showScreen('pick-wait-v3',this)">
       <span class="tab-label">Pick Wait</span><span class="tab-days" id="days-pick-wait-v3"></span><span class="review-dot"></span>
@@ -1904,17 +1904,26 @@
     <div class="tab tab-review" data-screen="crew-picks" onclick="showScreen('crew-picks',this)">
       <span class="tab-label">Crew Picks 🏆</span><span class="tab-days" id="days-crew-picks"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="share-card-v2" onclick="showScreen('share-card-v2',this)">
-      <span class="tab-label">Share Card</span><span class="tab-days" id="days-share-card-v2"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="share-card-v3" onclick="showScreen('share-card-v3',this)">
+      <span class="tab-label">Share Card v3</span><span class="tab-days" id="days-share-card-v3"></span><span class="review-dot"></span>
+    </div>
+    <div class="tab tab-review" data-screen="sports-dna" onclick="showScreen('sports-dna',this)">
+      <span class="tab-label">Sports DNA 🧬</span><span class="tab-days" id="days-sports-dna"></span><span class="review-dot"></span>
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 35 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 36 previous versions</summary>
+      <div class="tab tab-archived" data-screen="share-card-v2" onclick="showScreen('share-card-v2',this)">
+        <span class="tab-label">Share Card v2</span><span class="tab-days" id="days-share-card-v2-arc"></span>
+      </div>
       <div class="tab tab-archived" data-screen="sportsiq-pro-v2" onclick="showScreen('sportsiq-pro-v2',this)">
         <span class="tab-label">SportsIQ Pro v2</span><span class="tab-days" id="days-sportsiq-pro-v2-arc"></span>
       </div>
       <div class="tab tab-archived" data-screen="onboarding-v5" onclick="showScreen('onboarding-v5',this)">
         <span class="tab-label">Onboarding v5</span><span class="tab-days" id="days-onboarding-v5-arc"></span>
+      </div>
+      <div class="tab tab-archived" data-screen="pick-card-v5" onclick="showScreen('pick-card-v5',this)">
+        <span class="tab-label">Pick Card v5</span><span class="tab-days" id="days-pick-card-v5-arc"></span>
       </div>
       <div class="tab tab-archived" data-screen="pick-card-v4" onclick="showScreen('pick-card-v4',this)">
         <span class="tab-label">Pick Card v4</span><span class="tab-days" id="days-pick-card-v4-arc"></span>
@@ -5382,6 +5391,8 @@
     'home-idle-v6':        '2026-03-22T20:00:00-07:00',
     // ── Mar 22 autonomous loop — Pick Card v5: archetype edge · multiplier selector · 2× free / 5× Pro ──
     'pick-card-v5':        '2026-03-22T21:00:00-07:00',
+    // ── Mar 22 autonomous loop — Pick Card v6: Sharp Money vs. Public split · 1×/2×/5× simplified · Pro Preview mini-sheet ──
+    'pick-card-v6':        '2026-03-22T23:30:00-07:00',
     // ── Mar 22 — V1 Launch Spec: condensed core loop per Mark's "simple, no friction, addictive" directive ──
     'v1-launch':           '2026-03-22T22:00:00-07:00',
     // ── Mar 22 autonomous loop — Onboarding v6: V1 spec · sport select → pick fires · name asks after hook ──
@@ -5435,7 +5446,11 @@
     // ── Mar 22 autonomous loop — Share Card v2: bold variant · streak milestone · brutal beat loss ──
     'share-card-v2':       '2026-03-22T14:00:00-07:00',
     // ── Mar 22 autonomous loop — Pick Card v4: free picks counter · friend social proof · pro paywall ──
-    'pick-card-v4':        '2026-03-22T15:00:00-07:00'
+    'pick-card-v4':        '2026-03-22T15:00:00-07:00',
+    // ── Mar 22 autonomous loop — Share Card v3: archetype identity · venue rank brag · IG story format ──
+    'share-card-v3':       '2026-03-22T16:00:00-07:00',
+    // ── Mar 22 autonomous loop — Sports DNA Profile: archetype reveal · skill fingerprint · public sharp profile ──
+    'sports-dna':          '2026-03-22T17:00:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -5965,6 +5980,17 @@
         'Approval question: does this V1 spec match your vision? Once you approve, I\'ll update every existing screen to have a V1/V2/V3 label so Isaac knows what to build first.'
       ]
     },
+    'pick-card-v6': {
+      icon: '🎯',
+      title: 'Pick Card v6 — Sharp Money Intelligence · 1×/2×/5× Simplified · Concrete Pro Math · Mar 22 2026',
+      built: 'Three revenue-targeted upgrades to the most important screen in the app. (1) Sharp Money vs. Public split: the intelligence card now shows two rows — Public % (visible to all) and Sharp Money % (blurred for free users, revealed for Pro). When sharp money diverges from public (e.g., Public: 63% OVER, Sharp: 71% UNDER) the tension is electric. Users feel like insiders. The blurred Sharp row is a constant visual reminder of what Pro unlocks — the best kind of upsell that never feels pushy because users come back to it every single day. (2) Simplified 1×/2×/5× multiplier (removed 3×/4×) — matches Isaac\'s actual codebase implementation, reduces cognitive overload from 5 options, and makes the gap to 5× feel aspirational rather than incremental. (3) Concrete Pro math on the locked 5× row: "+425 more IQ if you had Pro" with a "You\'re leaving IQ on the table" loss-aversion nudge. (4) Pro Preview mini-sheet (Phone 3): tapping locked 5× slides up a mini-sheet showing a side-by-side "+200 IQ (2× free) vs. +500 IQ (5× Pro)" comparison before the full paywall — this is the conversion bridge. Sharp Money unlock, early access, and Pro badge are listed as the three key perks. 7-day trial CTA with "Stay on 2×" dismissal.',
+      questions: [
+        'Sharp Money data source: SportsData.io gives us line movement and betting percentages. Is Isaac already pulling betting % from them, or is this a new data type we need to add to the backend?',
+        'Sharp Money threshold: at what point does a pick qualify as "sharp action"? Industry standard is typically when betting % and money % diverge by >10 points (e.g., 40% of bets but 60% of money on one side). Should we define this threshold now for Isaac?',
+        'Pro Preview mini-sheet: good conversion UX, or does it add friction to the core pick flow? Alternative is to go straight to the paywall on 5× tap. My take: the Preview sheet is better — it contextualizes the value before asking for money.',
+        '7-day trial CTA: should this be a free trial or a "first pick at 5× is free" mechanic instead? One-time 5× experience is very sticky — users who try it almost always want more.'
+      ]
+    },
     'pick-card-v5': {
       icon: '🎯',
       title: 'Pick Card v5 — Archetype Edge Activation · Multiplier Selector (2× Free / 5× Pro) · Mar 22 2026',
@@ -6356,6 +6382,28 @@
         'DNA calibration: 3 questions feels right to me but is there a question you\'d replace or add? The 3 I have: experience level, boldness, homer lock teams.',
         'Crew invite during onboarding: show contact list immediately (requires contacts permission) or share a link first? Link-first is less friction but less likely to result in actual crew formation at install.',
         'First pick: should it be a specific real-sounding prop we pre-select (feels smart, personalized) or let them choose from 3 options (more agency, but adds a step)?'
+      ]
+    },
+    'sports-dna': {
+      icon: '🧬',
+      title: 'Sports DNA Profile — Archetype Reveal · Skill Fingerprint · Public Sharp Profile · Mar 22 2026',
+      built: 'The moat-defining screen. Every pick accretes into a verified behavioral fingerprint that belongs to the user — and only lives on SportsIQ. Three phones: (1) Archetype Reveal — dramatic full-screen unlock after 10 picks. Deep space purple gradient, glowing archetype badge, "The Dome King" with personalized definition, 3-stat row (81% stadium picks, 9-2 dome record, Top 3%), evolution level indicator (Lv 2/5), CTA to full profile. (2) DNA Profile — full skill fingerprint with archetype badge, evolution progress bar (Rookie Sharp → The Sharp → The Legendary Sharp), sport-by-sport win% bars (NFL 78%, NBA 64%, NHL 71%, MLB 54%), "Edge Conditions" section blurred for free users with Pro unlock overlay (cold weather +14% edge, home underdogs +11%, primetime crowd props +9%), IQ + record + rank row. (3) Public Sharp Profile — what others see. Avatar + archetype name + level, Follow button, social stats (847 followers / 112 following / 67% season win%), Verified Sharp badge, streak badge, venue rank badge, recent picks mini-feed (auditable, immutable), Share My Profile Card CTA. Moat insight from Venture Studio: "The Sharp Graph — who is genuinely skilled at what, under what conditions — takes years and millions of picks to build. You can\'t buy it. A competitor starting today is 3 years behind permanently." From Lumen: "Users can\'t abandon their record — churning means starting from zero on a competitor\'s platform."',
+      questions: [
+        'Archetype trigger: 10 picks (current) vs first win vs 5 picks? 10 is enough data to actually be meaningful, but some users may churn before they get there. Could do a "teaser" archetype at 5 picks that unlocks fully at 10.',
+        'Evolution tiers: Rookie Sharp → The Sharp → The Legendary Sharp (5 tiers, current) — love it or do you want different naming? Alternative: keep the archetype name static ("The Dome King" forever) but add badges/levels underneath without renaming the archetype.',
+        'Edge Conditions (the blurred Pro section): is this the right Pro upgrade hook, or should it be a different data layer? My take: "Your exact edge conditions with percentages" is the most personally compelling Pro pitch possible — it uses your own data as the carrot.',
+        'Public profiles / follow system: opt-in or opt-out by default? Opt-in means less visible network but users feel more in control. Opt-out means more social graph data faster. I\'d recommend opt-out with easy privacy toggle.'
+      ]
+    },
+    'share-card-v3': {
+      icon: '🏟️',
+      title: 'Share Card v3 — Archetype Identity · Venue Rank Brag · Instagram Story Format · Mar 22 2026',
+      built: 'Three new card types targeting the highest shareability moments: (1) Archetype Identity Win Card — "The Dome King called it again." Deep purple gradient. Shows your personal Sports DNA archetype on every win card, your dome/stadium record (9-2), win rate bar, contrarian note, referral footer. The archetype name is the hook — people share because it defines who they ARE, not just what they picked. (2) Venue Rank Brag Card — "#1 at Oaks Bar Tonight." Gold gradient. Mini leaderboard (top 3 names visible, you on top). "Come play at Oaks Bar →" footer drives actual foot traffic to partner venues. Every check-in user becomes an ambassador. Venue operators love this card because it markets their bar. (3) Instagram Story Format — full-bleed 9:16 safe zones, "Find your Sports DNA →" CTA, 12,400 social proof, Download button, IG story UI chrome (progress bars, reactions). This format is where viral spread actually happens in 2026. Moat: archetype system generates proprietary identity data. Each share card embeds YOUR archetype, making SportsIQ the only app that can generate it. Competitors can copy picks; they can\'t copy 6 months of your Sports DNA.',
+      questions: [
+        'Archetype Identity Card: love "The Dome King" framing or want something different? We can generate dozens of archetypes (The Contrarian, The Sharp, The Homer, The Underdog Hunter) — the name should feel like a badge of honor.',
+        'Venue Rank Brag Card: should this card show the full top-10 leaderboard or just top-3 (current)? Top-3 is more glanceable; top-10 is more competitive but clutters the card.',
+        'Instagram Story format: should we add a QR code to the story card, or just the referral URL text? QR is more frictionless for mobile users who see it on screen.',
+        'Card unlock trigger: should archetype cards unlock after 10 picks (enough data to know your archetype) or immediately on first win?'
       ]
     },
     'share-card-v2': {
@@ -18072,6 +18120,316 @@
   <div id="sfb-panel-pick-card-v5" class="sfb-panel"></div>
 </div><!-- /screen pick-card-v5 -->
 
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Pick Card v6 — Sharp Money vs. Public · Simplified 1×/2×/5× · Pro Math
+     2026-03-22 · Strategic refinement — highest profitability lever
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div id="pick-card-v6" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Pick Card v6 — Sharp Money Intelligence · Simplified 1×/2×/5× · Concrete Pro Math</div>
+    <div class="screen-desc">2026-03-22 · Three upgrades targeting the single highest-revenue moment in the app. (1) Sharp Money split: Public % vs. Sharp % side-by-side. When they diverge the tension is electric — users feel like insiders with real intelligence. Sharp % is blurred/locked for free users → natural Pro conversion at highest engagement moment. Proprietary data competitors can't replicate without the same pick volume. (2) Multiplier simplified to 1×/2×/5× — matches Isaac's actual codebase, eliminates cognitive overload from 5 tiers, makes the gap to 5× feel aspirational. (3) Concrete Pro math: locked 5× shows "You'd win +425 more IQ with Pro" — personalized, loss-aversion driven. Phone 3 shows the Pro Preview mini-sheet that fires on 5× tap: side-by-side +200 vs. +500 IQ comparison before the full paywall. This is the conversion sequence that turns casual free users into subscribers.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: Pre-pick — Sharp Money vs. Public intelligence ── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>8:52 AM</span><span>🔋</span></div>
+
+          <!-- Header + streak chip -->
+          <div style="padding:8px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div>
+              <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Chiefs vs Eagles</div>
+              <div style="font-size:10px;color:#8b949e;">🏈 NFL · Tonight 8:20 PM ET</div>
+            </div>
+            <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:16px;padding:4px 10px;display:flex;align-items:center;gap:5px;">
+              <span style="font-size:13px;">🔥</span>
+              <span style="font-size:10px;color:#f87171;font-weight:700;">7-day streak</span>
+            </div>
+          </div>
+
+          <!-- Window countdown — urgent yellow state (sub 30 min) -->
+          <div style="margin:0 16px 8px;display:flex;align-items:center;gap:8px;">
+            <div style="display:flex;align-items:center;gap:5px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:16px;padding:4px 10px;">
+              <div style="width:5px;height:5px;border-radius:50%;background:#f59e0b;"></div>
+              <span style="font-size:10px;color:#fbbf24;font-weight:700;">⚠️ Closes in 28 min</span>
+            </div>
+          </div>
+
+          <!-- Archetype edge banner -->
+          <div style="margin:0 16px 8px;background:linear-gradient(135deg,rgba(85,69,211,0.14),rgba(85,69,211,0.05));border:1.5px solid rgba(85,69,211,0.4);border-radius:12px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🏟️</div>
+            <div style="flex:1;">
+              <div style="color:#a78bfa;font-size:11px;font-weight:800;margin-bottom:1px;">Dome King edge active</div>
+              <div style="color:#64748b;font-size:10px;">You're 8-2 in dome games · Your strongest archetype</div>
+            </div>
+            <div style="color:#6d5ef0;font-size:10px;font-weight:700;flex-shrink:0;">80%</div>
+          </div>
+
+          <!-- Prop line -->
+          <div style="margin:0 16px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;flex-shrink:0;">
+            <div style="font-size:10px;color:#8b949e;margin-bottom:3px;">Patrick Mahomes · Passing Yards</div>
+            <div style="font-size:30px;font-weight:900;color:#f0f6fc;letter-spacing:-1px;">284.5</div>
+            <div style="font-size:10px;color:#8b949e;margin-top:1px;">Season avg: 297.4 · Last 5: 312.2</div>
+          </div>
+
+          <!-- ★ SHARP MONEY vs. PUBLIC SPLIT — new in v6 -->
+          <div style="margin:0 16px 10px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);">
+            <!-- Header -->
+            <div style="background:rgba(255,255,255,0.03);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);">
+              <span style="font-size:10px;font-weight:800;color:#94a3b8;letter-spacing:0.5px;">INTELLIGENCE</span>
+              <span style="font-size:9px;color:#475569;font-weight:600;">Live · 1,284 picks</span>
+            </div>
+
+            <!-- Public row -->
+            <div style="background:rgba(255,255,255,0.02);padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <span style="font-size:11px;color:#94a3b8;font-weight:700;">👥 Public</span>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:11px;font-weight:800;color:#22c55e;">OVER 63%</span>
+                  <span style="font-size:10px;color:#475569;">/</span>
+                  <span style="font-size:11px;font-weight:800;color:#ef4444;">UNDER 37%</span>
+                </div>
+              </div>
+              <div style="height:5px;border-radius:3px;overflow:hidden;display:flex;">
+                <div style="flex:0.63;background:linear-gradient(90deg,#16a34a,#22c55e);"></div>
+                <div style="flex:0.37;background:linear-gradient(90deg,#dc2626,#ef4444);"></div>
+              </div>
+            </div>
+
+            <!-- Sharp Money row — blurred for free users -->
+            <div style="background:linear-gradient(135deg,rgba(245,158,11,0.06),rgba(245,158,11,0.02));padding:10px 14px;position:relative;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:11px;color:#fbbf24;font-weight:700;">⚡ Sharp Money</span>
+                  <span style="font-size:8px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:4px;padding:1px 5px;color:#f59e0b;font-weight:700;">PRO</span>
+                </div>
+                <!-- Blurred numbers — tease only -->
+                <div style="display:flex;align-items:center;gap:6px;filter:blur(4px);user-select:none;pointer-events:none;">
+                  <span style="font-size:11px;font-weight:800;color:#ef4444;">UNDER 71%</span>
+                  <span style="font-size:10px;color:#475569;">/</span>
+                  <span style="font-size:11px;font-weight:800;color:#22c55e;">OVER 29%</span>
+                </div>
+              </div>
+              <div style="height:5px;border-radius:3px;overflow:hidden;display:flex;filter:blur(3px);pointer-events:none;">
+                <div style="flex:0.29;background:linear-gradient(90deg,#16a34a,#22c55e);"></div>
+                <div style="flex:0.71;background:linear-gradient(90deg,#dc2626,#ef4444);"></div>
+              </div>
+              <!-- Unlock overlay -->
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+                <div style="background:rgba(13,11,24,0.75);border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:5px 12px;display:flex;align-items:center;gap:6px;backdrop-filter:blur(4px);">
+                  <span style="font-size:11px;">🔒</span>
+                  <span style="font-size:10px;font-weight:700;color:#fbbf24;">Unlock Sharp Money with Pro</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- /intelligence card -->
+
+          <!-- Friend picks row -->
+          <div style="margin:0 16px 10px;display:flex;align-items:center;gap:8px;">
+            <div style="display:flex;">
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);border:1.5px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;margin-right:-6px;z-index:2;">B</div>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);border:1.5px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;z-index:1;">S</div>
+            </div>
+            <span style="font-size:11px;color:#94a3b8;"><span style="color:#f0f6fc;font-weight:700;">BigMike + Sam</span> picked OVER</span>
+          </div>
+
+          <!-- Pick buttons -->
+          <div style="display:flex;gap:12px;padding:0 16px 12px;">
+            <div style="flex:1;background:linear-gradient(135deg,rgba(34,197,94,0.18),rgba(34,197,94,0.07));border:2px solid rgba(34,197,94,0.45);border-radius:16px;padding:18px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#22c55e;">OVER</div>
+              <div style="font-size:11px;color:#8b949e;margin-top:2px;">284.5+ yds</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:18px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#f0f6fc;">UNDER</div>
+              <div style="font-size:11px;color:#8b949e;margin-top:2px;">284.4 or less</div>
+            </div>
+          </div>
+
+          <!-- Bottom nav -->
+          <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;margin-top:auto;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(88,166,255,.6));">🎯</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Pick</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 1 — Pre-pick: 🔥 7-day streak · ⚠️ 28min urgent countdown · Sharp Money vs. Public split · Sharp % blurred until Pro</div>
+    </div><!-- /phone 1 -->
+
+    <!-- ── PHONE 2: Multiplier sheet — FREE — 1×/2×/5× simplified with concrete Pro math ── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow:hidden;position:relative;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;flex-shrink:0;"><span>8:54 AM</span><span>🔋</span></div>
+
+          <!-- Dimmed pick confirmation -->
+          <div style="padding:0 16px 6px;opacity:0.4;flex-shrink:0;">
+            <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Chiefs vs Eagles</div>
+          </div>
+          <div style="margin:0 16px;opacity:0.45;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,rgba(34,197,94,0.18),rgba(34,197,94,0.07));border:2px solid rgba(34,197,94,0.45);border-radius:14px;padding:10px 12px;text-align:center;">
+              <div style="font-size:18px;font-weight:900;color:#22c55e;">OVER ✓</div>
+              <div style="font-size:10px;color:#4ade80;">284.5+ yds · Pick locked</div>
+            </div>
+          </div>
+
+          <!-- MULTIPLIER SHEET — 1× / 2× / 5× only -->
+          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,#111827 0%,#0d1117 100%);border-radius:20px 20px 0 0;border-top:1px solid rgba(255,255,255,0.1);padding:14px 16px 24px;z-index:10;">
+            <div style="width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 14px;"></div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <div style="color:#f0f6fc;font-size:15px;font-weight:900;">How confident?</div>
+              <div style="color:#4ade80;font-size:12px;font-weight:700;">OVER · 284.5+</div>
+            </div>
+            <div style="color:#64748b;font-size:11px;margin-bottom:14px;">Choose your IQ stake.</div>
+
+            <!-- 1× -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#94a3b8;">1×</div>
+                <div>
+                  <div style="color:#94a3b8;font-size:13px;font-weight:700;">Standard</div>
+                  <div style="color:#475569;font-size:11px;">Win +100 IQ · Lose -50 IQ</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2× — MAX FREE, selected/highlighted -->
+            <div style="background:linear-gradient(135deg,rgba(85,69,211,0.14),rgba(85,69,211,0.06));border:2px solid rgba(85,69,211,0.5);border-radius:14px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#fff;">2×</div>
+                <div>
+                  <div style="color:#a78bfa;font-size:13px;font-weight:800;">Bold</div>
+                  <div style="color:#6d5ef0;font-size:11px;">Win +200 IQ · Lose -100 IQ</div>
+                </div>
+              </div>
+              <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:8px;padding:3px 8px;">
+                <div style="font-size:9px;color:#a78bfa;font-weight:700;">MAX FREE</div>
+              </div>
+            </div>
+
+            <!-- 5× LOCKED — concrete Pro math -->
+            <div style="background:rgba(245,158,11,0.04);border:1.5px dashed rgba(245,158,11,0.3);border-radius:14px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:36px;height:36px;border-radius:10px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#78716c;">5×</div>
+                <div>
+                  <div style="color:#78716c;font-size:13px;font-weight:700;">All-In</div>
+                  <!-- ★ CONCRETE PRO MATH -->
+                  <div style="color:#f59e0b;font-size:11px;font-weight:600;">+<span style="font-weight:900;">425 more IQ</span> if you had Pro</div>
+                </div>
+              </div>
+              <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.28);border-radius:8px;padding:5px 8px;text-align:center;">
+                <div style="font-size:9px;color:#f59e0b;font-weight:700;">⚡ PRO</div>
+                <div style="font-size:8px;color:#78716c;margin-top:1px;">Unlock</div>
+              </div>
+            </div>
+
+            <!-- Loss-aversion nudge -->
+            <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:7px 12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <div style="color:#78716c;font-size:11px;">You're leaving +425 IQ on the table</div>
+              <div style="background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(217,119,6,0.15));border:1px solid rgba(245,158,11,0.4);border-radius:7px;padding:4px 10px;cursor:pointer;">
+                <span style="font-size:10px;font-weight:700;color:#fbbf24;">Try Pro →</span>
+              </div>
+            </div>
+
+            <!-- Lock In -->
+            <div style="background:linear-gradient(135deg,#5545D3,#7c3aed);border-radius:14px;padding:14px;text-align:center;cursor:pointer;">
+              <div style="color:#fff;font-size:15px;font-weight:900;">Lock In · 2× · OVER</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:10px;margin-top:2px;">Win +200 IQ · Lose -100 IQ</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 2 — Multiplier FREE: 1× / 2× / 5× only · "+425 more IQ" concrete math · "Leaving IQ on table" loss-aversion nudge</div>
+    </div><!-- /phone 2 -->
+
+    <!-- ── PHONE 3: Pro Preview mini-sheet — fires when user taps locked 5× ── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow:hidden;position:relative;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;flex-shrink:0;"><span>8:54 AM</span><span>🔋</span></div>
+
+          <!-- Dimmed multiplier sheet behind -->
+          <div style="padding:0 16px 8px;opacity:0.35;flex-shrink:0;">
+            <div style="font-size:14px;font-weight:900;color:#f0f6fc;">How confident?</div>
+          </div>
+          <div style="margin:0 16px;opacity:0.28;flex-shrink:0;display:flex;flex-direction:column;gap:6px;">
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:8px 12px;color:#94a3b8;font-size:11px;">1× Standard</div>
+            <div style="background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.3);border-radius:10px;padding:8px 12px;color:#a78bfa;font-size:11px;">2× Bold · MAX FREE</div>
+            <div style="background:rgba(245,158,11,0.03);border:1px dashed rgba(245,158,11,0.18);border-radius:10px;padding:8px 12px;color:#78716c;font-size:11px;">5× All-In ⚡ PRO</div>
+          </div>
+
+          <!-- ★ PRO PREVIEW MINI-SHEET — slides up on 5× tap -->
+          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,#13111f 0%,#0d0b18 100%);border-radius:20px 20px 0 0;border-top:2px solid rgba(245,158,11,0.4);padding:14px 16px 24px;z-index:10;">
+            <div style="width:36px;height:4px;background:rgba(245,158,11,0.25);border-radius:2px;margin:0 auto 16px;"></div>
+
+            <!-- Pro badge + headline -->
+            <div style="text-align:center;margin-bottom:16px;">
+              <div style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(245,158,11,0.18),rgba(217,119,6,0.08));border:1.5px solid rgba(245,158,11,0.45);border-radius:20px;padding:5px 14px;margin-bottom:10px;">
+                <span style="font-size:13px;">⚡</span>
+                <span style="font-size:11px;font-weight:800;color:#fbbf24;">SportsIQ Pro</span>
+              </div>
+              <div style="color:#f0f6fc;font-size:20px;font-weight:900;line-height:1.25;margin-bottom:4px;">This pick is worth<br><span style="color:#f59e0b;">+500 IQ with Pro</span></div>
+              <div style="color:#64748b;font-size:11px;">vs. +200 IQ on your 2× pick</div>
+            </div>
+
+            <!-- Side-by-side comparison -->
+            <div style="display:flex;gap:8px;margin-bottom:16px;">
+              <div style="flex:1;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.22);border-radius:12px;padding:10px;text-align:center;">
+                <div style="color:#94a3b8;font-size:9px;font-weight:700;margin-bottom:4px;">FREE · 2×</div>
+                <div style="color:#a78bfa;font-size:24px;font-weight:900;line-height:1;">+200</div>
+                <div style="color:#475569;font-size:9px;margin-top:2px;">IQ if you win</div>
+              </div>
+              <div style="flex:1;background:linear-gradient(135deg,rgba(245,158,11,0.16),rgba(245,158,11,0.07));border:2px solid rgba(245,158,11,0.5);border-radius:12px;padding:10px;text-align:center;box-shadow:0 0 18px rgba(245,158,11,0.12);">
+                <div style="color:#f59e0b;font-size:9px;font-weight:700;margin-bottom:4px;">PRO · 5×</div>
+                <div style="color:#fbbf24;font-size:24px;font-weight:900;line-height:1;">+500</div>
+                <div style="color:#d97706;font-size:9px;font-weight:700;margin-top:2px;">IQ if you win</div>
+              </div>
+            </div>
+
+            <!-- What else Pro unlocks -->
+            <div style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.18);border-radius:10px;padding:9px 12px;margin-bottom:14px;">
+              <div style="color:#64748b;font-size:10px;margin-bottom:5px;font-weight:700;">Pro also unlocks:</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;align-items:center;gap:6px;"><span style="color:#f59e0b;font-size:10px;">⚡</span><span style="color:#94a3b8;font-size:10px;">Sharp Money alerts on every pick</span></div>
+                <div style="display:flex;align-items:center;gap:6px;"><span style="color:#f59e0b;font-size:10px;">⚡</span><span style="color:#94a3b8;font-size:10px;">Early pick window · +15 min head start</span></div>
+                <div style="display:flex;align-items:center;gap:6px;"><span style="color:#f59e0b;font-size:10px;">⚡</span><span style="color:#94a3b8;font-size:10px;">Pro badge on all leaderboards</span></div>
+              </div>
+            </div>
+
+            <!-- Primary CTA -->
+            <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:14px;padding:14px;text-align:center;cursor:pointer;margin-bottom:10px;box-shadow:0 4px 20px rgba(245,158,11,0.3);">
+              <div style="color:#fff;font-size:14px;font-weight:900;">Start 7-Day Free Trial</div>
+              <div style="color:rgba(255,255,255,0.8);font-size:10px;margin-top:2px;">$9.99/mo after trial · Cancel anytime</div>
+            </div>
+
+            <div style="text-align:center;">
+              <span style="color:#475569;font-size:11px;cursor:pointer;">Stay on 2× for this pick</span>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 3 — Pro Preview: tap 5× → "+500 vs. +200 IQ" side-by-side · Sharp Money + early access listed · 7-day trial CTA</div>
+    </div><!-- /phone 3 -->
+
+  </div>
+  <div id="sfb-panel-pick-card-v6" class="sfb-panel"></div>
+</div><!-- /screen pick-card-v6 -->
+
 <div id="pick-card-v3" class="screen" style="display:none;">
   <div class="screen-header">
     <div class="screen-title">Pick Card v3 — SportsIQ Signal BEFORE you pick · Push notification · Layout fix</div>
@@ -26065,6 +26423,591 @@
   </div>
   <div id="sfb-panel-share-card-v2" class="sfb-panel"></div>
 </div><!-- /screen share-card-v2 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Share Card v3 — Archetype Identity · Venue Rank Brag · IG Story Format
+     2026-03-22 · Viral acquisition engine — every win becomes a free brand ad
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div id="share-card-v3" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Share Card v3 — Archetype Identity · Venue Rank · Instagram Story Format</div>
+    <div class="screen-desc">2026-03-22 · Three new card types that generate the most shares and drive the most new users. (1) Archetype Identity Card: fires when your Sports DNA archetype matched the game and you won. "🏟️ The Dome King called it again" is a deeply personal win that users want to brag about — it shows off their sports identity, not just a number. Converts viewers into "wait, what's my archetype?" users. (2) Venue Rank Brag Card: "#1 at Oaks Bar tonight" geo-localized social proof. This card drives two things simultaneously: new user downloads AND foot traffic to partner bars. A viewer who sees this wants to come to the bar and play. This is the bar venue flywheel made visible. (3) Instagram Story Format: same cards but formatted as 9:16 with top/bottom safe zones, large typography readable at story size, and a "Download SportsIQ" bottom CTA. Stories get 3-5× more impressions than feed posts — this format is how we go viral.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: Archetype Identity Win Card ───────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>9:41 AM</span><span>🔋</span></div>
+          <div style="padding:6px 16px 10px;display:flex;align-items:center;gap:8px;">
+            <span style="color:#58a6ff;font-size:20px;">‹</span>
+            <span style="font-size:15px;font-weight:600;color:#f0f6fc;">Your archetype win 🏟️</span>
+          </div>
+
+          <!-- Archetype context banner -->
+          <div style="margin:0 14px 12px;background:linear-gradient(135deg,rgba(85,69,211,0.15),rgba(85,69,211,0.05));border:1.5px solid rgba(85,69,211,0.4);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+            <div style="width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🏟️</div>
+            <div>
+              <div style="font-size:12px;font-weight:800;color:#a78bfa;">Dome King edge activated — and you called it</div>
+              <div style="font-size:10px;color:#64748b;margin-top:1px;">Special archetype card unlocked</div>
+            </div>
+          </div>
+
+          <!-- ARCHETYPE WIN CARD -->
+          <div style="margin:0 12px 12px;border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(85,69,211,0.35);">
+            <!-- Deep purple gradient header -->
+            <div style="background:linear-gradient(160deg,#1e1035,#3b0764,#5545D3,#818cf8);padding:20px 16px 18px;position:relative;overflow:hidden;">
+              <!-- Subtle dome arch decoration -->
+              <div style="position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:200px;height:100px;border:2px solid rgba(255,255,255,0.06);border-radius:100px 100px 0 0;"></div>
+              <div style="position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:140px;height:70px;border:1px solid rgba(255,255,255,0.04);border-radius:70px 70px 0 0;"></div>
+              <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.55);letter-spacing:2px;margin-bottom:8px;">SPORTS<span style="opacity:0.4;">IQ</span></div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+                <div style="width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;">🏟️</div>
+                <div>
+                  <div style="font-size:11px;color:rgba(167,139,250,0.9);font-weight:700;letter-spacing:1px;">SPORTS DNA ARCHETYPE</div>
+                  <div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.1;">The Dome King</div>
+                </div>
+              </div>
+              <div style="font-size:12px;color:rgba(200,190,255,0.75);">Dome games are your superpower. You just proved it again.</div>
+            </div>
+
+            <!-- Card body -->
+            <div style="background:linear-gradient(180deg,#120d24,#0d0b18);padding:14px 16px;">
+              <!-- This pick -->
+              <div style="margin-bottom:12px;">
+                <div style="font-size:9px;color:#475569;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;">Tonight's call</div>
+                <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;">
+                  <div>
+                    <div style="font-size:13px;font-weight:800;color:#4ade80;">OVER ✓</div>
+                    <div style="font-size:10px;color:#64748b;margin-top:1px;">Mahomes · 284.5 yds · Chiefs vs Eagles</div>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:20px;font-weight:900;color:#4ade80;">+200</div>
+                    <div style="font-size:9px;color:#64748b;">IQ · 2× Bold</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Archetype record -->
+              <div style="margin-bottom:12px;">
+                <div style="font-size:9px;color:#475569;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;">Dome King record</div>
+                <div style="background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:10px 12px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <div style="display:flex;align-items:center;gap:6px;">
+                      <div style="font-size:22px;font-weight:900;color:#a78bfa;">9-2</div>
+                      <div style="font-size:10px;color:#6d5ef0;">in dome games</div>
+                    </div>
+                    <div style="background:linear-gradient(135deg,#5545D3,#7c3aed);border-radius:8px;padding:4px 10px;">
+                      <div style="font-size:10px;font-weight:800;color:#fff;">81% win rate</div>
+                    </div>
+                  </div>
+                  <div style="margin-top:8px;height:4px;border-radius:2px;overflow:hidden;display:flex;">
+                    <div style="flex:0.818;background:linear-gradient(90deg,#5545D3,#818cf8);"></div>
+                    <div style="flex:0.182;background:rgba(255,255,255,0.08);"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contrarian note if applicable -->
+              <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:8px;padding:7px 10px;text-align:center;font-size:10px;color:#f59e0b;margin-bottom:0;">
+                🦅 Only 37% picked OVER — Dome King went contrarian and won
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="background:#080610;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:9px;color:rgba(255,255,255,0.3);">What's your archetype?</div>
+              <div style="font-size:9px;color:#818cf8;font-weight:700;">sportsiq.app/ref/marcd →</div>
+            </div>
+          </div>
+
+          <!-- Share buttons -->
+          <div style="margin:0 12px 16px;display:flex;gap:8px;">
+            <div style="flex:1;background:#1d9bf0;border-radius:10px;padding:9px;text-align:center;cursor:pointer;"><div style="font-size:14px;">𝕏</div><div style="font-size:9px;color:#fff;margin-top:2px;font-weight:600;">Twitter</div></div>
+            <div style="flex:1;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-radius:10px;padding:9px;text-align:center;cursor:pointer;"><div style="font-size:14px;">📷</div><div style="font-size:9px;color:#fff;margin-top:2px;font-weight:600;">Story</div></div>
+            <div style="flex:1;background:#25d366;border-radius:10px;padding:9px;text-align:center;cursor:pointer;"><div style="font-size:14px;">💬</div><div style="font-size:9px;color:#fff;margin-top:2px;font-weight:600;">iMessage</div></div>
+            <div style="flex:1;background:#21262d;border:1px solid #30363d;border-radius:10px;padding:9px;text-align:center;cursor:pointer;"><div style="font-size:14px;">🔗</div><div style="font-size:9px;color:#8b949e;margin-top:2px;">Copy</div></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 1 — Archetype Identity Card: 🏟️ "The Dome King called it again" · 9-2 dome record · contrarian win · referral embedded</div>
+    </div><!-- /phone 1 -->
+
+    <!-- ── PHONE 2: Venue Rank Brag Card — "#1 at Oaks Bar tonight" ── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>9:41 AM</span><span>🔋</span></div>
+          <div style="padding:6px 16px 10px;display:flex;align-items:center;gap:8px;">
+            <span style="color:#58a6ff;font-size:20px;">‹</span>
+            <span style="font-size:15px;font-weight:600;color:#f0f6fc;">You're running the bar 🏆</span>
+          </div>
+
+          <!-- Context banner -->
+          <div style="margin:0 14px 12px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:20px;">🍺</span>
+            <div>
+              <div style="font-size:12px;font-weight:800;color:#fbbf24;">Oaks Bar — you just took #1</div>
+              <div style="font-size:10px;color:#64748b;margin-top:1px;">32 players tonight · Special card unlocked</div>
+            </div>
+          </div>
+
+          <!-- VENUE RANK CARD -->
+          <div style="margin:0 12px 12px;border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(245,158,11,0.25);">
+            <!-- Gold header -->
+            <div style="background:linear-gradient(160deg,#1a1000,#78350f,#d97706,#fbbf24);padding:18px 16px 16px;position:relative;overflow:hidden;">
+              <div style="position:absolute;top:0;right:0;width:100px;height:100px;background:radial-gradient(circle,rgba(255,255,255,0.08),transparent);border-radius:50%;transform:translate(30px,-30px);"></div>
+              <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.55);letter-spacing:2px;margin-bottom:10px;">SPORTS<span style="opacity:0.4;">IQ</span></div>
+              <div style="display:flex;align-items:center;gap:4px;margin-bottom:4px;">
+                <div style="font-size:48px;font-weight:900;color:#fff;line-height:1;text-shadow:0 2px 20px rgba(245,158,11,0.6);">#1</div>
+              </div>
+              <div style="font-size:16px;font-weight:800;color:rgba(255,255,255,0.9);">at Oaks Bar Tonight</div>
+              <div style="font-size:11px;color:rgba(255,220,100,0.75);margin-top:3px;">32 players · Chiefs vs Eagles</div>
+            </div>
+
+            <!-- Body -->
+            <div style="background:linear-gradient(180deg,#1a1000,#0d0900);padding:14px 16px;">
+              <!-- Leaderboard mini -->
+              <div style="margin-bottom:12px;">
+                <div style="font-size:9px;color:#475569;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Bar Leaderboard</div>
+                <!-- Rank 1 — me, highlighted -->
+                <div style="background:linear-gradient(135deg,rgba(245,158,11,0.18),rgba(245,158,11,0.07));border:1.5px solid rgba(245,158,11,0.45);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:10px;margin-bottom:5px;">
+                  <div style="font-size:14px;font-weight:900;color:#fbbf24;width:20px;text-align:center;">1</div>
+                  <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#d97706,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;">M</div>
+                  <div style="flex:1;font-size:12px;font-weight:800;color:#fbbf24;">You</div>
+                  <div style="font-size:13px;font-weight:900;color:#fbbf24;">1,240 IQ</div>
+                </div>
+                <!-- Rank 2 -->
+                <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:10px;margin-bottom:5px;">
+                  <div style="font-size:13px;font-weight:700;color:#64748b;width:20px;text-align:center;">2</div>
+                  <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;">B</div>
+                  <div style="flex:1;font-size:12px;font-weight:600;color:#94a3b8;">BigMike</div>
+                  <div style="font-size:12px;font-weight:700;color:#64748b;">1,050 IQ</div>
+                </div>
+                <!-- Rank 3 -->
+                <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:10px;">
+                  <div style="font-size:13px;font-weight:700;color:#64748b;width:20px;text-align:center;">3</div>
+                  <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#059669,#22c55e);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;">S</div>
+                  <div style="flex:1;font-size:12px;font-weight:600;color:#94a3b8;">SamA</div>
+                  <div style="font-size:12px;font-weight:700;color:#64748b;">890 IQ</div>
+                </div>
+              </div>
+
+              <!-- Tonight's pick recap -->
+              <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:8px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;">
+                <div style="font-size:10px;color:#94a3b8;">Last pick: Mahomes OVER ✓</div>
+                <div style="font-size:11px;font-weight:800;color:#fbbf24;">+200 IQ</div>
+              </div>
+            </div>
+
+            <!-- Footer — drives foot traffic -->
+            <div style="background:#080600;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:9px;color:rgba(255,255,255,0.3);">Come play at Oaks Bar →</div>
+              <div style="font-size:9px;color:#fbbf24;font-weight:700;">sportsiq.app/ref/marcd</div>
+            </div>
+          </div>
+
+          <!-- Share -->
+          <div style="margin:0 12px 16px;display:flex;gap:8px;">
+            <div style="flex:1;background:#1d9bf0;border-radius:10px;padding:9px;text-align:center;cursor:pointer;"><div style="font-size:14px;">𝕏</div><div style="font-size:9px;color:#fff;margin-top:2px;font-weight:600;">Twitter</div></div>
+            <div style="flex:1;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-radius:10px;padding:9px;text-align:center;cursor:pointer;"><div style="font-size:14px;">📷</div><div style="font-size:9px;color:#fff;margin-top:2px;font-weight:600;">Story</div></div>
+            <div style="flex:1;background:#25d366;border-radius:10px;padding:9px;text-align:center;cursor:pointer;"><div style="font-size:14px;">💬</div><div style="font-size:9px;color:#fff;margin-top:2px;font-weight:600;">iMessage</div></div>
+            <div style="flex:1;background:#21262d;border:1px solid #30363d;border-radius:10px;padding:9px;text-align:center;cursor:pointer;"><div style="font-size:14px;">🔗</div><div style="font-size:9px;color:#8b949e;margin-top:2px;">Copy</div></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 2 — Venue Rank Card: "#1 at Oaks Bar Tonight" · mini leaderboard · "Come play at Oaks Bar →" CTA drives foot traffic to venues</div>
+    </div><!-- /phone 2 -->
+
+    <!-- ── PHONE 3: Instagram Story Format — full bleed 9:16 ──────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#000;display:flex;flex-direction:column;overflow:hidden;position:relative;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:rgba(255,255,255,0.5);position:relative;z-index:2;"><span>9:41 AM</span><span>🔋</span></div>
+
+          <!-- IG Story progress bars -->
+          <div style="display:flex;gap:3px;padding:0 10px;position:relative;z-index:2;">
+            <div style="flex:1;height:2px;background:rgba(255,255,255,0.9);border-radius:1px;"></div>
+            <div style="flex:1;height:2px;background:rgba(255,255,255,0.35);border-radius:1px;"></div>
+            <div style="flex:1;height:2px;background:rgba(255,255,255,0.35);border-radius:1px;"></div>
+          </div>
+
+          <!-- Full bleed story card — fills entire phone -->
+          <div style="position:absolute;inset:0;background:linear-gradient(160deg,#1e1035,#2d1b69,#5545D3);display:flex;flex-direction:column;justify-content:space-between;padding:70px 20px 32px;">
+
+            <!-- Top safe zone — archetype badge -->
+            <div>
+              <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:6px 14px;margin-bottom:24px;">
+                <span style="font-size:14px;">🏟️</span>
+                <span style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.9);">Sports DNA · The Dome King</span>
+              </div>
+
+              <!-- Hero content -->
+              <div style="margin-bottom:8px;">
+                <div style="font-size:13px;font-weight:700;color:rgba(167,139,250,0.9);letter-spacing:0.5px;margin-bottom:6px;">CALLED IT. AGAIN.</div>
+                <div style="font-size:42px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px;text-shadow:0 4px 30px rgba(85,69,211,0.5);">+200 IQ</div>
+                <div style="font-size:16px;color:rgba(200,190,255,0.85);margin-top:6px;font-weight:600;">Mahomes OVER 284.5 yds</div>
+              </div>
+
+              <!-- Record pill -->
+              <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(85,69,211,0.3);border:1px solid rgba(167,139,250,0.4);border-radius:12px;padding:8px 14px;">
+                <span style="font-size:13px;font-weight:900;color:#a78bfa;">9-2</span>
+                <span style="font-size:11px;color:rgba(167,139,250,0.8);">in dome games · 81% win rate</span>
+              </div>
+            </div>
+
+            <!-- Middle decorative element -->
+            <div style="text-align:center;">
+              <div style="font-size:72px;opacity:0.12;line-height:1;">🏟️</div>
+            </div>
+
+            <!-- Bottom safe zone — CTA -->
+            <div>
+              <!-- Social proof -->
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+                <div style="display:flex;">
+                  <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#ef4444,#f97316);border:1.5px solid rgba(255,255,255,0.3);"></div>
+                  <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border:1.5px solid rgba(255,255,255,0.3);margin-left:-6px;"></div>
+                  <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#14b8a6);border:1.5px solid rgba(255,255,255,0.3);margin-left:-6px;"></div>
+                </div>
+                <span style="font-size:11px;color:rgba(255,255,255,0.7);">12,400 fans playing tonight</span>
+              </div>
+
+              <!-- Download CTA -->
+              <div style="background:rgba(255,255,255,0.95);border-radius:14px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="font-size:13px;font-weight:900;color:#1e1035;">Play SportsIQ free</div>
+                  <div style="font-size:10px;color:#5545D3;margin-top:1px;">Find your Sports DNA →</div>
+                </div>
+                <div style="background:linear-gradient(135deg,#5545D3,#7c3aed);border-radius:10px;padding:8px 14px;">
+                  <div style="font-size:11px;font-weight:800;color:#fff;">Download</div>
+                </div>
+              </div>
+              <div style="text-align:center;margin-top:8px;">
+                <span style="font-size:10px;color:rgba(255,255,255,0.4);">sportsiq.app/ref/marcd</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- IG Story overlay UI -->
+          <div style="position:absolute;top:56px;right:12px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:14px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:14px;">❤️</span>
+            </div>
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:14px;">💬</span>
+            </div>
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:14px;">✈️</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 3 — Instagram Story format: full-bleed 9:16 · "Find your Sports DNA →" CTA · 12,400 social proof · Download button · Stories get 3-5× more impressions than feed posts</div>
+    </div><!-- /phone 3 -->
+
+  </div>
+  <div id="sfb-panel-share-card-v3" class="sfb-panel"></div>
+</div><!-- /screen share-card-v3 -->
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SPORTS DNA PROFILE — Archetype Reveal · Skill Fingerprint · Sharp Profile
+     Mar 22 2026 · Moat: verified prediction identity that compounds with every pick
+     Specialists: Venture Studio ("Sharp Graph — accreted data competitors can't replicate")
+                  Lumen ("Pick History is the fundable moat story for Series A")
+     ═══════════════════════════════════════════════════════════════════════ -->
+<div id="sports-dna" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🧬 Sports DNA Profile</h2>
+    <p class="screen-subtitle">Mar 22 2026 · The moat that compounds. Every pick accretes into a verified behavioral fingerprint — sport, bet type, conditions, confidence. Users can't abandon their record. Competitors can copy the UI in 6 months; they cannot copy 3 years of verified sharp data. Three screens: (1) Archetype Reveal — the dramatic unlock moment after 10 picks. (2) DNA Profile — full skill fingerprint with archetype, IQ trajectory, win breakdown by sport/condition. (3) Public Sharp Profile — what others see, follow system, social syndicate.</p>
+  </div>
+  <div class="phone-wrap" style="gap:40px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Archetype Reveal Moment -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.5px;">📱 ARCHETYPE REVEAL</div>
+      <div class="phone-frame" style="background:#0a0a0f;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(167,139,250,0.3);">
+        <!-- Deep space BG -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,#1a0a3a 0%,#0a0a0f 70%);"></div>
+        <!-- Star particles -->
+        <div style="position:absolute;inset:0;opacity:.4;background-image:radial-gradient(1px 1px at 20% 15%,white,transparent),radial-gradient(1px 1px at 70% 25%,white,transparent),radial-gradient(1px 1px at 40% 60%,white,transparent),radial-gradient(1px 1px at 85% 50%,white,transparent),radial-gradient(1px 1px at 15% 75%,white,transparent),radial-gradient(1px 1px at 55% 85%,white,transparent);"></div>
+
+        <!-- Content -->
+        <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:16px;padding:0 24px;text-align:center;">
+          <!-- "Your Sports DNA is ready" label -->
+          <div style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.4);border-radius:20px;padding:6px 16px;font-size:11px;font-weight:600;color:#c4b5fd;letter-spacing:1px;text-transform:uppercase;">Your Sports DNA is ready</div>
+
+          <!-- Archetype badge glow -->
+          <div style="position:relative;margin:8px 0;">
+            <div style="position:absolute;inset:-20px;background:radial-gradient(circle,rgba(167,139,250,0.4) 0%,transparent 70%);border-radius:50%;"></div>
+            <div style="width:100px;height:100px;background:linear-gradient(135deg,#7c3aed,#4c1d95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:44px;border:3px solid rgba(167,139,250,0.6);position:relative;z-index:1;">🏟️</div>
+          </div>
+
+          <!-- Archetype title -->
+          <div>
+            <div style="font-size:11px;color:#9ca3af;font-weight:500;margin-bottom:4px;letter-spacing:2px;text-transform:uppercase;">You are</div>
+            <div style="font-size:32px;font-weight:800;color:#fff;line-height:1;letter-spacing:-1px;">The Dome King</div>
+          </div>
+
+          <!-- Definition -->
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:14px 16px;">
+            <div style="font-size:13px;color:#d1d5db;line-height:1.5;">"You thrive in high-pressure stadium picks. Your edge is crowd noise, weather, and home-field advantage. Elite at reading when the crowd matters — and when it doesn't."</div>
+          </div>
+
+          <!-- Stats row -->
+          <div style="display:flex;gap:24px;">
+            <div style="text-align:center;">
+              <div style="font-size:22px;font-weight:800;color:#a78bfa;">81%</div>
+              <div style="font-size:10px;color:#6b7280;font-weight:500;">Stadium picks</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+            <div style="text-align:center;">
+              <div style="font-size:22px;font-weight:800;color:#a78bfa;">9-2</div>
+              <div style="font-size:10px;color:#6b7280;font-weight:500;">Dome record</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+            <div style="text-align:center;">
+              <div style="font-size:22px;font-weight:800;color:#a78bfa;">Top 3%</div>
+              <div style="font-size:10px;color:#6b7280;font-weight:500;">All users</div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <button style="width:100%;background:linear-gradient(135deg,#7c3aed,#5b21b6);border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;color:#fff;cursor:pointer;letter-spacing:.2px;">See Your Full DNA Profile →</button>
+
+          <!-- Level indicator -->
+          <div style="font-size:11px;color:#6b7280;">Level 2 of 5 · <span style="color:#a78bfa;">Make 25 more picks to evolve</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Unlocks after 10 picks — enough data to calibrate your archetype. Dramatic reveal drives immediate sharing.</div>
+    </div>
+
+    <!-- PHONE 2: Sports DNA Full Profile -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#10b981;letter-spacing:.5px;">📱 DNA PROFILE</div>
+      <div class="phone-frame" style="background:#0f0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;border:2px solid rgba(16,185,129,0.2);">
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#9ca3af;font-weight:500;">
+          <span>9:41</span><span>●●●</span>
+        </div>
+
+        <div style="padding:0 16px;overflow:hidden;height:calc(100% - 40px);display:flex;flex-direction:column;gap:10px;">
+          <!-- Header -->
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;">
+            <div style="font-size:18px;font-weight:800;color:#fff;">Sports DNA</div>
+            <div style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:#c4b5fd;">🏟️ Dome King</div>
+          </div>
+
+          <!-- Evolution progress bar -->
+          <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:10px 12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <div style="font-size:11px;color:#9ca3af;font-weight:500;">Archetype evolution</div>
+              <div style="font-size:11px;color:#a78bfa;font-weight:600;">Lv 2 / 5</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.1);border-radius:4px;height:5px;">
+              <div style="background:linear-gradient(90deg,#7c3aed,#a78bfa);width:38%;height:100%;border-radius:4px;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:4px;">
+              <div style="font-size:9px;color:#6b7280;">Rookie Sharp</div>
+              <div style="font-size:9px;color:#a78bfa;font-weight:600;">← The Sharp (Lv 3)</div>
+            </div>
+          </div>
+
+          <!-- Skill fingerprint -->
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:12px;">
+            <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:10px;">Skill Fingerprint</div>
+            <!-- Sport breakdown -->
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <!-- NFL -->
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="font-size:11px;color:#9ca3af;width:32px;">🏈</div>
+                <div style="flex:1;">
+                  <div style="background:rgba(255,255,255,0.08);border-radius:3px;height:6px;">
+                    <div style="background:linear-gradient(90deg,#10b981,#34d399);width:78%;height:100%;border-radius:3px;"></div>
+                  </div>
+                </div>
+                <div style="font-size:11px;font-weight:700;color:#10b981;width:32px;text-align:right;">78%</div>
+              </div>
+              <!-- NBA -->
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="font-size:11px;color:#9ca3af;width:32px;">🏀</div>
+                <div style="flex:1;">
+                  <div style="background:rgba(255,255,255,0.08);border-radius:3px;height:6px;">
+                    <div style="background:linear-gradient(90deg,#f59e0b,#fbbf24);width:64%;height:100%;border-radius:3px;"></div>
+                  </div>
+                </div>
+                <div style="font-size:11px;font-weight:700;color:#f59e0b;width:32px;text-align:right;">64%</div>
+              </div>
+              <!-- NHL -->
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="font-size:11px;color:#9ca3af;width:32px;">🏒</div>
+                <div style="flex:1;">
+                  <div style="background:rgba(255,255,255,0.08);border-radius:3px;height:6px;">
+                    <div style="background:linear-gradient(90deg,#6366f1,#818cf8);width:71%;height:100%;border-radius:3px;"></div>
+                  </div>
+                </div>
+                <div style="font-size:11px;font-weight:700;color:#818cf8;width:32px;text-align:right;">71%</div>
+              </div>
+              <!-- MLB -->
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="font-size:11px;color:#9ca3af;width:32px;">⚾</div>
+                <div style="flex:1;">
+                  <div style="background:rgba(255,255,255,0.08);border-radius:3px;height:6px;">
+                    <div style="background:linear-gradient(90deg,#ef4444,#f87171);width:54%;height:100%;border-radius:3px;"></div>
+                  </div>
+                </div>
+                <div style="font-size:11px;font-weight:700;color:#ef4444;width:32px;text-align:right;">54%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Condition edges (Pro-gated deep layer) -->
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:12px;position:relative;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="font-size:12px;font-weight:700;color:#fff;">Your Edge Conditions</div>
+              <div style="background:rgba(250,204,21,0.15);border:1px solid rgba(250,204,21,0.3);border-radius:8px;padding:2px 8px;font-size:9px;font-weight:700;color:#facc15;">PRO</div>
+            </div>
+            <!-- Blurred deep conditions for free users -->
+            <div style="filter:blur(3px);pointer-events:none;display:flex;flex-direction:column;gap:5px;">
+              <div style="display:flex;justify-content:space-between;font-size:11px;">
+                <span style="color:#9ca3af;">Cold weather games (&lt;35°F)</span><span style="color:#10b981;font-weight:700;">+14% edge</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;">
+                <span style="color:#9ca3af;">Home underdogs (+3 to +7)</span><span style="color:#10b981;font-weight:700;">+11% edge</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;">
+                <span style="color:#9ca3af;">Primetime crowd noise props</span><span style="color:#10b981;font-weight:700;">+9% edge</span>
+              </div>
+            </div>
+            <!-- Unlock overlay -->
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);border-radius:14px;backdrop-filter:blur(1px);">
+              <div style="text-align:center;padding:0 12px;">
+                <div style="font-size:11px;color:#9ca3af;margin-bottom:4px;">Your strongest edge is hidden</div>
+                <div style="font-size:13px;font-weight:800;color:#facc15;">⚡ Your top edge: +14%</div>
+                <div style="font-size:10px;color:#d1d5db;margin-top:3px;margin-bottom:8px;">See exactly when and why you win</div>
+                <div style="background:linear-gradient(135deg,#facc15,#f59e0b);border-radius:8px;padding:6px 14px;display:inline-block;">
+                  <div style="font-size:11px;font-weight:700;color:#000;">Try Pro free — 7 days</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- IQ + record row -->
+          <div style="display:flex;gap:8px;">
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;color:#a78bfa;">1,847</div>
+              <div style="font-size:10px;color:#6b7280;font-weight:500;">IQ Score</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;color:#10b981;">22-11</div>
+              <div style="font-size:10px;color:#6b7280;font-weight:500;">Season record</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;color:#f59e0b;">#142</div>
+              <div style="font-size:10px;color:#6b7280;font-weight:500;">Global rank</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Edge conditions blurred for free users — highest-value Pro upgrade prompt with concrete personal data as the carrot.</div>
+    </div>
+
+    <!-- PHONE 3: Public Sharp Profile -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#f59e0b;letter-spacing:.5px;">📱 PUBLIC SHARP PROFILE</div>
+      <div class="phone-frame" style="background:#0f0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;border:2px solid rgba(245,158,11,0.2);">
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#9ca3af;font-weight:500;">
+          <span>9:41</span><span>●●●</span>
+        </div>
+
+        <div style="padding:0 16px;overflow:hidden;height:calc(100% - 40px);display:flex;flex-direction:column;gap:10px;">
+          <!-- Profile header -->
+          <div style="display:flex;align-items:center;gap:12px;padding:8px 0;">
+            <div style="width:48px;height:48px;background:linear-gradient(135deg,#7c3aed,#4c1d95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🏟️</div>
+            <div style="flex:1;">
+              <div style="font-size:16px;font-weight:800;color:#fff;">@marcd</div>
+              <div style="font-size:11px;color:#a78bfa;font-weight:600;">🏟️ The Dome King · Lv 2</div>
+            </div>
+            <button style="background:linear-gradient(135deg,#7c3aed,#5b21b6);border:none;border-radius:10px;padding:8px 16px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;">Follow</button>
+          </div>
+
+          <!-- Social stats -->
+          <div style="display:flex;gap:0;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;">
+            <div style="flex:1;padding:10px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);">
+              <div style="font-size:18px;font-weight:800;color:#fff;">847</div>
+              <div style="font-size:10px;color:#6b7280;">Followers</div>
+            </div>
+            <div style="flex:1;padding:10px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);">
+              <div style="font-size:18px;font-weight:800;color:#fff;">112</div>
+              <div style="font-size:10px;color:#6b7280;">Following</div>
+            </div>
+            <div style="flex:1;padding:10px;text-align:center;">
+              <div style="font-size:18px;font-weight:800;color:#10b981;">67%</div>
+              <div style="font-size:10px;color:#6b7280;">Season win%</div>
+            </div>
+          </div>
+
+          <!-- Verified badge row -->
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <div style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);border-radius:20px;padding:4px 10px;font-size:10px;font-weight:600;color:#10b981;">✓ Verified Sharp</div>
+            <div style="background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.3);border-radius:20px;padding:4px 10px;font-size:10px;font-weight:600;color:#a78bfa;">🔥 5-pick streak</div>
+            <div style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:4px 10px;font-size:10px;font-weight:600;color:#f59e0b;">#1 Oaks Bar</div>
+          </div>
+
+          <!-- Recent picks mini-feed -->
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px 12px;">
+            <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:8px;">Recent Picks</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:6px;height:6px;background:#10b981;border-radius:50%;flex-shrink:0;"></div>
+                <div style="font-size:11px;color:#d1d5db;flex:1;">KC Chiefs ML vs. Bills</div>
+                <div style="font-size:11px;font-weight:700;color:#10b981;">+120 IQ ✓</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:6px;height:6px;background:#10b981;border-radius:50%;flex-shrink:0;"></div>
+                <div style="font-size:11px;color:#d1d5db;flex:1;">Lakers OVER 225.5 pts</div>
+                <div style="font-size:11px;font-weight:700;color:#10b981;">+96 IQ ✓</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:6px;height:6px;background:#ef4444;border-radius:50%;flex-shrink:0;"></div>
+                <div style="font-size:11px;color:#d1d5db;flex:1;">Mahomes OVER 267.5 yds</div>
+                <div style="font-size:11px;font-weight:700;color:#ef4444;">-80 IQ ✗</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:6px;height:6px;background:#10b981;border-radius:50%;flex-shrink:0;"></div>
+                <div style="font-size:11px;color:#d1d5db;flex:1;">Avalanche ML (dome pick)</div>
+                <div style="font-size:11px;font-weight:700;color:#10b981;">+144 IQ ✓</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <button style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:12px;font-size:13px;font-weight:600;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+            📤 Share My Profile Card
+          </button>
+
+          <!-- Disclaimer -->
+          <div style="text-align:center;font-size:10px;color:#4b5563;">Auditable track record · immutable pick history</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Public profile the network effect anchor. Followers = switching cost. 847 followers can't follow you if you leave SportsIQ.</div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+
+  <div id="sfb-panel-sports-dna" class="sfb-panel"></div>
+</div><!-- /screen sports-dna -->
 
 <div id="share-card" class="screen" style="display:none;">
   <div class="screen-header">
