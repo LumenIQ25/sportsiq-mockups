@@ -1847,8 +1847,8 @@
     <div class="tab tab-review" data-screen="pick-wait-v3" onclick="showScreen('pick-wait-v3',this)">
       <span class="tab-label">Pick Wait</span><span class="tab-days" id="days-pick-wait-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="onboarding-v5" onclick="showScreen('onboarding-v5',this)">
-      <span class="tab-label">Onboarding</span><span class="tab-days" id="days-onboarding-v5"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="onboarding-v6" onclick="showScreen('onboarding-v6',this)">
+      <span class="tab-label">Onboarding</span><span class="tab-days" id="days-onboarding-v6"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="daily-challenge-v4" onclick="showScreen('daily-challenge-v4',this)">
       <span class="tab-label">Daily Challenge</span><span class="tab-days" id="days-daily-challenge-v4"></span><span class="review-dot"></span>
@@ -1903,7 +1903,10 @@
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 32 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 33 previous versions</summary>
+      <div class="tab tab-archived" data-screen="onboarding-v5" onclick="showScreen('onboarding-v5',this)">
+        <span class="tab-label">Onboarding v5</span><span class="tab-days" id="days-onboarding-v5-arc"></span>
+      </div>
       <div class="tab tab-archived" data-screen="pick-card-v4" onclick="showScreen('pick-card-v4',this)">
         <span class="tab-label">Pick Card v4</span><span class="tab-days" id="days-pick-card-v4-arc"></span>
       </div>
@@ -5366,6 +5369,8 @@
     'pick-card-v5':        '2026-03-22T21:00:00-07:00',
     // ── Mar 22 — V1 Launch Spec: condensed core loop per Mark's "simple, no friction, addictive" directive ──
     'v1-launch':           '2026-03-22T22:00:00-07:00',
+    // ── Mar 22 autonomous loop — Onboarding v6: V1 spec · sport select → pick fires · name asks after hook ──
+    'onboarding-v6':       '2026-03-22T23:00:00-07:00',
     // ── Mar 21 4:30 PM PT — stats/leaderboard/DNA/referral (032–035) ──
     'leaderboard-v3':      '2026-03-21T16:30:00-07:00',
     'leaderboard-v4':      '2026-03-21T20:00:00-07:00',
@@ -5991,6 +5996,17 @@
         'Depth selector per sport removed from onboarding — is that data critical for Day 1 ad targeting, or is it okay to collect it passively through behavior?',
         'Notification permission at step 2 vs. after first win — which placement gets higher opt-in rate?',
         'Demo pick for new users with no live game — yes (instant gratification) or no (wait for real game, higher authenticity)?'
+      ]
+    },
+    'onboarding-v6': {
+      icon: '🚀',
+      title: 'Onboarding v6 — V1 Spec · Sport Select → Pick Fires → Name After Hook · Mar 22 2026',
+      built: 'V1 redesign per Mark\'s simplicity directive. The key insight: TikTok shows you content before you sign up. We show you a pick before you set up your account. Three phases: (1) Sport select — 4 large tap tiles (NFL / NBA / MLB / NHL), zero friction, no account required. This is the ONLY question before the pick fires. (2) First pick fires immediately — pick card with a live welcome banner "Your first pick →" and a subtle "No account needed yet" note. Full signal visible, inline multiplier. User is in the game before they\'ve given us anything. (3) Post-first-pick name prompt — AFTER they\'ve won or lost their first pick, a simple card: "Nice pick! What should we call you?" One text field. This is when they\'re emotionally invested and WANT to be on the leaderboard. Hook first, then ask. What\'s removed vs v5: social proof splash (V2 feature — adds load time and steps), friend discovery (V2), post-pick DNA teaser (V3). V1 is sport → pick → name. 3 interactions.',
+      questions: [
+        'Name-ask timing: after first pick result (as shown), or can we skip the name entirely for V1 and just show "Player" on the leaderboard until they set it in Profile?',
+        'Sport select screen: show all 4 sports at once (NFL/NBA/MLB/NHL as big tiles) or carousel them so the currently live sport is pre-selected and they just tap Continue?',
+        'Account creation: V1 uses device ID only (no email/password). Users get a "save your progress" email prompt after 3 picks. Does that work as the account creation flow?',
+        'If no game is live at the time of install, what does the first pick screen show? Pre-game pick (open window before tonight\'s game), or a "first game is tonight at 7pm" waiting screen?'
       ]
     },
     'onboarding-v5': {
@@ -19223,6 +19239,222 @@
 
   <div id="sfb-panel-onboarding-v5" class="sfb-panel"></div>
 </div><!-- /screen onboarding-v5 -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     ONBOARDING v6 — V1 Spec · Sport → Pick → Name · Mar 22 2026
+     TikTok principle: show the content first. Hook, then ask.
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="onboarding-v6" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Onboarding v6 — V1 Spec · Sport Select → Pick Fires → Name After Hook</div>
+    <div class="screen-desc">Mar 22 2026 · V1 simplicity directive. Three interactions before you're in the game: (1) Pick your sport. (2) Pick OVER or UNDER. (3) What's your name (after the first result). That's it. No social proof splash, no tutorial, no account wall. TikTok principle: show the experience first, then ask for commitment.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: Sport Select — the only question before first pick ── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#060d1f;overflow:hidden;position:relative;">
+
+          <!-- Background glow -->
+          <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(85,69,211,0.3),transparent 70%);pointer-events:none;"></div>
+
+          <div style="height:44px;flex-shrink:0;"></div>
+
+          <!-- Logo -->
+          <div style="padding:12px 24px 0;text-align:center;position:relative;z-index:1;">
+            <div style="font-size:28px;font-weight:900;background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px;margin-bottom:4px;">SportsIQ</div>
+            <div style="font-size:11px;color:#64748b;margin-bottom:0;">Know more. Win more.</div>
+          </div>
+
+          <!-- Hero question -->
+          <div style="padding:24px 24px 16px;text-align:center;position:relative;z-index:1;">
+            <div style="color:#f8fafc;font-size:22px;font-weight:900;letter-spacing:-0.5px;line-height:1.2;margin-bottom:4px;">What sport do you follow?</div>
+            <div style="color:#475569;font-size:12px;">We'll pull a live pick for you right now.</div>
+          </div>
+
+          <!-- Sport tiles — 4 big tap targets -->
+          <div style="padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;position:relative;z-index:1;">
+
+            <div style="background:linear-gradient(135deg,rgba(85,69,211,0.18),rgba(85,69,211,0.08));border:2px solid rgba(85,69,211,0.45);border-radius:16px;padding:20px 14px;text-align:center;cursor:pointer;">
+              <div style="font-size:32px;margin-bottom:6px;">🏈</div>
+              <div style="color:#f0f6fc;font-size:15px;font-weight:900;">NFL</div>
+              <div style="color:#64748b;font-size:10px;margin-top:2px;">Live tonight</div>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px 14px;text-align:center;cursor:pointer;">
+              <div style="font-size:32px;margin-bottom:6px;">🏀</div>
+              <div style="color:#f0f6fc;font-size:15px;font-weight:900;">NBA</div>
+              <div style="color:#64748b;font-size:10px;margin-top:2px;">8 games today</div>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px 14px;text-align:center;cursor:pointer;">
+              <div style="font-size:32px;margin-bottom:6px;">⚾</div>
+              <div style="color:#f0f6fc;font-size:15px;font-weight:900;">MLB</div>
+              <div style="color:#64748b;font-size:10px;margin-top:2px;">Season starts Apr 3</div>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px 14px;text-align:center;cursor:pointer;">
+              <div style="font-size:32px;margin-bottom:6px;">🏒</div>
+              <div style="color:#f0f6fc;font-size:15px;font-weight:900;">NHL</div>
+              <div style="color:#64748b;font-size:10px;margin-top:2px;">Playoffs in 3 weeks</div>
+            </div>
+
+          </div>
+
+          <!-- Social proof — subtle, not a splash -->
+          <div style="padding:16px 20px 0;text-align:center;position:relative;z-index:1;">
+            <div style="color:#475569;font-size:11px;">Join 22,847 players picking right now</div>
+          </div>
+
+          <!-- No account needed note -->
+          <div style="padding:12px 20px 20px;text-align:center;position:relative;z-index:1;">
+            <div style="color:#334155;font-size:10px;">No sign-up required · Start instantly</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 1 — Sport Select: 4 tiles, pick fires immediately after tap · no account wall</div>
+    </div><!-- /phone 1 -->
+
+    <!-- ── PHONE 2: First Pick — fires right after sport select ──────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>7:48 PM</span><span>🔋</span></div>
+
+          <!-- Welcome banner — first-time only -->
+          <div style="margin:4px 16px 8px;background:linear-gradient(135deg,rgba(85,69,211,0.14),rgba(85,69,211,0.06));border:1px solid rgba(85,69,211,0.3);border-radius:12px;padding:9px 14px;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:20px;">👋</span>
+            <div>
+              <div style="color:#a78bfa;font-size:12px;font-weight:800;">Your first pick — no account needed</div>
+              <div style="color:#475569;font-size:10px;">Pick OVER or UNDER. Find out at Final Whistle.</div>
+            </div>
+          </div>
+
+          <!-- Prop line -->
+          <div style="margin:0 16px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;">
+            <div style="font-size:10px;color:#8b949e;margin-bottom:3px;">Patrick Mahomes · Passing Yards · KC vs LAC</div>
+            <div style="font-size:32px;font-weight:900;color:#f0f6fc;letter-spacing:-1px;">284.5</div>
+            <div style="font-size:10px;color:#8b949e;margin-top:1px;">Season avg: 297.4 · Eagles D rank 29th vs pass</div>
+          </div>
+
+          <!-- Signal — full visible on first pick -->
+          <div style="margin:0 16px 8px;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(245,158,11,0.03));border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:10px 14px;">
+            <div style="font-size:10px;color:#f59e0b;font-weight:700;letter-spacing:1px;margin-bottom:4px;">SPORTSIQ SIGNAL</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:15px;font-weight:900;color:#f0f6fc;">Leaning <span style="color:#22c55e;">OVER ↑</span></div>
+              <div style="text-align:right;">
+                <div style="font-size:16px;font-weight:900;color:#22c55e;">63%</div>
+                <div style="font-size:9px;color:#8b949e;">crowd OVER</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pick buttons -->
+          <div style="display:flex;gap:10px;padding:0 16px 10px;">
+            <div style="flex:1;background:linear-gradient(135deg,rgba(34,197,94,0.18),rgba(34,197,94,0.07));border:2.5px solid rgba(34,197,94,0.5);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#22c55e;">OVER</div>
+              <div style="font-size:10px;color:#8b949e;margin-top:2px;">284.5+ yds</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:22px;font-weight:900;color:#f0f6fc;">UNDER</div>
+              <div style="font-size:10px;color:#8b949e;margin-top:2px;">284.4 or less</div>
+            </div>
+          </div>
+
+          <!-- Inline multiplier — v1 simplified (2 options) -->
+          <div style="margin:0 16px 10px;">
+            <div style="color:#64748b;font-size:10px;font-weight:600;margin-bottom:6px;">IQ STAKE — start small, go bigger as you learn</div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:linear-gradient(135deg,rgba(85,69,211,0.18),rgba(85,69,211,0.08));border:2px solid rgba(85,69,211,0.45);border-radius:12px;padding:10px 8px;text-align:center;cursor:pointer;">
+                <div style="font-size:15px;font-weight:900;color:#a78bfa;">1×</div>
+                <div style="font-size:9px;color:#6d5ef0;font-weight:600;margin-top:2px;">+100 / -50 IQ</div>
+                <div style="font-size:8px;color:#5545D3;font-weight:700;margin-top:1px;">SELECTED</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 8px;text-align:center;cursor:pointer;">
+                <div style="font-size:15px;font-weight:900;color:#94a3b8;">2×</div>
+                <div style="font-size:9px;color:#475569;margin-top:2px;">+200 / -100 IQ</div>
+                <div style="font-size:8px;color:#334155;font-weight:700;margin-top:1px;">BOLD</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lock In -->
+          <div style="padding:0 16px 12px;">
+            <div style="background:linear-gradient(135deg,#5545D3,#7c3aed);border-radius:14px;padding:14px;text-align:center;cursor:pointer;">
+              <div style="color:#fff;font-size:16px;font-weight:900;">Lock In · 1× · OVER</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:10px;margin-top:2px;">Win +100 IQ at Final Whistle</div>
+            </div>
+          </div>
+
+          <!-- Window closes -->
+          <div style="text-align:center;padding-bottom:16px;">
+            <span style="font-size:10px;color:#334155;">Window closes in 1:42:14 · No account needed yet</span>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 2 — First pick fires immediately after sport select · no tutorial · 1× pre-selected for new users</div>
+    </div><!-- /phone 2 -->
+
+    <!-- ── PHONE 3: Name prompt — AFTER first result (hook then ask) ── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#64748b;"><span>9:43 PM</span><span>🔋</span></div>
+
+          <!-- Win result (brief) -->
+          <div style="padding:16px 20px 0;text-align:center;">
+            <div style="font-size:42px;margin-bottom:4px;">🏆</div>
+            <div style="font-size:12px;font-weight:700;color:#4ade80;letter-spacing:2px;margin-bottom:3px;">CORRECT PICK</div>
+            <div style="font-size:22px;font-weight:900;color:#f8fafc;letter-spacing:-1px;margin-bottom:1px;">+100 IQ</div>
+            <div style="font-size:11px;color:#475569;">Mahomes went 297 yds · OVER 284.5 ✓</div>
+          </div>
+
+          <!-- NAME ASK — fires post-first-result -->
+          <div style="margin:16px 20px;background:linear-gradient(135deg,rgba(85,69,211,0.12),rgba(85,69,211,0.05));border:1.5px solid rgba(85,69,211,0.35);border-radius:18px;padding:20px;">
+
+            <div style="text-align:center;margin-bottom:14px;">
+              <div style="color:#f8fafc;font-size:18px;font-weight:900;margin-bottom:4px;">You're on the board 🎉</div>
+              <div style="color:#64748b;font-size:12px;line-height:1.5;">What should we call you on the leaderboard?</div>
+            </div>
+
+            <!-- Name input mockup -->
+            <div style="background:rgba(255,255,255,0.06);border:1.5px solid rgba(85,69,211,0.4);border-radius:12px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+              <div style="color:#f8fafc;font-size:14px;font-weight:600;flex:1;">MarcD</div>
+              <div style="width:2px;height:16px;background:#a78bfa;border-radius:1px;animation:blink 1s step-end infinite;"></div>
+            </div>
+
+            <!-- IQ preview with their name -->
+            <div style="background:rgba(85,69,211,0.08);border-radius:10px;padding:8px 12px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="color:#a78bfa;font-size:12px;font-weight:700;">MarcD</div>
+              <div style="color:#4ade80;font-size:12px;font-weight:900;">100 IQ · #1,847</div>
+            </div>
+
+            <div style="background:linear-gradient(135deg,#5545D3,#7c3aed);border-radius:12px;padding:13px;text-align:center;cursor:pointer;">
+              <div style="color:#fff;font-size:14px;font-weight:900;">Let's go →</div>
+            </div>
+
+            <div style="text-align:center;margin-top:10px;">
+              <div style="color:#334155;font-size:10px;">Save your progress · No password needed yet</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 3 — Name ask after first pick result · "You're on the board" · IQ preview with their name · hook then ask</div>
+    </div><!-- /phone 3 -->
+
+  </div>
+  <div id="sfb-panel-onboarding-v6" class="sfb-panel"></div>
+</div><!-- /screen onboarding-v6 -->
 
 <div id="onboarding-v4" class="screen" style="display:none;">
   <div class="screen-header">
