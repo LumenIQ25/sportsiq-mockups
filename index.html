@@ -1878,8 +1878,8 @@
     <div class="tab tab-review" data-screen="head-to-head" onclick="showScreen('head-to-head',this)">
       <span class="tab-label">Head-to-Head</span><span class="tab-days" id="days-head-to-head"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="friends-feed-v1" onclick="showScreen('friends-feed-v1',this)">
-      <span class="tab-label">Friends Feed</span><span class="tab-days" id="days-friends-feed-v1"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="friends-feed-v2" onclick="showScreen('friends-feed-v2',this)">
+      <span class="tab-label">Friends Feed</span><span class="tab-days" id="days-friends-feed-v2"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="pregame-brief" onclick="showScreen('pregame-brief',this)">
       <span class="tab-label">Pre-Game Brief</span><span class="tab-days" id="days-pregame-brief"></span><span class="review-dot"></span>
@@ -1895,7 +1895,10 @@
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 22 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 23 previous versions</summary>
+      <div class="tab tab-archived" data-screen="friends-feed-v1" onclick="showScreen('friends-feed-v1',this)">
+        <span class="tab-label">Friends Feed v1</span><span class="tab-days" id="days-friends-feed-v1-arc"></span>
+      </div>
       <div class="tab tab-archived" data-screen="onboarding-v3" onclick="showScreen('onboarding-v3',this)">
         <span class="tab-label">Onboarding v3</span><span class="tab-days" id="days-onboarding-v3-arc"></span>
       </div>
@@ -4215,8 +4218,8 @@
     "date": "2026-03-22",
     "source": "inbox",
     "idea": "[friends-feed-v1] 1. reactions but keep it simple 2. before 3. manual 4. all friends",
-    "status": "noted",
-    "claude_response": "Noted — four design specs for friends-feed-v1: (1) Simple reactions only — 3-4 emoji reactions (🔥👀😬✅), no comments/threads. (2) Show pick before result — feed shows 'BigMike picked OVER · Mahomes 267.5' immediately when pick is locked, before the stat settles. Creates anticipation. (3) Manual follow — no auto-follow. Users choose who to follow. (4) All friends visible — see everyone you follow, not algorithmically filtered. These will be incorporated into the next friends-feed iteration.",
+    "status": "done",
+    "claude_response": "Built friends-feed-v2. All four specs implemented: (1) 4-emoji reaction row (🔥👀😬✅) under every feed item with counts — no comments, no threads. (2) Feed shows picks the moment they're locked as PENDING, before any result settles — 'Picked OVER · Mahomes 267.5 · Live Q3' is the primary state. (3) Manual follow only — phone 2 is a full follow management screen with explicit Follow buttons; nothing is auto-followed. (4) All friends visible — header shows 'Following 14 · All' with zero algorithmic filtering, chronological order.",
     "mark_reply": ""
   },
   {
@@ -5033,7 +5036,9 @@
     'crew-picks':          '2026-03-21T23:59:00-07:00',
     // ── Mar 22 autonomous loop — Share Card (idea-055) + Home Idle v4 (idea-054) ──
     'share-card':          '2026-03-22T00:00:00-07:00',
-    'home-idle-v4':        '2026-03-22T00:00:00-07:00'
+    'home-idle-v4':        '2026-03-22T00:00:00-07:00',
+    // ── Mar 22 — Friends Feed v2: pending picks first · 4-emoji reactions · manual follow (idea-071) ──
+    'friends-feed-v2':     '2026-03-22T12:00:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -5822,6 +5827,17 @@
         'The contrarian win (beating under 30% of crowd) — should we make the celebration MORE intense for contrarian wins to reward the harder call?',
         'Follow button label: "Follow" (compact) vs "Follow on Instagram" (explicit) — compact fits better but explicit sets expectation for newer users.',
         'Should we show a "You\'ve been contrarian 3 picks in a row" badge on the Psyche prompt for users who consistently beat the crowd?'
+      ]
+    },
+    'friends-feed-v2': {
+      icon: '👥',
+      title: 'Friends Feed v2 — Pending Picks First · 4-Emoji Reactions · Manual Follow · Mar 22 2026',
+      built: 'Iteration on v1 based on Mark\'s idea-071 specs. Four explicit changes: (1) 4-emoji reactions — every feed item has a row of 🔥👀😬✅ with counts, all tappable. No threads, no comments. (2) Pick before result — feed items show the pick the instant it\'s locked in, BEFORE the stat settles. Primary state is "Pending · Q2 live" not "Won/Lost". (3) Manual follow — phone 2 is a follow management screen. Suggested friends listed with explicit Follow button. Users must tap to follow; nothing is auto-followed. (4) All friends visible — header shows "Following 14 · All" with no algorithmic filter. What you see is everyone you follow, in chronological order.',
+      questions: [
+        'Pending pick feed — the pick shows "OVER · Mahomes pass yards 267.5 · Pending Q2" the moment it\'s locked. Should we show the CROWD LEAN (e.g., "58% picked OVER") immediately on the card, or save that reveal for after result?',
+        'Reaction row: tap once to react (toggles your reaction), tap different emoji to switch. Should a user only be able to hold ONE reaction at a time per feed item, or can they react with multiple?',
+        'Follow management phone — "Suggested for you" is based on overlapping prop pick history. Should we also suggest by: (a) same bar check-ins, (b) mutual friends, or (c) similar Sports DNA profile?',
+        'Follow count in header — "Following 14 · All" — does showing the number feel right, or does it make the app feel empty for new users with 0-3 follows? Might we hide the count until 5+ follows?'
       ]
     },
     'friends-feed-v1': {
@@ -20812,6 +20828,340 @@
   </div>
   <div id="sfb-panel-pick-result-v1" class="sfb-panel"></div>
 </div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Friends Feed v2 — Pending Picks First · 4-Emoji Reactions · Manual Follow
+     idea-071 · 2026-03-22 · mark feedback loop
+     Moat: every reaction, follow, and rivalry is irreplaceable social graph data.
+     Four spec changes: pending-first feed, 4-emoji reactions, manual follow UI,
+     all-friends no filter.
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="friends-feed-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Friends Feed v2 — Pending Picks First · 4-Emoji Reactions · Manual Follow</div>
+    <div class="screen-subtitle">Four explicit changes from Mark's idea-071: (1) Feed shows picks the instant they're locked, before result settles — anticipation is the hook. (2) Every item has a 4-emoji reaction row (🔥👀😬✅) — simple, no threads. (3) Manual follow only — nothing auto-followed, users choose who they track. (4) All friends shown — "Following 14 · All" with zero algorithmic filtering.</div>
+  </div>
+
+  <div class="phone-wrap">
+
+    <!-- Phone 1: Activity Feed v2 — pending picks primary -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:linear-gradient(180deg,#060d1c 0%,#050912 100%);overflow-y:auto;">
+
+          <!-- Top bar -->
+          <div style="position:sticky;top:0;z-index:10;padding:44px 20px 10px;background:linear-gradient(180deg,#060d1c 85%,transparent);display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:20px;font-weight:900;color:#fff;">Friends</div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <!-- All-friends no-filter badge -->
+              <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:16px;padding:4px 10px;display:flex;align-items:center;gap:5px;">
+                <span style="font-size:11px;color:#22c55e;font-weight:700;">Following 14 · All</span>
+              </div>
+              <!-- Manage follows -->
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;">＋</div>
+            </div>
+          </div>
+
+          <!-- Rivalry card -->
+          <div style="margin:4px 16px 14px;background:linear-gradient(135deg,rgba(85,69,211,0.18),rgba(85,69,211,0.07));border:1px solid rgba(85,69,211,0.32);border-radius:16px;padding:14px 16px;">
+            <div style="font-size:10px;color:#818cf8;font-weight:700;letter-spacing:1.8px;margin-bottom:10px;">🏆 TOP RIVALRY · THIS WEEK</div>
+            <div style="display:flex;align-items:center;gap:0;">
+              <div style="text-align:center;flex:1;">
+                <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#fff;margin:0 auto 4px;">Y</div>
+                <div style="font-size:12px;font-weight:800;color:#fff;">You</div>
+                <div style="font-size:10px;color:#818cf8;margin-top:1px;">🔥 4 streak</div>
+              </div>
+              <div style="text-align:center;flex:1;">
+                <div style="font-size:28px;font-weight:900;color:#fff;line-height:1;">8 <span style="color:#475569;font-size:18px;">–</span> 6</div>
+                <div style="font-size:9px;color:#475569;margin-top:2px;">this week</div>
+                <div style="margin-top:5px;background:rgba(34,197,94,0.13);border:1px solid rgba(34,197,94,0.28);border-radius:6px;padding:2px 8px;display:inline-block;">
+                  <span style="font-size:9px;color:#22c55e;font-weight:700;">YOU'RE AHEAD</span>
+                </div>
+              </div>
+              <div style="text-align:center;flex:1;">
+                <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#374151,#1f2937);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#fff;margin:0 auto 4px;">B</div>
+                <div style="font-size:12px;font-weight:800;color:#fff;">BigMike</div>
+                <div style="font-size:10px;color:#64748b;margin-top:1px;">2 streak</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feed header -->
+          <div style="padding:0 20px 8px;font-size:10px;color:#475569;font-weight:700;letter-spacing:2px;">LIVE ACTIVITY · CHRONOLOGICAL</div>
+
+          <!-- Feed items — pending picks FIRST -->
+          <div style="display:flex;flex-direction:column;gap:3px;padding:0 12px 16px;">
+
+            <!-- Item 1: PENDING pick — just locked in seconds ago -->
+            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.22);border-radius:14px;padding:12px 14px;">
+              <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+                <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;">B</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+                    <span style="font-size:13px;font-weight:800;color:#fff;">BigMike_B</span>
+                    <span style="font-size:10px;color:#475569;">just now</span>
+                    <!-- Pending pulse -->
+                    <div style="display:flex;align-items:center;gap:4px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:2px 7px;">
+                      <div style="width:5px;height:5px;border-radius:50%;background:#f59e0b;animation:pulse 1.5s infinite;"></div>
+                      <span style="font-size:9px;color:#f59e0b;font-weight:700;">LIVE Q3</span>
+                    </div>
+                  </div>
+                  <div style="font-size:13px;font-weight:700;color:#fff;">Picked <span style="color:#f59e0b;">OVER</span></div>
+                  <div style="font-size:11px;color:#94a3b8;margin-top:1px;">Mahomes passing yards · 267.5</div>
+                </div>
+              </div>
+              <!-- 4-emoji reaction row -->
+              <div style="display:flex;gap:6px;border-top:1px solid rgba(255,255,255,0.06);padding-top:9px;">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">🔥</span>
+                  <span style="font-size:10px;color:#64748b;font-weight:600;">8</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">👀</span>
+                  <span style="font-size:10px;color:#64748b;font-weight:600;">3</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">😬</span>
+                  <span style="font-size:10px;color:#64748b;font-weight:600;">1</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.35);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">✅</span>
+                  <span style="font-size:10px;color:#58a6ff;font-weight:700;">YOU</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 2: PENDING pick — just locked 2m ago -->
+            <div style="background:rgba(139,92,246,0.07);border:1px solid rgba(139,92,246,0.2);border-radius:14px;padding:12px 14px;">
+              <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+                <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;">S</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+                    <span style="font-size:13px;font-weight:800;color:#fff;">SarahK</span>
+                    <span style="font-size:10px;color:#475569;">2m ago</span>
+                    <div style="display:flex;align-items:center;gap:4px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:2px 7px;">
+                      <div style="width:5px;height:5px;border-radius:50%;background:#f59e0b;"></div>
+                      <span style="font-size:9px;color:#f59e0b;font-weight:700;">LIVE Q3</span>
+                    </div>
+                  </div>
+                  <div style="font-size:13px;font-weight:700;color:#fff;">Picked <span style="color:#8b5cf6;">UNDER</span></div>
+                  <div style="font-size:11px;color:#94a3b8;margin-top:1px;">Lamar Jackson rush yards · 34.5</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:6px;border-top:1px solid rgba(255,255,255,0.06);padding-top:9px;">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">🔥</span><span style="font-size:10px;color:#64748b;font-weight:600;">2</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">👀</span><span style="font-size:10px;color:#64748b;font-weight:600;">5</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">😬</span><span style="font-size:10px;color:#64748b;font-weight:600;">0</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">✅</span><span style="font-size:10px;color:#64748b;font-weight:600;">1</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 3: RESOLVED WIN — older item -->
+            <div style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.14);border-radius:14px;padding:12px 14px;">
+              <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+                <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#ef4444);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;">J</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+                    <span style="font-size:13px;font-weight:800;color:#fff;">JayBird_22</span>
+                    <span style="font-size:10px;color:#475569;">14m ago</span>
+                  </div>
+                  <div style="font-size:13px;font-weight:700;color:#fff;">Picked <span style="color:#22c55e;">OVER</span> <span style="font-size:11px;color:#22c55e;">✓ Won</span></div>
+                  <div style="font-size:11px;color:#94a3b8;margin-top:1px;">TD total · 5.5 · <span style="color:#22c55e;font-weight:600;">+180 IQ</span></div>
+                </div>
+              </div>
+              <div style="display:flex;gap:6px;border-top:1px solid rgba(255,255,255,0.06);padding-top:9px;">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">🔥</span><span style="font-size:10px;color:#64748b;font-weight:600;">11</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">👀</span><span style="font-size:10px;color:#64748b;font-weight:600;">1</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">😬</span><span style="font-size:10px;color:#64748b;font-weight:600;">0</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">✅</span><span style="font-size:10px;color:#64748b;font-weight:600;">4</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 4: RESOLVED LOSS -->
+            <div style="background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.1);border-radius:14px;padding:12px 14px;">
+              <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+                <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#374151,#4b5563);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;">T</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+                    <span style="font-size:13px;font-weight:800;color:#fff;">TDhunter</span>
+                    <span style="font-size:10px;color:#475569;">22m ago</span>
+                  </div>
+                  <div style="font-size:13px;font-weight:700;color:#fff;">Picked <span style="color:#f87171;">OVER</span> <span style="font-size:11px;color:#ef4444;">✗ Lost</span></div>
+                  <div style="font-size:11px;color:#94a3b8;margin-top:1px;">Mahomes rush yds · 12.5</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:6px;border-top:1px solid rgba(255,255,255,0.06);padding-top:9px;">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">🔥</span><span style="font-size:10px;color:#64748b;font-weight:600;">0</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">👀</span><span style="font-size:10px;color:#64748b;font-weight:600;">0</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">😬</span><span style="font-size:10px;color:#f87171;font-weight:700;">YOU</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:6px 4px;cursor:pointer;">
+                  <span style="font-size:18px;">✅</span><span style="font-size:10px;color:#64748b;font-weight:600;">0</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Next pick countdown (sticky bottom) -->
+          <div style="position:sticky;bottom:0;background:linear-gradient(180deg,transparent,#060d1c 30%);padding:10px 20px 24px;">
+            <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.35);border-radius:12px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:10px;color:#818cf8;font-weight:700;letter-spacing:1.5px;">NEXT PICK WINDOW</div>
+                <div style="font-size:12px;color:#94a3b8;margin-top:2px;">Q3 2-Minute Warning</div>
+              </div>
+              <div style="font-size:28px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;">14:32</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">FRIENDS FEED v2 — Pending picks primary · 4-emoji reactions · 2026-03-22</div>
+    </div>
+
+    <!-- Phone 2: Follow Management — manual follow only -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:linear-gradient(180deg,#060d1c 0%,#050912 100%);overflow-y:auto;">
+
+          <!-- Header -->
+          <div style="padding:44px 20px 16px;display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:20px;font-weight:900;color:#fff;">Find Friends</div>
+            <div style="font-size:12px;color:#475569;font-weight:600;">Following 14</div>
+          </div>
+
+          <!-- Search bar -->
+          <div style="margin:0 16px 20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:11px 16px;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:14px;color:#64748b;">🔍</span>
+            <span style="font-size:14px;color:#475569;">Find by username or name...</span>
+          </div>
+
+          <!-- Manual follow note -->
+          <div style="margin:0 16px 18px;background:rgba(88,166,255,0.06);border:1px solid rgba(88,166,255,0.18);border-radius:10px;padding:10px 14px;display:flex;align-items:flex-start;gap:8px;">
+            <span style="font-size:14px;margin-top:1px;">ℹ️</span>
+            <span style="font-size:12px;color:#94a3b8;line-height:1.5;">You follow who you choose. Nothing is auto-followed. Suggestions are based on shared pick history.</span>
+          </div>
+
+          <!-- Suggested for you -->
+          <div style="padding:0 20px 10px;font-size:10px;color:#475569;font-weight:700;letter-spacing:2px;">SUGGESTED FOR YOU</div>
+          <div style="display:flex;flex-direction:column;gap:2px;padding:0 12px 16px;">
+
+            <!-- Suggested 1 -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#1d4ed8,#3b82f6);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#fff;">R</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:13px;font-weight:800;color:#fff;">Ravens_Fan99</div>
+                <div style="font-size:11px;color:#64748b;margin-top:1px;">8 picks in common · 71% accuracy</div>
+              </div>
+              <div style="background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.35);border-radius:20px;padding:7px 14px;cursor:pointer;">
+                <span style="font-size:12px;font-weight:700;color:#58a6ff;">Follow</span>
+              </div>
+            </div>
+
+            <!-- Suggested 2 -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#b45309,#f59e0b);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#fff;">K</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:13px;font-weight:800;color:#fff;">KCsharps</div>
+                <div style="font-size:11px;color:#64748b;margin-top:1px;">6 picks in common · 68% accuracy</div>
+              </div>
+              <div style="background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.35);border-radius:20px;padding:7px 14px;cursor:pointer;">
+                <span style="font-size:12px;font-weight:700;color:#58a6ff;">Follow</span>
+              </div>
+            </div>
+
+            <!-- Suggested 3 -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a855f7);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#fff;">N</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:13px;font-weight:800;color:#fff;">NinerNation</div>
+                <div style="font-size:11px;color:#64748b;margin-top:1px;">Same bar · Kincade's Sports Bar</div>
+              </div>
+              <div style="background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.35);border-radius:20px;padding:7px 14px;cursor:pointer;">
+                <span style="font-size:12px;font-weight:700;color:#58a6ff;">Follow</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Following list -->
+          <div style="padding:0 20px 10px;font-size:10px;color:#475569;font-weight:700;letter-spacing:2px;">FOLLOWING (14)</div>
+          <div style="display:flex;flex-direction:column;gap:2px;padding:0 12px 32px;">
+
+            <!-- Following 1 — BigMike (rival) -->
+            <div style="background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.18);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#fff;">B</div>
+              <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:13px;font-weight:800;color:#fff;">BigMike_B</span>
+                  <span style="font-size:9px;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.35);border-radius:6px;padding:1px 6px;color:#818cf8;font-weight:700;">RIVAL</span>
+                </div>
+                <div style="font-size:11px;color:#64748b;margin-top:1px;">🔥 4-pick streak · 73% this week</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:7px 12px;cursor:pointer;">
+                <span style="font-size:12px;font-weight:600;color:#64748b;">Following</span>
+              </div>
+            </div>
+
+            <!-- Following 2 -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#fff;">S</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:13px;font-weight:800;color:#fff;">SarahK</div>
+                <div style="font-size:11px;color:#64748b;margin-top:1px;">Pick pending now · Q3 live</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:7px 12px;cursor:pointer;">
+                <span style="font-size:12px;font-weight:600;color:#64748b;">Following</span>
+              </div>
+            </div>
+
+            <!-- Following 3 -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#ef4444);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#fff;">J</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:13px;font-weight:800;color:#fff;">JayBird_22</div>
+                <div style="font-size:11px;color:#64748b;margin-top:1px;">62% all-time · 58 picks together</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:7px 12px;cursor:pointer;">
+                <span style="font-size:12px;font-weight:600;color:#64748b;">Following</span>
+              </div>
+            </div>
+
+            <div style="padding:8px 4px;text-align:center;font-size:11px;color:#334155;font-weight:600;">+ 11 more · scroll to see all</div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">FOLLOW MANAGEMENT — Manual follow · Suggestions by pick overlap · 2026-03-22</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-friends-feed-v2" class="sfb-panel"></div>
+</div><!-- /screen friends-feed-v2 -->
 
 <!-- ══════════════════════════════════════════════════════════════════════════
      SCREEN: Friends Feed v1 — Social Activity · Rivalry · Between-Picks
