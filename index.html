@@ -1890,12 +1890,15 @@
     <div class="tab tab-review" data-screen="crew-picks" onclick="showScreen('crew-picks',this)">
       <span class="tab-label">Crew Picks 🏆</span><span class="tab-days" id="days-crew-picks"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="share-card" onclick="showScreen('share-card',this)">
-      <span class="tab-label">Share Card 📲</span><span class="tab-days" id="days-share-card"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="share-card-v2" onclick="showScreen('share-card-v2',this)">
+      <span class="tab-label">Share Card</span><span class="tab-days" id="days-share-card-v2"></span><span class="review-dot"></span>
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 24 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 25 previous versions</summary>
+      <div class="tab tab-archived" data-screen="share-card" onclick="showScreen('share-card',this)">
+        <span class="tab-label">Share Card v1</span><span class="tab-days" id="days-share-card-arc"></span>
+      </div>
       <div class="tab tab-archived" data-screen="home-idle-v4" onclick="showScreen('home-idle-v4',this)">
         <span class="tab-label">Home · Idle v4</span><span class="tab-days" id="days-home-idle-v4-arc"></span>
       </div>
@@ -5043,7 +5046,9 @@
     // ── Mar 22 — Friends Feed v2: pending picks first · 4-emoji reactions · manual follow (idea-071) ──
     'friends-feed-v2':     '2026-03-22T12:00:00-07:00',
     // ── Mar 22 autonomous loop — Home Idle v5: Pro teaser + rank badge + streak urgency ──
-    'home-idle-v5':        '2026-03-22T13:00:00-07:00'
+    'home-idle-v5':        '2026-03-22T13:00:00-07:00',
+    // ── Mar 22 autonomous loop — Share Card v2: bold variant · streak milestone · brutal beat loss ──
+    'share-card-v2':       '2026-03-22T14:00:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -5876,6 +5881,17 @@
         'DNA calibration: 3 questions feels right to me but is there a question you\'d replace or add? The 3 I have: experience level, boldness, homer lock teams.',
         'Crew invite during onboarding: show contact list immediately (requires contacts permission) or share a link first? Link-first is less friction but less likely to result in actual crew formation at install.',
         'First pick: should it be a specific real-sounding prop we pre-select (feels smart, personalized) or let them choose from 3 options (more agency, but adds a step)?'
+      ]
+    },
+    'share-card-v2': {
+      icon: '📲',
+      title: 'Share Card v2 — Bold Variant · Streak Milestone · Brutal-Beat Loss Card · Mar 22 2026',
+      built: 'Three new card types that v1 was missing: (1) Bold/fire colorful variant — high-contrast electric orange background vs dark premium. Answers v1 question directly: dark premium shows both variants so Mark can choose. The bold card pops more in Twitter/Instagram feeds. (2) Streak milestone card — a special template for 5-pick, 7-pick, 10-pick streak milestones. 🔥 full-bleed fire design. "FIVE IN A ROW. SportsIQ has me picking like a sharp." Triggered automatically when hitting a streak milestone, not just any win. Higher emotional charge = more shares. (3) Brutal-Beat loss card — "SO CLOSE. Mahomes threw 264.5 yds. Line was 267.5. THREE YARDS." This was a v1 open question. Decision: YES, include it. Losses are more frequent than wins and the ironic/painful share is real. The near-miss loss card adds empathy and virality. Also: referral link embedded in footer of every card: "Beat me at sportsiq.app/ref/marcd" — personalizes the download CTA and ties every share to referral tracking.',
+      questions: [
+        'Card style: dark premium (v1 default) vs bold fire orange (new in v2) — which should be the default? Or let users pick their card style in settings?',
+        'Streak milestone threshold: at what streak count does the special card fire? 5, 7, or 10? My rec: 5 — low enough to be achievable, still impressive enough to brag about.',
+        'Brutal-beat loss card: should it show the exact stat line that beat you ("264.5 yds, line was 267.5") or just say "SO CLOSE" without the number? The number makes it more specific and shareable but might embarrass users.',
+        'Referral link in footer ("Beat me at sportsiq.app/ref/marcd") vs generic "Download SportsIQ" — does personalized feel genuine or cringe?'
       ]
     },
     'share-card': {
@@ -23142,6 +23158,268 @@
      Phone 2: Share card preview + share destinations
      Phone 3: Twitter timeline — what others see
      ══════════════════════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Share Card v2 — Bold Variant · Streak Milestone · Brutal Beat
+     2026-03-22 · autonomous loop · strategic refinement
+     Every share = zero-cost acquisition. v2 resolves v1 open questions:
+     dark vs bold, streak milestone card, yes to loss card.
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="share-card-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Share Card v2 — Bold Variant · Streak Milestone · Brutal-Beat Loss Card</div>
+    <div class="screen-subtitle">Resolves three open questions from v1: (1) Dark vs bold colorful — phone 1 shows both variants side by side. (2) Streak milestone card — special 🔥 template fires at 5-pick streak milestone, higher charge = more shares. (3) Brutal-beat loss card — "SO CLOSE, 3 yards" — losses are more frequent and the ironic/painful share is real. Referral link embedded in every card footer: "Beat me at sportsiq.app/ref/marcd" — every share is now a tracked referral too.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- Phone 1: Dark premium vs Bold fire — card style comparison -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>9:41 AM</span><span>🔋</span></div>
+          <div style="padding:6px 16px 10px;display:flex;align-items:center;gap:8px;">
+            <span style="color:#58a6ff;font-size:20px;">‹</span>
+            <span style="font-size:15px;font-weight:600;color:#f0f6fc;">Choose your card style</span>
+          </div>
+
+          <!-- Style toggle -->
+          <div style="margin:0 14px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <!-- Dark toggle active -->
+            <div style="background:rgba(88,166,255,0.12);border:2px solid #58a6ff;border-radius:10px;padding:8px;text-align:center;cursor:pointer;">
+              <div style="font-size:11px;font-weight:700;color:#58a6ff;">Dark Premium</div>
+              <div style="font-size:9px;color:#64748b;margin-top:2px;">Clean, data-forward</div>
+            </div>
+            <!-- Bold toggle inactive -->
+            <div style="background:rgba(251,146,60,0.1);border:1.5px solid rgba(251,146,60,0.35);border-radius:10px;padding:8px;text-align:center;cursor:pointer;">
+              <div style="font-size:11px;font-weight:700;color:#fb923c;">Bold Fire</div>
+              <div style="font-size:9px;color:#64748b;margin-top:2px;">Pops in feeds</div>
+            </div>
+          </div>
+
+          <!-- CARD A: DARK PREMIUM -->
+          <div style="margin:0 12px 6px;font-size:10px;color:#475569;font-weight:700;letter-spacing:1.5px;padding-left:2px;">DARK PREMIUM</div>
+          <div style="margin:0 12px 14px;background:linear-gradient(155deg,#0d1117,#161b22,#0d1117);border:1.5px solid #30363d;border-radius:18px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.5);">
+            <div style="background:linear-gradient(90deg,#1f6feb,#388bfd);padding:8px 14px;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:15px;font-weight:800;color:#fff;">Sports<span style="opacity:.55;">IQ</span></span>
+              <span style="font-size:9px;color:rgba(255,255,255,.65);">sportsiq.app</span>
+            </div>
+            <div style="padding:12px 14px;">
+              <div style="font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px;">✓ Correct Pick · NFL</div>
+              <div style="font-size:14px;font-weight:800;color:#f0f6fc;margin-bottom:10px;">Mahomes OVER 267 yds</div>
+              <div style="text-align:center;padding:8px;background:rgba(74,222,128,.06);border-radius:8px;border:1px solid rgba(74,222,128,.14);margin-bottom:10px;">
+                <div style="font-size:32px;font-weight:900;color:#4ade80;letter-spacing:-1px;">+196 IQ</div>
+                <div style="font-size:9px;color:#8b949e;margin-top:1px;">2× multiplier · contrarian win 🦅</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                <div style="text-align:center;flex:1;"><div style="font-size:14px;font-weight:700;color:#f0f6fc;">62%</div><div style="font-size:8px;color:#8b949e;">WIN RATE</div></div>
+                <div style="width:1px;background:#21262d;"></div>
+                <div style="text-align:center;flex:1;"><div style="font-size:14px;font-weight:700;color:#f0f6fc;">🔥 5</div><div style="font-size:8px;color:#8b949e;">STREAK</div></div>
+                <div style="width:1px;background:#21262d;"></div>
+                <div style="text-align:center;flex:1;"><div style="font-size:14px;font-weight:700;color:#e3b341;">#3</div><div style="font-size:8px;color:#8b949e;">TODAY</div></div>
+              </div>
+              <div style="background:rgba(227,179,65,.07);border:1px solid rgba(227,179,65,.18);border-radius:5px;padding:5px 8px;font-size:9px;color:#e3b341;text-align:center;margin-bottom:0;">🦅 Only 38% picked OVER — contrarian win</div>
+            </div>
+            <div style="background:rgba(255,255,255,.02);padding:7px 14px;display:flex;justify-content:space-between;border-top:1px solid #21262d;">
+              <span style="font-size:9px;color:#8b949e;">Think you can beat me?</span>
+              <span style="font-size:9px;color:#58a6ff;font-weight:600;">sportsiq.app/ref/marcd →</span>
+            </div>
+          </div>
+
+          <!-- CARD B: BOLD FIRE -->
+          <div style="margin:0 12px 6px;font-size:10px;color:#475569;font-weight:700;letter-spacing:1.5px;padding-left:2px;">BOLD FIRE</div>
+          <div style="margin:0 12px 14px;border-radius:18px;overflow:hidden;box-shadow:0 8px 28px rgba(251,146,60,.25);">
+            <!-- Bold header -->
+            <div style="background:linear-gradient(135deg,#ea580c,#fb923c,#fbbf24);padding:16px 14px 12px;text-align:center;position:relative;">
+              <div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.5px;text-shadow:0 2px 8px rgba(0,0,0,0.3);">CALLED IT. 🎯</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.85);margin-top:2px;">Mahomes OVER 267 passing yards</div>
+              <div style="position:absolute;top:8px;left:12px;font-size:11px;font-weight:800;color:rgba(255,255,255,0.85);">Sports<span style="opacity:.6;">IQ</span></div>
+            </div>
+            <!-- Bold body -->
+            <div style="background:#1a0a00;padding:12px 14px;">
+              <div style="text-align:center;margin-bottom:10px;">
+                <div style="font-size:36px;font-weight:900;color:#fb923c;letter-spacing:-1px;text-shadow:0 0 30px rgba(251,146,60,0.5);">+196 IQ</div>
+                <div style="font-size:10px;color:rgba(255,165,80,0.7);margin-top:1px;">2× multiplier</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                <div style="text-align:center;flex:1;"><div style="font-size:14px;font-weight:800;color:#fff;">62%</div><div style="font-size:8px;color:#9a5c2e;">WIN RATE</div></div>
+                <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+                <div style="text-align:center;flex:1;"><div style="font-size:14px;font-weight:800;color:#fb923c;">🔥 5</div><div style="font-size:8px;color:#9a5c2e;">STREAK</div></div>
+                <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+                <div style="text-align:center;flex:1;"><div style="font-size:14px;font-weight:800;color:#fbbf24;">#3</div><div style="font-size:8px;color:#9a5c2e;">TODAY</div></div>
+              </div>
+              <div style="background:rgba(251,146,60,0.15);border:1px solid rgba(251,146,60,0.3);border-radius:6px;padding:5px 8px;font-size:9px;color:#fb923c;text-align:center;">🦅 38% picked OVER — went against the crowd</div>
+            </div>
+            <div style="background:rgba(0,0,0,0.6);padding:7px 14px;display:flex;justify-content:space-between;">
+              <span style="font-size:9px;color:rgba(255,255,255,0.45);">Think you can beat me?</span>
+              <span style="font-size:9px;color:#fb923c;font-weight:600;">sportsiq.app/ref/marcd →</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 1 — Card style comparison: Dark Premium vs Bold Fire · 2026-03-22</div>
+    </div>
+
+    <!-- Phone 2: Streak milestone card 🔥 -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>9:41 AM</span><span>🔋</span></div>
+          <div style="padding:6px 16px 10px;display:flex;align-items:center;gap:8px;">
+            <span style="color:#58a6ff;font-size:20px;">‹</span>
+            <span style="font-size:15px;font-weight:600;color:#f0f6fc;">Your streak card 🔥</span>
+          </div>
+
+          <!-- Special milestone context -->
+          <div style="margin:0 14px 12px;background:linear-gradient(135deg,rgba(248,81,73,0.1),rgba(248,81,73,0.04));border:1px solid rgba(248,81,73,0.3);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:22px;">🔥</span>
+            <div>
+              <div style="font-size:13px;font-weight:800;color:#f0f6fc;">5-Pick Streak! Special card unlocked</div>
+              <div style="font-size:11px;color:#64748b;margin-top:1px;">Milestone cards generate 3× more shares</div>
+            </div>
+          </div>
+
+          <!-- STREAK MILESTONE CARD -->
+          <div style="margin:0 12px 14px;border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(248,81,73,.3);">
+            <!-- Full bleed fire header -->
+            <div style="background:linear-gradient(160deg,#1a0000,#7c0000,#dc2626,#f87171);padding:20px 16px 16px;text-align:center;position:relative;overflow:hidden;">
+              <!-- Flame decorations -->
+              <div style="position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.3));"></div>
+              <div style="font-size:13px;font-weight:800;color:rgba(255,255,255,0.7);letter-spacing:2px;margin-bottom:4px;">SPORTS<span style="opacity:0.5;">IQ</span></div>
+              <div style="font-size:48px;line-height:1;margin-bottom:6px;">🔥</div>
+              <div style="font-size:28px;font-weight:900;color:#fff;letter-spacing:-0.5px;text-shadow:0 0 30px rgba(255,100,0,0.8);">FIVE IN A ROW</div>
+              <div style="font-size:12px;color:rgba(255,200,200,0.9);margin-top:4px;">SportsIQ has me picking like a sharp</div>
+            </div>
+            <!-- Card body -->
+            <div style="background:#0d0606;padding:14px;">
+              <div style="margin-bottom:12px;">
+                <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">5-PICK STREAK</div>
+                <div style="display:flex;gap:5px;justify-content:center;">
+                  <div style="width:36px;height:36px;border-radius:8px;background:rgba(34,197,94,0.15);border:1.5px solid rgba(34,197,94,0.4);display:flex;align-items:center;justify-content:center;font-size:16px;">✅</div>
+                  <div style="width:36px;height:36px;border-radius:8px;background:rgba(34,197,94,0.15);border:1.5px solid rgba(34,197,94,0.4);display:flex;align-items:center;justify-content:center;font-size:16px;">✅</div>
+                  <div style="width:36px;height:36px;border-radius:8px;background:rgba(34,197,94,0.15);border:1.5px solid rgba(34,197,94,0.4);display:flex;align-items:center;justify-content:center;font-size:16px;">✅</div>
+                  <div style="width:36px;height:36px;border-radius:8px;background:rgba(34,197,94,0.15);border:1.5px solid rgba(34,197,94,0.4);display:flex;align-items:center;justify-content:center;font-size:16px;">✅</div>
+                  <div style="width:36px;height:36px;border-radius:8px;background:rgba(248,81,73,0.2);border:2px solid #f85149;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 0 12px rgba(248,81,73,0.4);">🔥</div>
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:10px;background:rgba(255,255,255,0.04);border-radius:10px;padding:10px;">
+                <div style="text-align:center;flex:1;"><div style="font-size:15px;font-weight:800;color:#fff;">+850</div><div style="font-size:8px;color:#64748b;">STREAK IQ</div></div>
+                <div style="width:1px;background:rgba(255,255,255,0.08);"></div>
+                <div style="text-align:center;flex:1;"><div style="font-size:15px;font-weight:800;color:#fff;">62%</div><div style="font-size:8px;color:#64748b;">WIN RATE</div></div>
+                <div style="width:1px;background:rgba(255,255,255,0.08);"></div>
+                <div style="text-align:center;flex:1;"><div style="font-size:15px;font-weight:800;color:#e3b341;">#3</div><div style="font-size:8px;color:#64748b;">TODAY</div></div>
+              </div>
+              <div style="background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.25);border-radius:6px;padding:6px 10px;text-align:center;font-size:10px;color:#f87171;">Next pick: 10-streak special badge unlocks</div>
+            </div>
+            <div style="background:rgba(0,0,0,0.5);padding:7px 14px;display:flex;justify-content:space-between;">
+              <span style="font-size:9px;color:rgba(255,255,255,0.35);">Can you keep up?</span>
+              <span style="font-size:9px;color:#f87171;font-weight:600;">sportsiq.app/ref/marcd →</span>
+            </div>
+          </div>
+
+          <!-- Share buttons -->
+          <div style="margin:0 12px 16px;display:flex;gap:8px;">
+            <div style="flex:1;background:#1d9bf0;border-radius:10px;padding:9px;text-align:center;cursor:pointer;"><div style="font-size:15px;">𝕏</div><div style="font-size:9px;color:#fff;margin-top:2px;font-weight:600;">Twitter</div></div>
+            <div style="flex:1;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-radius:10px;padding:9px;text-align:center;cursor:pointer;"><div style="font-size:15px;">📷</div><div style="font-size:9px;color:#fff;margin-top:2px;font-weight:600;">Instagram</div></div>
+            <div style="flex:1;background:#25d366;border-radius:10px;padding:9px;text-align:center;cursor:pointer;"><div style="font-size:15px;">💬</div><div style="font-size:9px;color:#fff;margin-top:2px;font-weight:600;">iMessage</div></div>
+            <div style="flex:1;background:#21262d;border:1px solid #30363d;border-radius:10px;padding:9px;text-align:center;cursor:pointer;"><div style="font-size:15px;">🔗</div><div style="font-size:9px;color:#8b949e;margin-top:2px;">Copy</div></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 2 — Streak milestone card: 🔥 5-in-a-row special template · 2026-03-22</div>
+    </div>
+
+    <!-- Phone 3: Brutal-beat loss card -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>9:41 AM</span><span>🔋</span></div>
+          <div style="padding:6px 16px 10px;display:flex;align-items:center;gap:8px;">
+            <span style="color:#58a6ff;font-size:20px;">‹</span>
+            <span style="font-size:15px;font-weight:600;color:#f0f6fc;">Share the near-miss 😭</span>
+          </div>
+
+          <!-- Loss context + brutal beat explanation -->
+          <div style="margin:0 14px 12px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:10px 14px;">
+            <div style="font-size:12px;font-weight:700;color:#f87171;margin-bottom:2px;">So Close You Can Feel It</div>
+            <div style="font-size:11px;color:#64748b;">Mahomes threw 264.5 yards. The line was 267.5. Three. Yards.</div>
+          </div>
+
+          <!-- BRUTAL BEAT CARD -->
+          <div style="margin:0 12px 14px;border-radius:18px;overflow:hidden;box-shadow:0 6px 24px rgba(239,68,68,0.2);">
+            <div style="background:linear-gradient(90deg,#450a0a,#7f1d1d);padding:9px 14px;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:14px;font-weight:800;color:rgba(255,255,255,0.8);">Sports<span style="opacity:.4;">IQ</span></span>
+              <span style="font-size:9px;color:rgba(255,200,200,.55);">sportsiq.app</span>
+            </div>
+            <div style="background:#1a0808;padding:14px;">
+              <!-- Near-miss headline -->
+              <div style="text-align:center;margin-bottom:12px;">
+                <div style="font-size:24px;font-weight:900;color:#f87171;letter-spacing:-0.5px;">SO. CLOSE.</div>
+                <div style="font-size:11px;color:#9a5252;margin-top:3px;">Mahomes OVER 267.5 passing yards</div>
+              </div>
+              <!-- The crime scene numbers -->
+              <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:12px;margin-bottom:12px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                  <div style="text-align:center;flex:1;">
+                    <div style="font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">My pick</div>
+                    <div style="font-size:18px;font-weight:800;color:#f87171;">OVER</div>
+                    <div style="font-size:10px;color:#64748b;margin-top:1px;">267.5 yds</div>
+                  </div>
+                  <div style="font-size:20px;color:#450a0a;font-weight:900;">|</div>
+                  <div style="text-align:center;flex:1;">
+                    <div style="font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Settled at</div>
+                    <div style="font-size:18px;font-weight:800;color:#ef4444;">264.5</div>
+                    <div style="font-size:10px;color:#64748b;margin-top:1px;">yards</div>
+                  </div>
+                  <div style="font-size:20px;color:#450a0a;font-weight:900;">|</div>
+                  <div style="text-align:center;flex:1;">
+                    <div style="font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Off by</div>
+                    <div style="font-size:18px;font-weight:800;color:#fca5a5;">3</div>
+                    <div style="font-size:10px;color:#64748b;margin-top:1px;">yards</div>
+                  </div>
+                </div>
+                <div style="background:rgba(239,68,68,0.12);border-radius:6px;padding:5px 8px;text-align:center;font-size:10px;color:#fca5a5;">📺 Mahomes took a knee on that last drive. The refs did this.</div>
+              </div>
+              <!-- Record stays intact -->
+              <div style="display:flex;justify-content:space-between;">
+                <div style="text-align:center;flex:1;"><div style="font-size:13px;font-weight:700;color:#f0f6fc;">62%</div><div style="font-size:8px;color:#64748b;">WIN RATE</div></div>
+                <div style="width:1px;background:rgba(255,255,255,0.06);"></div>
+                <div style="text-align:center;flex:1;"><div style="font-size:13px;font-weight:700;color:#f85149;">Streak: 0</div><div style="font-size:8px;color:#64748b;">BROKEN 💀</div></div>
+                <div style="width:1px;background:rgba(255,255,255,0.06);"></div>
+                <div style="text-align:center;flex:1;"><div style="font-size:13px;font-weight:700;color:#f0f6fc;">Was #3</div><div style="font-size:8px;color:#64748b;">TODAY</div></div>
+              </div>
+            </div>
+            <div style="background:rgba(0,0,0,0.5);padding:7px 14px;display:flex;justify-content:space-between;">
+              <span style="font-size:9px;color:rgba(255,200,200,0.4);">This happens to everyone. Play smarter.</span>
+              <span style="font-size:9px;color:#f87171;font-weight:600;">sportsiq.app/ref/marcd →</span>
+            </div>
+          </div>
+
+          <!-- Optional share nudge -->
+          <div style="margin:0 14px 10px;display:flex;gap:8px;justify-content:center;align-items:center;">
+            <div style="flex:1;background:#21262d;border:1px solid #30363d;border-radius:10px;padding:9px;text-align:center;cursor:pointer;">
+              <div style="font-size:12px;font-weight:600;color:#f0f6fc;">😭 Share the pain</div>
+            </div>
+            <div style="flex:1;background:#161b22;border:1px solid #21262d;border-radius:10px;padding:9px;text-align:center;cursor:pointer;">
+              <div style="font-size:12px;font-weight:600;color:#64748b;">Skip</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 3 — Brutal-beat loss card: "3 yards. The refs did this." · 2026-03-22</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-share-card-v2" class="sfb-panel"></div>
+</div><!-- /screen share-card-v2 -->
+
 <div id="share-card" class="screen" style="display:none;">
   <div class="screen-header">
     <h2>📲 Share Card</h2>
