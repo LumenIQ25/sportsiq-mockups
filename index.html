@@ -1860,8 +1860,8 @@
     <div class="tab tab-review" data-screen="sports-dna-v3" onclick="showScreen('sports-dna-v3',this)">
       <span class="tab-label">Sports DNA</span><span class="tab-days" id="days-sports-dna-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="referral-v2" onclick="showScreen('referral-v2',this)">
-      <span class="tab-label">Referral</span><span class="tab-days" id="days-referral-v2"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="referral-v3" onclick="showScreen('referral-v3',this)">
+      <span class="tab-label">Referral</span><span class="tab-days" id="days-referral-v3"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="pick-result-v3" onclick="showScreen('pick-result-v3',this)">
       <span class="tab-label">Pick Result</span><span class="tab-days" id="days-pick-result-v3"></span><span class="review-dot"></span>
@@ -1895,7 +1895,10 @@
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 28 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 29 previous versions</summary>
+      <div class="tab tab-archived" data-screen="referral-v2" onclick="showScreen('referral-v2',this)">
+        <span class="tab-label">Referral v2</span><span class="tab-days" id="days-referral-v2-arc"></span>
+      </div>
       <div class="tab tab-archived" data-screen="onboarding-v4" onclick="showScreen('onboarding-v4',this)">
         <span class="tab-label">Onboarding v4</span><span class="tab-days" id="days-onboarding-v4-arc"></span>
       </div>
@@ -5026,6 +5029,8 @@
     'sports-dna-v2':       '2026-03-21T16:30:00-07:00',
     'sports-dna-v3':       '2026-03-22T22:00:00-07:00',
     'referral-v2':         '2026-03-21T16:30:00-07:00',
+    // ── Mar 22 autonomous loop — Referral v3: win-tied share · crew activity · 3-friend Pro trial unlock ──
+    'referral-v3':         '2026-03-22T18:00:00-07:00',
     // ── Mar 21 5:30 PM PT — Bar TV v3 batch (ideas 037,039–041) ─────────
     'bar-idle-v4':         '2026-03-21T17:30:00-07:00',
     'bar-tracking-v3':     '2026-03-21T17:30:00-07:00',
@@ -5742,6 +5747,17 @@
         'Three-dimension Pick Style (Contrarian / Timing / Risk) — is this too much data density on one screen, or does more data make the profile feel more valuable and sticky?',
         '"Your Edge" callout — should it surface the user\'s single best stat automatically, or let them pin one stat as their featured insight?',
         'Badge visibility: show all earned badges + locked (greyed out) badges as goals, or show earned-only to keep the shelf clean?'
+      ]
+    },
+    'referral-v3': {
+      icon: '🎯',
+      title: 'Referral v3 — Win-Tied Share · Crew Activity Feed · 3-Friend Pro Trial · Mar 22 2026',
+      built: 'Closes the acquisition loop: the Share Card v2 and Pick Result v3 "Share your win" buttons now lead somewhere that actually converts. Three phones: (1) Share win moment — this is the share sheet that appears when you tap "Share your win" after a pick resolves. Shows a mini preview of the win card, pre-fills a personalized share message ("I just called OVER on Mahomes. 284 yards. Crowd was 68% with me."), four share channels (WhatsApp, iMessage, Instagram Story, Copy). +100 IQ for referrer is visible but secondary — the lead is "share the win" not "earn IQ." (2) Referral crew feed — live activity of who you\'ve referred. Real-time status: "Alex · 4-pick streak · just won," "Marcus · joined 2h ago · 3 picks so far," "Jordan · inactive 4 days" (shows churn nudge opportunity). Progress bar toward 3-friend Pro trial milestone. "1 more → 7-day Pro unlocks." (3) Pro trial unlock celebration — the moment you hit 3 referrals. Gold gradient celebration: "Pro Trial Unlocked!" 7 days Pro activates instantly. Lists the 3 key Pro features turning on. Social reinforcement: "Your 3 recruits also earned +50 IQ welcome bonus each." Future hook: 2 more = 1.1× permanent multiplier. This loop creates: referral → organic acquisition + new user activated → referrer gets Pro trial → Pro trial experience converts to paid.',
+      questions: [
+        '3 referrals = 7-day Pro trial: is this the right threshold? Could argue for 1 referral = 3-day trial (lower bar, higher volume) vs 5 referrals = 14-day trial (higher bar, more acquisition per conversion).',
+        'Pre-filled share message — personalized to the specific win vs generic ("Come play SportsIQ with me"). How much personalization is too much — does referencing the exact stat feel too niche for a new user who doesn\'t know the game yet?',
+        'Inactive crew member ("Jordan · inactive 4 days") — should we show a "Nudge them" button that sends a push notification to the inactive friend, or is that too aggressive?',
+        'IQ earned from referrals: permanent vs expires in 90 days? The mark-ideas note flagged this needs an ecosystem-level decision. My recommendation: referral bonus IQ expires after 90 days if not used toward a milestone — creates urgency while keeping pick accuracy scores clean.'
       ]
     },
     'referral-v2': {
@@ -21180,6 +21196,314 @@
      SCREEN: Referral v2 — 2026-03-21 — IQ points, two-sided, pre-set, milestones
      Ideas answered: 035 (points for now, two-sided, pre-set, milestone recommendations)
 ══════════════════════════════════════════════════════════════════════════ -->
+<!-- SCREEN: Referral v3 — Win-Tied Share · Crew Activity · 3-Friend Pro Trial Unlock -->
+<div id="referral-v3" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Referral v3 — Win-Tied Share · Crew Activity Feed · Pro Trial Unlock · 2026-03-22</div>
+    <div class="screen-desc">Closes the acquisition loop. Pick Result v3 "Share your win" leads here. Three phones: (1) share-win moment with pre-filled message, (2) live crew activity with Pro trial progress, (3) Pro trial unlock celebration at 3 referrals.</div>
+  </div>
+
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: SHARE WIN MOMENT — post-win referral trigger ─────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#0d1117;overflow:hidden;">
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;"></div>
+
+          <!-- Header -->
+          <div style="padding:8px 16px 6px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:16px;font-weight:800;color:#f8fafc;">Share your win</div>
+              <div style="font-size:11px;color:#64748b;">+100 IQ when they join</div>
+            </div>
+            <div style="color:#64748b;font-size:12px;">✕</div>
+          </div>
+
+          <!-- Mini win card preview -->
+          <div style="margin:4px 14px;background:linear-gradient(135deg,#1a0f3a,#071a14);border:1px solid rgba(34,197,94,0.3);border-radius:14px;padding:14px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:700;color:#64748b;">Sports<span style="color:#5545D3;">IQ</span> · NFL · KC vs PHI</div>
+              <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.35);border-radius:8px;padding:2px 8px;">
+                <div style="font-size:9px;font-weight:800;color:#22c55e;">WON ✓</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:15px;font-weight:800;color:#f8fafc;">Mahomes · OVER ✓</div>
+                <div style="font-size:11px;color:#4ade80;">284 yds · Target was 267</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:22px;font-weight:900;color:#22c55e;">+250</div>
+                <div style="font-size:9px;color:#64748b;letter-spacing:1px;">IQ EARNED</div>
+              </div>
+            </div>
+            <div style="margin-top:8px;font-size:10px;color:#64748b;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px;">Beat 68% of the crowd · sportsiq.app/ref/marcd →</div>
+          </div>
+
+          <!-- Pre-filled message -->
+          <div style="margin:8px 14px 0;flex-shrink:0;">
+            <div style="font-size:10px;font-weight:700;color:#64748b;letter-spacing:1px;margin-bottom:5px;">YOUR MESSAGE</div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:11px 13px;">
+              <div style="font-size:12px;color:#94a3b8;line-height:1.6;">I just called OVER on Mahomes. 284 yards — the line was 267. Beat 68% of the crowd. Come try SportsIQ free 👇</div>
+              <div style="font-size:12px;color:#5545D3;margin-top:4px;font-weight:600;">sportsiq.app/ref/marcd</div>
+            </div>
+          </div>
+
+          <!-- Share channels -->
+          <div style="margin:10px 14px 0;flex-shrink:0;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+              <div style="background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);border-radius:11px;padding:10px 8px;display:flex;align-items:center;gap:7px;cursor:pointer;">
+                <span style="font-size:16px;">💬</span>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#25d366;">WhatsApp</div>
+                  <div style="font-size:9px;color:#64748b;">Send message</div>
+                </div>
+              </div>
+              <div style="background:rgba(52,199,89,0.1);border:1px solid rgba(52,199,89,0.25);border-radius:11px;padding:10px 8px;display:flex;align-items:center;gap:7px;cursor:pointer;">
+                <span style="font-size:16px;">💬</span>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#34c759;">iMessage</div>
+                  <div style="font-size:9px;color:#64748b;">Send message</div>
+                </div>
+              </div>
+              <div style="background:rgba(225,48,108,0.1);border:1px solid rgba(225,48,108,0.25);border-radius:11px;padding:10px 8px;display:flex;align-items:center;gap:7px;cursor:pointer;">
+                <span style="font-size:16px;">📸</span>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#e1306c;">Instagram Story</div>
+                  <div style="font-size:9px;color:#64748b;">Share card</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:10px 8px;display:flex;align-items:center;gap:7px;cursor:pointer;">
+                <span style="font-size:16px;">🔗</span>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#94a3b8;">Copy Link</div>
+                  <div style="font-size:9px;color:#64748b;">sportsiq.app/ref/marcd</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two-sided reward note -->
+          <div style="margin:10px 14px 0;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.18);border-radius:10px;padding:9px 12px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:14px;">🎁</span>
+            <div style="font-size:11px;color:#94a3b8;line-height:1.4;">You earn <span style="color:#fbbf24;font-weight:700;">+100 IQ</span> when they join · They get <span style="color:#4ade80;font-weight:700;">+50 IQ</span> welcome bonus · 1 more friend = <span style="color:#fbbf24;font-weight:700;">7-day Pro trial</span></div>
+          </div>
+
+          <div style="flex:1;"></div>
+
+        </div>
+      </div>
+      <div class="phone-label">SHARE WIN MOMENT · Mini win card preview · Pre-filled message · WhatsApp / iMessage / Story / Copy · Pro trial nudge</div>
+    </div>
+
+    <!-- ── PHONE 2: REFERRAL CREW — live activity feed ───────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#0d1117;overflow:hidden;">
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;"></div>
+
+          <!-- Header -->
+          <div style="padding:8px 16px 10px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="font-size:16px;font-weight:800;color:#f8fafc;">Your Crew (3)</div>
+            <div style="font-size:11px;color:#64748b;margin-top:2px;">You've earned <span style="color:#a78bfa;font-weight:700;">+300 IQ</span> from referrals</div>
+          </div>
+
+          <!-- Pro trial progress bar — PROMINENT -->
+          <div style="margin:10px 14px 0;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(217,119,6,0.06));border:1px solid rgba(245,158,11,0.3);border-radius:14px;padding:12px 14px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:700;color:#fbbf24;">⚡ Pro trial: 1 friend away</div>
+              <div style="font-size:11px;font-weight:800;color:#f8fafc;">2/3</div>
+            </div>
+            <div style="height:7px;border-radius:4px;overflow:hidden;background:rgba(255,255,255,0.08);margin-bottom:6px;">
+              <div style="width:66%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px;"></div>
+            </div>
+            <div style="font-size:10px;color:#94a3b8;">Invite 1 more friend → 7-day Pro trial unlocks immediately</div>
+            <div style="margin-top:8px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:7px 12px;text-align:center;cursor:pointer;">
+              <div style="font-size:11px;font-weight:800;color:#fbbf24;">Invite 1 more →</div>
+            </div>
+          </div>
+
+          <!-- Crew activity list -->
+          <div style="flex:1;overflow-y:auto;padding:10px 14px 0;">
+            <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:2px;margin-bottom:8px;">YOUR CREW</div>
+
+            <!-- Friend 1: Active, on streak -->
+            <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:12px;padding:11px 13px;margin-bottom:7px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;">A</div>
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <div style="font-size:12px;font-weight:700;color:#f8fafc;">AlexSharp</div>
+                    <div style="background:rgba(34,197,94,0.15);border-radius:6px;padding:1px 6px;font-size:9px;font-weight:700;color:#4ade80;">ACTIVE</div>
+                  </div>
+                  <div style="font-size:10px;color:#64748b;margin-top:2px;">Joined 5 days ago · Rank #234</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:14px;">🔥</div>
+                  <div style="font-size:10px;color:#fbbf24;font-weight:700;">4-streak</div>
+                </div>
+              </div>
+              <div style="margin-top:8px;font-size:11px;color:#4ade80;background:rgba(34,197,94,0.08);border-radius:7px;padding:5px 8px;">Just won: OVER on Lamar Jackson · +340 IQ</div>
+            </div>
+
+            <!-- Friend 2: New, just started -->
+            <div style="background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.15);border-radius:12px;padding:11px 13px;margin-bottom:7px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#f97316);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;">M</div>
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <div style="font-size:12px;font-weight:700;color:#f8fafc;">BigMike</div>
+                    <div style="background:rgba(85,69,211,0.15);border-radius:6px;padding:1px 6px;font-size:9px;font-weight:700;color:#a78bfa;">NEW</div>
+                  </div>
+                  <div style="font-size:10px;color:#64748b;margin-top:2px;">Joined 2h ago · 3 picks so far</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:12px;color:#a78bfa;font-weight:700;">Rank #847</div>
+                </div>
+              </div>
+              <div style="margin-top:8px;font-size:11px;color:#a78bfa;background:rgba(85,69,211,0.08);border-radius:7px;padding:5px 8px;">Just joined via your link · Making picks now</div>
+            </div>
+
+            <!-- Friend 3: Gone cold — nudge opportunity -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:11px 13px;margin-bottom:14px;opacity:0.75;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#475569;flex-shrink:0;">J</div>
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <div style="font-size:12px;font-weight:700;color:#64748b;">JordanB</div>
+                    <div style="background:rgba(239,68,68,0.1);border-radius:6px;padding:1px 6px;font-size:9px;font-weight:700;color:#ef4444;">COLD</div>
+                  </div>
+                  <div style="font-size:10px;color:#475569;margin-top:2px;">Joined 8 days ago · Hasn't played in 4 days</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:5px 9px;cursor:pointer;">
+                  <div style="font-size:10px;font-weight:700;color:#64748b;">Nudge →</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Milestone tiers -->
+            <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:2px;margin-bottom:7px;">MILESTONE REWARDS</div>
+            <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px;">
+              <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:10px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:15px;">⚡</span>
+                  <div>
+                    <div style="font-size:11px;font-weight:700;color:#f8fafc;">3 friends · 7-day Pro trial</div>
+                    <div style="font-size:10px;color:#64748b;">1 more to go</div>
+                  </div>
+                </div>
+                <div style="font-size:11px;font-weight:800;color:#fbbf24;">2/3</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:15px;">🔥</span>
+                  <div>
+                    <div style="font-size:11px;font-weight:700;color:#94a3b8;">5 friends · 1.1× permanent multiplier</div>
+                    <div style="font-size:10px;color:#64748b;">3 more to go</div>
+                  </div>
+                </div>
+                <div style="font-size:11px;font-weight:700;color:#475569;">2/5</div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">REFERRAL CREW · 2/3 Pro trial · Alex active / BigMike new / JordanB cold · Nudge button · Milestone tiers</div>
+    </div>
+
+    <!-- ── PHONE 3: PRO TRIAL UNLOCK — celebration at 3 referrals ────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#0d1117;overflow:hidden;position:relative;">
+
+          <!-- Gold glow -->
+          <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,0.3) 0%,rgba(245,158,11,0.08) 50%,transparent 70%);pointer-events:none;z-index:0;animation:glow 2.5s ease-in-out infinite;"></div>
+
+          <!-- Confetti gold -->
+          <div style="position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;">
+            <div style="position:absolute;top:20%;left:15%;width:8px;height:8px;border-radius:50%;background:#f59e0b;animation:fadeUp 0.5s ease 0.1s both;"></div>
+            <div style="position:absolute;top:15%;left:75%;width:6px;height:6px;border-radius:50%;background:#fbbf24;animation:fadeUp 0.4s ease 0.2s both;"></div>
+            <div style="position:absolute;top:10%;left:50%;width:10px;height:4px;border-radius:2px;background:#f97316;transform:rotate(35deg);animation:fadeUp 0.6s ease 0.15s both;"></div>
+            <div style="position:absolute;top:25%;left:85%;width:7px;height:7px;border-radius:50%;background:#22c55e;animation:fadeUp 0.5s ease 0.25s both;"></div>
+          </div>
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;position:relative;z-index:2;"></div>
+
+          <!-- Main celebration content -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;position:relative;z-index:2;gap:12px;">
+
+            <!-- Pro badge hero -->
+            <div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(245,158,11,0.5);animation:fadeUp 0.4s ease both;">
+              <div style="color:#fff;font-size:30px;">⚡</div>
+            </div>
+
+            <!-- Headline -->
+            <div style="text-align:center;animation:fadeUp 0.5s ease 0.1s both;">
+              <div style="color:#fbbf24;font-size:12px;font-weight:700;letter-spacing:3px;margin-bottom:6px;">3 FRIENDS JOINED</div>
+              <div style="color:#f8fafc;font-size:24px;font-weight:900;line-height:1.2;letter-spacing:-0.5px;">Pro Trial<br>Unlocked! 🎉</div>
+              <div style="color:#94a3b8;font-size:12px;margin-top:6px;">7 days Pro · Starts now · No card required</div>
+            </div>
+
+            <!-- Pro features activating -->
+            <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:14px;padding:14px;width:100%;animation:fadeUp 0.5s ease 0.2s both;">
+              <div style="font-size:10px;font-weight:700;color:#fbbf24;letter-spacing:2px;margin-bottom:10px;">ACTIVATING NOW</div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:16px;">⚡</span>
+                  <div><div style="font-size:12px;font-weight:700;color:#f8fafc;">10 picks/day</div><div style="font-size:10px;color:#64748b;">Free: 3 picks/day</div></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:16px;">🧠</span>
+                  <div><div style="font-size:12px;font-weight:700;color:#f8fafc;">Personal Prop Coach</div><div style="font-size:10px;color:#64748b;">Weekly pattern breakdown</div></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:16px;">⏰</span>
+                  <div><div style="font-size:12px;font-weight:700;color:#f8fafc;">+15 min early pick access</div><div style="font-size:10px;color:#64748b;">Pick before the crowd forms</div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Social reinforcement -->
+            <div style="text-align:center;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:12px;padding:10px 14px;width:100%;animation:fadeUp 0.5s ease 0.25s both;">
+              <div style="font-size:11px;color:#4ade80;line-height:1.5;">Your 3 crew members also earned<br><span style="font-weight:700;">+50 IQ welcome bonus each</span></div>
+            </div>
+
+            <!-- Future hook -->
+            <div style="text-align:center;animation:fadeUp 0.5s ease 0.3s both;">
+              <div style="font-size:11px;color:#475569;">Invite 2 more → unlock 1.1× permanent multiplier</div>
+            </div>
+
+          </div>
+
+          <!-- CTA -->
+          <div style="padding:10px 16px 22px;flex-shrink:0;position:relative;z-index:2;">
+            <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:14px;padding:14px;text-align:center;">
+              <div style="color:#fff;font-size:15px;font-weight:900;">Start Pro Trial →</div>
+              <div style="color:rgba(255,255,255,0.8);font-size:10px;margin-top:2px;">7 days free · Cancel anytime</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">PRO TRIAL UNLOCK · 3 friends joined → 7-day Pro activates · Prop Coach + Early Access + 10 picks/day · "Your crew earned +50 IQ each"</div>
+    </div>
+
+  </div>
+
+  <div id="sfb-panel-referral-v3" class="sfb-panel"></div>
+</div><!-- /screen referral-v3 -->
+
 <div id="referral-v2" class="screen" style="display:none;">
   <div class="screen-header">
     <div class="screen-title">Referral v2 — IQ points · Two-sided · Pre-set · Tiered milestones + permanent multiplier</div>
