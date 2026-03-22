@@ -1896,6 +1896,9 @@
     <div class="tab tab-review" data-screen="crew-picks" onclick="showScreen('crew-picks',this)">
       <span class="tab-label">Crew Picks 🏆</span><span class="tab-days" id="days-crew-picks"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="onboarding" onclick="showScreen('onboarding',this)">
+      <span class="tab-label">Onboarding 🚀</span><span class="tab-days" id="days-onboarding"></span><span class="review-dot"></span>
+    </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
       <summary class="nav-archive-toggle">↓ 10 previous versions</summary>
@@ -4745,7 +4748,9 @@
     // ── Mar 21 — SportsIQ Pro v2: richer value stack per Mark feedback (idea-052) ──
     'sportsiq-pro-v2':     '2026-03-21T23:59:00-07:00',
     // ── Mar 21 autonomous loop — Crew Picks (idea-053) ──
-    'crew-picks':          '2026-03-21T23:59:00-07:00'
+    'crew-picks':          '2026-03-21T23:59:00-07:00',
+    // ── Mar 21 autonomous loop — Onboarding flow (idea-054) ──
+    'onboarding':          '2026-03-21T23:59:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -5476,6 +5481,17 @@
         'Should the brief show friends picks-in-progress (who has already picked for tonight) or keep it pure intelligence and save the social layer for the pick card?'
       ]
     },
+    'onboarding': {
+      icon: '🚀',
+      title: 'Onboarding — First 60 Seconds · Sports Selection · DNA Calibration · First Pick',
+      built: 'Proactive build (idea-054): the screen every VC asks to see first. "Show me the first 60 seconds." Four-step onboarding flow: (1) Sports selection — pick your leagues (NFL, NBA, MLB, NHL, CFB, NCAAB). Your selection seeds your Sports DNA and determines which props you see first. (2) DNA calibration — 3 quick questions: how experienced are you (casual/sharp/veteran), how bold are you (safe 1× / bold 2× / max 2×), any teams you never bet against ("homer lock"). This initializes your Sports DNA profile instantly. (3) Invite your crew — invite 1-4 friends to join your crew right now. Shows crew FOMO: "Crews with 3+ members win 23% more IQ." Skip option available. (4) First pick moment — the "aha" instant. One prop, pre-selected for you based on your sports selection. Crowd split visible. Pick OVER or UNDER, earn your first IQ. "You just earned your first 47 IQ" celebration screen.',
+      questions: [
+        'Sports selection step: tap-to-toggle league tiles (current design) vs swipe cards one at a time? Tap-toggle lets you see everything at once and feels faster.',
+        'DNA calibration: 3 questions feels right to me but is there a question you\'d replace or add? The 3 I have: experience level, boldness, homer lock teams.',
+        'Crew invite during onboarding: show contact list immediately (requires contacts permission) or share a link first? Link-first is less friction but less likely to result in actual crew formation at install.',
+        'First pick: should it be a specific real-sounding prop we pre-select (feels smart, personalized) or let them choose from 3 options (more agency, but adds a step)?'
+      ]
+    },
     'crew-picks': {
       icon: '🏆',
       title: 'Crew Picks — Group Social Bets · Crew Leaderboard · Moat Screen',
@@ -5802,8 +5818,8 @@
   var _serverMode = false;
   var LS_COMPLETED = 'siq-completed-ids';
   var LS_NEW_ITEMS = 'siq-new-items';
-  /* Vercel API base — always call Vercel directly regardless of which host serves the HTML */
-  var _apiBase = 'https://sportsiq-mockups-ms5lhgksr-lumeniqs-projects.vercel.app';
+  /* Vercel API base — use relative URLs so calls always hit the same deployment serving the page */
+  var _apiBase = window.location.origin.includes('localhost') ? '' : window.location.origin;
 
   /* ── Detect companion server on load ─────────────────── */
   fetch(_apiBase + '/api/health', { signal: AbortSignal.timeout(3000) })
