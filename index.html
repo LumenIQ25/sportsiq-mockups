@@ -1860,6 +1860,9 @@
     <div class="tab tab-review" data-screen="notifications-v2" onclick="showScreen('notifications-v2',this)">
       <span class="tab-label">Notifications</span><span class="tab-days" id="days-notifications-v2"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="notifications-v3" onclick="showScreen('notifications-v3',this)">
+      <span class="tab-label">Notifications v3</span><span class="tab-days" id="days-notifications-v3"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="my-stats-v2" onclick="showScreen('my-stats-v2',this)">
       <span class="tab-label">My Stats</span><span class="tab-days" id="days-my-stats-v2"></span><span class="review-dot"></span>
     </div>
@@ -4116,8 +4119,8 @@
     "date": "2026-03-22",
     "source": "inbox",
     "idea": "[notifications-v2] 1. simple 2. use real game stats for everything 3. auto-learn",
-    "status": "noted",
-    "claude_response": "Got it. Notifications v3: simple pack toggles (not individual notification controls). All content uses real game stats — no placeholder/generic text. System auto-learns notification timing preferences from user behavior (no manual quiet-hours setting required). I'll build this as notifications-v3.",
+    "status": "done",
+    "claude_response": "Built Notifications v3. 3 phones: (1) Settings — 3 pack toggles only (Game Day, Social, Habit). Game Day and Social ON, Habit OFF. Each pack shows what's inside. Auto-learn status card at bottom. (2) Notification examples — 6 iOS-style notifications shown with real data baked in. Pick window: 'Mahomes opens now — line 287.5 · his avg 304.2 · you're 4-1 OVER on him.' Result: 'OVER hit! 312 yds · +200 IQ.' Social: 'SarahK just moved past you — gap 80 IQ · 1 pick away from reclaiming.' Every notification has actual context. (3) Auto-learn insight — shows what the system learned: Game Day 98% open rate (send at full freq), Social paused before 8 AM after 12 days of ignoring, peak window learned as 7-11 PM Sundays. Transparency with reset option.",
     "mark_reply": ""
   },
   {
@@ -4845,6 +4848,7 @@
     'game-day-v3':         '2026-03-21T15:30:00-07:00',
     'game-day-v4':         '2026-03-22T14:00:00-07:00',
     'notifications-v2':    '2026-03-21T15:30:00-07:00',
+    'notifications-v3':    '2026-03-22T16:00:00-07:00',
     // ── Mar 21 4:30 PM PT — stats/leaderboard/DNA/referral (032–035) ──
     'leaderboard-v3':      '2026-03-21T16:30:00-07:00',
     'leaderboard-v4':      '2026-03-21T20:00:00-07:00',
@@ -5464,6 +5468,16 @@
         'Session Hub as the "game night home base" — does this replace the regular Home screen during active sessions, or stack on top of it?',
         '"Path to First" math: show it always, or only within striking distance (e.g., less than 500 pts behind #1)?',
         'Clutch Pick window: last 15 minutes of the game, or triggered by the venue owner at a dramatic moment?'
+      ]
+    },
+    'notifications-v3': {
+      icon: '🔔',
+      title: 'Notifications v3 — Real Stats Only · Simple Packs · Auto-Learn Timing',
+      built: 'v3 applies Mark\'s decisions: (1) Simple — 3 pack toggles only, not individual notification types. Packs: Game Day, Social, Habit. Toggle a pack = toggle everything in it. (2) Real game stats everywhere — no generic text. Every notification contains a real stat, real game context, real line. "Mahomes starts in 14 min. His line is 287.5 yds — you\'re 3-1 OVER on this matchup." (3) Auto-learn — system observes open rates and ignore patterns by time window. No manual quiet hours. 3 phones: (1) Settings — 3 pack toggles + auto-learn status card showing patterns already discovered. (2) Notification examples — 6 real-stats notifications shown as iOS previews with actual data. (3) Auto-learn insight — "We noticed you ignore Social before 8 AM. We\'ve adjusted." Transparency builds trust.',
+      questions: [
+        'Auto-learn transparency: should users see what the system has learned (like phone 3 shows), or does it just silently adjust with no UI?',
+        'Pack naming: Game Day / Social / Habit — or do you want different names? Alternative: Play / Friends / Streak',
+        'Real stats require a data refresh when the notification fires. Does Isaac have a backend that supports live stat injection at notification time, or should I design for delayed stats (e.g., show line only, not current count)?'
       ]
     },
     'notifications-v2': {
@@ -18623,6 +18637,319 @@
 
   </div>
   <div id="sfb-panel-notifications-v2" class="sfb-panel"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Notifications v3 — 2026-03-22 — Real stats, simple packs, auto-learn timing
+     Ideas answered: 061 (simple, real game stats, auto-learn)
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="notifications-v3" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Notifications v3 — Real Stats Only · 3 Simple Packs · Auto-Learn Timing</div>
+    <div class="screen-subtitle">Mark's decisions: (1) Simple — 3 pack toggles only. (2) Real game stats in every notification, no generic text. (3) Auto-learn timing from user behavior — no manual quiet hours. 3 phones: settings, notification examples, auto-learn insight.</div>
+  </div>
+
+  <div class="phones-row">
+
+    <!-- PHONE 1: Notification settings — 3 pack toggles -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#060d1f;">
+              <span style="font-size:11px;color:#475569;font-weight:600;">9:41 AM</span>
+              <span style="font-size:15px;color:#475569;">←</span>
+              <span style="font-size:9px;color:#475569;">●●●●</span>
+            </div>
+
+            <div style="padding:4px 16px 14px;">
+              <div style="font-size:18px;font-weight:900;color:#f1f5f9;margin-bottom:2px;">Notifications</div>
+              <div style="font-size:11px;color:#475569;">3 packs. Toggle a pack to adjust everything in it.</div>
+            </div>
+
+            <!-- 3 pack toggles -->
+            <div style="padding:0 16px;display:flex;flex-direction:column;gap:10px;">
+
+              <!-- Game Day pack — ON -->
+              <div style="background:rgba(139,92,246,0.1);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;padding:14px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:rgba(139,92,246,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;">🎯</div>
+                    <div>
+                      <div style="font-size:13px;font-weight:800;color:#f1f5f9;">Game Day</div>
+                      <div style="font-size:10px;color:#64748b;margin-top:1px;">Pick windows · Results · Clutch moments</div>
+                    </div>
+                  </div>
+                  <!-- Toggle ON -->
+                  <div style="width:44px;height:24px;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:12px;position:relative;">
+                    <div style="position:absolute;right:2px;top:2px;width:20px;height:20px;background:#fff;border-radius:50%;"></div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                  <div style="background:rgba(139,92,246,0.15);border-radius:20px;padding:2px 8px;font-size:9px;color:#a78bfa;font-weight:600;">Pick windows open</div>
+                  <div style="background:rgba(139,92,246,0.15);border-radius:20px;padding:2px 8px;font-size:9px;color:#a78bfa;font-weight:600;">Pick results</div>
+                  <div style="background:rgba(139,92,246,0.15);border-radius:20px;padding:2px 8px;font-size:9px;color:#a78bfa;font-weight:600;">Clutch Pick</div>
+                  <div style="background:rgba(139,92,246,0.15);border-radius:20px;padding:2px 8px;font-size:9px;color:#a78bfa;font-weight:600;">Session start</div>
+                </div>
+              </div>
+
+              <!-- Social pack — ON -->
+              <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:14px;padding:14px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:rgba(59,130,246,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;">👥</div>
+                    <div>
+                      <div style="font-size:13px;font-weight:800;color:#f1f5f9;">Social</div>
+                      <div style="font-size:10px;color:#64748b;margin-top:1px;">Friend picks · Chirps · H2H challenges</div>
+                    </div>
+                  </div>
+                  <!-- Toggle ON -->
+                  <div style="width:44px;height:24px;background:linear-gradient(90deg,#2563eb,#60a5fa);border-radius:12px;position:relative;">
+                    <div style="position:absolute;right:2px;top:2px;width:20px;height:20px;background:#fff;border-radius:50%;"></div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                  <div style="background:rgba(59,130,246,0.12);border-radius:20px;padding:2px 8px;font-size:9px;color:#60a5fa;font-weight:600;">Friend picked</div>
+                  <div style="background:rgba(59,130,246,0.12);border-radius:20px;padding:2px 8px;font-size:9px;color:#60a5fa;font-weight:600;">Rank overtaken</div>
+                  <div style="background:rgba(59,130,246,0.12);border-radius:20px;padding:2px 8px;font-size:9px;color:#60a5fa;font-weight:600;">Chirp received</div>
+                </div>
+              </div>
+
+              <!-- Habit pack — OFF -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:14px;opacity:0.7;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:18px;">🔁</div>
+                    <div>
+                      <div style="font-size:13px;font-weight:800;color:#94a3b8;">Habit</div>
+                      <div style="font-size:10px;color:#475569;margin-top:1px;">Streak reminders · Daily challenge nudges</div>
+                    </div>
+                  </div>
+                  <!-- Toggle OFF -->
+                  <div style="width:44px;height:24px;background:rgba(255,255,255,0.1);border-radius:12px;position:relative;">
+                    <div style="position:absolute;left:2px;top:2px;width:20px;height:20px;background:#475569;border-radius:50%;"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Auto-learn status -->
+            <div style="margin:12px 16px 0;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+              <span style="font-size:16px;">🧠</span>
+              <div>
+                <div style="font-size:11px;font-weight:700;color:#4ade80;">Auto-learn: On</div>
+                <div style="font-size:10px;color:#475569;margin-top:1px;">SportsIQ learns when you prefer to receive each pack. No manual setup needed.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">3 PACKS ONLY · No individual toggles · Auto-learn active</div>
+      </div>
+    </div>
+
+    <!-- PHONE 2: Real-stats notification examples -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#1c1c1e;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 8px;display:flex;justify-content:space-between;align-items:center;background:#1c1c1e;">
+              <span style="font-size:11px;color:#8e8e93;font-weight:600;">8:02 PM</span>
+              <span style="font-size:12px;color:#8e8e93;font-weight:600;">Sunday</span>
+              <span style="font-size:9px;color:#8e8e93;">●●●●</span>
+            </div>
+
+            <div style="padding:0 12px;display:flex;flex-direction:column;gap:8px;flex:1;overflow-y:auto;">
+
+              <!-- Notification 1: Pick window -->
+              <div style="background:rgba(255,255,255,0.08);border-radius:14px;padding:11px 13px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+                  <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:14px;">⚡</div>
+                  <div>
+                    <div style="font-size:11px;font-weight:700;color:#fff;">SportsIQ</div>
+                    <div style="font-size:10px;color:#8e8e93;">now</div>
+                  </div>
+                </div>
+                <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px;">Pick window: Mahomes opens now</div>
+                <div style="font-size:11px;color:#aeaeb2;line-height:1.4;">Passing Yards line: 287.5 · His season avg 304.2 · You're 4-1 OVER on him this year</div>
+              </div>
+
+              <!-- Notification 2: Result -->
+              <div style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);border-radius:14px;padding:11px 13px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+                  <div style="width:28px;height:28px;border-radius:8px;background:rgba(34,197,94,0.2);display:flex;align-items:center;justify-content:center;font-size:14px;">✅</div>
+                  <div>
+                    <div style="font-size:11px;font-weight:700;color:#fff;">SportsIQ</div>
+                    <div style="font-size:10px;color:#8e8e93;">just now</div>
+                  </div>
+                </div>
+                <div style="font-size:12px;font-weight:700;color:#4ade80;margin-bottom:2px;">OVER hit! Mahomes 312 yds ✓</div>
+                <div style="font-size:11px;color:#aeaeb2;">+200 IQ · You called it with 63% of the room · Streak: 3</div>
+              </div>
+
+              <!-- Notification 3: Social — friend picked -->
+              <div style="background:rgba(59,130,246,0.1);border-radius:14px;padding:11px 13px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+                  <div style="width:28px;height:28px;border-radius:8px;background:rgba(59,130,246,0.2);display:flex;align-items:center;justify-content:center;font-size:14px;">👥</div>
+                  <div>
+                    <div style="font-size:11px;font-weight:700;color:#fff;">SportsIQ</div>
+                    <div style="font-size:10px;color:#8e8e93;">2m ago</div>
+                  </div>
+                </div>
+                <div style="font-size:12px;font-weight:700;color:#60a5fa;margin-bottom:2px;">Mike went UNDER on Hurts Rush Yds</div>
+                <div style="font-size:11px;color:#aeaeb2;">Hurts line 34.5 · Mike's on a 4-game cold streak · 🔥 You're OVER</div>
+              </div>
+
+              <!-- Notification 4: Rank overtaken -->
+              <div style="background:rgba(239,68,68,0.1);border-radius:14px;padding:11px 13px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+                  <div style="width:28px;height:28px;border-radius:8px;background:rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;font-size:14px;">⚔️</div>
+                  <div>
+                    <div style="font-size:11px;font-weight:700;color:#fff;">SportsIQ</div>
+                    <div style="font-size:10px;color:#8e8e93;">14m ago</div>
+                  </div>
+                </div>
+                <div style="font-size:12px;font-weight:700;color:#f87171;margin-bottom:2px;">SarahK just moved past you</div>
+                <div style="font-size:11px;color:#aeaeb2;">She's now #3 · You're #4 · Gap: 80 IQ · 1 pick away from reclaiming it</div>
+              </div>
+
+              <!-- Notification 5: Clutch -->
+              <div style="background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.25);border-radius:14px;padding:11px 13px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+                  <div style="width:28px;height:28px;border-radius:8px;background:rgba(168,85,247,0.2);display:flex;align-items:center;justify-content:center;font-size:14px;">⚡</div>
+                  <div>
+                    <div style="font-size:11px;font-weight:700;color:#fff;">SportsIQ</div>
+                    <div style="font-size:10px;color:#8e8e93;">1m ago</div>
+                  </div>
+                </div>
+                <div style="font-size:12px;font-weight:700;color:#e879f9;margin-bottom:2px;">Clutch Pick: Chiefs 21 Eagles 20 · Q4 2:00</div>
+                <div style="font-size:11px;color:#aeaeb2;">Win or lose in regulation? · 3× IQ multiplier · 90 sec to lock</div>
+              </div>
+
+              <!-- Notification 6: Streak reminder (habit pack) -->
+              <div style="background:rgba(245,158,11,0.08);border-radius:14px;padding:11px 13px;opacity:0.6;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+                  <div style="width:28px;height:28px;border-radius:8px;background:rgba(245,158,11,0.15);display:flex;align-items:center;justify-content:center;font-size:14px;">🔥</div>
+                  <div>
+                    <div style="font-size:11px;font-weight:700;color:#fff;">SportsIQ</div>
+                    <div style="font-size:10px;color:#8e8e93;">5h ago</div>
+                  </div>
+                </div>
+                <div style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:2px;">Streak at risk — 14 days · 4h to go</div>
+                <div style="font-size:11px;color:#aeaeb2;font-style:italic;">Habit pack — off in your settings</div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">REAL STATS IN EVERY NOTIF · Lines, averages, streaks, exact scores · No generic text</div>
+      </div>
+    </div>
+
+    <!-- PHONE 3: Auto-learn insight card -->
+    <div class="phone-wrap">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#060d1f;display:flex;flex-direction:column;overflow:hidden;">
+
+            <div style="padding:44px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#060d1f;">
+              <span style="font-size:11px;color:#475569;font-weight:600;">9:41 AM</span>
+              <span style="font-size:15px;color:#475569;">←</span>
+              <span style="font-size:9px;color:#475569;">●●●●</span>
+            </div>
+
+            <div style="padding:4px 16px 10px;">
+              <div style="font-size:18px;font-weight:900;color:#f1f5f9;margin-bottom:2px;">Notifications</div>
+            </div>
+
+            <!-- Auto-learn card — hero -->
+            <div style="margin:0 12px;background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(5,150,105,0.08));border:2px solid rgba(16,185,129,0.3);border-radius:16px;padding:14px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <div style="font-size:24px;">🧠</div>
+                <div>
+                  <div style="font-size:13px;font-weight:800;color:#4ade80;">SportsIQ has learned your patterns</div>
+                  <div style="font-size:10px;color:#475569;margin-top:1px;">Based on 3 weeks of behavior</div>
+                </div>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:8px;">
+
+                <!-- Pattern 1: Game Day timing -->
+                <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:10px 12px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                    <div style="display:flex;align-items:center;gap:6px;">
+                      <span style="font-size:12px;">🎯</span>
+                      <span style="font-size:11px;font-weight:700;color:#f1f5f9;">Game Day pack</span>
+                    </div>
+                    <span style="font-size:9px;color:#4ade80;font-weight:700;">98% open rate</span>
+                  </div>
+                  <div style="font-size:10px;color:#64748b;line-height:1.4;">You open these immediately. Sending at full frequency.</div>
+                </div>
+
+                <!-- Pattern 2: Social timing adjusted -->
+                <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:10px 12px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                    <div style="display:flex;align-items:center;gap:6px;">
+                      <span style="font-size:12px;">👥</span>
+                      <span style="font-size:11px;font-weight:700;color:#f1f5f9;">Social pack</span>
+                    </div>
+                    <span style="font-size:9px;color:#f59e0b;font-weight:700;">Adjusted</span>
+                  </div>
+                  <div style="font-size:10px;color:#64748b;line-height:1.4;">You ignored Social notifs before 8 AM for 12 days straight. We've paused Social pack before 8 AM automatically.</div>
+                </div>
+
+                <!-- Pattern 3: Peak window -->
+                <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:10px 12px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                    <div style="display:flex;align-items:center;gap:6px;">
+                      <span style="font-size:12px;">⏰</span>
+                      <span style="font-size:11px;font-weight:700;color:#f1f5f9;">Peak engagement window</span>
+                    </div>
+                    <span style="font-size:9px;color:#a78bfa;font-weight:700;">Learned</span>
+                  </div>
+                  <div style="font-size:10px;color:#64748b;line-height:1.4;">You're most active 7–11 PM on Sundays and 6–9 PM on Thursdays. We prioritize delivery in those windows.</div>
+                </div>
+
+              </div>
+
+              <!-- Override option -->
+              <div style="margin-top:10px;text-align:center;">
+                <div style="font-size:10px;color:#334155;">Not right? <span style="color:#a78bfa;font-weight:700;">Reset and re-learn</span></div>
+              </div>
+            </div>
+
+            <!-- Simple pack toggles below (condensed) -->
+            <div style="margin:10px 12px 0;display:flex;flex-direction:column;gap:6px;">
+              <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:13px;">🎯</span><span style="font-size:12px;font-weight:700;color:#f1f5f9;">Game Day</span></div>
+                <div style="width:38px;height:22px;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:11px;position:relative;"><div style="position:absolute;right:2px;top:2px;width:18px;height:18px;background:#fff;border-radius:50%;"></div></div>
+              </div>
+              <div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15);border-radius:10px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:13px;">👥</span><span style="font-size:12px;font-weight:700;color:#f1f5f9;">Social</span></div>
+                <div style="width:38px;height:22px;background:linear-gradient(90deg,#2563eb,#60a5fa);border-radius:11px;position:relative;"><div style="position:absolute;right:2px;top:2px;width:18px;height:18px;background:#fff;border-radius:50%;"></div></div>
+              </div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;opacity:0.7;">
+                <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:13px;">🔁</span><span style="font-size:12px;font-weight:700;color:#94a3b8;">Habit</span></div>
+                <div style="width:38px;height:22px;background:rgba(255,255,255,0.1);border-radius:11px;position:relative;"><div style="position:absolute;left:2px;top:2px;width:18px;height:18px;background:#475569;border-radius:50%;"></div></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="phone-label">AUTO-LEARN INSIGHT · System shows what it learned · Trust-building transparency</div>
+      </div>
+    </div>
+
+  </div><!-- end phones-row -->
+
+  <div id="sfb-panel-notifications-v3" class="sfb-panel"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
