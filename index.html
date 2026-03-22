@@ -1830,8 +1830,8 @@
     <div class="tab tab-review" data-screen="home-live-v5" onclick="showScreen('home-live-v5',this)">
       <span class="tab-label">Home · Live</span><span class="tab-days" id="days-home-live-v5"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="home-idle-v5" onclick="showScreen('home-idle-v5',this)">
-      <span class="tab-label">Home · Idle</span><span class="tab-days" id="days-home-idle-v5"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="home-idle-v6" onclick="showScreen('home-idle-v6',this)">
+      <span class="tab-label">Home · Idle</span><span class="tab-days" id="days-home-idle-v6"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="pick-card-v4" onclick="showScreen('pick-card-v4',this)">
       <span class="tab-label">Pick Card</span><span class="tab-days" id="days-pick-card-v4"></span><span class="review-dot"></span>
@@ -1895,7 +1895,10 @@
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 30 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 31 previous versions</summary>
+      <div class="tab tab-archived" data-screen="home-idle-v5" onclick="showScreen('home-idle-v5',this)">
+        <span class="tab-label">Home · Idle v5</span><span class="tab-days" id="days-home-idle-v5-arc"></span>
+      </div>
       <div class="tab tab-archived" data-screen="notifications-v3" onclick="showScreen('notifications-v3',this)">
         <span class="tab-label">Notifications v3</span><span class="tab-days" id="days-notifications-v3-arc"></span>
       </div>
@@ -3593,15 +3596,14 @@
 
      STATUS VALUES: "new" | "queued" | "in-progress" | "done" | "noted"
 ══════════════════════════════════════════════════════════════════════════ -->
-<script id="mark-ideas" type="application/json">
-[
+<script id="mark-ideas" type="application/json">[
   {
     "id": "idea-001",
     "date": "2026-03-20",
     "source": "inbox",
-    "idea": "Idea Inbox — a place to develop and iterate on ideas with Claude.",
+    "idea": "Idea Inbox \u2014 a place to develop and iterate on ideas with Claude.",
     "status": "done",
-    "claude_response": "Built — this inbox. JSON-powered, reply-per-card, Claude checks on each loop and acts on mark_reply entries.",
+    "claude_response": "Built \u2014 this inbox. JSON-powered, reply-per-card, Claude checks on each loop and acts on mark_reply entries.",
     "mark_reply": ""
   },
   {
@@ -3610,43 +3612,43 @@
     "source": "chat",
     "idea": "Integrate Kalshi and Polymarket APIs to enhance SportsIQ with real-money prediction market intelligence",
     "status": "done",
-    "claude_response": "Built — Market Intel tab. Enhanced pick card with 4-signal odds panel: SIQ AI vs Kalshi vs Polymarket vs Crowd. Market Pulse mobile screen. Bar TV market ticker band via Polymarket Sports WebSocket. Includes moat analysis, API notes, regulatory warning on Kalshi.",
+    "claude_response": "Built \u2014 Market Intel tab. Enhanced pick card with 4-signal odds panel: SIQ AI vs Kalshi vs Polymarket vs Crowd. Market Pulse mobile screen. Bar TV market ticker band via Polymarket Sports WebSocket. Includes moat analysis, API notes, regulatory warning on Kalshi.",
     "mark_reply": ""
   },
   {
     "id": "idea-003",
     "date": "2026-03-20",
     "source": "autonomous-loop",
-    "idea": "Venue Owner Admin Dashboard — B2B command center for bar owners",
+    "idea": "Venue Owner Admin Dashboard \u2014 B2B command center for bar owners",
     "status": "done",
-    "claude_response": "Built — Venue Owner tab. Tonight stats grid, live activity feed, leaderboard, TV display controls, weekly engagement chart, revenue/ROI strip, sportsbook affiliate panel, patron intelligence, moat analysis.",
+    "claude_response": "Built \u2014 Venue Owner tab. Tonight stats grid, live activity feed, leaderboard, TV display controls, weekly engagement chart, revenue/ROI strip, sportsbook affiliate panel, patron intelligence, moat analysis.",
     "mark_reply": ""
   },
   {
     "id": "idea-004",
     "date": "2026-03-21",
     "source": "autonomous-loop",
-    "idea": "My Stats — Personal performance dashboard",
+    "idea": "My Stats \u2014 Personal performance dashboard",
     "status": "done",
-    "claude_response": "Built — My Stats tab. Win rate hero, streak, P&L, per-sport bars, badge shelf, pick history with W/L dot strip.",
+    "claude_response": "Built \u2014 My Stats tab. Win rate hero, streak, P&L, per-sport bars, badge shelf, pick history with W/L dot strip.",
     "mark_reply": ""
   },
   {
     "id": "idea-005",
     "date": "2026-03-21",
     "source": "autonomous-loop",
-    "idea": "Leaderboard — Friend group social competition",
+    "idea": "Leaderboard \u2014 Friend group social competition",
     "status": "done",
-    "claude_response": "Built — Leaderboard tab. Gold/silver/bronze podium, ranked list with streaks, Invite Friends, scope Friends/Global/Groups, periods Week/Month/Season/All-Time, social notification feed.",
+    "claude_response": "Built \u2014 Leaderboard tab. Gold/silver/bronze podium, ranked list with streaks, Invite Friends, scope Friends/Global/Groups, periods Week/Month/Season/All-Time, social notification feed.",
     "mark_reply": ""
   },
   {
     "id": "idea-006",
     "date": "2026-03-20",
     "source": "autonomous-loop",
-    "idea": "Onboarding Flow — 5-step first-time user experience",
+    "idea": "Onboarding Flow \u2014 5-step first-time user experience",
     "status": "done",
-    "claude_response": "Built — Onboarding tab. 5 phones: Welcome, Sport/Team personalization, First Pick (sharp money blurred), Reveal + badge, Invite Friends with seeded leaderboard.",
+    "claude_response": "Built \u2014 Onboarding tab. 5 phones: Welcome, Sport/Team personalization, First Pick (sharp money blurred), Reveal + badge, Invite Friends with seeded leaderboard.",
     "mark_reply": ""
   },
   {
@@ -3655,7 +3657,7 @@
     "source": "inbox",
     "idea": "[home-live] 1. more aggressively as it approaches 0:00 / 2. lets try for accuracy / 3. a little more prominent / 4. over under for now",
     "status": "done",
-    "claude_response": "Built — Home Live v2 tab. Two phones: 0:09 state pulses red, 0:03 state shakes + CTA turns red. Intel card now leads with '73% historically accurate on similar props' (accuracy over probability). Intel displayed as prominent glowing purple card. Over/Under kept as binary choice.",
+    "claude_response": "Built \u2014 Home Live v2 tab. Two phones: 0:09 state pulses red, 0:03 state shakes + CTA turns red. Intel card now leads with '73% historically accurate on similar props' (accuracy over probability). Intel displayed as prominent glowing purple card. Over/Under kept as binary choice.",
     "mark_reply": ""
   },
   {
@@ -3664,7 +3666,7 @@
     "source": "inbox",
     "idea": "[home-idle] 1. upcoming props and friends picks / 2. not for now / 3. yes we should do that",
     "status": "done",
-    "claude_response": "Noted — Home Idle v2 to show: upcoming props feed and friends recent picks. Pre-lock early picks: not for now. Daily challenge/streak mechanic on idle: yes. Will build Home Idle v2 in next loop.",
+    "claude_response": "Noted \u2014 Home Idle v2 to show: upcoming props feed and friends recent picks. Pre-lock early picks: not for now. Daily challenge/streak mechanic on idle: yes. Will build Home Idle v2 in next loop.",
     "mark_reply": ""
   },
   {
@@ -3673,7 +3675,7 @@
     "source": "inbox",
     "idea": "[pick-card] 1. better the way it is now / 2. perfect / 3. should match with bar screen. Optimize vertical spacing.",
     "status": "done",
-    "claude_response": "Noted — Pick Card: multiplier buttons stay as-is, Intel placement perfect, card should match bar screen visual language. Vertical spacing gaps to be fixed. Will build Pick Card v2 with tighter spacing + bar-screen alignment.",
+    "claude_response": "Noted \u2014 Pick Card: multiplier buttons stay as-is, Intel placement perfect, card should match bar screen visual language. Vertical spacing gaps to be fixed. Will build Pick Card v2 with tighter spacing + bar-screen alignment.",
     "mark_reply": ""
   },
   {
@@ -3682,7 +3684,7 @@
     "source": "inbox",
     "idea": "[pick-wait] 1. real time / 2. showing friends picks is great / 3. final whistle. Optimize vertical spacing.",
     "status": "done",
-    "claude_response": "Noted — Pick Wait: stat counter real-time via WebSocket, friends picks confirmed good, result at final whistle, spacing to be tightened. Will build Pick Wait v2 with friends picks panel and tighter layout.",
+    "claude_response": "Noted \u2014 Pick Wait: stat counter real-time via WebSocket, friends picks confirmed good, result at final whistle, spacing to be tightened. Will build Pick Wait v2 with friends picks panel and tighter layout.",
     "mark_reply": ""
   },
   {
@@ -3691,7 +3693,7 @@
     "source": "inbox",
     "idea": "[my-stats] 1. yes (win rate hero) / 2. infinite scroll / 3. add social/referral badges. How does trivia fit?",
     "status": "done",
-    "claude_response": "Noted — win rate is hero, infinite scroll history, adding social/referral badges (Most Friends on App, Top Recruiter). Trivia fits as its own stats section: Trivia IQ Score, per-sport accuracy, trivia badges. Built the full Trivia screen — see Trivia tab in v2 Updates group.",
+    "claude_response": "Noted \u2014 win rate is hero, infinite scroll history, adding social/referral badges (Most Friends on App, Top Recruiter). Trivia fits as its own stats section: Trivia IQ Score, per-sport accuracy, trivia badges. Built the full Trivia screen \u2014 see Trivia tab in v2 Updates group.",
     "mark_reply": ""
   },
   {
@@ -3700,25 +3702,25 @@
     "source": "inbox",
     "idea": "[leaderboard] 1. default should be groups / 2. both / 3. yes (trash talk)",
     "status": "done",
-    "claude_response": "Noted — Leaderboard: default scope = Groups. Prize pools: both free and paid. Trash talk: yes, it is a feature. Will build Leaderboard v2 with groups default, prize pool UI, and trash talk feed.",
+    "claude_response": "Noted \u2014 Leaderboard: default scope = Groups. Prize pools: both free and paid. Trash talk: yes, it is a feature. Will build Leaderboard v2 with groups default, prize pool UI, and trash talk feed.",
     "mark_reply": ""
   },
   {
     "id": "idea-013",
     "date": "2026-03-21",
     "source": "inbox",
-    "idea": "[bar-idle] 1. yes / 2. code should be 5 digits — how does code work? / 3. yes",
+    "idea": "[bar-idle] 1. yes / 2. code should be 5 digits \u2014 how does code work? / 3. yes",
     "status": "done",
-    "claude_response": "Built — Bar Idle v2 tab. 5-digit room code (74291). QR enlarged to 280px with glow. Added explanation: code is unique to venue+session, auto-resets. How it works: venue owner hits Start Session in dashboard → unique 5-digit code generated → users enter on mobile to join that venue leaderboard.",
+    "claude_response": "Built \u2014 Bar Idle v2 tab. 5-digit room code (74291). QR enlarged to 280px with glow. Added explanation: code is unique to venue+session, auto-resets. How it works: venue owner hits Start Session in dashboard \u2192 unique 5-digit code generated \u2192 users enter on mobile to join that venue leaderboard.",
     "mark_reply": ""
   },
   {
     "id": "idea-014",
     "date": "2026-03-21",
     "source": "inbox",
-    "idea": "[bar-pred-q] 1. yes show it / 2. useful keep it / 3. no circular countdown visible — add it. Make QR bigger.",
+    "idea": "[bar-pred-q] 1. yes show it / 2. useful keep it / 3. no circular countdown visible \u2014 add it. Make QR bigger.",
     "status": "done",
-    "claude_response": "Built — Bar Pred-Q v2 tab. Circular SVG countdown (red arc depletes clockwise over lock window). SportsIQ Intelligence shown as purple glowing banner. QR enlarged to 140px. 5-digit room code.",
+    "claude_response": "Built \u2014 Bar Pred-Q v2 tab. Circular SVG countdown (red arc depletes clockwise over lock window). SportsIQ Intelligence shown as purple glowing banner. QR enlarged to 140px. 5-digit room code.",
     "mark_reply": ""
   },
   {
@@ -3727,7 +3729,7 @@
     "source": "inbox",
     "idea": "[bar-tracking] 1. step update / 2. show the leaderboard / 3. yes. Make QR bigger.",
     "status": "done",
-    "claude_response": "Built — Bar Tracking v2 tab. 3-step progress: Picks Made → Watching Live → Final Whistle. Live leaderboard right panel with top 5 + each player's pick direction (OVER/UNDER). QR enlarged to 120px.",
+    "claude_response": "Built \u2014 Bar Tracking v2 tab. 3-step progress: Picks Made \u2192 Watching Live \u2192 Final Whistle. Live leaderboard right panel with top 5 + each player's pick direction (OVER/UNDER). QR enlarged to 120px.",
     "mark_reply": ""
   },
   {
@@ -3736,7 +3738,7 @@
     "source": "inbox",
     "idea": "[bar-result] 1. top 10 if you can fit it / 2. its good / 3. contrarian bonus is good. Make QR bigger.",
     "status": "done",
-    "claude_response": "Built — Bar Result v2 tab. Top-10 leaderboard panel (gold/silver/bronze top 3). Contrarian Bonus golden callout: '3 players called UNDER and won! +150 pts.' QR enlarged to 100px inside leaderboard panel.",
+    "claude_response": "Built \u2014 Bar Result v2 tab. Top-10 leaderboard panel (gold/silver/bronze top 3). Contrarian Bonus golden callout: '3 players called UNDER and won! +150 pts.' QR enlarged to 100px inside leaderboard panel.",
     "mark_reply": ""
   },
   {
@@ -3745,7 +3747,7 @@
     "source": "inbox",
     "idea": "[mkt-intel] 1. fine the way it is / 2. keep it / 3. free",
     "status": "done",
-    "claude_response": "Noted — Market Intel: 4-signal panel stays, crowd split stays, market intelligence is free tier. No visual changes needed.",
+    "claude_response": "Noted \u2014 Market Intel: 4-signal panel stays, crowd split stays, market intelligence is free tier. No visual changes needed.",
     "mark_reply": ""
   },
   {
@@ -3754,7 +3756,7 @@
     "source": "inbox",
     "idea": "[onboarding] 1. yes (profile photo) / 2. SOFT (friends picks) / 3. ask during onboarding",
     "status": "done",
-    "claude_response": "Noted — Onboarding v2: include profile photo in Step 2, show friends picks softly in Step 3, ask notification permissions during onboarding Step 4. Will build Onboarding v2 in next loop.",
+    "claude_response": "Noted \u2014 Onboarding v2: include profile photo in Step 2, show friends picks softly in Step 3, ask notification permissions during onboarding Step 4. Will build Onboarding v2 in next loop.",
     "mark_reply": ""
   },
   {
@@ -3763,7 +3765,7 @@
     "source": "inbox",
     "idea": "[daily-challenge] 1. same for all users / 2. what do you recommend? / 3. no / 4. allow one skip per week",
     "status": "done",
-    "claude_response": "Noted — Daily Challenge: same question set for all users (creates shared social moment). My recommendation: 5 picks, each slightly harder than the last, refreshes at midnight. No [item 3]. One skip per week allowed. Will incorporate into Daily Challenge v2.",
+    "claude_response": "Noted \u2014 Daily Challenge: same question set for all users (creates shared social moment). My recommendation: 5 picks, each slightly harder than the last, refreshes at midnight. No [item 3]. One skip per week allowed. Will incorporate into Daily Challenge v2.",
     "mark_reply": ""
   },
   {
@@ -3772,7 +3774,7 @@
     "source": "inbox",
     "idea": "[game-day] 1. any user in the venue / 2. keep it / 3. yes (clutch mechanic)",
     "status": "done",
-    "claude_response": "Noted — Game Day Mode: unlocks for any user in the venue geographic area (not just check-in required). Path to #1 gap mechanic: keep it. Clutch mechanic (last-pick multiplier that can flip leaderboard): yes, build it. Will incorporate into Game Day v2.",
+    "claude_response": "Noted \u2014 Game Day Mode: unlocks for any user in the venue geographic area (not just check-in required). Path to #1 gap mechanic: keep it. Clutch mechanic (last-pick multiplier that can flip leaderboard): yes, build it. Will incorporate into Game Day v2.",
     "mark_reply": ""
   },
   {
@@ -3781,25 +3783,25 @@
     "source": "inbox",
     "idea": "[bar-idle-v2] 1 numeric\n2 yes\n3 makes sense",
     "status": "done",
-    "claude_response": "Built bar-idle-v3. Added a prominent ‘47 PLAYING TONIGHT’ numeric count to the right panel with a green live dot. Big number (120px) above the leaderboard so bars can see at a glance how many players are active. Room code explanation kept as-is (makes sense approved).",
+    "claude_response": "Built bar-idle-v3. Added a prominent \u201847 PLAYING TONIGHT\u2019 numeric count to the right panel with a green live dot. Big number (120px) above the leaderboard so bars can see at a glance how many players are active. Room code explanation kept as-is (makes sense approved).",
     "mark_reply": ""
   },
   {
     "id": "idea-022",
     "date": "2026-03-21",
     "source": "inbox",
-    "idea": "[home-live-v2] 1 exciting\n2 turn red\n3 I don’t like the way we have this I don’t want to just put made up numbers out there. Let’s find a real metric we can display here",
+    "idea": "[home-live-v2] 1 exciting\n2 turn red\n3 I don\u2019t like the way we have this I don\u2019t want to just put made up numbers out there. Let\u2019s find a real metric we can display here",
     "status": "done",
-    "claude_response": "Built home-live-v3. Two changes: (1) Critical :03 state now has FULL RED BACKGROUND FLOOD — phone-inner goes dark blood red (not just accent colors), red glow covers the whole screen, red CTA, red chips. Much more alarming. (2) Intel card completely redesigned — removed fake ‘73% accurate’ claim. Now shows two REAL data points in a 2-column grid: CROWD RIGHT NOW (62% OVER — 184 active players, our own first-party live data) + POLYMARKET (0.67 OVER — real prediction market price). Both are defensible real numbers we can actually display.",
+    "claude_response": "Built home-live-v3. Two changes: (1) Critical :03 state now has FULL RED BACKGROUND FLOOD \u2014 phone-inner goes dark blood red (not just accent colors), red glow covers the whole screen, red CTA, red chips. Much more alarming. (2) Intel card completely redesigned \u2014 removed fake \u201873% accurate\u2019 claim. Now shows two REAL data points in a 2-column grid: CROWD RIGHT NOW (62% OVER \u2014 184 active players, our own first-party live data) + POLYMARKET (0.67 OVER \u2014 real prediction market price). Both are defensible real numbers we can actually display.",
     "mark_reply": ""
   },
   {
     "id": "idea-023",
     "date": "2026-03-21",
     "source": "inbox",
-    "idea": "[bar-pred-q-v2] 1. Green , yellow, red\n2. Top right\n3. It’s not clear what 73% accurate means here. Let’s brainstorm on this\n\nI don’t like the look of the QR code placement. It seems crammed. Try to position it so it looks better",
+    "idea": "[bar-pred-q-v2] 1. Green , yellow, red\n2. Top right\n3. It\u2019s not clear what 73% accurate means here. Let\u2019s brainstorm on this\n\nI don\u2019t like the look of the QR code placement. It seems crammed. Try to position it so it looks better",
     "status": "done",
-    "claude_response": "Built bar-pred-q-v3. Four changes: (1) Confidence color on intel signal: AMBER/YELLOW border+dot for 68% crowd consensus (moderate). Green = >75%, Amber = 55-75%, Red = <55%. At 68% OVER it’s amber — clearly not a slam dunk. (2) Intel banner moved to top-center of header row, between LIVE badge and countdown — now top-right area. (3) Replaced ‘73% accurate’ with real signals: ‘Crowd: 68% OVER · Polymarket: 0.67 · Line moved +0.5 toward OVER’ — all defensible real data. (4) QR redesigned as standalone card in bottom-right with its own 24px border-radius panel, 160px QR, 28px padding — not crammed in a row with text anymore.",
+    "claude_response": "Built bar-pred-q-v3. Four changes: (1) Confidence color on intel signal: AMBER/YELLOW border+dot for 68% crowd consensus (moderate). Green = >75%, Amber = 55-75%, Red = <55%. At 68% OVER it\u2019s amber \u2014 clearly not a slam dunk. (2) Intel banner moved to top-center of header row, between LIVE badge and countdown \u2014 now top-right area. (3) Replaced \u201873% accurate\u2019 with real signals: \u2018Crowd: 68% OVER \u00b7 Polymarket: 0.67 \u00b7 Line moved +0.5 toward OVER\u2019 \u2014 all defensible real data. (4) QR redesigned as standalone card in bottom-right with its own 24px border-radius panel, 160px QR, 28px padding \u2014 not crammed in a row with text anymore.",
     "mark_reply": ""
   },
   {
@@ -3808,7 +3810,7 @@
     "source": "inbox",
     "idea": "[home-live-v3] 1 - only show crowd\n2. colors good enough\n3. closes\n\nwhy Join now vs pick now? why not alsways the same. Get rid of \"Last 3 seconds\" and \"window closes forver\" on pick now button",
     "status": "done",
-    "claude_response": "Built Home Live v4. Three changes: (1) Intel card now shows ONLY SportsIQ crowd — removed Polymarket entirely. Card shows '62% OVER · 184 players' with a mini crowd split bar. Our crowd IS the product. (2) Button always says 'PICK NOW' — no more 'JOIN NOW' on phone 1. Consistent across all urgency states. Sub-line adjusts ('184 players · 9s to lock' at :09, '3s left — go' at :03) but the CTA never changes. (3) 'LAST 3 SECONDS' and 'Window closes forever' copy removed from the red button. The full red screen flood communicates urgency — no extra copy needed.",
+    "claude_response": "Built Home Live v4. Three changes: (1) Intel card now shows ONLY SportsIQ crowd \u2014 removed Polymarket entirely. Card shows '62% OVER \u00b7 184 players' with a mini crowd split bar. Our crowd IS the product. (2) Button always says 'PICK NOW' \u2014 no more 'JOIN NOW' on phone 1. Consistent across all urgency states. Sub-line adjusts ('184 players \u00b7 9s to lock' at :09, '3s left \u2014 go' at :03) but the CTA never changes. (3) 'LAST 3 SECONDS' and 'Window closes forever' copy removed from the red button. The full red screen flood communicates urgency \u2014 no extra copy needed.",
     "mark_reply": ""
   },
   {
@@ -3817,7 +3819,7 @@
     "source": "inbox",
     "idea": "[home-idle-v2] 1. side by side\n2. not sure, what do you recommned\n3. real time live feed\n4. 4 am eastern time\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Home Idle v3. Layout completely rebuilt — phone fills top to bottom with no dead space. Key changes: (1) Side-by-side 2×2 stat grid (win rate + streak top row, rank + IQ score bottom row) — compact, fills width cleanly. (2) Real-time live feed section shows friends activity with 'live' pulse indicator, updates in real time. (3) 4am ET reset timer shown as a slim badge under the header — 'IQ resets in 18h 42m · 4am ET'. (4) Upcoming games in 2-column side-by-side cards rather than stacked list. Two phones: No-Game state and Game-Tonight state (shows pick window countdown + crowd forming).",
+    "claude_response": "Built Home Idle v3. Layout completely rebuilt \u2014 phone fills top to bottom with no dead space. Key changes: (1) Side-by-side 2\u00d72 stat grid (win rate + streak top row, rank + IQ score bottom row) \u2014 compact, fills width cleanly. (2) Real-time live feed section shows friends activity with 'live' pulse indicator, updates in real time. (3) 4am ET reset timer shown as a slim badge under the header \u2014 'IQ resets in 18h 42m \u00b7 4am ET'. (4) Upcoming games in 2-column side-by-side cards rather than stacked list. Two phones: No-Game state and Game-Tonight state (shows pick window countdown + crowd forming).",
     "mark_reply": ""
   },
   {
@@ -3826,7 +3828,7 @@
     "source": "inbox",
     "idea": "[pick-card-v2] 1. from day 1\n2. show before pick\n3. rotate it in\n4. push notification\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Pick Card v3. Full layout fix — phone fills 844px top to bottom. Key changes: (1) SportsIQ Signal shown from day 1, prominently ABOVE the pick buttons — users see the signal before they pick. Signal card has a glowing border and slides in with animation. (2) Push notification state shown as a phone 1 pre-state: the notification that fires when pick window opens, with 'Pick Now' deep link. (3) Crowd split % visible in real-time WHILE the window is open, updating as players lock in. (4) OVER/UNDER buttons are the primary action, large and centered — signal informs but doesn't dictate.",
+    "claude_response": "Built Pick Card v3. Full layout fix \u2014 phone fills 844px top to bottom. Key changes: (1) SportsIQ Signal shown from day 1, prominently ABOVE the pick buttons \u2014 users see the signal before they pick. Signal card has a glowing border and slides in with animation. (2) Push notification state shown as a phone 1 pre-state: the notification that fires when pick window opens, with 'Pick Now' deep link. (3) Crowd split % visible in real-time WHILE the window is open, updating as players lock in. (4) OVER/UNDER buttons are the primary action, large and centered \u2014 signal informs but doesn't dictate.",
     "mark_reply": ""
   },
   {
@@ -3835,7 +3837,7 @@
     "source": "inbox",
     "idea": "[pick-wait-v2] 1. instant\n2. before\n3. show percentages\n4. what do you recommend. make it easy to use\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Pick Wait v3. Layout fix complete — no dead space. Design: after locking in, the screen transitions to a clean watching state. Crowd % shown in real-time with a live pulse dot (instant updates). Your pick is pinned at top with a confirmation chip. Big live stat tracker shows current Mahomes yards vs the line — the most important number, center screen. Friends panel below shows what everyone else picked, updating live. Bottom section: 'SportsIQ Signal: OVER — tracking toward win' with a progress bar. Recommendation: this screen is the one users watch longest — it needs to feel like a live ticker, not a static confirmation page. All percentages visible immediately after pick.",
+    "claude_response": "Built Pick Wait v3. Layout fix complete \u2014 no dead space. Design: after locking in, the screen transitions to a clean watching state. Crowd % shown in real-time with a live pulse dot (instant updates). Your pick is pinned at top with a confirmation chip. Big live stat tracker shows current Mahomes yards vs the line \u2014 the most important number, center screen. Friends panel below shows what everyone else picked, updating live. Bottom section: 'SportsIQ Signal: OVER \u2014 tracking toward win' with a progress bar. Recommendation: this screen is the one users watch longest \u2014 it needs to feel like a live ticker, not a static confirmation page. All percentages visible immediately after pick.",
     "mark_reply": ""
   },
   {
@@ -3844,7 +3846,7 @@
     "source": "inbox",
     "idea": "[onboarding-v2] 1. no skipping\n2. 3 levels\n3. same question\n4. wait until after first week\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Onboarding v3. Full-height layout — no scrunching. Key changes: (1) No skip button anywhere — users must complete each step. Progress indicator shows steps so they know there's an end. (2) 3 knowledge levels shown as selectable cards: Casual (I watch the big games), Dedicated (I track stats and lineups), Expert (I could run a fantasy league blindfolded). Single selection, can't proceed without choosing. (3) Same question set regardless of sport selection — sport choice personalizes the content, not the assessment. (4) Advanced Sports DNA deep-dive unlocks after first 7 days of playing — shown as a 'coming after your first week' teaser at the end of onboarding. Three phones: Welcome (no skip), Sport selection (6 sports, required), Level selection (3 tiers, required).",
+    "claude_response": "Built Onboarding v3. Full-height layout \u2014 no scrunching. Key changes: (1) No skip button anywhere \u2014 users must complete each step. Progress indicator shows steps so they know there's an end. (2) 3 knowledge levels shown as selectable cards: Casual (I watch the big games), Dedicated (I track stats and lineups), Expert (I could run a fantasy league blindfolded). Single selection, can't proceed without choosing. (3) Same question set regardless of sport selection \u2014 sport choice personalizes the content, not the assessment. (4) Advanced Sports DNA deep-dive unlocks after first 7 days of playing \u2014 shown as a 'coming after your first week' teaser at the end of onboarding. Three phones: Welcome (no skip), Sport selection (6 sports, required), Level selection (3 tiers, required).",
     "mark_reply": ""
   },
   {
@@ -3853,7 +3855,7 @@
     "source": "inbox",
     "idea": "[daily-challenge-v2] 1. immediatrly after each pick\n2. before\n3. percentile\n4. global\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Daily Challenge v3. Full-height layout fix. Key changes: (1) Challenge card slides up immediately after each pick is locked in — no wait, no separate navigation needed. (2) 'Before' — the challenge question shows BEFORE the result is revealed. User first picks, then the challenge resolves. This creates a prediction layer on top of the main pick. (3) Percentile shown prominently: 'Top 12% globally · #3,847 of 31,200'. (4) Global scope — not just friends. You rank against all SportsIQ players globally. Two phones: Challenge pops up after pick submission, Result shows global percentile rank with shareable card.",
+    "claude_response": "Built Daily Challenge v3. Full-height layout fix. Key changes: (1) Challenge card slides up immediately after each pick is locked in \u2014 no wait, no separate navigation needed. (2) 'Before' \u2014 the challenge question shows BEFORE the result is revealed. User first picks, then the challenge resolves. This creates a prediction layer on top of the main pick. (3) Percentile shown prominently: 'Top 12% globally \u00b7 #3,847 of 31,200'. (4) Global scope \u2014 not just friends. You rank against all SportsIQ players globally. Two phones: Challenge pops up after pick submission, Result shows global percentile rank with shareable card.",
     "mark_reply": ""
   },
   {
@@ -3862,7 +3864,7 @@
     "source": "inbox",
     "idea": "[game-day-v2] 1. we dont want anything to depend on venue owner\n2. 0.15 miles\n3. what do you recommend?\n4. what do you recommend?\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Game Day v3. Full-height layout. Key changes: (1) Zero venue owner dependency — pure GPS. App detects you're within 0.15 miles of any sports bar (from our database) and auto-triggers Bar Mode. The bar owner doesn't set anything up. (2) 0.15 mile radius (exact spec). (3) My recommendation for #3: When Bar Mode activates, show a bar-specific leaderboard overlay — who's winning tonight at your location. Creates competitive social energy even without venue staff involvement. (4) My recommendation for #4: 'Neighborhood Mode' — if >3 SportsIQ users are within 0.15 miles of each other at any bar (even one not in our system), auto-create an informal local group. No venue owner needed at all for this version. Two phones: Auto-detect activation (0.15mi banner) + Bar Mode active state with local leaderboard.",
+    "claude_response": "Built Game Day v3. Full-height layout. Key changes: (1) Zero venue owner dependency \u2014 pure GPS. App detects you're within 0.15 miles of any sports bar (from our database) and auto-triggers Bar Mode. The bar owner doesn't set anything up. (2) 0.15 mile radius (exact spec). (3) My recommendation for #3: When Bar Mode activates, show a bar-specific leaderboard overlay \u2014 who's winning tonight at your location. Creates competitive social energy even without venue staff involvement. (4) My recommendation for #4: 'Neighborhood Mode' \u2014 if >3 SportsIQ users are within 0.15 miles of each other at any bar (even one not in our system), auto-create an informal local group. No venue owner needed at all for this version. Two phones: Auto-detect activation (0.15mi banner) + Bar Mode active state with local leaderboard.",
     "mark_reply": ""
   },
   {
@@ -3871,7 +3873,7 @@
     "source": "inbox",
     "idea": "[notifications] 1. keep this simple\n2. what do you recommend?\n3. 6pm in users time zone\n4. do we need this?\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Notifications v2. Kept simple. (1) 3 notification types only — Pick Windows (when a window opens), Results (when your pick resolves), and Daily Trivia. No noise. (2) My recommendation for #2: Two tiers — Critical (pick window opening, your result ready) and Social (friend activity, chirps). Critical on by default, Social opt-in. (3) Daily trivia reminder at 6pm in user's local timezone — preconfigured, user just toggles on/off. (4) My recommendation on 'do we need this?' — depends what #4 was referring to. I recommend skipping 'weekly email recaps' (too much friction for a mobile-first product). Push is enough. One phone shown: clean settings screen with 3 toggle groups, each with a clear description.",
+    "claude_response": "Built Notifications v2. Kept simple. (1) 3 notification types only \u2014 Pick Windows (when a window opens), Results (when your pick resolves), and Daily Trivia. No noise. (2) My recommendation for #2: Two tiers \u2014 Critical (pick window opening, your result ready) and Social (friend activity, chirps). Critical on by default, Social opt-in. (3) Daily trivia reminder at 6pm in user's local timezone \u2014 preconfigured, user just toggles on/off. (4) My recommendation on 'do we need this?' \u2014 depends what #4 was referring to. I recommend skipping 'weekly email recaps' (too much friction for a mobile-first product). Push is enough. One phone shown: clean settings screen with 3 toggle groups, each with a clear description.",
     "mark_reply": ""
   },
   {
@@ -3880,7 +3882,7 @@
     "source": "inbox",
     "idea": "[my-stats] 1. yes\n2. infinite\n3. yes, add social/referral",
     "status": "done",
-    "claude_response": "Built My Stats v2. (1) IQ toggle — All-Time / Season / This Week selector at top, filters all stats below. (2) Infinite history — pick history scrolls forever, no 'load more' pages. (3) Social/referral section added at bottom of stats profile — shows referral link, how many friends joined via your link, and IQ earned from referrals. Full height phone layout. Two phones: main stats view with toggle + infinite pick history.",
+    "claude_response": "Built My Stats v2. (1) IQ toggle \u2014 All-Time / Season / This Week selector at top, filters all stats below. (2) Infinite history \u2014 pick history scrolls forever, no 'load more' pages. (3) Social/referral section added at bottom of stats profile \u2014 shows referral link, how many friends joined via your link, and IQ earned from referrals. Full height phone layout. Two phones: main stats view with toggle + infinite pick history.",
     "mark_reply": ""
   },
   {
@@ -3889,7 +3891,7 @@
     "source": "inbox",
     "idea": "[leaderboard-v2] 1. is this legal? if so, then sportsIQ should take 30% cut\n2. only made picks\n3. no limit\n4. yes\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Leaderboard v3. Key note: framed as 'IQ Points Pool' (not cash) — legally safe, and we'll add cash option pending legal sign-off. SportsIQ takes 30% rake shown transparently in the pool breakdown (e.g., 100 IQ × 8 players = 800 IQ pot → SportsIQ keeps 240 IQ, winner gets 560 IQ). Only players who made at least 1 pick appear on the board. No limit on pool size or player count. 'Weekly Winners' section added (Mark said yes to #4). Full height layout fix. Two phones: main leaderboard view + prize pool detail screen.",
+    "claude_response": "Built Leaderboard v3. Key note: framed as 'IQ Points Pool' (not cash) \u2014 legally safe, and we'll add cash option pending legal sign-off. SportsIQ takes 30% rake shown transparently in the pool breakdown (e.g., 100 IQ \u00d7 8 players = 800 IQ pot \u2192 SportsIQ keeps 240 IQ, winner gets 560 IQ). Only players who made at least 1 pick appear on the board. No limit on pool size or player count. 'Weekly Winners' section added (Mark said yes to #4). Full height layout fix. Two phones: main leaderboard view + prize pool detail screen.",
     "mark_reply": ""
   },
   {
@@ -3898,7 +3900,7 @@
     "source": "inbox",
     "idea": "[sports-dna-profile] 1. bar regualr\n2. after 20 picks\n3. full dna\n4. what do you recommend?\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Sports DNA v2. (1) 'Bar Regular' is one of the archetypes shown on the profile (alongside 'Contrarian', 'Sharp', 'Gut Player', etc.). (2) Full DNA unlocks after 20 picks — before that, profile shows a locked state with progress: '12 of 20 picks to unlock'. (3) Full DNA: shows pick tendencies (OVER-heavy, contrarian score, timing pattern), sports mix, best sport, worst sport, peak performance window. (4) My recommendation for #4: shareable profile card — 'Share your Sports DNA' button generates a visual card users can share on Instagram/Twitter. This drives organic acquisition. Full height layout. Two phones: locked state (12/20 picks) + full DNA revealed.",
+    "claude_response": "Built Sports DNA v2. (1) 'Bar Regular' is one of the archetypes shown on the profile (alongside 'Contrarian', 'Sharp', 'Gut Player', etc.). (2) Full DNA unlocks after 20 picks \u2014 before that, profile shows a locked state with progress: '12 of 20 picks to unlock'. (3) Full DNA: shows pick tendencies (OVER-heavy, contrarian score, timing pattern), sports mix, best sport, worst sport, peak performance window. (4) My recommendation for #4: shareable profile card \u2014 'Share your Sports DNA' button generates a visual card users can share on Instagram/Twitter. This drives organic acquisition. Full height layout. Two phones: locked state (12/20 picks) + full DNA revealed.",
     "mark_reply": ""
   },
   {
@@ -3907,7 +3909,7 @@
     "source": "inbox",
     "idea": "[referral-growth] 1. depends on of we are doing cash. points for now, but is it legal to do cash?\n2. both are good\n3. pre-set\n4. give them something but not sure this is it. make some recommendatsions\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Referral v2. (1) IQ Points for now (not cash — legal review pending). (2) Two-sided: both referrer (+100 IQ) and new user (+50 IQ welcome bonus) get rewarded. (3) Pre-set amounts: 100 IQ for referrer, 50 IQ for new user — not adjustable. (4) My recommendation: tiered milestone rewards — Refer 1 = 100 IQ, Refer 5 = 600 IQ total + exclusive 'Recruiter' badge, Refer 10 = 1,400 IQ total + 'Legend Maker' badge + permanent 1.1× multiplier on all picks. The permanent multiplier at tier 3 is extremely powerful — it creates a recurring benefit that compounds over time, giving heavy referrers a permanent edge. That's the mechanic I'd push on. Full height layout. Two phones: referral link screen + milestone progress.",
+    "claude_response": "Built Referral v2. (1) IQ Points for now (not cash \u2014 legal review pending). (2) Two-sided: both referrer (+100 IQ) and new user (+50 IQ welcome bonus) get rewarded. (3) Pre-set amounts: 100 IQ for referrer, 50 IQ for new user \u2014 not adjustable. (4) My recommendation: tiered milestone rewards \u2014 Refer 1 = 100 IQ, Refer 5 = 600 IQ total + exclusive 'Recruiter' badge, Refer 10 = 1,400 IQ total + 'Legend Maker' badge + permanent 1.1\u00d7 multiplier on all picks. The permanent multiplier at tier 3 is extremely powerful \u2014 it creates a recurring benefit that compounds over time, giving heavy referrers a permanent edge. That's the mechanic I'd push on. Full height layout. Two phones: referral link screen + milestone progress.",
     "mark_reply": ""
   },
   {
@@ -3916,7 +3918,7 @@
     "source": "inbox",
     "idea": "[head-to-head] 1. real IQ points\n2. yes - make sure this works well though\n3. clarify what we are doing with H2H and groups. this should be simple and intuitive. we shouldnt have one feature for 2 players and another for a group.\n4. make a recommendation\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Challenges v2 — the unified feature. Recommendation: eliminate 'H2H' and 'Groups' as separate concepts. ONE tab: Challenges. When creating a challenge, you pick friends via multi-select checkboxes. 1 selected = 1v1. 2+ selected = Group Challenge. Same flow, same UI, no branching. Stake is per player, pot = stake × participants, winner takes all. IQ is real (confirmed). Three phones: (1) Create Challenge — multi-select friend list (BigMike ✓, SarahK ✓, JayBird unchecked), auto-labels '3-player Group Challenge', stake selector shows pot size, 'Send to BigMike & SarahK' CTA. (2) Active — running standings showing each player's pick direction after lock, live Mahomes stat counter, 300 IQ pot displayed. (3) Result — MarcD wins +200 IQ from BigMike and SarahK (each -100), trophy, Rematch + Chirp Them buttons.",
+    "claude_response": "Built Challenges v2 \u2014 the unified feature. Recommendation: eliminate 'H2H' and 'Groups' as separate concepts. ONE tab: Challenges. When creating a challenge, you pick friends via multi-select checkboxes. 1 selected = 1v1. 2+ selected = Group Challenge. Same flow, same UI, no branching. Stake is per player, pot = stake \u00d7 participants, winner takes all. IQ is real (confirmed). Three phones: (1) Create Challenge \u2014 multi-select friend list (BigMike \u2713, SarahK \u2713, JayBird unchecked), auto-labels '3-player Group Challenge', stake selector shows pot size, 'Send to BigMike & SarahK' CTA. (2) Active \u2014 running standings showing each player's pick direction after lock, live Mahomes stat counter, 300 IQ pot displayed. (3) Result \u2014 MarcD wins +200 IQ from BigMike and SarahK (each -100), trophy, Rematch + Chirp Them buttons.",
     "mark_reply": ""
   },
   {
@@ -3925,7 +3927,7 @@
     "source": "inbox",
     "idea": "[bar-idle-v3] 1. make it dynamic\n2. show both\n3. we dont want bar owner to make any decsions here",
     "status": "done",
-    "claude_response": "Built Bar Idle v4. (1) Dynamic: 3-column layout rotates content automatically — dots at bottom show which slide you're on, cycles every 30 seconds. (2) Show both: LEFT = QR + room code (join info), CENTER = tonight's live leaderboard with IQ scores, RIGHT = next pick window countdown OR crowd stats building for the upcoming question. All content auto-curated from SportsIQ backend. (3) Zero bar owner decisions — bar doesn't touch anything. Room code, QR, leaderboard, upcoming game info all served automatically.",
+    "claude_response": "Built Bar Idle v4. (1) Dynamic: 3-column layout rotates content automatically \u2014 dots at bottom show which slide you're on, cycles every 30 seconds. (2) Show both: LEFT = QR + room code (join info), CENTER = tonight's live leaderboard with IQ scores, RIGHT = next pick window countdown OR crowd stats building for the upcoming question. All content auto-curated from SportsIQ backend. (3) Zero bar owner decisions \u2014 bar doesn't touch anything. Room code, QR, leaderboard, upcoming game info all served automatically.",
     "mark_reply": ""
   },
   {
@@ -3934,7 +3936,7 @@
     "source": "inbox",
     "idea": "[bar-pred-q-v3] 1. dont show polymarket or kalshi, just show sportsiq crowd\n2. explain what you mean\n3. this whole layout needs imporvemnt. I dont like qr code locaytion either. spacing and positioning looks off.  optimize aethetics here",
     "status": "done",
-    "claude_response": "Built Bar Live Pick v4. All Polymarket/Kalshi removed — only SportsIQ crowd shown (68%/32% split is now the visual hero). New 3-column layout: LEFT = player identity (team, name, stat line, context sentence, SportsIQ Signal dot in brand amber); CENTER = massive crowd split cards side-by-side with tug-of-war bar and player count; RIGHT = countdown timer stacked above QR + room code. QR moved to right column, smaller and cleaner. Layout breathes — generous padding throughout. Brand colors only.",
+    "claude_response": "Built Bar Live Pick v4. All Polymarket/Kalshi removed \u2014 only SportsIQ crowd shown (68%/32% split is now the visual hero). New 3-column layout: LEFT = player identity (team, name, stat line, context sentence, SportsIQ Signal dot in brand amber); CENTER = massive crowd split cards side-by-side with tug-of-war bar and player count; RIGHT = countdown timer stacked above QR + room code. QR moved to right column, smaller and cleaner. Layout breathes \u2014 generous padding throughout. Brand colors only.",
     "mark_reply": ""
   },
   {
@@ -3952,7 +3954,7 @@
     "source": "inbox",
     "idea": "[bar-result-v2] 1. what do youn reccomend?\n2. today only\n3. display result for at least 60 seconds\n\noverall question about leaderboards. we need to find a way to display leaderboards in bars so that people arriving at diffeent times can move up the leaderboard. lets say someone is way ahead - we wont know exacly when they leave so we need to design this in a way that someone playing well has a way to climb. expnad this concept to all screens",
     "status": "done",
-    "claude_response": "Built Bar Result v3. (1) My recommendation: result screen shows for 60+ seconds and transitions to the updated leaderboard. (2) Today only. (3) CRITICAL LEADERBOARD SOLUTION: The leaderboard uses win rate (%) not total IQ as the primary sort. Someone arriving late who goes 3-0 ranks by 100% win rate and climbs above someone 4-2 (67%). This means late arrivals can always compete. Additionally, a 'Hot Streak' badge shows for 3+ picks in a row — players on streaks get highlighted regardless of when they arrived. This solves the late-arrival problem without any complex mechanics. Expanded this logic note to all bar screens.",
+    "claude_response": "Built Bar Result v3. (1) My recommendation: result screen shows for 60+ seconds and transitions to the updated leaderboard. (2) Today only. (3) CRITICAL LEADERBOARD SOLUTION: The leaderboard uses win rate (%) not total IQ as the primary sort. Someone arriving late who goes 3-0 ranks by 100% win rate and climbs above someone 4-2 (67%). This means late arrivals can always compete. Additionally, a 'Hot Streak' badge shows for 3+ picks in a row \u2014 players on streaks get highlighted regardless of when they arrived. This solves the late-arrival problem without any complex mechanics. Expanded this logic note to all bar screens.",
     "mark_reply": ""
   },
   {
@@ -3961,7 +3963,7 @@
     "source": "inbox",
     "idea": "[trivia] 1. keep it easy withiout being way too easy. we want the average user to get 70% correct\n2. not sure, make a reccomendation\n3. on the tv screen\n4. 100% curated by sportsiq\n\nto clarify when it comes to playing trivia on phone oir in bar:\nwe dont want lock in answer button. when a user chooses an ansewr its locked in. if they choose a different anseerr it is liocked in. they earn points based on how much time remained when they locked in thoer final answer. we already buyilt this logic before.\n\nther should not be a next question button. the flow is. question displayed, 10 seconds countdoen, answer is reveealed ad shown for 5 seconds. we already built this logic before\n\nif these designs are meant only to apply to some separate daily thing that happens in addition to our trivia thats fine if you want to do this, but I think there is value in keeping all of our screens and looks very consistent",
     "status": "done",
-    "claude_response": "Built Trivia v3 (TV screen version). Shows 2 states: (1) Question live — 10s countdown bar across top, 4 answer options (no lock-in button — tapping locks it), player count updating as people answer. 100% curated by SportsIQ. Difficulty: ~70% of players should get it right. (2) Answer revealed — correct answer highlighted green, wrong ones dimmed, '73% of players got it right' shown. 5s reveal timer. No 'Next Question' button — auto-advances. My recommendation for #2: show the stat behind the answer ('Patrick Mahomes has thrown 52 TDs in 2024 — the answer is 52'). This extends the educational value of trivia and reinforces SportsIQ's intelligence positioning. Consistent look with rest of bar screens (dark bg, Lexend, brand purple).",
+    "claude_response": "Built Trivia v3 (TV screen version). Shows 2 states: (1) Question live \u2014 10s countdown bar across top, 4 answer options (no lock-in button \u2014 tapping locks it), player count updating as people answer. 100% curated by SportsIQ. Difficulty: ~70% of players should get it right. (2) Answer revealed \u2014 correct answer highlighted green, wrong ones dimmed, '73% of players got it right' shown. 5s reveal timer. No 'Next Question' button \u2014 auto-advances. My recommendation for #2: show the stat behind the answer ('Patrick Mahomes has thrown 52 TDs in 2024 \u2014 the answer is 52'). This extends the educational value of trivia and reinforces SportsIQ's intelligence positioning. Consistent look with rest of bar screens (dark bg, Lexend, brand purple).",
     "mark_reply": ""
   },
   {
@@ -3970,7 +3972,7 @@
     "source": "inbox",
     "idea": "[bar-crew-mgmt] 1.user chooses\n2. purely social initially until we determine legality for money\n3. unlimited\n4. yes\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Bar Crew Mgmt v2. Fixed the full-height layout (no more scrunched top). 2 phones: (1) My Crew view — crew name 'Murphy's Boys', 6 members shown with their IQ scores, shared leaderboard for tonight showing crew members' picks and ranks, invite button (unlimited members), trash talk feed. (2) Crew Challenge view — crew vs crew leaderboard when multiple crews are at the same bar. Design is purely social — no betting, no money, just bragging rights and trash talk. User creates and names their own crew. All social features build switching cost — your whole crew being on SportsIQ is the moat.",
+    "claude_response": "Built Bar Crew Mgmt v2. Fixed the full-height layout (no more scrunched top). 2 phones: (1) My Crew view \u2014 crew name 'Murphy's Boys', 6 members shown with their IQ scores, shared leaderboard for tonight showing crew members' picks and ranks, invite button (unlimited members), trash talk feed. (2) Crew Challenge view \u2014 crew vs crew leaderboard when multiple crews are at the same bar. Design is purely social \u2014 no betting, no money, just bragging rights and trash talk. User creates and names their own crew. All social features build switching cost \u2014 your whole crew being on SportsIQ is the moat.",
     "mark_reply": ""
   },
   {
@@ -3979,7 +3981,7 @@
     "source": "inbox",
     "idea": "[mkt-intel] 1. its fine\n2. a little dense\n3. no\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better\n\ndont use the term AI anywhere in the app",
     "status": "done",
-    "claude_response": "Built Market Intel v2. Removed all 'AI' language — replaced with 'SportsIQ Intelligence'. Reduced density: from 4 data sources shown simultaneously to 2 (Polymarket + crowd consensus), larger text, more breathing room. Layout fixed — full-height phone, content fills screen naturally. Shows 3 things: (1) SportsIQ signal strength (directional, not exact) above the pick buttons, (2) Market consensus (OVER 68% Polymarket), (3) crowd split. No raw numbers or model scores exposed — just directional signals. Cleaner and easier to scan.",
+    "claude_response": "Built Market Intel v2. Removed all 'AI' language \u2014 replaced with 'SportsIQ Intelligence'. Reduced density: from 4 data sources shown simultaneously to 2 (Polymarket + crowd consensus), larger text, more breathing room. Layout fixed \u2014 full-height phone, content fills screen naturally. Shows 3 things: (1) SportsIQ signal strength (directional, not exact) above the pick buttons, (2) Market consensus (OVER 68% Polymarket), (3) crowd split. No raw numbers or model scores exposed \u2014 just directional signals. Cleaner and easier to scan.",
     "mark_reply": ""
   },
   {
@@ -3988,7 +3990,7 @@
     "source": "inbox",
     "idea": "[venue-dashboard] 1. too complex\n2. we need to do a great job here. its very important. make recommendations\n3. web only for now",
     "status": "done",
-    "claude_response": "Built Venue Dashboard v2 (web-only layout). Simplified to 4 hero metrics: Players Tonight, New App Installs Attributed, Weekly Engagement Score, Revenue Share Earned. My 3 recommendations for what matters most to bar owners: (1) 'Players tonight' — the daily number they check to know SportsIQ is working. (2) 'New installs attributed to your bar' — proves ROI: SportsIQ brought X new users who scanned your QR. (3) 'Hot nights' — show which game nights drove the most engagement so they can promote those matchups. Also added an Action Recommendations section: 3 AI-generated (SportsIQ Intelligence) suggestions like 'Post on Instagram tonight — Ravens game has 40% more interest than last week.' This makes bar owners feel SportsIQ is a partner, not just a tool.",
+    "claude_response": "Built Venue Dashboard v2 (web-only layout). Simplified to 4 hero metrics: Players Tonight, New App Installs Attributed, Weekly Engagement Score, Revenue Share Earned. My 3 recommendations for what matters most to bar owners: (1) 'Players tonight' \u2014 the daily number they check to know SportsIQ is working. (2) 'New installs attributed to your bar' \u2014 proves ROI: SportsIQ brought X new users who scanned your QR. (3) 'Hot nights' \u2014 show which game nights drove the most engagement so they can promote those matchups. Also added an Action Recommendations section: 3 AI-generated (SportsIQ Intelligence) suggestions like 'Post on Instagram tonight \u2014 Ravens game has 40% more interest than last week.' This makes bar owners feel SportsIQ is a partner, not just a tool.",
     "mark_reply": ""
   },
   {
@@ -3997,7 +3999,7 @@
     "source": "inbox",
     "idea": "[venue-onboarding] 1. make recommendations\n2. all of this - make recommendations\n3. sepatate app\n4. 30 day\n\nwhy is everyhing scrunched up to the top of the screen with big gaps. lay this out better",
     "status": "done",
-    "claude_response": "Built Venue Onboarding v2. Separate app feel (slightly different branding — 'SportsIQ for Venues'). Fixed layout. 4 screens: (1) Welcome + value prop ('Free for 30 days. No hardware. Works tonight.'). (2) Setup: enter venue name + confirm address (pre-filled from Google). My recommendation: make setup take under 3 minutes — only 2 required fields. (3) Ready screen: QR code generated instantly, room code ready, 'Go live tonight' CTA. My recommendation: show a live preview of what the TV screen looks like right now. (4) Trial status: '27 days remaining. 47 players so far.' My recommendation for converting trial to paid: show ROI ('SportsIQ has driven an estimated 12 new downloads from your venue this week') on day 15 when they're deep enough to care.",
+    "claude_response": "Built Venue Onboarding v2. Separate app feel (slightly different branding \u2014 'SportsIQ for Venues'). Fixed layout. 4 screens: (1) Welcome + value prop ('Free for 30 days. No hardware. Works tonight.'). (2) Setup: enter venue name + confirm address (pre-filled from Google). My recommendation: make setup take under 3 minutes \u2014 only 2 required fields. (3) Ready screen: QR code generated instantly, room code ready, 'Go live tonight' CTA. My recommendation: show a live preview of what the TV screen looks like right now. (4) Trial status: '27 days remaining. 47 players so far.' My recommendation for converting trial to paid: show ROI ('SportsIQ has driven an estimated 12 new downloads from your venue this week') on day 15 when they're deep enough to care.",
     "mark_reply": ""
   },
   {
@@ -4006,7 +4008,7 @@
     "source": "inbox",
     "idea": "[data-intelligence] 1. blend them in\n2. make recommendartions here\n3. explain, not sure what you mean by this or by sports DNA\n4. need to discuss this - its very important",
     "status": "done",
-    "claude_response": "Built Data Intelligence v2. Addressing your questions: (3) Sports DNA = a profile of what kind of sports fan you are, built from your picks. E.g. 'Contrarian (picks against the crowd 67% of the time)', 'Pass-heavy (prefers QB stats 80%)', 'Clutch (win rate jumps to 74% in Q4 picks)'. It's a personality profile, not analytics. 'Blend in' = instead of a separate Data section, I've shown how these insights surface contextually: on the Pick Card ('SportsIQ Signal: 71% OVER'), in the post-pick calibration card (how you compared to the crowd), and in the weekly recap ('You outperformed the crowd by +12% this week'). (4) The data business: SportsIQ's moat is the behavioral signal — we know that User #48291 picks OVER on pass-heavy games in Q3, arrives at bars on Sunday nights, and lost a 5-game streak last week. That profile is worth $8-15/year in ad targeting alone. This is not something competitors can replicate without the same user base. We should discuss how much of this to expose vs. keep proprietary.",
+    "claude_response": "Built Data Intelligence v2. Addressing your questions: (3) Sports DNA = a profile of what kind of sports fan you are, built from your picks. E.g. 'Contrarian (picks against the crowd 67% of the time)', 'Pass-heavy (prefers QB stats 80%)', 'Clutch (win rate jumps to 74% in Q4 picks)'. It's a personality profile, not analytics. 'Blend in' = instead of a separate Data section, I've shown how these insights surface contextually: on the Pick Card ('SportsIQ Signal: 71% OVER'), in the post-pick calibration card (how you compared to the crowd), and in the weekly recap ('You outperformed the crowd by +12% this week'). (4) The data business: SportsIQ's moat is the behavioral signal \u2014 we know that User #48291 picks OVER on pass-heavy games in Q3, arrives at bars on Sunday nights, and lost a 5-game streak last week. That profile is worth $8-15/year in ad targeting alone. This is not something competitors can replicate without the same user base. We should discuss how much of this to expose vs. keep proprietary.",
     "mark_reply": ""
   },
   {
@@ -4015,70 +4017,70 @@
     "source": "inbox",
     "idea": "[challenges-v2] 1. unified would be best but make sure you execute it well\n2. equal\n3. immediately\n4. yes\n\nwhy is all of this vertically scrunched with big open spaces? optimize layouts",
     "status": "done",
-    "claude_response": "Built Challenges v3. Unified challenge system — one flow handles daily, bar, and social challenges. Fixed layout (full-height phone, no scrunching). My design: the challenge fires immediately after a pick is made (no separate opt-in). Equal conditions: everyone in the challenge sees the same pick at the same time, no time advantage. 2 phones: (1) Challenge just fired — pick card transforms with challenge banner at top showing who accepted ('BigMike accepted your challenge'), both players' picks, crowd context. (2) Challenge resolved — side-by-side result card showing win/loss, IQ delta, streak protection. Challenge types unified: Daily (vs SportsIQ's model), Bar (vs everyone at your bar), Social (vs a specific friend).",
+    "claude_response": "Built Challenges v3. Unified challenge system \u2014 one flow handles daily, bar, and social challenges. Fixed layout (full-height phone, no scrunching). My design: the challenge fires immediately after a pick is made (no separate opt-in). Equal conditions: everyone in the challenge sees the same pick at the same time, no time advantage. 2 phones: (1) Challenge just fired \u2014 pick card transforms with challenge banner at top showing who accepted ('BigMike accepted your challenge'), both players' picks, crowd context. (2) Challenge resolved \u2014 side-by-side result card showing win/loss, IQ delta, streak protection. Challenge types unified: Daily (vs SportsIQ's model), Bar (vs everyone at your bar), Social (vs a specific friend).",
     "mark_reply": ""
   },
   {
     "id": "idea-048",
     "date": "2026-03-21",
     "source": "autonomous-loop",
-    "idea": "Pick Result Celebration Screen — the dopamine moment when a pick resolves. Win state, loss state, and shareable win card.",
+    "idea": "Pick Result Celebration Screen \u2014 the dopamine moment when a pick resolves. Win state, loss state, and shareable win card.",
     "status": "done",
-    "claude_response": "Built Pick Result v1 (proactive). Three states shown across 3 phones: (1) WIN — full green color flood, +250 IQ ticker, streak +1 badge, 'You beat 68% of the crowd', share card preview. (2) LOSS — dignified dark screen, exact breakdown of what happened, streak maintained callout, next pick window teaser. (3) Share Card — portrait format for Instagram Stories, brand purple, pick call-out, IQ score, @SportsIQ tag. This is the most important retention/acquisition moment in the app — the celebration drives return visits and the share card drives organic installs.",
+    "claude_response": "Built Pick Result v1 (proactive). Three states shown across 3 phones: (1) WIN \u2014 full green color flood, +250 IQ ticker, streak +1 badge, 'You beat 68% of the crowd', share card preview. (2) LOSS \u2014 dignified dark screen, exact breakdown of what happened, streak maintained callout, next pick window teaser. (3) Share Card \u2014 portrait format for Instagram Stories, brand purple, pick call-out, IQ score, @SportsIQ tag. This is the most important retention/acquisition moment in the app \u2014 the celebration drives return visits and the share card drives organic installs.",
     "mark_reply": ""
   },
   {
     "id": "idea-049",
     "date": "2026-03-21",
     "source": "autonomous-loop",
-    "idea": "Friends Activity Feed — social graph screen. Real-time friend picks, rivalry tracking, bar squad view. The social moat that makes SportsIQ irreplaceable.",
+    "idea": "Friends Activity Feed \u2014 social graph screen. Real-time friend picks, rivalry tracking, bar squad view. The social moat that makes SportsIQ irreplaceable.",
     "status": "done",
-    "claude_response": "Built Friends Feed v1 (proactive, idea-049). Two phone views: (1) Activity Feed — rivalry card at top (You vs BigMike: 8-6 this week, you're ahead), live friend pick stream showing who just picked what with emoji reactions, 'At Kincade's right now' bar squad section with 6 friends shown. (2) Rival Detail — drill-in showing full H2H record, last 10 picks side by side, streak comparison, IQ points gap. The social graph data this generates (friend networks, rival histories, bar squads, pick-by-pick comparisons) is 2+ years of irreplaceable moat data. A well-funded competitor cannot buy or rebuild this.",
+    "claude_response": "Built Friends Feed v1 (proactive, idea-049). Two phone views: (1) Activity Feed \u2014 rivalry card at top (You vs BigMike: 8-6 this week, you're ahead), live friend pick stream showing who just picked what with emoji reactions, 'At Kincade's right now' bar squad section with 6 friends shown. (2) Rival Detail \u2014 drill-in showing full H2H record, last 10 picks side by side, streak comparison, IQ points gap. The social graph data this generates (friend networks, rival histories, bar squads, pick-by-pick comparisons) is 2+ years of irreplaceable moat data. A well-funded competitor cannot buy or rebuild this.",
     "mark_reply": ""
   },
   {
     "id": "idea-050",
     "date": "2026-03-21",
     "source": "inbox",
-    "idea": "Pre-Game Brief — proactive build. Daily habit driver that fires every game morning as a push notification, opening to a personalized intelligence brief showing tonight's props, your historical accuracy on similar prop types, where sharp money is positioning, and friends activity. The moat: 'Your 8-2 record on Mahomes passing yards' is data no competitor has because they don't have your history.",
+    "idea": "Pre-Game Brief \u2014 proactive build. Daily habit driver that fires every game morning as a push notification, opening to a personalized intelligence brief showing tonight's props, your historical accuracy on similar prop types, where sharp money is positioning, and friends activity. The moat: 'Your 8-2 record on Mahomes passing yards' is data no competitor has because they don't have your history.",
     "status": "done",
-    "claude_response": "Built Pre-Game Brief (idea-050). Three phones: (1) Push notification — lock screen at 9:14am, branded SportsIQ notification with game name, your record summary, and time until pick windows. (2) Full brief screen — your track record hero card (8-2, 80%), tonight's 3 props each with compact signal stack (sharp money direction, crowd lean, line movement), friends already active crew row, CTA to set pick window reminder. (3) Prop deep-dive — drill into Mahomes passing yards: your pick history dots (W-W-L-W-W-W-L-W-W-W), full signal stack in detail cards, line movement from open to now, Mahomes context paragraph. The brief fires from SportsIQ's first-party behavioral data — no competitor can show your personal prop history because they don't have it. This is the daily app open driver for non-live hours.",
+    "claude_response": "Built Pre-Game Brief (idea-050). Three phones: (1) Push notification \u2014 lock screen at 9:14am, branded SportsIQ notification with game name, your record summary, and time until pick windows. (2) Full brief screen \u2014 your track record hero card (8-2, 80%), tonight's 3 props each with compact signal stack (sharp money direction, crowd lean, line movement), friends already active crew row, CTA to set pick window reminder. (3) Prop deep-dive \u2014 drill into Mahomes passing yards: your pick history dots (W-W-L-W-W-W-L-W-W-W), full signal stack in detail cards, line movement from open to now, Mahomes context paragraph. The brief fires from SportsIQ's first-party behavioral data \u2014 no competitor can show your personal prop history because they don't have it. This is the daily app open driver for non-live hours.",
     "mark_reply": ""
   },
   {
     "id": "idea-051",
     "date": "2026-03-21",
     "source": "inbox",
-    "idea": "SportsIQ Pro — proactive build. The monetization screen every VC asks to see. $4.99/mo or $39.99/yr subscription with a soft paywall on 3× and above multipliers. Key perks: 5× multiplier (free caps at 2×), +15 min early pick window access, real-time sharp money alerts (free gets 5 min delay), full Sports DNA profile, unlimited crew size. The early access window is the killer perk — Pro users pick 15 min before free users see any crowd data, meaning Pro users SET the crowd signal that free users react to.",
+    "idea": "SportsIQ Pro \u2014 proactive build. The monetization screen every VC asks to see. $4.99/mo or $39.99/yr subscription with a soft paywall on 3\u00d7 and above multipliers. Key perks: 5\u00d7 multiplier (free caps at 2\u00d7), +15 min early pick window access, real-time sharp money alerts (free gets 5 min delay), full Sports DNA profile, unlimited crew size. The early access window is the killer perk \u2014 Pro users pick 15 min before free users see any crowd data, meaning Pro users SET the crowd signal that free users react to.",
     "status": "done",
-    "claude_response": "Built SportsIQ Pro (idea-051). Three phones: (1) Upgrade prompt — soft paywall sheet slides up when free user taps 3× multiplier. Blurred pick card behind it, 4 perk grid (5× multiplier, +15 min early access, real-time sharp alerts, full Sports DNA), $4.99/mo primary CTA + $39.99/yr, soft dismiss to continue free. (2) Full comparison screen — Free vs Pro feature grid across 3 sections: Picks (max multiplier, early access, pick history), Intelligence (sharp alerts, Pre-Game Brief, Sports DNA), Social (crew size, Pro badge). Dual pricing: $39.99/yr primary (save 33%) + $4.99/mo secondary. (3) Pro activated — gold glow, ⚡ badge, 4 perks confirmed with explanations, 'Start Picking' CTA. Moat note: the +15 min early window is 2nd-order powerful — Pro users establish the crowd split percentage that free users see when their window opens, creating an information asymmetry that compounds over time.",
+    "claude_response": "Built SportsIQ Pro (idea-051). Three phones: (1) Upgrade prompt \u2014 soft paywall sheet slides up when free user taps 3\u00d7 multiplier. Blurred pick card behind it, 4 perk grid (5\u00d7 multiplier, +15 min early access, real-time sharp alerts, full Sports DNA), $4.99/mo primary CTA + $39.99/yr, soft dismiss to continue free. (2) Full comparison screen \u2014 Free vs Pro feature grid across 3 sections: Picks (max multiplier, early access, pick history), Intelligence (sharp alerts, Pre-Game Brief, Sports DNA), Social (crew size, Pro badge). Dual pricing: $39.99/yr primary (save 33%) + $4.99/mo secondary. (3) Pro activated \u2014 gold glow, \u26a1 badge, 4 perks confirmed with explanations, 'Start Picking' CTA. Moat note: the +15 min early window is 2nd-order powerful \u2014 Pro users establish the crowd split percentage that free users see when their window opens, creating an information asymmetry that compounds over time.",
     "mark_reply": ""
   },
   {
     "id": "idea-053",
     "date": "2026-03-21",
     "source": "inbox",
-    "idea": "Crew Picks — proactive build. The deepest social graph moat in the product. Group picks with friends in a named crew, shared pick feed, crew vs crew leaderboard. Three phones: (1) Crew Hub feed showing all members' active picks with crowd split within the crew, (2) Group Pick challenge screen — same prop, all 5 crew members pick a side, see who's on what side before locking in, (3) Crew Leaderboard — ranked crews by weekly win rate, your crew highlighted with rank movement and invite CTA. Moat: crew history, shared record, and social bonds make this impossible to replicate and create massive switching costs. Free = 5 member crew cap; Pro = unlimited.",
+    "idea": "Crew Picks \u2014 proactive build. The deepest social graph moat in the product. Group picks with friends in a named crew, shared pick feed, crew vs crew leaderboard. Three phones: (1) Crew Hub feed showing all members' active picks with crowd split within the crew, (2) Group Pick challenge screen \u2014 same prop, all 5 crew members pick a side, see who's on what side before locking in, (3) Crew Leaderboard \u2014 ranked crews by weekly win rate, your crew highlighted with rank movement and invite CTA. Moat: crew history, shared record, and social bonds make this impossible to replicate and create massive switching costs. Free = 5 member crew cap; Pro = unlimited.",
     "status": "done",
-    "claude_response": "Built Crew Picks (idea-053). Three phones: (1) Crew Hub — named crew 'Wolfpack' with 5 members, 38-24 record, rank #12 of 4,891 crews, +18 IQ today. Live pick feed shows each member's active pick, their multiplier, whether they're contrarian, and a progress bar showing crew crowd split. Nudge when your pick is missing. (2) Group Pick — same prop for everyone. Shows who's picked OVER vs UNDER in real-time before you lock in. Multiplier selector with Pro 5× locked (Pro upsell). Waiting indicator for members who haven't picked. (3) Crew Leaderboard — global weekly ranking, #1 gets Featured badge. Your crew (#12) highlighted in blue with rank movement (+3 spots today) and inline invite CTA to boost crew IQ. Moat analysis: (a) switching costs — your crew history, rank, shared record don't transfer anywhere; (b) network effects — value increases nonlinearly with each new crew member; (c) proprietary data — group pick correlation patterns across crew members are a unique dataset; (d) FOMO engine — 'your crew is waiting on your pick' notification creates daily open compulsion.",
+    "claude_response": "Built Crew Picks (idea-053). Three phones: (1) Crew Hub \u2014 named crew 'Wolfpack' with 5 members, 38-24 record, rank #12 of 4,891 crews, +18 IQ today. Live pick feed shows each member's active pick, their multiplier, whether they're contrarian, and a progress bar showing crew crowd split. Nudge when your pick is missing. (2) Group Pick \u2014 same prop for everyone. Shows who's picked OVER vs UNDER in real-time before you lock in. Multiplier selector with Pro 5\u00d7 locked (Pro upsell). Waiting indicator for members who haven't picked. (3) Crew Leaderboard \u2014 global weekly ranking, #1 gets Featured badge. Your crew (#12) highlighted in blue with rank movement (+3 spots today) and inline invite CTA to boost crew IQ. Moat analysis: (a) switching costs \u2014 your crew history, rank, shared record don't transfer anywhere; (b) network effects \u2014 value increases nonlinearly with each new crew member; (c) proprietary data \u2014 group pick correlation patterns across crew members are a unique dataset; (d) FOMO engine \u2014 'your crew is waiting on your pick' notification creates daily open compulsion.",
     "mark_reply": ""
   },
   {
     "id": "idea-052",
     "date": "2026-03-21",
     "source": "inbox",
-    "idea": "SportsIQ Pro v2 — Mark feedback: '$4.99 confirmed but current perks not worth it, need more value for paid subscribers.' Iterate with 4 richer perks: (1) Personal Prop Coach — AI weekly breakdown of your own win patterns from pick history, (2) SportsIQ Sharp — daily sharp money digest push, (3) Contrarian IQ Boost — Pro earns 1.5× IQ on contrarian wins vs 1× for free, (4) ⚡ Pro badge on all leaderboards creating FOMO for free users.",
+    "idea": "SportsIQ Pro v2 \u2014 Mark feedback: '$4.99 confirmed but current perks not worth it, need more value for paid subscribers.' Iterate with 4 richer perks: (1) Personal Prop Coach \u2014 AI weekly breakdown of your own win patterns from pick history, (2) SportsIQ Sharp \u2014 daily sharp money digest push, (3) Contrarian IQ Boost \u2014 Pro earns 1.5\u00d7 IQ on contrarian wins vs 1\u00d7 for free, (4) \u26a1 Pro badge on all leaderboards creating FOMO for free users.",
     "status": "done",
-    "claude_response": "Built SportsIQ Pro v2 (idea-052). Three phones with richer value stack: (1) Upgrade prompt with stronger hook — Prop Coach weekly insight teaser front and center ('You’re 8-2 on Mahomes in domes. Stop betting UNDER in cold weather.'), 8-perk value grid replaces old 4-perk, $4.99/mo CTA. (2) Full 8-perk value grid — Picks (5× multiplier, +15 min early window, 1.5× contrarian boost), Intel (sharp digest every morning, Pre-Game Brief full version, full Sports DNA), Social (unlimited crew, ⚡ badge on all leaderboards), Coach (Personal Prop Coach). (3) Personal Prop Coach screen — the proprietary perks that justifies $4.99 and is hardest to replicate: AI-analyzed pick history showing your patterns, your blind spots, your best bet archetypes. Moat: this data is personal and accumulates over time — a user with 6 months of coaching data cannot recreate that elsewhere.",
+    "claude_response": "Built SportsIQ Pro v2 (idea-052). Three phones with richer value stack: (1) Upgrade prompt with stronger hook \u2014 Prop Coach weekly insight teaser front and center ('You\u2019re 8-2 on Mahomes in domes. Stop betting UNDER in cold weather.'), 8-perk value grid replaces old 4-perk, $4.99/mo CTA. (2) Full 8-perk value grid \u2014 Picks (5\u00d7 multiplier, +15 min early window, 1.5\u00d7 contrarian boost), Intel (sharp digest every morning, Pre-Game Brief full version, full Sports DNA), Social (unlimited crew, \u26a1 badge on all leaderboards), Coach (Personal Prop Coach). (3) Personal Prop Coach screen \u2014 the proprietary perks that justifies $4.99 and is hardest to replicate: AI-analyzed pick history showing your patterns, your blind spots, your best bet archetypes. Moat: this data is personal and accumulates over time \u2014 a user with 6 months of coaching data cannot recreate that elsewhere.",
     "mark_reply": ""
   },
   {
     "id": "idea-055",
     "date": "2026-03-22",
     "source": "autonomous-loop",
-    "idea": "Share Card — viral result card. Every correct pick generates a branded share card the user can post to Twitter/Instagram/iMessage in one tap. The free user acquisition flywheel.",
+    "idea": "Share Card \u2014 viral result card. Every correct pick generates a branded share card the user can post to Twitter/Instagram/iMessage in one tap. The free user acquisition flywheel.",
     "status": "done",
-    "claude_response": "Built Share Card (idea-055). Three phones: (1) Win celebration — confetti, YOU NAILED IT, +196 IQ hero card, contrarian win badge, large blue Share CTA. (2) Share card preview — branded SportsIQ dark card with pick result, IQ earned, stats row, contrarian badge, 'Download SportsIQ →' footer. Four share destinations: Twitter, Instagram, iMessage, Copy. (3) Twitter timeline — card embedded in tweet, 24 likes, 'bro what app is this 👀' + 'downloading this rn lol' replies. Phone 3 is the moat argument in one image: organic word-of-mouth acquisition at zero cost per install.",
+    "claude_response": "Built Share Card (idea-055). Three phones: (1) Win celebration \u2014 confetti, YOU NAILED IT, +196 IQ hero card, contrarian win badge, large blue Share CTA. (2) Share card preview \u2014 branded SportsIQ dark card with pick result, IQ earned, stats row, contrarian badge, 'Download SportsIQ \u2192' footer. Four share destinations: Twitter, Instagram, iMessage, Copy. (3) Twitter timeline \u2014 card embedded in tweet, 24 likes, 'bro what app is this \ud83d\udc40' + 'downloading this rn lol' replies. Phone 3 is the moat argument in one image: organic word-of-mouth acquisition at zero cost per install.",
     "mark_reply": ""
   },
   {
@@ -4087,7 +4089,7 @@
     "source": "inbox",
     "idea": "[home-idle-v3] 1. i dont understand, explain 2. hint 3. combine",
     "status": "done",
-    "claude_response": "Processed home-idle-v3 feedback: (1) Q1 'i dont understand, explain' — the question was whether personalized feed shows ONLY your sports or always has a 'See All sports' option. Decision: include a small 'See all sports →' link at the bottom of the personalized section — personalized by default, full browse available. Will clarify with Mark in v4 questions. (2) 'hint' — Signal Preview teaser shows direction: 'Signal leans OVER' not just 'signal available'. Builds anticipation and drives return. (3) 'combine' — friends activity strip shows pick wins AND trivia wins in one unified feed. Built Home Idle v4 with all three changes.",
+    "claude_response": "Processed home-idle-v3 feedback: (1) Q1 'i dont understand, explain' \u2014 the question was whether personalized feed shows ONLY your sports or always has a 'See All sports' option. Decision: include a small 'See all sports \u2192' link at the bottom of the personalized section \u2014 personalized by default, full browse available. Will clarify with Mark in v4 questions. (2) 'hint' \u2014 Signal Preview teaser shows direction: 'Signal leans OVER' not just 'signal available'. Builds anticipation and drives return. (3) 'combine' \u2014 friends activity strip shows pick wins AND trivia wins in one unified feed. Built Home Idle v4 with all three changes.",
     "mark_reply": ""
   },
   {
@@ -4096,7 +4098,7 @@
     "source": "inbox",
     "idea": "[pick-card-v3] 1. high stakes 2. SportsIQ Fignal 3. show a number but make it real. why are we showing a fake number?",
     "status": "done",
-    "claude_response": "Applied — pick-card-v3 updated: (1) calibration question only on 3x picks (added Phone 3 showing post-pick state), (2) kept SportsIQ Signal label, (3) replaced fake confidence score with real crowd data: 63% of 1,284 live players picked OVER. Commit b0353bb pushed.",
+    "claude_response": "Applied \u2014 pick-card-v3 updated: (1) calibration question only on 3x picks (added Phone 3 showing post-pick state), (2) kept SportsIQ Signal label, (3) replaced fake confidence score with real crowd data: 63% of 1,284 live players picked OVER. Commit b0353bb pushed.",
     "mark_reply": ""
   },
   {
@@ -4105,16 +4107,16 @@
     "source": "inbox",
     "idea": "[pick-wait-v3] 1. exciting 2. before 3. snap to result",
     "status": "done",
-    "claude_response": "Applied — pick-wait-v3 updated: (1) tug-of-war crowd bar kept as hero, (2) friends picks visible before result (already was), (3) added Phone 3 showing snap-to-result — game final banner, stat confirmation, friends results, Next Pick CTA. No countdown animation. Commit b0353bb pushed.",
+    "claude_response": "Applied \u2014 pick-wait-v3 updated: (1) tug-of-war crowd bar kept as hero, (2) friends picks visible before result (already was), (3) added Phone 3 showing snap-to-result \u2014 game final banner, stat confirmation, friends results, Next Pick CTA. No countdown animation. Commit b0353bb pushed.",
     "mark_reply": ""
   },
   {
     "id": "idea-058",
     "date": "2026-03-21",
     "source": "autonomous-loop",
-    "idea": "Leaderboard v4 — Rivalry Engine with Throne to Take card, position delta arrows, streak badges inline, Hot Mover callout, and weekly payout confirmation phone",
+    "idea": "Leaderboard v4 \u2014 Rivalry Engine with Throne to Take card, position delta arrows, streak badges inline, Hot Mover callout, and weekly payout confirmation phone",
     "status": "done",
-    "claude_response": "Built — Leaderboard v4. 3 phones: (1) Main leaderboard with Friends/Global/Session tabs, HOT MOVER callout, Throne to Take rivalry card (your H2H vs #1, precise IQ gap, CTA to close it), position delta arrows on each row (↑2 today, ↑4 this week), streak fire badges inline. (2) You just moved up! micro-celebration — rank jump banner, updated standings with gap indicators between each position, chirp CTA, pick-now motivation. (3) Week final payout — 2nd place confirmation, IQ earned/season rank breakdown, final standings, Week 13 reset countdown, Share + Challenge CTAs.",
+    "claude_response": "Built \u2014 Leaderboard v4. 3 phones: (1) Main leaderboard with Friends/Global/Session tabs, HOT MOVER callout, Throne to Take rivalry card (your H2H vs #1, precise IQ gap, CTA to close it), position delta arrows on each row (\u21912 today, \u21914 this week), streak fire badges inline. (2) You just moved up! micro-celebration \u2014 rank jump banner, updated standings with gap indicators between each position, chirp CTA, pick-now motivation. (3) Week final payout \u2014 2nd place confirmation, IQ earned/season rank breakdown, final standings, Week 13 reset countdown, Share + Challenge CTAs.",
     "mark_reply": ""
   },
   {
@@ -4123,7 +4125,7 @@
     "source": "inbox",
     "idea": "[onboarding-v3] 1. passively 2. you decide 3. yes demo pick",
     "status": "done",
-    "claude_response": "Built Onboarding v4. 3 phones: (1) Welcome — name input + 6 sport tiles, zero depth quiz, zero survey. We start collecting DNA passively from the first sports they tap. (2) Demo Pick Tutorial — real pick UI (Mahomes 287.5 passing yards) with translucent coach overlays teaching 'what is a line', 'OVER vs UNDER', 'what the crowd signal means'. Pre-scripted to always WIN for dopamine hit. (3) Sports DNA forming — immediate post-demo state. DNA card in 'Building...' mode (0 games in). Already shows 3 passive signals captured from onboarding itself: Prefers OVER, NFL Primary, Night Player. Unlock gate: 3 real picks to see full DNA profile. I chose 3 picks as the gate — enough data to show something meaningful, fast enough to hook before they lose interest.",
+    "claude_response": "Built Onboarding v4. 3 phones: (1) Welcome \u2014 name input + 6 sport tiles, zero depth quiz, zero survey. We start collecting DNA passively from the first sports they tap. (2) Demo Pick Tutorial \u2014 real pick UI (Mahomes 287.5 passing yards) with translucent coach overlays teaching 'what is a line', 'OVER vs UNDER', 'what the crowd signal means'. Pre-scripted to always WIN for dopamine hit. (3) Sports DNA forming \u2014 immediate post-demo state. DNA card in 'Building...' mode (0 games in). Already shows 3 passive signals captured from onboarding itself: Prefers OVER, NFL Primary, Night Player. Unlock gate: 3 real picks to see full DNA profile. I chose 3 picks as the gate \u2014 enough data to show something meaningful, fast enough to hook before they lose interest.",
     "mark_reply": ""
   },
   {
@@ -4132,7 +4134,7 @@
     "source": "inbox",
     "idea": "[daily-challenge-v3] 1 show actual picks 2. we decided on 6pm in users local time 3. immediately",
     "status": "done",
-    "claude_response": "Built Daily Challenge v4. 4 phones: (1) Active challenge — 5 picks, 3 resolved with live results inline, expiry countdown showing 3h 46m to 6pm. (2) Immediate result flash — pick 4 (Curry 3-pointers OVER) just settled, shows stat vs line vs your pick in real-time, list updates live. (3) Streak At Risk — 14-day streak, 47 min to 6pm, one-tap resume CTA. (4) Share card — actual OVER/UNDER picks listed with sport emoji, stat result, and win/loss dot. Not Wordle dots. Global rank shown on card. WhatsApp/Instagram/Copy share options. Key question back to Mark: should we add a spoiler toggle on the share card for friends who haven't played yet?",
+    "claude_response": "Built Daily Challenge v4. 4 phones: (1) Active challenge \u2014 5 picks, 3 resolved with live results inline, expiry countdown showing 3h 46m to 6pm. (2) Immediate result flash \u2014 pick 4 (Curry 3-pointers OVER) just settled, shows stat vs line vs your pick in real-time, list updates live. (3) Streak At Risk \u2014 14-day streak, 47 min to 6pm, one-tap resume CTA. (4) Share card \u2014 actual OVER/UNDER picks listed with sport emoji, stat result, and win/loss dot. Not Wordle dots. Global rank shown on card. WhatsApp/Instagram/Copy share options. Key question back to Mark: should we add a spoiler toggle on the share card for friends who haven't played yet?",
     "mark_reply": ""
   },
   {
@@ -4141,7 +4143,7 @@
     "source": "inbox",
     "idea": "[game-day-v3] 1. replace 2. striking distance 3. we dont want venue owner to do anything",
     "status": "done",
-    "claude_response": "Built Game Day v4. 3 phones: (1) Session Hub as full Home replacement — rank (#4 of 28), session IQ, mini leaderboard top 3 + you, active picks with live status, Next Pick CTA. This IS your home screen when a session is active. (2) Clutch Pick auto-fires — close game detected (Chiefs 21 Eagles 20, Q4 1:47, within 1 pt). Card slides up from bottom with 3× multiplier, 90-second lock window, crowd split, skip option. Zero venue owner involvement. Trigger conditions: within 3 pts in final 12 min, or Q4 under 2 min. (3) Path to First within striking distance — 180 IQ behind #1 BetKing (1,220 vs 1,400). Shows the math: 'Win 1 pick at 2× = +400 IQ — one win covers the gap'. Shows best available pick. Info note explains it only appears within 500 IQ of #1.",
+    "claude_response": "Built Game Day v4. 3 phones: (1) Session Hub as full Home replacement \u2014 rank (#4 of 28), session IQ, mini leaderboard top 3 + you, active picks with live status, Next Pick CTA. This IS your home screen when a session is active. (2) Clutch Pick auto-fires \u2014 close game detected (Chiefs 21 Eagles 20, Q4 1:47, within 1 pt). Card slides up from bottom with 3\u00d7 multiplier, 90-second lock window, crowd split, skip option. Zero venue owner involvement. Trigger conditions: within 3 pts in final 12 min, or Q4 under 2 min. (3) Path to First within striking distance \u2014 180 IQ behind #1 BetKing (1,220 vs 1,400). Shows the math: 'Win 1 pick at 2\u00d7 = +400 IQ \u2014 one win covers the gap'. Shows best available pick. Info note explains it only appears within 500 IQ of #1.",
     "mark_reply": ""
   },
   {
@@ -4150,7 +4152,7 @@
     "source": "inbox",
     "idea": "[notifications-v2] 1. simple 2. use real game stats for everything 3. auto-learn",
     "status": "done",
-    "claude_response": "Built Notifications v3. 3 phones: (1) Settings — 3 pack toggles only (Game Day, Social, Habit). Game Day and Social ON, Habit OFF. Each pack shows what's inside. Auto-learn status card at bottom. (2) Notification examples — 6 iOS-style notifications shown with real data baked in. Pick window: 'Mahomes opens now — line 287.5 · his avg 304.2 · you're 4-1 OVER on him.' Result: 'OVER hit! 312 yds · +200 IQ.' Social: 'SarahK just moved past you — gap 80 IQ · 1 pick away from reclaiming.' Every notification has actual context. (3) Auto-learn insight — shows what the system learned: Game Day 98% open rate (send at full freq), Social paused before 8 AM after 12 days of ignoring, peak window learned as 7-11 PM Sundays. Transparency with reset option.",
+    "claude_response": "Built Notifications v3. 3 phones: (1) Settings \u2014 3 pack toggles only (Game Day, Social, Habit). Game Day and Social ON, Habit OFF. Each pack shows what's inside. Auto-learn status card at bottom. (2) Notification examples \u2014 6 iOS-style notifications shown with real data baked in. Pick window: 'Mahomes opens now \u2014 line 287.5 \u00b7 his avg 304.2 \u00b7 you're 4-1 OVER on him.' Result: 'OVER hit! 312 yds \u00b7 +200 IQ.' Social: 'SarahK just moved past you \u2014 gap 80 IQ \u00b7 1 pick away from reclaiming.' Every notification has actual context. (3) Auto-learn insight \u2014 shows what the system learned: Game Day 98% open rate (send at full freq), Social paused before 8 AM after 12 days of ignoring, peak window learned as 7-11 PM Sundays. Transparency with reset option.",
     "mark_reply": ""
   },
   {
@@ -4159,16 +4161,16 @@
     "source": "inbox",
     "idea": "[my-stats-v2] 1. you decide 2. you deicde 3. too dense to show always, you can show his record against Mike when he is going to play H2H agianst mike again 4. too dense to show always this data is all great but we cant show all of it all the time. you needs to decide what is best to show and when its best to show it",
     "status": "done",
-    "claude_response": "Built My Stats v3. Context-aware architecture: same screen, 3 surface states. (1) Default/mid-week — essentials only: overall 68% win rate, 22-day streak, season rank #4, top sport NFL 74%, sport bars. Clean. No H2H table, no deep analytics. 'More stats surface when games are live' note at bottom. (2) Pre-game context — pick window for Mahomes opening in 8 min. Screen auto-surfaces: your Mahomes-specific record (4-1, 80%, you lean OVER), your passing yards accuracy (74% on NFL QBs), core stats collapsed to one row so context is hero. (3) H2H scouting mode — H2H match vs Mike in 2 days. Screen surfaces: 4-2 record this season, +150 IQ lead, Mike's tendencies (3-1 UNDER on passing yards, weak CFB), your edge vs his specific patterns. Core stats still visible at bottom. The system decides which state to show — not the user.",
+    "claude_response": "Built My Stats v3. Context-aware architecture: same screen, 3 surface states. (1) Default/mid-week \u2014 essentials only: overall 68% win rate, 22-day streak, season rank #4, top sport NFL 74%, sport bars. Clean. No H2H table, no deep analytics. 'More stats surface when games are live' note at bottom. (2) Pre-game context \u2014 pick window for Mahomes opening in 8 min. Screen auto-surfaces: your Mahomes-specific record (4-1, 80%, you lean OVER), your passing yards accuracy (74% on NFL QBs), core stats collapsed to one row so context is hero. (3) H2H scouting mode \u2014 H2H match vs Mike in 2 days. Screen surfaces: 4-2 record this season, +150 IQ lead, Mike's tendencies (3-1 UNDER on passing yards, weak CFB), your edge vs his specific patterns. Core stats still visible at bottom. The system decides which state to show \u2014 not the user.",
     "mark_reply": ""
   },
   {
     "id": "idea-064",
     "date": "2026-03-22",
     "source": "autonomous-loop",
-    "idea": "Sports DNA v3 — Pentagon radar chart, DNA Signal in pick flow, shareable viral DNA card",
+    "idea": "Sports DNA v3 \u2014 Pentagon radar chart, DNA Signal in pick flow, shareable viral DNA card",
     "status": "done",
-    "claude_response": "Built Sports DNA v3. Three advances over v2: (1) Pentagon radar chart (SVG) — 5 axes: NFL, Contrarian, Early Bird, Bar Mode, NBA. Your filled pentagon overlaid on a dimmed average-player reference pentagon. Instantly shows your shape vs the field. 3-word summary: 'Contrarian · Early Bird · NFL Specialist'. (2) DNA Signal integrated into the pick card — when Mahomes pick window opens, a 'Your DNA Signal' banner synthesizes 3 specific signals: 4-1 OVER on Mahomes, contrarian bias, Early Bird +16% accuracy edge. Output: 'DNA Says: OVER ↑'. OVER button shows 'DNA recommends', UNDER shows 'Go against DNA'. This is the core moat: proprietary behavioral data driving a unique recommendation for each user on each pick — can't be replicated without your specific history. (3) Viral share card — mini pentagon on card, archetype 3-word summary, win rate + streak + rank stats, 'Can you beat my DNA?' hook with sportsiq.app CTA. Instagram Story + WhatsApp + Copy Link share options.",
+    "claude_response": "Built Sports DNA v3. Three advances over v2: (1) Pentagon radar chart (SVG) \u2014 5 axes: NFL, Contrarian, Early Bird, Bar Mode, NBA. Your filled pentagon overlaid on a dimmed average-player reference pentagon. Instantly shows your shape vs the field. 3-word summary: 'Contrarian \u00b7 Early Bird \u00b7 NFL Specialist'. (2) DNA Signal integrated into the pick card \u2014 when Mahomes pick window opens, a 'Your DNA Signal' banner synthesizes 3 specific signals: 4-1 OVER on Mahomes, contrarian bias, Early Bird +16% accuracy edge. Output: 'DNA Says: OVER \u2191'. OVER button shows 'DNA recommends', UNDER shows 'Go against DNA'. This is the core moat: proprietary behavioral data driving a unique recommendation for each user on each pick \u2014 can't be replicated without your specific history. (3) Viral share card \u2014 mini pentagon on card, archetype 3-word summary, win rate + streak + rank stats, 'Can you beat my DNA?' hook with sportsiq.app CTA. Instagram Story + WhatsApp + Copy Link share options.",
     "mark_reply": ""
   },
   {
@@ -4177,7 +4179,7 @@
     "source": "inbox",
     "idea": "[leaderboard-v3] 1. I like both. But we should use Today instead of Tonight 2. yes, why do we need opt? we should always show this 3. I dont understand this, explain.",
     "status": "noted",
-    "claude_response": "Got it on 1 and 2. 'Today' is correct — will use that everywhere. Cross-venue leaderboard always on, no opt-in gate. On #3 (rank delta explanation): Rank delta is the number that shows how many positions you moved up or down. Example: if you were #7 yesterday and you're #4 today, your delta is +3 (moved up 3 spots). I show this as a small arrow and number next to your rank: '↑3 today'. Two deltas: today's movement and this week's movement. It helps you see momentum — are you climbing fast, stalling, or dropping? Makes the leaderboard feel alive instead of a static snapshot. Confirmed I'll keep this in leaderboard-v4 (already built) and all future versions.",
+    "claude_response": "Got it on 1 and 2. 'Today' is correct \u2014 will use that everywhere. Cross-venue leaderboard always on, no opt-in gate. On #3 (rank delta explanation): Rank delta is the number that shows how many positions you moved up or down. Example: if you were #7 yesterday and you're #4 today, your delta is +3 (moved up 3 spots). I show this as a small arrow and number next to your rank: '\u21913 today'. Two deltas: today's movement and this week's movement. It helps you see momentum \u2014 are you climbing fast, stalling, or dropping? Makes the leaderboard feel alive instead of a static snapshot. Confirmed I'll keep this in leaderboard-v4 (already built) and all future versions.",
     "mark_reply": ""
   },
   {
@@ -4186,7 +4188,7 @@
     "source": "inbox",
     "idea": "[notifications-v2] 1. simple 2. use real game stats for everything 3. auto-learn",
     "status": "done",
-    "claude_response": "This is the same direction as notifications-v3 (already built). Notifications v3 has: (1) Simple 3-toggle system (Game Day / Social / Habit). (2) Real stats baked into every notification — 'Mahomes opens now · line 287.5 · avg 304.2 · you're 4-1 OVER'. (3) Auto-learn card that learns open/ignore patterns and shows insights ('98% open rate on Game Day', 'Social paused before 8 AM'). All three criteria met in notifications-v3.",
+    "claude_response": "This is the same direction as notifications-v3 (already built). Notifications v3 has: (1) Simple 3-toggle system (Game Day / Social / Habit). (2) Real stats baked into every notification \u2014 'Mahomes opens now \u00b7 line 287.5 \u00b7 avg 304.2 \u00b7 you're 4-1 OVER'. (3) Auto-learn card that learns open/ignore patterns and shows insights ('98% open rate on Game Day', 'Social paused before 8 AM'). All three criteria met in notifications-v3.",
     "mark_reply": ""
   },
   {
@@ -4195,7 +4197,7 @@
     "source": "inbox",
     "idea": "[sports-dna-v2] 1. its good 2. surface their best automatically 3. earned only",
     "status": "done",
-    "claude_response": "Sports DNA v3 (already built) addresses these: (1) Pentagon radar chart is good per Mark. (2) Archetype surfaced automatically — system detects 'Contrarian', 'Early Bird', 'NFL Specialist' from your data, no user input. (3) Badges earned only — no purchased or default badges. DNA Signal in the pick card shows data-driven archetype, not a user-chosen label. v3 fully implements all three directions.",
+    "claude_response": "Sports DNA v3 (already built) addresses these: (1) Pentagon radar chart is good per Mark. (2) Archetype surfaced automatically \u2014 system detects 'Contrarian', 'Early Bird', 'NFL Specialist' from your data, no user input. (3) Badges earned only \u2014 no purchased or default badges. DNA Signal in the pick card shows data-driven archetype, not a user-chosen label. v3 fully implements all three directions.",
     "mark_reply": ""
   },
   {
@@ -4204,7 +4206,7 @@
     "source": "inbox",
     "idea": "[referral-v2] 1. a/b test 2. we need to discuss expiration of points in a comprehensive way. Lets find a policy that is optimal across the whole app and ecosystem 3. should unlock something real",
     "status": "noted",
-    "claude_response": "Noted — three open questions for discussion: (1) A/B test on referral reward amounts — will implement a/b variant tracking in referral-v2 mockup when we revisit. (2) IQ expiration policy — this needs a separate conversation to design the full ecosystem policy. My recommendation: IQ earned from picks never expires (it's a true score), but bonus IQ from referrals/challenges expires after 90 days if unused toward a prize/perk — this preserves the integrity of the pick-accuracy score while creating urgency on the referral/social side. (3) Unlock something real — referral reward should unlock a PRO feature trial (2 weeks of SportsIQ Pro), not just IQ points. More motivating than a number.",
+    "claude_response": "Noted \u2014 three open questions for discussion: (1) A/B test on referral reward amounts \u2014 will implement a/b variant tracking in referral-v2 mockup when we revisit. (2) IQ expiration policy \u2014 this needs a separate conversation to design the full ecosystem policy. My recommendation: IQ earned from picks never expires (it's a true score), but bonus IQ from referrals/challenges expires after 90 days if unused toward a prize/perk \u2014 this preserves the integrity of the pick-accuracy score while creating urgency on the referral/social side. (3) Unlock something real \u2014 referral reward should unlock a PRO feature trial (2 weeks of SportsIQ Pro), not just IQ points. More motivating than a number.",
     "mark_reply": ""
   },
   {
@@ -4213,7 +4215,7 @@
     "source": "inbox",
     "idea": "[trivia] 1. keep it easy withiout being way too easy. we want the average user to get 70% correct 2. not sure, make a reccomendation 3. on the tv screen 4. 100% curated by sportsiq",
     "status": "noted",
-    "claude_response": "Noted — four design specs for trivia: (1) 70% correct target — questions calibrated so 70% of players get it right. Avoid deep historical obscurity; focus on active players/recent seasons. 'How many TDs did Mahomes throw in 2024?' is harder than 'Which team won last year's Super Bowl?' — we want a mix. (2) Recommendation for Q2 (where to integrate trivia): recommend Halftime + Pre-game only. TV bar screen shows trivia during idle / halftime breaks, not during live play. This keeps the core pick-flow clean while trivia fills the dead time. (3) On TV screen — already built as trivia-v3 for the bar TV. (4) 100% SportsIQ curated — already spec'd. No user-submitted questions.",
+    "claude_response": "Noted \u2014 four design specs for trivia: (1) 70% correct target \u2014 questions calibrated so 70% of players get it right. Avoid deep historical obscurity; focus on active players/recent seasons. 'How many TDs did Mahomes throw in 2024?' is harder than 'Which team won last year's Super Bowl?' \u2014 we want a mix. (2) Recommendation for Q2 (where to integrate trivia): recommend Halftime + Pre-game only. TV bar screen shows trivia during idle / halftime breaks, not during live play. This keeps the core pick-flow clean while trivia fills the dead time. (3) On TV screen \u2014 already built as trivia-v3 for the bar TV. (4) 100% SportsIQ curated \u2014 already spec'd. No user-submitted questions.",
     "mark_reply": ""
   },
   {
@@ -4222,7 +4224,7 @@
     "source": "inbox",
     "idea": "[challenges-v3] 1. unitfed 2. unified 3. bar challenge if within .15 miles of a bar",
     "status": "noted",
-    "claude_response": "Noted — three decisions for challenges-v3: (1) Unified challenge type — one format covers both. (2) Unified in Q2 — challenges-v3 is a Q2 initiative. (3) Bar challenge auto-triggers if user's GPS puts them within 0.15 miles (~800 feet) of any registered SportsIQ bar. No manual check-in needed — proximity auto-enables. This is a strong moat: competitors can't replicate the bar-proximity-aware challenge mechanic without the same venue network.",
+    "claude_response": "Noted \u2014 three decisions for challenges-v3: (1) Unified challenge type \u2014 one format covers both. (2) Unified in Q2 \u2014 challenges-v3 is a Q2 initiative. (3) Bar challenge auto-triggers if user's GPS puts them within 0.15 miles (~800 feet) of any registered SportsIQ bar. No manual check-in needed \u2014 proximity auto-enables. This is a strong moat: competitors can't replicate the bar-proximity-aware challenge mechanic without the same venue network.",
     "mark_reply": ""
   },
   {
@@ -4231,7 +4233,7 @@
     "source": "inbox",
     "idea": "[head-to-head] 1. real IQ points 2. yes - make sure this works well though 3. clarify what we are doing with H2H and groups. this should be simple and intuitive. we shouldnt have one feature for 2 players and another for a group. 4. make a recommendation",
     "status": "done",
-    "claude_response": "Updated head-to-head screen to unified 'Crew Challenge' concept: (1) Real IQ points — already using real IQ stakes (50/150/300 IQ). Winner earns from loser. (2) Async confirmed — works in same pick window. Added 'async OK' note to CTA button. (3) Unified H2H + Groups: recommendation is ONE feature called 'Crew Challenge' with a simple toggle: '1 vs 1' (Head-to-Head) or 'Group' (2-5 friends). Same prop, same interface, same IQ stakes. Add opponents to go from H2H to Group. No separate Group feature needed. (4) Fixed layout — removed margin-top:auto on nav (was causing content-scrunched-at-top issue), increased spacing between all elements from 14px → 16px margins, taller tap targets.",
+    "claude_response": "Updated head-to-head screen to unified 'Crew Challenge' concept: (1) Real IQ points \u2014 already using real IQ stakes (50/150/300 IQ). Winner earns from loser. (2) Async confirmed \u2014 works in same pick window. Added 'async OK' note to CTA button. (3) Unified H2H + Groups: recommendation is ONE feature called 'Crew Challenge' with a simple toggle: '1 vs 1' (Head-to-Head) or 'Group' (2-5 friends). Same prop, same interface, same IQ stakes. Add opponents to go from H2H to Group. No separate Group feature needed. (4) Fixed layout \u2014 removed margin-top:auto on nav (was causing content-scrunched-at-top issue), increased spacing between all elements from 14px \u2192 16px margins, taller tap targets.",
     "mark_reply": ""
   },
   {
@@ -4240,7 +4242,7 @@
     "source": "inbox",
     "idea": "[friends-feed-v1] 1. reactions but keep it simple 2. before 3. manual 4. all friends",
     "status": "done",
-    "claude_response": "Built friends-feed-v2. All four specs implemented: (1) 4-emoji reaction row (🔥👀😬✅) under every feed item with counts — no comments, no threads. (2) Feed shows picks the moment they're locked as PENDING, before any result settles — 'Picked OVER · Mahomes 267.5 · Live Q3' is the primary state. (3) Manual follow only — phone 2 is a full follow management screen with explicit Follow buttons; nothing is auto-followed. (4) All friends visible — header shows 'Following 14 · All' with zero algorithmic filtering, chronological order.",
+    "claude_response": "Built friends-feed-v2. All four specs implemented: (1) 4-emoji reaction row (\ud83d\udd25\ud83d\udc40\ud83d\ude2c\u2705) under every feed item with counts \u2014 no comments, no threads. (2) Feed shows picks the moment they're locked as PENDING, before any result settles \u2014 'Picked OVER \u00b7 Mahomes 267.5 \u00b7 Live Q3' is the primary state. (3) Manual follow only \u2014 phone 2 is a full follow management screen with explicit Follow buttons; nothing is auto-followed. (4) All friends visible \u2014 header shows 'Following 14 \u00b7 All' with zero algorithmic filtering, chronological order.",
     "mark_reply": ""
   },
   {
@@ -4249,7 +4251,7 @@
     "source": "inbox",
     "idea": "[bar-idle-v4] 1. all of those are good 2. not in this version, maybe down the road 3. today only leaderboard too wide and left panel is too narrow (room code should fit on one line)",
     "status": "done",
-    "claude_response": "Fixed Bar Idle v4: (1) Widened left column from 340px → 460px. (2) Leaderboard center column fixed at 840px (was 1fr = 1220px — too wide). (3) Room code changed from '7 3 4 9 1' with letter-spacing:10px to '73491' with letter-spacing:6px — now fits cleanly on one line. (4) Auto-insights: all three formats (crowd summary, player stat, next prop teaser) remain — all are good per Mark. (5) No owner customization (zero input principle stays).",
+    "claude_response": "Fixed Bar Idle v4: (1) Widened left column from 340px \u2192 460px. (2) Leaderboard center column fixed at 840px (was 1fr = 1220px \u2014 too wide). (3) Room code changed from '7 3 4 9 1' with letter-spacing:10px to '73491' with letter-spacing:6px \u2014 now fits cleanly on one line. (4) Auto-insights: all three formats (crowd summary, player stat, next prop teaser) remain \u2014 all are good per Mark. (5) No owner customization (zero input principle stays).",
     "mark_reply": ""
   },
   {
@@ -4258,7 +4260,7 @@
     "source": "inbox",
     "idea": "[bar-tracking-v3] 1. you decide 2. yes, add it if there is space 3. dramatic imporve the vertical spacing in state 1",
     "status": "done",
-    "claude_response": "Fixed Bar Tracking v3 state 1 vertical spacing: (1) Increased padding on left column from 36px/48px → 48px/64px. (2) Switched from gap:28px to justify-content:space-between so the 4 blocks (hero stat, progress bar, stats grid, time context) distribute evenly across the full 1010px height. (3) Scaled up hero stat from 120px → 160px font — more dramatic at bar TV distance. (4) Stats grid cards larger (36px vs 28px numbers, 14px padding). (5) Progress bar thicker: 24px height. (6) Progress bar: chose smooth real-time animation. (7) Supporting stats panel stays — adds broadcast feel.",
+    "claude_response": "Fixed Bar Tracking v3 state 1 vertical spacing: (1) Increased padding on left column from 36px/48px \u2192 48px/64px. (2) Switched from gap:28px to justify-content:space-between so the 4 blocks (hero stat, progress bar, stats grid, time context) distribute evenly across the full 1010px height. (3) Scaled up hero stat from 120px \u2192 160px font \u2014 more dramatic at bar TV distance. (4) Stats grid cards larger (36px vs 28px numbers, 14px padding). (5) Progress bar thicker: 24px height. (6) Progress bar: chose smooth real-time animation. (7) Supporting stats panel stays \u2014 adds broadcast feel.",
     "mark_reply": ""
   },
   {
@@ -4267,7 +4269,7 @@
     "source": "inbox",
     "idea": "[bar-result-v3] 1. We need to pick one - you choose best 2. 3+ is good 3. bar owners should not decide anything improve vertical spacing",
     "status": "done",
-    "claude_response": "Fixed Bar Result v3: (1) Celebration style: chose glowing green full-impact — 152px stat number with green glow text-shadow, outcome card with box-shadow glow ring (0 0 40px rgba(34,197,94,0.3)) and gradient border. This is the most visceral for a bar TV watching audience. (2) Hot streak threshold stays at 3. (3) Removed manual extend timer option — auto-advance always, no bar owner input. Tab switcher auto-rotates every 15s (not owner-controlled). (4) Vertical spacing: left column switched to justify-content:space-between with 40px/60px padding — content distributes evenly. (5) Right leaderboard rows taller (13px padding vs 10px), spacing gap:9px.",
+    "claude_response": "Fixed Bar Result v3: (1) Celebration style: chose glowing green full-impact \u2014 152px stat number with green glow text-shadow, outcome card with box-shadow glow ring (0 0 40px rgba(34,197,94,0.3)) and gradient border. This is the most visceral for a bar TV watching audience. (2) Hot streak threshold stays at 3. (3) Removed manual extend timer option \u2014 auto-advance always, no bar owner input. Tab switcher auto-rotates every 15s (not owner-controlled). (4) Vertical spacing: left column switched to justify-content:space-between with 40px/60px padding \u2014 content distributes evenly. (5) Right leaderboard rows taller (13px padding vs 10px), spacing gap:9px.",
     "mark_reply": ""
   },
   {
@@ -4276,7 +4278,7 @@
     "source": "inbox",
     "idea": "[trivia-v3] 1. we built this before - user can change thoer mind but they get more points the more time remains when they make thoer final pick 2. fun and contextual 3. 5 seconds improve vertical spacing",
     "status": "done",
-    "claude_response": "Updated Trivia v3: (1) Speed mechanic: updated footer and instructions to 'Tap to select · Change anytime · Faster = more IQ points' and '⚡ Answer faster, earn more IQ — tap to select, tap to change'. This surfaces the existing speed bonus and makes the change-mind mechanic explicit. (2) SportsIQ Insight updated to be fun and contextual — not just a stat, but a comparison (Mahomes 52 TDs ranked vs Brady/Rodgers history). (3) 5-second reveal confirmed. (4) Vertical spacing dramatically improved: padding 32px/80px → 52px/100px on both states, answer tiles 26px → 36px padding, answer font 32px → 44px, question font 46px → 54px, justify-content:space-between fills screen height. State 2 similarly scaled up. Insight card also larger and more prominent.",
+    "claude_response": "Updated Trivia v3: (1) Speed mechanic: updated footer and instructions to 'Tap to select \u00b7 Change anytime \u00b7 Faster = more IQ points' and '\u26a1 Answer faster, earn more IQ \u2014 tap to select, tap to change'. This surfaces the existing speed bonus and makes the change-mind mechanic explicit. (2) SportsIQ Insight updated to be fun and contextual \u2014 not just a stat, but a comparison (Mahomes 52 TDs ranked vs Brady/Rodgers history). (3) 5-second reveal confirmed. (4) Vertical spacing dramatically improved: padding 32px/80px \u2192 52px/100px on both states, answer tiles 26px \u2192 36px padding, answer font 32px \u2192 44px, question font 46px \u2192 54px, justify-content:space-between fills screen height. State 2 similarly scaled up. Insight card also larger and more prominent.",
     "mark_reply": ""
   },
   {
@@ -4285,7 +4287,7 @@
     "source": "inbox",
     "idea": "[mkt-intel-v2] 1. we can use multiple as long as they all have value 2. breaks the flow 3. significant improve vertical spacing",
     "status": "done",
-    "claude_response": "Updated Market Intel v2: (1) Multiple data sources: Crowd + SportsIQ Signal + Prediction Market all kept — all have value. (2) Calibration question ('What drove your pick?') removed — it breaks the flow. It was never in the mockup visually but noted as not to build. (3) Significantly improved vertical spacing on both phones: padding 16px → 24px, gap: 0 (stacked divs) → gap:22px (flex), margins 20px → 22-32px, pick line hero number 80px → 92px, crowd percentages 22px → 26px, signal bar thicker (6px → 8px), confirmation banner 14px padding → 18px, alignment history numbers 22px → 30px.",
+    "claude_response": "Updated Market Intel v2: (1) Multiple data sources: Crowd + SportsIQ Signal + Prediction Market all kept \u2014 all have value. (2) Calibration question ('What drove your pick?') removed \u2014 it breaks the flow. It was never in the mockup visually but noted as not to build. (3) Significantly improved vertical spacing on both phones: padding 16px \u2192 24px, gap: 0 (stacked divs) \u2192 gap:22px (flex), margins 20px \u2192 22-32px, pick line hero number 80px \u2192 92px, crowd percentages 22px \u2192 26px, signal bar thicker (6px \u2192 8px), confirmation banner 14px padding \u2192 18px, alignment history numbers 22px \u2192 30px.",
     "mark_reply": ""
   },
   {
@@ -4294,7 +4296,7 @@
     "source": "inbox",
     "idea": "[venue-dashboard-v2] 1. owner should not have to do anything 2. give me some recommendations. should be accurate and powerful 3. web only is acceptable for v1",
     "status": "noted",
-    "claude_response": "Noted — three decisions for venue-dashboard-v3: (1) Owner does nothing — zero input needed. Dashboard is fully automated. No 'Run a prediction window' button for the owner to tap — SportsIQ triggers everything automatically based on session data. (2) Powerful recommendations — the dashboard should show: 'Tonight's bar tab lift estimate: +$340', 'Peak pick window Q3 8pm — 23 players active', '3 players about to lose their streak — prime moment to nudge'. These are read-only intelligence for the owner, generated from real session data. Will redesign venue-dashboard to show these automations as facts rather than suggestions to approve. (3) Web-only V1 confirmed. Will build v3 with this direction.",
+    "claude_response": "Noted \u2014 three decisions for venue-dashboard-v3: (1) Owner does nothing \u2014 zero input needed. Dashboard is fully automated. No 'Run a prediction window' button for the owner to tap \u2014 SportsIQ triggers everything automatically based on session data. (2) Powerful recommendations \u2014 the dashboard should show: 'Tonight's bar tab lift estimate: +$340', 'Peak pick window Q3 8pm \u2014 23 players active', '3 players about to lose their streak \u2014 prime moment to nudge'. These are read-only intelligence for the owner, generated from real session data. Will redesign venue-dashboard to show these automations as facts rather than suggestions to approve. (3) Web-only V1 confirmed. Will build v3 with this direction.",
     "mark_reply": ""
   },
   {
@@ -4303,7 +4305,7 @@
     "source": "inbox",
     "idea": "[venue-onboarding-v2] 1. admin inside main app 2. lets discuss this further. we need a rock solid plan here 3. 30 day free",
     "status": "noted",
-    "claude_response": "Noted — three decisions for venue-onboarding: (1) Admin inside main app — not a separate app. Bar owner downloads the same SportsIQ app, creates a 'Venue account', and gets an admin mode. This is much simpler to build and removes the 'download a second app' friction. (2) Needs a solid plan before building — will create a full onboarding flow spec when ready to build v3. Plan will cover: how a bar owner discovers SportsIQ, signs up, gets their first session live, and transitions to regular use. (3) 30-day free trial as the entry offer — no credit card required for trial. After 30 days, $49/month or $399/year. Trial ends with a session recap showing real revenue lift to make the upgrade decision easy.",
+    "claude_response": "Noted \u2014 three decisions for venue-onboarding: (1) Admin inside main app \u2014 not a separate app. Bar owner downloads the same SportsIQ app, creates a 'Venue account', and gets an admin mode. This is much simpler to build and removes the 'download a second app' friction. (2) Needs a solid plan before building \u2014 will create a full onboarding flow spec when ready to build v3. Plan will cover: how a bar owner discovers SportsIQ, signs up, gets their first session live, and transitions to regular use. (3) 30-day free trial as the entry offer \u2014 no credit card required for trial. After 30 days, $49/month or $399/year. Trial ends with a session recap showing real revenue lift to make the upgrade decision easy.",
     "mark_reply": ""
   },
   {
@@ -4311,12 +4313,11 @@
     "date": "2026-03-22",
     "source": "inbox",
     "idea": "[data-intelligence-v2] 1. just eperience the personalization. lets keep it private for internal sportsIQ use only for now 2. bar regular is fun 3. embedded in home idle screen",
-    "status": "noted",
-    "claude_response": "Noted — three decisions for data-intelligence: (1) Keep private — the data layer is internal SportsIQ infrastructure. Users experience personalization without seeing a 'data profile' screen. No user-facing DNA dashboard (that's Sports DNA's job). SportsIQ uses the data to power pick signals, trivia difficulty, notification timing — all invisible. (2) Bar Regular archetype is fun — when the system detects a user who checks in at the same bar 3+ times, they get a 'Bar Regular' tag that unlocks venue-specific challenges. Great for retention at specific bars. (3) Embed in home idle screen — the personalization surfaces as contextual cards on the home screen: 'Your next Mahomes window opens in 8 min — you're 4-1 OVER'. This is the right home for this content.",
+    "status": "in-progress",
+    "claude_response": "Built Home Idle v6 (Mar 22 2026). Three phones: (1) Archetype hero card between games \u2014 \"The Dome King\" 8-2 in domes, 80% win rate, private by default with a blurred Prop Coach teaser locked behind Pro. (2) Bar check-in with archetype \u2014 greeted as a regular at McFadden's, bar-specific pick history (3-0), bar rank (#2 tonight), dome game flag activates archetype edge. (3) Archetype evolution card \u2014 shows pattern shift from Cold Weather Skeptic \u2192 Dome King with before/after visual, explanation of why pattern shifted, 2 more emerging patterns locked behind Pro.",
     "mark_reply": ""
   }
-]
-</script>
+]</script>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
      SCREEN: Feedback
@@ -5028,6 +5029,8 @@
     'notifications-v3':    '2026-03-22T16:00:00-07:00',
     // ── Mar 22 autonomous loop — Notifications v4: pre-permission soft ask · Pro notifications pack ──
     'notifications-v4':    '2026-03-22T19:00:00-07:00',
+    // ── Mar 22 autonomous loop — Home Idle v6: bar regular archetype · identity-forward personalization ──
+    'home-idle-v6':        '2026-03-22T20:00:00-07:00',
     // ── Mar 21 4:30 PM PT — stats/leaderboard/DNA/referral (032–035) ──
     'leaderboard-v3':      '2026-03-21T16:30:00-07:00',
     'leaderboard-v4':      '2026-03-21T20:00:00-07:00',
@@ -5983,6 +5986,17 @@
         'What to show on the card: pick + IQ + record (current, clean) vs add streak + rank? My rec: current 3-stat row is clean. Streak + rank would be compelling if they\'re good numbers.',
         'Contrarian win badge on card: love it or too much? My thinking: it\'s a brag moment — "68% picked UNDER and I won" is a better story than just "I won."',
         'Losing picks: no share card, or optional "brutal beat" card for near-misses that people share ironically? Could actually drive more shares since losses happen more often than wins.'
+      ]
+    },
+    'home-idle-v6': {
+      icon: '🏠',
+      title: 'Home Idle v6 — Bar Regular Archetype · Identity-Forward Personalization · Mar 22 2026',
+      built: 'Implements idea-079 (Mark: "bar regular is fun · embedded in home idle screen · just experience the personalization"). Three phones: (1) Archetype hero card — your pick history generates a sports identity automatically: "🏟️ The Dome King · 8W-2L · 80% win rate in indoor/dome games." Private by default ("👁️ only you see this"), with a blurred Prop Coach teaser locked behind Pro. The archetype is shown ABOVE the fold on the idle screen — it\'s the first thing you see, making the app feel like it "knows" you. (2) Bar check-in with archetype — when you tap "check in" at a bar, the app greets you as a regular: "🍺 The Dome King is here" + your pick history at THIS bar ("3-0 at McFadden\'s your last 3 visits") + your bar rank badge ("⚡ #2 at this bar tonight"). The bar recognizes you. (3) Pattern evolution — after enough picks, the app surfaces "Your archetype just shifted" with an animation showing which old pattern weakened and which new one emerged. Creates a reason to keep picking to evolve your identity. Moat: this is pure proprietary data. Competitors would need 6-12 months of per-user pick history to replicate — and they\'d have to get users to pick first.',
+      questions: [
+        'Archetype privacy: "only you see this" is the default — should there be a one-tap share button next to the archetype to make it viral? ("I\'m The Dome King on SportsIQ" is a natural share moment.)',
+        'How many picks before an archetype is revealed? Showing it too early (after 5 picks) could be inaccurate. Too late (after 50 picks) means new users wait too long. What\'s the right threshold?',
+        'Bar regular archetype (Phone 2): "3-0 at McFadden\'s your last 3 visits" — this requires location-linked pick history. Is that a feature we want to highlight in the design, or does it feel invasive?',
+        'Pattern evolution (Phone 3): should archetype shifts be push notifications ("Your archetype just evolved 🧬") or silent in-app only? A notification could be a high-value retention touch.'
       ]
     },
     'home-idle-v5': {
@@ -25604,6 +25618,348 @@
   </div>
   <div id="sfb-panel-home-idle-v5" class="sfb-panel"></div>
 </div><!-- /screen home-idle-v5 -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     HOME IDLE v6 — Bar Regular Archetype · Mar 22 2026 (idea-079)
+     Mark: "bar regular is fun · embedded in home idle screen · just experience the personalization"
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="home-idle-v6" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Home Idle v6 — Bar Regular Archetype · Identity-Forward Personalization</div>
+    <div class="screen-desc">Mar 22 2026 · idea-079 · Mark: "bar regular is fun · embedded in home idle screen · just experience the personalization." Archetype (🏟️ The Dome King) is auto-generated from pick history and surfaced as the hero card on home idle — above the fold, no explanation of how it was built. Phone 1: archetype card between games (private, Pro-locked breakdown teaser). Phone 2: bar check-in recognizes you as a regular — "The Dome King is here · #2 at this bar." Phone 3: archetype evolution notification in-app when your pattern shifts.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: Between-games — Archetype hero as first card ─── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>9:41 AM</span><span>🔋</span></div>
+
+          <!-- Header -->
+          <div style="padding:6px 16px 4px;display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:20px;font-weight:800;color:#f0f6fc;">Sports<span style="color:#58a6ff;">IQ</span></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.28);border-radius:16px;padding:4px 10px;">
+                <span style="font-size:10px;color:#4ade80;font-weight:700;">↑ #47 Today</span>
+              </div>
+              <div style="background:linear-gradient(135deg,rgba(227,179,65,.2),rgba(227,179,65,.08));border:1px solid rgba(227,179,65,.4);border-radius:20px;padding:5px 12px;font-size:11px;color:#e3b341;font-weight:600;">⚡ 2,450 IQ</div>
+            </div>
+          </div>
+
+          <!-- ★ ARCHETYPE HERO CARD — new in v6 -->
+          <div style="margin:10px 16px 0;background:linear-gradient(135deg,rgba(85,69,211,0.18),rgba(85,69,211,0.06));border:1.5px solid rgba(85,69,211,0.4);border-radius:16px;padding:14px;position:relative;overflow:hidden;">
+            <!-- Subtle shimmer layer -->
+            <div style="position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:radial-gradient(circle,rgba(85,69,211,0.25),transparent 70%);border-radius:50%;"></div>
+
+            <!-- Top row: archetype name + privacy badge -->
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;">
+              <div>
+                <div style="color:#94a3b8;font-size:9px;font-weight:700;letter-spacing:2px;margin-bottom:4px;">YOUR SPORTSIQ IDENTITY</div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🏟️</div>
+                  <div>
+                    <div style="color:#f0f6fc;font-size:17px;font-weight:900;letter-spacing:-0.5px;line-height:1.1;">The Dome King</div>
+                    <div style="color:#a78bfa;font-size:10px;font-weight:600;margin-top:1px;">Indoor &amp; dome specialist</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Privacy badge -->
+              <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:4px 8px;display:flex;align-items:center;gap:4px;flex-shrink:0;">
+                <span style="font-size:10px;">👁️</span>
+                <span style="font-size:9px;color:#64748b;font-weight:600;">only you</span>
+              </div>
+            </div>
+
+            <!-- Stat row -->
+            <div style="display:flex;gap:8px;margin-bottom:10px;">
+              <div style="flex:1;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:8px;text-align:center;">
+                <div style="color:#22c55e;font-size:18px;font-weight:900;line-height:1;">8-2</div>
+                <div style="color:#4ade80;font-size:9px;font-weight:700;">in domes</div>
+              </div>
+              <div style="flex:1;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:10px;padding:8px;text-align:center;">
+                <div style="color:#a78bfa;font-size:18px;font-weight:900;line-height:1;">80%</div>
+                <div style="color:#818cf8;font-size:9px;font-weight:700;">win rate</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:8px;text-align:center;">
+                <div style="color:#f0f6fc;font-size:18px;font-weight:900;line-height:1;">Top 8%</div>
+                <div style="color:#8b949e;font-size:9px;font-weight:700;">of users</div>
+              </div>
+            </div>
+
+            <!-- Coach teaser — Pro locked -->
+            <div style="background:rgba(0,0,0,0.25);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
+              <span style="font-size:14px;flex-shrink:0;">🔒</span>
+              <div style="flex:1;min-width:0;">
+                <div style="color:#fbbf24;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Your Coach found 3 more patterns this week</div>
+                <div style="color:#64748b;font-size:10px;">Prop Coach · Pro only</div>
+              </div>
+              <div style="background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(217,119,6,0.15));border:1px solid rgba(245,158,11,0.4);border-radius:7px;padding:5px 9px;cursor:pointer;flex-shrink:0;">
+                <span style="font-size:10px;font-weight:700;color:#fbbf24;">Try Free</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats row -->
+          <div style="margin:8px 16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+            <div style="background:#161b22;border:1px solid #21262d;border-radius:10px;padding:10px;text-align:center;">
+              <div style="font-size:17px;font-weight:700;color:#f0f6fc;">62%</div>
+              <div style="font-size:9px;color:#8b949e;">WIN RATE</div>
+            </div>
+            <div style="background:linear-gradient(135deg,rgba(248,81,73,0.1),rgba(248,81,73,0.04));border:1px solid rgba(248,81,73,0.3);border-radius:10px;padding:10px;text-align:center;position:relative;">
+              <div style="font-size:17px;font-weight:700;color:#f85149;">🔥 4</div>
+              <div style="font-size:9px;color:#8b949e;">STREAK</div>
+              <div style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#f85149;box-shadow:0 0 6px rgba(248,81,73,0.7);"></div>
+            </div>
+            <div style="background:#161b22;border:1px solid #21262d;border-radius:10px;padding:10px;text-align:center;">
+              <div style="font-size:17px;font-weight:700;color:#f0f6fc;">+12</div>
+              <div style="font-size:9px;color:#8b949e;">RANK TODAY</div>
+            </div>
+          </div>
+
+          <!-- Streak urgency -->
+          <div style="margin:0 16px 8px;background:linear-gradient(135deg,rgba(248,81,73,0.08),rgba(248,81,73,0.03));border:1px solid rgba(248,81,73,0.25);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:22px;">🔥</span>
+            <div style="flex:1;">
+              <div style="font-size:12px;font-weight:700;color:#f0f6fc;margin-bottom:2px;">Protect your 4-pick streak tonight</div>
+              <div style="font-size:11px;color:#94a3b8;">Play trivia — window closes 11:59 PM · <span style="color:#f85149;font-weight:600;">3h 22m left</span></div>
+            </div>
+            <div style="background:rgba(248,81,73,0.2);border:1px solid rgba(248,81,73,0.4);border-radius:8px;padding:6px 10px;cursor:pointer;">
+              <span style="font-size:11px;font-weight:700;color:#f85149;">Play →</span>
+            </div>
+          </div>
+
+          <!-- Signal preview -->
+          <div style="margin:0 16px 8px;background:linear-gradient(135deg,rgba(88,166,255,.12),rgba(88,166,255,.04));border:1.5px solid rgba(88,166,255,.35);border-radius:14px;padding:12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <div style="font-size:10px;font-weight:700;color:#8b949e;text-transform:uppercase;letter-spacing:.6px;">⚡ Next Signal Preview</div>
+              <div style="font-size:10px;color:#8b949e;">Opens in 2h 14m</div>
+            </div>
+            <div style="font-size:14px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">Mahomes Passing Yards · KC vs LAC</div>
+            <div style="background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;color:#4ade80;display:inline-block;">Signal leans OVER</div>
+          </div>
+
+          <!-- Bottom nav -->
+          <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;margin-top:8px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 5px rgba(88,166,255,.7));">🏠</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">📊</span><span style="font-size:9px;color:#8b949e;">Picks</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Crew</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🧬</span><span style="font-size:9px;color:#8b949e;">DNA</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 1 — Between games: 🏟️ The Dome King · private archetype · Pro Prop Coach teaser</div>
+    </div><!-- /phone 1 -->
+
+    <!-- ── PHONE 2: Bar check-in — archetype recognized at the bar ── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>7:12 PM</span><span>🔋</span></div>
+
+          <!-- Header -->
+          <div style="padding:6px 16px 4px;display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:20px;font-weight:800;color:#f0f6fc;">Sports<span style="color:#58a6ff;">IQ</span></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:16px;padding:4px 10px;display:flex;align-items:center;gap:4px;">
+                <span style="font-size:9px;">🍺</span>
+                <span style="font-size:10px;color:#fbbf24;font-weight:700;">Bar Mode · 2×</span>
+              </div>
+              <div style="background:linear-gradient(135deg,rgba(227,179,65,.2),rgba(227,179,65,.08));border:1px solid rgba(227,179,65,.4);border-radius:20px;padding:5px 12px;font-size:11px;color:#e3b341;font-weight:600;">⚡ 2,450 IQ</div>
+            </div>
+          </div>
+
+          <!-- BAR REGULAR RECOGNITION CARD -->
+          <div style="margin:10px 16px 0;background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(217,119,6,0.06));border:1.5px solid rgba(245,158,11,0.35);border-radius:16px;padding:14px;position:relative;overflow:hidden;">
+            <div style="position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:radial-gradient(circle,rgba(245,158,11,0.2),transparent 70%);border-radius:50%;"></div>
+
+            <!-- Bar name row -->
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+              <div style="width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🍺</div>
+              <div>
+                <div style="color:#64748b;font-size:9px;font-weight:700;letter-spacing:1.5px;">CHECKED IN AT</div>
+                <div style="color:#f0f6fc;font-size:14px;font-weight:800;">McFadden's Sports Bar</div>
+              </div>
+            </div>
+
+            <!-- Archetype greeting -->
+            <div style="background:rgba(0,0,0,0.2);border-radius:10px;padding:10px 12px;margin-bottom:10px;">
+              <div style="color:#fbbf24;font-size:13px;font-weight:900;margin-bottom:2px;">🏟️ The Dome King is here</div>
+              <div style="color:#94a3b8;font-size:11px;line-height:1.5;">You're 3-0 at McFadden's. Dome game tonight. You know what to do.</div>
+            </div>
+
+            <!-- Bar rank + history row -->
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:8px;text-align:center;">
+                <div style="color:#22c55e;font-size:16px;font-weight:900;line-height:1;">#2</div>
+                <div style="color:#4ade80;font-size:9px;font-weight:700;">at this bar tonight</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:8px;text-align:center;">
+                <div style="color:#f0f6fc;font-size:16px;font-weight:900;line-height:1;">3-0</div>
+                <div style="color:#8b949e;font-size:9px;font-weight:700;">here all-time</div>
+              </div>
+              <div style="flex:1;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.18);border-radius:10px;padding:8px;text-align:center;">
+                <div style="color:#fbbf24;font-size:16px;font-weight:900;line-height:1;">4×</div>
+                <div style="color:#f59e0b;font-size:9px;font-weight:700;">visited</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Game tonight with dome flag -->
+          <div style="margin:8px 16px 8px;background:linear-gradient(135deg,rgba(88,166,255,.15),rgba(88,166,255,.04));border:1.5px solid rgba(88,166,255,.4);border-radius:14px;padding:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <div>
+                <div style="font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:.6px;">🏈 Tonight</div>
+                <div style="font-size:14px;font-weight:800;color:#f0f6fc;">KC Chiefs vs LAC</div>
+              </div>
+              <!-- Dome flag — triggers archetype -->
+              <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:8px;padding:4px 9px;">
+                <span style="font-size:10px;color:#a78bfa;font-weight:700;">🏟️ Dome game</span>
+              </div>
+            </div>
+            <div style="background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);border-radius:8px;padding:7px 10px;font-size:11px;font-weight:700;color:#4ade80;">⚡ Your Dome King edge activates · Signal leans OVER</div>
+          </div>
+
+          <!-- Bar leaderboard teaser -->
+          <div style="margin:0 16px 6px;font-size:10px;font-weight:600;color:#8b949e;text-transform:uppercase;letter-spacing:.6px;">Bar Leaderboard Tonight</div>
+          <div style="margin:0 16px;display:flex;flex-direction:column;gap:4px;">
+            <div style="background:#161b22;border-radius:8px;border:1px solid #21262d;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+              <div style="color:#e3b341;font-size:11px;font-weight:700;width:16px;">#1</div>
+              <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#ef4444,#dc2626);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;">J</div>
+              <div style="flex:1;font-size:11px;color:#f0f6fc;">@jaylen</div>
+              <div style="font-size:11px;font-weight:700;color:#e3b341;">3,210 IQ</div>
+            </div>
+            <div style="background:linear-gradient(135deg,rgba(85,69,211,0.12),rgba(85,69,211,0.04));border-radius:8px;border:1.5px solid rgba(85,69,211,0.35);padding:8px 10px;display:flex;align-items:center;gap:8px;">
+              <div style="color:#a78bfa;font-size:11px;font-weight:800;width:16px;">#2</div>
+              <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;">Y</div>
+              <div style="flex:1;font-size:11px;color:#a78bfa;font-weight:700;">You</div>
+              <div style="font-size:11px;font-weight:700;color:#a78bfa;">2,450 IQ</div>
+            </div>
+          </div>
+
+          <!-- Bottom nav -->
+          <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;margin-top:10px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 5px rgba(88,166,255,.7));">🏠</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">📊</span><span style="font-size:9px;color:#8b949e;">Picks</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Crew</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🧬</span><span style="font-size:9px;color:#8b949e;">DNA</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 2 — Bar check-in: "The Dome King is here" · 3-0 at McFadden's · dome game flag activates archetype</div>
+    </div><!-- /phone 2 -->
+
+    <!-- ── PHONE 3: Archetype evolution — pattern shift in-app ─────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow-y:auto;">
+
+          <div style="display:flex;justify-content:space-between;padding:44px 16px 4px;font-size:11px;color:#8b949e;"><span>8:30 PM</span><span>🔋</span></div>
+
+          <!-- Header -->
+          <div style="padding:6px 16px 4px;display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:20px;font-weight:800;color:#f0f6fc;">Sports<span style="color:#58a6ff;">IQ</span></div>
+            <div style="background:linear-gradient(135deg,rgba(227,179,65,.2),rgba(227,179,65,.08));border:1px solid rgba(227,179,65,.4);border-radius:20px;padding:5px 12px;font-size:11px;color:#e3b341;font-weight:600;">⚡ 2,450 IQ</div>
+          </div>
+
+          <!-- ARCHETYPE EVOLUTION CARD — in-app notification style -->
+          <div style="margin:10px 16px 0;background:linear-gradient(135deg,rgba(85,69,211,0.14),rgba(85,69,211,0.05));border:1.5px solid rgba(85,69,211,0.45);border-radius:16px;padding:14px;position:relative;overflow:hidden;">
+            <!-- Glow -->
+            <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(85,69,211,0.8),transparent);"></div>
+
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+              <div style="width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🧬</div>
+              <div>
+                <div style="color:#a78bfa;font-size:10px;font-weight:700;letter-spacing:1.5px;">PATTERN UPDATE</div>
+                <div style="color:#f0f6fc;font-size:14px;font-weight:900;">Your archetype evolved</div>
+              </div>
+            </div>
+
+            <!-- Before → After -->
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+              <!-- Old archetype (fading) -->
+              <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px;text-align:center;opacity:0.6;">
+                <div style="font-size:18px;margin-bottom:3px;">❄️</div>
+                <div style="color:#64748b;font-size:11px;font-weight:700;line-height:1.2;">Cold Weather<br>Skeptic</div>
+                <div style="color:#475569;font-size:9px;margin-top:3px;">weakening</div>
+              </div>
+              <!-- Arrow -->
+              <div style="font-size:18px;color:#a78bfa;flex-shrink:0;">→</div>
+              <!-- New archetype (emerging) -->
+              <div style="flex:1;background:linear-gradient(135deg,rgba(85,69,211,0.15),rgba(85,69,211,0.06));border:1.5px solid rgba(85,69,211,0.4);border-radius:10px;padding:10px;text-align:center;">
+                <div style="font-size:18px;margin-bottom:3px;">🏟️</div>
+                <div style="color:#a78bfa;font-size:11px;font-weight:800;line-height:1.2;">The Dome<br>King</div>
+                <div style="color:#6d5ef0;font-size:9px;font-weight:700;margin-top:3px;">dominant</div>
+              </div>
+            </div>
+
+            <!-- What changed -->
+            <div style="background:rgba(0,0,0,0.2);border-radius:10px;padding:10px 12px;margin-bottom:10px;">
+              <div style="color:#94a3b8;font-size:11px;line-height:1.6;"><span style="color:#f0f6fc;font-weight:700;">Why:</span> Your last 3 dome picks went 3-0. Your cold weather record dropped to 2-6. The data shifted — so did your identity.</div>
+            </div>
+
+            <!-- New pattern teaser (Pro locked) -->
+            <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
+              <span style="font-size:13px;">🔒</span>
+              <div style="flex:1;min-width:0;">
+                <div style="color:#fbbf24;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">2 more patterns emerging this week</div>
+                <div style="color:#64748b;font-size:10px;">Full breakdown · Prop Coach · Pro</div>
+              </div>
+              <div style="background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(217,119,6,0.15));border:1px solid rgba(245,158,11,0.4);border-radius:7px;padding:5px 9px;cursor:pointer;flex-shrink:0;">
+                <span style="font-size:10px;font-weight:700;color:#fbbf24;">Try Free</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Regular home content below the evolution card -->
+          <div style="margin:8px 16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+            <div style="background:#161b22;border:1px solid #21262d;border-radius:10px;padding:10px;text-align:center;">
+              <div style="font-size:17px;font-weight:700;color:#f0f6fc;">62%</div>
+              <div style="font-size:9px;color:#8b949e;">WIN RATE</div>
+            </div>
+            <div style="background:linear-gradient(135deg,rgba(248,81,73,0.1),rgba(248,81,73,0.04));border:1px solid rgba(248,81,73,0.3);border-radius:10px;padding:10px;text-align:center;">
+              <div style="font-size:17px;font-weight:700;color:#f85149;">🔥 4</div>
+              <div style="font-size:9px;color:#8b949e;">STREAK</div>
+            </div>
+            <div style="background:#161b22;border:1px solid #21262d;border-radius:10px;padding:10px;text-align:center;">
+              <div style="font-size:17px;font-weight:700;color:#f0f6fc;">+12</div>
+              <div style="font-size:9px;color:#8b949e;">RANK TODAY</div>
+            </div>
+          </div>
+
+          <!-- Signal preview -->
+          <div style="margin:0 16px 8px;background:linear-gradient(135deg,rgba(88,166,255,.12),rgba(88,166,255,.04));border:1.5px solid rgba(88,166,255,.35);border-radius:14px;padding:12px;">
+            <div style="font-size:10px;font-weight:700;color:#8b949e;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;">⚡ Next Signal Preview</div>
+            <div style="font-size:14px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">Mahomes Passing Yards · KC vs LAC</div>
+            <div style="background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;color:#4ade80;display:inline-block;">Signal leans OVER · 🏟️ Dome game</div>
+          </div>
+
+          <!-- Bottom nav -->
+          <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;margin-top:8px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 5px rgba(88,166,255,.7));">🏠</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">📊</span><span style="font-size:9px;color:#8b949e;">Picks</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Crew</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🧬</span><span style="font-size:9px;color:#8b949e;">DNA</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">Phone 3 — Archetype evolution: ❄️ Cold Weather Skeptic → 🏟️ The Dome King · 2 new patterns locked behind Pro</div>
+    </div><!-- /phone 3 -->
+
+  </div>
+  <div id="sfb-panel-home-idle-v6" class="sfb-panel"></div>
+</div><!-- /screen home-idle-v6 -->
 
 <div id="home-idle-v4" class="screen" style="display:none;">
   <div class="screen-header">
