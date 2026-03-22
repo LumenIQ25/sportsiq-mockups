@@ -226,5 +226,17 @@
       "text": "1. reactions but keep it simple 2. before 3. manual 4. all friends",
       "ts": "Mar 21 11:00 PM"
     }
+  ],
+  "bar-idle-v4": [
+    {
+      "from": "mark",
+      "text": "1. all of those are good\n2. not in this version, maybe down the road\n3. today only\n\nleaderboard too wide and left panel is too narrow (room code should fit on one line)",
+      "ts": "Mar 21 4:07 PM"
+    },
+    {
+      "from": "mark",
+      "text": "1. all of those are good 2. not in this version, maybe down the road 3. today only leaderboard too wide and left panel is too narrow (room code should fit on one line)",
+      "ts": "Mar 21 11:00 PM"
+    }
   ]
 }
