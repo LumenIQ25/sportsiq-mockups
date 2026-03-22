@@ -45,5 +45,17 @@
       "text": "1. high stakes 2. SportsIQ Fignal 3. show a number but make it real. why are we showing a fake number?",
       "ts": "Mar 21 9:08 PM"
     }
+  ],
+  "pick-wait-v3": [
+    {
+      "from": "mark",
+      "text": "1. exciting\n2. before\n3. snap to result",
+      "ts": "Mar 21 3:12 PM"
+    },
+    {
+      "from": "mark",
+      "text": "1. exciting 2. before 3. snap to result",
+      "ts": "Mar 21 9:09 PM"
+    }
   ]
 }
