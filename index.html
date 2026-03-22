@@ -1868,8 +1868,8 @@
     <div class="tab tab-review" data-screen="my-stats-v3" onclick="showScreen('my-stats-v3',this)">
       <span class="tab-label">My Stats</span><span class="tab-days" id="days-my-stats-v3"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="leaderboard-v5" onclick="showScreen('leaderboard-v5',this)">
-      <span class="tab-label">Leaderboard</span><span class="tab-days" id="days-leaderboard-v5"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="leaderboard-v6" onclick="showScreen('leaderboard-v6',this)">
+      <span class="tab-label">Leaderboard</span><span class="tab-days" id="days-leaderboard-v6"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="sports-dna-v3" onclick="showScreen('sports-dna-v3',this)">
       <span class="tab-label">Sports DNA</span><span class="tab-days" id="days-sports-dna-v3"></span><span class="review-dot"></span>
@@ -1962,6 +1962,9 @@
         <span class="tab-label">My Stats v2</span><span class="tab-days" id="days-my-stats-v2-arc"></span>
       </div>
       <div class="tab tab-archived" data-screen="leaderboard-v4" onclick="showScreen('leaderboard-v4',this)">
+        <span class="tab-label">Leaderboard v5</span><span class="tab-days" id="days-leaderboard-v5-arc"></span>
+        </div>
+        <div class="tab" data-screen="leaderboard-v4" onclick="showScreen('leaderboard-v4',this)">
         <span class="tab-label">Leaderboard v4</span><span class="tab-days" id="days-leaderboard-v4-arc"></span>
       </div>
       <div class="tab tab-archived" data-screen="leaderboard-v3" onclick="showScreen('leaderboard-v3',this)">
@@ -30131,6 +30134,518 @@
   </div>
 
 </div><!-- /screen bar-experience-v1 -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     LEADERBOARD v6 — Social Engine + Friend Referral + Challenges
+     Date: 2026-03-22
+     The 3rd swipe screen as a full social and viral acquisition engine.
+     Friends tab drives retention (checking on friends) and acquisition (invites).
+     Challenge tab drives session depth and repeat engagement.
+     Venue tab is the bar-mode entry point.
+     Refinement: Friends tab was sketched in 3-Screen v1. Now fully designed
+     as the referral + social + live-activity feed that makes SportsIQ spread.
+═══════════════════════════════════════════════════════════════════════════ -->
+<div id="leaderboard-v6" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Leaderboard v6 — Social Engine · Friends · Challenges · Referral · 2026-03-22</div>
+    <div class="screen-desc">The Leaderboard is the 3rd swipe screen — the social spine of SportsIQ. This refinement makes the Friends tab a live pick-activity feed with inline challenge buttons, a frictionless friend invite (referral engine), and smart friend suggestions by Sports DNA archetype. The Challenge tab adds H2H duels. Together these create the daily return habit and viral acquisition loop. Every 1 new user who invites 2 friends = 2× growth. This screen is the multiplier.</div>
+  </div>
+
+  <!-- ── LEADERBOARD SCREEN OVERVIEW ─────────────────────────────── -->
+  <div style="margin:0 48px 8px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;">LEADERBOARD SCREEN — 4 TABS, EACH A DIFFERENT HOOK</div>
+  </div>
+  <div style="margin:0 48px 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+    <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.25);border-radius:10px;padding:12px 14px;">
+      <div style="font-size:12px;font-weight:800;color:#818cf8;margin-bottom:5px;">Friends tab</div>
+      <div style="font-size:10px;color:#475569;line-height:1.5;">Live pick feed from people you know. React, chirp, challenge. See who's hot and who's on a losing streak. Creates daily FOMO — you check the app to see if Rachel blew her pick.</div>
+      <div style="margin-top:6px;font-size:9px;color:#5545D3;font-weight:700;">→ Retention driver</div>
+    </div>
+    <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:12px 14px;">
+      <div style="font-size:12px;font-weight:800;color:#22c55e;margin-bottom:5px;">Global tab</div>
+      <div style="font-size:10px;color:#475569;line-height:1.5;">Competitive context. Where you stand nationally and in your sport. Archetype leaderboards. Hall of fame picks. Creates aspirational ladder to climb.</div>
+      <div style="margin-top:6px;font-size:9px;color:#22c55e;font-weight:700;">→ Aspiration driver</div>
+    </div>
+    <div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:10px;padding:12px 14px;">
+      <div style="font-size:12px;font-weight:800;color:#fbbf24;margin-bottom:5px;">Venue tab</div>
+      <div style="font-size:10px;color:#475569;line-height:1.5;">Auto-selects when checked in to a bar. Bar Battle standings. Real-time rank among people physically near you. The TV screen mirrors this.</div>
+      <div style="margin-top:6px;font-size:9px;color:#fbbf24;font-weight:700;">→ Bar engagement</div>
+    </div>
+    <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:12px 14px;">
+      <div style="font-size:12px;font-weight:800;color:#f87171;margin-bottom:5px;">Challenge tab</div>
+      <div style="font-size:10px;color:#475569;line-height:1.5;">Active H2H duels. Send challenges, accept or decline. Win a duel = bonus IQ + bragging rights. Creates 1:1 rivalries that keep both users engaged.</div>
+      <div style="margin-top:6px;font-size:9px;color:#f87171;font-weight:700;">→ Session depth</div>
+    </div>
+  </div>
+
+  <!-- ── FRIENDS TAB — The Social Feed ──────────────────────────── -->
+  <div style="margin:0 48px 8px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;">FRIENDS TAB — LIVE PICK ACTIVITY FEED + INVITE ENGINE</div>
+    <div style="color:#64748b;font-size:12px;margin-top:4px;">The feed that makes people open SportsIQ daily. Live friend activity: who picked what, who won, who's on a streak. React, chirp, challenge inline. Invite CTA when friend list is small — unlocks a real reward (Bar Crew Mode).</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- Friends tab — active friends, lots of picks -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow-y:auto;">
+          <!-- Header -->
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+            <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">2,840 IQ ▸</div>
+          </div>
+          <!-- Tab bar -->
+          <div style="margin:0 14px 8px;display:flex;background:rgba(255,255,255,0.03);border-radius:8px;padding:2px;gap:1px;flex-shrink:0;">
+            <div style="flex:1;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:6px;padding:5px;text-align:center;font-size:8px;font-weight:800;color:#818cf8;">Friends</div>
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Global</div>
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Venue</div>
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">⚔️ Duels</div>
+          </div>
+          <!-- Your position card -->
+          <div style="margin:0 14px 8px;background:linear-gradient(135deg,rgba(85,69,211,0.2),rgba(85,69,211,0.06));border:1.5px solid rgba(85,69,211,0.4);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:24px;height:24px;border-radius:8px;background:linear-gradient(135deg,#5545D3,#818cf8);display:flex;align-items:center;justify-content:center;font-size:12px;">🏟️</div>
+              <div>
+                <div style="font-size:10px;font-weight:800;color:#a78bfa;">You · #3 of 9 friends</div>
+                <div style="font-size:8px;color:#64748b;">↑1 from last week · 2,840 IQ</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;color:#22c55e;font-weight:700;">🔥 7 streak</div>
+              <div style="font-size:8px;color:#64748b;">Week: 4-1</div>
+            </div>
+          </div>
+          <!-- Live feed label -->
+          <div style="margin:0 14px 6px;display:flex;align-items:center;gap:6px;flex-shrink:0;">
+            <div style="width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px #22c55e;"></div>
+            <div style="font-size:9px;color:#22c55e;font-weight:700;">LIVE · Friends activity</div>
+            <div style="margin-left:auto;font-size:8px;color:#475569;">Chiefs vs Eagles · Q3</div>
+          </div>
+          <!-- Feed items -->
+          <div style="margin:0 14px 6px;display:flex;flex-direction:column;gap:5px;flex-shrink:0;">
+
+            <!-- Friend 1: active pick, winning -->
+            <div style="background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:8px 10px;">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                <div style="width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#b45309,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;">D</div>
+                <div style="flex:1;">
+                  <span style="font-size:10px;font-weight:800;color:#f0f6fc;">DraftKing Dave</span>
+                  <span style="font-size:8px;color:#64748b;"> · 2 min ago</span>
+                </div>
+                <div style="font-size:8px;color:#fbbf24;font-weight:700;">🔥 5</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="font-size:10px;color:#f0f6fc;font-weight:700;">OVER 284.5 · Mahomes <span style="color:#22c55e;">214 yds ↑</span></div>
+                  <div style="font-size:8px;color:#64748b;">in progress · needs 71 more</div>
+                </div>
+                <div style="display:flex;gap:4px;">
+                  <div style="background:rgba(255,255,255,0.06);border-radius:6px;padding:3px 6px;font-size:9px;color:#64748b;">🔥</div>
+                  <div style="background:rgba(239,68,68,0.1);border-radius:6px;padding:3px 6px;font-size:9px;color:#f87171;">Chirp</div>
+                  <div style="background:rgba(85,69,211,0.2);border-radius:6px;padding:3px 6px;font-size:8px;color:#818cf8;">Duel</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Friend 2: just won, share card visible -->
+            <div style="background:linear-gradient(135deg,rgba(34,197,94,0.08),rgba(34,197,94,0.02));border:1.5px solid rgba(34,197,94,0.3);border-radius:10px;padding:8px 10px;">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                <div style="width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#0f4c2a,#22c55e);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;">J</div>
+                <div style="flex:1;">
+                  <span style="font-size:10px;font-weight:800;color:#4ade80;">Jake M. won! 🎯</span>
+                  <span style="font-size:8px;color:#64748b;"> · just now</span>
+                </div>
+                <div style="font-size:9px;color:#22c55e;font-weight:800;">+500 IQ</div>
+              </div>
+              <div style="background:rgba(34,197,94,0.08);border-radius:7px;padding:5px 8px;display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                <div style="font-size:9px;color:#4ade80;font-weight:700;">OVER ✓ · 312 yds · called it</div>
+                <div style="font-size:9px;color:#22c55e;">🔥 8 streak</div>
+              </div>
+              <div style="display:flex;gap:4px;">
+                <div style="background:rgba(255,255,255,0.06);border-radius:6px;padding:3px 8px;font-size:9px;color:#64748b;">🎉</div>
+                <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:3px 8px;font-size:9px;color:#64748b;">🔥</div>
+                <div style="background:rgba(85,69,211,0.2);border-radius:6px;padding:3px 8px;font-size:8px;color:#818cf8;margin-left:auto;">Duel →</div>
+              </div>
+            </div>
+
+            <!-- Friend 3: just lost, chirp CTA -->
+            <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:8px 10px;">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                <div style="width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#94a3b8;">R</div>
+                <div style="flex:1;font-size:10px;font-weight:700;color:#64748b;">Rachel · missed 😬</div>
+                <div style="font-size:8px;color:#475569;">1-1 today</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:9px;color:#475569;">UNDER 284.5 · Mahomes threw 312</div>
+                <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.2);border-radius:6px;padding:3px 8px;font-size:9px;color:#f87171;font-weight:700;">Chirp 😈</div>
+              </div>
+            </div>
+
+            <!-- Friend 4: hasn't picked yet today -->
+            <div style="background:rgba(255,255,255,0.01);border:1px dashed rgba(255,255,255,0.06);border-radius:10px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div style="width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:9px;color:#475569;">T</div>
+                <div style="font-size:9px;color:#475569;">Tommy · no pick yet today</div>
+              </div>
+              <div style="font-size:9px;color:#64748b;">Nudge 👀</div>
+            </div>
+
+          </div>
+          <!-- Add friends CTA -->
+          <div style="margin:0 14px 10px;background:rgba(85,69,211,0.06);border:1px dashed rgba(85,69,211,0.25);border-radius:10px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:9px;color:#818cf8;">Add 2 more friends → unlock Bar Crew Mode 🍺</div>
+            <div style="background:#5545D3;border-radius:6px;padding:3px 8px;font-size:9px;font-weight:800;color:#fff;">Invite</div>
+          </div>
+          <!-- Nav dots -->
+          <div style="text-align:center;padding-bottom:10px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:20px;height:4px;border-radius:2px;background:#818cf8;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">LEADERBOARD · Friends tab<br>Live feed · React/Chirp/Duel inline · Add friends CTA</div>
+    </div>
+
+    <!-- Friends tab — new user, < 3 friends: invite engine -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow-y:auto;">
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+            <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">2,840 IQ ▸</div>
+          </div>
+          <!-- Tab bar -->
+          <div style="margin:0 14px 8px;display:flex;background:rgba(255,255,255,0.03);border-radius:8px;padding:2px;gap:1px;flex-shrink:0;">
+            <div style="flex:1;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:6px;padding:5px;text-align:center;font-size:8px;font-weight:800;color:#818cf8;">Friends</div>
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Global</div>
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Venue</div>
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">⚔️ Duels</div>
+          </div>
+          <!-- Unlock CTA — big hero -->
+          <div style="margin:0 14px 8px;background:linear-gradient(135deg,rgba(85,69,211,0.18),rgba(85,69,211,0.06));border:2px solid rgba(85,69,211,0.4);border-radius:14px;padding:14px;text-align:center;flex-shrink:0;">
+            <div style="font-size:22px;margin-bottom:5px;">🍺</div>
+            <div style="font-size:13px;font-weight:900;color:#a78bfa;margin-bottom:3px;">Invite 3 friends</div>
+            <div style="font-size:10px;color:#64748b;margin-bottom:8px;">Unlock Bar Crew Mode — compete together at venues, run your own leaderboard, win real prizes</div>
+            <!-- Progress -->
+            <div style="display:flex;gap:5px;margin-bottom:8px;">
+              <div style="flex:1;background:rgba(85,69,211,0.3);border:1.5px solid rgba(85,69,211,0.6);border-radius:6px;padding:6px;text-align:center;">
+                <div style="font-size:10px;font-weight:900;color:#818cf8;">Jake M.</div>
+                <div style="font-size:8px;color:#22c55e;">✓ joined</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1.5px dashed rgba(255,255,255,0.12);border-radius:6px;padding:6px;text-align:center;">
+                <div style="font-size:10px;color:#475569;">Friend 2</div>
+                <div style="font-size:8px;color:#475569;">pending</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1.5px dashed rgba(255,255,255,0.12);border-radius:6px;padding:6px;text-align:center;">
+                <div style="font-size:10px;color:#475569;">Friend 3</div>
+                <div style="font-size:8px;color:#475569;">needed</div>
+              </div>
+            </div>
+            <div style="background:#5545D3;border-radius:9px;padding:10px;font-size:12px;font-weight:900;color:#fff;">Invite a friend →</div>
+          </div>
+          <!-- Smart suggestions by archetype -->
+          <div style="margin:0 14px 8px;flex-shrink:0;">
+            <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:5px;">PEOPLE WITH YOUR SPORTS DNA</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:9px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div style="width:24px;height:24px;border-radius:8px;background:linear-gradient(135deg,#1d4ed8,#60a5fa);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;">M</div>
+                  <div>
+                    <div style="font-size:10px;color:#f0f6fc;font-weight:700;">Mike T.</div>
+                    <div style="font-size:8px;color:#64748b;">Dome King · 68% NFL · mutual: Jake</div>
+                  </div>
+                </div>
+                <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:6px;padding:3px 8px;font-size:8px;color:#818cf8;font-weight:700;">Add</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:9px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div style="width:24px;height:24px;border-radius:8px;background:linear-gradient(135deg,#b45309,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;">A</div>
+                  <div>
+                    <div style="font-size:10px;color:#f0f6fc;font-weight:700;">Amy K.</div>
+                    <div style="font-size:8px;color:#64748b;">Sharp Fade · 71% accuracy · 🔥 9</div>
+                  </div>
+                </div>
+                <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:6px;padding:3px 8px;font-size:8px;color:#818cf8;font-weight:700;">Add</div>
+              </div>
+            </div>
+          </div>
+          <!-- Share link -->
+          <div style="margin:0 14px 10px;background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.15);border-radius:9px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:9px;color:#4ade80;">sportsiq.app/join/DomeKing91</div>
+            <div style="font-size:9px;color:#64748b;background:rgba(255,255,255,0.06);border-radius:5px;padding:3px 7px;">Copy link</div>
+          </div>
+          <!-- Nav dots -->
+          <div style="text-align:center;padding-bottom:10px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:20px;height:4px;border-radius:2px;background:#818cf8;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">LEADERBOARD · Friends · New user<br>Unlock gate → invite 3 friends → Bar Crew Mode<br>Smart archetype-matched suggestions</div>
+    </div>
+
+    <!-- Share / Referral sheet -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow:hidden;position:relative;">
+          <!-- Blurred background (leaderboard behind) -->
+          <div style="position:absolute;inset:0;background:rgba(5,9,18,0.7);backdrop-filter:blur(4px);z-index:0;"></div>
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:2;opacity:0.4;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+          </div>
+          <!-- Bottom sheet -->
+          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,#0d1424,#0a0f1e);border-radius:20px 20px 0 0;padding:16px;border-top:1px solid rgba(85,69,211,0.4);z-index:3;">
+            <div style="width:36px;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;margin:0 auto 14px;"></div>
+            <!-- Referral hook -->
+            <div style="text-align:center;margin-bottom:14px;">
+              <div style="font-size:18px;margin-bottom:4px;">🍺</div>
+              <div style="font-size:15px;font-weight:900;color:#f0f6fc;margin-bottom:3px;">Invite a friend</div>
+              <div style="font-size:10px;color:#64748b;">They join → you both get +100 IQ and 1 week Pro</div>
+            </div>
+            <!-- Personal link -->
+            <div style="background:rgba(85,69,211,0.1);border:1.5px solid rgba(85,69,211,0.35);border-radius:10px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <div style="font-size:10px;color:#a78bfa;font-weight:700;">sportsiq.app/join/DomeKing91</div>
+              <div style="background:#5545D3;border-radius:6px;padding:4px 10px;font-size:9px;font-weight:800;color:#fff;">Copy</div>
+            </div>
+            <!-- Share channels -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px;">
+              <div style="background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25);border-radius:9px;padding:9px;text-align:center;">
+                <div style="font-size:14px;margin-bottom:2px;">📱</div>
+                <div style="font-size:9px;color:#22c55e;font-weight:700;">WhatsApp</div>
+              </div>
+              <div style="background:rgba(29,161,242,0.1);border:1px solid rgba(29,161,242,0.25);border-radius:9px;padding:9px;text-align:center;">
+                <div style="font-size:14px;margin-bottom:2px;">💬</div>
+                <div style="font-size:9px;color:#60a5fa;font-weight:700;">iMessage</div>
+              </div>
+              <div style="background:rgba(88,101,242,0.1);border:1px solid rgba(88,101,242,0.25);border-radius:9px;padding:9px;text-align:center;">
+                <div style="font-size:14px;margin-bottom:2px;">🎮</div>
+                <div style="font-size:9px;color:#818cf8;font-weight:700;">Discord</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:9px;text-align:center;">
+                <div style="font-size:14px;margin-bottom:2px;">↗</div>
+                <div style="font-size:9px;color:#94a3b8;font-weight:700;">More</div>
+              </div>
+            </div>
+            <!-- Pre-written message -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:8px 10px;margin-bottom:10px;">
+              <div style="font-size:9px;color:#64748b;font-style:italic;">"Making picks on SportsIQ and it's actually sick. My streak is 7. Use my link — you get 100 IQ and a week of Pro free: sportsiq.app/join/DomeKing91"</div>
+              <div style="font-size:8px;color:#475569;margin-top:3px;">Tap to edit before sharing</div>
+            </div>
+            <div style="font-size:9px;color:#475569;text-align:center;">+100 IQ when they make their first pick</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">LEADERBOARD · Invite sheet<br>Personalized link · Pre-written message · Both get Pro trial</div>
+    </div>
+
+  </div>
+
+  <!-- ── DUELS / CHALLENGE TAB ──────────────────────────────────── -->
+  <div style="margin:0 48px 8px;margin-top:28px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;">DUELS TAB — H2H CHALLENGES · ACTIVE + INCOMING + CREATE</div>
+    <div style="color:#64748b;font-size:12px;margin-top:4px;">Head-to-head pick challenges. You both pick the same prop — better pick wins bonus IQ. Creates 1:1 rivalries that keep both players returning. "Dave challenged you on the Chiefs pick" = instant re-engagement. Bar mode: challenge the person next to you on the same prop you're both watching.</div>
+  </div>
+  <div class="phone-wrap">
+
+    <!-- Duels tab - active duels -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow-y:auto;">
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+            <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">2,840 IQ ▸</div>
+          </div>
+          <!-- Tab bar -->
+          <div style="margin:0 14px 8px;display:flex;background:rgba(255,255,255,0.03);border-radius:8px;padding:2px;gap:1px;flex-shrink:0;">
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Friends</div>
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Global</div>
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Venue</div>
+            <div style="flex:1;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:6px;padding:5px;text-align:center;font-size:8px;font-weight:800;color:#f87171;">⚔️ Duels</div>
+          </div>
+          <!-- Incoming challenge banner -->
+          <div style="margin:0 14px 8px;background:linear-gradient(90deg,rgba(245,158,11,0.15),rgba(245,158,11,0.04));border:1.5px solid rgba(245,158,11,0.5);border-radius:10px;padding:8px 10px;flex-shrink:0;">
+            <div style="font-size:9px;color:#fbbf24;font-weight:800;margin-bottom:4px;">⚔️ NEW CHALLENGE from DraftKing Dave</div>
+            <div style="font-size:10px;color:#f0f6fc;font-weight:700;margin-bottom:4px;">Chiefs vs Eagles · Mahomes Over 284.5</div>
+            <div style="font-size:9px;color:#64748b;margin-bottom:7px;">Dave picked OVER · You pick any side · better call wins +150 IQ</div>
+            <div style="display:flex;gap:6px;">
+              <div style="flex:1;background:#f59e0b;border-radius:7px;padding:7px;text-align:center;font-size:10px;font-weight:900;color:#0d1117;">Accept ⚔️</div>
+              <div style="flex:1;background:rgba(255,255,255,0.05);border-radius:7px;padding:7px;text-align:center;font-size:10px;color:#475569;">Decline</div>
+            </div>
+          </div>
+          <!-- Active duels -->
+          <div style="margin:0 14px 6px;flex-shrink:0;">
+            <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:5px;">ACTIVE DUELS</div>
+            <!-- Duel 1 - winning -->
+            <div style="background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:8px 10px;margin-bottom:5px;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-size:9px;color:#22c55e;font-weight:700;">vs Jake M. · In progress</div>
+                <div style="font-size:9px;color:#22c55e;font-weight:700;">You leading ↑</div>
+              </div>
+              <div style="font-size:10px;color:#f0f6fc;font-weight:700;margin-bottom:3px;">Lamar Jackson Rush Yards</div>
+              <div style="display:flex;gap:8px;">
+                <div style="flex:1;background:rgba(85,69,211,0.15);border-radius:7px;padding:5px 8px;text-align:center;">
+                  <div style="font-size:9px;color:#a78bfa;">You</div>
+                  <div style="font-size:11px;color:#a78bfa;font-weight:800;">OVER ↑</div>
+                </div>
+                <div style="display:flex;align-items:center;font-size:10px;color:#475569;">vs</div>
+                <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:7px;padding:5px 8px;text-align:center;">
+                  <div style="font-size:9px;color:#64748b;">Jake</div>
+                  <div style="font-size:11px;color:#64748b;font-weight:800;">UNDER</div>
+                </div>
+              </div>
+              <div style="font-size:8px;color:#64748b;margin-top:3px;">Prize: +150 IQ each · result at end of game</div>
+            </div>
+            <!-- Duel 2 - pending -->
+            <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:8px 10px;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-size:9px;color:#64748b;">vs Rachel · Waiting on her pick</div>
+                <div style="font-size:9px;color:#475569;">20 min left</div>
+              </div>
+              <div style="font-size:10px;color:#f0f6fc;font-weight:700;margin-bottom:2px;">Eagles Total Points</div>
+              <div style="font-size:9px;color:#64748b;">You picked OVER · Rachel hasn't picked yet</div>
+            </div>
+          </div>
+          <!-- Create duel -->
+          <div style="margin:0 14px 6px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:9px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:9px;color:#f87171;font-weight:700;">⚔️ Challenge someone</div>
+            <div style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:6px;padding:3px 8px;font-size:9px;color:#f87171;font-weight:700;">New duel →</div>
+          </div>
+          <!-- Record -->
+          <div style="margin:0 14px 10px;background:rgba(255,255,255,0.02);border-radius:8px;padding:6px 10px;display:flex;justify-content:space-around;flex-shrink:0;">
+            <div style="text-align:center;"><div style="font-size:14px;font-weight:900;color:#22c55e;">8</div><div style="font-size:8px;color:#475569;">Duel wins</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;font-weight:900;color:#ef4444;">3</div><div style="font-size:8px;color:#475569;">Losses</div></div>
+            <div style="text-align:center;"><div style="font-size:14px;font-weight:900;color:#fbbf24;">73%</div><div style="font-size:8px;color:#475569;">Duel rate</div></div>
+          </div>
+          <!-- Nav dots -->
+          <div style="text-align:center;padding-bottom:10px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:20px;height:4px;border-radius:2px;background:#f87171;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">LEADERBOARD · Duels tab<br>Incoming challenge · Active duels · Record</div>
+    </div>
+
+    <!-- Global tab - aspirational ladder -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#050912;display:flex;flex-direction:column;overflow-y:auto;">
+          <div style="padding:44px 16px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">⚡ SportsIQ</div>
+            <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:16px;padding:4px 10px;font-size:10px;color:#a78bfa;font-weight:800;">2,840 IQ ▸</div>
+          </div>
+          <!-- Tab bar -->
+          <div style="margin:0 14px 8px;display:flex;background:rgba(255,255,255,0.03);border-radius:8px;padding:2px;gap:1px;flex-shrink:0;">
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Friends</div>
+            <div style="flex:1;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:6px;padding:5px;text-align:center;font-size:8px;font-weight:800;color:#22c55e;">Global</div>
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Venue</div>
+            <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">⚔️ Duels</div>
+          </div>
+          <!-- Time filter -->
+          <div style="margin:0 14px 8px;display:flex;gap:4px;flex-shrink:0;">
+            <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:6px;padding:4px 10px;font-size:8px;color:#22c55e;font-weight:700;">Week</div>
+            <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:4px 10px;font-size:8px;color:#475569;">Month</div>
+            <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:4px 10px;font-size:8px;color:#475569;">All time</div>
+            <div style="margin-left:auto;background:rgba(255,255,255,0.04);border-radius:6px;padding:4px 8px;font-size:8px;color:#475569;">NFL ▾</div>
+          </div>
+          <!-- Your rank context -->
+          <div style="margin:0 14px 6px;background:rgba(85,69,211,0.1);border:1.5px solid rgba(85,69,211,0.3);border-radius:10px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div>
+              <div style="font-size:9px;color:#a78bfa;font-weight:700;">You · #1,847 globally</div>
+              <div style="font-size:8px;color:#64748b;">Top 18% this week</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;color:#22c55e;font-weight:700;">↑ 312 spots</div>
+              <div style="font-size:8px;color:#64748b;">from last week</div>
+            </div>
+          </div>
+          <!-- Archetype leaderboard sub-tab -->
+          <div style="margin:0 14px 6px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.18);border-radius:8px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;">🏟️ Dome Kings · #23 of 4,200</div>
+            <div style="font-size:8px;color:#64748b;">Your archetype board →</div>
+          </div>
+          <!-- Top pickers global -->
+          <div style="margin:0 14px 6px;flex-shrink:0;">
+            <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:4px;">GLOBAL TOP PICKS THIS WEEK</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+                <div style="font-size:10px;color:#fbbf24;font-weight:700;width:16px;">1</div>
+                <div style="width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,#b45309,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;">K</div>
+                <div style="flex:1;font-size:9px;color:#f0f6fc;">KingKong_Karl</div>
+                <div style="font-size:9px;color:#fbbf24;">⚡ Pro</div>
+                <div style="font-size:9px;color:#22c55e;font-weight:700;">4,800 IQ</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+                <div style="font-size:10px;color:#94a3b8;font-weight:700;width:16px;">2</div>
+                <div style="width:20px;height:20px;border-radius:6px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:8px;color:#94a3b8;">S</div>
+                <div style="flex:1;font-size:9px;color:#f0f6fc;">SharpSam</div>
+                <div style="font-size:9px;color:#fbbf24;">⚡ Pro</div>
+                <div style="font-size:9px;color:#22c55e;font-weight:700;">4,400 IQ</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;padding:5px 0;">
+                <div style="font-size:10px;color:#b87333;font-weight:700;width:16px;">3</div>
+                <div style="width:20px;height:20px;border-radius:6px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:8px;color:#94a3b8;">P</div>
+                <div style="flex:1;font-size:9px;color:#f0f6fc;">PropMaestro</div>
+                <div style="font-size:8px;color:#475569;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">Free</div>
+                <div style="font-size:9px;color:#22c55e;font-weight:700;">3,900 IQ</div>
+              </div>
+            </div>
+          </div>
+          <!-- Pro upsell hook in global context -->
+          <div style="margin:0 14px 10px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:8px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:9px;color:#fbbf24;">Top 10 global are ⚡ Pro · 5× multiplier makes the gap</div>
+            <div style="background:rgba(245,158,11,0.2);border-radius:6px;padding:3px 7px;font-size:8px;color:#fbbf24;font-weight:700;">See Pro</div>
+          </div>
+          <!-- Nav dots -->
+          <div style="text-align:center;padding-bottom:10px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:8px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:20px;height:4px;border-radius:2px;background:#22c55e;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">LEADERBOARD · Global tab<br>Your rank · Archetype board · Top Pro players visible → Pro upsell</div>
+    </div>
+
+  </div>
+
+  <!-- ── VIRAL MECHANICS SUMMARY ─────────────────────────────────── -->
+  <div style="margin:32px 48px 48px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:28px 36px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;margin-bottom:20px;">WHY THE LEADERBOARD SCREEN DRIVES PROFITABILITY</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">
+      <div>
+        <div style="color:#818cf8;font-size:12px;font-weight:800;margin-bottom:8px;">Daily return loop</div>
+        <div style="font-size:10px;color:#64748b;line-height:1.6;">Friends feed shows live activity. Rachel missed her pick → you feel compelled to check (and chirp). This creates a daily return habit even on non-game days. Target: D30 retention +40% vs. pick-only users.</div>
+      </div>
+      <div>
+        <div style="color:#22c55e;font-size:12px;font-weight:800;margin-bottom:8px;">Referral engine</div>
+        <div style="font-size:10px;color:#64748b;line-height:1.6;">Bar Crew Mode unlock (requires 3 friends) is the incentive that turns users into recruiters. Personalized link + pre-written message removes friction. Each user that invites 2+ friends = app grows. Target: viral coefficient > 1.0.</div>
+      </div>
+      <div>
+        <div style="color:#fbbf24;font-size:12px;font-weight:800;margin-bottom:8px;">Pro conversion</div>
+        <div style="font-size:10px;color:#64748b;line-height:1.6;">Global tab shows top players are ⚡ Pro with 5× multipliers. The IQ gap is visible. "Top 10 global are all Pro" is the social proof that converts free users. Target: 12% free → Pro conversion from leaderboard screen.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /screen leaderboard-v6 -->
 
 </body>
 </html>
