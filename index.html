@@ -1863,8 +1863,8 @@
     <div class="tab tab-review" data-screen="referral-v2" onclick="showScreen('referral-v2',this)">
       <span class="tab-label">Referral</span><span class="tab-days" id="days-referral-v2"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="pick-result-v2" onclick="showScreen('pick-result-v2',this)">
-      <span class="tab-label">Pick Result</span><span class="tab-days" id="days-pick-result-v2"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="pick-result-v3" onclick="showScreen('pick-result-v3',this)">
+      <span class="tab-label">Pick Result</span><span class="tab-days" id="days-pick-result-v3"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="trivia" onclick="showScreen('trivia',this)">
       <span class="tab-label">Trivia (mobile)</span><span class="tab-days" id="days-trivia"></span><span class="review-dot"></span>
@@ -1895,7 +1895,10 @@
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 26 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 27 previous versions</summary>
+      <div class="tab tab-archived" data-screen="pick-result-v2" onclick="showScreen('pick-result-v2',this)">
+        <span class="tab-label">Pick Result v2</span><span class="tab-days" id="days-pick-result-v2-arc"></span>
+      </div>
       <div class="tab tab-archived" data-screen="pick-card-v3" onclick="showScreen('pick-card-v3',this)">
         <span class="tab-label">Pick Card v3</span><span class="tab-days" id="days-pick-card-v3-arc"></span>
       </div>
@@ -5036,6 +5039,8 @@
     'friends-feed-v1':     '2026-03-21T20:30:00-07:00',
     // ── Mar 21 — pick result v2: InfluenceIQ D7 receipt prompt + cohesiveness ──
     'pick-result-v2':      '2026-03-21T22:00:00-07:00',
+    // ── Mar 22 autonomous loop — Pick Result v3: Pro IQ FOMO at win moment · Prop Coach loss nudge ──
+    'pick-result-v3':      '2026-03-22T16:00:00-07:00',
     // ── Mar 21 autonomous loop — Pre-Game Brief + SportsIQ Pro (idea-050, idea-051) ──
     'pregame-brief':       '2026-03-21T23:30:00-07:00',
     'sportsiq-pro':        '2026-03-21T23:30:00-07:00',
@@ -5842,6 +5847,17 @@
         'LOSS screen: should it immediately suggest the next pick to keep users engaged ("Next pick opens at 8pm · Q3 Kickoff"), or just let them sit with the loss?',
         'Share Card: should we track how many times users actually share (to measure virality coefficient), and should there be a bonus IQ reward for sharing?',
         'Should the WIN screen have sound? A satisfying "cha-ching" sound effect could dramatically increase the dopamine hit — but needs to be optional given bar/silent contexts.'
+      ]
+    },
+    'pick-result-v3': {
+      icon: '🎯',
+      title: 'Pick Result v3 — Pro IQ FOMO at Win · Prop Coach Loss Nudge · Mar 22 2026',
+      built: 'Strategic refinement targeting the highest-emotion moment in the app: pick resolution. Free users win and feel great — but now they also see "⚡ Pro would have earned +500 IQ (2×)" right under their win number. That FOMO hits at peak dopamine — highest conversion moment. Three upgrades: (1) Phone 1 standard WIN: amber Pro IQ comparison pill immediately below the +250 IQ hero number, plus "Unlock 2× IQ · Try Free" CTA replacing the generic next-pick footer. (2) Phone 2 contrarian WIN: full Pro 5× showcase card — "5× = +1,700 IQ possible" — the big shock number makes the contrarian win feel like a missed lottery jackpot without Pro. (3) Phone 3 LOSS: locked Prop Coach teaser — blurred card showing the pattern the user missed ("Your UNDER picks in cold/away games: 2-6. This was one of those games.") with a soft "Unlock Prop Coach" CTA. D7 InfluenceIQ follow prompts preserved on both win states.',
+      questions: [
+        'IQ FOMO framing: "You left 250 IQ on the table" vs "With Pro you would have earned +500 IQ" — which motivates vs annoys? Should we A/B this copy?',
+        '5× contrarian showcase: is the +1,700 IQ number exciting or does it feel unrealistic/misleading to new users who don\'t yet understand the multiplier system?',
+        'Loss + Prop Coach nudge: is this the right moment to sell, or does it feel like rubbing it in? Alternative: show the nudge 30 seconds after (not immediately)?',
+        'Frequency: should the Pro IQ FOMO pill show on EVERY win, or only after the user has won 3+ times as free (to avoid teaching them to ignore it)? '
       ]
     },
     'pick-result-v2': {
@@ -21878,6 +21894,329 @@
      (3) Loss state: removed emoji nav bar, clean consistent CTA
      Isaac D7 implementation reference — exact layout matches directive spec
 ══════════════════════════════════════════════════════════════════════════ -->
+<!-- SCREEN: Pick Result v3 — Pro IQ FOMO at win · Prop Coach loss nudge -->
+<div id="pick-result-v3" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Pick Result v3 — Pro IQ FOMO · Prop Coach Loss Nudge · 2026-03-22</div>
+    <div class="screen-desc">Strategic refinement of the highest-emotion moment in the app. Win → "you left IQ on the table" FOMO pill converts at peak dopamine. Contrarian win → 5× shock number. Loss → locked Prop Coach teaser. D7 InfluenceIQ follow prompts preserved.</div>
+  </div>
+
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: STANDARD WIN — Pro IQ FOMO pill ─────────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#022A14;overflow:hidden;position:relative;">
+
+          <!-- Glow burst -->
+          <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,0.45) 0%,rgba(34,197,94,0.12) 45%,transparent 70%);pointer-events:none;z-index:0;animation:glow 2.5s ease-in-out infinite;"></div>
+
+          <!-- Confetti -->
+          <div style="position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;">
+            <div style="position:absolute;top:14%;left:18%;width:10px;height:10px;border-radius:50%;background:#f59e0b;animation:fadeUp 0.6s ease 0.1s both;"></div>
+            <div style="position:absolute;top:18%;left:72%;width:7px;height:7px;border-radius:50%;background:#5545D3;animation:fadeUp 0.5s ease 0.2s both;"></div>
+            <div style="position:absolute;top:10%;left:52%;width:12px;height:5px;border-radius:2px;background:#22c55e;transform:rotate(35deg);animation:fadeUp 0.7s ease 0.15s both;"></div>
+            <div style="position:absolute;top:22%;left:33%;width:8px;height:8px;border-radius:50%;background:#f97316;animation:fadeUp 0.5s ease 0.25s both;"></div>
+          </div>
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;position:relative;z-index:2;"></div>
+
+          <!-- Win celebration area -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:0 20px;position:relative;z-index:2;">
+
+            <!-- YOU WON badge -->
+            <div style="background:rgba(34,197,94,0.18);border:2px solid #22c55e;border-radius:16px;padding:8px 28px;animation:fadeUp 0.4s ease both;">
+              <div style="color:#22c55e;font-size:13px;font-weight:900;letter-spacing:4px;">YOU WON</div>
+            </div>
+
+            <!-- IQ Points + Pro FOMO pill -->
+            <div style="text-align:center;animation:fadeUp 0.5s ease 0.1s both;">
+              <div style="color:#22c55e;font-size:80px;font-weight:900;line-height:1;letter-spacing:-3px;">+250</div>
+              <div style="color:#4ade80;font-size:16px;font-weight:700;letter-spacing:2px;">IQ POINTS</div>
+              <!-- Pro IQ FOMO pill — NEW v3 -->
+              <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35);border-radius:20px;padding:5px 12px;margin-top:8px;cursor:pointer;">
+                <span style="font-size:11px;">⚡</span>
+                <span style="font-size:11px;color:#fbbf24;font-weight:700;">Pro 2× = +500 IQ · Try Free →</span>
+              </div>
+            </div>
+
+            <!-- Pick result box -->
+            <div style="background:rgba(0,0,0,0.35);border-radius:14px;padding:12px 16px;width:100%;text-align:center;animation:fadeUp 0.5s ease 0.2s both;">
+              <div style="color:#94a3b8;font-size:11px;letter-spacing:2px;margin-bottom:6px;">PICK RESULT</div>
+              <div style="color:#f8fafc;font-size:18px;font-weight:800;">OVER ✓</div>
+              <div style="color:#4ade80;font-size:13px;margin-top:4px;">Mahomes — 284 yds · Target was 267</div>
+            </div>
+
+            <!-- Crowd context -->
+            <div style="text-align:center;animation:fadeUp 0.5s ease 0.25s both;">
+              <div style="color:#64748b;font-size:12px;">You beat <span style="color:#22c55e;font-weight:700;">68% of the crowd</span></div>
+            </div>
+
+            <!-- Streak badge -->
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:10px;padding:8px 16px;animation:fadeUp 0.5s ease 0.3s both;">
+              <span style="font-size:18px;">🔥</span>
+              <div>
+                <div style="color:#fbbf24;font-size:13px;font-weight:800;">3-Pick Streak</div>
+                <div style="color:#94a3b8;font-size:10px;">Next pick in Q3</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Share win button -->
+          <div style="padding:0 16px;margin-bottom:10px;position:relative;z-index:2;">
+            <div style="background:linear-gradient(135deg,#5545D3,#228C88);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="color:#fff;font-size:13px;font-weight:800;">Share your win</div>
+                <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:1px;">Let them know you called it</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.18);border-radius:8px;padding:6px 14px;">
+                <div style="color:#fff;font-size:12px;font-weight:800;">Share →</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- D7 InfluenceIQ Follow Prompt (preserved from v2) -->
+          <div style="border-top:1px solid rgba(255,255,255,0.08);padding:14px 16px 10px;position:relative;z-index:2;">
+            <div style="font-size:15px;font-weight:700;color:#f8fafc;margin-bottom:10px;">You think differently.</div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#5545D3,#7C6FE0);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <div style="color:#fff;font-size:14px;font-weight:900;">N</div>
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div style="color:#f8fafc;font-size:13px;font-weight:700;line-height:1.2;">Nova Finance</div>
+                <div style="color:#64748b;font-size:11px;margin-top:1px;">@novafinancetips</div>
+                <div style="color:#94a3b8;font-size:11px;margin-top:2px;line-height:1.4;">Daily money intel for people who think ahead.</div>
+              </div>
+              <div style="background:#E1306C;border-radius:8px;padding:6px 12px;flex-shrink:0;">
+                <div style="color:#fff;font-size:11px;font-weight:700;">Follow</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom CTAs -->
+          <div style="display:flex;gap:8px;padding:10px 16px 16px;position:relative;z-index:2;flex-shrink:0;">
+            <div style="flex:1;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:12px;padding:12px;text-align:center;">
+              <div style="color:#4ade80;font-size:12px;font-weight:700;">Leaderboard</div>
+            </div>
+            <div style="flex:2;background:#22c55e;border-radius:12px;padding:12px;text-align:center;">
+              <div style="color:#022A14;font-size:13px;font-weight:900;">Next Pick →</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">WIN · Pro IQ FOMO pill "2× = +500" · D7 Nova follow prompt preserved</div>
+    </div>
+
+    <!-- ── PHONE 2: CONTRARIAN WIN — 5× Pro shock showcase ──────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#021A14;overflow:hidden;position:relative;">
+
+          <!-- Glow burst — purple contrarian -->
+          <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(85,69,211,0.4) 0%,rgba(34,197,94,0.2) 45%,transparent 70%);pointer-events:none;z-index:0;animation:glow 2.5s ease-in-out infinite;"></div>
+
+          <!-- Confetti — purple mix -->
+          <div style="position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;">
+            <div style="position:absolute;top:14%;left:18%;width:10px;height:10px;border-radius:50%;background:#a78bfa;animation:fadeUp 0.6s ease 0.1s both;"></div>
+            <div style="position:absolute;top:18%;left:72%;width:7px;height:7px;border-radius:50%;background:#22c55e;animation:fadeUp 0.5s ease 0.2s both;"></div>
+            <div style="position:absolute;top:10%;left:52%;width:12px;height:5px;border-radius:2px;background:#c4b5fd;transform:rotate(35deg);animation:fadeUp 0.7s ease 0.15s both;"></div>
+            <div style="position:absolute;top:22%;left:33%;width:8px;height:8px;border-radius:50%;background:#f59e0b;animation:fadeUp 0.5s ease 0.25s both;"></div>
+            <div style="position:absolute;top:8%;left:80%;width:6px;height:12px;border-radius:2px;background:#5545D3;transform:rotate(-20deg);animation:fadeUp 0.6s ease 0.3s both;"></div>
+          </div>
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;position:relative;z-index:2;"></div>
+
+          <!-- Win celebration -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:0 20px;position:relative;z-index:2;">
+
+            <!-- CONTRARIAN WIN badge -->
+            <div style="background:rgba(85,69,211,0.2);border:2px solid #5545D3;border-radius:16px;padding:8px 20px;animation:fadeUp 0.4s ease both;">
+              <div style="color:#a78bfa;font-size:11px;font-weight:900;letter-spacing:3px;">CONTRARIAN WIN</div>
+            </div>
+
+            <!-- IQ Points + 5× shock -->
+            <div style="text-align:center;animation:fadeUp 0.5s ease 0.1s both;">
+              <div style="color:#22c55e;font-size:80px;font-weight:900;line-height:1;letter-spacing:-3px;">+340</div>
+              <div style="color:#4ade80;font-size:16px;font-weight:700;letter-spacing:2px;">IQ POINTS</div>
+            </div>
+
+            <!-- 5× Pro shock card — NEW v3 key feature -->
+            <div style="background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(217,119,6,0.08));border:1px solid rgba(245,158,11,0.4);border-radius:14px;padding:12px 16px;width:100%;animation:fadeUp 0.5s ease 0.15s both;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <div style="color:#fbbf24;font-size:10px;font-weight:700;letter-spacing:2px;">⚡ PRO 5× MULTIPLIER</div>
+                <div style="color:#64748b;font-size:10px;">You had 1×</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="text-align:center;">
+                  <div style="color:#64748b;font-size:11px;font-weight:600;">You earned</div>
+                  <div style="color:#94a3b8;font-size:22px;font-weight:900;">340</div>
+                </div>
+                <div style="color:#64748b;font-size:20px;">→</div>
+                <div style="text-align:center;">
+                  <div style="color:#fbbf24;font-size:11px;font-weight:600;">Pro 5× =</div>
+                  <div style="color:#fbbf24;font-size:28px;font-weight:900;line-height:1;">1,700</div>
+                </div>
+                <div style="flex:1;background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(245,158,11,0.08));border:1px solid rgba(245,158,11,0.4);border-radius:8px;padding:7px 10px;text-align:center;cursor:pointer;">
+                  <div style="color:#fbbf24;font-size:10px;font-weight:800;">Try Free</div>
+                  <div style="color:#d97706;font-size:9px;">7 days</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contrarian context -->
+            <div style="background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:14px;padding:10px 14px;width:100%;text-align:center;animation:fadeUp 0.5s ease 0.2s both;">
+              <div style="color:#a78bfa;font-size:11px;letter-spacing:2px;margin-bottom:4px;">RARE PICK</div>
+              <div style="color:#f8fafc;font-size:17px;font-weight:800;">UNDER ✓</div>
+              <div style="color:#4ade80;font-size:12px;margin-top:3px;">Mahomes — 218 yds · Only <span style="color:#a78bfa;font-weight:700;">22%</span> called this</div>
+            </div>
+
+          </div>
+
+          <!-- Share contrarian win -->
+          <div style="padding:0 16px;margin-bottom:10px;position:relative;z-index:2;">
+            <div style="background:linear-gradient(135deg,#5545D3,#228C88);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="color:#fff;font-size:13px;font-weight:800;">Share your contrarian win</div>
+                <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:1px;">Only 22% saw this coming</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.18);border-radius:8px;padding:6px 14px;">
+                <div style="color:#fff;font-size:12px;font-weight:800;">Share →</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- D7 Psyche follow prompt (preserved) -->
+          <div style="border-top:1px solid rgba(255,255,255,0.08);padding:14px 16px 10px;position:relative;z-index:2;">
+            <div style="font-size:15px;font-weight:700;color:#f8fafc;margin-bottom:10px;">You think differently.</div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#228C88,#0d9488);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <div style="color:#fff;font-size:14px;font-weight:900;">P</div>
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div style="color:#f8fafc;font-size:13px;font-weight:700;line-height:1.2;">Psyche</div>
+                <div style="color:#64748b;font-size:11px;margin-top:1px;">@PsycheMind</div>
+                <div style="color:#94a3b8;font-size:11px;margin-top:2px;line-height:1.4;">Your instincts are sharper than most. Here's the science.</div>
+              </div>
+              <div style="background:#E1306C;border-radius:8px;padding:6px 12px;flex-shrink:0;">
+                <div style="color:#fff;font-size:11px;font-weight:700;">Follow</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom CTAs -->
+          <div style="display:flex;gap:8px;padding:10px 16px 16px;position:relative;z-index:2;flex-shrink:0;">
+            <div style="flex:1;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.3);border-radius:12px;padding:12px;text-align:center;">
+              <div style="color:#a78bfa;font-size:12px;font-weight:700;">Leaderboard</div>
+            </div>
+            <div style="flex:2;background:#5545D3;border-radius:12px;padding:12px;text-align:center;">
+              <div style="color:#fff;font-size:13px;font-weight:900;">Next Pick →</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">CONTRARIAN WIN · 5× Pro shock: you earned 340 → could have been 1,700 · D7 Psyche prompt</div>
+    </div>
+
+    <!-- ── PHONE 3: LOSS — Locked Prop Coach teaser ──────────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:var(--bg);overflow:hidden;">
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;"></div>
+
+          <!-- Dignified header -->
+          <div style="padding:16px 20px 10px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:36px;height:36px;border-radius:50%;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;">
+                <div style="font-size:16px;">📉</div>
+              </div>
+              <div>
+                <div style="color:#f8fafc;font-size:15px;font-weight:800;">This one didn't land</div>
+                <div style="color:#64748b;font-size:11px;">Mahomes · Passing Yards</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:0 16px;">
+
+            <!-- What happened -->
+            <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.14);border-radius:14px;padding:14px;margin-bottom:12px;">
+              <div style="color:#94a3b8;font-size:10px;letter-spacing:2px;font-weight:700;margin-bottom:10px;">WHAT HAPPENED</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <span style="color:#64748b;font-size:13px;">Your pick</span>
+                <span style="color:#f8fafc;font-size:15px;font-weight:800;">OVER 267</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <span style="color:#64748b;font-size:13px;">Final stat</span>
+                <span style="color:#ef4444;font-size:15px;font-weight:800;">218 yds</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="color:#64748b;font-size:13px;">Result</span>
+                <span style="color:#ef4444;font-size:15px;font-weight:800;">UNDER won</span>
+              </div>
+            </div>
+
+            <!-- Prop Coach teaser — LOCKED — NEW v3 key feature -->
+            <div style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.25);border-radius:14px;overflow:hidden;margin-bottom:12px;">
+              <!-- Blurred coach content -->
+              <div style="padding:14px;filter:blur(2.5px);opacity:0.5;pointer-events:none;user-select:none;">
+                <div style="color:#fbbf24;font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:8px;">🧠 YOUR PROP COACH</div>
+                <div style="color:#f8fafc;font-size:13px;font-weight:700;line-height:1.5;font-style:italic;">"Your UNDER picks in away games below 35°F are 2-6. This was Lambeau. 28°F. You should have avoided this."</div>
+                <div style="color:#64748b;font-size:10px;margin-top:6px;">Based on your 47 picks · Pattern detected 6 weeks ago</div>
+              </div>
+              <!-- Lock overlay -->
+              <div style="margin:0 14px 14px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.35);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:20px;">🔒</span>
+                <div style="flex:1;">
+                  <div style="color:#fbbf24;font-size:12px;font-weight:700;margin-bottom:2px;">Your Prop Coach saw this coming</div>
+                  <div style="color:#94a3b8;font-size:11px;line-height:1.4;">Pro shows you your blind spots before you pick — not after.</div>
+                </div>
+                <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:8px;padding:7px 10px;cursor:pointer;flex-shrink:0;">
+                  <div style="color:#fff;font-size:10px;font-weight:800;">Try Free</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Crowd context -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;margin-bottom:12px;">
+              <div style="color:#64748b;font-size:11px;margin-bottom:4px;">The crowd had it right this time</div>
+              <div style="color:#f8fafc;font-size:13px;font-weight:700;">72% picked UNDER</div>
+              <div style="color:#64748b;font-size:11px;margin-top:4px;line-height:1.5;">Sharp money was 64% UNDER. Line moved 2.5 pts toward UNDER pre-kick.</div>
+            </div>
+
+          </div>
+
+          <!-- Bottom CTAs -->
+          <div style="padding:10px 16px 16px;flex-shrink:0;">
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:center;cursor:pointer;">
+                <div style="color:#94a3b8;font-size:12px;font-weight:700;">😭 Share the pain</div>
+              </div>
+              <div style="flex:2;background:#5545D3;border-radius:12px;padding:12px;text-align:center;cursor:pointer;">
+                <div style="color:#fff;font-size:13px;font-weight:900;">Next Pick →</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">LOSS · Locked Prop Coach teaser: "Your UNDER in cold away games: 2-6. This was one of those." · "Pro shows blind spots before you pick"</div>
+    </div>
+
+  </div>
+
+  <div id="sfb-panel-pick-result-v3" class="sfb-panel"></div>
+</div><!-- /screen pick-result-v3 -->
+
 <div id="pick-result-v2" class="screen" style="display:none;">
   <div class="screen-header">
     <div class="screen-title">Pick Result v2 — InfluenceIQ Receipt Prompt · D7 Visual Reference · 2026-03-21</div>
