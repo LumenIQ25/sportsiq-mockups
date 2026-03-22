@@ -1848,8 +1848,8 @@
     <div class="tab tab-review" data-screen="game-day-v4" onclick="showScreen('game-day-v4',this)">
       <span class="tab-label">Game Day</span><span class="tab-days" id="days-game-day-v4"></span><span class="review-dot"></span>
     </div>
-    <div class="tab tab-review" data-screen="notifications-v3" onclick="showScreen('notifications-v3',this)">
-      <span class="tab-label">Notifications</span><span class="tab-days" id="days-notifications-v3"></span><span class="review-dot"></span>
+    <div class="tab tab-review" data-screen="notifications-v4" onclick="showScreen('notifications-v4',this)">
+      <span class="tab-label">Notifications</span><span class="tab-days" id="days-notifications-v4"></span><span class="review-dot"></span>
     </div>
     <div class="tab tab-review" data-screen="my-stats-v3" onclick="showScreen('my-stats-v3',this)">
       <span class="tab-label">My Stats</span><span class="tab-days" id="days-my-stats-v3"></span><span class="review-dot"></span>
@@ -1895,7 +1895,10 @@
     </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
-      <summary class="nav-archive-toggle">↓ 29 previous versions</summary>
+      <summary class="nav-archive-toggle">↓ 30 previous versions</summary>
+      <div class="tab tab-archived" data-screen="notifications-v3" onclick="showScreen('notifications-v3',this)">
+        <span class="tab-label">Notifications v3</span><span class="tab-days" id="days-notifications-v3-arc"></span>
+      </div>
       <div class="tab tab-archived" data-screen="referral-v2" onclick="showScreen('referral-v2',this)">
         <span class="tab-label">Referral v2</span><span class="tab-days" id="days-referral-v2-arc"></span>
       </div>
@@ -5023,6 +5026,8 @@
     'game-day-v4':         '2026-03-22T14:00:00-07:00',
     'notifications-v2':    '2026-03-21T15:30:00-07:00',
     'notifications-v3':    '2026-03-22T16:00:00-07:00',
+    // ── Mar 22 autonomous loop — Notifications v4: pre-permission soft ask · Pro notifications pack ──
+    'notifications-v4':    '2026-03-22T19:00:00-07:00',
     // ── Mar 21 4:30 PM PT — stats/leaderboard/DNA/referral (032–035) ──
     'leaderboard-v3':      '2026-03-21T16:30:00-07:00',
     'leaderboard-v4':      '2026-03-21T20:00:00-07:00',
@@ -5687,6 +5692,17 @@
         'Session Hub as the "game night home base" — does this replace the regular Home screen during active sessions, or stack on top of it?',
         '"Path to First" math: show it always, or only within striking distance (e.g., less than 500 pts behind #1)?',
         'Clutch Pick window: last 15 minutes of the game, or triggered by the venue owner at a dramatic moment?'
+      ]
+    },
+    'notifications-v4': {
+      icon: '🔔',
+      title: 'Notifications v4 — Pre-Permission Soft Ask · Pro Pack · Sharp Money Alert · Mar 22 2026',
+      built: 'The single most important UX moment we had never designed: the notification permission ask. Users who enable notifications have 3× higher D30 retention. iOS cold opt-in rate is ~40%; with a custom pre-permission screen framed around streak protection + notification previews it jumps to 60-70%. Three phones: (1) Pre-permission soft ask — fires after first pick resolves. Shows "Protect your 4-pick streak" framing, 3 iOS-style notification previews embedded in the card, social proof "9 in 10 players who enable this keep their streak", prominent "Turn on notifications →" CTA, soft "Not now" escape hatch. This is the money screen — without it Isaac doesn\'t know what to build for the permission moment. (2) Settings — same 3 packs from v3 plus a NEW locked "⚡ Pro" notifications pack visible to free users. The Pro pack shows: Sharp Money Alert (line moves fast — sharps piling in), Daily Digest (morning summary), Pro Early Access (15-min heads up before free window opens). Creates notification FOMO for Pro upgrade. (3) Notification examples — updated with the Pro Signal notification type added. Sharp Money Alert shown in gold: "⚡ Sharp money: Chiefs line moved 3 pts in 2h. 71% of sharps on OVER. Pro only." The notification itself is a Pro conversion hook.',
+      questions: [
+        'Pre-permission ask timing: after first pick resolves (high emotion, invested) vs during onboarding step 3 (before any pick, lower investment)? Data generally favors post-first-pick because opt-in rate is higher when the user already cares.',
+        'Social proof number: "9 in 10 players who enable this keep their streak" — do we have or will we have real data to back this? If not, should we use a softer framing ("Most top-ranked players enable all 3 packs")?',
+        'Pro pack in notification settings: showing the locked Pro pack here (in the notification settings of a FREE user) — is this the right place to upsell, or does it feel out of place in a settings screen?',
+        'Sharp Money Alert cadence: how often does it fire? If a line moves every 5 minutes, we\'d send too many. Suggested: only fires when line moves >2 pts within 2 hours AND sharp money concentration >65%.'
       ]
     },
     'notifications-v3': {
@@ -19883,6 +19899,306 @@
      SCREEN: Notifications v3 — 2026-03-22 — Real stats, simple packs, auto-learn timing
      Ideas answered: 061 (simple, real game stats, auto-learn)
 ══════════════════════════════════════════════════════════════════════════ -->
+<!-- SCREEN: Notifications v4 — Pre-Permission Soft Ask · Pro Pack · Sharp Money Alert -->
+<div id="notifications-v4" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Notifications v4 — Pre-Permission Soft Ask · Pro Notifications Pack · Sharp Money Alert · 2026-03-22</div>
+    <div class="screen-desc">The most important UX moment we had never designed: the permission ask. Plus: a locked Pro notifications pack creates notification FOMO and a new Sharp Money Alert notification type drives Pro upgrades from the lock screen.</div>
+  </div>
+
+  <div class="phone-wrap">
+
+    <!-- ── PHONE 1: PRE-PERMISSION SOFT ASK ──────────────────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="display:flex;flex-direction:column;background:#0d1117;overflow:hidden;">
+
+          <!-- Status bar -->
+          <div style="height:34px;flex-shrink:0;"></div>
+
+          <!-- Dimmed pick win state behind -->
+          <div style="padding:0 16px 8px;flex-shrink:0;opacity:0.4;">
+            <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:14px;">✅</span>
+              <span style="font-size:12px;font-weight:700;color:#22c55e;">OVER hit! +250 IQ · 3-pick streak 🔥</span>
+            </div>
+          </div>
+
+          <!-- Permission ask card — slides up from bottom feel -->
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 14px 16px;">
+            <div style="background:linear-gradient(180deg,#111827,#0d1117);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:18px;box-shadow:0 -20px 60px rgba(0,0,0,0.5);">
+
+              <!-- Streak emoji + headline -->
+              <div style="text-align:center;margin-bottom:14px;">
+                <div style="font-size:36px;margin-bottom:6px;">🔥</div>
+                <div style="font-size:17px;font-weight:900;color:#f8fafc;line-height:1.3;">Protect your<br>3-pick streak</div>
+                <div style="font-size:12px;color:#64748b;margin-top:5px;line-height:1.5;">SportsIQ will remind you the moment your next pick window opens — and alert you before your streak expires.</div>
+              </div>
+
+              <!-- 3 example notification previews -->
+              <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px;">
+
+                <!-- Notif preview 1: Pick window -->
+                <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:8px 11px;display:flex;align-items:center;gap:9px;">
+                  <div style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#7c3aed,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">⚡</div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:11px;font-weight:700;color:#f8fafc;">Pick window: Mahomes opens now</div>
+                    <div style="font-size:10px;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Line 287.5 · You're 4-1 OVER on him this year</div>
+                  </div>
+                  <div style="font-size:9px;color:#64748b;flex-shrink:0;">now</div>
+                </div>
+
+                <!-- Notif preview 2: Streak at risk -->
+                <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);border-radius:12px;padding:8px 11px;display:flex;align-items:center;gap:9px;">
+                  <div style="width:26px;height:26px;border-radius:7px;background:rgba(245,158,11,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">🔥</div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:11px;font-weight:700;color:#fbbf24;">Streak at risk — 3h left tonight</div>
+                    <div style="font-size:10px;color:#94a3b8;">Chiefs vs Ravens Q3 open now</div>
+                  </div>
+                  <div style="font-size:9px;color:#64748b;flex-shrink:0;">3h</div>
+                </div>
+
+                <!-- Notif preview 3: Rank overtaken -->
+                <div style="background:rgba(239,68,68,0.07);border-radius:12px;padding:8px 11px;display:flex;align-items:center;gap:9px;">
+                  <div style="width:26px;height:26px;border-radius:7px;background:rgba(239,68,68,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">⚔️</div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:11px;font-weight:700;color:#f87171;">SarahK just passed you</div>
+                    <div style="font-size:10px;color:#94a3b8;">Gap: 80 IQ · 1 pick to reclaim #3</div>
+                  </div>
+                  <div style="font-size:9px;color:#64748b;flex-shrink:0;">5m</div>
+                </div>
+
+              </div>
+
+              <!-- Social proof -->
+              <div style="text-align:center;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:8px;margin-bottom:12px;">
+                <div style="font-size:11px;color:#4ade80;">9 in 10 players who enable this <span style="font-weight:700;">keep their streak</span></div>
+              </div>
+
+              <!-- CTAs -->
+              <div style="background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:12px;padding:13px;text-align:center;margin-bottom:8px;cursor:pointer;">
+                <div style="font-size:14px;font-weight:900;color:#fff;">Turn on notifications →</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:11px;color:#475569;">Not now · You can turn on later in settings</div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">PRE-PERMISSION SOFT ASK · Fires after first pick resolves · Streak framing · 3 notification previews · Social proof · "Not now" escape</div>
+    </div>
+
+    <!-- ── PHONE 2: SETTINGS — 3 packs + locked Pro pack ────────────────── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#0d1117;display:flex;flex-direction:column;overflow:hidden;">
+
+          <!-- Status bar -->
+          <div style="padding:34px 16px 6px;display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:11px;color:#475569;font-weight:600;">9:41 AM</span>
+            <span style="font-size:15px;color:#475569;">←</span>
+            <span style="font-size:9px;color:#475569;">●●●●</span>
+          </div>
+
+          <div style="padding:0 16px 12px;flex-shrink:0;">
+            <div style="font-size:18px;font-weight:900;color:#f1f5f9;margin-bottom:2px;">Notifications</div>
+            <div style="font-size:11px;color:#475569;">3 packs. Toggle a pack = toggle everything in it.</div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:0 14px;">
+
+            <!-- Game Day pack — ON -->
+            <div style="background:rgba(139,92,246,0.1);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;padding:12px;margin-bottom:8px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <div style="width:32px;height:32px;border-radius:9px;background:rgba(139,92,246,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;">🎯</div>
+                  <div><div style="font-size:13px;font-weight:800;color:#f1f5f9;">Game Day</div><div style="font-size:10px;color:#64748b;">Pick windows · Results · Clutch</div></div>
+                </div>
+                <div style="width:42px;height:23px;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:12px;position:relative;flex-shrink:0;">
+                  <div style="position:absolute;right:2px;top:2px;width:19px;height:19px;background:#fff;border-radius:50%;"></div>
+                </div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:3px;">
+                <div style="background:rgba(139,92,246,0.15);border-radius:20px;padding:2px 7px;font-size:9px;color:#a78bfa;font-weight:600;">Pick windows open</div>
+                <div style="background:rgba(139,92,246,0.15);border-radius:20px;padding:2px 7px;font-size:9px;color:#a78bfa;font-weight:600;">Pick results</div>
+                <div style="background:rgba(139,92,246,0.15);border-radius:20px;padding:2px 7px;font-size:9px;color:#a78bfa;font-weight:600;">Clutch Pick</div>
+              </div>
+            </div>
+
+            <!-- Social pack — ON -->
+            <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.22);border-radius:14px;padding:12px;margin-bottom:8px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <div style="width:32px;height:32px;border-radius:9px;background:rgba(59,130,246,0.15);display:flex;align-items:center;justify-content:center;font-size:16px;">👥</div>
+                  <div><div style="font-size:13px;font-weight:800;color:#f1f5f9;">Social</div><div style="font-size:10px;color:#64748b;">Friend picks · Rank changes · H2H</div></div>
+                </div>
+                <div style="width:42px;height:23px;background:linear-gradient(90deg,#2563eb,#60a5fa);border-radius:12px;position:relative;flex-shrink:0;">
+                  <div style="position:absolute;right:2px;top:2px;width:19px;height:19px;background:#fff;border-radius:50%;"></div>
+                </div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:3px;">
+                <div style="background:rgba(59,130,246,0.12);border-radius:20px;padding:2px 7px;font-size:9px;color:#60a5fa;font-weight:600;">Friend picked</div>
+                <div style="background:rgba(59,130,246,0.12);border-radius:20px;padding:2px 7px;font-size:9px;color:#60a5fa;font-weight:600;">Rank overtaken</div>
+                <div style="background:rgba(59,130,246,0.12);border-radius:20px;padding:2px 7px;font-size:9px;color:#60a5fa;font-weight:600;">Chirp received</div>
+              </div>
+            </div>
+
+            <!-- Habit pack — OFF -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:12px;margin-bottom:8px;opacity:0.7;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <div style="width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:16px;">🔁</div>
+                  <div><div style="font-size:13px;font-weight:800;color:#94a3b8;">Habit</div><div style="font-size:10px;color:#475569;">Streak reminders · Daily nudges</div></div>
+                </div>
+                <div style="width:42px;height:23px;background:rgba(255,255,255,0.1);border-radius:12px;position:relative;flex-shrink:0;">
+                  <div style="position:absolute;left:2px;top:2px;width:19px;height:19px;background:#475569;border-radius:50%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pro pack — LOCKED (new in v4) -->
+            <div style="background:linear-gradient(135deg,rgba(245,158,11,0.07),rgba(217,119,6,0.04));border:1px solid rgba(245,158,11,0.25);border-radius:14px;padding:12px;margin-bottom:12px;position:relative;overflow:hidden;">
+              <!-- Lock overlay -->
+              <div style="position:absolute;inset:0;background:rgba(13,17,23,0.3);border-radius:14px;z-index:1;"></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;position:relative;z-index:0;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <div style="width:32px;height:32px;border-radius:9px;background:rgba(245,158,11,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;">⚡</div>
+                  <div>
+                    <div style="font-size:13px;font-weight:800;color:#fbbf24;">Pro Signals</div>
+                    <div style="font-size:10px;color:#64748b;">Sharp money · Daily digest · Early access</div>
+                  </div>
+                </div>
+                <div style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:3px 9px;flex-shrink:0;">
+                  <div style="font-size:9px;font-weight:800;color:#fbbf24;">PRO</div>
+                </div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:3px;position:relative;z-index:0;opacity:0.7;">
+                <div style="background:rgba(245,158,11,0.12);border-radius:20px;padding:2px 7px;font-size:9px;color:#fbbf24;font-weight:600;">⚡ Sharp Money Alert</div>
+                <div style="background:rgba(245,158,11,0.12);border-radius:20px;padding:2px 7px;font-size:9px;color:#fbbf24;font-weight:600;">📊 Daily Digest</div>
+                <div style="background:rgba(245,158,11,0.12);border-radius:20px;padding:2px 7px;font-size:9px;color:#fbbf24;font-weight:600;">⏰ Early Pick Alert</div>
+              </div>
+              <!-- Lock CTA overlay -->
+              <div style="position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;">
+                <div style="background:rgba(13,17,23,0.85);border:1px solid rgba(245,158,11,0.35);border-radius:10px;padding:7px 14px;display:flex;align-items:center;gap:7px;">
+                  <span style="font-size:13px;">🔒</span>
+                  <span style="font-size:11px;font-weight:700;color:#fbbf24;">Unlock with Pro · Try 7 days free</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Auto-learn status -->
+            <div style="background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.18);border-radius:12px;padding:9px 12px;display:flex;align-items:center;gap:9px;">
+              <span style="font-size:14px;">🧠</span>
+              <div>
+                <div style="font-size:11px;font-weight:700;color:#4ade80;">Auto-learn: On</div>
+                <div style="font-size:10px;color:#475569;">Learns when you prefer to receive each pack. No manual quiet hours.</div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">4 PACKS · Game Day ON · Social ON · Habit OFF · ⚡ Pro Signals LOCKED — "Try 7 days free" · Auto-learn active</div>
+    </div>
+
+    <!-- ── PHONE 3: LOCK SCREEN EXAMPLES — with Pro Signal notification ──── -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner" style="background:#1c1c1e;display:flex;flex-direction:column;overflow:hidden;">
+
+          <!-- iOS status bar -->
+          <div style="padding:34px 16px 6px;display:flex;justify-content:space-between;align-items:center;background:#1c1c1e;">
+            <span style="font-size:11px;color:#8e8e93;font-weight:600;">8:02 PM</span>
+            <span style="font-size:12px;color:#8e8e93;font-weight:600;">Sunday</span>
+            <span style="font-size:9px;color:#8e8e93;">●●●●</span>
+          </div>
+
+          <div style="padding:0 10px;display:flex;flex-direction:column;gap:7px;flex:1;overflow-y:auto;">
+
+            <!-- Sharp Money Alert — Pro exclusive, gold -->
+            <div style="background:rgba(245,158,11,0.14);border:1px solid rgba(245,158,11,0.3);border-radius:14px;padding:10px 12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <div style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:12px;">⚡</div>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#fff;">SportsIQ Pro</div>
+                  <div style="font-size:10px;color:#8e8e93;">now</div>
+                </div>
+              </div>
+              <div style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:2px;">⚡ Sharp money alert: Chiefs +3</div>
+              <div style="font-size:11px;color:#d4a017;line-height:1.4;">71% of sharp accounts on OVER · Line moved 3 pts in 2h · Pro only</div>
+            </div>
+
+            <!-- Pick window -->
+            <div style="background:rgba(255,255,255,0.07);border-radius:14px;padding:10px 12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <div style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#7c3aed,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:12px;">⚡</div>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#fff;">SportsIQ</div>
+                  <div style="font-size:10px;color:#8e8e93;">now</div>
+                </div>
+              </div>
+              <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px;">Pick window: Mahomes opens now</div>
+              <div style="font-size:11px;color:#aeaeb2;">Line 287.5 · Season avg 304.2 · You're 4-1 OVER</div>
+            </div>
+
+            <!-- Win result -->
+            <div style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.22);border-radius:14px;padding:10px 12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <div style="width:26px;height:26px;border-radius:7px;background:rgba(34,197,94,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;">✅</div>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#fff;">SportsIQ</div>
+                  <div style="font-size:10px;color:#8e8e93;">just now</div>
+                </div>
+              </div>
+              <div style="font-size:12px;font-weight:700;color:#4ade80;margin-bottom:2px;">OVER hit! Mahomes 312 yds ✓</div>
+              <div style="font-size:11px;color:#aeaeb2;">+200 IQ · Beat 63% of the crowd · Streak: 3 🔥</div>
+            </div>
+
+            <!-- Rank overtaken -->
+            <div style="background:rgba(239,68,68,0.1);border-radius:14px;padding:10px 12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <div style="width:26px;height:26px;border-radius:7px;background:rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;">⚔️</div>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#fff;">SportsIQ</div>
+                  <div style="font-size:10px;color:#8e8e93;">14m ago</div>
+                </div>
+              </div>
+              <div style="font-size:12px;font-weight:700;color:#f87171;margin-bottom:2px;">SarahK just moved past you</div>
+              <div style="font-size:11px;color:#aeaeb2;">She's #3 · You're #4 · Gap: 80 IQ · 1 pick away</div>
+            </div>
+
+            <!-- Streak at risk -->
+            <div style="background:rgba(245,158,11,0.09);border-radius:14px;padding:10px 12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <div style="width:26px;height:26px;border-radius:7px;background:rgba(245,158,11,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;">🔥</div>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#fff;">SportsIQ</div>
+                  <div style="font-size:10px;color:#8e8e93;">3h ago</div>
+                </div>
+              </div>
+              <div style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:2px;">Streak at risk — 3h left</div>
+              <div style="font-size:11px;color:#aeaeb2;">14-day streak · Chiefs vs Ravens window open</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="phone-label">LOCK SCREEN EXAMPLES · NEW: ⚡ Sharp Money Alert (Pro, gold) · Pick window · Win result · Rank overtaken · Streak at risk · Real stats in every notif</div>
+    </div>
+
+  </div>
+
+  <div id="sfb-panel-notifications-v4" class="sfb-panel"></div>
+</div><!-- /screen notifications-v4 -->
+
 <div id="notifications-v3" class="screen" style="display:none;">
   <div class="screen-header">
     <div class="screen-title">Notifications v3 — Real Stats Only · 3 Simple Packs · Auto-Learn Timing</div>
