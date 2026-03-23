@@ -1997,6 +1997,9 @@
     <div class="tab tab-review" data-screen="refer-to-extend-pro" onclick="showScreen('refer-to-extend-pro',this)">
       <span class="tab-label">Refer-to-Extend Pro 🚀</span><span class="tab-days" id="days-refer-to-extend-pro"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="nav-rename-p5" onclick="showScreen('nav-rename-p5',this)">
+      <span class="tab-label">Nav Rename P5.5 🗂️</span><span class="tab-days" id="days-nav-rename-p5"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5582,6 +5585,7 @@
     'daily-challenge-home-card':  '2026-03-23T07:00:00-07:00',
     'settings-modal':             '2026-03-23T08:00:00-07:00',
     'refer-to-extend-pro':        '2026-03-23T09:00:00-07:00',
+    'nav-rename-p5':              '2026-03-23T10:00:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -41020,6 +41024,183 @@
   </div>
   <div id="sfb-panel-refer-to-extend-pro" class="sfb-panel"></div>
 </div><!-- /screen refer-to-extend-pro -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     NAV RENAME — P5.5 · 2026-03-23 10:00 PDT
+     Isaac spec: rename bottom nav tabs. 30-min task, no new screens.
+     Before/after reference so Isaac has zero ambiguity on what to change.
+═══════════════════════════════════════════════════════════════════ -->
+
+<div id="nav-rename-p5" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🗂️ Nav Rename — P5.5 Isaac Spec</h2>
+    <p class="screen-subtitle">Mar 23 2026 · P5.5 — 30-min Isaac task. Rename bottom navigation tabs. Icon changes included. "Prediction" → "Pick" (bolt-outline icon) because the word "prediction" feels formal and hedged; "Pick" is what sports fans actually say. "Leaders" → "Social" (people-outline icon) because the tab contains friends feed, crew activity, and leaderboards — "Social" is the right container word. Trivia and Profile stay unchanged. Before/after shown side-by-side. Tab order stays the same: Home · Pick · [new label] · Social · Profile. This is the last remaining Phase 5 design spec. With P5.1–P5.6 all designed, Isaac has everything he needs to complete Phase 5.</p>
+  </div>
+
+  <!-- Before/After comparison table — no phones needed, this is a spec -->
+  <div style="max-width:800px;margin:0 auto;padding:0 20px;">
+
+    <!-- Phase 5 nav spec table -->
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:16px;overflow:hidden;margin-bottom:32px;">
+      <div style="padding:16px 20px;border-bottom:1px solid #21262d;background:#0d1117;">
+        <div style="font-size:14px;font-weight:800;color:#f0f6fc;">Bottom Nav — Before → After</div>
+        <div style="font-size:10px;color:#6b7280;margin-top:2px;">React Native Expo · Ionicons library · changes in app/(tabs)/ layout</div>
+      </div>
+      <table style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr style="background:rgba(255,255,255,0.03);">
+            <th style="padding:10px 20px;text-align:left;font-size:10px;font-weight:700;color:#475569;letter-spacing:1px;border-bottom:1px solid #21262d;">TAB POSITION</th>
+            <th style="padding:10px 20px;text-align:left;font-size:10px;font-weight:700;color:#ef4444;letter-spacing:1px;border-bottom:1px solid #21262d;">BEFORE</th>
+            <th style="padding:10px 20px;text-align:left;font-size:10px;font-weight:700;color:#22c55e;letter-spacing:1px;border-bottom:1px solid #21262d;">AFTER</th>
+            <th style="padding:10px 20px;text-align:left;font-size:10px;font-weight:700;color:#475569;letter-spacing:1px;border-bottom:1px solid #21262d;">ICON CHANGE</th>
+            <th style="padding:10px 20px;text-align:left;font-size:10px;font-weight:700;color:#475569;letter-spacing:1px;border-bottom:1px solid #21262d;">WHY</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #21262d;">
+            <td style="padding:12px 20px;font-size:11px;color:#6b7280;">Tab 1</td>
+            <td style="padding:12px 20px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">🏠</span>
+                <span style="font-size:11px;color:#94a3b8;">Home</span>
+              </div>
+            </td>
+            <td style="padding:12px 20px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">🏠</span>
+                <span style="font-size:11px;font-weight:700;color:#22c55e;">Home</span>
+                <span style="font-size:9px;color:#475569;">(no change)</span>
+              </div>
+            </td>
+            <td style="padding:12px 20px;font-size:10px;color:#475569;">home-outline → home-outline</td>
+            <td style="padding:12px 20px;font-size:9px;color:#6b7280;">Stays as-is</td>
+          </tr>
+          <tr style="border-bottom:1px solid #21262d;background:rgba(250,204,21,0.03);">
+            <td style="padding:12px 20px;font-size:11px;color:#6b7280;">Tab 2</td>
+            <td style="padding:12px 20px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">🔮</span>
+                <span style="font-size:11px;color:#ef4444;text-decoration:line-through;">Prediction</span>
+              </div>
+            </td>
+            <td style="padding:12px 20px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">⚡</span>
+                <span style="font-size:11px;font-weight:800;color:#22c55e;">Pick</span>
+              </div>
+            </td>
+            <td style="padding:12px 20px;font-size:10px;color:#fbbf24;">flash-outline → flash-outline<br><span style="font-size:9px;color:#475569;">(or bolt-outline)</span></td>
+            <td style="padding:12px 20px;font-size:9px;color:#6b7280;">"Prediction" feels formal; sports fans say "Pick"</td>
+          </tr>
+          <tr style="border-bottom:1px solid #21262d;">
+            <td style="padding:12px 20px;font-size:11px;color:#6b7280;">Tab 3</td>
+            <td style="padding:12px 20px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">🧠</span>
+                <span style="font-size:11px;color:#94a3b8;">Trivia</span>
+              </div>
+            </td>
+            <td style="padding:12px 20px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">🧠</span>
+                <span style="font-size:11px;font-weight:700;color:#22c55e;">Trivia</span>
+                <span style="font-size:9px;color:#475569;">(no change)</span>
+              </div>
+            </td>
+            <td style="padding:12px 20px;font-size:10px;color:#475569;">brain-outline → brain-outline</td>
+            <td style="padding:12px 20px;font-size:9px;color:#6b7280;">Stays for now, folds into Pick in Phase 6</td>
+          </tr>
+          <tr style="border-bottom:1px solid #21262d;background:rgba(250,204,21,0.03);">
+            <td style="padding:12px 20px;font-size:11px;color:#6b7280;">Tab 4</td>
+            <td style="padding:12px 20px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">🏆</span>
+                <span style="font-size:11px;color:#ef4444;text-decoration:line-through;">Leaders</span>
+              </div>
+            </td>
+            <td style="padding:12px 20px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">👥</span>
+                <span style="font-size:11px;font-weight:800;color:#22c55e;">Social</span>
+              </div>
+            </td>
+            <td style="padding:12px 20px;font-size:10px;color:#fbbf24;">trophy-outline → people-outline</td>
+            <td style="padding:12px 20px;font-size:9px;color:#6b7280;">Tab contains Friends feed, Crew, Leaderboard — "Social" is the right container</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 20px;font-size:11px;color:#6b7280;">Tab 5</td>
+            <td style="padding:12px 20px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">👤</span>
+                <span style="font-size:11px;color:#94a3b8;">Profile</span>
+              </div>
+            </td>
+            <td style="padding:12px 20px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">👤</span>
+                <span style="font-size:11px;font-weight:700;color:#22c55e;">Profile</span>
+                <span style="font-size:9px;color:#475569;">(no change)</span>
+              </div>
+            </td>
+            <td style="padding:12px 20px;font-size:10px;color:#475569;">person-outline → person-outline</td>
+            <td style="padding:12px 20px;font-size:9px;color:#6b7280;">Stays as-is</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Phase 5 complete summary -->
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:16px;overflow:hidden;margin-bottom:32px;">
+      <div style="padding:16px 20px;border-bottom:1px solid #21262d;background:#0d1117;">
+        <div style="font-size:14px;font-weight:800;color:#f0f6fc;">Phase 5 — Design Complete ✓</div>
+        <div style="font-size:10px;color:#22c55e;margin-top:2px;">All P5.1–P5.6 mockups built · Isaac has everything needed to ship Phase 5</div>
+      </div>
+      <div style="padding:16px 20px;display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="font-size:14px;color:#22c55e;">✓</div>
+          <div style="flex:1;"><span style="font-size:11px;font-weight:700;color:#f0f6fc;">P5.1</span> <span style="font-size:10px;color:#6b7280;">— Friends + Venue leaderboard tabs → see leaderboard-4tabs screen</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="font-size:14px;color:#22c55e;">✓</div>
+          <div style="flex:1;"><span style="font-size:11px;font-weight:700;color:#f0f6fc;">P5.2</span> <span style="font-size:10px;color:#6b7280;">— Bar Check-In Flow → see bar-checkin-flow screen (4 phones incl. auto-checkout)</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="font-size:14px;color:#22c55e;">✓</div>
+          <div style="flex:1;"><span style="font-size:11px;font-weight:700;color:#f0f6fc;">P5.3</span> <span style="font-size:10px;color:#6b7280;">— Settings Modal → see settings-modal screen (2 phones: main + sports prefs)</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="font-size:14px;color:#22c55e;">✓</div>
+          <div style="flex:1;"><span style="font-size:11px;font-weight:700;color:#f0f6fc;">P5.4</span> <span style="font-size:10px;color:#6b7280;">— Daily Challenge Card on Home → see daily-challenge-home-card screen (3 states)</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="font-size:14px;color:#22c55e;">✓</div>
+          <div style="flex:1;"><span style="font-size:11px;font-weight:700;color:#f0f6fc;">P5.5</span> <span style="font-size:10px;color:#6b7280;">— Nav Rename → THIS screen · 2 changes only (Prediction→Pick, Leaders→Social)</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="font-size:14px;color:#22c55e;">✓</div>
+          <div style="flex:1;"><span style="font-size:11px;font-weight:700;color:#f0f6fc;">P5.6</span> <span style="font-size:10px;color:#6b7280;">— Pro Tier Paywall → see pro-paywall-v2 screen · $9.99/mo or $79.99/yr · 7-day trial</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 6 teaser -->
+    <div style="background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.2);border-radius:16px;padding:16px 20px;">
+      <div style="font-size:11px;font-weight:700;color:#a78bfa;margin-bottom:8px;">Phase 6 — After Phase 5 Ships</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="font-size:10px;color:#6b7280;">• Swipe navigation (3-screen gesture model)</div>
+        <div style="font-size:10px;color:#6b7280;">• Pick resolution poller (auto-resolve when games end, award IQ)</div>
+        <div style="font-size:10px;color:#6b7280;">• Push notifications (pick window, result ready, streak at risk)</div>
+        <div style="font-size:10px;color:#6b7280;">• Archetype engine (Sports DNA, personalized edge banners)</div>
+        <div style="font-size:10px;color:#6b7280;">• Social graph (friend invites, referral system)</div>
+        <div style="font-size:10px;color:#6b7280;">• H2H Duels</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="sfb-panel-nav-rename-p5" class="sfb-panel"></div>
+</div><!-- /screen nav-rename-p5 -->
 
 </body>
 </html>
