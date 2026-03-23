@@ -1934,6 +1934,9 @@
     <div class="tab tab-review" data-screen="crew-screen" onclick="showScreen('crew-screen',this)">
       <span class="tab-label">Crews 👥</span><span class="tab-days" id="days-crew-screen"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="iq-ways" onclick="showScreen('iq-ways',this)">
+      <span class="tab-label">IQ Ways 💰</span><span class="tab-days" id="days-iq-ways"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5498,6 +5501,7 @@
     // ── Mar 22 loop — Bar Download Flow: QR scan → venue-aware onboarding → first pick ──
     'bar-download-flow':   '2026-03-22T20:00:00-07:00',
     'crew-screen':         '2026-03-22T20:30:00-07:00',
+    'iq-ways':             '2026-03-22T20:45:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -29691,6 +29695,360 @@
 
   <div id="sfb-panel-crew-screen" class="sfb-panel"></div>
 </div><!-- /screen crew-screen -->
+
+<!-- ============================================================
+     IQ WAYS — All scoring opportunities, free vs Pro
+     Mar 22 2026
+     ============================================================ -->
+<div id="iq-ways" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>💰 IQ Ways — Every Way You Earn, Free vs Pro</h2>
+    <p class="screen-subtitle">Mar 22 2026 · The "More scoring opportunities" Pro perk made concrete. Three views: (1) Hub — all IQ earning categories in one place, free vs Pro comparison with locked Pro-only bonuses creating visible FOMO. (2) Referral IQ feed — you earn IQ in real time when people you referred make winning picks. Passive income loop that makes sharing feel profitable, not charitable. (3) Weekly milestone tracker — streak of daily targets that drive pick activity every day of the week, not just game days. Moat: the more IQ sources a user is actively earning from, the more invested they become and the higher the switching cost. Pro unlocks 4 exclusive earning channels that free users can see but not access.</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: IQ Ways hub — all earning categories -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#4ade80;letter-spacing:.5px;">📱 IQ WAYS HUB</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(74,222,128,0.2);">
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Header + this week total -->
+        <div style="padding:6px 16px 10px;flex-shrink:0;">
+          <div style="font-size:18px;font-weight:900;color:#f0f6fc;">IQ Ways</div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px;">
+            <span style="font-size:26px;font-weight:900;color:#4ade80;">+840</span>
+            <span style="font-size:11px;color:#6b7280;">IQ earned this week</span>
+          </div>
+        </div>
+
+        <!-- Earning cards — scrollable list -->
+        <div style="padding:0 12px;flex:1;display:flex;flex-direction:column;gap:7px;overflow:hidden;">
+
+          <!-- PICKS — universal -->
+          <div style="background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.18);border-radius:12px;padding:9px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:14px;">🎯</span>
+                <span style="font-size:11px;font-weight:800;color:#f0f6fc;">Pick wins</span>
+              </div>
+              <span style="font-size:10px;font-weight:700;color:#4ade80;">+390 this week</span>
+            </div>
+            <div style="font-size:9px;color:#6b7280;">1× win = +50 IQ · 2× win = +100 IQ · Pro 5× = +250 IQ</div>
+          </div>
+
+          <!-- TRIVIA — universal -->
+          <div style="background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.18);border-radius:12px;padding:9px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:14px;">🧠</span>
+                <span style="font-size:11px;font-weight:800;color:#f0f6fc;">Daily trivia</span>
+              </div>
+              <span style="font-size:10px;font-weight:700;color:#a78bfa;">+84 this week</span>
+            </div>
+            <div style="font-size:9px;color:#6b7280;">+15 IQ base + speed bonus per correct · 5/5 perfect = ~+125 IQ</div>
+            <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
+              <div style="width:4px;height:4px;border-radius:50%;background:#a78bfa;"></div>
+              <span style="font-size:8px;color:#a78bfa;font-weight:700;">🔥 4-day streak · keep it going</span>
+            </div>
+          </div>
+
+          <!-- REFERRAL — universal, Pro earns more -->
+          <div style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.18);border-radius:12px;padding:9px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:14px;">🔗</span>
+                <span style="font-size:11px;font-weight:800;color:#f0f6fc;">Referral IQ</span>
+              </div>
+              <span style="font-size:10px;font-weight:700;color:#38bdf8;">+175 this week</span>
+            </div>
+            <div style="font-size:9px;color:#6b7280;">Earn +25 IQ every time a referral wins a pick · passive</div>
+            <div style="font-size:8px;color:#38bdf8;font-weight:600;margin-top:3px;">⚡ Pro earns +50 IQ per referral win (2×)</div>
+          </div>
+
+          <!-- PRO ONLY DIVIDER -->
+          <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <div style="flex:1;height:1px;background:rgba(250,204,21,0.15);"></div>
+            <div style="display:flex;align-items:center;gap:4px;background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.2);border-radius:10px;padding:3px 8px;">
+              <span style="font-size:9px;">⚡</span>
+              <span style="font-size:9px;font-weight:700;color:#facc15;">Pro-only below</span>
+            </div>
+            <div style="flex:1;height:1px;background:rgba(250,204,21,0.15);"></div>
+          </div>
+
+          <!-- WEEKLY MILESTONES — Pro only -->
+          <div style="background:rgba(250,204,21,0.05);border:1px solid rgba(250,204,21,0.2);border-radius:12px;padding:9px 12px;flex-shrink:0;position:relative;overflow:hidden;">
+            <!-- Lock for free users would overlay this -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:14px;">🏅</span>
+                <span style="font-size:11px;font-weight:800;color:#facc15;">Weekly milestones</span>
+              </div>
+              <span style="font-size:10px;font-weight:700;color:#facc15;">+191 this week</span>
+            </div>
+            <div style="font-size:9px;color:#6b7280;">5 wins = +200 IQ · 10 wins = +500 IQ · Perfect day = +300 IQ</div>
+          </div>
+
+          <!-- CREW CAPTAIN BONUS — Pro only -->
+          <div style="background:rgba(249,115,22,0.05);border:1px solid rgba(249,115,22,0.2);border-radius:12px;padding:9px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:14px;">👑</span>
+                <span style="font-size:11px;font-weight:800;color:#fb923c;">Crew captain bonus</span>
+              </div>
+              <span style="font-size:10px;font-weight:700;color:#fb923c;">+0 today</span>
+            </div>
+            <div style="font-size:9px;color:#6b7280;">+10 IQ every time a crew member wins a pick · scales with crew size</div>
+          </div>
+
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;margin-top:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(74,222,128,.5));">🎯</span><span style="font-size:9px;color:#4ade80;font-weight:600;">IQ Ways</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Crew</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Four earning channels visible, two locked behind Pro. Free users see exactly what they're missing — crew captain bonus and weekly milestones are the most compelling locked perks.</div>
+    </div>
+
+    <!-- PHONE 2: Referral IQ feed — earn when your referrals win -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#38bdf8;letter-spacing:.5px;">📱 REFERRAL IQ — PASSIVE EARNINGS</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(56,189,248,0.2);">
+        <!-- Ambient glow -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(56,189,248,0.05) 0%,transparent 65%);pointer-events:none;z-index:0;"></div>
+
+        <!-- Status bar -->
+        <div style="position:relative;z-index:1;padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Header -->
+        <div style="position:relative;z-index:1;padding:6px 16px 10px;flex-shrink:0;">
+          <div style="font-size:17px;font-weight:900;color:#f0f6fc;">Referral IQ</div>
+          <div style="font-size:11px;color:#6b7280;margin-top:2px;">You earn IQ every time your referrals win</div>
+        </div>
+
+        <!-- Your referral link -->
+        <div style="position:relative;z-index:1;margin:0 12px 10px;background:rgba(56,189,248,0.07);border:1px solid rgba(56,189,248,0.2);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+          <div style="font-size:9px;color:#6b7280;font-weight:600;letter-spacing:.5px;margin-bottom:4px;">YOUR LINK</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+            <div style="font-size:12px;font-weight:700;color:#38bdf8;flex:1;">sportsiq.app/ref/marcd</div>
+            <div style="background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.3);border-radius:8px;padding:5px 10px;font-size:10px;font-weight:700;color:#38bdf8;cursor:pointer;white-space:nowrap;">Copy ↗</div>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:8px;">
+            <div style="text-align:center;">
+              <div style="font-size:14px;font-weight:900;color:#f0f6fc;">7</div>
+              <div style="font-size:8px;color:#6b7280;">referrals</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.06);"></div>
+            <div style="text-align:center;">
+              <div style="font-size:14px;font-weight:900;color:#38bdf8;">+175 IQ</div>
+              <div style="font-size:8px;color:#6b7280;">earned this week</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.06);"></div>
+            <div style="text-align:center;">
+              <div style="font-size:14px;font-weight:900;color:#4ade80;">3</div>
+              <div style="font-size:8px;color:#6b7280;">active today</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live referral feed -->
+        <div style="position:relative;z-index:1;padding:0 12px;flex:1;display:flex;flex-direction:column;gap:6px;overflow:hidden;">
+          <div style="font-size:10px;color:#6b7280;font-weight:600;letter-spacing:.5px;flex-shrink:0;">RECENT EARNINGS</div>
+
+          <!-- Referral win event 1 — just now -->
+          <div style="background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:11px;padding:8px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;">J</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:10px;font-weight:700;color:#f0f6fc;">Jake won Chiefs to score ✓</div>
+              <div style="font-size:8px;color:#6b7280;">Your referral · 2 min ago</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <div style="font-size:12px;font-weight:900;color:#4ade80;">+25 IQ</div>
+              <div style="font-size:7px;color:#6b7280;">to you</div>
+            </div>
+          </div>
+
+          <!-- Referral win event 2 -->
+          <div style="background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:11px;padding:8px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#d97706,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;">K</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:10px;font-weight:700;color:#f0f6fc;">Kyle won Mahomes OVER ✓</div>
+              <div style="font-size:8px;color:#6b7280;">Your referral · 18 min ago</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <div style="font-size:12px;font-weight:900;color:#4ade80;">+25 IQ</div>
+              <div style="font-size:7px;color:#6b7280;">to you</div>
+            </div>
+          </div>
+
+          <!-- Referral loss — no IQ earned -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:11px;padding:8px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;opacity:0.6;">
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#475569,#64748b);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;">S</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:10px;font-weight:700;color:#94a3b8;">Sam lost Eagles OVER ✗</div>
+              <div style="font-size:8px;color:#475569;">Your referral · 34 min ago</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <div style="font-size:11px;font-weight:700;color:#475569;">—</div>
+              <div style="font-size:7px;color:#475569;">no IQ</div>
+            </div>
+          </div>
+
+          <!-- Yesterday total -->
+          <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <span style="font-size:9px;color:#475569;">Yesterday · 5 referral wins</span>
+            <span style="font-size:10px;font-weight:700;color:#38bdf8;">+125 IQ</span>
+          </div>
+
+          <!-- Pro upgrade nudge -->
+          <div style="background:rgba(250,204,21,0.06);border:1px solid rgba(250,204,21,0.2);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;cursor:pointer;">
+            <span style="font-size:14px;">⚡</span>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:800;color:#facc15;">Pro doubles your referral IQ</div>
+              <div style="font-size:8px;color:#6b7280;margin-top:1px;">Earn +50 IQ per referral win instead of +25</div>
+            </div>
+            <span style="font-size:10px;color:#facc15;font-weight:700;">→</span>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;margin-top:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🎯</span><span style="font-size:9px;color:#38bdf8;font-weight:600;">IQ Ways</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Crew</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Sharing feels profitable, not charitable. Every referral win credit lands as a push notification too — "Jake just won and you earned +25 IQ." The Pro nudge hits at the right moment: right after seeing real earnings that could be doubled.</div>
+    </div>
+
+    <!-- PHONE 3: Weekly milestone tracker -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#facc15;letter-spacing:.5px;">⚡ WEEKLY MILESTONES — PRO</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(250,204,21,0.2);">
+        <!-- Ambient glow -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 25%,rgba(109,78,239,0.08) 0%,transparent 60%);pointer-events:none;z-index:0;"></div>
+
+        <!-- Status bar -->
+        <div style="position:relative;z-index:1;padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Header -->
+        <div style="position:relative;z-index:1;padding:6px 16px 10px;flex-shrink:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:17px;font-weight:900;color:#f0f6fc;">This Week</div>
+              <div style="font-size:10px;color:#6b7280;margin-top:2px;">Resets Monday · 4 days left</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:18px;font-weight:900;color:#facc15;">+191 IQ</div>
+              <div style="font-size:8px;color:#6b7280;">milestone earnings</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress milestones -->
+        <div style="position:relative;z-index:1;padding:0 12px;flex:1;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+
+          <!-- Daily trivia streak — shared free/Pro -->
+          <div style="font-size:9px;color:#6b7280;font-weight:600;letter-spacing:.5px;flex-shrink:0;">STREAK BONUSES · FREE + PRO</div>
+
+          <div style="background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.18);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:13px;">🧠</span>
+                <span style="font-size:11px;font-weight:700;color:#f0f6fc;">Trivia streak</span>
+              </div>
+              <div style="background:rgba(167,139,250,0.15);border-radius:8px;padding:3px 8px;font-size:9px;font-weight:700;color:#a78bfa;">4 of 7 days 🔥</div>
+            </div>
+            <!-- Progress dots -->
+            <div style="display:flex;gap:5px;margin-bottom:5px;">
+              <div style="flex:1;height:5px;border-radius:3px;background:#a78bfa;"></div>
+              <div style="flex:1;height:5px;border-radius:3px;background:#a78bfa;"></div>
+              <div style="flex:1;height:5px;border-radius:3px;background:#a78bfa;"></div>
+              <div style="flex:1;height:5px;border-radius:3px;background:#a78bfa;"></div>
+              <div style="flex:1;height:5px;border-radius:3px;background:rgba(167,139,250,0.2);"></div>
+              <div style="flex:1;height:5px;border-radius:3px;background:rgba(167,139,250,0.2);"></div>
+              <div style="flex:1;height:5px;border-radius:3px;background:rgba(167,139,250,0.2);"></div>
+            </div>
+            <div style="font-size:8px;color:#6b7280;">7-day perfect streak = +150 IQ bonus</div>
+          </div>
+
+          <!-- Pro milestone section -->
+          <div style="font-size:9px;color:#facc15;font-weight:600;letter-spacing:.5px;flex-shrink:0;display:flex;align-items:center;gap:5px;">
+            <span>⚡</span><span>WEEKLY WINS · PRO ONLY</span>
+          </div>
+
+          <!-- 5 wins milestone — achieved -->
+          <div style="background:rgba(74,222,128,0.08);border:1.5px solid rgba(74,222,128,0.3);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:13px;">✅</span>
+                <span style="font-size:11px;font-weight:700;color:#4ade80;">5 wins this week</span>
+              </div>
+              <div style="font-size:11px;font-weight:900;color:#4ade80;">+200 IQ</div>
+            </div>
+            <div style="font-size:8px;color:#475569;">Earned Monday · 6 wins so far this week</div>
+          </div>
+
+          <!-- 10 wins milestone — in progress -->
+          <div style="background:rgba(250,204,21,0.06);border:1.5px solid rgba(250,204,21,0.25);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:13px;">🎯</span>
+                <span style="font-size:11px;font-weight:700;color:#facc15;">10 wins this week</span>
+              </div>
+              <div style="font-size:11px;font-weight:900;color:#facc15;">+500 IQ</div>
+            </div>
+            <!-- Progress bar -->
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+              <div style="flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,0.07);overflow:hidden;">
+                <div style="width:60%;height:100%;background:linear-gradient(90deg,#facc15,#f59e0b);border-radius:3px;"></div>
+              </div>
+              <span style="font-size:9px;font-weight:700;color:#facc15;">6/10</span>
+            </div>
+            <div style="font-size:8px;color:#6b7280;">4 more wins → +500 IQ · resets Monday</div>
+          </div>
+
+          <!-- Perfect day — locked until triggered -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:13px;">💎</span>
+                <span style="font-size:11px;font-weight:700;color:#94a3b8;">Perfect day</span>
+              </div>
+              <div style="font-size:11px;font-weight:900;color:#94a3b8;">+300 IQ</div>
+            </div>
+            <div style="font-size:8px;color:#475569;">Win every pick you make in a single day · any day this week</div>
+          </div>
+
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;margin-top:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(250,204,21,.5));">🎯</span><span style="font-size:9px;color:#facc15;font-weight:600;">IQ Ways</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Crew</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">"6/10 · 4 more wins → +500 IQ" creates a concrete daily reason to keep picking through the week. Perfect day bonus is achievable but rare — a lottery-ticket moment. Monday reset creates weekly urgency cycles that drive D7, D14, D30 retention.</div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+
+  <div id="sfb-panel-iq-ways" class="sfb-panel"></div>
+</div><!-- /screen iq-ways -->
 
 <!-- ============================================================
      SOCIAL FEED — Real-time friend picks feed (👥 Social tab)
