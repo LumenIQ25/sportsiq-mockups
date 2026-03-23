@@ -9533,8 +9533,8 @@
             <div class="tq-opt correct"><div class="tq-opt-letter">B</div><div class="tq-opt-text">Steve Young — 6 TDs, Super Bowl XXIX ✓</div></div>
             <div class="tq-opt"><div class="tq-opt-letter">C</div><div class="tq-opt-text">Joe Montana</div></div>
             <div class="tq-opt"><div class="tq-opt-letter">D</div><div class="tq-opt-text">Patrick Mahomes</div></div>
-            <div class="tq-pts-flash" style="color:#4ade80;">+250 pts 🎯</div>
-            <div style="text-align:center;font-size:12px;color:var(--muted);margin-top:4px;">Speed bonus: answered in 6s · 58% of players got this right</div>
+            <div class="tq-pts-flash" style="color:#4ade80;">+21 IQ 🎯</div>
+            <div style="text-align:center;font-size:12px;color:var(--muted);margin-top:4px;">+15 base · +6 speed (answered in 6s) · 58% got this right</div>
             <div style="margin-top:auto;padding-top:12px;">
               <button style="width:100%;height:48px;background:linear-gradient(135deg,rgba(34,197,94,0.3),rgba(34,197,94,0.2));border:1px solid rgba(34,197,94,0.5);border-radius:14px;color:#4ade80;font-family:'Lexend',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:1px;">NEXT QUESTION →</button>
             </div>
@@ -11877,8 +11877,8 @@
               <div style="font-size:8px;color:var(--muted);">Daily Trivia · 5/5 perfect · 🔥 7-day streak</div>
             </div>
             <div style="text-align:right;">
-              <div style="font-size:9px;font-weight:800;color:#a78bfa;">+250</div>
-              <div style="font-size:7px;color:var(--muted);">trivia pts</div>
+              <div style="font-size:9px;font-weight:800;color:#a78bfa;">+125 IQ</div>
+              <div style="font-size:7px;color:var(--muted);">5/5 trivia</div>
             </div>
           </div>
         </div>
@@ -28980,7 +28980,7 @@
 <div id="bar-download-flow" class="screen" style="display:none;">
   <div class="screen-header">
     <h2>🍺 Bar Download Flow — QR Scan to First Pick in 10 Seconds</h2>
-    <p class="screen-subtitle">Mar 22 2026 · A completely different entry point from normal onboarding. Someone at a bar scans a QR code (on a table tent, TV graphic, or bar screen), downloads the app, and opens it. The app already knows they're at Yard House. Skip sports selection, skip the intro — go straight to "14 people here are already picking the Chiefs game. Join them." From scan to first pick in under 10 seconds. Three screens: (1) The bar landing screen — venue-aware from second one, no generic onboarding. (2) Straight to the live game micro-pick — first decision is picking with the bar. (3) Bar leaderboard join — they're already on the board after pick 1.</p>
+    <p class="screen-subtitle">Mar 22 2026 · A completely different entry point from normal onboarding. Someone at a bar scans a QR code (on a table tent, TV graphic, or bar screen), downloads the app, and opens it. The app already knows they're at Yard House. Skip sports selection, skip the intro — go straight to "14 people here are already picking the Chiefs game. Join them." From scan to first pick in under 10 seconds. Four screens: (1) Bar landing — venue-aware from second one, no generic onboarding. (2) Live game micro-pick — first decision is picking with the bar. (3) Username pick — one field, no email, just claim your name for the leaderboard. (4) Bar leaderboard — they're already on the board. Total time: ~15 seconds scan-to-leaderboard. The username step is framed as "name your spot on the board" — not "create an account." Same action, completely different psychology.</p>
   </div>
   <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
 
@@ -29118,9 +29118,91 @@
       <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Zero sports selection, zero intro. The game on the bar TV is the first pick. Bar crowd split shows what people at THIS bar are picking — more compelling than global crowd to a new user.</div>
     </div>
 
-    <!-- PHONE 3: After first pick — instantly on the bar leaderboard -->
+    <!-- PHONE 3: Username pick — "name your spot on the board" -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-      <div class="phone-label" style="font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.5px;">📱 STEP 3 — YOU'RE ON THE BOARD</div>
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#f87171;letter-spacing:.5px;">📱 STEP 3 — NAME YOUR SPOT (~5 sec)</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(248,113,113,0.25);">
+
+        <!-- Blurred leaderboard in the background — visible but unreachable -->
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,17,23,0) 0%,rgba(13,17,23,0.85) 35%,rgba(13,17,23,0.97) 100%);z-index:1;pointer-events:none;"></div>
+        <!-- Ghost leaderboard rows behind the sheet -->
+        <div style="position:absolute;top:80px;left:12px;right:12px;z-index:0;filter:blur(3px);opacity:0.4;">
+          <div style="font-size:10px;font-weight:700;color:#94a3b8;margin-bottom:6px;">🍺 Yard House Tonight</div>
+          <div style="background:rgba(250,204,21,0.1);border:1px solid rgba(250,204,21,0.2);border-radius:10px;padding:7px 10px;margin-bottom:5px;display:flex;gap:8px;align-items:center;">
+            <span style="font-size:12px;">👑</span>
+            <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#6d4eef,#a78bfa);"></div>
+            <div style="flex:1;"><div style="height:8px;background:rgba(240,246,252,0.3);border-radius:4px;margin-bottom:3px;"></div><div style="height:7px;width:60%;background:rgba(255,255,255,0.1);border-radius:4px;"></div></div>
+            <div style="font-size:11px;font-weight:800;color:#facc15;">+720 IQ</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:7px 10px;margin-bottom:5px;display:flex;gap:8px;align-items:center;">
+            <span style="font-size:12px;color:#94a3b8;">2</span>
+            <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);"></div>
+            <div style="flex:1;"><div style="height:8px;background:rgba(240,246,252,0.3);border-radius:4px;margin-bottom:3px;"></div><div style="height:7px;width:50%;background:rgba(255,255,255,0.1);border-radius:4px;"></div></div>
+            <div style="font-size:11px;font-weight:800;color:#c4b5fd;">+510 IQ</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:10px;padding:7px 10px;margin-bottom:5px;display:flex;gap:8px;align-items:center;">
+            <span style="font-size:12px;color:#94a3b8;">3</span>
+            <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#d97706,#fbbf24);"></div>
+            <div style="flex:1;"><div style="height:8px;background:rgba(240,246,252,0.25);border-radius:4px;margin-bottom:3px;"></div><div style="height:7px;width:55%;background:rgba(255,255,255,0.08);border-radius:4px;"></div></div>
+            <div style="font-size:11px;font-weight:800;color:#c4b5fd;">+390 IQ</div>
+          </div>
+        </div>
+
+        <!-- Status bar -->
+        <div style="position:relative;z-index:2;padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Bottom sheet sliding up — username entry -->
+        <div style="position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="background:linear-gradient(180deg,#161b22,#0d1117);border-top-left-radius:24px;border-top-right-radius:24px;border:1px solid rgba(255,255,255,0.08);border-bottom:none;padding:20px 20px 32px;">
+
+            <!-- Drag handle -->
+            <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,0.12);margin:0 auto 20px;"></div>
+
+            <!-- Headline — framed as "name your spot", not "create account" -->
+            <div style="font-size:22px;font-weight:900;color:#f0f6fc;text-align:center;margin-bottom:4px;line-height:1.2;">Name your spot<br>on the board</div>
+            <div style="font-size:12px;color:#475569;text-align:center;margin-bottom:20px;">Your pick is live · pick resolves in 3:41</div>
+
+            <!-- Suggested names — one tap to claim -->
+            <div style="font-size:10px;color:#6b7280;font-weight:600;margin-bottom:8px;letter-spacing:.5px;">QUICK PICKS:</div>
+            <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
+              <div style="background:rgba(167,139,250,0.1);border:1.5px solid rgba(167,139,250,0.3);border-radius:20px;padding:6px 12px;cursor:pointer;">
+                <span style="font-size:11px;font-weight:700;color:#c4b5fd;">ChiefsNation</span>
+              </div>
+              <div style="background:rgba(167,139,250,0.1);border:1.5px solid rgba(167,139,250,0.3);border-radius:20px;padding:6px 12px;cursor:pointer;">
+                <span style="font-size:11px;font-weight:700;color:#c4b5fd;">Bar14</span>
+              </div>
+              <div style="background:rgba(167,139,250,0.1);border:1.5px solid rgba(167,139,250,0.3);border-radius:20px;padding:6px 12px;cursor:pointer;">
+                <span style="font-size:11px;font-weight:700;color:#c4b5fd;">YHSharp</span>
+              </div>
+            </div>
+
+            <!-- Custom name input -->
+            <div style="background:#0d1117;border:2px solid rgba(167,139,250,0.4);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+              <input type="text" value="MarcD" style="background:none;border:none;outline:none;font-size:16px;font-weight:700;color:#f0f6fc;flex:1;font-family:inherit;" />
+              <span style="font-size:10px;color:#4ade80;font-weight:700;">✓ Available</span>
+            </div>
+
+            <!-- Lock it in CTA -->
+            <div style="background:linear-gradient(135deg,#6d4eef,#a78bfa);border-radius:16px;padding:16px 0;text-align:center;cursor:pointer;box-shadow:0 6px 24px rgba(109,78,239,0.35);">
+              <div style="font-size:16px;font-weight:900;color:#fff;">Lock it in →</div>
+            </div>
+
+            <!-- Zero friction footnote -->
+            <div style="text-align:center;margin-top:10px;">
+              <span style="font-size:10px;color:#374151;">No email · no password · just a name</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Pick is already live — the leaderboard is visible but blurred behind the sheet, creating urgency. "Name your spot" reframes signup as claiming territory. Suggested names remove the blank-canvas friction. One tap or type → done in 5 seconds.</div>
+    </div>
+
+    <!-- PHONE 4: After username — instantly on the bar leaderboard -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.5px;">📱 STEP 4 — YOU'RE ON THE BOARD</div>
       <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(167,139,250,0.2);">
         <!-- Status bar -->
         <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
@@ -29198,7 +29280,7 @@
           <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
         </div>
       </div>
-      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">After pick 1, they're instantly on the Yard House board at #12. "Win your pick → climb the board" is the immediate hook. Username prompt is gentle — they're already in.</div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">After username → instantly on the Yard House board at #12. "Win your pick → climb the board" is the immediate hook. They're invested before the game ends.</div>
     </div>
 
   </div><!-- /phone-wrap -->
