@@ -1955,6 +1955,9 @@
     <div class="tab tab-review" data-screen="referral-landing" onclick="showScreen('referral-landing',this)">
       <span class="tab-label">Referral Landing 🔗</span><span class="tab-days" id="days-referral-landing"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="leaderboard-4tabs" onclick="showScreen('leaderboard-4tabs',this)">
+      <span class="tab-label">Leaderboard 4 Tabs 🏆</span><span class="tab-days" id="days-leaderboard-4tabs"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5526,6 +5529,7 @@
     'settings-modal':      '2026-03-22T22:30:00-07:00',
     'home-week1':          '2026-03-22T23:00:00-07:00',
     'referral-landing':    '2026-03-22T23:30:00-07:00',
+    'leaderboard-4tabs':   '2026-03-23T00:00:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -28882,6 +28886,343 @@
   </div><!-- /phone-wrap -->
   <div id="sfb-panel-referral-landing" class="sfb-panel"></div>
 </div><!-- /screen referral-landing -->
+
+<!-- ============================================================
+     LEADERBOARD — 4 TABS: Friends | My Bar | Venue | Global
+     Mar 22 2026 · Isaac P4.7 reference — all 4 tab states
+     ============================================================ -->
+<div id="leaderboard-4tabs" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🏆 Leaderboard — 4 Tabs: Friends · My Bar · Venue · Global</h2>
+    <p class="screen-subtitle">Mar 22 2026 · Isaac P4.7 reference. The Leaderboard tab (Social tab in nav) has 4 sub-tabs: Friends | My Bar | Venue | Global. Four phones showing each tab's active state. Friends: ranked list of people you follow — shows their pick today, IQ delta, head-to-head record. My Bar: checked-in players at your current venue — ephemeral, resets each visit, Bar Champion badge. Venue: empty state when not checked in — "Check in at a bar" CTA. Global: top pickers globally this week — weekly IQ rank, Pro ⚡ badges. Each tab has distinct social utility. Pro ⚡ badge shows on all tabs.</p>
+  </div>
+  <div class="phone-wrap" style="gap:32px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Friends tab -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#38bdf8;letter-spacing:.5px;">📱 FRIENDS TAB</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:280px;height:600px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(56,189,248,0.2);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(56,189,248,0.05) 0%,transparent 50%);pointer-events:none;z-index:0;"></div>
+
+        <!-- Status bar -->
+        <div style="position:relative;z-index:1;padding:12px 18px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Header -->
+        <div style="position:relative;z-index:1;padding:6px 16px 8px;flex-shrink:0;">
+          <div style="font-size:17px;font-weight:900;color:#f0f6fc;">Leaderboard</div>
+          <div style="font-size:9px;color:#6b7280;margin-top:1px;">Weekly IQ · resets Monday</div>
+        </div>
+
+        <!-- 4-tab bar -->
+        <div style="position:relative;z-index:1;padding:0 12px 8px;display:flex;gap:4px;flex-shrink:0;">
+          <div style="flex:1;background:rgba(56,189,248,0.12);border:1.5px solid rgba(56,189,248,0.35);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;">
+            <div style="font-size:9px;font-weight:800;color:#38bdf8;">Friends</div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;">
+            <div style="font-size:9px;color:#6b7280;">My Bar</div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;">
+            <div style="font-size:9px;color:#6b7280;">Venue</div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;">
+            <div style="font-size:9px;color:#6b7280;">Global</div>
+          </div>
+        </div>
+
+        <!-- You row (sticky at top) -->
+        <div style="position:relative;z-index:1;margin:0 12px 8px;background:rgba(56,189,248,0.06);border:1.5px solid rgba(56,189,248,0.2);border-radius:12px;padding:9px 12px;display:flex;align-items:center;gap:10px;flex-shrink:0;">
+          <div style="font-size:13px;font-weight:900;color:#38bdf8;width:20px;text-align:center;">#3</div>
+          <div style="width:32px;height:32px;background:linear-gradient(135deg,#7c3aed,#4f46e5);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;">M</div>
+          <div style="flex:1;">
+            <div style="font-size:12px;font-weight:800;color:#38bdf8;">You ⚡</div>
+            <div style="font-size:9px;color:#6b7280;margin-top:1px;">840 IQ this week</div>
+          </div>
+          <div style="font-size:9px;color:#4ade80;font-weight:700;">↑ 2</div>
+        </div>
+
+        <!-- Friend rows -->
+        <div style="position:relative;z-index:1;flex:1;overflow:hidden;padding:0 12px;display:flex;flex-direction:column;gap:5px;">
+          <!-- #1 -->
+          <div style="background:rgba(250,204,21,0.05);border:1px solid rgba(250,204,21,0.15);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+            <div style="font-size:14px;width:20px;text-align:center;">🥇</div>
+            <div style="width:30px;height:30px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;">J</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:800;color:#f0f6fc;">Jake ⚡</div>
+              <div style="font-size:9px;color:#6b7280;margin-top:1px;">1,240 IQ · went OVER Chiefs</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;color:#6b7280;">H2H</div>
+              <div style="font-size:10px;font-weight:700;color:#f87171;">5-7</div>
+            </div>
+          </div>
+          <!-- #2 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+            <div style="font-size:14px;width:20px;text-align:center;">🥈</div>
+            <div style="width:30px;height:30px;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;">S</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:800;color:#f0f6fc;">SarahK</div>
+              <div style="font-size:9px;color:#6b7280;margin-top:1px;">920 IQ · picked YES Mahomes</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;color:#6b7280;">H2H</div>
+              <div style="font-size:10px;font-weight:700;color:#4ade80;">9-4</div>
+            </div>
+          </div>
+          <!-- #4 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+            <div style="font-size:12px;font-weight:700;color:#6b7280;width:20px;text-align:center;">#4</div>
+            <div style="width:30px;height:30px;background:linear-gradient(135deg,#ec4899,#be185d);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;">R</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:800;color:#f0f6fc;">RobG ⚡</div>
+              <div style="font-size:9px;color:#6b7280;margin-top:1px;">810 IQ · 3 picks today</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;color:#6b7280;">H2H</div>
+              <div style="font-size:10px;font-weight:700;color:#4ade80;">11-6</div>
+            </div>
+          </div>
+          <!-- #5 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+            <div style="font-size:12px;font-weight:700;color:#6b7280;width:20px;text-align:center;">#5</div>
+            <div style="width:30px;height:30px;background:linear-gradient(135deg,#8b5cf6,#6d28d9);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;">T</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:800;color:#f0f6fc;">TomB</div>
+              <div style="font-size:9px;color:#6b7280;margin-top:1px;">655 IQ · no pick today</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;color:#6b7280;">H2H</div>
+              <div style="font-size:10px;font-weight:700;color:#4ade80;">6-3</div>
+            </div>
+          </div>
+          <!-- Invite friends CTA -->
+          <div style="background:rgba(56,189,248,0.04);border:1px dashed rgba(56,189,248,0.2);border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;cursor:pointer;margin-top:2px;">
+            <div style="font-size:10px;color:#6b7280;">Invite more friends to compete</div>
+            <div style="font-size:10px;font-weight:700;color:#38bdf8;">+ Invite →</div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="position:relative;z-index:1;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:8px 0 14px;flex-shrink:0;margin-top:6px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;filter:drop-shadow(0 0 4px rgba(56,189,248,.4));">👥</span><span style="font-size:9px;color:#38bdf8;font-weight:600;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">🧠</span><span style="font-size:9px;color:#8b949e;">Trivia</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:200px;">Friends tab: you pinned at top (rank #3), H2H record vs each friend shown right. Today's pick shown in subtitle. Jake has ⚡ Pro badge. Invite CTA at bottom.</div>
+    </div>
+
+    <!-- PHONE 2: My Bar tab — checked in -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#fb923c;letter-spacing:.5px;">📱 MY BAR TAB — CHECKED IN</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:280px;height:600px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(251,146,60,0.25);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(251,146,60,0.06) 0%,transparent 50%);pointer-events:none;z-index:0;"></div>
+
+        <div style="position:relative;z-index:1;padding:12px 18px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;"><span>9:41 PM</span><span>🔋</span></div>
+        <div style="position:relative;z-index:1;padding:6px 16px 8px;flex-shrink:0;">
+          <div style="font-size:17px;font-weight:900;color:#f0f6fc;">Leaderboard</div>
+          <div style="font-size:9px;color:#6b7280;margin-top:1px;">Weekly IQ · resets Monday</div>
+        </div>
+
+        <!-- 4-tab bar — My Bar active -->
+        <div style="position:relative;z-index:1;padding:0 12px 8px;display:flex;gap:4px;flex-shrink:0;">
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;"><div style="font-size:9px;color:#6b7280;">Friends</div></div>
+          <div style="flex:1;background:rgba(251,146,60,0.12);border:1.5px solid rgba(251,146,60,0.35);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;"><div style="font-size:9px;font-weight:800;color:#fb923c;">My Bar</div></div>
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;"><div style="font-size:9px;color:#6b7280;">Venue</div></div>
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;"><div style="font-size:9px;color:#6b7280;">Global</div></div>
+        </div>
+
+        <!-- Bar context banner -->
+        <div style="position:relative;z-index:1;margin:0 12px 8px;background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.2);border-radius:12px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div>
+            <div style="font-size:11px;font-weight:800;color:#fb923c;">📍 Yard House · Checked in</div>
+            <div style="font-size:9px;color:#6b7280;margin-top:1px;">32 players here tonight · resets at close</div>
+          </div>
+          <div style="background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.25);border-radius:8px;padding:3px 8px;">
+            <div style="font-size:8px;font-weight:800;color:#fb923c;">LIVE</div>
+          </div>
+        </div>
+
+        <!-- You row + Bar Champion check -->
+        <div style="position:relative;z-index:1;margin:0 12px 6px;background:rgba(250,204,21,0.06);border:1.5px solid rgba(250,204,21,0.2);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+          <div style="font-size:13px;font-weight:900;color:#facc15;width:20px;text-align:center;">#2</div>
+          <div style="width:30px;height:30px;background:linear-gradient(135deg,#7c3aed,#4f46e5);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;">M</div>
+          <div style="flex:1;">
+            <div style="font-size:11px;font-weight:800;color:#facc15;">You ⚡ · Bar Runner-Up 🥈</div>
+            <div style="font-size:9px;color:#6b7280;margin-top:1px;">840 IQ tonight</div>
+          </div>
+          <div style="font-size:9px;color:#4ade80;font-weight:700;">↑ 3</div>
+        </div>
+
+        <!-- Bar leaderboard rows -->
+        <div style="position:relative;z-index:1;flex:1;overflow:hidden;padding:0 12px;display:flex;flex-direction:column;gap:5px;">
+          <div style="background:rgba(251,146,60,0.06);border:1px solid rgba(251,146,60,0.2);border-radius:12px;padding:7px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+            <div style="font-size:14px;width:20px;text-align:center;">👑</div>
+            <div style="width:28px;height:28px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;">K</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:800;color:#fb923c;">KingFan92 · Bar Champion 🏆</div>
+              <div style="font-size:9px;color:#6b7280;margin-top:1px;">920 IQ · 5/6 picks tonight</div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:7px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+            <div style="font-size:12px;font-weight:700;color:#6b7280;width:20px;text-align:center;">#3</div>
+            <div style="width:28px;height:28px;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;">A</div>
+            <div style="flex:1;"><div style="font-size:11px;font-weight:800;color:#f0f6fc;">AcePickr</div><div style="font-size:9px;color:#6b7280;margin-top:1px;">730 IQ · 4 picks</div></div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:7px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+            <div style="font-size:12px;font-weight:700;color:#6b7280;width:20px;text-align:center;">#4</div>
+            <div style="width:28px;height:28px;background:linear-gradient(135deg,#ec4899,#be185d);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;">D</div>
+            <div style="flex:1;"><div style="font-size:11px;font-weight:800;color:#f0f6fc;">DraftKingD</div><div style="font-size:9px;color:#6b7280;margin-top:1px;">695 IQ · 3 picks</div></div>
+          </div>
+          <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:6px 12px;text-align:center;flex-shrink:0;">
+            <div style="font-size:9px;color:#475569;">+28 more players at Yard House tonight</div>
+          </div>
+        </div>
+
+        <div style="position:relative;z-index:1;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:8px 0 14px;flex-shrink:0;margin-top:6px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;filter:drop-shadow(0 0 4px rgba(56,189,248,.4));">👥</span><span style="font-size:9px;color:#38bdf8;font-weight:600;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">🧠</span><span style="font-size:9px;color:#8b949e;">Trivia</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:200px;">My Bar tab: user is checked into Yard House. Bar Champion 👑 badge on #1. User at #2, "Bar Runner-Up 🥈". Ephemeral — resets at close. 32 players tonight.</div>
+    </div>
+
+    <!-- PHONE 3: Venue tab — not checked in (empty state) -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#6b7280;letter-spacing:.5px;">📱 VENUE TAB — NOT CHECKED IN</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:280px;height:600px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(107,114,128,0.2);">
+        <div style="position:relative;z-index:1;padding:12px 18px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;"><span>9:41 PM</span><span>🔋</span></div>
+        <div style="position:relative;z-index:1;padding:6px 16px 8px;flex-shrink:0;">
+          <div style="font-size:17px;font-weight:900;color:#f0f6fc;">Leaderboard</div>
+          <div style="font-size:9px;color:#6b7280;margin-top:1px;">Weekly IQ · resets Monday</div>
+        </div>
+
+        <!-- 4-tab bar — Venue active -->
+        <div style="position:relative;z-index:1;padding:0 12px 8px;display:flex;gap:4px;flex-shrink:0;">
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;"><div style="font-size:9px;color:#6b7280;">Friends</div></div>
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;"><div style="font-size:9px;color:#6b7280;">My Bar</div></div>
+          <div style="flex:1;background:rgba(107,114,128,0.12);border:1.5px solid rgba(107,114,128,0.3);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;"><div style="font-size:9px;font-weight:800;color:#9ca3af;">Venue</div></div>
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;"><div style="font-size:9px;color:#6b7280;">Global</div></div>
+        </div>
+
+        <!-- Empty state — centered in flex -->
+        <div style="position:relative;z-index:1;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 24px;text-align:center;">
+          <div style="font-size:48px;margin-bottom:12px;">🍺</div>
+          <div style="font-size:15px;font-weight:900;color:#f0f6fc;margin-bottom:8px;">Check in at a bar</div>
+          <div style="font-size:11px;color:#6b7280;line-height:1.5;margin-bottom:20px;">Scan the QR code on your table or TV to join the live bar leaderboard. Compete against everyone else in the building.</div>
+          <!-- Bar scan CTA -->
+          <div style="background:linear-gradient(135deg,#f97316,#ea580c);border-radius:14px;padding:12px 24px;cursor:pointer;margin-bottom:12px;">
+            <div style="font-size:13px;font-weight:900;color:#fff;">Scan Bar QR Code 📷</div>
+          </div>
+          <!-- Or enter code -->
+          <div style="font-size:10px;color:#475569;cursor:pointer;">or enter a venue code manually</div>
+
+          <!-- Teaser — what they're missing -->
+          <div style="margin-top:24px;background:rgba(251,146,60,0.05);border:1px solid rgba(251,146,60,0.15);border-radius:14px;padding:12px 14px;width:100%;">
+            <div style="font-size:9px;color:#6b7280;font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;">Nearby tonight</div>
+            <div style="font-size:11px;color:#f0f6fc;font-weight:600;">Yard House · 32 players picking</div>
+            <div style="font-size:9px;color:#fb923c;margin-top:2px;">↑ Scan to join the leaderboard →</div>
+          </div>
+        </div>
+
+        <div style="position:relative;z-index:1;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:8px 0 14px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;filter:drop-shadow(0 0 4px rgba(56,189,248,.4));">👥</span><span style="font-size:9px;color:#38bdf8;font-weight:600;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">🧠</span><span style="font-size:9px;color:#8b949e;">Trivia</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:200px;">Venue empty state: scan QR code CTA centered. Nearby venue teaser ("Yard House · 32 players") creates urgency to check in. Location permission not needed — QR carries venue ID.</div>
+    </div>
+
+    <!-- PHONE 4: Global tab -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.5px;">📱 GLOBAL TAB</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:280px;height:600px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(167,139,250,0.2);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(167,139,250,0.05) 0%,transparent 50%);pointer-events:none;z-index:0;"></div>
+
+        <div style="position:relative;z-index:1;padding:12px 18px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;"><span>9:41 PM</span><span>🔋</span></div>
+        <div style="position:relative;z-index:1;padding:6px 16px 8px;flex-shrink:0;">
+          <div style="font-size:17px;font-weight:900;color:#f0f6fc;">Leaderboard</div>
+          <div style="font-size:9px;color:#6b7280;margin-top:1px;">Weekly IQ · resets Monday</div>
+        </div>
+
+        <!-- 4-tab bar — Global active -->
+        <div style="position:relative;z-index:1;padding:0 12px 8px;display:flex;gap:4px;flex-shrink:0;">
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;"><div style="font-size:9px;color:#6b7280;">Friends</div></div>
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;"><div style="font-size:9px;color:#6b7280;">My Bar</div></div>
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;"><div style="font-size:9px;color:#6b7280;">Venue</div></div>
+          <div style="flex:1;background:rgba(167,139,250,0.12);border:1.5px solid rgba(167,139,250,0.35);border-radius:8px;padding:5px 4px;text-align:center;cursor:pointer;"><div style="font-size:9px;font-weight:800;color:#a78bfa;">Global</div></div>
+        </div>
+
+        <!-- Reset countdown -->
+        <div style="position:relative;z-index:1;margin:0 12px 8px;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.15);border-radius:10px;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div style="font-size:9px;color:#6b7280;">Resets Monday · 3d 14h remaining</div>
+          <div style="font-size:9px;font-weight:700;color:#a78bfa;">12,847 players</div>
+        </div>
+
+        <!-- You row -->
+        <div style="position:relative;z-index:1;margin:0 12px 6px;background:rgba(167,139,250,0.07);border:1.5px solid rgba(167,139,250,0.2);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+          <div style="font-size:13px;font-weight:900;color:#a78bfa;width:20px;text-align:center;">#3</div>
+          <div style="width:30px;height:30px;background:linear-gradient(135deg,#7c3aed,#4f46e5);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;">M</div>
+          <div style="flex:1;">
+            <div style="font-size:11px;font-weight:800;color:#a78bfa;">You ⚡</div>
+            <div style="font-size:9px;color:#6b7280;margin-top:1px;">840 IQ this week</div>
+          </div>
+          <div style="font-size:9px;color:#4ade80;font-weight:700;">↑ 2 today</div>
+        </div>
+
+        <!-- Global top pickers -->
+        <div style="position:relative;z-index:1;flex:1;overflow:hidden;padding:0 12px;display:flex;flex-direction:column;gap:5px;">
+          <div style="background:rgba(250,204,21,0.05);border:1px solid rgba(250,204,21,0.15);border-radius:12px;padding:7px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+            <div style="font-size:14px;width:20px;text-align:center;">🥇</div>
+            <div style="width:28px;height:28px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;">S</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:800;color:#f0f6fc;">SharpBettor22 ⚡</div>
+              <div style="font-size:9px;color:#6b7280;margin-top:1px;">1,340 IQ · WiseGuy</div>
+            </div>
+            <div style="background:rgba(250,204,21,0.1);border:1px solid rgba(250,204,21,0.2);border-radius:6px;padding:2px 6px;font-size:8px;font-weight:700;color:#facc15;">⚡</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:7px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+            <div style="font-size:14px;width:20px;text-align:center;">🥈</div>
+            <div style="width:28px;height:28px;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;">L</div>
+            <div style="flex:1;"><div style="font-size:11px;font-weight:800;color:#f0f6fc;">LockLineKing</div><div style="font-size:9px;color:#6b7280;margin-top:1px;">1,190 IQ · Sharp</div></div>
+          </div>
+          <!-- Gap before you -->
+          <div style="padding:3px 12px;flex-shrink:0;">
+            <div style="text-align:center;font-size:9px;color:#374151;">· · ·</div>
+          </div>
+          <!-- #4 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:7px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+            <div style="font-size:12px;font-weight:700;color:#6b7280;width:20px;text-align:center;">#4</div>
+            <div style="width:28px;height:28px;background:linear-gradient(135deg,#ec4899,#be185d);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;">P</div>
+            <div style="flex:1;"><div style="font-size:11px;font-weight:800;color:#f0f6fc;">ProPicksPete ⚡</div><div style="font-size:9px;color:#6b7280;margin-top:1px;">820 IQ · WiseGuy</div></div>
+            <div style="background:rgba(250,204,21,0.1);border:1px solid rgba(250,204,21,0.2);border-radius:6px;padding:2px 6px;font-size:8px;font-weight:700;color:#facc15;">⚡</div>
+          </div>
+          <!-- Pro upsell -->
+          <div style="background:rgba(250,204,21,0.04);border:1px dashed rgba(250,204,21,0.2);border-radius:12px;padding:8px 12px;flex-shrink:0;cursor:pointer;">
+            <div style="font-size:10px;color:#facc15;font-weight:700;margin-bottom:1px;">⚡ Top 3 are all Pro</div>
+            <div style="font-size:9px;color:#6b7280;">Pro gets 5× multiplier → more IQ per pick → higher ranks</div>
+          </div>
+        </div>
+
+        <div style="position:relative;z-index:1;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:8px 0 14px;flex-shrink:0;margin-top:6px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;filter:drop-shadow(0 0 4px rgba(56,189,248,.4));">👥</span><span style="font-size:9px;color:#38bdf8;font-weight:600;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">🧠</span><span style="font-size:9px;color:#8b949e;">Trivia</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:200px;">Global tab: you at #3, pinned. Top pickers dominate with ⚡ Pro badges. "Top 3 are all Pro" teaser drives upgrade intent. Reset countdown visible. 12,847 total players this week.</div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+  <div id="sfb-panel-leaderboard-4tabs" class="sfb-panel"></div>
+</div><!-- /screen leaderboard-4tabs -->
 
 <div id="onboarding-flow" class="screen" style="display:none;">
   <div class="screen-header">
