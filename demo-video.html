@@ -768,7 +768,51 @@
 </div>
 
 <!-- ══════════════════════════════════════════════════
-     SCENE 6: CTA — 52-60s
+     SCENE 6: FAQ — 52-64s
+     "Everything distributors ask us"
+═══════════════════════════════════════════════════ -->
+<div id="scene-faq" class="scene bg-dark">
+  <div class="noise"></div>
+  <div class="intro-glow" style="opacity:0.5"></div>
+  <div class="scene-label">The Questions We Always Get</div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:32px;max-width:1100px;width:100%">
+
+    <div style="font-size:52px;font-weight:900;color:var(--text);letter-spacing:-1.5px;text-align:center">
+      You probably have <em style="color:var(--purple-light)">questions.</em>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%">
+
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:24px 28px">
+        <div style="font-size:13px;font-weight:800;color:var(--purple-light);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px">Is it free for customers to play?</div>
+        <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px">✅ Yes — completely free.</div>
+        <div style="font-size:14px;color:var(--muted);line-height:1.5">Players earn and spend IQ points — not real money. No credit card, no barrier. Anyone with a phone can join in seconds.</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:24px 28px">
+        <div style="font-size:13px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px">Does bar staff have to do anything?</div>
+        <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px">✅ Absolutely nothing.</div>
+        <div style="font-size:14px;color:var(--muted);line-height:1.5">Games start automatically every 30 seconds. Staff just serve drinks. SportsIQ runs itself 24/7.</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:24px 28px">
+        <div style="font-size:13px;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px">What equipment does the bar need?</div>
+        <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px">✅ Just a TV and WiFi.</div>
+        <div style="font-size:14px;color:var(--muted);line-height:1.5">We provide the bar screen app. Any existing TV works. Setup takes under 15 minutes. No new hardware to buy.</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:24px 28px">
+        <div style="font-size:13px;font-weight:800;color:#F97316;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px">Is this gambling? Any legal issues?</div>
+        <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px">✅ No. IQ points only.</div>
+        <div style="font-size:14px;color:var(--muted);line-height:1.5">Players compete for IQ points and leaderboard glory — not cash. No gaming license required. No compliance headache.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SCENE 7: CTA — 64-72s
 ═══════════════════════════════════════════════════ -->
 <div id="scene-cta" class="scene bg-dark">
   <div class="intro-glow"></div>
@@ -845,18 +889,29 @@ const SCENES = [
     label: 'Live Game Mode',
     lines: [
       { at: 0,    vo: 'When a game\'s on? It gets even wilder.' },
-      { at: 2500, vo: 'Real-time sports picks replace trivia. Customers are betting IQ points on live plays — will the Chiefs score on this drive?' },
-      { at: 7000, vo: 'Plain English, no jargon. Everyone at the table is in.' },
+      { at: 2500, vo: 'Real-time sports picks replace trivia. Customers bet IQ points on live plays — will the Chiefs score on this drive?' },
+      { at: 7000, vo: 'Plain English. No jargon. Everyone at the table is in.' },
+    ]
+  },
+  {
+    id: 'scene-faq',
+    duration: 12000,
+    label: 'Your Questions — Answered',
+    lines: [
+      { at: 0,    vo: 'Now — the questions we always hear from distributors.' },
+      { at: 2500, vo: 'Free to play? Yes. IQ points only, no real money, no gambling license required.' },
+      { at: 5500, vo: 'Staff effort? Zero. Games run automatically. Your bartenders just pour drinks.' },
+      { at: 8500, vo: 'Equipment? Just a TV and WiFi. We handle the rest. Setup in under 15 minutes.' },
     ]
   },
   {
     id: 'scene-cta',
     duration: 8000,
-    label: 'Call to Action',
+    label: 'Deploy Now',
     lines: [
-      { at: 0,    vo: 'Every venue in your network is leaving money on the table.' },
-      { at: 3000, vo: 'Get SportsIQ deployed to your bars — free setup, TV and mobile included, revenue starts day one.' },
-      { at: 6000, vo: 'sportsiq.app. Let\'s go.' },
+      { at: 0,    vo: 'Every venue in your network is leaving revenue on the table right now.' },
+      { at: 3000, vo: 'Get SportsIQ deployed to your bars. Revenue starts on day one.' },
+      { at: 5500, vo: 'sportsiq.app — let\'s go.' },
     ]
   },
 ];
