@@ -1988,6 +1988,9 @@
     <div class="tab tab-review" data-screen="bar-checkin-flow" onclick="showScreen('bar-checkin-flow',this)">
       <span class="tab-label">Bar Check-In Flow 📍</span><span class="tab-days" id="days-bar-checkin-flow"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="daily-challenge-home-card" onclick="showScreen('daily-challenge-home-card',this)">
+      <span class="tab-label">Daily Challenge Card 🧠</span><span class="tab-days" id="days-daily-challenge-home-card"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5569,7 +5572,8 @@
     'friend-profile-screen': '2026-03-23T04:00:00-07:00',
     'trivia-hub':          '2026-03-23T04:30:00-07:00',
     'pro-paywall-v2':      '2026-03-23T05:00:00-07:00',
-    'bar-checkin-flow':    '2026-03-23T06:00:00-07:00',
+    'bar-checkin-flow':           '2026-03-23T06:00:00-07:00',
+    'daily-challenge-home-card':  '2026-03-23T07:00:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -40234,6 +40238,248 @@
   </div>
   <div id="sfb-panel-bar-checkin-flow" class="sfb-panel"></div>
 </div><!-- /screen bar-checkin-flow -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     DAILY CHALLENGE CARD ON HOME SCREEN — P5.4 · 2026-03-23 07:00 PDT
+     Isaac spec: compact card below featured pick, above active picks
+     tray. Routes to existing Trivia screen. No new API needed.
+     Drives daily habit formation — the single highest-retention feature.
+═══════════════════════════════════════════════════════════════════ -->
+
+<div id="daily-challenge-home-card" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🧠 Daily Challenge Card on Home Screen — P5.4</h2>
+    <p class="screen-subtitle">Mar 23 2026 · P5.4 — Isaac spec: compact card sits directly below featured pick, above active picks tray. Tapping opens existing Trivia screen. No new backend needed. Three states: (1) Default — card ready to play, streak shown, category preview, IQ on offer. (2) Streak-at-risk — appears after 9pm if user hasn't played, red urgency pulse, midnight countdown. (3) Post-play — card collapses to a "done" state showing today's score and rank, doesn't vanish so user sees the win. Streak is the addiction engine: 22 days in, missing feels like real loss. The card is permanent daily surface area — every day it either gets played (engagement) or ignored (churn signal).</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Default state — challenge ready to play -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 DEFAULT — CHALLENGE READY</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;"><span>9:41</span><span>🔋</span></div>
+
+        <!-- Header -->
+        <div style="padding:8px 16px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div style="font-size:16px;font-weight:900;color:#f0f6fc;">SportsIQ</div>
+          <div style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);border-radius:20px;padding:4px 10px;font-size:9px;font-weight:700;color:#22c55e;">IQ 14,820</div>
+        </div>
+
+        <!-- Featured pick (compact) -->
+        <div style="margin:8px 14px 0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:10px 14px;flex-shrink:0;">
+          <div style="font-size:8px;font-weight:700;color:#facc15;letter-spacing:1px;margin-bottom:4px;">FEATURED PICK · LIVE</div>
+          <div style="font-size:12px;font-weight:800;color:#f0f6fc;">Mahomes · O/U 287.5 yds</div>
+          <div style="display:flex;gap:6px;margin-top:7px;">
+            <div style="flex:1;background:rgba(34,197,94,0.12);border:1.5px solid rgba(34,197,94,0.3);border-radius:9px;padding:6px 0;text-align:center;"><div style="font-size:10px;font-weight:800;color:#22c55e;">OVER</div></div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:6px 0;text-align:center;"><div style="font-size:10px;font-weight:700;color:#6b7280;">UNDER</div></div>
+          </div>
+        </div>
+
+        <!-- ★ DAILY CHALLENGE CARD — the new element -->
+        <div style="margin:8px 14px 0;background:linear-gradient(135deg,rgba(99,102,241,0.12),rgba(139,92,246,0.06));border:1.5px solid rgba(99,102,241,0.3);border-radius:14px;padding:11px 14px;flex-shrink:0;cursor:pointer;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <div style="display:flex;align-items:center;gap:7px;">
+              <div style="font-size:18px;">🧠</div>
+              <div>
+                <div style="font-size:11px;font-weight:800;color:#f0f6fc;">Today's Challenge</div>
+                <div style="font-size:8px;color:#6b7280;margin-top:1px;">Mixed · Sports + Pop Culture · 5 questions</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;font-weight:700;color:#22c55e;">+150 IQ</div>
+              <div style="font-size:7.5px;color:#6b7280;">if 5/5</div>
+            </div>
+          </div>
+          <!-- Category preview pills -->
+          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">
+            <div style="background:rgba(250,204,21,0.1);border:1px solid rgba(250,204,21,0.2);border-radius:5px;padding:2px 6px;font-size:7.5px;color:#fbbf24;">🏈 NFL</div>
+            <div style="background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.2);border-radius:5px;padding:2px 6px;font-size:7.5px;color:#a78bfa;">🎬 Movies</div>
+            <div style="background:rgba(236,72,153,0.1);border:1px solid rgba(236,72,153,0.2);border-radius:5px;padding:2px 6px;font-size:7.5px;color:#f472b6;">🎵 Music</div>
+            <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:5px;padding:2px 6px;font-size:7.5px;color:#4ade80;">🏀 NBA</div>
+          </div>
+          <!-- Streak + CTA row -->
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:5px;">
+              <div style="font-size:13px;">🔥</div>
+              <div style="font-size:10px;font-weight:800;color:#f97316;">22-day streak</div>
+              <div style="font-size:8px;color:#6b7280;">· keep it going</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#6366f1,#4f46e5);border-radius:10px;padding:6px 14px;font-size:10px;font-weight:800;color:#fff;cursor:pointer;">Play →</div>
+          </div>
+        </div>
+
+        <!-- Active picks tray (truncated) -->
+        <div style="margin:8px 14px 0;flex-shrink:0;">
+          <div style="font-size:8px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:5px;">ACTIVE PICKS</div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:9px;color:#94a3b8;">Celtics −3.5 · 3rd Q · ↑ 7</div>
+            <div style="font-size:9px;font-weight:700;color:#22c55e;">+100 IQ if wins</div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="position:absolute;bottom:0;left:0;right:0;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(250,204,21,.5));">🏠</span><span style="font-size:9px;color:#facc15;font-weight:600;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Contests</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div class="phone-label">DEFAULT STATE<br>Below featured pick · streak shown · category preview · +150 IQ hook · "Play →" CTA</div>
+    </div>
+
+    <!-- PHONE 2: Streak-at-risk — 9pm, hasn't played yet -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 STREAK AT RISK — 9PM</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(239,68,68,0.35);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;"><span>9:07 PM</span><span>🔋</span></div>
+
+        <div style="padding:8px 16px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div style="font-size:16px;font-weight:900;color:#f0f6fc;">SportsIQ</div>
+          <div style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);border-radius:20px;padding:4px 10px;font-size:9px;font-weight:700;color:#22c55e;">IQ 14,820</div>
+        </div>
+
+        <!-- Featured pick (compact) -->
+        <div style="margin:8px 14px 0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:10px 14px;flex-shrink:0;">
+          <div style="font-size:8px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:4px;">FEATURED PICK · CLOSED</div>
+          <div style="font-size:12px;font-weight:800;color:#6b7280;">Mahomes · game ended</div>
+          <div style="font-size:9px;color:#6b7280;margin-top:4px;">Next pick window opens Thursday 7pm</div>
+        </div>
+
+        <!-- ★ DAILY CHALLENGE CARD — streak at risk state -->
+        <div style="margin:8px 14px 0;background:linear-gradient(135deg,rgba(239,68,68,0.14),rgba(220,38,38,0.06));border:1.5px solid rgba(239,68,68,0.5);border-radius:14px;padding:11px 14px;flex-shrink:0;cursor:pointer;position:relative;overflow:hidden;">
+          <!-- Pulse ring animation feel (static) -->
+          <div style="position:absolute;top:-2px;right:-2px;bottom:-2px;left:-2px;border-radius:14px;border:2px solid rgba(239,68,68,0.3);pointer-events:none;"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <div style="display:flex;align-items:center;gap:7px;">
+              <div style="font-size:18px;">⚠️</div>
+              <div>
+                <div style="font-size:11px;font-weight:800;color:#f87171;">Streak at risk!</div>
+                <div style="font-size:8px;color:#6b7280;margin-top:1px;">Today's challenge resets at midnight</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:14px;font-weight:900;color:#ef4444;">2h 53m</div>
+              <div style="font-size:7.5px;color:#6b7280;">remaining</div>
+            </div>
+          </div>
+          <!-- Streak loss preview -->
+          <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:6px 10px;margin-bottom:8px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="font-size:16px;">🔥</div>
+              <div>
+                <div style="font-size:10px;font-weight:800;color:#fca5a5;">22-day streak ends at midnight</div>
+                <div style="font-size:8px;color:#6b7280;">Answer 1 question to save it · takes 15 seconds</div>
+              </div>
+            </div>
+          </div>
+          <div style="background:linear-gradient(135deg,#ef4444,#dc2626);border-radius:10px;padding:9px 0;text-align:center;cursor:pointer;">
+            <div style="font-size:11px;font-weight:900;color:#fff;">🔥 Save My Streak Now</div>
+          </div>
+        </div>
+
+        <!-- Friends who already played -->
+        <div style="margin:8px 14px 0;flex-shrink:0;">
+          <div style="font-size:8px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:5px;">FRIENDS WHO ALREADY PLAYED TODAY</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 0;">
+              <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:700;">J</div>
+              <div style="flex:1;font-size:9px;color:#94a3b8;">JayBird</div>
+              <div style="font-size:9px;color:#22c55e;font-weight:700;">4/5 · +120 IQ</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 0;">
+              <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#ec4899,#db2777);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:700;">S</div>
+              <div style="flex:1;font-size:9px;color:#94a3b8;">SarahK</div>
+              <div style="font-size:9px;color:#fbbf24;font-weight:700;">3/5 · +90 IQ</div>
+            </div>
+          </div>
+          <div style="font-size:8px;color:#475569;margin-top:3px;">JayBird is ahead of you today</div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="position:absolute;bottom:0;left:0;right:0;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(250,204,21,.5));">🏠</span><span style="font-size:9px;color:#facc15;font-weight:600;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Contests</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div class="phone-label">STREAK AT RISK — 9PM<br>Red pulse border · countdown · 1-question save hook · friends who already played as FOMO</div>
+    </div>
+
+    <!-- PHONE 3: Post-play state — card collapses to "done" -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 POST-PLAY — TODAY DONE</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;"><span>9:41</span><span>🔋</span></div>
+
+        <div style="padding:8px 16px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div style="font-size:16px;font-weight:900;color:#f0f6fc;">SportsIQ</div>
+          <div style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);border-radius:20px;padding:4px 10px;font-size:9px;font-weight:700;color:#22c55e;">IQ 14,970 ↑</div>
+        </div>
+
+        <!-- Featured pick (compact) -->
+        <div style="margin:8px 14px 0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:10px 14px;flex-shrink:0;">
+          <div style="font-size:8px;font-weight:700;color:#facc15;letter-spacing:1px;margin-bottom:4px;">FEATURED PICK · LIVE</div>
+          <div style="font-size:12px;font-weight:800;color:#f0f6fc;">Mahomes · O/U 287.5 yds</div>
+          <div style="display:flex;gap:6px;margin-top:7px;">
+            <div style="flex:1;background:rgba(34,197,94,0.15);border:1.5px solid rgba(34,197,94,0.4);border-radius:9px;padding:6px 0;text-align:center;"><div style="font-size:10px;font-weight:800;color:#22c55e;">OVER ✓</div></div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:6px 0;text-align:center;"><div style="font-size:10px;font-weight:700;color:#6b7280;">UNDER</div></div>
+          </div>
+        </div>
+
+        <!-- ★ DAILY CHALLENGE CARD — post-play "done" state (collapsed) -->
+        <div style="margin:8px 14px 0;background:rgba(34,197,94,0.06);border:1.5px solid rgba(34,197,94,0.2);border-radius:14px;padding:10px 14px;flex-shrink:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:7px;">
+              <div style="font-size:16px;">🧠</div>
+              <div>
+                <div style="font-size:10px;font-weight:800;color:#22c55e;">Today's Challenge ✓ Done</div>
+                <div style="font-size:8px;color:#6b7280;margin-top:1px;">4/5 correct · +120 IQ earned</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;font-weight:700;color:#fbbf24;">🔥23</div>
+              <div style="font-size:7.5px;color:#6b7280;">day streak</div>
+            </div>
+          </div>
+          <!-- Rank row + next challenge -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:7px;padding-top:7px;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="font-size:8px;color:#6b7280;">You ranked <span style="color:#a78bfa;font-weight:700;">#4,821</span> of 52,304 players today</div>
+            <div style="font-size:8px;color:#475569;">Next: 14h →</div>
+          </div>
+        </div>
+
+        <!-- Active picks tray -->
+        <div style="margin:8px 14px 0;flex-shrink:0;">
+          <div style="font-size:8px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:5px;">ACTIVE PICKS</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:9px;color:#94a3b8;">Celtics −3.5 · 3rd Q · ↑ 7</div>
+              <div style="font-size:9px;font-weight:700;color:#22c55e;">+100 IQ if wins</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:9px;color:#94a3b8;">Mahomes OVER · Live · 312 yds so far</div>
+              <div style="font-size:9px;font-weight:700;color:#22c55e;">+100 IQ if holds</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="position:absolute;bottom:0;left:0;right:0;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(250,204,21,.5));">🏠</span><span style="font-size:9px;color:#facc15;font-weight:600;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Contests</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div class="phone-label">POST-PLAY — CARD COLLAPSES TO "DONE"<br>4/5 score · IQ earned · 23-day streak locked · daily rank · next challenge countdown</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-daily-challenge-home-card" class="sfb-panel"></div>
+</div><!-- /screen daily-challenge-home-card -->
 
 </body>
 </html>
