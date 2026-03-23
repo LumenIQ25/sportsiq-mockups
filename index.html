@@ -1979,6 +1979,9 @@
     <div class="tab tab-review" data-screen="friend-profile-screen" onclick="showScreen('friend-profile-screen',this)">
       <span class="tab-label">Friend Profile 👤</span><span class="tab-days" id="days-friend-profile-screen"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="trivia-hub" onclick="showScreen('trivia-hub',this)">
+      <span class="tab-label">Trivia Hub 🧠</span><span class="tab-days" id="days-trivia-hub"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5558,6 +5561,7 @@
     'bar-night-recap':     '2026-03-23T03:00:00-07:00',
     'pick-detail-screen':  '2026-03-23T03:30:00-07:00',
     'friend-profile-screen': '2026-03-23T04:00:00-07:00',
+    'trivia-hub':          '2026-03-23T04:30:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -39319,6 +39323,307 @@
   </div>
   <div id="sfb-panel-friend-profile-screen" class="sfb-panel"></div>
 </div><!-- /screen friend-profile-screen -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     TRIVIA HUB — Mar 23 2026
+     The full trivia section (tab or sub-screen). Shows Daily Challenge
+     (always mixed categories), category-specific trivia, and your trivia
+     stats. Key design: broadened categories confirmed by Mark — sports
+     AND pop culture/movies/music/current events. Casual fans compete
+     equally. All trivia feeds the same IQ economy.
+═══════════════════════════════════════════════════════════════════ -->
+<div id="trivia-hub" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🧠 Trivia Hub — Broadened Categories</h2>
+    <p class="screen-subtitle">Mar 23 2026 · The full trivia section. Mark confirmed: trivia categories broadened to include non-sports (Pop Culture, Movies/TV, Music, Current Events) so casual fans can compete equally. Daily Challenge = always mixed categories (Mark confirmed "Mixed"). Category trivia lets you play your strongest subject. All trivia feeds the same IQ economy and contest eligibility. Two phones: (1) Daily Challenge day with unplayed state — categories shown as a taste, urgency to play. (2) Category select — choose your round type. Both show the same IQ rewards as picks.</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Trivia Hub main screen (daily challenge unplayed) -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 TRIVIA HUB — Daily Challenge</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <div style="padding:8px 16px 4px;flex-shrink:0;">
+          <div style="font-size:20px;font-weight:900;color:#f0f6fc;">Trivia 🧠</div>
+          <div style="font-size:10px;color:#6b7280;margin-top:2px;">Play to earn IQ · all categories welcome</div>
+        </div>
+        <div style="padding:0 14px;flex:1;display:flex;flex-direction:column;gap:10px;overflow:hidden;">
+
+          <!-- Daily Challenge card — HERO -->
+          <div style="background:linear-gradient(135deg,rgba(85,69,211,0.2),rgba(85,69,211,0.06));border:2px solid rgba(85,69,211,0.4);border-radius:16px;padding:14px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div>
+                <div style="font-size:9px;color:#a78bfa;font-weight:700;letter-spacing:1px;">DAILY CHALLENGE</div>
+                <div style="font-size:15px;font-weight:900;color:#f0f6fc;">Tuesday, Mar 23</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:9px;color:#6b7280;">Resets in</div>
+                <div style="font-size:13px;font-weight:800;color:#f59e0b;">14h 22m</div>
+              </div>
+            </div>
+            <!-- Mixed categories preview -->
+            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:8px 10px;margin-bottom:10px;">
+              <div style="font-size:8px;color:#475569;font-weight:700;margin-bottom:5px;">TODAY'S MIX · 5 QUESTIONS</div>
+              <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                <div style="background:rgba(34,197,94,0.1);border-radius:5px;padding:3px 7px;font-size:8px;color:#22c55e;font-weight:700;">🏈 NFL</div>
+                <div style="background:rgba(99,102,241,0.1);border-radius:5px;padding:3px 7px;font-size:8px;color:#818cf8;font-weight:700;">🎬 Movies</div>
+                <div style="background:rgba(236,72,153,0.1);border-radius:5px;padding:3px 7px;font-size:8px;color:#f472b6;font-weight:700;">🎵 Music</div>
+                <div style="background:rgba(245,158,11,0.1);border-radius:5px;padding:3px 7px;font-size:8px;color:#fbbf24;font-weight:700;">🏀 NBA</div>
+                <div style="background:rgba(148,163,184,0.1);border-radius:5px;padding:3px 7px;font-size:8px;color:#94a3b8;font-weight:700;">📰 News</div>
+              </div>
+            </div>
+            <!-- IQ reward -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <div style="font-size:9px;color:#6b7280;">Perfect 5/5 earns</div>
+              <div style="font-size:14px;font-weight:900;color:#22c55e;">up to +125 IQ</div>
+            </div>
+            <!-- Streak -->
+            <div style="background:rgba(245,158,11,0.08);border-radius:8px;padding:5px 8px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:9px;color:#fbbf24;font-weight:700;">🔥 5-day streak — don't break it</div>
+              <div style="font-size:8px;color:#6b7280;">+bonus IQ</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#5545D3,#3D31B0);border-radius:12px;padding:12px;text-align:center;font-size:14px;font-weight:900;color:#fff;cursor:pointer;">
+              Play Today's Challenge →
+            </div>
+          </div>
+
+          <!-- Category trivia section -->
+          <div style="flex-shrink:0;">
+            <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:6px;">PLAY BY CATEGORY</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+              <!-- Sports categories -->
+              <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:9px 10px;cursor:pointer;">
+                <div style="font-size:14px;margin-bottom:3px;">🏈</div>
+                <div style="font-size:10px;font-weight:700;color:#f0f6fc;">NFL</div>
+                <div style="font-size:8px;color:#22c55e;">Your best · 68%</div>
+              </div>
+              <div style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:10px;padding:9px 10px;cursor:pointer;">
+                <div style="font-size:14px;margin-bottom:3px;">🎬</div>
+                <div style="font-size:10px;font-weight:700;color:#f0f6fc;">Movies/TV</div>
+                <div style="font-size:8px;color:#818cf8;">New category!</div>
+              </div>
+              <div style="background:rgba(236,72,153,0.08);border:1px solid rgba(236,72,153,0.2);border-radius:10px;padding:9px 10px;cursor:pointer;">
+                <div style="font-size:14px;margin-bottom:3px;">🎵</div>
+                <div style="font-size:10px;font-weight:700;color:#f0f6fc;">Music</div>
+                <div style="font-size:8px;color:#f472b6;">New category!</div>
+              </div>
+              <div style="background:rgba(148,163,184,0.06);border:1px solid rgba(148,163,184,0.15);border-radius:10px;padding:9px 10px;cursor:pointer;">
+                <div style="font-size:14px;margin-bottom:3px;">📰</div>
+                <div style="font-size:10px;font-weight:700;color:#f0f6fc;">Current Events</div>
+                <div style="font-size:8px;color:#6b7280;">New category!</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Your trivia stats mini -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:8px 10px;flex-shrink:0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div style="text-align:center;">
+                <div style="font-size:13px;font-weight:800;color:#f0f6fc;">12</div>
+                <div style="font-size:7px;color:#6b7280;">Rounds played</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:13px;font-weight:800;color:#22c55e;">78%</div>
+                <div style="font-size:7px;color:#6b7280;">Accuracy</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:13px;font-weight:800;color:#fbbf24;">🏈 NFL</div>
+                <div style="font-size:7px;color:#6b7280;">Best category</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:13px;font-weight:800;color:#a78bfa;">+1,044</div>
+                <div style="font-size:7px;color:#6b7280;">IQ from trivia</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:6px 14px 12px;flex-shrink:0;"></div>
+      </div>
+      <div class="phone-label">TRIVIA HUB — Daily Challenge<br>Mixed categories · 5/5 = +125 IQ · category tiles · your stats</div>
+    </div>
+
+    <!-- PHONE 2: Category select (playing a specific category) -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 CATEGORY SELECT — Pop Culture</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <!-- Header with back -->
+        <div style="padding:8px 16px 10px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;">
+          <span style="color:#6b7280;font-size:16px;cursor:pointer;">←</span>
+          <div style="font-size:16px;font-weight:900;color:#f0f6fc;">Choose a Category</div>
+        </div>
+        <!-- All category tiles -->
+        <div style="padding:10px 14px;flex:1;display:flex;flex-direction:column;gap:6px;overflow:hidden;">
+          <div style="font-size:9px;font-weight:700;color:#22c55e;letter-spacing:1px;flex-shrink:0;">🏆 SPORTS</div>
+
+          <!-- NFL -->
+          <div style="display:flex;align-items:center;gap:10px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:9px 12px;cursor:pointer;flex-shrink:0;">
+            <div style="font-size:20px;">🏈</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:700;color:#f0f6fc;">NFL</div>
+              <div style="font-size:8px;color:#6b7280;">Your best · 68% accuracy</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;color:#22c55e;font-weight:700;">+15–25 IQ/Q</div>
+            </div>
+          </div>
+          <!-- NBA -->
+          <div style="display:flex;align-items:center;gap:10px;background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.12);border-radius:10px;padding:9px 12px;cursor:pointer;flex-shrink:0;">
+            <div style="font-size:20px;">🏀</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:700;color:#f0f6fc;">NBA</div>
+              <div style="font-size:8px;color:#6b7280;">61% accuracy · 6 rounds played</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;color:#22c55e;font-weight:700;">+15–25 IQ/Q</div>
+            </div>
+          </div>
+          <!-- More sports -->
+          <div style="display:flex;gap:6px;flex-shrink:0;">
+            <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;text-align:center;cursor:pointer;">
+              <div style="font-size:16px;">⚾</div><div style="font-size:8px;color:#6b7280;">MLB</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;text-align:center;cursor:pointer;">
+              <div style="font-size:16px;">🏒</div><div style="font-size:8px;color:#6b7280;">NHL</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;text-align:center;cursor:pointer;">
+              <div style="font-size:16px;">⚽</div><div style="font-size:8px;color:#6b7280;">Soccer</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;text-align:center;cursor:pointer;">
+              <div style="font-size:16px;">⛳</div><div style="font-size:8px;color:#6b7280;">Golf</div>
+            </div>
+          </div>
+
+          <div style="font-size:9px;font-weight:700;color:#818cf8;letter-spacing:1px;margin-top:2px;flex-shrink:0;">🌟 POP CULTURE — No sports knowledge needed</div>
+
+          <!-- Pop Culture -->
+          <div style="display:flex;align-items:center;gap:10px;background:rgba(99,102,241,0.1);border:1.5px solid rgba(99,102,241,0.3);border-radius:10px;padding:9px 12px;cursor:pointer;flex-shrink:0;">
+            <div style="font-size:20px;">🎬</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:700;color:#f0f6fc;">Movies &amp; TV</div>
+              <div style="font-size:8px;color:#818cf8;">NEW · Anyone can win this 🌟</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;color:#818cf8;font-weight:700;">+15–25 IQ/Q</div>
+            </div>
+          </div>
+          <!-- Music -->
+          <div style="display:flex;align-items:center;gap:10px;background:rgba(236,72,153,0.08);border:1.5px solid rgba(236,72,153,0.25);border-radius:10px;padding:9px 12px;cursor:pointer;flex-shrink:0;">
+            <div style="font-size:20px;">🎵</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-weight:700;color:#f0f6fc;">Music</div>
+              <div style="font-size:8px;color:#f472b6;">NEW · Anyone can win this 🌟</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:9px;color:#f472b6;font-weight:700;">+15–25 IQ/Q</div>
+            </div>
+          </div>
+          <!-- Current Events + Pop Culture small -->
+          <div style="display:flex;gap:6px;flex-shrink:0;">
+            <div style="flex:1;background:rgba(148,163,184,0.06);border:1px solid rgba(148,163,184,0.15);border-radius:8px;padding:8px;text-align:center;cursor:pointer;">
+              <div style="font-size:16px;">📰</div><div style="font-size:8px;color:#6b7280;">Current Events</div><div style="font-size:7px;color:#475569;">NEW</div>
+            </div>
+            <div style="flex:1;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:8px;padding:8px;text-align:center;cursor:pointer;">
+              <div style="font-size:16px;">⭐</div><div style="font-size:8px;color:#6b7280;">Pop Culture</div><div style="font-size:7px;color:#475569;">NEW</div>
+            </div>
+          </div>
+          <!-- Same IQ reminder -->
+          <div style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.12);border-radius:8px;padding:7px 10px;flex-shrink:0;">
+            <div style="font-size:9px;color:#22c55e;font-weight:700;">All categories earn the same IQ</div>
+            <div style="font-size:8px;color:#6b7280;margin-top:2px;">Pick your strongest — it all counts for contests</div>
+          </div>
+        </div>
+        <div style="padding:6px 14px 12px;flex-shrink:0;"></div>
+      </div>
+      <div class="phone-label">CATEGORY SELECT<br>Sports + Pop Culture/Movies/Music/News · same IQ for all · "Anyone can win this 🌟"</div>
+    </div>
+
+    <!-- PHONE 3: Trivia leaderboard / friends ranking -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 TRIVIA LEADERBOARD — Friends</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <!-- Header -->
+        <div style="padding:8px 16px 10px;flex-shrink:0;">
+          <div style="font-size:16px;font-weight:900;color:#f0f6fc;">Trivia Standings</div>
+          <div style="font-size:10px;color:#6b7280;margin-top:2px;">This week · all categories</div>
+        </div>
+        <!-- Tab bar -->
+        <div style="margin:0 14px 8px;display:flex;background:rgba(255,255,255,0.03);border-radius:8px;padding:2px;gap:1px;flex-shrink:0;">
+          <div style="flex:1;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.3);border-radius:6px;padding:5px;text-align:center;font-size:8px;font-weight:800;color:#a78bfa;">Friends</div>
+          <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">Global</div>
+          <div style="flex:1;padding:5px;text-align:center;font-size:8px;color:#475569;">By Category</div>
+        </div>
+        <!-- Your rank -->
+        <div style="margin:0 14px 8px;background:rgba(85,69,211,0.08);border:1.5px solid rgba(85,69,211,0.25);border-radius:10px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div>
+            <div style="font-size:8px;color:#a78bfa;font-weight:700;">YOUR RANK</div>
+            <div style="font-size:18px;font-weight:900;color:#f0f6fc;">#2 of 12 friends</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:8px;color:#6b7280;">Trivia IQ this week</div>
+            <div style="font-size:14px;font-weight:800;color:#22c55e;">+434 IQ</div>
+          </div>
+        </div>
+        <!-- Friends trivia leaderboard -->
+        <div style="padding:0 14px;flex:1;display:flex;flex-direction:column;gap:0;overflow:hidden;">
+          <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:6px;flex-shrink:0;">FRIENDS THIS WEEK</div>
+
+          <!-- #1 — MarcD leading with pop culture -->
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04);flex-shrink:0;">
+            <div style="font-size:12px;color:#fbbf24;width:16px;text-align:center;">🥇</div>
+            <div style="width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#5545D3,#3D31B0);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;flex-shrink:0;">M</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:#f0f6fc;font-weight:700;">MarcD</div>
+              <div style="font-size:8px;color:#f472b6;">Best: 🎵 Music (88%)</div>
+            </div>
+            <div style="font-size:10px;color:#22c55e;font-weight:800;">+520 IQ</div>
+          </div>
+          <!-- #2 — You -->
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04);background:rgba(85,69,211,0.06);border-radius:6px;padding:7px 6px;flex-shrink:0;margin:2px 0;">
+            <div style="font-size:12px;color:#94a3b8;width:16px;text-align:center;">🥈</div>
+            <div style="width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#22c55e,#16a34a);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;flex-shrink:0;">Y</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:#a78bfa;font-weight:800;">You</div>
+              <div style="font-size:8px;color:#22c55e;">Best: 🏈 NFL (68%)</div>
+            </div>
+            <div style="font-size:10px;color:#22c55e;font-weight:800;">+434 IQ</div>
+          </div>
+          <!-- #3 — Jake (non-sports fan, winning on pop culture) -->
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04);flex-shrink:0;">
+            <div style="font-size:12px;color:#b87333;width:16px;text-align:center;">🥉</div>
+            <div style="width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:8px;color:#94a3b8;flex-shrink:0;">J</div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:#f0f6fc;">JessC</div>
+              <div style="font-size:8px;color:#818cf8;">Best: 🎬 Movies (91%) · no sports!</div>
+            </div>
+            <div style="font-size:10px;color:#22c55e;font-weight:800;">+389 IQ</div>
+          </div>
+          <!-- Insight: non-sports fan winning -->
+          <div style="margin-top:8px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:10px;padding:8px 10px;flex-shrink:0;">
+            <div style="font-size:9px;color:#818cf8;font-weight:700;margin-bottom:3px;">🌟 JessC doesn't watch sports</div>
+            <div style="font-size:8px;color:#6b7280;">She's crushing the Movies/TV category at 91% and is #3 overall. Sports knowledge not required.</div>
+          </div>
+          <!-- Play CTA -->
+          <div style="margin-top:8px;background:linear-gradient(135deg,#5545D3,#3D31B0);border-radius:10px;padding:10px 12px;text-align:center;font-size:12px;font-weight:800;color:#fff;cursor:pointer;flex-shrink:0;">
+            Play daily challenge to catch MarcD →
+          </div>
+        </div>
+        <div style="padding:6px 14px 12px;flex-shrink:0;"></div>
+      </div>
+      <div class="phone-label">TRIVIA LEADERBOARD<br>JessC wins Movies at 91% without watching sports · casual fans compete</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-trivia-hub" class="sfb-panel"></div>
+</div><!-- /screen trivia-hub -->
 
 </body>
 </html>
