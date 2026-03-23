@@ -1940,6 +1940,9 @@
     <div class="tab tab-review" data-screen="profile-screen" onclick="showScreen('profile-screen',this)">
       <span class="tab-label">Profile 👤</span><span class="tab-days" id="days-profile-screen"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="iq-prize-contests" onclick="showScreen('iq-prize-contests',this)">
+      <span class="tab-label">Prize Contests 🏆</span><span class="tab-days" id="days-iq-prize-contests"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5506,6 +5509,7 @@
     'crew-screen':         '2026-03-22T20:30:00-07:00',
     'iq-ways':             '2026-03-22T20:45:00-07:00',
     'profile-screen':      '2026-03-22T21:00:00-07:00',
+    'iq-prize-contests':   '2026-03-22T21:15:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -30369,6 +30373,275 @@
 
   <div id="sfb-panel-profile-screen" class="sfb-panel"></div>
 </div><!-- /screen profile-screen -->
+
+<!-- ============================================================
+     IQ PRIZE CONTESTS — Skill-based contests. Best pickers win.
+     Mar 22 2026
+     ============================================================ -->
+<div id="iq-prize-contests" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🏆 IQ Prize Contests — Best Pickers Win Real Prizes</h2>
+    <p class="screen-subtitle">Mar 22 2026 · IQ points now have tangible value: they're your entry ticket to skill-based prize contests. The best pickers during a contest window win real prizes — gift cards, SportsIQ merch, Pro time. Completely legal in all 50 states (skill-based, not random). SportsIQ provides prizes from subscription revenue. No IQ is spent or wagered — your IQ balance qualifies you to enter, and your picks during the contest window determine if you win. Pro users unlock bigger contests with better prizes. Three views: (1) Contest Hub — browsing open contests, free vs Pro tiers visible. (2) Inside an active contest — live rank, your picks, leaderboard. (3) Contest win notification — you won, here's your prize, share the moment. The moat: prize contests give IQ a real-world meaning that competitors can't easily replicate without the same prize budget. Every contest is a push notification event that drives re-engagement.</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Contest Hub — browse open contests -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#facc15;letter-spacing:.5px;">📱 CONTEST HUB</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(250,204,21,0.2);">
+        <!-- Ambient glow -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 25%,rgba(250,204,21,0.06) 0%,transparent 60%);pointer-events:none;z-index:0;"></div>
+
+        <!-- Status bar -->
+        <div style="position:relative;z-index:1;padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Header -->
+        <div style="position:relative;z-index:1;padding:8px 16px 12px;flex-shrink:0;">
+          <div style="font-size:18px;font-weight:900;color:#f0f6fc;">Prize Contests</div>
+          <div style="font-size:11px;color:#6b7280;margin-top:1px;">Best pickers win real prizes. Free to enter.</div>
+        </div>
+
+        <!-- IQ balance banner -->
+        <div style="position:relative;z-index:1;margin:0 12px 12px;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.2);border-radius:12px;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div style="font-size:10px;color:#6b7280;">Your IQ balance</div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="font-size:15px;font-weight:900;color:#a78bfa;">14,820 IQ</div>
+            <div style="font-size:9px;color:#4ade80;font-weight:700;">Eligible for all contests ✓</div>
+          </div>
+        </div>
+
+        <!-- Contest cards -->
+        <div style="position:relative;z-index:1;padding:0 12px;flex:1;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+
+          <!-- Contest 1 — FREE, ends soon -->
+          <div style="background:linear-gradient(145deg,rgba(250,204,21,0.08),rgba(245,158,11,0.03));border:1.5px solid rgba(250,204,21,0.25);border-radius:14px;padding:11px 13px;flex-shrink:0;cursor:pointer;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div style="font-size:11px;font-weight:800;color:#facc15;">NFL Sunday Showdown</div>
+              <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);border-radius:8px;padding:2px 7px;font-size:8px;font-weight:700;color:#f87171;">Closes 6h 42m</div>
+            </div>
+            <div style="font-size:9px;color:#6b7280;margin-bottom:8px;">Most IQ earned today wins · 1,204 entered</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;gap:6px;">
+                <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:7px;padding:3px 8px;">
+                  <div style="font-size:9px;font-weight:700;color:#4ade80;">🥇 $50 gift card</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:3px 8px;">
+                  <div style="font-size:9px;color:#6b7280;">🥈🥉 SportsIQ gear</div>
+                </div>
+              </div>
+              <div style="background:linear-gradient(135deg,#d97706,#facc15);border-radius:10px;padding:5px 12px;font-size:10px;font-weight:800;color:#0d1117;cursor:pointer;">Enter →</div>
+            </div>
+          </div>
+
+          <!-- Contest 2 — FREE, longer window -->
+          <div style="background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.18);border-radius:14px;padding:11px 13px;flex-shrink:0;cursor:pointer;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div style="font-size:11px;font-weight:800;color:#38bdf8;">Weekly Sharp Award</div>
+              <div style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.2);border-radius:8px;padding:2px 7px;font-size:8px;font-weight:700;color:#38bdf8;">4 days left</div>
+            </div>
+            <div style="font-size:9px;color:#6b7280;margin-bottom:8px;">Best win % over 10+ picks this week · 3,891 entered</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:7px;padding:3px 8px;">
+                <div style="font-size:9px;font-weight:700;color:#4ade80;">🥇 1 year Pro free</div>
+              </div>
+              <div style="background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.3);border-radius:10px;padding:5px 12px;font-size:10px;font-weight:800;color:#38bdf8;cursor:pointer;">Enter →</div>
+            </div>
+          </div>
+
+          <!-- Contest 3 — PRO ONLY -->
+          <div style="background:rgba(109,78,239,0.06);border:1.5px solid rgba(109,78,239,0.25);border-radius:14px;padding:11px 13px;flex-shrink:0;position:relative;overflow:hidden;">
+            <!-- Pro lock overlay -->
+            <div style="position:absolute;inset:0;background:rgba(13,17,23,0.55);backdrop-filter:blur(1.5px);border-radius:14px;display:flex;align-items:center;justify-content:center;z-index:2;">
+              <div style="text-align:center;">
+                <div style="font-size:12px;font-weight:800;color:#facc15;">⚡ Pro Contest</div>
+                <div style="font-size:10px;color:#6b7280;margin-top:3px;">Unlock with Pro →</div>
+              </div>
+            </div>
+            <div style="font-size:11px;font-weight:800;color:#a78bfa;margin-bottom:5px;">High Stakes Invitational</div>
+            <div style="font-size:9px;color:#475569;margin-bottom:8px;">Pro users only · Top picker wins</div>
+            <div style="background:rgba(250,204,21,0.1);border-radius:7px;padding:3px 8px;display:inline-block;">
+              <div style="font-size:9px;font-weight:700;color:#facc15;">🥇 $500 Amazon gift card</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="position:relative;z-index:1;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;margin-top:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(250,204,21,.5));">🏆</span><span style="font-size:9px;color:#facc15;font-weight:600;">Contests</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Crew</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">No IQ spent — your balance qualifies you to enter. Winning is determined by picks made during the contest window (skill). Pro contest blurred in the background = free users see what they're missing. Closes-in timer drives urgency.</div>
+    </div>
+
+    <!-- PHONE 2: Active contest — you're in, live rank -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#22c55e;letter-spacing:.5px;">📱 INSIDE A CONTEST</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(34,197,94,0.2);">
+
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Contest header -->
+        <div style="padding:6px 16px 10px;flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+            <div style="background:rgba(250,204,21,0.12);border:1px solid rgba(250,204,21,0.25);border-radius:8px;padding:2px 8px;font-size:9px;font-weight:700;color:#facc15;">🏆 NFL Sunday Showdown</div>
+            <div style="font-size:9px;color:#f87171;font-weight:700;">Closes 6h 32m</div>
+          </div>
+          <div style="font-size:11px;color:#6b7280;">Most IQ earned by close wins $50 gift card</div>
+        </div>
+
+        <!-- Your live rank card -->
+        <div style="margin:0 12px 10px;background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(34,197,94,0.04));border:2px solid rgba(34,197,94,0.3);border-radius:14px;padding:10px 14px;flex-shrink:0;">
+          <div style="font-size:9px;color:#6b7280;font-weight:600;letter-spacing:.5px;margin-bottom:4px;">YOUR CONTEST RANK</div>
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px;">
+            <div style="font-size:28px;font-weight:900;color:#4ade80;">#34</div>
+            <div style="font-size:11px;color:#475569;">of 1,204 players</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:10px;color:#374151;">Contest IQ earned today: <span style="color:#4ade80;font-weight:700;">+175 IQ</span></div>
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;">↑ 12 spots today</div>
+          </div>
+          <!-- Prize zone indicator -->
+          <div style="margin-top:6px;background:rgba(255,255,255,0.04);border-radius:8px;padding:5px 8px;display:flex;align-items:center;gap:6px;">
+            <div style="height:3px;flex:1;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;">
+              <div style="width:97%;height:100%;background:linear-gradient(90deg,#4ade80,#22c55e);border-radius:2px;"></div>
+            </div>
+            <div style="font-size:8px;color:#6b7280;">33 spots to prize zone 🏅</div>
+          </div>
+        </div>
+
+        <!-- Mini leaderboard — top 3 + you -->
+        <div style="padding:0 12px;flex:1;display:flex;flex-direction:column;gap:5px;overflow:hidden;">
+          <div style="font-size:9px;color:#6b7280;font-weight:600;letter-spacing:.5px;flex-shrink:0;">LEADING NOW</div>
+          <!-- #1 -->
+          <div style="background:rgba(250,204,21,0.07);border:1px solid rgba(250,204,21,0.2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:11px;font-weight:900;color:#facc15;width:18px;">1</span>
+            <div style="flex:1;font-size:10px;font-weight:700;color:#f0f6fc;">SharpMike</div>
+            <div style="font-size:10px;font-weight:800;color:#facc15;">+610 IQ</div>
+          </div>
+          <!-- #2 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:11px;font-weight:700;color:#94a3b8;width:18px;">2</span>
+            <div style="flex:1;font-size:10px;font-weight:700;color:#f0f6fc;">Eagles_Dan</div>
+            <div style="font-size:10px;font-weight:800;color:#c4b5fd;">+580 IQ</div>
+          </div>
+          <!-- #3 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:11px;font-weight:700;color:#94a3b8;width:18px;">3</span>
+            <div style="flex:1;font-size:10px;font-weight:700;color:#f0f6fc;">TwoTouchdown</div>
+            <div style="font-size:10px;font-weight:800;color:#c4b5fd;">+520 IQ</div>
+          </div>
+          <!-- Gap -->
+          <div style="padding:4px 0;text-align:center;flex-shrink:0;"><span style="font-size:9px;color:#374151;">· · · 30 more players · · ·</span></div>
+          <!-- YOU -->
+          <div style="background:rgba(34,197,94,0.07);border:2px solid rgba(34,197,94,0.3);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:11px;font-weight:900;color:#4ade80;width:18px;">34</span>
+            <div style="flex:1;font-size:10px;font-weight:700;color:#f0f6fc;">You (MarcD)</div>
+            <div style="font-size:10px;font-weight:800;color:#4ade80;">+175 IQ</div>
+          </div>
+          <!-- CTA to keep picking -->
+          <div style="background:rgba(34,197,94,0.08);border:1px dashed rgba(34,197,94,0.25);border-radius:10px;padding:9px 12px;text-align:center;flex-shrink:0;cursor:pointer;margin-top:2px;">
+            <div style="font-size:11px;font-weight:800;color:#4ade80;">Make a pick to climb 📈</div>
+            <div style="font-size:9px;color:#374151;margin-top:2px;">Every correct pick = more IQ = higher rank</div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;margin-top:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(250,204,21,.5));">🏆</span><span style="font-size:9px;color:#facc15;font-weight:600;">Contests</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Crew</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Real-time rank creates urgency. "33 spots to prize zone" makes the gap feel closeable. Every pick in the app also pushes you up the contest leaderboard — picks are double-purpose. "Make a pick to climb" bridges the contest view back to the pick flow.</div>
+    </div>
+
+    <!-- PHONE 3: Contest win notification -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#f472b6;letter-spacing:.5px;">📱 YOU WON 🏆</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(244,114,182,0.25);">
+        <!-- Confetti particles -->
+        <div style="position:absolute;inset:0;pointer-events:none;z-index:0;">
+          <div style="position:absolute;top:5%;left:15%;width:8px;height:8px;background:#facc15;border-radius:2px;transform:rotate(20deg);"></div>
+          <div style="position:absolute;top:3%;left:40%;width:6px;height:10px;background:#4ade80;border-radius:1px;transform:rotate(-15deg);"></div>
+          <div style="position:absolute;top:8%;left:65%;width:7px;height:7px;background:#38bdf8;border-radius:50%;"></div>
+          <div style="position:absolute;top:2%;left:80%;width:9px;height:6px;background:#f472b6;border-radius:2px;transform:rotate(35deg);"></div>
+          <div style="position:absolute;top:18%;left:8%;width:6px;height:9px;background:#a78bfa;border-radius:1px;transform:rotate(-30deg);"></div>
+          <div style="position:absolute;top:15%;left:90%;width:7px;height:7px;background:#fb923c;border-radius:2px;transform:rotate(45deg);"></div>
+        </div>
+
+        <!-- Status bar -->
+        <div style="position:relative;z-index:1;padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Win hero section -->
+        <div style="position:relative;z-index:1;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;gap:0;">
+
+          <!-- Trophy -->
+          <div style="font-size:56px;margin-bottom:6px;">🏆</div>
+
+          <!-- Headline -->
+          <div style="font-size:26px;font-weight:900;color:#f0f6fc;text-align:center;line-height:1.2;margin-bottom:4px;">You won!</div>
+          <div style="font-size:13px;color:#6b7280;text-align:center;margin-bottom:20px;">NFL Sunday Showdown · #2 of 1,204</div>
+
+          <!-- Prize card -->
+          <div style="width:100%;background:linear-gradient(135deg,rgba(250,204,21,0.12),rgba(245,158,11,0.05));border:2px solid rgba(250,204,21,0.4);border-radius:18px;padding:16px;margin-bottom:16px;">
+            <div style="font-size:10px;color:#6b7280;font-weight:600;letter-spacing:.5px;text-align:center;margin-bottom:6px;">YOUR PRIZE</div>
+            <div style="font-size:22px;font-weight:900;color:#facc15;text-align:center;margin-bottom:4px;">$50 Amazon Gift Card</div>
+            <div style="font-size:10px;color:#475569;text-align:center;">Delivered to your verified number within 24h</div>
+          </div>
+
+          <!-- Your stats in the contest -->
+          <div style="width:100%;display:flex;gap:8px;margin-bottom:16px;">
+            <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:12px;padding:8px 0;text-align:center;">
+              <div style="font-size:16px;font-weight:900;color:#4ade80;">7-2</div>
+              <div style="font-size:8px;color:#6b7280;">Contest picks</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:12px;padding:8px 0;text-align:center;">
+              <div style="font-size:16px;font-weight:900;color:#facc15;">+450 IQ</div>
+              <div style="font-size:8px;color:#6b7280;">Earned today</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:12px;padding:8px 0;text-align:center;">
+              <div style="font-size:16px;font-weight:900;color:#a78bfa;">#2</div>
+              <div style="font-size:8px;color:#6b7280;">Final rank</div>
+            </div>
+          </div>
+
+          <!-- Share + Claim CTAs -->
+          <div style="width:100%;display:flex;flex-direction:column;gap:8px;">
+            <div style="background:linear-gradient(135deg,#6d4eef,#a78bfa);border-radius:14px;padding:14px 0;text-align:center;cursor:pointer;box-shadow:0 6px 24px rgba(109,78,239,0.3);">
+              <div style="font-size:15px;font-weight:900;color:#fff;">📲 Share your win</div>
+            </div>
+            <div style="background:rgba(250,204,21,0.1);border:1.5px solid rgba(250,204,21,0.3);border-radius:14px;padding:12px 0;text-align:center;cursor:pointer;">
+              <div style="font-size:14px;font-weight:800;color:#facc15;">Claim your $50 →</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏆</span><span style="font-size:9px;color:#8b949e;">Contests</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Crew</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Win notification is a top-tier viral moment — #2 of 1,204, $50 gift card. "Share your win" + "Claim your prize" are separate CTAs. Prize delivered via verified phone number. This moment drives social posts, word of mouth, and new downloads every contest cycle.</div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+  <div id="sfb-panel-iq-prize-contests" class="sfb-panel"></div>
+</div><!-- /screen iq-prize-contests -->
 
 <!-- ============================================================
      SOCIAL FEED — Real-time friend picks feed (👥 Social tab)
