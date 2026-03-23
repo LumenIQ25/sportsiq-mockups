@@ -483,24 +483,24 @@ body { font-family: 'Inter', sans-serif; background: #020408; color: var(--text)
             <div class="iq-chip"><div class="iq-dot"></div>2,450 IQ</div>
           </div>
           <div class="swipe-dots"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div></div>
-          <div class="trivia-question">
-            <div class="q-progress">
+          <div style="flex:1; display:flex; flex-direction:column; padding:10px 14px 16px; gap:0;">
+            <div class="q-progress" style="margin-bottom:4px;">
               <div class="q-prog-dot done"></div><div class="q-prog-dot done"></div>
               <div class="q-prog-dot done"></div><div class="q-prog-dot active"></div>
               <div class="q-prog-dot"></div><div class="q-prog-dot"></div>
               <div class="q-prog-dot"></div><div class="q-prog-dot"></div>
               <div class="q-prog-dot"></div><div class="q-prog-dot"></div>
             </div>
-            <div class="q-timer">
+            <div class="q-timer" style="margin-bottom:4px;">
               <span>Question 4 of 10</span><span style="color:#A89DF8;">9s left</span>
             </div>
-            <div class="q-timer-bar"><div class="q-timer-fill"></div></div>
-            <div class="q-text">Which NFL team has the most Super Bowl wins of all time?</div>
-            <div class="q-answers">
-              <div class="q-ans">New England Patriots</div>
-              <div class="q-ans selected">Pittsburgh Steelers</div>
-              <div class="q-ans">San Francisco 49ers</div>
-              <div class="q-ans">Dallas Cowboys</div>
+            <div class="q-timer-bar" style="margin-bottom:10px;"><div class="q-timer-fill"></div></div>
+            <div style="font-size:13px; font-weight:700; color:var(--text); line-height:1.45; margin-bottom:12px;">Which NFL team has the most Super Bowl wins of all time?</div>
+            <div style="display:flex; flex-direction:column; gap:8px; flex:1;">
+              <div style="flex:1; min-height:36px; border-radius:10px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); display:flex; align-items:center; padding:0 14px; font-size:12px; font-weight:600; color:var(--muted);">New England Patriots</div>
+              <div style="flex:1; min-height:36px; border-radius:10px; border:2px solid #7C6EF5; background:rgba(85,69,211,0.15); display:flex; align-items:center; padding:0 14px; font-size:12px; font-weight:800; color:var(--text);">✓ Pittsburgh Steelers</div>
+              <div style="flex:1; min-height:36px; border-radius:10px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); display:flex; align-items:center; padding:0 14px; font-size:12px; font-weight:600; color:var(--muted);">San Francisco 49ers</div>
+              <div style="flex:1; min-height:36px; border-radius:10px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); display:flex; align-items:center; padding:0 14px; font-size:12px; font-weight:600; color:var(--muted);">Dallas Cowboys</div>
             </div>
           </div>
         </div>
@@ -601,35 +601,35 @@ body { font-family: 'Inter', sans-serif; background: #020408; color: var(--text)
             <div class="iq-chip"><div class="iq-dot"></div>2,450 IQ</div>
           </div>
           <div class="swipe-dots"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div></div>
-          <!-- Pick card banner -->
-          <div class="pick-section">
-            <div style="font-size:9px; font-weight:800; color:#F59E0B; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">🏈 Live Game — Make Your Pick</div>
-            <div class="game-banner">
+          <!-- Pick card banner — flex:1 to stretch -->
+          <div style="flex:1; display:flex; flex-direction:column; padding:12px 14px 14px; gap:10px;">
+            <div style="font-size:9px; font-weight:800; color:#F59E0B; letter-spacing:2px; text-transform:uppercase;">🏈 Live Game — Make Your Pick</div>
+            <div style="flex:1; background:rgba(255,255,255,0.04); border:1px solid var(--cardBorder); border-radius:12px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
               <div class="game-teams">
                 <span>Chiefs</span>
                 <span class="game-vs">vs</span>
                 <span>Raiders</span>
               </div>
-              <div class="pick-q">Will the Chiefs win tonight's game?</div>
-              <div class="pick-btns">
+              <div class="pick-q" style="margin-top:6px;">Will the Chiefs win tonight's game?</div>
+              <div class="pick-btns" style="margin-top:8px;">
                 <div class="pick-btn pick-btn-yes">YES — Chiefs win</div>
                 <div class="pick-btn pick-btn-no">NO — Raiders win</div>
               </div>
-              <div class="signal-bar">
+              <div class="signal-bar" style="margin-top:10px;">
                 <span>SportsIQ Signal:</span>
                 <div class="signal-fill" style="width:62px; flex-shrink:0;"></div>
                 <div class="signal-fill2" style="width:38px; flex-shrink:0;"></div>
                 <span>62% YES</span>
               </div>
             </div>
-          </div>
-          <!-- Trivia below -->
-          <div style="border-top:1px solid var(--cardBorder); padding:10px 16px; display:flex; align-items:center; justify-content:space-between;">
-            <div>
-              <div style="font-size:12px; font-weight:800; color:var(--text);">Sports Trivia</div>
-              <div style="font-size:10px; color:var(--faint);">Next game in 18s · 8 players waiting</div>
+            <!-- Trivia row pinned to bottom -->
+            <div style="border:1px solid var(--cardBorder); border-radius:10px; padding:10px 14px; display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.02);">
+              <div>
+                <div style="font-size:12px; font-weight:800; color:var(--text);">Sports Trivia</div>
+                <div style="font-size:10px; color:var(--faint);">Next game in 18s · 8 players waiting</div>
+              </div>
+              <div style="background:rgba(85,69,211,0.2); border:1px solid rgba(85,69,211,0.35); border-radius:8px; padding:6px 12px; font-size:11px; font-weight:700; color:#A89DF8;">Play →</div>
             </div>
-            <div style="background:rgba(85,69,211,0.2); border:1px solid rgba(85,69,211,0.35); border-radius:8px; padding:6px 12px; font-size:11px; font-weight:700; color:#A89DF8;">Play →</div>
           </div>
         </div>
       </div>
