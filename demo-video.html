@@ -832,6 +832,23 @@
   <div class="caption-vo" id="caption-vo">Meet SportsIQ.</div>
 </div>
 
+<!-- Click-to-start overlay (required to unlock browser audio) -->
+<div id="start-overlay" style="
+  position:fixed;inset:0;background:rgba(5,9,18,0.97);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:1000;cursor:pointer;gap:24px;
+" onclick="startDemo()">
+  <div style="font-size:72px;font-weight:900;color:#F8FAFC;letter-spacing:-2px">Sports<span style="color:#7C6EF5">IQ</span></div>
+  <div style="font-size:20px;color:#94A3B8">Distributor Demo — 72 seconds</div>
+  <div style="
+    background:#5545D3;border-radius:16px;padding:18px 60px;
+    font-size:22px;font-weight:800;color:#fff;
+    box-shadow:0 0 60px rgba(85,69,211,0.5);
+    margin-top:12px;
+  ">▶ Play with Voiceover</div>
+  <div style="font-size:13px;color:#475569;margin-top:8px">Best in Chrome or Edge · Turn up your volume</div>
+</div>
+
 <!-- Progress + Controls -->
 <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
 <div class="controls">
@@ -839,6 +856,7 @@
   <button class="ctrl-btn" id="play-btn" onclick="togglePlay()">⏸ Pause</button>
   <button class="ctrl-btn" onclick="nextScene()">Next ▶</button>
   <button class="ctrl-btn" onclick="resetDemo()">↺ Restart</button>
+  <button class="ctrl-btn" id="mute-btn" onclick="toggleMute()">🔊 Mute</button>
 </div>
 
 <script>
@@ -916,10 +934,70 @@ const SCENES = [
   },
 ];
 
+// ── TTS Voice Engine ───────────────────────────────
+const synth = window.speechSynthesis;
+let selectedVoice = null;
+let muted = false;
+
+function loadVoices() {
+  const voices = synth.getVoices();
+  // Priority: Google US English > Microsoft Guy/David > any en-US
+  const preferred = [
+    'Google US English',
+    'Microsoft Guy Online (Natural) - English (United States)',
+    'Microsoft David Desktop - English (United States)',
+    'Alex',
+    'Samantha',
+  ];
+  for (const name of preferred) {
+    const v = voices.find(v => v.name === name);
+    if (v) { selectedVoice = v; break; }
+  }
+  if (!selectedVoice) {
+    selectedVoice = voices.find(v => v.lang === 'en-US') ||
+                    voices.find(v => v.lang.startsWith('en')) ||
+                    voices[0];
+  }
+}
+
+if (synth.onvoiceschanged !== undefined) {
+  synth.onvoiceschanged = loadVoices;
+}
+loadVoices();
+
+function speak(text) {
+  if (muted || !synth) return;
+  synth.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  if (selectedVoice) utt.voice = selectedVoice;
+  utt.rate  = 0.92;   // slightly measured — confident, not rushed
+  utt.pitch = 0.9;    // slightly lower = authoritative
+  utt.volume = 1.0;
+  synth.speak(utt);
+}
+
+function stopSpeech() {
+  if (synth) synth.cancel();
+}
+
+function toggleMute() {
+  muted = !muted;
+  document.getElementById('mute-btn').textContent = muted ? '🔇 Unmute' : '🔊 Mute';
+  if (muted) stopSpeech();
+}
+
+function startDemo() {
+  document.getElementById('start-overlay').style.display = 'none';
+  loadVoices();
+  playing = true;
+  showScene(0);
+  raf = requestAnimationFrame(tick);
+}
+
 // ── State ──────────────────────────────────────────
 let currentScene = 0;
 let sceneStart = 0;
-let playing = true;
+let playing = false;   // starts false — waits for overlay click
 let raf = null;
 let voiceTimers = [];
 let sceneTimer = null;
@@ -951,12 +1029,15 @@ function showScene(idx) {
 function scheduleVoiceLines(scene) {
   scene.lines.forEach(line => {
     const t = setTimeout(() => {
+      // Update caption
       const cap = document.getElementById('caption');
       const sceneEl = document.getElementById('caption-scene');
       const voEl = document.getElementById('caption-vo');
       sceneEl.textContent = scene.label;
       voEl.textContent = '"' + line.vo + '"';
       cap.classList.add('visible');
+      // Speak it
+      speak(line.vo);
     }, line.at);
     voiceTimers.push(t);
   });
@@ -965,6 +1046,7 @@ function scheduleVoiceLines(scene) {
 function clearVoiceTimers() {
   voiceTimers.forEach(clearTimeout);
   voiceTimers = [];
+  stopSpeech();
 }
 
 function updateProgress() {
@@ -995,22 +1077,28 @@ function togglePlay() {
   playing = !playing;
   document.getElementById('play-btn').textContent = playing ? '⏸ Pause' : '▶ Play';
   if (playing) {
-    sceneStart = performance.now() - 0; // resume from start of current scene
+    sceneStart = performance.now();
     raf = requestAnimationFrame(tick);
+  } else {
+    stopSpeech();
   }
 }
 
-function nextScene() {
-  if (currentScene < SCENES.length - 1) showScene(currentScene + 1);
-}
-function prevScene() {
-  if (currentScene > 0) showScene(currentScene - 1);
-}
 function resetDemo() {
+  stopSpeech();
   playing = true;
   document.getElementById('play-btn').textContent = '⏸ Pause';
   showScene(0);
   raf = requestAnimationFrame(tick);
+}
+
+function nextScene() {
+  stopSpeech();
+  if (currentScene < SCENES.length - 1) showScene(currentScene + 1);
+}
+function prevScene() {
+  stopSpeech();
+  if (currentScene > 0) showScene(currentScene - 1);
 }
 
 // ── Ticking phone timer (scene 1) ─────────────────
