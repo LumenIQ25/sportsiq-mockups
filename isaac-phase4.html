@@ -507,6 +507,65 @@ body { font-family: 'Inter', sans-serif; background: #020408; color: var(--text)
       </div>
     </div>
 
+    <!-- State D: Answer locked — choose multiplier -->
+    <div class="phone-wrap">
+      <div class="phone-label">State D — Multiplier Pick</div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-inner">
+          <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+          <div class="pheader">
+            <div class="pheader-logo">Sports<span>IQ</span></div>
+            <div class="iq-chip"><div class="iq-dot"></div>2,450 IQ</div>
+          </div>
+          <div class="swipe-dots"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div></div>
+          <div class="trivia-question">
+            <!-- Progress + timer -->
+            <div class="q-progress">
+              <div class="q-prog-dot done"></div><div class="q-prog-dot done"></div>
+              <div class="q-prog-dot done"></div><div class="q-prog-dot active"></div>
+              <div class="q-prog-dot"></div><div class="q-prog-dot"></div>
+              <div class="q-prog-dot"></div><div class="q-prog-dot"></div>
+              <div class="q-prog-dot"></div><div class="q-prog-dot"></div>
+            </div>
+            <div class="q-timer">
+              <span>Question 4 of 10</span><span style="color:#F59E0B;">6s left</span>
+            </div>
+            <div class="q-timer-bar"><div class="q-timer-fill" style="width:38%; background:#F59E0B;"></div></div>
+
+            <!-- Locked answer -->
+            <div class="q-text" style="opacity:0.5;">Which NFL team has the most Super Bowl wins?</div>
+            <div class="q-answers" style="opacity:0.6;">
+              <div class="q-ans selected" style="border-color:rgba(85,69,211,0.5);">✓ Pittsburgh Steelers</div>
+            </div>
+
+            <!-- Multiplier prompt -->
+            <div style="margin-top:12px; background:rgba(245,158,11,0.07); border:1px solid rgba(245,158,11,0.25); border-radius:14px; padding:14px 12px;">
+              <div style="font-size:11px; font-weight:800; color:#F59E0B; letter-spacing:1.5px; text-transform:uppercase; text-align:center; margin-bottom:10px;">Boost your answer?</div>
+              <div style="display:flex; gap:8px;">
+                <!-- 1.5x -->
+                <div style="flex:1; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); border-radius:10px; padding:10px 4px; text-align:center;">
+                  <div style="font-size:16px; font-weight:900; color:#4ADE80;">1.5×</div>
+                  <div style="font-size:9px; color:#4ADE80; margin-top:2px; font-weight:700;">SAFE</div>
+                </div>
+                <!-- 2x -->
+                <div style="flex:1; background:rgba(245,158,11,0.12); border:2px solid rgba(245,158,11,0.5); border-radius:10px; padding:10px 4px; text-align:center;">
+                  <div style="font-size:16px; font-weight:900; color:#F59E0B;">2×</div>
+                  <div style="font-size:9px; color:#F59E0B; margin-top:2px; font-weight:700;">BOLD</div>
+                </div>
+                <!-- 3x -->
+                <div style="flex:1; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:10px; padding:10px 4px; text-align:center;">
+                  <div style="font-size:16px; font-weight:900; color:#FCA5A5;">3×</div>
+                  <div style="font-size:9px; color:#FCA5A5; margin-top:2px; font-weight:700;">ALL IN</div>
+                </div>
+              </div>
+              <div style="text-align:center; margin-top:10px; font-size:10px; color:var(--faint);">No thanks — keep 1×</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- State C: Live game available + trivia -->
     <div class="phone-wrap">
       <div class="phone-label">State C — Live Game Available</div>
