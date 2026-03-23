@@ -1991,6 +1991,9 @@
     <div class="tab tab-review" data-screen="daily-challenge-home-card" onclick="showScreen('daily-challenge-home-card',this)">
       <span class="tab-label">Daily Challenge Card 🧠</span><span class="tab-days" id="days-daily-challenge-home-card"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="settings-modal" onclick="showScreen('settings-modal',this)">
+      <span class="tab-label">Settings Modal ⚙️</span><span class="tab-days" id="days-settings-modal"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5574,6 +5577,7 @@
     'pro-paywall-v2':      '2026-03-23T05:00:00-07:00',
     'bar-checkin-flow':           '2026-03-23T06:00:00-07:00',
     'daily-challenge-home-card':  '2026-03-23T07:00:00-07:00',
+    'settings-modal':             '2026-03-23T08:00:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -40480,6 +40484,278 @@
   </div>
   <div id="sfb-panel-daily-challenge-home-card" class="sfb-panel"></div>
 </div><!-- /screen daily-challenge-home-card -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SETTINGS MODAL — P5.3 · 2026-03-23 08:00 PDT
+     Isaac spec: tapping IQ chip in header slides up full Settings modal.
+     Stats / Sports preferences / Notification toggles / Account.
+     No new tables. Routes to existing data.
+═══════════════════════════════════════════════════════════════════ -->
+
+<div id="settings-modal" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>⚙️ Settings Modal — P5.3</h2>
+    <p class="screen-subtitle">Mar 23 2026 · P5.3 — Isaac spec: tapping the IQ chip in the home screen header slides up a full Settings modal. No new tables needed. Four sections: (1) Stats — pick record, current streak, accuracy %, global rank. (2) Sports preferences — which leagues feed your home screen. (3) Notification toggles — three packs (Game Day, Social, Habit) matching the approved Notifications v4 screen. (4) Account — logout, delete account. Two phones: main settings view (sections collapsed) and sports preferences section expanded. The IQ chip trigger makes settings feel earned/personal rather than buried in a hamburger menu — you tap your score to manage your game.</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Main settings view -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 SETTINGS MODAL — MAIN VIEW</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;"><span>9:41</span><span>🔋</span></div>
+
+        <!-- Blurred home behind -->
+        <div style="flex:1;padding:12px 16px;opacity:0.25;overflow:hidden;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">SportsIQ</div>
+            <div style="background:rgba(34,197,94,0.12);border-radius:20px;padding:4px 10px;font-size:9px;color:#22c55e;">IQ 14,820 ▼</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border-radius:14px;height:80px;margin-bottom:8px;"></div>
+          <div style="background:rgba(255,255,255,0.04);border-radius:14px;height:60px;"></div>
+        </div>
+
+        <!-- Settings sheet -->
+        <div style="position:absolute;bottom:0;left:0;right:0;background:#111827;border-radius:28px 28px 0 0;border-top:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;max-height:520px;">
+          <!-- Handle + title -->
+          <div style="display:flex;justify-content:center;padding:10px 0 4px;flex-shrink:0;">
+            <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+          </div>
+          <div style="padding:6px 20px 12px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">Your SportsIQ</div>
+            <div style="font-size:9px;color:#6b7280;margin-top:1px;">MarcD · member since Oct 2025</div>
+          </div>
+
+          <div style="overflow-y:auto;flex:1;padding-bottom:20px;">
+
+            <!-- SECTION: Stats -->
+            <div style="padding:12px 20px 8px;">
+              <div style="font-size:8px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:8px;">YOUR STATS</div>
+              <div style="display:flex;justify-content:space-between;gap:0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px 0;margin-bottom:0;">
+                <div style="flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                  <div style="font-size:18px;font-weight:900;color:#22c55e;">158-89</div>
+                  <div style="font-size:7.5px;color:#6b7280;">picks all-time</div>
+                </div>
+                <div style="flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                  <div style="font-size:18px;font-weight:900;color:#fbbf24;">64%</div>
+                  <div style="font-size:7.5px;color:#6b7280;">accuracy</div>
+                </div>
+                <div style="flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                  <div style="font-size:18px;font-weight:900;color:#f97316;">🔥23</div>
+                  <div style="font-size:7.5px;color:#6b7280;">streak</div>
+                </div>
+                <div style="flex:1;text-align:center;">
+                  <div style="font-size:18px;font-weight:900;color:#a78bfa;">#847</div>
+                  <div style="font-size:7.5px;color:#6b7280;">global rank</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div style="height:1px;background:rgba(255,255,255,0.06);margin:4px 0;"></div>
+
+            <!-- SECTION: Sports Preferences -->
+            <div style="padding:10px 20px 8px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#f0f6fc;">🏈 Sports Preferences</div>
+                  <div style="font-size:8px;color:#6b7280;margin-top:1px;">NFL, NBA, MLB + 2 more active</div>
+                </div>
+                <div style="font-size:14px;color:#475569;">›</div>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div style="height:1px;background:rgba(255,255,255,0.06);margin:4px 0;"></div>
+
+            <!-- SECTION: Notifications -->
+            <div style="padding:10px 20px 8px;">
+              <div style="font-size:8px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:8px;">NOTIFICATIONS</div>
+              <!-- Game Day toggle -->
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                <div>
+                  <div style="font-size:10px;font-weight:600;color:#f0f6fc;">🏟️ Game Day Pack</div>
+                  <div style="font-size:8px;color:#6b7280;margin-top:1px;">Pick windows, results, streak alerts</div>
+                </div>
+                <div style="width:36px;height:20px;border-radius:10px;background:#22c55e;position:relative;cursor:pointer;">
+                  <div style="position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;"></div>
+                </div>
+              </div>
+              <!-- Social toggle -->
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                <div>
+                  <div style="font-size:10px;font-weight:600;color:#f0f6fc;">👥 Social Pack</div>
+                  <div style="font-size:8px;color:#6b7280;margin-top:1px;">Chirps, challenges, friend activity</div>
+                </div>
+                <div style="width:36px;height:20px;border-radius:10px;background:#22c55e;position:relative;cursor:pointer;">
+                  <div style="position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;"></div>
+                </div>
+              </div>
+              <!-- Habit toggle (off) -->
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="font-size:10px;font-weight:600;color:#6b7280;">🔄 Habit Pack</div>
+                  <div style="font-size:8px;color:#475569;margin-top:1px;">Daily reminders, weekly recap</div>
+                </div>
+                <div style="width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,0.1);position:relative;cursor:pointer;">
+                  <div style="position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.4);"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div style="height:1px;background:rgba(255,255,255,0.06);margin:4px 0;"></div>
+
+            <!-- SECTION: Pro Status -->
+            <div style="padding:10px 20px 8px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="font-size:14px;">⚡</div>
+                  <div>
+                    <div style="font-size:11px;font-weight:700;color:#fbbf24;">Pro — Free Trial</div>
+                    <div style="font-size:8px;color:#6b7280;margin-top:1px;">5× multiplier · Sharp Money · 5 days left</div>
+                  </div>
+                </div>
+                <div style="font-size:9px;font-weight:700;color:#fbbf24;background:rgba(251,191,36,0.1);border-radius:6px;padding:2px 7px;">Manage</div>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div style="height:1px;background:rgba(255,255,255,0.06);margin:4px 0;"></div>
+
+            <!-- SECTION: Account -->
+            <div style="padding:10px 20px 8px;">
+              <div style="font-size:8px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:8px;">ACCOUNT</div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="font-size:10px;color:#94a3b8;cursor:pointer;">📱 Phone: +1 (555) 847-2291</div>
+                <div style="font-size:10px;color:#94a3b8;cursor:pointer;">🔗 Restore purchases</div>
+                <div style="font-size:10px;color:#94a3b8;cursor:pointer;">📄 Terms &amp; Privacy</div>
+                <div style="font-size:10px;color:#6b7280;cursor:pointer;">Log out</div>
+                <div style="font-size:10px;color:#ef4444;cursor:pointer;">Delete account</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">SETTINGS MODAL<br>Triggered by tapping IQ chip · Stats · Sports prefs · 3 notif packs · Pro status · Account</div>
+    </div>
+
+    <!-- PHONE 2: Sports preferences expanded -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 SPORTS PREFERENCES EXPANDED</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;"><span>9:41</span><span>🔋</span></div>
+
+        <!-- Sub-sheet header -->
+        <div style="flex:1;background:#0d1117;display:flex;flex-direction:column;">
+          <!-- Back + title -->
+          <div style="padding:10px 18px 12px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:10px;flex-shrink:0;">
+            <div style="font-size:14px;color:#6b7280;cursor:pointer;">‹</div>
+            <div>
+              <div style="font-size:14px;font-weight:800;color:#f0f6fc;">Sports Preferences</div>
+              <div style="font-size:8px;color:#6b7280;margin-top:1px;">Choose which leagues feed your home screen &amp; picks</div>
+            </div>
+          </div>
+
+          <div style="overflow-y:auto;flex:1;padding:12px 18px 30px;">
+
+            <!-- NFL -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:18px;">🏈</div>
+                <div style="font-size:11px;font-weight:600;color:#f0f6fc;">NFL</div>
+              </div>
+              <div style="width:36px;height:20px;border-radius:10px;background:#22c55e;position:relative;">
+                <div style="position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;"></div>
+              </div>
+            </div>
+            <!-- NBA -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:18px;">🏀</div>
+                <div style="font-size:11px;font-weight:600;color:#f0f6fc;">NBA</div>
+              </div>
+              <div style="width:36px;height:20px;border-radius:10px;background:#22c55e;position:relative;">
+                <div style="position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;"></div>
+              </div>
+            </div>
+            <!-- MLB -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:18px;">⚾</div>
+                <div style="font-size:11px;font-weight:600;color:#f0f6fc;">MLB</div>
+              </div>
+              <div style="width:36px;height:20px;border-radius:10px;background:#22c55e;position:relative;">
+                <div style="position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;"></div>
+              </div>
+            </div>
+            <!-- NHL (off) -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:18px;">🏒</div>
+                <div style="font-size:11px;font-weight:600;color:#6b7280;">NHL</div>
+              </div>
+              <div style="width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,0.1);position:relative;">
+                <div style="position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.4);"></div>
+              </div>
+            </div>
+            <!-- College Football -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:18px;">🎓</div>
+                <div style="font-size:11px;font-weight:600;color:#f0f6fc;">College Football</div>
+              </div>
+              <div style="width:36px;height:20px;border-radius:10px;background:#22c55e;position:relative;">
+                <div style="position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;"></div>
+              </div>
+            </div>
+            <!-- College Basketball (off) -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:18px;">🏫</div>
+                <div style="font-size:11px;font-weight:600;color:#6b7280;">College Basketball</div>
+              </div>
+              <div style="width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,0.1);position:relative;">
+                <div style="position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.4);"></div>
+              </div>
+            </div>
+            <!-- Soccer (off) -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:18px;">⚽</div>
+                <div style="font-size:11px;font-weight:600;color:#6b7280;">Soccer (MLS/EPL)</div>
+              </div>
+              <div style="width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,0.1);position:relative;">
+                <div style="position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.4);"></div>
+              </div>
+            </div>
+            <!-- Golf (off) -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:18px;">⛳</div>
+                <div style="font-size:11px;font-weight:600;color:#6b7280;">Golf (PGA)</div>
+              </div>
+              <div style="width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,0.1);position:relative;">
+                <div style="position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.4);"></div>
+              </div>
+            </div>
+
+            <!-- Note -->
+            <div style="margin-top:12px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:10px;padding:8px 12px;">
+              <div style="font-size:8px;color:#a5b4fc;line-height:1.5;">Your selections shape your home feed and Sports DNA profile. Changes take effect on next app open. Enabling more sports = more pick windows.</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">SPORTS PREFERENCES EXPANDED<br>Toggle per league · DNA + home feed shaped by selection · no new tables</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-settings-modal" class="sfb-panel"></div>
+</div><!-- /screen settings-modal -->
 
 </body>
 </html>
