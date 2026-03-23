@@ -1970,6 +1970,9 @@
     <div class="tab tab-review" data-screen="web-referral-flow" onclick="showScreen('web-referral-flow',this)">
       <span class="tab-label">Web Referral Flow 🌐</span><span class="tab-days" id="days-web-referral-flow"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="bar-night-recap" onclick="showScreen('bar-night-recap',this)">
+      <span class="tab-label">Bar Night Recap 🍺</span><span class="tab-days" id="days-bar-night-recap"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5546,6 +5549,7 @@
     'iq-milestone-celebration': '2026-03-23T01:30:00-07:00',
     'contest-entry-flow':  '2026-03-23T02:00:00-07:00',
     'web-referral-flow':   '2026-03-23T02:30:00-07:00',
+    'bar-night-recap':     '2026-03-23T03:00:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -38542,6 +38546,233 @@
 
   <div id="sfb-panel-web-referral-flow" class="sfb-panel"></div>
 </div><!-- /screen web-referral-flow -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     BAR NIGHT RECAP — Mar 23 2026
+     End-of-night summary that fires when you leave a bar venue (or at
+     bar closing time). Full-screen celebration of the night's results
+     with a shareable card, rival hook, and bar champion moment.
+     Confirmed feature from design decisions doc: "End-of-night recap
+     with shareable card and rivalry hook."
+═══════════════════════════════════════════════════════════════════ -->
+<div id="bar-night-recap" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🍺 Bar Night Recap — End of Night Share Card</h2>
+    <p class="screen-subtitle">Mar 23 2026 · Fires at bar closing time (or when user leaves venue). Three states: (1) Bar Champion recap — you won the bar tonight, full celebration, shareable card, rivalry setup for next time. (2) Runner-up recap — close but second place, rivalry hook "next time MarcD, rematch Sunday." (3) Late-joiner recap — only 2 picks, still fun, teaser for next game night. The shareable card drives word-of-mouth and brings friends back to the bar next week. Confirmed in design decisions: "End-of-night recap with shareable card and rivalry hook."</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Bar Champion recap -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#22c55e;letter-spacing:.5px;">📱 BAR CHAMPION 👑 RECAP</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(34,197,94,0.4);">
+        <!-- Celebration gradient -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(34,197,94,0.2) 0%,transparent 60%);z-index:0;pointer-events:none;"></div>
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;flex:1;">
+          <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+            <span>11:58 PM</span><span>🔋</span>
+          </div>
+          <!-- Champion hero -->
+          <div style="display:flex;flex-direction:column;align-items:center;padding:16px 20px 12px;flex-shrink:0;">
+            <div style="font-size:9px;color:#22c55e;font-weight:700;letter-spacing:2px;margin-bottom:10px;">YARD HOUSE · TONIGHT'S RECAP</div>
+            <div style="font-size:48px;margin-bottom:4px;">👑</div>
+            <div style="font-size:22px;font-weight:900;color:#f0f6fc;text-align:center;line-height:1.1;">Bar Champion</div>
+            <div style="font-size:11px;color:#22c55e;font-weight:700;margin-top:4px;">You dominated Yard House tonight</div>
+          </div>
+          <!-- Share card -->
+          <div style="margin:0 14px 10px;background:#0d1420;border:2px solid rgba(34,197,94,0.4);border-radius:16px;padding:14px;flex-shrink:0;">
+            <!-- Card header -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <div style="font-size:14px;font-weight:900;color:#f0f6fc;">Sports<span style="color:#5545D3;">IQ</span></div>
+              <div style="font-size:9px;color:#22c55e;font-weight:700;">YARD HOUSE · BAR CHAMP 👑</div>
+            </div>
+            <!-- Stats grid -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:10px;text-align:center;">
+              <div style="background:rgba(34,197,94,0.08);border-radius:8px;padding:6px;">
+                <div style="font-size:16px;font-weight:900;color:#22c55e;">7-2</div>
+                <div style="font-size:7px;color:#6b7280;">Record</div>
+              </div>
+              <div style="background:rgba(34,197,94,0.08);border-radius:8px;padding:6px;">
+                <div style="font-size:16px;font-weight:900;color:#22c55e;">78%</div>
+                <div style="font-size:7px;color:#6b7280;">Accuracy</div>
+              </div>
+              <div style="background:rgba(34,197,94,0.08);border-radius:8px;padding:6px;">
+                <div style="font-size:16px;font-weight:900;color:#22c55e;">+430</div>
+                <div style="font-size:7px;color:#6b7280;">IQ Earned</div>
+              </div>
+            </div>
+            <!-- Best pick of night -->
+            <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:8px;padding:6px 8px;margin-bottom:8px;">
+              <div style="font-size:8px;color:#fbbf24;font-weight:700;">🔥 Best Pick of the Night</div>
+              <div style="font-size:10px;color:#f0f6fc;margin-top:2px;">Called Mahomes OVER 284 yds · he threw 312</div>
+            </div>
+            <!-- Leaderboard mini -->
+            <div style="display:flex;flex-direction:column;gap:3px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:10px;color:#fbbf24;font-weight:700;">👑 You</div>
+                <div style="font-size:10px;color:#22c55e;font-weight:800;">+430 IQ · #1</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;opacity:0.6;">
+                <div style="font-size:9px;color:#94a3b8;">🥈 MarcD</div>
+                <div style="font-size:9px;color:#94a3b8;">+380 IQ · #2</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;opacity:0.5;">
+                <div style="font-size:9px;color:#94a3b8;">🥉 JakeTheShark</div>
+                <div style="font-size:9px;color:#94a3b8;">+290 IQ · #3</div>
+              </div>
+            </div>
+          </div>
+          <!-- Share button -->
+          <div style="margin:0 14px 8px;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:900;color:#fff;cursor:pointer;">
+              Share my Bar Champion card 👑
+            </div>
+          </div>
+          <!-- Rivalry hook -->
+          <div style="margin:0 14px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:8px 12px;flex-shrink:0;">
+            <div style="font-size:9px;color:#ef4444;font-weight:700;">🔥 MarcD wants a rematch</div>
+            <div style="font-size:9px;color:#6b7280;margin-top:2px;">Sunday · Chiefs vs Raiders · same bar · 4:25pm</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">BAR CHAMPION 👑<br>7-2 record · share card · MarcD wants rematch Sunday</div>
+    </div>
+
+    <!-- PHONE 2: Runner-up recap -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 RUNNER-UP — Rivalry Hook</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(148,163,184,0.08) 0%,transparent 50%);z-index:0;pointer-events:none;"></div>
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;flex:1;">
+          <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+            <span>11:58 PM</span><span>🔋</span>
+          </div>
+          <!-- Runner-up hero -->
+          <div style="display:flex;flex-direction:column;align-items:center;padding:16px 20px 12px;flex-shrink:0;">
+            <div style="font-size:9px;color:#94a3b8;font-weight:700;letter-spacing:2px;margin-bottom:10px;">YARD HOUSE · TONIGHT'S RECAP</div>
+            <div style="font-size:42px;margin-bottom:4px;">🥈</div>
+            <div style="font-size:22px;font-weight:900;color:#f0f6fc;text-align:center;line-height:1.1;">Bar Runner-Up</div>
+            <div style="font-size:11px;color:#94a3b8;margin-top:4px;">So close — JakeTheShark edged you by 50 IQ</div>
+          </div>
+          <!-- Share card -->
+          <div style="margin:0 14px 10px;background:#0d1420;border:1.5px solid rgba(148,163,184,0.25);border-radius:16px;padding:14px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <div style="font-size:14px;font-weight:900;color:#f0f6fc;">Sports<span style="color:#5545D3;">IQ</span></div>
+              <div style="font-size:9px;color:#94a3b8;font-weight:700;">YARD HOUSE · RUNNER-UP 🥈</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:10px;text-align:center;">
+              <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:6px;">
+                <div style="font-size:16px;font-weight:900;color:#94a3b8;">6-3</div>
+                <div style="font-size:7px;color:#6b7280;">Record</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:6px;">
+                <div style="font-size:16px;font-weight:900;color:#94a3b8;">67%</div>
+                <div style="font-size:7px;color:#6b7280;">Accuracy</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:6px;">
+                <div style="font-size:16px;font-weight:900;color:#94a3b8;">+330</div>
+                <div style="font-size:7px;color:#6b7280;">IQ Earned</div>
+              </div>
+            </div>
+            <!-- Near miss -->
+            <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:6px 8px;margin-bottom:8px;">
+              <div style="font-size:8px;color:#ef4444;font-weight:700;">😬 Brutal last pick</div>
+              <div style="font-size:10px;color:#f0f6fc;margin-top:2px;">Cowboys UNDER 24 pts — they scored 27. Missed by 3.</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:3px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;opacity:0.6;">
+                <div style="font-size:9px;color:#fbbf24;">👑 JakeTheShark</div>
+                <div style="font-size:9px;color:#22c55e;">+380 IQ · #1</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:10px;color:#94a3b8;font-weight:700;">🥈 You</div>
+                <div style="font-size:10px;color:#94a3b8;font-weight:800;">+330 IQ · #2</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;opacity:0.5;">
+                <div style="font-size:9px;color:#94a3b8;">🥉 MarcD</div>
+                <div style="font-size:9px;color:#94a3b8;">+290 IQ · #3</div>
+              </div>
+            </div>
+          </div>
+          <!-- Share button -->
+          <div style="margin:0 14px 8px;flex-shrink:0;">
+            <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:900;color:#f0f6fc;cursor:pointer;">
+              Share my night 🥈
+            </div>
+          </div>
+          <!-- Rematch CTA — this is the viral loop -->
+          <div style="margin:0 14px;background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(245,158,11,0.04));border:1.5px solid rgba(245,158,11,0.3);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="font-size:10px;font-weight:800;color:#fbbf24;margin-bottom:4px;">Rematch JakeTheShark 🔥</div>
+            <div style="font-size:9px;color:#6b7280;margin-bottom:8px;">Sunday · Chiefs vs Raiders · same bar · 4:25pm kickoff</div>
+            <div style="background:rgba(245,158,11,0.15);border-radius:8px;padding:6px 10px;font-size:9px;color:#fbbf24;font-weight:700;text-align:center;cursor:pointer;">
+              Send JakeTheShark a rematch notification →
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">RUNNER-UP 🥈<br>6-3 record · near miss callout · "Rematch JakeTheShark Sunday"</div>
+    </div>
+
+    <!-- PHONE 3: Late joiner recap — 2 picks only -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 LATE JOINER — 2 Picks Only</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;flex:1;">
+          <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+            <span>11:58 PM</span><span>🔋</span>
+          </div>
+          <!-- Late joiner result -->
+          <div style="display:flex;flex-direction:column;align-items:center;padding:16px 20px 12px;flex-shrink:0;">
+            <div style="font-size:9px;color:#94a3b8;font-weight:700;letter-spacing:2px;margin-bottom:10px;">YARD HOUSE · TONIGHT'S RECAP</div>
+            <div style="font-size:42px;margin-bottom:4px;">⚡</div>
+            <div style="font-size:22px;font-weight:900;color:#f0f6fc;text-align:center;line-height:1.1;">Quick Start</div>
+            <div style="font-size:10px;color:#6b7280;margin-top:4px;text-align:center;">2 picks tonight · joined late<br>Still went 2-0 🔥</div>
+          </div>
+          <!-- Mini share card -->
+          <div style="margin:0 14px 10px;background:#0d1420;border:1.5px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <div style="font-size:14px;font-weight:900;color:#f0f6fc;">Sports<span style="color:#5545D3;">IQ</span></div>
+              <div style="font-size:9px;color:#6b7280;font-weight:700;">YARD HOUSE DEBUT ⚡</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;text-align:center;">
+              <div style="background:rgba(34,197,94,0.08);border-radius:8px;padding:8px;">
+                <div style="font-size:18px;font-weight:900;color:#22c55e;">2-0</div>
+                <div style="font-size:8px;color:#6b7280;">Perfect tonight</div>
+              </div>
+              <div style="background:rgba(34,197,94,0.08);border-radius:8px;padding:8px;">
+                <div style="font-size:18px;font-weight:900;color:#22c55e;">+100</div>
+                <div style="font-size:8px;color:#6b7280;">IQ earned</div>
+              </div>
+            </div>
+            <!-- Where you placed -->
+            <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:6px 8px;margin-bottom:8px;">
+              <div style="font-size:9px;color:#6b7280;">Joined at halftime · finished #5 of 32 players</div>
+            </div>
+            <div style="font-size:9px;color:#475569;text-align:center;">Imagine a full game next time 👀</div>
+          </div>
+          <!-- Next game teaser — key acquisition moment -->
+          <div style="margin:0 14px 10px;background:linear-gradient(135deg,rgba(85,69,211,0.15),rgba(85,69,211,0.05));border:1.5px solid rgba(85,69,211,0.3);border-radius:14px;padding:12px 14px;flex-shrink:0;">
+            <div style="font-size:10px;font-weight:800;color:#a78bfa;margin-bottom:6px;">🏈 Next game at Yard House</div>
+            <div style="font-size:11px;color:#f0f6fc;font-weight:700;margin-bottom:3px;">Chiefs vs Raiders · Sunday 4:25pm</div>
+            <div style="font-size:9px;color:#6b7280;margin-bottom:8px;">32 players already registered · JakeTheShark is defending champ</div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:rgba(85,69,211,0.2);border-radius:8px;padding:7px;text-align:center;font-size:10px;color:#a78bfa;font-weight:700;cursor:pointer;">Save rematch →</div>
+              <div style="flex:1;background:rgba(255,255,255,0.06);border-radius:8px;padding:7px;text-align:center;font-size:10px;color:#6b7280;cursor:pointer;">Invite friends</div>
+            </div>
+          </div>
+          <!-- Download / come back prompt (for first-time bar user) -->
+          <div style="margin:0 14px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.18);border-radius:10px;padding:8px 12px;flex-shrink:0;">
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;">You've earned 600 IQ tonight</div>
+            <div style="font-size:8px;color:#6b7280;margin-top:2px;">500 welcome bonus + 100 from picks · download to keep it 📲</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">LATE JOINER RECAP<br>2-0 debut · "Imagine a full game next time" · Sunday rematch saved</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-bar-night-recap" class="sfb-panel"></div>
+</div><!-- /screen bar-night-recap -->
 
 </body>
 </html>
