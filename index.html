@@ -1973,6 +1973,9 @@
     <div class="tab tab-review" data-screen="bar-night-recap" onclick="showScreen('bar-night-recap',this)">
       <span class="tab-label">Bar Night Recap 🍺</span><span class="tab-days" id="days-bar-night-recap"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="pick-detail-screen" onclick="showScreen('pick-detail-screen',this)">
+      <span class="tab-label">Pick Detail Screen 🎯</span><span class="tab-days" id="days-pick-detail-screen"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5550,6 +5553,7 @@
     'contest-entry-flow':  '2026-03-23T02:00:00-07:00',
     'web-referral-flow':   '2026-03-23T02:30:00-07:00',
     'bar-night-recap':     '2026-03-23T03:00:00-07:00',
+    'pick-detail-screen':  '2026-03-23T03:30:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -38773,6 +38777,263 @@
   </div>
   <div id="sfb-panel-bar-night-recap" class="sfb-panel"></div>
 </div><!-- /screen bar-night-recap -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PICK DETAIL SCREEN — Mar 23 2026
+     Full-screen view when user taps any pick (from history, active picks,
+     or social feed). Three states: (1) Win resolve — confetti, IQ earned,
+     share card. (2) Loss resolve — near-miss stat, psychology, try again.
+     (3) Active pending — live progress, countdown, friend status, emoji
+     reactions on same pick.
+═══════════════════════════════════════════════════════════════════ -->
+<div id="pick-detail-screen" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🎯 Pick Detail — Win / Loss / Active States</h2>
+    <p class="screen-subtitle">Mar 23 2026 · Tapping any pick anywhere in the app (history feed, active picks, social feed) opens this full-screen detail view. Three states: (1) Win resolve — celebration overlay, IQ breakdown (base + multiplier), streak badge, share card CTA, "Next pick →" to immediately chain into a new pick. (2) Loss resolve — near-miss stat, "so close" psychology, result facts, "Next pick →" recovery hook. (3) Active/pending — live score progress bar, countdown timer, friend picks on both sides, emoji reaction row (😤🔥😂💀🤝), "Win this → +50 IQ" urgency. This is the emotional core of every pick cycle.</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Win resolve detail -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#22c55e;letter-spacing:.5px;">📱 WIN — Resolve Detail</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(34,197,94,0.4);">
+        <!-- Win glow -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(34,197,94,0.18) 0%,transparent 60%);z-index:0;pointer-events:none;"></div>
+        <!-- Confetti dots -->
+        <div style="position:absolute;z-index:0;">
+          <div style="position:absolute;top:8%;left:15%;width:5px;height:5px;border-radius:1px;background:#22c55e;opacity:0.7;transform:rotate(30deg);"></div>
+          <div style="position:absolute;top:12%;right:20%;width:4px;height:4px;border-radius:1px;background:#fbbf24;opacity:0.6;transform:rotate(-20deg);"></div>
+          <div style="position:absolute;top:6%;left:45%;width:3px;height:8px;border-radius:1px;background:#a78bfa;opacity:0.5;transform:rotate(15deg);"></div>
+          <div style="position:absolute;top:18%;left:25%;width:4px;height:4px;border-radius:50%;background:#22c55e;opacity:0.5;"></div>
+          <div style="position:absolute;top:10%;right:35%;width:6px;height:3px;border-radius:1px;background:#f472b6;opacity:0.4;transform:rotate(40deg);"></div>
+        </div>
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;flex:1;">
+          <div style="padding:14px 20px 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+            <span style="font-size:11px;color:#8b949e;">9:41</span>
+            <span style="font-size:18px;cursor:pointer;color:#6b7280;">✕</span>
+          </div>
+          <!-- Win hero -->
+          <div style="display:flex;flex-direction:column;align-items:center;padding:16px 20px 14px;flex-shrink:0;">
+            <div style="font-size:36px;margin-bottom:6px;">🎯</div>
+            <div style="font-size:26px;font-weight:900;color:#22c55e;margin-bottom:2px;">Called it!</div>
+            <div style="font-size:11px;color:#64748b;">Mahomes threw 312 yards · OVER ✓</div>
+          </div>
+          <!-- IQ earned card -->
+          <div style="margin:0 16px 12px;background:linear-gradient(135deg,rgba(34,197,94,0.12),rgba(34,197,94,0.04));border:1.5px solid rgba(34,197,94,0.3);border-radius:16px;padding:14px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <div>
+                <div style="font-size:28px;font-weight:900;color:#22c55e;">+50 IQ</div>
+                <div style="font-size:9px;color:#6b7280;margin-top:2px;">Added to your week &amp; lifetime</div>
+              </div>
+              <div style="background:rgba(245,158,11,0.15);border-radius:8px;padding:5px 10px;text-align:center;">
+                <div style="font-size:14px;">🔥</div>
+                <div style="font-size:9px;color:#fbbf24;font-weight:700;">5 streak</div>
+              </div>
+            </div>
+            <!-- IQ breakdown -->
+            <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:8px 10px;">
+              <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:4px;">
+                <span style="color:#6b7280;">Base win (1×)</span>
+                <span style="color:#22c55e;font-weight:700;">+50 IQ</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:6px;">
+                <span style="color:#6b7280;">Weekly total this week</span>
+                <span style="color:#f0f6fc;font-weight:700;">+390 IQ</span>
+              </div>
+              <div style="height:1px;background:rgba(255,255,255,0.06);margin-bottom:6px;"></div>
+              <!-- 5x pro upsell hint -->
+              <div style="display:flex;justify-content:space-between;font-size:9px;">
+                <span style="color:#475569;">With Pro 5× this would be</span>
+                <span style="color:#fbbf24;font-weight:700;">+250 IQ ⚡</span>
+              </div>
+            </div>
+          </div>
+          <!-- Pick details -->
+          <div style="margin:0 16px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="font-size:9px;color:#475569;font-weight:700;letter-spacing:1px;margin-bottom:6px;">THE PICK</div>
+            <div style="font-size:11px;font-weight:700;color:#f0f6fc;margin-bottom:3px;">Mahomes passing yards · OVER 284</div>
+            <div style="font-size:9px;color:#6b7280;margin-bottom:6px;">Will Mahomes throw for more than 284 yards?</div>
+            <div style="display:flex;gap:12px;">
+              <div style="font-size:9px;color:#94a3b8;">Result: <span style="color:#22c55e;font-weight:700;">312 yards</span></div>
+              <div style="font-size:9px;color:#94a3b8;">MarcD: <span style="color:#22c55e;">same side ✓</span></div>
+            </div>
+          </div>
+          <!-- CTAs -->
+          <div style="margin:0 16px;display:flex;flex-direction:column;gap:7px;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:12px;padding:12px;text-align:center;font-size:13px;font-weight:900;color:#fff;cursor:pointer;">
+              Share · Called it. 🎯
+            </div>
+            <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:10px;text-align:center;font-size:12px;font-weight:700;color:#f0f6fc;cursor:pointer;">
+              Next pick → 🏈
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">WIN RESOLVE<br>+50 IQ · 🔥5 streak · "with Pro 5× = +250 IQ" upsell · share + next pick</div>
+    </div>
+
+    <!-- PHONE 2: Loss resolve detail -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#ef4444;letter-spacing:.5px;">📱 LOSS — Near-Miss Detail</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(239,68,68,0.3);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 25%,rgba(239,68,68,0.08) 0%,transparent 55%);z-index:0;pointer-events:none;"></div>
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;flex:1;">
+          <div style="padding:14px 20px 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+            <span style="font-size:11px;color:#8b949e;">9:41</span>
+            <span style="font-size:18px;cursor:pointer;color:#6b7280;">✕</span>
+          </div>
+          <!-- Loss hero -->
+          <div style="display:flex;flex-direction:column;align-items:center;padding:16px 20px 14px;flex-shrink:0;">
+            <div style="font-size:36px;margin-bottom:6px;">😬</div>
+            <div style="font-size:24px;font-weight:900;color:#ef4444;margin-bottom:2px;">So close.</div>
+            <div style="font-size:11px;color:#64748b;">Cowboys scored 27 · you needed UNDER 24</div>
+          </div>
+          <!-- IQ lost + near miss -->
+          <div style="margin:0 16px 12px;background:linear-gradient(135deg,rgba(239,68,68,0.08),rgba(239,68,68,0.03));border:1.5px solid rgba(239,68,68,0.2);border-radius:16px;padding:14px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <div>
+                <div style="font-size:28px;font-weight:900;color:#ef4444;">−25 IQ</div>
+                <div style="font-size:9px;color:#6b7280;margin-top:2px;">Weekly IQ (can recover this)</div>
+              </div>
+              <div style="background:rgba(239,68,68,0.1);border-radius:8px;padding:5px 10px;text-align:center;">
+                <div style="font-size:9px;color:#ef4444;font-weight:700;">streak</div>
+                <div style="font-size:14px;font-weight:900;color:#ef4444;">broken</div>
+              </div>
+            </div>
+            <!-- Near miss callout -->
+            <div style="background:rgba(239,68,68,0.08);border-radius:8px;padding:8px 10px;">
+              <div style="font-size:9px;color:#ef4444;font-weight:700;margin-bottom:4px;">😤 Brutal beat</div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:3px;">
+                <span style="color:#6b7280;">You needed Cowboys UNDER</span>
+                <span style="color:#f0f6fc;font-weight:700;">24 pts</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:3px;">
+                <span style="color:#6b7280;">They scored</span>
+                <span style="color:#ef4444;font-weight:700;">27 pts</span>
+              </div>
+              <div style="height:1px;background:rgba(255,255,255,0.06);margin:5px 0;"></div>
+              <div style="font-size:8px;color:#6b7280;">Missed by <span style="color:#ef4444;font-weight:700;">3 points</span> · a field goal away</div>
+            </div>
+          </div>
+          <!-- Did you know fact -->
+          <div style="margin:0 16px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="font-size:9px;color:#475569;font-weight:700;letter-spacing:1px;margin-bottom:4px;">DID YOU KNOW</div>
+            <div style="font-size:10px;color:#94a3b8;line-height:1.5;">Cowboys had scored UNDER 24 points in 4 of their last 6 games. This was an outlier performance — you were on the right side of history.</div>
+          </div>
+          <!-- Friend on other side -->
+          <div style="margin:0 16px 10px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:7px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:9px;color:#6b7280;">MarcD went OVER — he won this one</div>
+            <div style="font-size:9px;color:#22c55e;font-weight:700;">😤 Chirp him</div>
+          </div>
+          <!-- Recovery CTAs -->
+          <div style="margin:0 16px;display:flex;flex-direction:column;gap:7px;flex-shrink:0;">
+            <div style="background:rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:center;font-size:12px;font-weight:700;color:#f0f6fc;cursor:pointer;">
+              Recover IQ — Next pick → 🏈
+            </div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:9px;text-align:center;font-size:10px;color:#a78bfa;cursor:pointer;">Share card</div>
+              <div style="flex:1;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:9px;text-align:center;font-size:10px;color:#ef4444;cursor:pointer;">😤 Chirp MarcD</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">LOSS RESOLVE<br>−25 IQ · near miss (3 pts) · chirp MarcD · "Recover IQ → Next pick"</div>
+    </div>
+
+    <!-- PHONE 3: Active pick — pending resolve -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#fbbf24;letter-spacing:.5px;">📱 ACTIVE PICK — Live Tracking</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(245,158,11,0.3);">
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;flex:1;">
+          <div style="padding:14px 20px 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+            <span style="font-size:11px;color:#8b949e;">9:41</span>
+            <span style="font-size:18px;cursor:pointer;color:#6b7280;">✕</span>
+          </div>
+          <!-- Active header -->
+          <div style="display:flex;flex-direction:column;align-items:center;padding:10px 20px 10px;flex-shrink:0;">
+            <div style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:4px 12px;font-size:9px;color:#fbbf24;font-weight:700;margin-bottom:8px;">LIVE · Q3 · 7:42 remaining</div>
+            <div style="font-size:18px;font-weight:900;color:#f0f6fc;margin-bottom:2px;">Mahomes OVER 284 yds</div>
+            <div style="font-size:10px;color:#6b7280;">Will Mahomes throw for more than 284 yards?</div>
+          </div>
+          <!-- Live score + progress -->
+          <div style="margin:0 14px 10px;background:linear-gradient(135deg,rgba(34,197,94,0.08),rgba(34,197,94,0.02));border:1.5px solid rgba(34,197,94,0.25);border-radius:14px;padding:12px 14px;flex-shrink:0;">
+            <!-- Current vs target -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div>
+                <div style="font-size:8px;color:#6b7280;letter-spacing:.5px;">CURRENT</div>
+                <div style="font-size:22px;font-weight:900;color:#22c55e;">247 yds</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="background:rgba(34,197,94,0.15);border-radius:8px;padding:4px 8px;">
+                  <div style="font-size:9px;color:#22c55e;font-weight:700;">need 37 more</div>
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:8px;color:#6b7280;letter-spacing:.5px;">TARGET</div>
+                <div style="font-size:22px;font-weight:900;color:#f0f6fc;">284+</div>
+              </div>
+            </div>
+            <!-- Progress bar -->
+            <div style="background:rgba(255,255,255,0.06);border-radius:6px;height:10px;overflow:hidden;margin-bottom:6px;position:relative;">
+              <div style="width:87%;height:100%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:6px;"></div>
+              <div style="position:absolute;right:13%;top:50%;transform:translateY(-50%);width:2px;height:14px;background:#fbbf24;border-radius:1px;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:8px;color:#475569;">
+              <span>87% to target</span>
+              <span style="color:#22c55e;">On pace · pace ~295 yds total</span>
+            </div>
+          </div>
+          <!-- Your pick context -->
+          <div style="margin:0 14px 8px;display:flex;gap:8px;flex-shrink:0;">
+            <div style="flex:1;background:rgba(34,197,94,0.08);border:1.5px solid rgba(34,197,94,0.3);border-radius:10px;padding:8px;text-align:center;">
+              <div style="font-size:10px;font-weight:800;color:#22c55e;">OVER ✓</div>
+              <div style="font-size:8px;color:#6b7280;margin-top:2px;">Your pick · +50 IQ if wins</div>
+            </div>
+            <div style="flex:1;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:10px;padding:8px;text-align:center;">
+              <div style="font-size:10px;color:#ef4444;">UNDER</div>
+              <div style="font-size:8px;color:#6b7280;margin-top:2px;">Jake's pick · losing</div>
+            </div>
+          </div>
+          <!-- Friends on each side -->
+          <div style="margin:0 14px 8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:8px 12px;flex-shrink:0;">
+            <div style="font-size:9px;color:#475569;font-weight:700;margin-bottom:5px;">FRIENDS ON THIS PICK</div>
+            <div style="display:flex;justify-content:space-between;">
+              <div>
+                <div style="font-size:8px;color:#22c55e;font-weight:700;margin-bottom:3px;">OVER · winning</div>
+                <div style="font-size:9px;color:#94a3b8;">You, MarcD, Sam</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:8px;color:#ef4444;font-weight:700;margin-bottom:3px;">UNDER · losing</div>
+                <div style="font-size:9px;color:#94a3b8;">Jake, Rachel</div>
+              </div>
+            </div>
+          </div>
+          <!-- Emoji reaction row — one-tap, predefined only -->
+          <div style="margin:0 14px 10px;flex-shrink:0;">
+            <div style="font-size:8px;color:#475569;font-weight:700;margin-bottom:5px;letter-spacing:.5px;">REACT TO JAKE'S PICK</div>
+            <div style="display:flex;gap:6px;">
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:7px;text-align:center;font-size:16px;cursor:pointer;">😤</div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:7px;text-align:center;font-size:16px;cursor:pointer;">🔥</div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:7px;text-align:center;font-size:16px;cursor:pointer;">😂</div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:7px;text-align:center;font-size:16px;cursor:pointer;">💀</div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:7px;text-align:center;font-size:16px;cursor:pointer;">🤝</div>
+            </div>
+          </div>
+          <!-- Notify me -->
+          <div style="margin:0 14px;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:9px;color:#a78bfa;">🔔 Alert me when Mahomes hits 284</div>
+            <div style="width:28px;height:16px;background:rgba(85,69,211,0.4);border-radius:8px;position:relative;cursor:pointer;">
+              <div style="position:absolute;right:2px;top:2px;width:12px;height:12px;border-radius:50%;background:#a78bfa;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">ACTIVE PICK — Live Tracking<br>Progress bar · friends both sides · emoji reactions (😤🔥😂💀🤝) · alert toggle</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-pick-detail-screen" class="sfb-panel"></div>
+</div><!-- /screen pick-detail-screen -->
 
 </body>
 </html>
