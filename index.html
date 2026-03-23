@@ -1964,6 +1964,9 @@
     <div class="tab tab-review" data-screen="iq-milestone-celebration" onclick="showScreen('iq-milestone-celebration',this)">
       <span class="tab-label">IQ Milestone Celebration 🎉</span><span class="tab-days" id="days-iq-milestone-celebration"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="contest-entry-flow" onclick="showScreen('contest-entry-flow',this)">
+      <span class="tab-label">Contest Entry Flow 🏆</span><span class="tab-days" id="days-contest-entry-flow"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5538,6 +5541,7 @@
     'leaderboard-4tabs':   '2026-03-23T00:00:00-07:00',
     'my-picks-screen':     '2026-03-23T01:00:00-07:00',
     'iq-milestone-celebration': '2026-03-23T01:30:00-07:00',
+    'contest-entry-flow':  '2026-03-23T02:00:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -38036,6 +38040,266 @@
   </div>
   <div id="sfb-panel-iq-milestone-celebration" class="sfb-panel"></div>
 </div><!-- /screen iq-milestone-celebration -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     CONTEST ENTRY FLOW — Mar 23 2026
+     What happens when a user taps a contest card: (1) Contest detail sheet
+     (eligibility, live leaderboard preview, "I'm in" CTA), (2) Confirmed
+     entry state + first-pick urgency, (3) Live contest leaderboard during
+     the window. No IQ is spent — minimum IQ qualifies you, picks during
+     the window determine winner.
+═══════════════════════════════════════════════════════════════════ -->
+<div id="contest-entry-flow" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🏆 Contest Entry Flow — From Card to Leaderboard</h2>
+    <p class="screen-subtitle">Mar 23 2026 · Three states: (1) Contest detail bottom sheet — shows prize, eligibility check, live leaderboard preview, urgency timer, and "I'm In" CTA. No IQ is spent — Lifetime IQ minimum is the entry key, picks during the contest window earn contest IQ. (2) Confirmed entry — you're in, urgency to make first pick now to get on the board. (3) Live contest leaderboard — your rank, top players, picks remaining, "closes in X" countdown. Activity gate shown: "Active in last 30 days ✓" badge on user's status. Tier B activity requirement (tiered pick count) reflected in eligibility display.</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Contest detail bottom sheet -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 CONTEST DETAIL — Bottom Sheet</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <!-- Blurred background — contests hub -->
+        <div style="padding:8px 14px;flex-shrink:0;opacity:0.4;">
+          <div style="font-size:14px;font-weight:800;color:#f0f6fc;margin-bottom:8px;">Contests</div>
+          <div style="background:rgba(255,255,255,0.04);border-radius:10px;height:60px;margin-bottom:6px;"></div>
+          <div style="background:rgba(255,255,255,0.04);border-radius:10px;height:60px;"></div>
+        </div>
+        <!-- Bottom sheet overlay -->
+        <div style="position:absolute;bottom:0;left:0;right:0;background:#111827;border-radius:28px 28px 0 0;border-top:1px solid rgba(255,255,255,0.08);padding:0 0 20px;display:flex;flex-direction:column;">
+          <!-- Handle bar -->
+          <div style="display:flex;justify-content:center;padding:10px 0 8px;flex-shrink:0;">
+            <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+          </div>
+          <!-- Prize header -->
+          <div style="padding:0 18px 14px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div>
+                <div style="font-size:9px;color:#fbbf24;font-weight:700;letter-spacing:1px;">WEEKLY CONTEST · FREE</div>
+                <div style="font-size:18px;font-weight:900;color:#f0f6fc;">🎁 $50 Amazon Gift Card</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:8px;color:#ef4444;font-weight:700;">CLOSES IN</div>
+                <div style="font-size:16px;font-weight:900;color:#ef4444;">6h 23m</div>
+              </div>
+            </div>
+            <div style="font-size:9px;color:#6b7280;">Top IQ earner from Sunday NFL picks wins · 247 players entered</div>
+          </div>
+          <!-- Eligibility check -->
+          <div style="padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;">
+            <div style="font-size:9px;color:#475569;font-weight:700;letter-spacing:1px;margin-bottom:8px;">YOUR ELIGIBILITY</div>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:16px;height:16px;border-radius:50%;background:rgba(34,197,94,0.2);border:1px solid rgba(34,197,94,0.5);display:flex;align-items:center;justify-content:center;font-size:8px;color:#22c55e;flex-shrink:0;">✓</div>
+                <div style="font-size:10px;color:#f0f6fc;">Lifetime IQ: <span style="color:#22c55e;font-weight:700;">14,820</span> <span style="color:#6b7280;">(need 1,000+)</span></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:16px;height:16px;border-radius:50%;background:rgba(34,197,94,0.2);border:1px solid rgba(34,197,94,0.5);display:flex;align-items:center;justify-content:center;font-size:8px;color:#22c55e;flex-shrink:0;">✓</div>
+                <div style="font-size:10px;color:#f0f6fc;">Active this month: <span style="color:#22c55e;font-weight:700;">picked today</span></div>
+              </div>
+            </div>
+          </div>
+          <!-- Live leaderboard preview -->
+          <div style="padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;">
+            <div style="font-size:9px;color:#475569;font-weight:700;letter-spacing:1px;margin-bottom:8px;">LIVE LEADERBOARD</div>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="font-size:10px;color:#fbbf24;font-weight:700;width:14px;">1</div>
+                <div style="flex:1;font-size:10px;color:#f0f6fc;">KingKong_Karl ⚡</div>
+                <div style="font-size:10px;color:#22c55e;font-weight:700;">+640 IQ</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="font-size:10px;color:#94a3b8;font-weight:700;width:14px;">2</div>
+                <div style="flex:1;font-size:10px;color:#f0f6fc;">SharpSam</div>
+                <div style="font-size:10px;color:#22c55e;font-weight:700;">+590 IQ</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="font-size:10px;color:#b87333;font-weight:700;width:14px;">3</div>
+                <div style="flex:1;font-size:10px;color:#f0f6fc;">DomeCrusher99</div>
+                <div style="font-size:10px;color:#22c55e;font-weight:700;">+480 IQ</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;background:rgba(85,69,211,0.1);border-radius:6px;padding:4px 6px;margin-top:2px;">
+                <div style="font-size:10px;color:#a78bfa;font-weight:700;width:14px;">—</div>
+                <div style="flex:1;font-size:10px;color:#a78bfa;font-weight:700;">You · not entered yet</div>
+                <div style="font-size:9px;color:#475569;">0 IQ</div>
+              </div>
+            </div>
+          </div>
+          <!-- CTA -->
+          <div style="padding:14px 18px 0;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:14px;padding:14px;text-align:center;cursor:pointer;">
+              <div style="font-size:14px;font-weight:900;color:#fff;">I'm In — Enter Contest</div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.7);margin-top:3px;">Free to enter · no IQ spent · picks this window count</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">CONTEST DETAIL SHEET<br>Eligibility check ✓ · live leaderboard preview · "I'm In" CTA</div>
+    </div>
+
+    <!-- PHONE 2: Confirmed entry — urgency to pick -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 ENTERED — Make Your First Pick</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <!-- Confirmation banner -->
+        <div style="margin:8px 14px;background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(34,197,94,0.04));border:1.5px solid rgba(34,197,94,0.35);border-radius:14px;padding:12px 14px;flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="font-size:24px;">🎉</div>
+            <div>
+              <div style="font-size:13px;font-weight:900;color:#22c55e;">You're in the contest!</div>
+              <div style="font-size:9px;color:#6b7280;margin-top:2px;">$50 Amazon Gift Card · closes in 6h 22m</div>
+            </div>
+          </div>
+        </div>
+        <!-- Urgency pick prompt -->
+        <div style="margin:0 14px 10px;background:rgba(245,158,11,0.08);border:1.5px solid rgba(245,158,11,0.25);border-radius:14px;padding:12px 14px;flex-shrink:0;">
+          <div style="font-size:10px;font-weight:800;color:#fbbf24;margin-bottom:4px;">🏁 Make your first pick to get on the board</div>
+          <div style="font-size:9px;color:#6b7280;">You're currently unranked. Every pick earns IQ that counts toward this contest.</div>
+        </div>
+        <!-- Live picks available -->
+        <div style="padding:0 14px;flex:1;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+          <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:1px;flex-shrink:0;">LIVE PICKS — EARN CONTEST IQ NOW</div>
+
+          <!-- Pick card 1 -->
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px;flex-shrink:0;cursor:pointer;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <div style="font-size:10px;font-weight:800;color:#f0f6fc;">Mahomes passing yards</div>
+              <div style="background:rgba(34,197,94,0.12);border-radius:6px;padding:2px 6px;font-size:8px;color:#22c55e;font-weight:700;">+50 IQ</div>
+            </div>
+            <div style="font-size:9px;color:#94a3b8;margin-bottom:6px;">Will Mahomes throw for more than 284 yards?</div>
+            <div style="display:flex;gap:6px;">
+              <div style="flex:1;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:8px;padding:6px;text-align:center;font-size:10px;color:#22c55e;font-weight:700;">OVER →</div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:6px;text-align:center;font-size:10px;color:#6b7280;">UNDER</div>
+            </div>
+          </div>
+
+          <!-- Pick card 2 -->
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px;flex-shrink:0;cursor:pointer;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <div style="font-size:10px;font-weight:800;color:#f0f6fc;">Bills win tonight?</div>
+              <div style="background:rgba(34,197,94,0.12);border-radius:6px;padding:2px 6px;font-size:8px;color:#22c55e;font-weight:700;">+50 IQ</div>
+            </div>
+            <div style="font-size:9px;color:#94a3b8;margin-bottom:6px;">Will the Bills beat the Dolphins in tonight's game?</div>
+            <div style="display:flex;gap:6px;">
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:6px;text-align:center;font-size:10px;color:#6b7280;">YES</div>
+              <div style="flex:1;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:6px;text-align:center;font-size:10px;color:#ef4444;font-weight:700;">NO →</div>
+            </div>
+          </div>
+
+          <!-- Your position reminder -->
+          <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-size:9px;color:#a78bfa;font-weight:700;">Your contest rank: unranked</div>
+            <div style="font-size:9px;color:#475569;">KingKong_Karl leads +640 IQ</div>
+          </div>
+        </div>
+        <div style="padding:8px 14px 14px;flex-shrink:0;"></div>
+      </div>
+      <div class="phone-label">CONFIRMED ENTRY<br>🎉 you're in · urgency to pick now · live picks shown · unranked → pick</div>
+    </div>
+
+    <!-- PHONE 3: Live contest leaderboard -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 CONTEST LEADERBOARD — Live</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <!-- Contest header -->
+        <div style="padding:8px 14px 10px;flex-shrink:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <div>
+              <div style="font-size:9px;color:#fbbf24;font-weight:700;letter-spacing:1px;">WEEKLY CONTEST · LIVE</div>
+              <div style="font-size:16px;font-weight:900;color:#f0f6fc;">🎁 $50 Amazon Gift Card</div>
+            </div>
+            <div style="text-align:right;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:8px;padding:4px 8px;">
+              <div style="font-size:8px;color:#ef4444;font-weight:700;">CLOSES IN</div>
+              <div style="font-size:14px;font-weight:900;color:#ef4444;">2h 14m</div>
+            </div>
+          </div>
+          <!-- Your rank card -->
+          <div style="background:linear-gradient(135deg,rgba(85,69,211,0.15),rgba(85,69,211,0.05));border:1.5px solid rgba(85,69,211,0.3);border-radius:12px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:8px;color:#a78bfa;font-weight:700;">YOUR RANK</div>
+              <div style="font-size:20px;font-weight:900;color:#f0f6fc;">#14 <span style="font-size:10px;color:#22c55e;">↑ 6</span></div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:8px;color:#6b7280;">Contest IQ</div>
+              <div style="font-size:16px;font-weight:800;color:#22c55e;">+290</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:8px;color:#6b7280;">Picks left</div>
+              <div style="font-size:14px;font-weight:800;color:#fbbf24;">3 open</div>
+            </div>
+          </div>
+        </div>
+        <!-- Leaderboard -->
+        <div style="padding:0 14px;flex:1;display:flex;flex-direction:column;gap:0;overflow:hidden;">
+          <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:6px;flex-shrink:0;">247 PLAYERS · LIVE RANKINGS</div>
+
+          <!-- Top 3 -->
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);flex-shrink:0;">
+            <div style="font-size:12px;color:#fbbf24;font-weight:900;width:18px;text-align:center;">🥇</div>
+            <div style="width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#b45309,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;flex-shrink:0;">K</div>
+            <div style="flex:1;font-size:10px;color:#f0f6fc;font-weight:700;">KingKong_Karl ⚡</div>
+            <div style="font-size:10px;color:#22c55e;font-weight:800;">+640 IQ</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);flex-shrink:0;">
+            <div style="font-size:12px;color:#94a3b8;font-weight:900;width:18px;text-align:center;">🥈</div>
+            <div style="width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:8px;color:#94a3b8;flex-shrink:0;">S</div>
+            <div style="flex:1;font-size:10px;color:#f0f6fc;">SharpSam</div>
+            <div style="font-size:10px;color:#22c55e;font-weight:800;">+590 IQ</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);flex-shrink:0;">
+            <div style="font-size:12px;color:#b87333;font-weight:900;width:18px;text-align:center;">🥉</div>
+            <div style="width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:8px;color:#94a3b8;flex-shrink:0;">D</div>
+            <div style="flex:1;font-size:10px;color:#f0f6fc;">DomeCrusher99</div>
+            <div style="font-size:10px;color:#22c55e;font-weight:800;">+480 IQ</div>
+          </div>
+          <!-- Gap indicator -->
+          <div style="text-align:center;padding:6px 0;flex-shrink:0;">
+            <div style="font-size:8px;color:#374151;">· · · 10 more players · · ·</div>
+          </div>
+          <!-- Players near user -->
+          <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);flex-shrink:0;">
+            <div style="font-size:10px;color:#94a3b8;font-weight:700;width:18px;text-align:center;">13</div>
+            <div style="width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:8px;color:#94a3b8;flex-shrink:0;">R</div>
+            <div style="flex:1;font-size:9px;color:#94a3b8;">RachBets</div>
+            <div style="font-size:9px;color:#22c55e;">+300 IQ</div>
+          </div>
+          <!-- You -->
+          <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);border:1.5px solid rgba(85,69,211,0.3);border-radius:8px;background:rgba(85,69,211,0.08);padding:6px 8px;flex-shrink:0;margin:2px 0;">
+            <div style="font-size:10px;color:#a78bfa;font-weight:900;width:18px;text-align:center;">14</div>
+            <div style="width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#5545D3,#3D31B0);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;flex-shrink:0;">Y</div>
+            <div style="flex:1;font-size:9px;color:#a78bfa;font-weight:800;">You</div>
+            <div style="font-size:8px;color:#22c55e;font-weight:700;">↑ +290 IQ <span style="color:#22c55e;font-size:7px;">↑6</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:5px 0;flex-shrink:0;">
+            <div style="font-size:10px;color:#94a3b8;font-weight:700;width:18px;text-align:center;">15</div>
+            <div style="width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:8px;color:#94a3b8;flex-shrink:0;">T</div>
+            <div style="flex:1;font-size:9px;color:#6b7280;">TailgateKing</div>
+            <div style="font-size:9px;color:#22c55e;">+265 IQ</div>
+          </div>
+          <!-- Make a pick urgency -->
+          <div style="margin-top:6px;background:linear-gradient(135deg,#fbbf24,#f59e0b);border-radius:10px;padding:9px 12px;text-align:center;cursor:pointer;flex-shrink:0;">
+            <div style="font-size:11px;font-weight:900;color:#000;">Make a pick → climb the board</div>
+            <div style="font-size:8px;color:rgba(0,0,0,0.6);margin-top:2px;">3 open picks · closes in 2h 14m</div>
+          </div>
+        </div>
+        <div style="padding:8px 14px 14px;flex-shrink:0;"></div>
+      </div>
+      <div class="phone-label">LIVE CONTEST LEADERBOARD<br>Your rank #14 · ↑6 spots · urgency CTA · "Make a pick → climb"</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-contest-entry-flow" class="sfb-panel"></div>
+</div><!-- /screen contest-entry-flow -->
 
 </body>
 </html>
