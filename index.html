@@ -1931,6 +1931,9 @@
     <div class="tab tab-review" data-screen="bar-download-flow" onclick="showScreen('bar-download-flow',this)">
       <span class="tab-label">Bar Download Flow 📲</span><span class="tab-days" id="days-bar-download-flow"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="crew-screen" onclick="showScreen('crew-screen',this)">
+      <span class="tab-label">Crews 👥</span><span class="tab-days" id="days-crew-screen"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5494,6 +5497,7 @@
     'home-screen':         '2026-03-22T19:40:00-07:00',
     // ── Mar 22 loop — Bar Download Flow: QR scan → venue-aware onboarding → first pick ──
     'bar-download-flow':   '2026-03-22T20:00:00-07:00',
+    'crew-screen':         '2026-03-22T20:30:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -28979,8 +28983,8 @@
      ============================================================ -->
 <div id="bar-download-flow" class="screen" style="display:none;">
   <div class="screen-header">
-    <h2>🍺 Bar Download Flow — QR Scan to First Pick in 10 Seconds</h2>
-    <p class="screen-subtitle">Mar 22 2026 · A completely different entry point from normal onboarding. Someone at a bar scans a QR code (on a table tent, TV graphic, or bar screen), downloads the app, and opens it. The app already knows they're at Yard House. Skip sports selection, skip the intro — go straight to "14 people here are already picking the Chiefs game. Join them." From scan to first pick in under 10 seconds. Four screens: (1) Bar landing — venue-aware from second one, no generic onboarding. (2) Live game micro-pick — first decision is picking with the bar. (3) Username pick — one field, no email, just claim your name for the leaderboard. (4) Bar leaderboard — they're already on the board. Total time: ~15 seconds scan-to-leaderboard. The username step is framed as "name your spot on the board" — not "create an account." Same action, completely different psychology.</p>
+    <h2>🍺 Bar Download Flow — QR Scan → Phone Auth → First Pick → Leaderboard</h2>
+    <p class="screen-subtitle">Mar 22 2026 · A completely different entry point from normal onboarding. Someone at a bar scans a QR code (on a table tent, TV graphic, or bar screen), downloads the app, and opens it. The app already knows they're at Yard House. Phone number verification via Twilio is required upfront (already built). Five steps, ~45 seconds scan-to-leaderboard: (1) Bar landing — venue-aware, social proof, "Get in the game →". (2) Phone auth — enter number, receive SMS code, verify. Twilio, already built. Framed as "get in the game" not "create account." (3) Username — "Name your spot on the board." No email beyond phone auth. (4) Live game micro-pick — straight to the Chiefs game on the bar TV. (5) Leaderboard — instantly on the board. The Twilio step adds ~20 seconds but every bar scan becomes a real verified user — not a guest session. Bar owner gets a permanent, qualified install. Worth it.</p>
   </div>
   <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
 
@@ -29016,15 +29020,82 @@
           <div style="width:100%;background:linear-gradient(135deg,#d97706,#f59e0b);border-radius:18px;padding:18px 0;text-align:center;cursor:pointer;margin-bottom:12px;box-shadow:0 8px 28px rgba(245,158,11,0.3);">
             <div style="font-size:17px;font-weight:900;color:#fff;">Join the game →</div>
           </div>
-          <div style="font-size:11px;color:#374151;">No account needed · takes 10 seconds</div>
+          <div style="font-size:11px;color:#374151;">Quick verify · just your phone number · takes ~45 sec</div>
         </div>
       </div>
       <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">QR code carries venue ID. App opens knowing it's Yard House — no location permission prompt needed. Social proof is immediate: 14 real people, already picking.</div>
     </div>
 
-    <!-- PHONE 2: Straight to the live pick — no sports selection -->
+    <!-- PHONE 2: Twilio phone auth — framed as "get in the game" -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-      <div class="phone-label" style="font-size:13px;font-weight:600;color:#22c55e;letter-spacing:.5px;">📱 STEP 2 — LIVE PICK (~7 sec)</div>
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#38bdf8;letter-spacing:.5px;">📱 STEP 2 — PHONE VERIFY (Twilio · ~20 sec)</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(56,189,248,0.2);">
+        <!-- Ambient glow -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(56,189,248,0.06) 0%,transparent 65%);pointer-events:none;z-index:0;"></div>
+
+        <!-- Status bar -->
+        <div style="position:relative;z-index:1;padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Venue context pill — stays visible during auth -->
+        <div style="position:relative;z-index:1;margin:8px 16px 0;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:5px 12px;display:flex;align-items:center;gap:6px;flex-shrink:0;">
+          <span style="font-size:11px;">📍</span>
+          <span style="font-size:11px;font-weight:700;color:#fbbf24;">Yard House</span>
+          <span style="font-size:10px;color:#6b7280;margin-left:auto;">14 picking now</span>
+        </div>
+
+        <!-- Main auth content -->
+        <div style="position:relative;z-index:1;flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 24px;gap:0;">
+
+          <!-- Headline -->
+          <div style="margin-bottom:28px;">
+            <div style="font-size:26px;font-weight:900;color:#f0f6fc;line-height:1.2;margin-bottom:8px;">Get in the game.</div>
+            <div style="font-size:13px;color:#475569;line-height:1.5;">14 people at Yard House are already picking. Verify your number to join — takes 20 seconds.</div>
+          </div>
+
+          <!-- Phone input -->
+          <div style="margin-bottom:14px;">
+            <div style="font-size:10px;color:#6b7280;font-weight:600;letter-spacing:.5px;margin-bottom:6px;">YOUR PHONE NUMBER</div>
+            <div style="background:#0f172a;border:2px solid rgba(56,189,248,0.4);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:10px;">
+              <div style="font-size:14px;color:#475569;font-weight:700;border-right:1px solid rgba(255,255,255,0.08);padding-right:10px;">🇺🇸 +1</div>
+              <div style="font-size:18px;font-weight:700;color:#f0f6fc;flex:1;">555-867-5309</div>
+            </div>
+          </div>
+
+          <!-- SMS CTA -->
+          <div style="background:linear-gradient(135deg,#0ea5e9,#38bdf8);border-radius:16px;padding:16px 0;text-align:center;cursor:pointer;box-shadow:0 6px 24px rgba(56,189,248,0.25);margin-bottom:14px;">
+            <div style="font-size:16px;font-weight:900;color:#fff;">Send me a code →</div>
+          </div>
+
+          <!-- Reassurance — small -->
+          <div style="text-align:center;">
+            <div style="font-size:10px;color:#374151;">Your number is never shared or shown publicly.</div>
+            <div style="font-size:10px;color:#374151;margin-top:2px;">Standard SMS rates apply.</div>
+          </div>
+
+          <!-- SMS state (second state — code entry) -->
+          <div style="margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="font-size:11px;color:#38bdf8;font-weight:700;text-align:center;margin-bottom:12px;">Code sent to 555-867-5309 ✓</div>
+            <!-- 6-digit code input -->
+            <div style="display:flex;gap:8px;justify-content:center;margin-bottom:14px;">
+              <div style="width:40px;height:48px;background:#0f172a;border:2px solid rgba(56,189,248,0.5);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#f0f6fc;">4</div>
+              <div style="width:40px;height:48px;background:#0f172a;border:2px solid rgba(56,189,248,0.5);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#f0f6fc;">8</div>
+              <div style="width:40px;height:48px;background:#0f172a;border:2px solid rgba(56,189,248,0.5);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#f0f6fc;">2</div>
+              <div style="width:40px;height:48px;background:#0f172a;border:2px solid rgba(56,189,248,0.35);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#475569;">_</div>
+              <div style="width:40px;height:48px;background:#0f172a;border:2px solid rgba(255,255,255,0.08);border-radius:10px;"></div>
+              <div style="width:40px;height:48px;background:#0f172a;border:2px solid rgba(255,255,255,0.08);border-radius:10px;"></div>
+            </div>
+            <div style="text-align:center;font-size:10px;color:#374151;">Resend code · expires in 4:32</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Phone number = permanent verified user, not a guest. Every bar scan becomes a real install. Venue context stays visible during auth so the FOMO pressure stays on. Already built via Twilio — this is just showing it in the flow.</div>
+    </div>
+
+    <!-- PHONE 3: Straight to the live pick — no sports selection -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#22c55e;letter-spacing:.5px;">📱 STEP 3 — LIVE PICK (~5 sec)</div>
       <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(34,197,94,0.2);">
         <!-- Status bar -->
         <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
@@ -29120,7 +29191,7 @@
 
     <!-- PHONE 3: Username pick — "name your spot on the board" -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-      <div class="phone-label" style="font-size:13px;font-weight:600;color:#f87171;letter-spacing:.5px;">📱 STEP 3 — NAME YOUR SPOT (~5 sec)</div>
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#f87171;letter-spacing:.5px;">📱 STEP 4 — NAME YOUR SPOT (~5 sec)</div>
       <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(248,113,113,0.25);">
 
         <!-- Blurred leaderboard in the background — visible but unreachable -->
@@ -29202,7 +29273,7 @@
 
     <!-- PHONE 4: After username — instantly on the bar leaderboard -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-      <div class="phone-label" style="font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.5px;">📱 STEP 4 — YOU'RE ON THE BOARD</div>
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.5px;">📱 STEP 5 — YOU'RE ON THE BOARD</div>
       <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(167,139,250,0.2);">
         <!-- Status bar -->
         <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
@@ -29287,6 +29358,333 @@
 
   <div id="sfb-panel-bar-download-flow" class="sfb-panel"></div>
 </div><!-- /screen bar-download-flow -->
+
+<!-- ============================================================
+     CREW SCREEN — Pro creates, free users join. Group IQ moat.
+     Mar 23 2026
+     ============================================================ -->
+<div id="crew-screen" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>👥 Crews — Groups with a Leaderboard and a Moat</h2>
+    <p class="screen-subtitle">Mar 23 2026 · Crews are private pick groups. Pro users create them; free users can join but not create. Three views: (1) Browse/join screen — how free users discover and join crews. (2) Create a Crew — Pro-only gate that converts at the right moment of social desire. (3) Active crew view — leaderboard, live pick feed, crew IQ, and rivalry challenges within the group. Moat mechanics: the more friends in your crew, the more painful it is to switch apps. Crew IQ is distinct from weekly IQ — it's a permanent scoreboard within the group that never resets, accumulating group identity over time. Crew challenges between two crews create appointment viewing and viral rivalry moments.</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Browse & join crews (free user view) -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 FREE USER — JOIN A CREW</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Header -->
+        <div style="padding:8px 16px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div style="font-size:18px;font-weight:900;color:#f0f6fc;">Crews</div>
+          <div style="background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.3);border-radius:14px;padding:5px 10px;display:flex;align-items:center;gap:5px;cursor:pointer;">
+            <span style="font-size:12px;">⚡</span>
+            <span style="font-size:10px;font-weight:700;color:#a78bfa;">Create Crew</span>
+          </div>
+        </div>
+
+        <!-- My crew (already member of one) -->
+        <div style="padding:0 12px;flex:1;display:flex;flex-direction:column;gap:10px;overflow:hidden;">
+          <div style="font-size:10px;color:#6b7280;font-weight:600;letter-spacing:.5px;flex-shrink:0;">MY CREW</div>
+
+          <!-- Active crew card -->
+          <div style="background:linear-gradient(135deg,rgba(109,78,239,0.12),rgba(109,78,239,0.04));border:1.5px solid rgba(109,78,239,0.35);border-radius:16px;padding:12px 14px;flex-shrink:0;cursor:pointer;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#6d4eef,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:16px;">🏈</div>
+                <div>
+                  <div style="font-size:13px;font-weight:800;color:#f0f6fc;">Sunday Sharps</div>
+                  <div style="font-size:9px;color:#6b7280;">8 members · created by MurphyBets ⚡</div>
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:12px;font-weight:800;color:#a78bfa;">#4</div>
+                <div style="font-size:8px;color:#6b7280;">your rank</div>
+              </div>
+            </div>
+            <!-- Crew leaderboard mini -->
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+              <div style="background:rgba(250,204,21,0.1);border-radius:6px;padding:3px 7px;display:flex;align-items:center;gap:4px;">
+                <span style="font-size:9px;">👑</span><span style="font-size:9px;font-weight:700;color:#facc15;">MurphyBets</span><span style="font-size:9px;color:#6b7280;">+2,840</span>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:3px 7px;display:flex;align-items:center;gap:4px;">
+                <span style="font-size:9px;color:#6b7280;">2</span><span style="font-size:9px;font-weight:700;color:#f0f6fc;">SharpsOnly ⚡</span>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:3px 7px;display:flex;align-items:center;gap:4px;">
+                <span style="font-size:9px;color:#6b7280;">3</span><span style="font-size:9px;font-weight:700;color:#f0f6fc;">JakeB</span>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:9px;color:#a78bfa;font-weight:700;">🔴 LIVE · 3 members picking now</div>
+              <div style="font-size:9px;color:#6d4eef;font-weight:700;">Open →</div>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div style="font-size:10px;color:#6b7280;font-weight:600;letter-spacing:.5px;flex-shrink:0;">DISCOVER CREWS</div>
+
+          <!-- Open crew invite 1 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <div style="width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#059669,#22c55e);display:flex;align-items:center;justify-content:center;font-size:13px;">🏀</div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:#f0f6fc;">Hoops Heads</div>
+                <div style="font-size:9px;color:#6b7280;">12 members · NBA only · open invite</div>
+              </div>
+              <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:10px;padding:5px 10px;font-size:10px;font-weight:700;color:#4ade80;cursor:pointer;">Join</div>
+            </div>
+            <div style="display:flex;gap:4px;">
+              <div style="font-size:8px;background:rgba(255,255,255,0.04);border-radius:4px;padding:2px 5px;color:#6b7280;">🔥 avg 4-pick streak</div>
+              <div style="font-size:8px;background:rgba(255,255,255,0.04);border-radius:4px;padding:2px 5px;color:#6b7280;">61% win rate</div>
+            </div>
+          </div>
+
+          <!-- Open crew invite 2 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <div style="width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#d97706,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:13px;">🏈</div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:#f0f6fc;">KC Faithful</div>
+                <div style="font-size:9px;color:#6b7280;">6 members · Chiefs fans · invite code</div>
+              </div>
+              <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.3);border-radius:10px;padding:5px 10px;font-size:10px;font-weight:700;color:#a78bfa;cursor:pointer;">Request</div>
+            </div>
+            <div style="display:flex;gap:4px;">
+              <div style="font-size:8px;background:rgba(255,255,255,0.04);border-radius:4px;padding:2px 5px;color:#6b7280;">Private · needs code</div>
+            </div>
+          </div>
+
+          <!-- Create crew gate — soft nudge for free user -->
+          <div style="background:rgba(109,78,239,0.06);border:1px dashed rgba(109,78,239,0.3);border-radius:12px;padding:10px 14px;flex-shrink:0;cursor:pointer;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:18px;">➕</span>
+              <div style="flex:1;">
+                <div style="font-size:11px;font-weight:700;color:#a78bfa;">Create your own crew</div>
+                <div style="font-size:9px;color:#6b7280;margin-top:1px;">⚡ Pro feature · you bring the group, Pro unlocks it</div>
+              </div>
+              <span style="font-size:10px;color:#6d4eef;font-weight:700;">→</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;margin-top:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(167,139,250,.5));">👥</span><span style="font-size:9px;color:#a78bfa;font-weight:600;">Crew</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Free users can browse, join, and participate. Create crew button is always visible but gates to Pro — desire is triggered by the social context of wanting to bring your own group.</div>
+    </div>
+
+    <!-- PHONE 2: Pro creates a crew — gate + creation flow -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#facc15;letter-spacing:.5px;">⚡ PRO — CREATE A CREW</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(250,204,21,0.25);">
+        <!-- Ambient glow -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 25%,rgba(109,78,239,0.1) 0%,transparent 60%);pointer-events:none;z-index:0;"></div>
+
+        <!-- Status bar -->
+        <div style="position:relative;z-index:1;padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Header -->
+        <div style="position:relative;z-index:1;padding:8px 16px 14px;flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
+            <span style="font-size:9px;color:#6b7280;cursor:pointer;">‹ Back</span>
+          </div>
+          <div style="font-size:19px;font-weight:900;color:#f0f6fc;">Create a Crew</div>
+          <div style="font-size:11px;color:#6b7280;margin-top:2px;">Your group. Your leaderboard. Invite who you want.</div>
+        </div>
+
+        <!-- Creation form -->
+        <div style="position:relative;z-index:1;padding:0 16px;flex:1;display:flex;flex-direction:column;gap:14px;overflow:hidden;">
+
+          <!-- Crew name -->
+          <div>
+            <div style="font-size:10px;color:#6b7280;font-weight:600;letter-spacing:.5px;margin-bottom:6px;">CREW NAME</div>
+            <div style="background:#0f172a;border:2px solid rgba(167,139,250,0.4);border-radius:12px;padding:12px 14px;">
+              <div style="font-size:15px;font-weight:700;color:#f0f6fc;">Sunday Sharps</div>
+            </div>
+          </div>
+
+          <!-- Sport focus (multi-select) -->
+          <div>
+            <div style="font-size:10px;color:#6b7280;font-weight:600;letter-spacing:.5px;margin-bottom:6px;">SPORT FOCUS</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <div style="background:rgba(167,139,250,0.15);border:1.5px solid rgba(167,139,250,0.5);border-radius:20px;padding:6px 12px;font-size:11px;font-weight:700;color:#c4b5fd;cursor:pointer;">🏈 NFL</div>
+              <div style="background:rgba(167,139,250,0.15);border:1.5px solid rgba(167,139,250,0.5);border-radius:20px;padding:6px 12px;font-size:11px;font-weight:700;color:#c4b5fd;cursor:pointer;">🏀 NBA</div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:6px 12px;font-size:11px;color:#475569;cursor:pointer;">⚾ MLB</div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:6px 12px;font-size:11px;color:#475569;cursor:pointer;">🏒 NHL</div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:6px 12px;font-size:11px;color:#475569;cursor:pointer;">All</div>
+            </div>
+          </div>
+
+          <!-- Privacy -->
+          <div>
+            <div style="font-size:10px;color:#6b7280;font-weight:600;letter-spacing:.5px;margin-bottom:6px;">ACCESS</div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:rgba(167,139,250,0.1);border:1.5px solid rgba(167,139,250,0.4);border-radius:12px;padding:10px 10px;text-align:center;cursor:pointer;">
+                <div style="font-size:13px;margin-bottom:2px;">🔓</div>
+                <div style="font-size:10px;font-weight:700;color:#c4b5fd;">Open</div>
+                <div style="font-size:8px;color:#6b7280;margin-top:1px;">Anyone can join</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 10px;text-align:center;cursor:pointer;">
+                <div style="font-size:13px;margin-bottom:2px;">🔑</div>
+                <div style="font-size:10px;font-weight:700;color:#94a3b8;">Invite code</div>
+                <div style="font-size:8px;color:#6b7280;margin-top:1px;">Share a code to join</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 10px;text-align:center;cursor:pointer;">
+                <div style="font-size:13px;margin-bottom:2px;">🔒</div>
+                <div style="font-size:10px;font-weight:700;color:#94a3b8;">Private</div>
+                <div style="font-size:8px;color:#6b7280;margin-top:1px;">Invite only</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Invite friends -->
+          <div>
+            <div style="font-size:10px;color:#6b7280;font-weight:600;letter-spacing:.5px;margin-bottom:6px;">INVITE FRIENDS</div>
+            <div style="display:flex;gap:-8px;margin-bottom:6px;">
+              <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);border:2px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;margin-right:-8px;z-index:4;">J</div>
+              <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#f87171);border:2px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;margin-right:-8px;z-index:3;">S</div>
+              <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#d97706,#fbbf24);border:2px solid #0d1117;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;z-index:2;margin-right:8px;">T</div>
+              <div style="font-size:10px;color:#6b7280;line-height:32px;">+ 4 more invited</div>
+            </div>
+          </div>
+
+          <!-- Create CTA -->
+          <div style="background:linear-gradient(135deg,#6d4eef,#a78bfa);border-radius:16px;padding:15px 0;text-align:center;cursor:pointer;box-shadow:0 6px 24px rgba(109,78,239,0.3);margin-top:auto;flex-shrink:0;">
+            <div style="font-size:15px;font-weight:900;color:#fff;">Launch Sunday Sharps →</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.6);margin-top:3px;">Invite link generated automatically</div>
+          </div>
+        </div>
+
+        <div style="height:24px;flex-shrink:0;"></div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Pro creates the group — their social capital drives invites, which drives new installs. Every crew is a viral distribution channel. Sport filter ensures relevant picks surface in the crew feed. Open/code/private controls the invite mechanic.</div>
+    </div>
+
+    <!-- PHONE 3: Active crew view — live leaderboard + challenge -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.5px;">📱 INSIDE THE CREW — LIVE VIEW</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(167,139,250,0.2);">
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Crew header -->
+        <div style="padding:6px 16px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:16px;font-weight:900;color:#f0f6fc;">Sunday Sharps</span>
+              <div style="background:rgba(255,255,255,0.06);border-radius:6px;padding:2px 6px;font-size:9px;color:#6b7280;">8 members</div>
+            </div>
+            <div style="font-size:9px;color:#6b7280;margin-top:2px;">🔴 LIVE · 5 members picking right now</div>
+          </div>
+          <div style="font-size:18px;cursor:pointer;">⚙️</div>
+        </div>
+
+        <!-- Crew IQ total — group identity number -->
+        <div style="margin:0 12px 10px;background:linear-gradient(135deg,rgba(109,78,239,0.1),rgba(109,78,239,0.04));border:1px solid rgba(109,78,239,0.25);border-radius:14px;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div>
+            <div style="font-size:9px;color:#6b7280;font-weight:600;letter-spacing:.5px;margin-bottom:1px;">CREW LIFETIME IQ</div>
+            <div style="font-size:22px;font-weight:900;color:#a78bfa;">14,820</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:9px;color:#4ade80;font-weight:700;">+340 IQ today 🔥</div>
+            <div style="font-size:9px;color:#6b7280;margin-top:2px;">Week rank: 3rd of 847 crews</div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div style="display:flex;margin:0 12px 8px;background:rgba(255,255,255,0.04);border-radius:10px;padding:3px;flex-shrink:0;">
+          <div style="flex:1;background:#1e293b;border-radius:8px;text-align:center;padding:6px 0;font-size:10px;font-weight:700;color:#f0f6fc;">Board</div>
+          <div style="flex:1;text-align:center;padding:6px 0;font-size:10px;color:#475569;">Feed</div>
+          <div style="flex:1;text-align:center;padding:6px 0;font-size:10px;color:#475569;">Rival</div>
+        </div>
+
+        <!-- Crew leaderboard -->
+        <div style="padding:0 12px;flex:1;display:flex;flex-direction:column;gap:5px;overflow:hidden;">
+
+          <!-- #1 -->
+          <div style="background:linear-gradient(135deg,rgba(250,204,21,0.08),rgba(250,204,21,0.02));border:1px solid rgba(250,204,21,0.2);border-radius:12px;padding:8px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:13px;width:20px;">👑</span>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6d4eef,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;">M</div>
+            <div style="flex:1;min-width:0;">
+              <div style="display:flex;align-items:center;gap:4px;"><span style="font-size:11px;font-weight:800;color:#f0f6fc;">MurphyBets</span><span style="font-size:9px;color:#facc15;">⚡</span></div>
+              <div style="font-size:8px;color:#6b7280;">🔥 8-pick streak · 71% all-time</div>
+            </div>
+            <div style="text-align:right;"><div style="font-size:11px;font-weight:800;color:#facc15;">3,840</div><div style="font-size:7px;color:#6b7280;">crew IQ</div></div>
+          </div>
+
+          <!-- #2 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:8px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:11px;color:#94a3b8;width:20px;">2</span>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;">J</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:11px;font-weight:800;color:#f0f6fc;">JakeB</div>
+              <div style="font-size:8px;color:#6b7280;">🔴 Picking now</div>
+            </div>
+            <div style="text-align:right;"><div style="font-size:11px;font-weight:800;color:#c4b5fd;">2,910</div><div style="font-size:7px;color:#6b7280;">crew IQ</div></div>
+          </div>
+
+          <!-- #3 -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:8px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:11px;color:#94a3b8;width:20px;">3</span>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#d97706,#fbbf24);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;">T</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:11px;font-weight:800;color:#f0f6fc;">TommyB</div>
+              <div style="font-size:8px;color:#6b7280;">Last pick 12m ago</div>
+            </div>
+            <div style="text-align:right;"><div style="font-size:11px;font-weight:800;color:#c4b5fd;">2,100</div><div style="font-size:7px;color:#6b7280;">crew IQ</div></div>
+          </div>
+
+          <!-- YOU — #4 -->
+          <div style="background:rgba(167,139,250,0.07);border:2px solid rgba(167,139,250,0.3);border-radius:12px;padding:8px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:11px;color:#a78bfa;width:20px;">4</span>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#6d4eef);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;">Y</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:11px;font-weight:800;color:#a78bfa;">You</div>
+              <div style="font-size:8px;color:#475569;">↑ 1 spot · pick resolving soon</div>
+            </div>
+            <div style="text-align:right;"><div style="font-size:11px;font-weight:800;color:#a78bfa;">1,840</div><div style="font-size:7px;color:#a78bfa;">crew IQ</div></div>
+          </div>
+
+          <!-- Rival challenge banner -->
+          <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:16px;">⚔️</span>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:800;color:#f87171;">KC Faithful challenges you</div>
+              <div style="font-size:8px;color:#6b7280;margin-top:1px;">Head-to-head crew pick battle · Sunday</div>
+            </div>
+            <div style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:5px 10px;font-size:10px;font-weight:700;color:#f87171;cursor:pointer;">Accept</div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;margin-top:6px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(167,139,250,.5));">👥</span><span style="font-size:9px;color:#a78bfa;font-weight:600;">Crew</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Crew Lifetime IQ never resets — it's the group's permanent score. "Week rank: 3rd of 847 crews" creates inter-crew competition. Rival challenge creates appointment viewing moments. The more history your crew builds, the harder it is for anyone to leave.</div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+
+  <div id="sfb-panel-crew-screen" class="sfb-panel"></div>
+</div><!-- /screen crew-screen -->
 
 <!-- ============================================================
      SOCIAL FEED — Real-time friend picks feed (👥 Social tab)
