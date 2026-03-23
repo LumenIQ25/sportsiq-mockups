@@ -1928,6 +1928,12 @@
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="push-notifications" onclick="showScreen('push-notifications',this)">
+      <span class="tab-label">Push Notifications 🔔</span><span class="tab-days" id="days-push-notifications"></span><span class="review-dot"></span>
+    </div>
+    <div class="tab tab-review" data-screen="pro-upgrade" onclick="showScreen('pro-upgrade',this)">
+      <span class="tab-label">Pro Upgrade Funnel ⚡</span><span class="tab-days" id="days-pro-upgrade"></span><span class="review-dot"></span>
+    </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
       <summary class="nav-archive-toggle">↓ 45 previous versions</summary>
@@ -5479,7 +5485,11 @@
     // ── Mar 22 loop — Bar Leaderboard: live venue rankings, bar champion badge ──
     'bar-leaderboard':     '2026-03-22T19:30:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
-    'social-feed':         '2026-03-22T20:00:00-07:00'
+    'social-feed':         '2026-03-22T20:00:00-07:00',
+    // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
+    'push-notifications':  '2026-03-22T20:30:00-07:00',
+    // ── Mar 22 loop — Pro Upgrade Funnel: trigger moments, value prop, paywall ──
+    'pro-upgrade':         '2026-03-22T20:30:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -28938,6 +28948,448 @@
   </div><!-- /phone-wrap -->
   <div id="sfb-panel-social-feed" class="sfb-panel"></div>
 </div><!-- /screen social-feed -->
+
+<!-- ============================================================
+     PUSH NOTIFICATIONS — What fires and when · Lock screen designs
+     Mar 22 2026
+     ============================================================ -->
+<div id="push-notifications" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🔔 Push Notifications — What Fires and When</h2>
+    <p class="screen-subtitle">Mar 22 2026 · Every notification is a re-engagement moment. Five trigger types shown across two phones: (1) Micro-pick resolve — win or loss, fires within seconds of result. (2) Friend disagrees — "Sam went the other way 👀" creates instant rivalry investment. (3) Streak milestone — "🔥 5 in a row" makes the streak feel real. (4) Daily pick available — morning habit trigger. (5) Bar proximity — "14 people at Yard House are picking right now" when you're nearby. Design rule: every notification must deliver value or create FOMO — nothing generic, nothing spammy.</p>
+  </div>
+  <div class="phone-wrap" style="gap:40px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Lock screen — stack of notifications -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 LOCK SCREEN — NOTIFICATION STACK</div>
+      <div class="phone-frame" style="background:linear-gradient(145deg,#0f172a,#1e1b4b);border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(167,139,250,0.2);">
+
+        <!-- iOS lock screen time -->
+        <div style="text-align:center;padding:48px 0 24px;flex-shrink:0;">
+          <div style="font-size:60px;font-weight:200;color:#fff;letter-spacing:-2px;line-height:1;">9:41</div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.6);margin-top:4px;">Sunday, March 22</div>
+        </div>
+
+        <!-- Notification stack -->
+        <div style="padding:0 14px;display:flex;flex-direction:column;gap:8px;flex:1;">
+
+          <!-- Notif 1: WIN resolve -->
+          <div style="background:rgba(255,255,255,0.14);backdrop-filter:blur(20px);border-radius:18px;padding:12px 14px;border:1px solid rgba(255,255,255,0.1);">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#0d1117,#161b22);border:1px solid rgba(34,197,94,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎯</div>
+              <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:12px;font-weight:700;color:#fff;">SportsIQ</span>
+                  <span style="font-size:10px;color:rgba(255,255,255,0.5);">now</span>
+                </div>
+                <div style="font-size:13px;font-weight:800;color:#4ade80;margin-top:2px;">Called it. +50 IQ 🎯</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:1px;">Chiefs scored · YES · Tap to share</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notif 2: Friend disagrees -->
+          <div style="background:rgba(255,255,255,0.14);backdrop-filter:blur(20px);border-radius:18px;padding:12px 14px;border:1px solid rgba(255,255,255,0.1);">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;flex-shrink:0;">S</div>
+              <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:12px;font-weight:700;color:#fff;">SportsIQ</span>
+                  <span style="font-size:10px;color:rgba(255,255,255,0.5);">2m ago</span>
+                </div>
+                <div style="font-size:13px;font-weight:800;color:#f0f6fc;margin-top:2px;">Sam went the other way 👀</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:1px;">Mahomes UNDER · You're on opposite sides</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notif 3: Streak milestone -->
+          <div style="background:rgba(255,255,255,0.14);backdrop-filter:blur(20px);border-radius:18px;padding:12px 14px;border:1px solid rgba(255,255,255,0.1);">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#b45309,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🔥</div>
+              <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:12px;font-weight:700;color:#fff;">SportsIQ</span>
+                  <span style="font-size:10px;color:rgba(255,255,255,0.5);">5m ago</span>
+                </div>
+                <div style="font-size:13px;font-weight:800;color:#fbbf24;margin-top:2px;">🔥 5 in a row. You're on fire.</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:1px;">Keep it going — next pick is live</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notif 4: Bar proximity -->
+          <div style="background:rgba(255,255,255,0.14);backdrop-filter:blur(20px);border-radius:18px;padding:12px 14px;border:1px solid rgba(255,255,255,0.1);">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#78350f,#d97706);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🍺</div>
+              <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:12px;font-weight:700;color:#fff;">SportsIQ</span>
+                  <span style="font-size:10px;color:rgba(255,255,255,0.5);">8m ago</span>
+                </div>
+                <div style="font-size:13px;font-weight:800;color:#fbbf24;margin-top:2px;">14 players at Yard House picking</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:1px;">DanTheMan is winning the bar tonight 👑</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Home indicator -->
+        <div style="padding:16px 0 10px;display:flex;justify-content:center;flex-shrink:0;">
+          <div style="width:120px;height:4px;background:rgba(255,255,255,0.3);border-radius:2px;"></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Every notif is specific — the pick, the friend's name, the streak number. Generic "You have a new pick" trains users to ignore. Specific = opens.</div>
+    </div>
+
+    <!-- PHONE 2: In-app banners + timing logic -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#4ade80;letter-spacing:.5px;">📱 IN-APP BANNERS + TIMING RULES</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(34,197,94,0.2);">
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 AM</span><span>🔋</span>
+        </div>
+
+        <!-- Active picks tray — blurred behind -->
+        <div style="padding:6px 16px 8px;font-size:16px;font-weight:900;color:#f0f6fc;flex-shrink:0;">SportsIQ</div>
+
+        <!-- TOP BANNER — friend disagree (fires while app is open) -->
+        <div style="margin:0 12px 8px;background:linear-gradient(135deg,rgba(239,68,68,0.18),rgba(239,68,68,0.06));border:1.5px solid rgba(239,68,68,0.4);border-radius:14px;padding:10px 14px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0;">
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#059669,#22c55e);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;flex-shrink:0;">S</div>
+            <div style="min-width:0;">
+              <div style="font-size:12px;font-weight:800;color:#f0f6fc;">Sam went UNDER 👀</div>
+              <div style="font-size:10px;color:#f87171;">Opposite side from you on Mahomes</div>
+            </div>
+          </div>
+          <div style="font-size:18px;cursor:pointer;color:#475569;flex-shrink:0;">✕</div>
+        </div>
+
+        <!-- Notification timing table -->
+        <div style="padding:0 14px;flex:1;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+          <div style="font-size:11px;font-weight:700;color:#475569;letter-spacing:.5px;flex-shrink:0;">NOTIFICATION TIMING RULES</div>
+
+          <!-- Row: Micro-pick resolve -->
+          <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+              <span style="font-size:14px;">🎯</span>
+              <span style="font-size:12px;font-weight:700;color:#f0f6fc;">Micro-pick resolved</span>
+            </div>
+            <div style="font-size:10px;color:#6b7280;">Fires: <span style="color:#4ade80;">instantly</span> · Lock screen + in-app banner</div>
+            <div style="font-size:10px;color:#475569;margin-top:2px;">Win → green · Loss → red brutal beat variant</div>
+          </div>
+
+          <!-- Row: Friend disagrees -->
+          <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.12);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+              <span style="font-size:14px;">👀</span>
+              <span style="font-size:12px;font-weight:700;color:#f0f6fc;">Friend picks opposite</span>
+            </div>
+            <div style="font-size:10px;color:#6b7280;">Fires: <span style="color:#f87171;">within 30 sec</span> of their pick locking</div>
+            <div style="font-size:10px;color:#475569;margin-top:2px;">Only if you're already in the same pick</div>
+          </div>
+
+          <!-- Row: Streak -->
+          <div style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.12);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+              <span style="font-size:14px;">🔥</span>
+              <span style="font-size:12px;font-weight:700;color:#f0f6fc;">Streak milestone</span>
+            </div>
+            <div style="font-size:10px;color:#6b7280;">Fires: at <span style="color:#fbbf24;">3, 5, 10, 20</span> wins in a row</div>
+            <div style="font-size:10px;color:#475569;margin-top:2px;">Never fires mid-game — waits for clean resolve</div>
+          </div>
+
+          <!-- Row: Daily pick -->
+          <div style="background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.12);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+              <span style="font-size:14px;">☀️</span>
+              <span style="font-size:12px;font-weight:700;color:#f0f6fc;">Daily pick available</span>
+            </div>
+            <div style="font-size:10px;color:#6b7280;">Fires: <span style="color:#a78bfa;">8:00 AM</span> local time · once per day max</div>
+            <div style="font-size:10px;color:#475569;margin-top:2px;">Skipped if user already picked that morning</div>
+          </div>
+
+          <!-- Row: Bar proximity -->
+          <div style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.12);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+              <span style="font-size:14px;">🍺</span>
+              <span style="font-size:12px;font-weight:700;color:#f0f6fc;">Near a bar with active players</span>
+            </div>
+            <div style="font-size:10px;color:#6b7280;">Fires: <span style="color:#fbbf24;">once per venue per day</span> · 3+ players inside</div>
+            <div style="font-size:10px;color:#475569;margin-top:2px;">Shows player count + current bar champion</div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;margin-top:auto;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(88,166,255,.6));">🏠</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Timing rules prevent spam: daily pick fires once, bar proximity once per venue per day, streak only at milestone numbers. Volume stays low enough that every notification feels meaningful.</div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+  <div id="sfb-panel-push-notifications" class="sfb-panel"></div>
+</div><!-- /screen push-notifications -->
+
+<!-- ============================================================
+     PRO UPGRADE FUNNEL — Trigger moments, value prop, paywall
+     Mar 22 2026
+     ============================================================ -->
+<div id="pro-upgrade" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>⚡ Pro Upgrade Funnel — Trigger Moments → Paywall</h2>
+    <p class="screen-subtitle">Mar 22 2026 · Pro is never pushed cold — it's always triggered by a moment of desire: trying to use 5× multiplier, seeing blurred Edge Conditions, wanting Sharp Money intel. Three trigger screens + the paywall itself: (1) Multiplier gate — user taps 5× on a pick card. (2) Edge Conditions gate — blurred in DNA profile. (3) Sharp Money gate — blurred intel on pick card. (4) The paywall — full value stack, 7-day trial CTA, annual anchor pricing. No annoying pop-ups, no nag banners — Pro surfaces only when the user reaches for it.</p>
+  </div>
+  <div class="phone-wrap" style="gap:40px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Multiplier gate — tapping 5× -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#facc15;letter-spacing:.5px;">📱 TRIGGER — 5× MULTIPLIER</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(250,204,21,0.2);">
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 AM</span><span>🔋</span>
+        </div>
+        <div style="padding:6px 16px 8px;font-size:16px;font-weight:900;color:#f0f6fc;flex-shrink:0;">SportsIQ</div>
+
+        <!-- Pick context — dimmed behind modal -->
+        <div style="padding:0 14px;flex:1;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;">
+          <!-- Blurred pick context -->
+          <div style="opacity:.25;pointer-events:none;">
+            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:8px 12px;font-size:11px;color:#6b7280;">🏈 Chiefs vs Eagles · Q3 · Mahomes OVER 284.5</div>
+            <div style="text-align:center;padding:12px 0;font-size:28px;font-weight:900;color:#f0f6fc;">284.5</div>
+          </div>
+
+          <!-- GATE MODAL — slides up from bottom -->
+          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,transparent 0%,rgba(13,17,23,0.98) 12%);padding:28px 16px 16px;display:flex;flex-direction:column;gap:14px;">
+
+            <!-- Handle -->
+            <div style="width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto;"></div>
+
+            <!-- Gold badge + headline -->
+            <div style="text-align:center;">
+              <div style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(250,204,21,0.15),rgba(245,158,11,0.06));border:1.5px solid rgba(250,204,21,0.4);border-radius:20px;padding:6px 16px;margin-bottom:12px;">
+                <span style="font-size:14px;">⚡</span>
+                <span style="font-size:12px;font-weight:800;color:#facc15;">Pro feature</span>
+              </div>
+              <div style="font-size:22px;font-weight:900;color:#f0f6fc;margin-bottom:4px;">5× multiplier</div>
+              <div style="font-size:13px;color:#8b949e;line-height:1.4;">Turn a 100 IQ pick into 500.<br>Free users max out at 2×.</div>
+            </div>
+
+            <!-- What you'd win -->
+            <div style="background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.2);border-radius:14px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:10px;color:#6b7280;margin-bottom:3px;">On this pick at 5×</div>
+                <div style="font-size:26px;font-weight:900;color:#facc15;">+500 IQ</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:10px;color:#6b7280;margin-bottom:3px;">vs your current max</div>
+                <div style="font-size:18px;font-weight:700;color:#475569;text-decoration:line-through;">+200 IQ</div>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="background:linear-gradient(135deg,#facc15,#f59e0b);border-radius:16px;padding:16px 0;text-align:center;cursor:pointer;box-shadow:0 6px 24px rgba(250,204,21,0.25);">
+              <div style="font-size:16px;font-weight:900;color:#0d1117;">Try Pro free — 7 days</div>
+              <div style="font-size:10px;color:rgba(0,0,0,0.5);margin-top:3px;">Then $9.99/mo · Cancel anytime</div>
+            </div>
+            <div style="text-align:center;font-size:11px;color:#374151;cursor:pointer;">Not now</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Gate fires only when user reaches for 5×. Shows exactly what they'd win on THIS pick — concrete, immediate, personal. "Not now" is always available.</div>
+    </div>
+
+    <!-- PHONE 2: Sharp Money gate on pick card -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#60a5fa;letter-spacing:.5px;">📱 TRIGGER — SHARP MONEY INTEL</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(88,166,255,0.2);">
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 AM</span><span>🔋</span>
+        </div>
+        <div style="padding:6px 16px 8px;font-size:16px;font-weight:900;color:#f0f6fc;flex-shrink:0;">SportsIQ</div>
+
+        <div style="padding:0 14px;flex:1;display:flex;flex-direction:column;gap:10px;overflow:hidden;">
+          <!-- Game context -->
+          <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:8px 12px;font-size:11px;color:#6b7280;flex-shrink:0;">
+            🏈 Chiefs vs Eagles · Q3 · 1× stake
+          </div>
+
+          <!-- Question -->
+          <div style="text-align:center;flex-shrink:0;">
+            <div style="font-size:11px;color:#6b7280;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Mahomes Passing Yards</div>
+            <div style="font-size:28px;font-weight:900;color:#f0f6fc;">284.5</div>
+          </div>
+
+          <!-- Social proof block — Sharp Money blurred -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px 12px;flex-shrink:0;">
+            <!-- Crowd visible -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;">
+              <span style="font-size:9px;color:#475569;font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Crowd</span>
+              <div style="display:flex;align-items:center;gap:5px;">
+                <div style="width:55px;height:4px;border-radius:2px;background:rgba(255,255,255,0.07);overflow:hidden;">
+                  <div style="width:62%;height:100%;background:#22c55e;border-radius:2px;"></div>
+                </div>
+                <span style="font-size:10px;font-weight:700;color:#4ade80;">62% OVER</span>
+              </div>
+            </div>
+
+            <!-- Sharp Money — blurred with Pro gate -->
+            <div style="position:relative;border-radius:10px;overflow:hidden;">
+              <!-- Blurred content underneath -->
+              <div style="filter:blur(4px);pointer-events:none;padding:7px 0;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:9px;color:#6b7280;font-weight:700;text-transform:uppercase;">Sharp $</span>
+                  <span style="font-size:10px;font-weight:800;color:#38bdf8;">↑ Line moved OVER +1.5</span>
+                </div>
+                <div style="font-size:10px;color:#475569;margin-top:2px;">83% of sharp money on OVER — rare signal</div>
+              </div>
+              <!-- Overlay -->
+              <div style="position:absolute;inset:0;background:rgba(13,17,23,0.75);backdrop-filter:blur(2px);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(250,204,21,0.2);">
+                <div style="text-align:center;">
+                  <div style="font-size:11px;font-weight:800;color:#facc15;">⚡ Sharp Money · Pro only</div>
+                  <div style="font-size:9px;color:#6b7280;margin-top:2px;">Tap to unlock with 7-day trial</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div style="display:flex;gap:10px;flex-shrink:0;">
+            <div style="flex:1;background:linear-gradient(135deg,rgba(34,197,94,0.18),rgba(34,197,94,0.06));border:2.5px solid rgba(34,197,94,0.5);border-radius:16px;padding:16px 0;text-align:center;">
+              <div style="font-size:22px;font-weight:900;color:#22c55e;">OVER</div>
+              <div style="font-size:10px;color:#6b7280;margin-top:2px;">+100 IQ</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px 0;text-align:center;">
+              <div style="font-size:22px;font-weight:900;color:#f0f6fc;">UNDER</div>
+              <div style="font-size:10px;color:#6b7280;margin-top:2px;">+100 IQ</div>
+            </div>
+          </div>
+
+          <!-- Teaser: what sharp money says -->
+          <div style="background:rgba(250,204,21,0.06);border:1px solid rgba(250,204,21,0.18);border-radius:12px;padding:9px 12px;flex-shrink:0;cursor:pointer;">
+            <div style="font-size:11px;color:#fbbf24;font-weight:700;">⚡ Sharp signal detected on this pick</div>
+            <div style="font-size:10px;color:#6b7280;margin-top:2px;">Unlock with Pro to see where sharp money is going →</div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;margin-top:auto;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(88,166,255,.6));">🎯</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">"Sharp signal detected" teaser below buttons — visible to all users. Tells them something is there without showing what. Curiosity is the conversion mechanic.</div>
+    </div>
+
+    <!-- PHONE 3: Full paywall screen -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.5px;">📱 THE PAYWALL</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(167,139,250,0.25);">
+        <!-- Deep space bg -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(109,78,239,0.14) 0%,transparent 65%);pointer-events:none;"></div>
+
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;position:relative;z-index:1;">
+          <span>9:41 AM</span><span>🔋</span>
+        </div>
+
+        <div style="padding:0 16px;flex:1;display:flex;flex-direction:column;gap:12px;overflow:hidden;position:relative;z-index:1;">
+
+          <!-- Header -->
+          <div style="text-align:center;padding-top:8px;flex-shrink:0;">
+            <div style="display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(250,204,21,0.15),rgba(245,158,11,0.06));border:1.5px solid rgba(250,204,21,0.35);border-radius:20px;padding:5px 14px;margin-bottom:10px;">
+              <span style="font-size:13px;">⚡</span>
+              <span style="font-size:12px;font-weight:800;color:#facc15;">SportsIQ Pro</span>
+            </div>
+            <div style="font-size:21px;font-weight:900;color:#f0f6fc;line-height:1.2;">Play smarter.<br>Win bigger.</div>
+          </div>
+
+          <!-- Value stack — 4 perks -->
+          <div style="display:flex;flex-direction:column;gap:7px;flex:1;overflow:hidden;">
+
+            <div style="display:flex;align-items:center;gap:10px;background:rgba(250,204,21,0.06);border:1px solid rgba(250,204,21,0.15);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+              <span style="font-size:20px;flex-shrink:0;">⚡</span>
+              <div>
+                <div style="font-size:12px;font-weight:800;color:#facc15;">5× multiplier</div>
+                <div style="font-size:10px;color:#6b7280;">Free users cap at 2×. You win up to 5× more IQ.</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:10px;background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.15);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+              <span style="font-size:20px;flex-shrink:0;">💰</span>
+              <div>
+                <div style="font-size:12px;font-weight:800;color:#38bdf8;">Sharp Money Intel</div>
+                <div style="font-size:10px;color:#6b7280;">See where professional money is moving before you pick.</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:10px;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.15);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+              <span style="font-size:20px;flex-shrink:0;">🧬</span>
+              <div>
+                <div style="font-size:12px;font-weight:800;color:#a78bfa;">Edge Conditions</div>
+                <div style="font-size:10px;color:#6b7280;">Your personal betting edges unlocked — where you win most.</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:10px;background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.12);border-radius:12px;padding:10px 12px;flex-shrink:0;">
+              <span style="font-size:20px;flex-shrink:0;">🏆</span>
+              <div>
+                <div style="font-size:12px;font-weight:800;color:#4ade80;">⚡ Pro badge on leaderboards</div>
+                <div style="font-size:10px;color:#6b7280;">Visible to everyone. Free users see you ranked above them.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pricing -->
+          <div style="flex-shrink:0;display:flex;flex-direction:column;gap:8px;">
+            <!-- Annual anchor (shown first — anchors monthly price) -->
+            <div style="background:rgba(109,78,239,0.1);border:1.5px solid rgba(109,78,239,0.3);border-radius:14px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:12px;font-weight:800;color:#f0f6fc;">Annual</span>
+                  <span style="font-size:9px;background:#6d4eef;color:#fff;border-radius:4px;padding:1px 6px;font-weight:700;">BEST VALUE</span>
+                </div>
+                <div style="font-size:10px;color:#6b7280;margin-top:1px;">$6.67/mo · billed $79.99/year</div>
+              </div>
+              <div style="width:20px;height:20px;border-radius:50%;border:2px solid rgba(109,78,239,0.5);display:flex;align-items:center;justify-content:center;">
+                <div style="width:10px;height:10px;border-radius:50%;background:#6d4eef;"></div>
+              </div>
+            </div>
+
+            <!-- Monthly -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:12px;font-weight:700;color:#94a3b8;">Monthly</div>
+                <div style="font-size:10px;color:#475569;margin-top:1px;">$9.99/mo · cancel anytime</div>
+              </div>
+              <div style="width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);"></div>
+            </div>
+
+            <!-- Trial CTA -->
+            <div style="background:linear-gradient(135deg,#6d4eef,#a78bfa);border-radius:16px;padding:16px 0;text-align:center;cursor:pointer;box-shadow:0 6px 24px rgba(109,78,239,0.3);">
+              <div style="font-size:16px;font-weight:900;color:#fff;">Start 7-day free trial</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:3px;">No charge today · Cancel before day 7</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Annual shown first to anchor the monthly price. "BEST VALUE" badge makes annual the obvious choice. Trial CTA removes risk — "No charge today" handles the hesitation objection.</div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+  <div id="sfb-panel-pro-upgrade" class="sfb-panel"></div>
+</div><!-- /screen pro-upgrade -->
 
 <div id="share-card" class="screen" style="display:none;">
   <div class="screen-header">
