@@ -851,7 +851,7 @@
     box-shadow:0 0 60px rgba(85,69,211,0.5);
     margin-top:12px;
   ">▶ Play Demo</div>
-  <div style="font-size:13px;color:#475569;margin-top:8px">Captions included · Works on any device</div>
+  <div style="font-size:13px;color:#475569;margin-top:8px">Turn up your volume · Captions included</div>
 </div>
 
 <!-- Progress + Controls -->
@@ -861,6 +861,7 @@
   <button class="ctrl-btn" id="play-btn" onclick="togglePlay()">⏸ Pause</button>
   <button class="ctrl-btn" onclick="nextScene()">Next ▶</button>
   <button class="ctrl-btn" onclick="resetDemo()">↺ Restart</button>
+  <button class="ctrl-btn" id="mute-btn" onclick="toggleMute()">🔊 Mute</button>
 </div>
 
 <script>
@@ -938,13 +939,53 @@ const SCENES = [
   },
 ];
 
-// ── Voice: placeholder — professional VO to be recorded ───
-// Web Speech API removed (sounds robotic).
-// To add real voice: provide an ElevenLabs or OpenAI API key
-// and we can generate + embed the audio files.
-function speak(text) { /* no-op until professional VO integrated */ }
-function stopSpeech() { /* no-op */ }
-function toggleMute() { /* no-op */ }
+// ── ElevenLabs Audio Engine ────────────────────────
+let currentAudio = null;
+let muted = false;
+
+const CLIPS = {};
+['vo_01','vo_02','vo_03','vo_04','vo_05','vo_06','vo_07',
+ 'vo_08','vo_09','vo_10','vo_11','vo_12','vo_13','vo_14',
+ 'vo_15','vo_16','vo_17','vo_18','vo_19','vo_20','vo_21'
+].forEach(id => {
+  const a = new Audio(`/audio/${id}.mp3`);
+  a.preload = 'auto';
+  CLIPS[id] = a;
+});
+
+// scene index + line index → clip id
+const CLIP_MAP = {
+  '0,0':'vo_01','0,1':'vo_02',
+  '1,0':'vo_03','1,1':'vo_04','1,2':'vo_05',
+  '2,0':'vo_06','2,1':'vo_07','2,2':'vo_08',
+  '3,0':'vo_09','3,1':'vo_10','3,2':'vo_11',
+  '4,0':'vo_12','4,1':'vo_13','4,2':'vo_14',
+  '5,0':'vo_15','5,1':'vo_16','5,2':'vo_17','5,3':'vo_18',
+  '6,0':'vo_19','6,1':'vo_20','6,2':'vo_21',
+};
+
+function speak(text, sceneIdx, lineIdx) {
+  if (muted) return;
+  const clipId = CLIP_MAP[`${sceneIdx},${lineIdx}`];
+  if (!clipId) return;
+  stopSpeech();
+  const a = CLIPS[clipId];
+  if (!a) return;
+  a.currentTime = 0;
+  a.play().catch(() => {});
+  currentAudio = a;
+}
+
+function stopSpeech() {
+  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+}
+
+function toggleMute() {
+  muted = !muted;
+  const btn = document.getElementById('mute-btn');
+  if (btn) btn.textContent = muted ? '🔇 Unmute' : '🔊 Mute';
+  if (muted) stopSpeech();
+}
 
 function startDemo() {
   document.getElementById('start-overlay').style.display = 'none';
@@ -986,7 +1027,8 @@ function showScene(idx) {
 }
 
 function scheduleVoiceLines(scene) {
-  scene.lines.forEach(line => {
+  const sceneIdx = SCENES.indexOf(scene);
+  scene.lines.forEach((line, lineIdx) => {
     const t = setTimeout(() => {
       // Update caption
       const cap = document.getElementById('caption');
@@ -995,8 +1037,8 @@ function scheduleVoiceLines(scene) {
       sceneEl.textContent = scene.label;
       voEl.textContent = '"' + line.vo + '"';
       cap.classList.add('visible');
-      // Speak it
-      speak(line.vo);
+      // Play ElevenLabs clip
+      speak(line.vo, sceneIdx, lineIdx);
     }, line.at);
     voiceTimers.push(t);
   });
