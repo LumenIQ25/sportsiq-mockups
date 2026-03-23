@@ -7,12 +7,17 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+
   body {
     background: #000;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     overflow: hidden;
     width: 1920px;
     height: 1080px;
+    transform-origin: top left;
+    position: absolute;
+    top: 0; left: 0;
   }
 
   /* ── Scene system ───────────────────────────────── */
@@ -845,8 +850,8 @@
     font-size:22px;font-weight:800;color:#fff;
     box-shadow:0 0 60px rgba(85,69,211,0.5);
     margin-top:12px;
-  ">▶ Play with Voiceover</div>
-  <div style="font-size:13px;color:#475569;margin-top:8px">Best in Chrome or Edge · Turn up your volume</div>
+  ">▶ Play Demo</div>
+  <div style="font-size:13px;color:#475569;margin-top:8px">Captions included · Works on any device</div>
 </div>
 
 <!-- Progress + Controls -->
@@ -856,7 +861,6 @@
   <button class="ctrl-btn" id="play-btn" onclick="togglePlay()">⏸ Pause</button>
   <button class="ctrl-btn" onclick="nextScene()">Next ▶</button>
   <button class="ctrl-btn" onclick="resetDemo()">↺ Restart</button>
-  <button class="ctrl-btn" id="mute-btn" onclick="toggleMute()">🔊 Mute</button>
 </div>
 
 <script>
@@ -934,61 +938,16 @@ const SCENES = [
   },
 ];
 
-// ── TTS Voice Engine ───────────────────────────────
-const synth = window.speechSynthesis;
-let selectedVoice = null;
-let muted = false;
-
-function loadVoices() {
-  const voices = synth.getVoices();
-  // Priority: Google US English > Microsoft Guy/David > any en-US
-  const preferred = [
-    'Google US English',
-    'Microsoft Guy Online (Natural) - English (United States)',
-    'Microsoft David Desktop - English (United States)',
-    'Alex',
-    'Samantha',
-  ];
-  for (const name of preferred) {
-    const v = voices.find(v => v.name === name);
-    if (v) { selectedVoice = v; break; }
-  }
-  if (!selectedVoice) {
-    selectedVoice = voices.find(v => v.lang === 'en-US') ||
-                    voices.find(v => v.lang.startsWith('en')) ||
-                    voices[0];
-  }
-}
-
-if (synth.onvoiceschanged !== undefined) {
-  synth.onvoiceschanged = loadVoices;
-}
-loadVoices();
-
-function speak(text) {
-  if (muted || !synth) return;
-  synth.cancel();
-  const utt = new SpeechSynthesisUtterance(text);
-  if (selectedVoice) utt.voice = selectedVoice;
-  utt.rate  = 0.92;   // slightly measured — confident, not rushed
-  utt.pitch = 0.9;    // slightly lower = authoritative
-  utt.volume = 1.0;
-  synth.speak(utt);
-}
-
-function stopSpeech() {
-  if (synth) synth.cancel();
-}
-
-function toggleMute() {
-  muted = !muted;
-  document.getElementById('mute-btn').textContent = muted ? '🔇 Unmute' : '🔊 Mute';
-  if (muted) stopSpeech();
-}
+// ── Voice: placeholder — professional VO to be recorded ───
+// Web Speech API removed (sounds robotic).
+// To add real voice: provide an ElevenLabs or OpenAI API key
+// and we can generate + embed the audio files.
+function speak(text) { /* no-op until professional VO integrated */ }
+function stopSpeech() { /* no-op */ }
+function toggleMute() { /* no-op */ }
 
 function startDemo() {
   document.getElementById('start-overlay').style.display = 'none';
-  loadVoices();
   playing = true;
   showScene(0);
   raf = requestAnimationFrame(tick);
@@ -1125,9 +1084,18 @@ setInterval(() => {
   if (el) el.textContent = iqVal.toLocaleString() + ' IQ';
 }, 800);
 
-// ── Start ─────────────────────────────────────────
-showScene(0);
-raf = requestAnimationFrame(tick);
+// ── Scale to fit any screen ────────────────────────
+function scaleToFit() {
+  const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+  document.body.style.transform = `scale(${s})`;
+  document.body.style.left = Math.max(0, (window.innerWidth  - 1920 * s) / 2) + 'px';
+  document.body.style.top  = Math.max(0, (window.innerHeight - 1080 * s) / 2) + 'px';
+}
+scaleToFit();
+window.addEventListener('resize', scaleToFit);
+
+// ── Start (waits for overlay click) ───────────────
+// demo starts when user clicks the overlay via startDemo()
 </script>
 </body>
 </html>
