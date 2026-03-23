@@ -1982,6 +1982,9 @@
     <div class="tab tab-review" data-screen="trivia-hub" onclick="showScreen('trivia-hub',this)">
       <span class="tab-label">Trivia Hub 🧠</span><span class="tab-days" id="days-trivia-hub"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="pro-paywall-v2" onclick="showScreen('pro-paywall-v2',this)">
+      <span class="tab-label">Pro Paywall v2 ⚡</span><span class="tab-days" id="days-pro-paywall-v2"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5562,6 +5565,7 @@
     'pick-detail-screen':  '2026-03-23T03:30:00-07:00',
     'friend-profile-screen': '2026-03-23T04:00:00-07:00',
     'trivia-hub':          '2026-03-23T04:30:00-07:00',
+    'pro-paywall-v2':      '2026-03-23T05:00:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -39624,6 +39628,264 @@
   </div>
   <div id="sfb-panel-trivia-hub" class="sfb-panel"></div>
 </div><!-- /screen trivia-hub -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PRO PAYWALL v2 — Mar 23 2026
+     Updated with all confirmed pricing and value props. Annual shown
+     first (confirmed). $9.99/mo / $79.99/yr. 7-day free trial.
+     Three natural trigger states: (1) 5× multiplier gate, (2) Sharp
+     Money blur gate, (3) Full paywall sheet (can be accessed from
+     any gate or from settings).
+═══════════════════════════════════════════════════════════════════ -->
+<div id="pro-paywall-v2" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>⚡ Pro Paywall v2 — All Confirmed Details</h2>
+    <p class="screen-subtitle">Mar 23 2026 · Updated paywall with all confirmed pricing: $9.99/mo / $79.99/yr ($6.67/mo). Annual plan shown FIRST to anchor the monthly price (confirmed by Mark). 7-day free trial, no charge until day 7. Three states: (1) 5× multiplier gate — modal fires when user taps 5×, shows concrete IQ delta before/after. (2) Sharp Money blur gate — blurred signal + "Sharp signal detected" teaser fires the sheet. (3) Full paywall sheet — all value props, annual/monthly toggle, trial CTA. Design rule: never cold-push Pro upgrade — always fires at a natural moment of desire.</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: 5× multiplier gate -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#fbbf24;letter-spacing:.5px;">📱 5× GATE — Multiplier Modal</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(245,158,11,0.3);">
+        <!-- Blurred pick card behind -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;opacity:0.5;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <div style="padding:8px 14px;flex-shrink:0;opacity:0.35;filter:blur(2px);">
+          <div style="background:rgba(255,255,255,0.06);border-radius:14px;padding:16px;">
+            <div style="font-size:13px;font-weight:700;color:#f0f6fc;margin-bottom:8px;">Mahomes passing yards</div>
+            <div style="font-size:11px;color:#94a3b8;margin-bottom:12px;">Will Mahomes throw for more than 284 yards?</div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:rgba(34,197,94,0.1);border-radius:10px;padding:10px;text-align:center;font-size:12px;color:#22c55e;font-weight:700;">OVER</div>
+              <div style="flex:1;background:rgba(255,255,255,0.06);border-radius:10px;padding:10px;text-align:center;font-size:12px;color:#94a3b8;">UNDER</div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal overlay -->
+        <div style="position:absolute;bottom:0;left:0;right:0;background:#111827;border-radius:28px 28px 0 0;border-top:1px solid rgba(255,255,255,0.08);padding:0 0 24px;display:flex;flex-direction:column;">
+          <div style="display:flex;justify-content:center;padding:10px 0 8px;flex-shrink:0;">
+            <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+          </div>
+          <!-- Multiplier comparison -->
+          <div style="padding:0 18px 14px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;">
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;letter-spacing:1px;text-align:center;margin-bottom:12px;">PICK YOUR MULTIPLIER</div>
+            <div style="display:flex;gap:10px;">
+              <!-- Free option -->
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 8px;text-align:center;">
+                <div style="font-size:9px;color:#6b7280;margin-bottom:4px;">FREE</div>
+                <div style="font-size:24px;font-weight:900;color:#94a3b8;">2×</div>
+                <div style="font-size:8px;color:#6b7280;margin-top:4px;">Win: <span style="color:#22c55e;">+100 IQ</span></div>
+                <div style="font-size:8px;color:#6b7280;">Loss: <span style="color:#ef4444;">−50 IQ</span></div>
+              </div>
+              <!-- Pro option — highlighted -->
+              <div style="flex:1;background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(245,158,11,0.05));border:2px solid rgba(245,158,11,0.5);border-radius:12px;padding:10px 8px;text-align:center;position:relative;">
+                <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#f59e0b;border-radius:10px;padding:2px 8px;font-size:7px;font-weight:900;color:#000;white-space:nowrap;">⚡ PRO ONLY</div>
+                <div style="font-size:9px;color:#fbbf24;margin-bottom:4px;margin-top:4px;">PRO</div>
+                <div style="font-size:24px;font-weight:900;color:#fbbf24;">5×</div>
+                <div style="font-size:8px;color:#6b7280;margin-top:4px;">Win: <span style="color:#22c55e;font-weight:700;">+250 IQ</span></div>
+                <div style="font-size:8px;color:#6b7280;">Loss: <span style="color:#ef4444;">−125 IQ</span></div>
+              </div>
+            </div>
+            <!-- Delta callout -->
+            <div style="margin-top:10px;background:rgba(245,158,11,0.08);border-radius:8px;padding:7px 10px;text-align:center;">
+              <div style="font-size:10px;color:#fbbf24;font-weight:700;">Pro earns <span style="font-size:14px;">2.5×</span> more IQ per win</div>
+              <div style="font-size:8px;color:#6b7280;margin-top:2px;">Over a week of picks, that gap is massive</div>
+            </div>
+          </div>
+          <!-- Trial CTA -->
+          <div style="padding:14px 18px 0;flex-shrink:0;">
+            <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:14px;padding:14px;text-align:center;margin-bottom:8px;cursor:pointer;">
+              <div style="font-size:14px;font-weight:900;color:#000;">Try Pro Free — 7 Days</div>
+              <div style="font-size:9px;color:rgba(0,0,0,0.6);margin-top:3px;">$79.99/yr · No charge until day 7 · Cancel anytime</div>
+            </div>
+            <div style="text-align:center;font-size:10px;color:#6b7280;cursor:pointer;">Continue with 2× free →</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">5× MULTIPLIER GATE<br>Side-by-side 2× vs 5× · concrete IQ delta · 7-day trial CTA</div>
+    </div>
+
+    <!-- PHONE 2: Sharp Money blur gate -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 SHARP MONEY GATE — Blur Tease</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <!-- Pick card visible above -->
+        <div style="padding:8px 14px;flex-shrink:0;">
+          <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:14px;">
+            <div style="font-size:11px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">Mahomes passing yards</div>
+            <div style="font-size:10px;color:#94a3b8;margin-bottom:10px;">Will Mahomes throw for more than 284 yards?</div>
+            <!-- Crowd split -->
+            <div style="margin-bottom:8px;">
+              <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:4px;">
+                <span style="color:#22c55e;font-weight:700;">OVER 73%</span>
+                <span style="color:#ef4444;">UNDER 27%</span>
+              </div>
+              <div style="background:rgba(239,68,68,0.3);border-radius:4px;height:6px;overflow:hidden;">
+                <div style="width:73%;height:100%;background:#22c55e;border-radius:4px;"></div>
+              </div>
+            </div>
+            <!-- Sharp Money — BLURRED -->
+            <div style="position:relative;margin-bottom:8px;">
+              <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:8px 10px;filter:blur(3px);">
+                <div style="font-size:9px;color:#fbbf24;font-weight:700;">💰 Sharp Money</div>
+                <div style="font-size:10px;color:#f0f6fc;">72% of sharp money on OVER · unusual volume</div>
+              </div>
+              <div style="position:absolute;inset:0;background:rgba(10,15,26,0.6);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                <div style="text-align:center;">
+                  <div style="font-size:10px;color:#fbbf24;font-weight:800;">💰 Sharp signal detected</div>
+                  <div style="font-size:8px;color:#6b7280;margin-top:2px;">Upgrade to see where sharp money goes</div>
+                </div>
+              </div>
+            </div>
+            <!-- Pick buttons -->
+            <div style="display:flex;gap:6px;">
+              <div style="flex:1;background:rgba(34,197,94,0.1);border-radius:8px;padding:8px;text-align:center;font-size:10px;color:#22c55e;font-weight:700;">OVER</div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;text-align:center;font-size:10px;color:#6b7280;">UNDER</div>
+            </div>
+          </div>
+        </div>
+        <!-- Sharp Money upgrade sheet (partial) -->
+        <div style="position:absolute;bottom:0;left:0;right:0;background:#111827;border-radius:28px 28px 0 0;border-top:1px solid rgba(255,255,255,0.08);padding:0 18px 24px;display:flex;flex-direction:column;">
+          <div style="display:flex;justify-content:center;padding:10px 0 12px;flex-shrink:0;">
+            <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+          </div>
+          <!-- Sharp Money explainer -->
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-shrink:0;">
+            <div style="font-size:28px;">💰</div>
+            <div>
+              <div style="font-size:14px;font-weight:900;color:#fbbf24;">Sharp Money Intel</div>
+              <div style="font-size:10px;color:#6b7280;margin-top:2px;">See where professional bettors are putting their money — and follow or fade them</div>
+            </div>
+          </div>
+          <!-- Value props quick list -->
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="color:#fbbf24;font-size:11px;flex-shrink:0;">⚡</div>
+              <div style="font-size:10px;color:#f0f6fc;">5× multiplier (vs 2× free)</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="color:#fbbf24;font-size:11px;flex-shrink:0;">💰</div>
+              <div style="font-size:10px;color:#f0f6fc;">Sharp Money intel on every pick</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="color:#fbbf24;font-size:11px;flex-shrink:0;">🏆</div>
+              <div style="font-size:10px;color:#f0f6fc;">Pro-only contest pools · bigger prizes</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="color:#fbbf24;font-size:11px;flex-shrink:0;">👥</div>
+              <div style="font-size:10px;color:#f0f6fc;">Create crews · free users can only join</div>
+            </div>
+          </div>
+          <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:14px;padding:13px;text-align:center;cursor:pointer;flex-shrink:0;">
+            <div style="font-size:14px;font-weight:900;color:#000;">Try Pro Free — 7 Days</div>
+            <div style="font-size:9px;color:rgba(0,0,0,0.55);margin-top:3px;">$79.99/yr · Cancel anytime</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">SHARP MONEY GATE<br>Signal detected · blurred · upgrade sheet with all Pro value props</div>
+    </div>
+
+    <!-- PHONE 3: Full paywall sheet — annual first -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#fbbf24;letter-spacing:.5px;">📱 FULL PAYWALL — Annual First</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(245,158,11,0.3);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+          <span style="font-size:11px;color:#8b949e;">9:41</span>
+          <span style="font-size:16px;cursor:pointer;color:#6b7280;">✕</span>
+        </div>
+        <!-- Pro hero -->
+        <div style="display:flex;flex-direction:column;align-items:center;padding:10px 20px 12px;flex-shrink:0;">
+          <div style="font-size:22px;margin-bottom:6px;">⚡</div>
+          <div style="font-size:22px;font-weight:900;color:#f0f6fc;text-align:center;line-height:1.1;">Go Pro.<br><span style="color:#fbbf24;">5× more IQ.</span></div>
+          <div style="font-size:10px;color:#6b7280;margin-top:4px;">Try free for 7 days · no charge until day 7</div>
+        </div>
+        <!-- Value props -->
+        <div style="margin:0 14px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:12px 14px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="font-size:14px;flex-shrink:0;">⚡</div>
+              <div>
+                <div style="font-size:10px;font-weight:700;color:#f0f6fc;">5× multiplier on all picks</div>
+                <div style="font-size:8px;color:#6b7280;">Free users get 2× · Pro earns 250 IQ on the same win</div>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(255,255,255,0.05);"></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="font-size:14px;flex-shrink:0;">💰</div>
+              <div>
+                <div style="font-size:10px;font-weight:700;color:#f0f6fc;">Sharp Money intel</div>
+                <div style="font-size:8px;color:#6b7280;">See where professional money moves before kickoff</div>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(255,255,255,0.05);"></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="font-size:14px;flex-shrink:0;">🏆</div>
+              <div>
+                <div style="font-size:10px;font-weight:700;color:#f0f6fc;">Pro-only contest pools</div>
+                <div style="font-size:8px;color:#6b7280;">$500+ prizes exclusive to Pro subscribers</div>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(255,255,255,0.05);"></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="font-size:14px;flex-shrink:0;">👥</div>
+              <div>
+                <div style="font-size:10px;font-weight:700;color:#f0f6fc;">Create &amp; lead crews</div>
+                <div style="font-size:8px;color:#6b7280;">Pro creates up to 100-person groups</div>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(255,255,255,0.05);"></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="font-size:14px;flex-shrink:0;">🏅</div>
+              <div>
+                <div style="font-size:10px;font-weight:700;color:#f0f6fc;">⚡ Pro badge on all leaderboards</div>
+                <div style="font-size:8px;color:#6b7280;">Visible to everyone · status symbol in every ranking</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Pricing — ANNUAL FIRST -->
+        <div style="margin:0 14px;display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
+          <!-- Annual — selected / recommended -->
+          <div style="background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(245,158,11,0.05));border:2px solid rgba(245,158,11,0.5);border-radius:12px;padding:12px 14px;cursor:pointer;position:relative;">
+            <div style="position:absolute;top:-9px;right:12px;background:#f59e0b;border-radius:10px;padding:2px 8px;font-size:7px;font-weight:900;color:#000;">BEST VALUE · SAVE 44%</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:11px;font-weight:800;color:#fbbf24;">Annual</div>
+                <div style="font-size:9px;color:#6b7280;margin-top:2px;">$79.99 billed once per year</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:18px;font-weight:900;color:#fbbf24;">$6.67<span style="font-size:9px;color:#6b7280;">/mo</span></div>
+              </div>
+            </div>
+          </div>
+          <!-- Monthly -->
+          <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 14px;cursor:pointer;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:11px;font-weight:700;color:#94a3b8;">Monthly</div>
+                <div style="font-size:9px;color:#475569;margin-top:2px;">Billed monthly · cancel anytime</div>
+              </div>
+              <div style="font-size:16px;font-weight:800;color:#94a3b8;">$9.99<span style="font-size:9px;color:#475569;">/mo</span></div>
+            </div>
+          </div>
+          <!-- CTA -->
+          <div style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:14px;padding:14px;text-align:center;cursor:pointer;">
+            <div style="font-size:14px;font-weight:900;color:#000;">Start Free Trial — 7 Days</div>
+            <div style="font-size:9px;color:rgba(0,0,0,0.55);margin-top:2px;">No charge until Mar 30 · Cancel anytime before</div>
+          </div>
+          <div style="text-align:center;font-size:8px;color:#374151;">Billed by Apple · Restore purchases · Terms</div>
+        </div>
+      </div>
+      <div class="phone-label">FULL PRO PAYWALL<br>Annual first ($6.67/mo) · 7-day trial · all 5 value props · no charge until day 7</div>
+    </div>
+
+  </div>
+  <div id="sfb-panel-pro-paywall-v2" class="sfb-panel"></div>
+</div><!-- /screen pro-paywall-v2 -->
 
 </body>
 </html>
