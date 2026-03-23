@@ -1967,6 +1967,9 @@
     <div class="tab tab-review" data-screen="contest-entry-flow" onclick="showScreen('contest-entry-flow',this)">
       <span class="tab-label">Contest Entry Flow 🏆</span><span class="tab-days" id="days-contest-entry-flow"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="web-referral-flow" onclick="showScreen('web-referral-flow',this)">
+      <span class="tab-label">Web Referral Flow 🌐</span><span class="tab-days" id="days-web-referral-flow"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5542,6 +5545,7 @@
     'my-picks-screen':     '2026-03-23T01:00:00-07:00',
     'iq-milestone-celebration': '2026-03-23T01:30:00-07:00',
     'contest-entry-flow':  '2026-03-23T02:00:00-07:00',
+    'web-referral-flow':   '2026-03-23T02:30:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -38300,6 +38304,244 @@
   </div>
   <div id="sfb-panel-contest-entry-flow" class="sfb-panel"></div>
 </div><!-- /screen contest-entry-flow -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     WEB REFERRAL FLOW — Mar 23 2026
+     Web-first approach: tap referral link → make a pick on mobile web
+     BEFORE downloading the app. The hook lands first, the ask comes after.
+     Three states: (1) Mobile web landing (browser chrome visible),
+     (2) Pick made on web — download prompt, (3) In-app deep link post-download.
+═══════════════════════════════════════════════════════════════════ -->
+<div id="web-referral-flow" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🌐 Web Referral Flow — Pick Before Download</h2>
+    <p class="screen-subtitle">Mar 23 2026 · Proposed web-first referral approach: the hook (making a pick) happens on mobile web BEFORE the ask (download the app). Tap link → mobile web page (no app needed) → make your pick → pick locked → "See if you won — download the app" → App Store → deep link lands on the game with your pick already registered. This compares against the alternative: app-first flow where you must download before experiencing anything. Three phones show the web-first journey from link-tap to in-app onboarding.</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Mobile web landing page (browser visible) -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 STEP 1 — Mobile Web (no app yet)</div>
+      <div class="phone-frame" style="background:#1a1a2e;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <!-- Browser chrome (Safari-style) -->
+        <div style="background:#1c1c1e;padding:6px 12px;display:flex;align-items:center;gap:8px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,0.08);">
+          <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:8px;padding:5px 10px;font-size:9px;color:#94a3b8;text-align:center;">sportsiq.app/ref/marcd</div>
+          <div style="font-size:14px;color:#94a3b8;">⬆️</div>
+        </div>
+        <!-- Web page content -->
+        <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;background:#080e1a;">
+          <!-- SportsIQ brand bar -->
+          <div style="background:#0d1420;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">Sports<span style="color:#5545D3;">IQ</span></div>
+            <div style="font-size:9px;color:#6b7280;">Free to play · 47K players</div>
+          </div>
+          <!-- Inviter context -->
+          <div style="margin:12px 14px 10px;background:linear-gradient(135deg,rgba(85,69,211,0.12),rgba(85,69,211,0.04));border:1.5px solid rgba(85,69,211,0.25);border-radius:14px;padding:10px 12px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#5545D3,#3D31B0);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;">M</div>
+              <div>
+                <div style="font-size:11px;font-weight:800;color:#f0f6fc;">MarcD invited you 🎯</div>
+                <div style="font-size:9px;color:#6b7280;">WiseGuy · 14,820 IQ · 64% all-time</div>
+              </div>
+            </div>
+            <div style="background:rgba(34,197,94,0.08);border-radius:8px;padding:6px 8px;font-size:9px;color:#94a3b8;">
+              MarcD just picked: <span style="color:#22c55e;font-weight:700;">Mahomes OVER 284 yards</span>
+            </div>
+          </div>
+          <!-- THE PICK — this is the hook -->
+          <div style="margin:0 14px;background:#0d1420;border:1.5px solid rgba(255,255,255,0.1);border-radius:14px;padding:12px 14px;flex-shrink:0;">
+            <div style="font-size:9px;color:#fbbf24;font-weight:700;letter-spacing:1px;margin-bottom:6px;">MAKE YOUR PICK — LIVE NOW</div>
+            <div style="font-size:13px;font-weight:800;color:#f0f6fc;margin-bottom:3px;">Mahomes passing yards</div>
+            <div style="font-size:11px;color:#94a3b8;margin-bottom:10px;">Will Mahomes throw for more than 284 yards tonight?</div>
+            <!-- SportsIQ Signal -->
+            <div style="background:rgba(85,69,211,0.1);border-radius:8px;padding:5px 8px;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+              <div style="font-size:10px;">🧠</div>
+              <div style="font-size:9px;color:#a78bfa;font-weight:700;">SportsIQ leans OVER · 73% of players picking OVER</div>
+            </div>
+            <!-- Pick buttons -->
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(34,197,94,0.05));border:1.5px solid rgba(34,197,94,0.4);border-radius:10px;padding:10px;text-align:center;cursor:pointer;">
+                <div style="font-size:12px;font-weight:900;color:#22c55e;">OVER</div>
+                <div style="font-size:8px;color:#6b7280;margin-top:2px;">284+ yards</div>
+                <!-- MarcD picked this -->
+                <div style="font-size:8px;color:#a78bfa;margin-top:3px;">MarcD's pick</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px;text-align:center;cursor:pointer;">
+                <div style="font-size:12px;font-weight:900;color:#94a3b8;">UNDER</div>
+                <div style="font-size:8px;color:#6b7280;margin-top:2px;">under 284 yds</div>
+              </div>
+            </div>
+          </div>
+          <!-- Social proof -->
+          <div style="margin:10px 14px 0;text-align:center;flex-shrink:0;">
+            <div style="font-size:9px;color:#6b7280;">Free · No account needed to pick · 500 IQ bonus when you sign up</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">MOBILE WEB — No app required<br>Browser chrome · inviter context · pick live → tap OVER/UNDER</div>
+    </div>
+
+    <!-- PHONE 2: Pick locked → download prompt -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 STEP 2 — Pick Made, Download Prompt</div>
+      <div class="phone-frame" style="background:#1a1a2e;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <!-- Browser chrome -->
+        <div style="background:#1c1c1e;padding:6px 12px;display:flex;align-items:center;gap:8px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,0.08);">
+          <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:8px;padding:5px 10px;font-size:9px;color:#94a3b8;text-align:center;">sportsiq.app/ref/marcd</div>
+          <div style="font-size:14px;color:#94a3b8;">⬆️</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;background:#080e1a;">
+          <!-- Brand bar -->
+          <div style="background:#0d1420;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;">
+            <div style="font-size:16px;font-weight:900;color:#f0f6fc;">Sports<span style="color:#5545D3;">IQ</span></div>
+            <div style="font-size:9px;color:#6b7280;">Free to play · 47K players</div>
+          </div>
+          <!-- Pick locked confirmation -->
+          <div style="margin:16px 14px 10px;background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(34,197,94,0.04));border:1.5px solid rgba(34,197,94,0.35);border-radius:16px;padding:16px 14px;text-align:center;flex-shrink:0;">
+            <div style="font-size:28px;margin-bottom:8px;">🎯</div>
+            <div style="font-size:14px;font-weight:900;color:#22c55e;margin-bottom:4px;">Pick Locked — OVER!</div>
+            <div style="font-size:10px;color:#94a3b8;">Mahomes passing yards · tonight's game</div>
+            <div style="font-size:9px;color:#6b7280;margin-top:4px;">Same pick as MarcD · resolves ~11pm</div>
+          </div>
+          <!-- 500 IQ bonus card -->
+          <div style="margin:0 14px 12px;background:linear-gradient(135deg,rgba(251,191,36,0.12),rgba(251,191,36,0.04));border:1.5px solid rgba(251,191,36,0.3);border-radius:14px;padding:12px 14px;flex-shrink:0;">
+            <div style="font-size:11px;font-weight:800;color:#fbbf24;margin-bottom:4px;">🎁 Claim your 500 IQ welcome bonus</div>
+            <div style="font-size:9px;color:#6b7280;margin-bottom:10px;">Download the app to track your pick, get your bonus IQ, and see when Mahomes goes OVER.</div>
+            <!-- Download CTA -->
+            <div style="background:linear-gradient(135deg,#000,#1c1c1e);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+              <div style="font-size:24px;">🍎</div>
+              <div>
+                <div style="font-size:8px;color:#94a3b8;">Download on the</div>
+                <div style="font-size:13px;font-weight:800;color:#fff;">App Store</div>
+              </div>
+              <div style="margin-left:auto;font-size:9px;color:#22c55e;font-weight:700;">Free →</div>
+            </div>
+          </div>
+          <!-- What happens when they download -->
+          <div style="margin:0 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:10px 12px;flex-shrink:0;">
+            <div style="font-size:9px;font-weight:700;color:#475569;margin-bottom:6px;">WHEN YOU DOWNLOAD</div>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div style="font-size:9px;color:#94a3b8;">✓ Your OVER pick is already registered</div>
+              <div style="font-size:9px;color:#94a3b8;">✓ 500 IQ welcome bonus credited</div>
+              <div style="font-size:9px;color:#94a3b8;">✓ MarcD added as a friend automatically</div>
+              <div style="font-size:9px;color:#94a3b8;">✓ Push notification when Mahomes goes OVER 🎉</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">PICK LOCKED — Download Prompt<br>Pick confirmed → 500 IQ bonus → App Store CTA → skin in the game</div>
+    </div>
+
+    <!-- PHONE 3: Post-download deep link — in-app experience -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;">📱 STEP 3 — In-App After Download</div>
+      <div class="phone-frame" style="background:#0a0f1a;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(148,163,184,0.2);">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <!-- Welcome state — already invested -->
+        <div style="padding:8px 16px 10px;flex-shrink:0;">
+          <!-- MarcD welcome banner -->
+          <div style="background:linear-gradient(135deg,rgba(85,69,211,0.15),rgba(85,69,211,0.05));border:1.5px solid rgba(85,69,211,0.3);border-radius:14px;padding:10px 14px;margin-bottom:10px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#5545D3,#3D31B0);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;">M</div>
+              <div>
+                <div style="font-size:11px;font-weight:800;color:#f0f6fc;">MarcD's crew welcomed you!</div>
+                <div style="font-size:9px;color:#6b7280;">You're now friends · Sunday Sharps crew</div>
+              </div>
+            </div>
+          </div>
+          <!-- IQ bonus card -->
+          <div style="background:linear-gradient(135deg,rgba(251,191,36,0.12),rgba(251,191,36,0.04));border:1.5px solid rgba(251,191,36,0.3);border-radius:12px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:10px;font-weight:800;color:#fbbf24;">🎁 Welcome bonus credited!</div>
+              <div style="font-size:9px;color:#6b7280;">Your starting balance</div>
+            </div>
+            <div style="font-size:22px;font-weight:900;color:#fbbf24;">500 IQ</div>
+          </div>
+        </div>
+        <!-- Live pick tracking — already have skin in the game -->
+        <div style="padding:0 14px;flex:1;display:flex;flex-direction:column;overflow:hidden;">
+          <div style="font-size:9px;font-weight:700;color:#475569;letter-spacing:1px;margin-bottom:8px;flex-shrink:0;">YOUR ACTIVE PICK</div>
+          <!-- Active pick card — they made this on web -->
+          <div style="background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(34,197,94,0.03));border:1.5px solid rgba(34,197,94,0.3);border-radius:14px;padding:12px 14px;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div style="font-size:11px;font-weight:800;color:#f0f6fc;">Mahomes passing yards</div>
+              <div style="background:rgba(34,197,94,0.15);border-radius:6px;padding:2px 7px;font-size:8px;color:#22c55e;font-weight:700;">OVER</div>
+            </div>
+            <div style="font-size:10px;color:#94a3b8;margin-bottom:8px;">Will Mahomes throw for more than 284 yards?</div>
+            <!-- Live progress -->
+            <div style="margin-bottom:6px;">
+              <div style="display:flex;justify-content:space-between;font-size:8px;color:#6b7280;margin-bottom:3px;">
+                <span>Current: 247 yds · Q3</span><span>Need 37 more →</span>
+              </div>
+              <div style="background:rgba(255,255,255,0.06);border-radius:4px;height:6px;overflow:hidden;">
+                <div style="width:87%;height:100%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:4px;"></div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:8px;color:#22c55e;">On pace · 1 quarter remaining 🔥</div>
+              <div style="font-size:9px;color:#f59e0b;font-weight:700;">+50 IQ if wins</div>
+            </div>
+          </div>
+          <!-- Friend comparison — MarcD on same side -->
+          <div style="margin-top:8px;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.18);border-radius:10px;padding:8px 12px;flex-shrink:0;">
+            <div style="font-size:9px;color:#a78bfa;font-weight:700;margin-bottom:4px;">Friend picks · same game</div>
+            <div style="font-size:9px;color:#94a3b8;">MarcD → OVER ✓ · you're on the same side</div>
+          </div>
+          <!-- Make another pick -->
+          <div style="margin-top:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px;flex-shrink:0;cursor:pointer;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:10px;font-weight:700;color:#f0f6fc;">More picks available →</div>
+                <div style="font-size:9px;color:#6b7280;">5 more live games tonight</div>
+              </div>
+              <div style="background:rgba(85,69,211,0.2);border-radius:8px;padding:4px 10px;font-size:9px;color:#a78bfa;font-weight:700;">Pick</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:8px 14px 14px;flex-shrink:0;"></div>
+      </div>
+      <div class="phone-label">IN-APP AFTER DOWNLOAD<br>Pick already registered · 500 IQ bonus · MarcD friended · live tracking</div>
+    </div>
+
+  </div>
+
+  <!-- Comparison note -->
+  <div style="margin:32px 48px 48px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:28px 36px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;margin-bottom:20px;">WEB-FIRST VS APP-FIRST — WHY WEB-FIRST WINS</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+      <div>
+        <div style="color:#22c55e;font-size:12px;font-weight:800;margin-bottom:10px;">✅ Web-first (this design)</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:10px;color:#64748b;line-height:1.6;">• Hook lands at zero friction — pick in 10 seconds, no download needed</div>
+          <div style="font-size:10px;color:#64748b;line-height:1.6;">• User has skin in the game before ever touching the App Store — they WANT the app to track their pick</div>
+          <div style="font-size:10px;color:#64748b;line-height:1.6;">• Download CTA is paired with a benefit (track my pick + 500 IQ) not a generic ask</div>
+          <div style="font-size:10px;color:#64748b;line-height:1.6;">• "MarcD and I are on the same side" is instant social bonding before account creation</div>
+          <div style="font-size:10px;color:#64748b;line-height:1.6;">• Estimated viral coefficient uplift: 30–50% more installs per referral share</div>
+        </div>
+      </div>
+      <div>
+        <div style="color:#ef4444;font-size:12px;font-weight:800;margin-bottom:10px;">❌ App-first (conventional)</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:10px;color:#64748b;line-height:1.6;">• Ask comes before the experience — "download this" before user has felt anything</div>
+          <div style="font-size:10px;color:#64748b;line-height:1.6;">• App Store is a choke point — 40–60% of users abandon at the download step</div>
+          <div style="font-size:10px;color:#64748b;line-height:1.6;">• No skin in the game at download time — curiosity alone must carry the conversion</div>
+          <div style="font-size:10px;color:#64748b;line-height:1.6;">• Generic onboarding — user forgets MarcD was even involved</div>
+          <div style="font-size:10px;color:#64748b;line-height:1.6;">• Industry standard: 15–25% referral-to-install rate. Web-first target: 35–45%+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sfb-panel-web-referral-flow" class="sfb-panel"></div>
+</div><!-- /screen web-referral-flow -->
 
 </body>
 </html>
