@@ -36213,6 +36213,134 @@
     </div>
   </div>
 
+
+  <!-- ── PLAY SCREEN STATE LOGIC — confirmed 2026-03-23 ─────────────────── -->
+  <div style="margin:0 48px 48px;">
+    <div style="font-size:11px;font-weight:900;color:#475569;letter-spacing:3px;margin-bottom:20px;text-transform:uppercase;">Play Screen — State Logic (confirmed Mar 23)</div>
+
+    <!-- Flow diagram -->
+    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:24px 32px;margin-bottom:32px;">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.4);border-radius:10px;padding:10px 16px;font-size:12px;font-weight:800;color:#a89df8;">App opens</div>
+        <div style="color:#475569;font-size:16px;">→</div>
+        <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.35);border-radius:10px;padding:10px 16px;font-size:12px;font-weight:800;color:#4ade80;">🧠 Trivia (default)</div>
+        <div style="color:#475569;font-size:12px;font-weight:700;">New game every 30s. Always running.</div>
+      </div>
+      <div style="margin:16px 0 0 48px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div style="color:#f59e0b;font-size:12px;font-weight:700;">IF live game detected</div>
+        <div style="color:#475569;font-size:16px;">→</div>
+        <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.35);border-radius:10px;padding:10px 16px;font-size:12px;font-weight:800;color:#fcd34d;">🏈 Picks mode (replaces trivia)</div>
+        <div style="color:#475569;font-size:12px;font-weight:700;">Trivia hidden until game ends</div>
+      </div>
+      <div style="margin:12px 0 0 96px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div style="color:#94a3b8;font-size:12px;font-weight:700;">Game ends</div>
+        <div style="color:#475569;font-size:16px;">→</div>
+        <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:10px 16px;font-size:12px;font-weight:700;color:#86efac;">🧠 Trivia returns automatically</div>
+      </div>
+    </div>
+
+    <!-- Two phone frames side by side -->
+    <div style="display:flex;gap:32px;flex-wrap:wrap;justify-content:flex-start;align-items:flex-start;">
+
+      <!-- Phone A: Trivia default -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <div style="font-size:11px;font-weight:700;color:#4ade80;letter-spacing:1.5px;text-transform:uppercase;">State A — Trivia (default)</div>
+        <div style="width:300px;min-height:600px;background:#050912;border-radius:42px;overflow:hidden;border:1.5px solid rgba(255,255,255,0.12);box-shadow:0 0 0 5px rgba(0,0,0,0.6),0 30px 70px rgba(0,0,0,0.8);position:relative;">
+          <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:90px;height:24px;background:#000;border-radius:0 0 12px 12px;z-index:10;"></div>
+          <div style="padding:28px 0 0;display:flex;flex-direction:column;height:100%;">
+            <div style="display:flex;justify-content:space-between;padding:4px 16px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);">
+              <span>9:41</span><span>●●●</span>
+            </div>
+            <!-- Header -->
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+              <div style="font-family:'Lexend',sans-serif;font-size:14px;font-weight:900;">Sports<span style="color:#7c6ef5;">IQ</span></div>
+              <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.5);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:800;color:#a89df8;">⚡ 2,450 IQ</div>
+            </div>
+            <!-- Swipe dots -->
+            <div style="display:flex;justify-content:center;gap:6px;padding:6px 0;">
+              <div style="width:24px;height:3px;border-radius:2px;background:#7c6ef5;"></div>
+              <div style="width:16px;height:3px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+              <div style="width:16px;height:3px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+            </div>
+            <!-- Trivia lobby -->
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px 16px;">
+              <div style="font-size:16px;font-weight:900;color:#f8fafc;">Sports Trivia</div>
+              <div style="width:72px;height:72px;border-radius:50%;border:3px solid #7c6ef5;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#a89df8;background:rgba(85,69,211,0.1);">22</div>
+              <div style="font-size:12px;color:#94a3b8;">New game starting in 22 seconds</div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:6px 12px;font-size:11px;color:#94a3b8;display:flex;align-items:center;gap:8px;">
+                <div style="display:flex;">
+                  <div style="width:20px;height:20px;border-radius:50%;background:#5545d3;border:1.5px solid #050912;font-size:8px;font-weight:800;color:white;display:flex;align-items:center;justify-content:center;">JM</div>
+                  <div style="width:20px;height:20px;border-radius:50%;background:#228c88;border:1.5px solid #050912;margin-left:-4px;font-size:8px;font-weight:800;color:white;display:flex;align-items:center;justify-content:center;">SK</div>
+                  <div style="width:20px;height:20px;border-radius:50%;background:#f97316;border:1.5px solid #050912;margin-left:-4px;font-size:8px;font-weight:800;color:white;display:flex;align-items:center;justify-content:center;">+9</div>
+                </div>
+                12 players waiting
+              </div>
+              <div style="font-size:10px;color:#475569;text-align:center;">10 questions · Sports, Pop Culture, Music</div>
+              <div style="width:100%;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:12px;padding:11px;text-align:center;font-size:13px;font-weight:800;color:#a89df8;">Ready — starts in 22s</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:#64748b;text-align:center;max-width:240px;">No live game. Trivia auto-cycles every 30s. User always has something to do.</div>
+      </div>
+
+      <!-- Phone B: Picks mode -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <div style="font-size:11px;font-weight:700;color:#fcd34d;letter-spacing:1.5px;text-transform:uppercase;">State B — Picks (live game replaces trivia)</div>
+        <div style="width:300px;min-height:600px;background:#050912;border-radius:42px;overflow:hidden;border:1.5px solid rgba(245,158,11,0.3);box-shadow:0 0 0 5px rgba(0,0,0,0.6),0 30px 70px rgba(0,0,0,0.8),0 0 40px rgba(245,158,11,0.06);position:relative;">
+          <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:90px;height:24px;background:#000;border-radius:0 0 12px 12px;z-index:10;"></div>
+          <div style="padding:28px 0 0;display:flex;flex-direction:column;height:100%;">
+            <div style="display:flex;justify-content:space-between;padding:4px 16px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);">
+              <span>9:41</span><span>●●●</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+              <div style="font-family:'Lexend',sans-serif;font-size:14px;font-weight:900;">Sports<span style="color:#7c6ef5;">IQ</span></div>
+              <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.5);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:800;color:#a89df8;">⚡ 2,450 IQ</div>
+            </div>
+            <div style="display:flex;justify-content:center;gap:6px;padding:6px 0;">
+              <div style="width:24px;height:3px;border-radius:2px;background:#7c6ef5;"></div>
+              <div style="width:16px;height:3px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+              <div style="width:16px;height:3px;border-radius:2px;background:rgba(255,255,255,0.15);"></div>
+            </div>
+            <!-- Live game banner -->
+            <div style="padding:10px 14px 4px;">
+              <div style="font-size:9px;font-weight:800;color:#f59e0b;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">🏈 Live Game — Trivia paused</div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:14px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;color:#f8fafc;margin-bottom:8px;">
+                  <span>Chiefs</span><span style="font-size:11px;color:#64748b;">vs</span><span>Raiders</span>
+                </div>
+                <div style="font-size:12px;color:#94a3b8;margin-bottom:10px;">Will the Chiefs win tonight's game?</div>
+                <div style="display:flex;gap:8px;">
+                  <div style="flex:1;padding:9px;border-radius:10px;text-align:center;font-size:12px;font-weight:800;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);color:#4ade80;">YES — Chiefs win</div>
+                  <div style="flex:1;padding:9px;border-radius:10px;text-align:center;font-size:12px;font-weight:800;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;">NO — Raiders win</div>
+                </div>
+                <div style="display:flex;gap:4px;align-items:center;margin-top:8px;font-size:10px;color:#475569;">
+                  <span>Signal:</span>
+                  <div style="height:3px;width:58px;border-radius:2px;background:#4ade80;"></div>
+                  <div style="height:3px;width:38px;border-radius:2px;background:#fca5a5;"></div>
+                  <span>60% YES</span>
+                </div>
+              </div>
+            </div>
+            <!-- Multiplier + lock in -->
+            <div style="padding:10px 14px;">
+              <div style="font-size:10px;font-weight:800;color:#475569;letter-spacing:1.5px;margin-bottom:8px;">MULTIPLIER</div>
+              <div style="display:flex;gap:6px;">
+                <div style="flex:1;padding:8px;border-radius:8px;text-align:center;font-size:11px;font-weight:800;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:#f8fafc;">1×</div>
+                <div style="flex:1;padding:8px;border-radius:8px;text-align:center;font-size:11px;font-weight:800;background:rgba(85,69,211,0.25);border:1.5px solid #7c6ef5;color:#a89df8;">2×</div>
+                <div style="flex:1;padding:8px;border-radius:8px;text-align:center;font-size:11px;font-weight:800;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);color:#475569;">5× 🔒</div>
+              </div>
+            </div>
+            <div style="padding:0 14px 16px;">
+              <div style="width:100%;background:linear-gradient(135deg,#5545d3,#7c6ef5);border-radius:12px;padding:13px;text-align:center;font-size:14px;font-weight:900;color:white;">Lock In My Pick →</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:#64748b;text-align:center;max-width:240px;">Live game detected. Trivia hidden. Picks take full screen. Trivia returns when game ends.</div>
+      </div>
+
+    </div>
+  </div>
+
 </div><!-- /screen mobile-3screen-v1 -->
 
 
