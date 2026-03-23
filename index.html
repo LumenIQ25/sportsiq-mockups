@@ -31179,6 +31179,96 @@
       <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Per-question IQ breakdown — Q1-Q5 each show individual speed bonuses. Total +113 IQ (5 correct, averaging ~22 IQ/question). Streak continuity hook + cross-sell to picks. "Come back tomorrow or lose your streak" = daily re-engagement driver.</div>
     </div>
 
+    <!-- PHONE 4: Wrong answer reveal -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#f87171;letter-spacing:.5px;">📱 ANSWER REVEAL — WRONG</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(248,113,113,0.25);">
+        <!-- Red glow on wrong -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(239,68,68,0.07) 0%,transparent 55%);pointer-events:none;z-index:0;"></div>
+
+        <!-- Status bar -->
+        <div style="position:relative;z-index:1;padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Header -->
+        <div style="position:relative;z-index:1;padding:8px 18px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div>
+            <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Daily Challenge</div>
+            <div style="font-size:9px;color:#6b7280;margin-top:1px;">Question 4 of 5</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:5px 10px;text-align:right;">
+            <div style="font-size:8px;color:#6b7280;">IQ this round</div>
+            <div style="font-size:14px;font-weight:900;color:#e6edf3;">+63 IQ</div>
+          </div>
+        </div>
+
+        <!-- Q progress dots (3 green, 1 red) -->
+        <div style="position:relative;z-index:1;padding:0 18px 14px;display:flex;gap:6px;flex-shrink:0;">
+          <div style="height:4px;flex:1;background:#4ade80;border-radius:4px;"></div>
+          <div style="height:4px;flex:1;background:#4ade80;border-radius:4px;"></div>
+          <div style="height:4px;flex:1;background:#4ade80;border-radius:4px;"></div>
+          <div style="height:4px;flex:1;background:#f87171;border-radius:4px;box-shadow:0 0 6px rgba(248,113,113,0.4);"></div>
+          <div style="height:4px;flex:1;background:#21262d;border-radius:4px;"></div>
+        </div>
+
+        <!-- No IQ earned card -->
+        <div style="position:relative;z-index:1;margin:0 18px 12px;background:linear-gradient(145deg,rgba(239,68,68,0.08),rgba(220,38,38,0.03));border:1.5px solid rgba(239,68,68,0.25);border-radius:18px;padding:14px 18px;text-align:center;flex-shrink:0;">
+          <div style="font-size:24px;margin-bottom:4px;">❌</div>
+          <div style="font-size:18px;font-weight:900;color:#f87171;margin-bottom:4px;">+0 IQ</div>
+          <div style="font-size:10px;color:#6b7280;">Incorrect · no IQ earned for wrong answers</div>
+          <!-- Streak broken badge -->
+          <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:5px 12px;display:inline-flex;align-items:center;gap:5px;margin-top:8px;">
+            <span style="font-size:13px;">💔</span>
+            <div style="font-size:10px;font-weight:700;color:#f87171;">Streak broken — was 3</div>
+          </div>
+        </div>
+
+        <!-- Your pick vs correct answer -->
+        <div style="position:relative;z-index:1;padding:0 18px;flex-shrink:0;display:flex;flex-direction:column;gap:6px;">
+          <!-- User's wrong pick -->
+          <div style="background:rgba(239,68,68,0.06);border:1.5px solid rgba(239,68,68,0.2);border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+            <div style="width:22px;height:22px;background:rgba(239,68,68,0.15);border:1.5px solid rgba(239,68,68,0.3);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#f87171;">A</div>
+            <div>
+              <div style="font-size:9px;color:#f87171;font-weight:600;margin-bottom:2px;">Your pick</div>
+              <div style="font-size:12px;font-weight:700;color:#f87171;">Adrian Peterson</div>
+            </div>
+          </div>
+          <!-- Correct answer -->
+          <div style="background:rgba(74,222,128,0.06);border:1.5px solid rgba(74,222,128,0.2);border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+            <div style="width:22px;height:22px;background:#4ade80;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#0d1117;">B</div>
+            <div>
+              <div style="font-size:9px;color:#4ade80;font-weight:600;margin-bottom:2px;">Correct answer</div>
+              <div style="font-size:12px;font-weight:700;color:#4ade80;">Jamal Lewis · 295 yds</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- "Did you know" fact -->
+        <div style="position:relative;z-index:1;margin:8px 18px 0;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:9px 12px;flex-shrink:0;">
+          <div style="font-size:9px;color:#6b7280;font-weight:600;margin-bottom:3px;">DID YOU KNOW</div>
+          <div style="font-size:10px;color:#8b949e;line-height:1.4;">Adrian Peterson's single-game record is 296 yards (2007). Jamal Lewis set the record in 2003 with 295 yards — both are in the top 3 all-time.</div>
+        </div>
+
+        <!-- Next Q CTA -->
+        <div style="position:relative;z-index:1;padding:8px 18px;flex:1;display:flex;align-items:flex-end;padding-bottom:12px;">
+          <div style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:13px;text-align:center;cursor:pointer;">
+            <div style="font-size:14px;font-weight:900;color:#e6edf3;">Next Question →</div>
+            <div style="font-size:9px;color:#6b7280;margin-top:2px;">1 question left · recover some IQ</div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="position:relative;z-index:1;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 16px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;filter:drop-shadow(0 0 4px rgba(167,139,250,.5));">🧠</span><span style="font-size:9px;color:#a78bfa;font-weight:600;">Trivia</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Wrong answer: +0 IQ, streak broken. User's pick vs correct answer shown side-by-side. "Did you know" fact softens the miss and makes it educational. "Recover some IQ" copy on Next button keeps momentum going.</div>
+    </div>
+
   </div><!-- /phone-wrap -->
   <div id="sfb-panel-trivia-gameplay" class="sfb-panel"></div>
 </div><!-- /screen trivia-gameplay -->
