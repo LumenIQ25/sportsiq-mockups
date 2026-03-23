@@ -1916,6 +1916,9 @@
     <div class="tab tab-review" data-screen="social-proof-picks" onclick="showScreen('social-proof-picks',this)">
       <span class="tab-label">Social Proof Picks 👥</span><span class="tab-days" id="days-social-proof-picks"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="win-share" onclick="showScreen('win-share',this)">
+      <span class="tab-label">Win Share Card 📤</span><span class="tab-days" id="days-win-share"></span><span class="review-dot"></span>
+    </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
       <summary class="nav-archive-toggle">↓ 45 previous versions</summary>
@@ -5459,7 +5462,9 @@
     'sports-dna':          '2026-03-22T17:00:00-07:00',
     'active-picks':        '2026-03-22T16:30:00-07:00',
     // ── Mar 22 loop — Social Proof Picks: friend layer + bar layer + global crowd ──
-    'social-proof-picks':  '2026-03-22T18:30:00-07:00'
+    'social-proof-picks':  '2026-03-22T18:30:00-07:00',
+    // ── Mar 22 loop — Win Share Card: instant 1-tap share at micro-pick resolve ──
+    'win-share':           '2026-03-22T19:00:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -27808,6 +27813,269 @@
 
   <div id="sfb-panel-social-proof-picks" class="sfb-panel"></div>
 </div><!-- /screen social-proof-picks -->
+
+<!-- ============================================================
+     WIN SHARE CARD — Instant 1-tap share at micro-pick resolve
+     Mar 22 2026
+     ============================================================ -->
+<div id="win-share" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>📤 Win Share Card — Instant 1-Tap at Resolve</h2>
+    <p class="screen-subtitle">Mar 22 2026 · Appears the instant a micro-pick resolves as a WIN. Optimized for speed — one big button, zero friction. The share card (what gets posted) is pre-built and waiting; user just hits Share and picks where to send it. Three views: (1) In-app win resolve overlay — the moment it hits. (2) The share card graphic itself — clean dark branded card, looks great on stories and feeds. (3) Bar check-in prompt — how the app surfaces "You're near Yard House — want to check in?" before picking, so bar layer activates naturally.</p>
+  </div>
+  <div class="phone-wrap" style="gap:40px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: In-app resolve moment — win overlay -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#22c55e;letter-spacing:.5px;">📱 WIN RESOLVE OVERLAY</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(34,197,94,0.3);">
+
+        <!-- Blurred background — the active picks tray underneath -->
+        <div style="position:absolute;inset:0;background:rgba(13,17,23,0.85);backdrop-filter:blur(4px);z-index:1;"></div>
+
+        <!-- Subtle confetti dots -->
+        <div style="position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;">
+          <div style="position:absolute;top:8%;left:15%;width:6px;height:6px;border-radius:50%;background:#4ade80;opacity:.7;"></div>
+          <div style="position:absolute;top:6%;left:55%;width:5px;height:8px;border-radius:2px;background:#a78bfa;transform:rotate(25deg);opacity:.6;"></div>
+          <div style="position:absolute;top:12%;left:75%;width:7px;height:5px;border-radius:2px;background:#facc15;transform:rotate(-15deg);opacity:.6;"></div>
+          <div style="position:absolute;top:5%;left:35%;width:5px;height:5px;border-radius:50%;background:#38bdf8;opacity:.5;"></div>
+          <div style="position:absolute;top:14%;left:85%;width:5px;height:7px;border-radius:2px;background:#f472b6;transform:rotate(40deg);opacity:.55;"></div>
+        </div>
+
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#6b7280;flex-shrink:0;position:relative;z-index:3;">
+          <span>9:19 AM</span><span>🔋</span>
+        </div>
+
+        <!-- Win resolve card — centered modal feel -->
+        <div style="position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;">
+
+          <!-- Check icon -->
+          <div style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,rgba(34,197,94,0.25),rgba(16,185,129,0.1));border:2.5px solid rgba(34,197,94,0.6);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+            <span style="font-size:32px;">🎯</span>
+          </div>
+
+          <!-- Called it -->
+          <div style="font-size:26px;font-weight:900;color:#4ade80;letter-spacing:-.5px;margin-bottom:4px;">Called it. ✓</div>
+          <div style="font-size:13px;color:#8b949e;margin-bottom:20px;">Chiefs scored · YES</div>
+
+          <!-- IQ pill — big, prominent -->
+          <div style="background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(34,197,94,0.06));border:2px solid rgba(34,197,94,0.4);border-radius:20px;padding:14px 36px;text-align:center;margin-bottom:8px;">
+            <div style="font-size:40px;font-weight:900;color:#22c55e;letter-spacing:-1px;line-height:1;">+50 IQ</div>
+            <div style="font-size:10px;color:#6b7280;margin-top:4px;">🔥 4-pick streak · 1× stake</div>
+          </div>
+
+          <!-- Streak nudge -->
+          <div style="font-size:11px;color:#4ade80;font-weight:700;margin-bottom:24px;letter-spacing:.3px;">Best streak this week 🔥</div>
+
+          <!-- THE ONE BIG BUTTON -->
+          <div style="width:100%;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:18px;padding:18px 0;text-align:center;cursor:pointer;margin-bottom:14px;box-shadow:0 8px 24px rgba(34,197,94,0.3);">
+            <div style="font-size:17px;font-weight:900;color:#fff;letter-spacing:.2px;">📤 Share this win</div>
+          </div>
+
+          <!-- Skip link — small, below -->
+          <div style="font-size:12px;color:#374151;cursor:pointer;padding:8px;">Skip →</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Win overlay appears instantly over the active picks tray. One button — Share. One link — Skip. Zero decisions. Tapping Share opens native iOS share sheet with the card already built.</div>
+    </div>
+
+    <!-- PHONE 2: The share card graphic (what gets posted) -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.5px;">📱 THE SHARE CARD (POSTED)</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(167,139,250,0.2);">
+
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:19 AM</span><span>🔋</span>
+        </div>
+
+        <!-- Label -->
+        <div style="padding:6px 20px 10px;font-size:10px;color:#475569;font-weight:600;flex-shrink:0;">Preview of what gets shared:</div>
+
+        <!-- THE SHARE CARD GRAPHIC — dark branded card -->
+        <div style="margin:0 16px;background:linear-gradient(145deg,#0f1923,#111827);border:1.5px solid rgba(34,197,94,0.35);border-radius:24px;overflow:hidden;flex-shrink:0;">
+
+          <!-- Top green accent bar -->
+          <div style="height:4px;background:linear-gradient(90deg,#22c55e,#4ade80,#a78bfa);"></div>
+
+          <div style="padding:20px 20px 16px;">
+            <!-- SportsIQ wordmark -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+              <div style="font-size:14px;font-weight:900;color:#f0f6fc;letter-spacing:-.2px;">SportsIQ</div>
+              <div style="font-size:9px;color:#374151;font-weight:600;letter-spacing:.8px;text-transform:uppercase;">sportsiq.app</div>
+            </div>
+
+            <!-- Big checkmark -->
+            <div style="text-align:center;margin-bottom:14px;">
+              <div style="font-size:44px;line-height:1;">🎯</div>
+            </div>
+
+            <!-- Called it headline -->
+            <div style="text-align:center;margin-bottom:6px;">
+              <div style="font-size:22px;font-weight:900;color:#4ade80;letter-spacing:-.3px;">Called it.</div>
+              <div style="font-size:13px;color:#94a3b8;margin-top:2px;">Chiefs scored this drive · YES ✓</div>
+            </div>
+
+            <!-- IQ earned -->
+            <div style="text-align:center;margin:12px 0;">
+              <div style="display:inline-block;background:rgba(34,197,94,0.12);border:1.5px solid rgba(34,197,94,0.3);border-radius:14px;padding:8px 24px;">
+                <div style="font-size:28px;font-weight:900;color:#22c55e;letter-spacing:-.5px;">+50 IQ</div>
+              </div>
+            </div>
+
+            <!-- Streak badge -->
+            <div style="text-align:center;margin-bottom:14px;">
+              <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:20px;padding:4px 12px;">
+                <span style="font-size:12px;">🔥</span>
+                <span style="font-size:11px;font-weight:700;color:#fbbf24;">4-pick streak</span>
+              </div>
+            </div>
+
+            <!-- Win rate line -->
+            <div style="display:flex;justify-content:center;gap:20px;margin-bottom:16px;">
+              <div style="text-align:center;">
+                <div style="font-size:16px;font-weight:800;color:#f0f6fc;">63%</div>
+                <div style="font-size:9px;color:#475569;">Win rate</div>
+              </div>
+              <div style="width:1px;background:#21262d;"></div>
+              <div style="text-align:center;">
+                <div style="font-size:16px;font-weight:800;color:#f0f6fc;">1,897 IQ</div>
+                <div style="font-size:9px;color:#475569;">Total</div>
+              </div>
+              <div style="width:1px;background:#21262d;"></div>
+              <div style="text-align:center;">
+                <div style="font-size:16px;font-weight:800;color:#f0f6fc;">#847</div>
+                <div style="font-size:9px;color:#475569;">Global</div>
+              </div>
+            </div>
+
+            <!-- CTA footer -->
+            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:9px 12px;text-align:center;">
+              <div style="font-size:10px;color:#64748b;">Think you can beat me?</div>
+              <div style="font-size:11px;font-weight:700;color:#a78bfa;margin-top:2px;">Play free at sportsiq.app</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom: iOS share sheet peek -->
+        <div style="margin:10px 16px 0;background:rgba(255,255,255,0.04);border-radius:14px;padding:10px 14px;flex-shrink:0;">
+          <div style="font-size:10px;color:#475569;margin-bottom:7px;font-weight:600;">Share to...</div>
+          <div style="display:flex;gap:14px;justify-content:center;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="width:38px;height:38px;border-radius:10px;background:#1da1f2;display:flex;align-items:center;justify-content:center;font-size:18px;">𝕏</div>
+              <span style="font-size:9px;color:#6b7280;">X</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);display:flex;align-items:center;justify-content:center;font-size:18px;">📸</div>
+              <span style="font-size:9px;color:#6b7280;">Story</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="width:38px;height:38px;border-radius:10px;background:#25d366;display:flex;align-items:center;justify-content:center;font-size:18px;">💬</div>
+              <span style="font-size:9px;color:#6b7280;">iMessage</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="width:38px;height:38px;border-radius:10px;background:#0088cc;display:flex;align-items:center;justify-content:center;font-size:18px;">✈️</div>
+              <span style="font-size:9px;color:#6b7280;">Telegram</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;margin-top:auto;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#8b949e;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;filter:drop-shadow(0 0 4px rgba(88,166,255,.6));">🎯</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Card is pre-built on resolve — user never sees a loading state. "Think you can beat me?" hooks the viewer into downloading. Win rate + rank adds credibility without bragging.</div>
+    </div>
+
+    <!-- PHONE 3: Bar check-in prompt — near venue detection -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#f59e0b;letter-spacing:.5px;">📱 BAR CHECK-IN PROMPT</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(245,158,11,0.2);">
+
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>4:22 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Header -->
+        <div style="padding:6px 16px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div style="font-size:16px;font-weight:900;color:#f0f6fc;">SportsIQ</div>
+          <div style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);border-radius:12px;padding:4px 10px;font-size:11px;font-weight:700;color:#a78bfa;">1,847 IQ</div>
+        </div>
+
+        <!-- Blurred background with pick tray -->
+        <div style="position:relative;flex:1;overflow:hidden;">
+
+          <!-- Dimmed tray content behind prompt -->
+          <div style="padding:0 12px;opacity:.3;pointer-events:none;">
+            <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:12px;padding:10px 12px;margin-bottom:7px;">
+              <div style="font-size:12px;font-weight:800;color:#f0f6fc;">Chiefs ML</div>
+              <div style="font-size:10px;color:#22c55e;">+200 IQ · WINNING 🟢</div>
+            </div>
+            <div style="background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.2);border-radius:12px;padding:10px 12px;">
+              <div style="font-size:12px;font-weight:800;color:#f0f6fc;">Chiefs score? YES</div>
+              <div style="font-size:10px;color:#a78bfa;">⏱ 4:12</div>
+            </div>
+          </div>
+
+          <!-- BAR CHECK-IN PROMPT — bottom sheet style -->
+          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,transparent 0%,rgba(13,17,23,0.98) 18%);padding:30px 16px 20px;">
+
+            <!-- Handle bar -->
+            <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,0.15);margin:0 auto 18px;"></div>
+
+            <!-- Venue icon + name -->
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+              <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(245,158,11,0.08));border:1.5px solid rgba(245,158,11,0.35);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🍺</div>
+              <div>
+                <div style="font-size:16px;font-weight:900;color:#f0f6fc;">Yard House</div>
+                <div style="font-size:11px;color:#6b7280;margin-top:1px;">0.1 mi away · 14 SportsIQ players inside</div>
+              </div>
+            </div>
+
+            <!-- What you get -->
+            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:12px;padding:10px 12px;margin-bottom:14px;">
+              <div style="font-size:10px;color:#92400e;font-weight:700;margin-bottom:5px;">📍 Check in to unlock:</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="font-size:11px;color:#fbbf24;">• See what 14 people at this bar are picking</div>
+                <div style="font-size:11px;color:#fbbf24;">• Show on the bar leaderboard</div>
+                <div style="font-size:11px;color:#fbbf24;">• Win the bar tonight → Earn Bar Champion badge</div>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div style="display:flex;gap:9px;">
+              <div style="flex:1;background:linear-gradient(135deg,rgba(245,158,11,0.22),rgba(245,158,11,0.08));border:2px solid rgba(245,158,11,0.5);border-radius:14px;padding:14px 0;text-align:center;cursor:pointer;">
+                <div style="font-size:14px;font-weight:900;color:#fbbf24;">📍 Check In</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px 16px;text-align:center;cursor:pointer;">
+                <div style="font-size:12px;font-weight:600;color:#374151;">Not now</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 20px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🏠</span><span style="font-size:9px;color:#58a6ff;font-weight:600;">Home</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:20px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">App detects you're near Yard House — surfaces a bottom sheet. User taps Check In. Bar layer activates on all picks. "14 players inside" creates FOMO to join the local game.</div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+
+  <div id="sfb-panel-win-share" class="sfb-panel"></div>
+</div><!-- /screen win-share -->
 
 <div id="share-card" class="screen" style="display:none;">
   <div class="screen-header">
