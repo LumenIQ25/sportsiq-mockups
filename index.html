@@ -1943,6 +1943,9 @@
     <div class="tab tab-review" data-screen="iq-prize-contests" onclick="showScreen('iq-prize-contests',this)">
       <span class="tab-label">Prize Contests 🏆</span><span class="tab-days" id="days-iq-prize-contests"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="trivia-gameplay" onclick="showScreen('trivia-gameplay',this)">
+      <span class="tab-label">Trivia Gameplay 🧠</span><span class="tab-days" id="days-trivia-gameplay"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="social-feed" onclick="showScreen('social-feed',this)">
       <span class="tab-label">Social Feed 👥</span><span class="tab-days" id="days-social-feed"></span><span class="review-dot"></span>
     </div>
@@ -5510,6 +5513,7 @@
     'iq-ways':             '2026-03-22T20:45:00-07:00',
     'profile-screen':      '2026-03-22T21:00:00-07:00',
     'iq-prize-contests':   '2026-03-22T21:15:00-07:00',
+    'trivia-gameplay':     '2026-03-22T22:00:00-07:00',
     // ── Mar 22 loop — Social Feed: real-time friend picks, disagree hook, bar-mode ──
     'social-feed':         '2026-03-22T20:00:00-07:00',
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
@@ -30664,6 +30668,295 @@
   </div><!-- /phone-wrap -->
   <div id="sfb-panel-iq-prize-contests" class="sfb-panel"></div>
 </div><!-- /screen iq-prize-contests -->
+
+<!-- ============================================================
+     TRIVIA GAMEPLAY — Daily Challenge question flow + IQ reward
+     Mar 22 2026 · For Isaac P4.10 (Trivia tab + Daily Challenge Card)
+     IQ rules confirmed: +15 base + seconds remaining as speed bonus
+     5/5 perfect round ≈ +105–125 IQ total
+     ============================================================ -->
+<div id="trivia-gameplay" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🧠 Trivia Gameplay — Daily Challenge Flow</h2>
+    <p class="screen-subtitle">Mar 22 2026 · Three views: (1) Live question — 5-question daily round, 15-second timer, 4 answers. IQ earned = 15 base + seconds remaining when answered (e.g., answer in 6s left → +21 IQ). (2) Answer reveal — correct/wrong state, speed bonus breakdown, streak indicator. (3) Round complete — final score, total IQ earned, share card CTA. Trivia runs independently from micro-picks — separate tab, separate IQ stream, stacks with pick IQ. Design principle: timer pressure + speed bonus creates urgency and skill expression. Perfect round (5/5 fast answers) = ~+105–125 IQ, roughly equivalent to 2 micro-pick wins. Isaac reference: P4.10 — Daily Challenge Card on home screen taps into this flow, and the Trivia tab in the bottom nav.</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- PHONE 1: Live trivia question -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.5px;">📱 LIVE QUESTION</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(167,139,250,0.25);">
+        <!-- Ambient glow -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(167,139,250,0.07) 0%,transparent 55%);pointer-events:none;z-index:0;"></div>
+
+        <!-- Status bar -->
+        <div style="position:relative;z-index:1;padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Header row: Q progress + IQ earned -->
+        <div style="position:relative;z-index:1;padding:8px 18px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div>
+            <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Daily Challenge</div>
+            <div style="font-size:9px;color:#6b7280;margin-top:1px;">Question 3 of 5</div>
+          </div>
+          <div style="background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.25);border-radius:10px;padding:5px 10px;text-align:right;">
+            <div style="font-size:8px;color:#6b7280;">IQ this round</div>
+            <div style="font-size:14px;font-weight:900;color:#a78bfa;">+42 IQ</div>
+          </div>
+        </div>
+
+        <!-- Q progress dots -->
+        <div style="position:relative;z-index:1;padding:0 18px 12px;display:flex;gap:6px;flex-shrink:0;">
+          <div style="height:4px;flex:1;background:#4ade80;border-radius:4px;"></div><!-- Q1 correct -->
+          <div style="height:4px;flex:1;background:#4ade80;border-radius:4px;"></div><!-- Q2 correct -->
+          <div style="height:4px;flex:1;background:#a78bfa;border-radius:4px;box-shadow:0 0 6px rgba(167,139,250,0.4);"></div><!-- Q3 active -->
+          <div style="height:4px;flex:1;background:#21262d;border-radius:4px;"></div><!-- Q4 -->
+          <div style="height:4px;flex:1;background:#21262d;border-radius:4px;"></div><!-- Q5 -->
+        </div>
+
+        <!-- Timer bar -->
+        <div style="position:relative;z-index:1;margin:0 18px 14px;flex-shrink:0;">
+          <div style="background:#21262d;border-radius:6px;height:8px;overflow:hidden;">
+            <div style="height:100%;width:60%;background:linear-gradient(90deg,#a78bfa,#7c3aed);border-radius:6px;transition:width 1s linear;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:4px;">
+            <div style="font-size:9px;color:#6b7280;">Time remaining</div>
+            <div style="font-size:11px;font-weight:800;color:#a78bfa;">9s</div>
+          </div>
+        </div>
+
+        <!-- Question text -->
+        <div style="position:relative;z-index:1;padding:0 18px 16px;flex-shrink:0;">
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:16px 16px;">
+            <div style="font-size:9px;color:#6b7280;margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">🏈 NFL · Regular Season</div>
+            <div style="font-size:15px;font-weight:800;color:#f0f6fc;line-height:1.4;">Who holds the NFL record for most rushing yards in a single game?</div>
+          </div>
+        </div>
+
+        <!-- Answer choices -->
+        <div style="position:relative;z-index:1;padding:0 18px;flex:1;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+          <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:13px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;">
+            <div style="width:22px;height:22px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#8b949e;">A</div>
+            <div style="font-size:13px;font-weight:600;color:#e6edf3;">Adrian Peterson</div>
+          </div>
+          <div style="background:rgba(167,139,250,0.08);border:1.5px solid rgba(167,139,250,0.35);border-radius:14px;padding:13px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;">
+            <div style="width:22px;height:22px;background:rgba(167,139,250,0.15);border:1.5px solid rgba(167,139,250,0.4);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#a78bfa;">B</div>
+            <div style="font-size:13px;font-weight:700;color:#a78bfa;">Jamal Lewis</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:13px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;">
+            <div style="width:22px;height:22px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#8b949e;">C</div>
+            <div style="font-size:13px;font-weight:600;color:#e6edf3;">Barry Sanders</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:13px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;">
+            <div style="width:22px;height:22px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#8b949e;">D</div>
+            <div style="font-size:13px;font-weight:600;color:#e6edf3;">Jim Brown</div>
+          </div>
+        </div>
+
+        <!-- Speed bonus hint -->
+        <div style="position:relative;z-index:1;padding:10px 18px 14px;flex-shrink:0;text-align:center;">
+          <div style="font-size:9px;color:#475569;">Answer fast → earn more IQ · +15 base + seconds left as bonus</div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="position:relative;z-index:1;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 16px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;filter:drop-shadow(0 0 4px rgba(167,139,250,.5));">🧠</span><span style="font-size:9px;color:#a78bfa;font-weight:600;">Trivia</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">B is selected (highlighted purple). 9 seconds left on the timer. Speed bonus hint at bottom. IQ this round counter updates live as questions resolve.</div>
+    </div>
+
+    <!-- PHONE 2: Answer reveal — correct -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#4ade80;letter-spacing:.5px;">📱 ANSWER REVEAL — CORRECT</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(74,222,128,0.25);">
+        <!-- Green glow on correct -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(74,222,128,0.08) 0%,transparent 55%);pointer-events:none;z-index:0;"></div>
+
+        <!-- Status bar -->
+        <div style="position:relative;z-index:1;padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- Header -->
+        <div style="position:relative;z-index:1;padding:8px 18px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div>
+            <div style="font-size:13px;font-weight:900;color:#f0f6fc;">Daily Challenge</div>
+            <div style="font-size:9px;color:#6b7280;margin-top:1px;">Question 3 of 5</div>
+          </div>
+          <div style="background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.25);border-radius:10px;padding:5px 10px;text-align:right;">
+            <div style="font-size:8px;color:#6b7280;">IQ this round</div>
+            <div style="font-size:14px;font-weight:900;color:#4ade80;">+63 IQ</div>
+          </div>
+        </div>
+
+        <!-- Q progress dots (3 green) -->
+        <div style="position:relative;z-index:1;padding:0 18px 14px;display:flex;gap:6px;flex-shrink:0;">
+          <div style="height:4px;flex:1;background:#4ade80;border-radius:4px;"></div>
+          <div style="height:4px;flex:1;background:#4ade80;border-radius:4px;"></div>
+          <div style="height:4px;flex:1;background:#4ade80;border-radius:4px;box-shadow:0 0 6px rgba(74,222,128,0.5);"></div>
+          <div style="height:4px;flex:1;background:#21262d;border-radius:4px;"></div>
+          <div style="height:4px;flex:1;background:#21262d;border-radius:4px;"></div>
+        </div>
+
+        <!-- IQ reward card — big splash -->
+        <div style="position:relative;z-index:1;margin:0 18px 14px;background:linear-gradient(145deg,rgba(74,222,128,0.12),rgba(34,197,94,0.05));border:2px solid rgba(74,222,128,0.35);border-radius:18px;padding:18px 18px;text-align:center;flex-shrink:0;">
+          <div style="font-size:28px;margin-bottom:4px;">✅</div>
+          <div style="font-size:22px;font-weight:900;color:#4ade80;margin-bottom:4px;">+21 IQ</div>
+          <div style="font-size:10px;color:#6b7280;margin-bottom:10px;">Correct · answered with 6 seconds left</div>
+          <!-- Breakdown -->
+          <div style="display:flex;gap:8px;justify-content:center;">
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:5px 10px;">
+              <div style="font-size:9px;color:#6b7280;">Base</div>
+              <div style="font-size:13px;font-weight:800;color:#e6edf3;">+15</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:5px 6px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#475569;">+</div>
+            <div style="background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.2);border-radius:8px;padding:5px 10px;">
+              <div style="font-size:9px;color:#6b7280;">Speed</div>
+              <div style="font-size:13px;font-weight:800;color:#facc15;">+6</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:5px 6px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#475569;">=</div>
+            <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);border-radius:8px;padding:5px 10px;">
+              <div style="font-size:9px;color:#6b7280;">Total</div>
+              <div style="font-size:13px;font-weight:800;color:#4ade80;">+21</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Correct answer highlight -->
+        <div style="position:relative;z-index:1;padding:0 18px;flex-shrink:0;">
+          <div style="font-size:9px;color:#6b7280;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">The Answer</div>
+          <div style="background:rgba(74,222,128,0.08);border:2px solid rgba(74,222,128,0.3);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;">
+            <div style="width:22px;height:22px;background:#4ade80;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#0d1117;">B</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#4ade80;">Jamal Lewis</div>
+              <div style="font-size:9px;color:#6b7280;margin-top:1px;">295 rushing yards, Baltimore Ravens vs Cleveland Browns, Sept 14 2003</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Streak badge -->
+        <div style="position:relative;z-index:1;padding:10px 18px 6px;flex-shrink:0;display:flex;justify-content:center;">
+          <div style="background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.2);border-radius:10px;padding:5px 14px;display:flex;align-items:center;gap:6px;">
+            <span style="font-size:14px;">🔥</span>
+            <div style="font-size:10px;font-weight:700;color:#facc15;">3 correct in a row!</div>
+          </div>
+        </div>
+
+        <!-- Next Q CTA -->
+        <div style="position:relative;z-index:1;padding:8px 18px;flex:1;display:flex;align-items:flex-end;padding-bottom:12px;">
+          <div style="width:100%;background:linear-gradient(135deg,#4ade80,#22c55e);border-radius:14px;padding:14px;text-align:center;cursor:pointer;">
+            <div style="font-size:14px;font-weight:900;color:#0d1117;">Next Question →</div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="position:relative;z-index:1;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 16px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;filter:drop-shadow(0 0 4px rgba(167,139,250,.5));">🧠</span><span style="font-size:9px;color:#a78bfa;font-weight:600;">Trivia</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Base +15 · Speed +6 (answered with 6s left) = +21 IQ. Breakdown shown explicitly so users understand the speed bonus and try to answer faster. Correct fact shown below — teaches while rewarding.</div>
+    </div>
+
+    <!-- PHONE 3: Round complete — 5/5 perfect -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="font-size:13px;font-weight:600;color:#facc15;letter-spacing:.5px;">📱 ROUND COMPLETE — 5/5 PERFECT</div>
+      <div class="phone-frame" style="background:#0d1117;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(250,204,21,0.3);">
+        <!-- Gold glow -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 25%,rgba(250,204,21,0.08) 0%,transparent 50%);pointer-events:none;z-index:0;"></div>
+
+        <!-- Status bar -->
+        <div style="position:relative;z-index:1;padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#8b949e;flex-shrink:0;">
+          <span>9:41 PM</span><span>🔋</span>
+        </div>
+
+        <!-- All 5 dots green -->
+        <div style="position:relative;z-index:1;padding:10px 22px 6px;display:flex;gap:6px;flex-shrink:0;">
+          <div style="height:5px;flex:1;background:#4ade80;border-radius:4px;box-shadow:0 0 4px rgba(74,222,128,0.4);"></div>
+          <div style="height:5px;flex:1;background:#4ade80;border-radius:4px;box-shadow:0 0 4px rgba(74,222,128,0.4);"></div>
+          <div style="height:5px;flex:1;background:#4ade80;border-radius:4px;box-shadow:0 0 4px rgba(74,222,128,0.4);"></div>
+          <div style="height:5px;flex:1;background:#4ade80;border-radius:4px;box-shadow:0 0 4px rgba(74,222,128,0.4);"></div>
+          <div style="height:5px;flex:1;background:#4ade80;border-radius:4px;box-shadow:0 0 4px rgba(74,222,128,0.4);"></div>
+        </div>
+
+        <!-- Hero IQ award -->
+        <div style="position:relative;z-index:1;padding:12px 18px 0;flex-shrink:0;">
+          <div style="background:linear-gradient(145deg,rgba(250,204,21,0.12),rgba(245,158,11,0.06));border:2px solid rgba(250,204,21,0.35);border-radius:20px;padding:20px 18px;text-align:center;">
+            <div style="font-size:36px;margin-bottom:6px;">🏆</div>
+            <div style="font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">Perfect Round · 5 of 5 Correct</div>
+            <div style="font-size:36px;font-weight:900;color:#facc15;margin-bottom:4px;">+113 IQ</div>
+            <div style="font-size:10px;color:#6b7280;">earned this round</div>
+
+            <!-- Per-question breakdown pills -->
+            <div style="display:flex;gap:4px;justify-content:center;margin-top:12px;flex-wrap:wrap;">
+              <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:8px;padding:3px 8px;font-size:9px;font-weight:700;color:#4ade80;">Q1 +22</div>
+              <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:8px;padding:3px 8px;font-size:9px;font-weight:700;color:#4ade80;">Q2 +19</div>
+              <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:8px;padding:3px 8px;font-size:9px;font-weight:700;color:#4ade80;">Q3 +21</div>
+              <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:8px;padding:3px 8px;font-size:9px;font-weight:700;color:#4ade80;">Q4 +25</div>
+              <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:8px;padding:3px 8px;font-size:9px;font-weight:700;color:#4ade80;">Q5 +26</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Streak + stats row -->
+        <div style="position:relative;z-index:1;padding:10px 18px 0;display:flex;gap:8px;flex-shrink:0;">
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:9px 10px;text-align:center;">
+            <div style="font-size:16px;">🔥</div>
+            <div style="font-size:14px;font-weight:900;color:#f0f6fc;margin-top:2px;">5</div>
+            <div style="font-size:8px;color:#6b7280;">day streak</div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:9px 10px;text-align:center;">
+            <div style="font-size:16px;">🎯</div>
+            <div style="font-size:14px;font-weight:900;color:#f0f6fc;margin-top:2px;">100%</div>
+            <div style="font-size:8px;color:#6b7280;">today's accuracy</div>
+          </div>
+          <div style="flex:1;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.18);border-radius:12px;padding:9px 10px;text-align:center;">
+            <div style="font-size:16px;">🧠</div>
+            <div style="font-size:14px;font-weight:900;color:#a78bfa;margin-top:2px;">14,933</div>
+            <div style="font-size:8px;color:#6b7280;">Lifetime IQ</div>
+          </div>
+        </div>
+
+        <!-- Share CTA -->
+        <div style="position:relative;z-index:1;padding:10px 18px 0;flex-shrink:0;">
+          <div style="background:linear-gradient(135deg,rgba(250,204,21,0.15),rgba(245,158,11,0.08));border:1.5px solid rgba(250,204,21,0.3);border-radius:14px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+            <div>
+              <div style="font-size:11px;font-weight:800;color:#facc15;">Share your perfect round 🎯</div>
+              <div style="font-size:9px;color:#6b7280;margin-top:2px;">"5 for 5 today. Think you can keep up?"</div>
+            </div>
+            <div style="font-size:20px;">→</div>
+          </div>
+        </div>
+
+        <!-- Tomorrow's challenge teaser + CTAs -->
+        <div style="position:relative;z-index:1;padding:8px 18px;flex:1;display:flex;flex-direction:column;gap:8px;justify-content:flex-end;padding-bottom:12px;">
+          <div style="font-size:9px;color:#475569;text-align:center;">Come back tomorrow for a new 5-question round · streak at risk if you miss</div>
+          <div style="background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.25);border-radius:14px;padding:12px;text-align:center;cursor:pointer;">
+            <div style="font-size:13px;font-weight:800;color:#4ade80;">Make a Pick → earn more IQ 🎯</div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="position:relative;z-index:1;background:#161b22;border-top:1px solid #21262d;display:flex;justify-content:space-around;padding:10px 0 16px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">🎯</span><span style="font-size:9px;color:#8b949e;">Pick</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;filter:drop-shadow(0 0 4px rgba(167,139,250,.5));">🧠</span><span style="font-size:9px;color:#a78bfa;font-weight:600;">Trivia</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">👥</span><span style="font-size:9px;color:#8b949e;">Social</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="font-size:18px;">👤</span><span style="font-size:9px;color:#8b949e;">Profile</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#6b7280;text-align:center;max-width:220px;">Per-question IQ breakdown — Q1-Q5 each show individual speed bonuses. Total +113 IQ (5 correct, averaging ~22 IQ/question). Streak continuity hook + cross-sell to picks. "Come back tomorrow or lose your streak" = daily re-engagement driver.</div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+  <div id="sfb-panel-trivia-gameplay" class="sfb-panel"></div>
+</div><!-- /screen trivia-gameplay -->
 
 <!-- ============================================================
      SOCIAL FEED — Real-time friend picks feed (👥 Social tab)
