@@ -7,6 +7,7 @@
     { "src": "/api/threads",   "dest": "/api/threads.js",   "methods": ["GET","POST","OPTIONS"] },
     { "src": "/isaac-phase4",  "dest": "/isaac-phase4.html" },
     { "src": "/demo-video",    "dest": "/demo-video.html" },
+    { "src": "/audio/(.*)",   "dest": "/audio/$1" },
     {
       "src": "/(.*)",
       "dest": "/index.html",
