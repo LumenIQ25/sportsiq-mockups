@@ -2015,6 +2015,9 @@
     <div class="tab tab-review" data-screen="weekly-iq-league" onclick="showScreen('weekly-iq-league',this)">
       <span class="tab-label">Weekly IQ League 🏆</span><span class="tab-days" id="days-weekly-iq-league"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="iq-rewards-hub" onclick="showScreen('iq-rewards-hub',this)">
+      <span class="tab-label">IQ Rewards Hub 🎁</span><span class="tab-days" id="days-iq-rewards-hub"></span><span class="review-dot"></span>
+    </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
       <summary class="nav-archive-toggle">↓ 45 previous versions</summary>
@@ -5601,7 +5604,9 @@
     // ── Mar 23 — Bar Owner Dashboard: venue analytics, QR mgmt, revenue impact ──
     'bar-owner-dashboard': '2026-03-23T18:00:00-07:00',
     // ── Mar 23 — Weekly IQ League: seasonal tournament, tier promotion, addiction loop ──
-    'weekly-iq-league':    '2026-03-23T19:30:00-07:00'
+    'weekly-iq-league':    '2026-03-23T19:30:00-07:00',
+    // ── Mar 23 — IQ Rewards Hub: what players win, prize store, bar-sponsored prizes ──
+    'iq-rewards-hub':      '2026-03-23T21:00:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -42091,6 +42096,282 @@
 
   <div id="sfb-panel-weekly-iq-league" class="sfb-panel"></div>
 </div><!-- /screen weekly-iq-league -->
+
+<!-- ══════════════════════════════════════════════════════════════════
+     IQ REWARDS HUB — Mar 23 2026
+     Answers the #1 player question: "What do IQ points actually win me?"
+     Prize store powered by bar sponsors + SportsIQ national rewards.
+     Bars sponsor prizes → players compete harder → bars get engagement.
+     Creates a 3-way flywheel: Players earn IQ → redeem at bars →
+     bars see ROI → bars sponsor bigger prizes → players play more.
+     ══════════════════════════════════════════════════════════════════ -->
+<div id="iq-rewards-hub" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🎁 IQ Rewards Hub — Prize Store & Redemption</h2>
+    <p class="screen-subtitle">Mar 23 2026 · Closes the loop on "what do IQ points actually win me?" — the first question every new player asks. Two prize tiers: (1) Bar Prizes — sponsored by the venue the player is checked into tonight (free appetizer, drink, merch). Bar owners set the prize and IQ threshold; SportsIQ handles fulfillment notifications. Creates a direct ROI loop for bars. (2) National Prizes — SportsIQ-sponsored gift cards, merch, Pro subscriptions. 3 screens: Prize Store home, Redemption confirmation flow, and Prize history.</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- ── PHONE 1: Prize Store Home ── -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label">📱 PRIZE STORE</div>
+      <div class="phone-frame" style="background:#050912;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <!-- Header with balance -->
+        <div style="padding:8px 18px 0;flex-shrink:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:17px;font-weight:800;color:#f0f6fc;">Rewards</div>
+            <!-- IQ Balance chip -->
+            <div style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.35);border-radius:20px;padding:5px 12px;display:flex;align-items:center;gap:5px;">
+              <span style="font-size:13px;">⚡</span>
+              <span style="font-size:13px;font-weight:800;color:#f59e0b;">12,840 IQ</span>
+            </div>
+          </div>
+          <!-- Tab pills: Tonight's Bar / National -->
+          <div style="display:flex;gap:6px;margin-top:10px;">
+            <div style="flex:1;background:#5545D3;border-radius:20px;padding:7px;text-align:center;font-size:11px;font-weight:700;color:#fff;">🍺 Yard House</div>
+            <div style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:7px;text-align:center;font-size:11px;color:#94a3b8;">🌎 National</div>
+          </div>
+        </div>
+
+        <!-- Bar sponsor headline -->
+        <div style="margin:10px 14px 0;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:8px 12px;flex-shrink:0;">
+          <div style="font-size:10px;color:#7c6ef5;font-weight:700;">YARD HOUSE PRIZES — TONIGHT ONLY</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:2px;">Prizes reset at close. You're checked in until midnight.</div>
+        </div>
+
+        <!-- Prize cards -->
+        <div style="flex:1;overflow:hidden;padding:8px 14px;display:flex;flex-direction:column;gap:8px;">
+
+          <!-- Prize 1 — free app (affordable) -->
+          <div style="background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.25);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+            <div style="font-size:28px;">🍟</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">Free Appetizer</div>
+              <div style="font-size:10px;color:#94a3b8;">Show to bartender · Yard House</div>
+              <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
+                <div style="background:rgba(34,197,94,0.15);border-radius:10px;padding:2px 8px;font-size:10px;font-weight:700;color:#22c55e;">5,000 IQ</div>
+                <div style="font-size:10px;color:#22c55e;">✓ You can afford this</div>
+              </div>
+            </div>
+            <div style="background:#22c55e;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:800;color:#000;cursor:pointer;white-space:nowrap;">Redeem</div>
+          </div>
+
+          <!-- Prize 2 — free drink (stretch goal) -->
+          <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+            <div style="font-size:28px;">🍺</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">Free Draft Beer</div>
+              <div style="font-size:10px;color:#94a3b8;">Show to bartender · Yard House</div>
+              <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
+                <div style="background:rgba(245,158,11,0.15);border-radius:10px;padding:2px 8px;font-size:10px;font-weight:700;color:#f59e0b;">10,000 IQ</div>
+                <div style="font-size:10px;color:#94a3b8;">Need 2,160 more</div>
+              </div>
+              <!-- Progress bar -->
+              <div style="background:rgba(255,255,255,0.08);border-radius:4px;height:4px;margin-top:5px;overflow:hidden;">
+                <div style="width:84%;height:100%;background:rgba(245,158,11,0.6);border-radius:4px;"></div>
+              </div>
+            </div>
+            <div style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:7px 10px;font-size:10px;font-weight:700;color:#f59e0b;white-space:nowrap;">84% there</div>
+          </div>
+
+          <!-- Prize 3 — bar tab (big goal) -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;opacity:0.7;">
+            <div style="font-size:28px;">💳</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">$25 Bar Tab</div>
+              <div style="font-size:10px;color:#94a3b8;">Valid tonight only · Yard House</div>
+              <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
+                <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:2px 8px;font-size:10px;font-weight:700;color:#475569;">25,000 IQ</div>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:7px 10px;font-size:10px;color:#475569;white-space:nowrap;">Locked</div>
+          </div>
+
+          <!-- Divider — National section teaser -->
+          <div style="display:flex;align-items:center;gap:8px;padding:2px 0;">
+            <div style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></div>
+            <div style="font-size:9px;color:#475569;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Also Available</div>
+            <div style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></div>
+          </div>
+
+          <!-- National prize teaser -->
+          <div style="background:rgba(85,69,211,0.07);border:1px solid rgba(85,69,211,0.2);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+            <div style="font-size:22px;">🎮</div>
+            <div style="flex:1;">
+              <div style="font-size:12px;font-weight:700;color:#f0f6fc;">SportsIQ Pro — 1 Month</div>
+              <div style="font-size:10px;color:#7c6ef5;font-weight:600;">20,000 IQ · National prize</div>
+            </div>
+            <div style="font-size:10px;color:#7c6ef5;cursor:pointer;">View →</div>
+          </div>
+
+        </div>
+
+        <!-- Tab bar -->
+        <div style="padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-around;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">🏠</div><div style="font-size:9px;color:#94a3b8;">Home</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">⚡</div><div style="font-size:9px;color:#94a3b8;">Pick</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">🏆</div><div style="font-size:9px;color:#94a3b8;">League</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">👥</div><div style="font-size:9px;color:#94a3b8;">Social</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="font-size:18px;">🎁</div><div style="font-size:9px;color:#5545D3;font-weight:700;">Rewards</div><div style="width:4px;height:4px;border-radius:50%;background:#5545D3;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PHONE 2: Redemption confirmation ── -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="color:#22c55e;">📱 REDEEM FLOW</div>
+      <div class="phone-frame" style="background:#050912;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(34,197,94,0.35);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 25%,rgba(34,197,94,0.12) 0%,transparent 55%);pointer-events:none;"></div>
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;flex:1;">
+          <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;"><span>9:41</span><span>🔋</span></div>
+
+          <!-- Success hero -->
+          <div style="display:flex;flex-direction:column;align-items:center;padding:24px 20px 16px;text-align:center;">
+            <div style="width:72px;height:72px;border-radius:50%;background:rgba(34,197,94,0.15);border:2px solid rgba(34,197,94,0.4);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:12px;">🍟</div>
+            <div style="font-size:10px;font-weight:800;color:#22c55e;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Reward Unlocked</div>
+            <div style="font-size:22px;font-weight:900;color:#f0f6fc;line-height:1.2;">Free Appetizer</div>
+            <div style="font-size:12px;color:#94a3b8;margin-top:4px;">Yard House · Valid tonight</div>
+          </div>
+
+          <!-- IQ deducted -->
+          <div style="margin:0 18px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="font-size:11px;color:#94a3b8;">Your IQ balance</div>
+              <div style="font-size:12px;font-weight:700;color:#f0f6fc;">12,840 IQ</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="font-size:11px;color:#ef4444;">Redeemed</div>
+              <div style="font-size:12px;font-weight:700;color:#ef4444;">− 5,000 IQ</div>
+            </div>
+            <div style="height:1px;background:rgba(255,255,255,0.06);margin-bottom:8px;"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:11px;font-weight:700;color:#f0f6fc;">New balance</div>
+              <div style="font-size:14px;font-weight:800;color:#f59e0b;">7,840 IQ</div>
+            </div>
+          </div>
+
+          <!-- Show to bartender QR / code -->
+          <div style="margin:0 18px 14px;background:rgba(34,197,94,0.08);border:2px solid rgba(34,197,94,0.3);border-radius:14px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+            <div style="font-size:10px;font-weight:700;color:#22c55e;letter-spacing:1px;text-transform:uppercase;">Show to Bartender</div>
+            <!-- Big redemption code -->
+            <div style="background:#fff;border-radius:10px;padding:8px 20px;">
+              <div style="font-size:24px;font-weight:900;color:#050912;letter-spacing:4px;font-family:monospace;">SIQ-4820</div>
+            </div>
+            <div style="font-size:10px;color:#94a3b8;text-align:center;">Code expires at midnight · One use only</div>
+          </div>
+
+          <!-- Earn more CTA -->
+          <div style="margin:0 18px;background:#5545D3;border-radius:12px;padding:12px;text-align:center;font-size:13px;font-weight:800;color:#fff;">Keep Playing — Earn More IQ ⚡</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PHONE 3: National Prizes (Pro + Gift Cards) ── -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label">📱 NATIONAL PRIZES</div>
+      <div class="phone-frame" style="background:#050912;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;flex-shrink:0;"><span>9:41</span><span>🔋</span></div>
+        <div style="padding:8px 18px 0;flex-shrink:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:17px;font-weight:800;color:#f0f6fc;">Rewards</div>
+            <div style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.35);border-radius:20px;padding:5px 12px;display:flex;align-items:center;gap:5px;">
+              <span style="font-size:13px;">⚡</span><span style="font-size:13px;font-weight:800;color:#f59e0b;">12,840 IQ</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:10px;">
+            <div style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:7px;text-align:center;font-size:11px;color:#94a3b8;">🍺 Yard House</div>
+            <div style="flex:1;background:#5545D3;border-radius:20px;padding:7px;text-align:center;font-size:11px;font-weight:700;color:#fff;">🌎 National</div>
+          </div>
+        </div>
+        <!-- National prize list -->
+        <div style="flex:1;overflow:hidden;padding:10px 14px;display:flex;flex-direction:column;gap:8px;">
+
+          <div style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.25);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+            <div style="font-size:26px;">🎮</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">SportsIQ Pro</div>
+              <div style="font-size:10px;color:#94a3b8;">1 month free · $9.99 value</div>
+              <div style="background:rgba(99,102,241,0.15);border-radius:10px;padding:2px 8px;font-size:10px;font-weight:700;color:#a78bfa;display:inline-block;margin-top:4px;">20,000 IQ</div>
+            </div>
+            <div style="background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);border-radius:8px;padding:7px 10px;font-size:10px;font-weight:700;color:#a78bfa;">Get It</div>
+          </div>
+
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+            <div style="font-size:26px;">☕</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">$10 Starbucks Gift Card</div>
+              <div style="font-size:10px;color:#94a3b8;">Delivered via email</div>
+              <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:2px 8px;font-size:10px;font-weight:700;color:#94a3b8;display:inline-block;margin-top:4px;">30,000 IQ</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:7px 10px;font-size:10px;color:#475569;">Locked</div>
+          </div>
+
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+            <div style="font-size:26px;">🏈</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">SportsIQ Fitted Hat</div>
+              <div style="font-size:10px;color:#94a3b8;">Shipped to your address</div>
+              <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:2px 8px;font-size:10px;font-weight:700;color:#94a3b8;display:inline-block;margin-top:4px;">50,000 IQ</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:7px 10px;font-size:10px;color:#475569;">Locked</div>
+          </div>
+
+          <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+            <div style="font-size:26px;">🎟</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">NFL Game Tickets</div>
+              <div style="font-size:10px;color:#94a3b8;">Monthly raffle entry · Diamond only</div>
+              <div style="background:rgba(245,158,11,0.12);border-radius:10px;padding:2px 8px;font-size:10px;font-weight:700;color:#f59e0b;display:inline-block;margin-top:4px;">Diamond Tier required</div>
+            </div>
+            <div style="font-size:10px;color:#f59e0b;font-weight:700;">Earn →</div>
+          </div>
+
+          <!-- Bar Sponsor CTA -->
+          <div style="background:rgba(85,69,211,0.06);border:1px dashed rgba(85,69,211,0.3);border-radius:10px;padding:10px 12px;text-align:center;">
+            <div style="font-size:10px;color:#7c6ef5;font-weight:700;">Bar Owner?</div>
+            <div style="font-size:10px;color:#94a3b8;margin-top:2px;">Add your own prizes to drive engagement at your venue →</div>
+          </div>
+        </div>
+        <!-- Tab bar -->
+        <div style="padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-around;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">🏠</div><div style="font-size:9px;color:#94a3b8;">Home</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">⚡</div><div style="font-size:9px;color:#94a3b8;">Pick</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">🏆</div><div style="font-size:9px;color:#94a3b8;">League</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">👥</div><div style="font-size:9px;color:#94a3b8;">Social</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="font-size:18px;">🎁</div><div style="font-size:9px;color:#5545D3;font-weight:700;">Rewards</div><div style="width:4px;height:4px;border-radius:50%;background:#5545D3;"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+
+  <!-- Flywheel note -->
+  <div style="max-width:900px;margin:32px auto 48px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:14px;padding:18px 22px;">
+    <div style="font-size:12px;font-weight:700;color:#7c6ef5;margin-bottom:8px;">IQ Rewards Flywheel — Why This Builds the Moat</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+      <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:12px;">
+        <div style="font-size:18px;margin-bottom:6px;">🔄</div>
+        <div style="font-size:10px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">3-Way Flywheel</div>
+        <div style="font-size:10px;color:#6b7280;">Players earn IQ → redeem at bars → bars see ROI → bars sponsor bigger prizes → players compete harder → more IQ earned. Each rotation strengthens all three sides.</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:12px;">
+        <div style="font-size:18px;margin-bottom:6px;">🏪</div>
+        <div style="font-size:10px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">Bar Revenue Loop</div>
+        <div style="font-size:10px;color:#6b7280;">Bars sponsor an appetizer worth $8. The player stays 40 extra minutes and orders 2 more drinks worth $24. Net positive for the bar every time. Measurable ROI = bars compete to offer better prizes.</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:12px;">
+        <div style="font-size:18px;margin-bottom:6px;">🎟</div>
+        <div style="font-size:10px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">Diamond Prize Aspiration</div>
+        <div style="font-size:10px;color:#6b7280;">NFL tickets are only accessible to Diamond-tier players. This makes the IQ League tier system emotionally loaded — your tier now determines what prizes you can even see. Tier = status + access.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sfb-panel-iq-rewards-hub" class="sfb-panel"></div>
+</div><!-- /screen iq-rewards-hub -->
 
 </body>
 </html>
