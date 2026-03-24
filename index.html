@@ -2012,6 +2012,9 @@
     <div class="tab tab-review" data-screen="bar-owner-dashboard" onclick="showScreen('bar-owner-dashboard',this)">
       <span class="tab-label">Bar Owner Dashboard 📊</span><span class="tab-days" id="days-bar-owner-dashboard"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="weekly-iq-league" onclick="showScreen('weekly-iq-league',this)">
+      <span class="tab-label">Weekly IQ League 🏆</span><span class="tab-days" id="days-weekly-iq-league"></span><span class="review-dot"></span>
+    </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
       <summary class="nav-archive-toggle">↓ 45 previous versions</summary>
@@ -5596,7 +5599,9 @@
     // ── Mar 22 loop — Pro Upgrade Funnel: trigger moments, value prop, paywall ──
     'pro-upgrade':         '2026-03-22T20:30:00-07:00',
     // ── Mar 23 — Bar Owner Dashboard: venue analytics, QR mgmt, revenue impact ──
-    'bar-owner-dashboard': '2026-03-23T18:00:00-07:00'
+    'bar-owner-dashboard': '2026-03-23T18:00:00-07:00',
+    // ── Mar 23 — Weekly IQ League: seasonal tournament, tier promotion, addiction loop ──
+    'weekly-iq-league':    '2026-03-23T19:30:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -41725,6 +41730,367 @@
 
   <div id="sfb-panel-bar-owner-dashboard" class="sfb-panel"></div>
 </div><!-- /screen bar-owner-dashboard -->
+
+<!-- ══════════════════════════════════════════════════════════════════
+     WEEKLY IQ LEAGUE — Mar 23 2026
+     Seasonal tournament system. Players compete in weekly brackets,
+     earn promotion/relegation between Bronze→Silver→Gold→Diamond tiers.
+     Creates: weekly return loop, long-term retention, proprietary
+     skill-ranking data, and a reason to keep playing between games.
+     Moat: accumulated tier history + rivalries can't be replicated.
+     ══════════════════════════════════════════════════════════════════ -->
+<div id="weekly-iq-league" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>🏆 Weekly IQ League — Tournament System</h2>
+    <p class="screen-subtitle">Mar 23 2026 · Seasonal competition layer on top of the daily game. Players are placed into tiers (Bronze → Silver → Gold → Diamond) and compete in weekly brackets. Top performers promote up; bottom performers drop down. Resets every Sunday night. Creates a powerful weekly return loop — players have to play to hold their tier. Generates proprietary skill-ranking data no competitor can replicate without the same player history. 4 screens: (1) League Home — your tier + bracket standings, (2) Weekly Bracket — your matchup this week, (3) Tier Promotion — celebration screen when you move up, (4) Season End — recap + prize reveal.</p>
+  </div>
+  <div class="phone-wrap" style="gap:44px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- ── PHONE 1: League Home ── -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label">📱 LEAGUE HOME</div>
+      <div class="phone-frame" style="background:#050912;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;">
+        <!-- Status bar -->
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <!-- Header -->
+        <div style="padding:10px 18px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div style="font-size:17px;font-weight:800;color:#f0f6fc;">IQ League</div>
+          <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:20px;padding:4px 10px;font-size:10px;font-weight:700;color:#7c6ef5;">Week 7 of 8</div>
+        </div>
+
+        <!-- Gold tier card -->
+        <div style="margin:0 14px 10px;background:linear-gradient(135deg,rgba(245,158,11,0.18) 0%,rgba(245,158,11,0.06) 100%);border:1px solid rgba(245,158,11,0.4);border-radius:16px;padding:14px;flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="font-size:36px;">🥇</div>
+            <div style="flex:1;">
+              <div style="font-size:11px;color:#f59e0b;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Gold League</div>
+              <div style="font-size:18px;font-weight:900;color:#f0f6fc;line-height:1.2;">MarcD</div>
+              <div style="font-size:11px;color:#94a3b8;margin-top:1px;">Rank #4 of 20 in your group</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:22px;font-weight:900;color:#f59e0b;">4,820</div>
+              <div style="font-size:9px;color:#94a3b8;">IQ this week</div>
+            </div>
+          </div>
+          <!-- Promotion zone bar -->
+          <div style="margin-top:10px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+              <div style="font-size:9px;color:#22c55e;font-weight:700;">⬆ Top 4 → Diamond</div>
+              <div style="font-size:9px;color:#ef4444;font-weight:700;">Bottom 4 → Silver ⬇</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.08);border-radius:6px;height:6px;position:relative;overflow:hidden;">
+              <!-- Green promotion zone -->
+              <div style="position:absolute;left:0;top:0;width:20%;height:100%;background:rgba(34,197,94,0.5);border-radius:6px 0 0 6px;"></div>
+              <!-- Red relegation zone -->
+              <div style="position:absolute;right:0;top:0;width:20%;height:100%;background:rgba(239,68,68,0.4);border-radius:0 6px 6px 0;"></div>
+              <!-- Player position dot -->
+              <div style="position:absolute;left:18%;top:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:#f59e0b;border:2px solid #fff;box-shadow:0 0 6px rgba(245,158,11,0.8);"></div>
+            </div>
+            <div style="font-size:9px;color:#94a3b8;text-align:center;margin-top:4px;">You're in the promotion zone · 2 games left</div>
+          </div>
+        </div>
+
+        <!-- This week matchup -->
+        <div style="margin:0 14px 10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;flex-shrink:0;">
+          <div style="font-size:9px;color:#94a3b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">This Week's Rivals</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <!-- Rival 1 -->
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="font-size:11px;font-weight:700;color:#f59e0b;width:14px;">#3</div>
+              <div style="width:24px;height:24px;border-radius:50%;background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.4);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#ef4444;">T</div>
+              <div style="flex:1;font-size:11px;font-weight:600;color:#f0f6fc;">TomR_Broncos</div>
+              <div style="font-size:11px;font-weight:700;color:#ef4444;">5,140 IQ</div>
+            </div>
+            <!-- You -->
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(85,69,211,0.1);border-radius:8px;padding:4px 6px;">
+              <div style="font-size:11px;font-weight:700;color:#7c6ef5;width:14px;">#4</div>
+              <div style="width:24px;height:24px;border-radius:50%;background:rgba(85,69,211,0.3);border:1px solid rgba(85,69,211,0.5);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#7c6ef5;">M</div>
+              <div style="flex:1;font-size:11px;font-weight:700;color:#7c6ef5;">You</div>
+              <div style="font-size:11px;font-weight:700;color:#7c6ef5;">4,820 IQ</div>
+            </div>
+            <!-- Rival 2 -->
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="font-size:11px;font-weight:700;color:#94a3b8;width:14px;">#5</div>
+              <div style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#94a3b8;">J</div>
+              <div style="flex:1;font-size:11px;color:#94a3b8;">JennyB</div>
+              <div style="font-size:11px;color:#94a3b8;">4,610 IQ</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Season countdown -->
+        <div style="margin:0 14px;background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+          <div style="font-size:11px;color:#94a3b8;">Season ends</div>
+          <div style="font-size:13px;font-weight:800;color:#7c6ef5;">Sunday 11:59 PM</div>
+          <div style="font-size:10px;color:#94a3b8;">2 days left</div>
+        </div>
+
+        <!-- Tab bar -->
+        <div style="margin-top:auto;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-around;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;">
+            <div style="font-size:18px;">🏠</div>
+            <div style="font-size:9px;color:#94a3b8;">Home</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;">
+            <div style="font-size:18px;">⚡</div>
+            <div style="font-size:9px;color:#94a3b8;">Pick</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+            <div style="font-size:18px;">🏆</div>
+            <div style="font-size:9px;color:#5545D3;font-weight:700;">League</div>
+            <div style="width:4px;height:4px;border-radius:50%;background:#5545D3;"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;">
+            <div style="font-size:18px;">👥</div>
+            <div style="font-size:9px;color:#94a3b8;">Social</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;">
+            <div style="font-size:18px;">👤</div>
+            <div style="font-size:9px;color:#94a3b8;">Profile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PHONE 2: Full League Bracket (20 players) ── -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label">📱 FULL STANDINGS</div>
+      <div class="phone-frame" style="background:#050912;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <div style="padding:10px 18px 6px;flex-shrink:0;">
+          <div style="font-size:15px;font-weight:800;color:#f0f6fc;">Gold League — Week 7</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:2px;">20 players · Top 4 promote Sunday</div>
+        </div>
+        <!-- Scrollable standings list -->
+        <div style="flex:1;overflow:hidden;padding:0 14px 10px;display:flex;flex-direction:column;gap:4px;">
+          <!-- Promotion zone label -->
+          <div style="font-size:9px;color:#22c55e;font-weight:700;letter-spacing:1px;padding:4px 0 2px;">⬆ PROMOTION ZONE</div>
+          <!-- Top 4 rows -->
+          <div style="display:flex;align-items:center;gap:8px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:8px;padding:7px 8px;">
+            <div style="font-size:12px;font-weight:800;color:#22c55e;width:16px;">1</div>
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(34,197,94,0.2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#22c55e;">K</div>
+            <div style="flex:1;font-size:11px;color:#f0f6fc;">KyleB_Chiefs</div>
+            <div style="font-size:11px;font-weight:700;color:#22c55e;">6,240</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:8px;padding:7px 8px;">
+            <div style="font-size:12px;font-weight:800;color:#22c55e;width:16px;">2</div>
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(34,197,94,0.2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#22c55e;">S</div>
+            <div style="flex:1;font-size:11px;color:#f0f6fc;">SarahK</div>
+            <div style="font-size:11px;font-weight:700;color:#22c55e;">5,890</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:8px;padding:7px 8px;">
+            <div style="font-size:12px;font-weight:800;color:#22c55e;width:16px;">3</div>
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(34,197,94,0.2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#22c55e;">T</div>
+            <div style="flex:1;font-size:11px;color:#f0f6fc;">TomR_Broncos</div>
+            <div style="font-size:11px;font-weight:700;color:#22c55e;">5,140</div>
+          </div>
+          <!-- YOU — in promotion zone -->
+          <div style="display:flex;align-items:center;gap:8px;background:rgba(85,69,211,0.15);border:2px solid rgba(85,69,211,0.5);border-radius:8px;padding:7px 8px;">
+            <div style="font-size:12px;font-weight:800;color:#7c6ef5;width:16px;">4</div>
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(85,69,211,0.3);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#7c6ef5;">M</div>
+            <div style="flex:1;font-size:11px;font-weight:700;color:#7c6ef5;">You</div>
+            <div style="font-size:11px;font-weight:800;color:#7c6ef5;">4,820 ⬆</div>
+          </div>
+          <!-- Mid pack -->
+          <div style="font-size:9px;color:#475569;font-weight:700;letter-spacing:1px;padding:4px 0 2px;">SAFE ZONE</div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid rgba(255,255,255,0.04);">
+            <div style="font-size:11px;color:#475569;width:16px;">5</div>
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:9px;color:#94a3b8;">J</div>
+            <div style="flex:1;font-size:11px;color:#94a3b8;">JennyB</div>
+            <div style="font-size:11px;color:#94a3b8;">4,610</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid rgba(255,255,255,0.04);">
+            <div style="font-size:11px;color:#475569;width:16px;">6</div>
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:9px;color:#94a3b8;">C</div>
+            <div style="flex:1;font-size:11px;color:#94a3b8;">ChrisD</div>
+            <div style="font-size:11px;color:#94a3b8;">4,330</div>
+          </div>
+          <div style="font-size:8px;color:#475569;text-align:center;padding:4px 0;">· · · 12 more players · · ·</div>
+          <!-- Relegation zone -->
+          <div style="font-size:9px;color:#ef4444;font-weight:700;letter-spacing:1px;padding:4px 0 2px;">⬇ RELEGATION ZONE</div>
+          <div style="display:flex;align-items:center;gap:8px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:8px;padding:7px 8px;">
+            <div style="font-size:11px;color:#ef4444;width:16px;">17</div>
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(239,68,68,0.15);display:flex;align-items:center;justify-content:center;font-size:9px;color:#ef4444;">A</div>
+            <div style="flex:1;font-size:11px;color:#94a3b8;">AnnaW</div>
+            <div style="font-size:11px;color:#ef4444;">1,840 ⬇</div>
+          </div>
+        </div>
+        <!-- Tab bar -->
+        <div style="padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-around;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">🏠</div><div style="font-size:9px;color:#94a3b8;">Home</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">⚡</div><div style="font-size:9px;color:#94a3b8;">Pick</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="font-size:18px;">🏆</div><div style="font-size:9px;color:#5545D3;font-weight:700;">League</div><div style="width:4px;height:4px;border-radius:50%;background:#5545D3;"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">👥</div><div style="font-size:9px;color:#94a3b8;">Social</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">👤</div><div style="font-size:9px;color:#94a3b8;">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PHONE 3: Tier Promotion Celebration ── -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label" style="color:#f59e0b;">📱 PROMOTION CELEBRATION 🎉</div>
+      <div class="phone-frame" style="background:#050912;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;border:2px solid rgba(245,158,11,0.4);">
+        <!-- Gold radial glow -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(245,158,11,0.22) 0%,transparent 60%);pointer-events:none;z-index:0;"></div>
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;flex:1;">
+          <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;">
+            <span>9:41</span><span>🔋</span>
+          </div>
+          <!-- Confetti dots decoration -->
+          <div style="position:absolute;top:40px;left:0;right:0;height:200px;overflow:hidden;pointer-events:none;">
+            <div style="position:absolute;width:6px;height:6px;border-radius:50%;background:#f59e0b;top:20px;left:30px;opacity:0.7;"></div>
+            <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:#7c6ef5;top:50px;left:60px;opacity:0.6;"></div>
+            <div style="position:absolute;width:5px;height:5px;border-radius:50%;background:#22c55e;top:30px;right:40px;opacity:0.7;"></div>
+            <div style="position:absolute;width:3px;height:3px;border-radius:50%;background:#f59e0b;top:70px;right:70px;opacity:0.5;"></div>
+            <div style="position:absolute;width:7px;height:7px;border-radius:50%;background:#7c6ef5;top:10px;left:120px;opacity:0.6;"></div>
+            <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:#ef4444;top:60px;left:100px;opacity:0.5;"></div>
+          </div>
+          <!-- Hero -->
+          <div style="display:flex;flex-direction:column;align-items:center;padding:24px 20px 16px;text-align:center;">
+            <div style="font-size:64px;margin-bottom:8px;">💎</div>
+            <div style="font-size:10px;font-weight:800;color:#f59e0b;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">You've been promoted</div>
+            <div style="font-size:28px;font-weight:900;color:#f0f6fc;line-height:1.1;">Diamond League</div>
+            <div style="font-size:13px;color:#94a3b8;margin-top:6px;">Top 1% of all SportsIQ players</div>
+          </div>
+          <!-- Stats recap -->
+          <div style="margin:0 18px 14px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:14px;padding:14px 16px;">
+            <div style="font-size:10px;color:#f59e0b;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Season 7 Performance</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div style="text-align:center;">
+                <div style="font-size:22px;font-weight:900;color:#f0f6fc;">6,240</div>
+                <div style="font-size:9px;color:#94a3b8;">IQ earned</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:22px;font-weight:900;color:#f0f6fc;">73%</div>
+                <div style="font-size:9px;color:#94a3b8;">accuracy rate</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:22px;font-weight:900;color:#22c55e;">#1</div>
+                <div style="font-size:9px;color:#94a3b8;">in Gold group</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:22px;font-weight:900;color:#f0f6fc;">8</div>
+                <div style="font-size:9px;color:#94a3b8;">games played</div>
+              </div>
+            </div>
+          </div>
+          <!-- Badge earn -->
+          <div style="margin:0 18px 14px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+            <div style="font-size:24px;">🎖</div>
+            <div>
+              <div style="font-size:12px;font-weight:700;color:#f0f6fc;">New Badge Unlocked</div>
+              <div style="font-size:11px;color:#7c6ef5;">Diamond Climber · Season 7</div>
+            </div>
+          </div>
+          <!-- CTA -->
+          <div style="margin:0 18px;background:#5545D3;border-radius:12px;padding:13px;text-align:center;font-size:14px;font-weight:800;color:#fff;">Share Your Achievement</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PHONE 4: Tier Map (all leagues) ── -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div class="phone-label">📱 TIER MAP</div>
+      <div class="phone-frame" style="background:#050912;border-radius:44px;width:300px;height:620px;overflow:hidden;position:relative;display:flex;flex-direction:column;">
+        <div style="padding:14px 20px 0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;flex-shrink:0;">
+          <span>9:41</span><span>🔋</span>
+        </div>
+        <div style="padding:10px 18px 6px;flex-shrink:0;">
+          <div style="font-size:15px;font-weight:800;color:#f0f6fc;">League Tiers</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:1px;">Your path to Diamond</div>
+        </div>
+        <div style="flex:1;padding:0 16px;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+          <!-- Diamond -->
+          <div style="background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(99,102,241,0.05));border:1px solid rgba(99,102,241,0.4);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+            <div style="font-size:28px;">💎</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:800;color:#a78bfa;">Diamond</div>
+              <div style="font-size:10px;color:#94a3b8;">Top 1% · 8,000+ IQ/week</div>
+            </div>
+            <div style="font-size:10px;color:#6b7280;">Locked</div>
+          </div>
+          <!-- Gold — CURRENT -->
+          <div style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(245,158,11,0.06));border:2px solid rgba(245,158,11,0.5);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;position:relative;">
+            <div style="position:absolute;top:-8px;left:12px;background:#f59e0b;border-radius:4px;padding:2px 8px;font-size:8px;font-weight:800;color:#000;">YOU ARE HERE</div>
+            <div style="font-size:28px;">🥇</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:800;color:#f59e0b;">Gold</div>
+              <div style="font-size:10px;color:#94a3b8;">Top 10% · 4,000–8,000 IQ</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:11px;font-weight:700;color:#22c55e;">+Promoted ⬆</div>
+              <div style="font-size:9px;color:#94a3b8;">if top 4 this week</div>
+            </div>
+          </div>
+          <!-- Silver -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;opacity:0.65;">
+            <div style="font-size:28px;">🥈</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:800;color:#94a3b8;">Silver</div>
+              <div style="font-size:10px;color:#94a3b8;">Top 25% · 2,000–4,000 IQ</div>
+            </div>
+          </div>
+          <!-- Bronze -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;opacity:0.5;">
+            <div style="font-size:28px;">🥉</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:800;color:#94a3b8;">Bronze</div>
+              <div style="font-size:10px;color:#94a3b8;">Everyone starts here</div>
+            </div>
+          </div>
+          <!-- How it works -->
+          <div style="background:rgba(85,69,211,0.08);border:1px solid rgba(85,69,211,0.2);border-radius:10px;padding:10px 12px;margin-top:2px;">
+            <div style="font-size:10px;font-weight:700;color:#7c6ef5;margin-bottom:6px;">How It Works</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="font-size:10px;color:#94a3b8;">• Play any game to earn IQ this week</div>
+              <div style="font-size:10px;color:#94a3b8;">• Top 4 in your group → promoted Sunday</div>
+              <div style="font-size:10px;color:#94a3b8;">• Bottom 4 in your group → drop a tier</div>
+              <div style="font-size:10px;color:#94a3b8;">• Resets every Sunday at midnight</div>
+            </div>
+          </div>
+        </div>
+        <!-- Tab bar -->
+        <div style="padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-around;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">🏠</div><div style="font-size:9px;color:#94a3b8;">Home</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">⚡</div><div style="font-size:9px;color:#94a3b8;">Pick</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="font-size:18px;">🏆</div><div style="font-size:9px;color:#5545D3;font-weight:700;">League</div><div style="width:4px;height:4px;border-radius:50%;background:#5545D3;"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">👥</div><div style="font-size:9px;color:#94a3b8;">Social</div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.5;"><div style="font-size:18px;">👤</div><div style="font-size:9px;color:#94a3b8;">Profile</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /phone-wrap -->
+
+  <!-- Moat note -->
+  <div style="max-width:900px;margin:32px auto 48px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:14px;padding:18px 22px;">
+    <div style="font-size:12px;font-weight:700;color:#7c6ef5;margin-bottom:8px;">Moat Analysis — Weekly IQ League</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div>
+        <div style="font-size:10px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">Addiction Loop</div>
+        <div style="font-size:10px;color:#6b7280;">Players in the promotion zone can't stop playing — every game could push them into Diamond. Players in relegation zone panic-play to claw back. Both states drive daily return.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">Proprietary Data Moat</div>
+        <div style="font-size:10px;color:#6b7280;">8+ weeks of skill-ranking data per player. Tier history, accuracy trends, matchup records — this is a permanent competitive advantage that grows every week.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">Switching Cost</div>
+        <div style="font-size:10px;color:#6b7280;">A Diamond-tier player who built their rank over 3 months won't abandon it to start at Bronze on a competitor app. Tier status becomes identity.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">Network Effect</div>
+        <div style="font-size:10px;color:#6b7280;">Groups of 20 players compete together. Players recruit friends to "play in my league." Each recruit improves their own relative position — viral growth built into the mechanic.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sfb-panel-weekly-iq-league" class="sfb-panel"></div>
+</div><!-- /screen weekly-iq-league -->
 
 </body>
 </html>
