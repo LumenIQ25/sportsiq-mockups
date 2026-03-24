@@ -1243,9 +1243,10 @@ const SCENES = [
 const demoAudio = document.getElementById('demo-audio');
 let muted = false;
 
-// Scene start times (seconds) matched to narration.mp3 pacing
-// Intro(0) → Bingo(6) → Bar(28) → Trivia(44) → Leaderboard(60) → LivePicks(74) → FAQ(89) → CTA(106)
-const SCENE_START_TIMES = [0, 6, 28, 44, 60, 74, 89, 106];
+// Scene start times (seconds) — measured from actual ElevenLabs section durations at 128kbps
+// Intro(3.9s) → Bingo(40.8s) → Bar(14.7s) → Trivia(19.4s) → LB(15.2s) → Picks(14.4s) → FAQ(22.3s) → CTA(~12s)
+// Each section generated individually, ~0.5s paragraph pause between sections
+const SCENE_START_TIMES = [0, 4.4, 45.7, 60.9, 80.8, 96.5, 111.3, 134.1];
 
 // Captions removed per design decision — no caption bar
 
