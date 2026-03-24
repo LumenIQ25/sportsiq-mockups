@@ -410,7 +410,178 @@
 <body>
 
 <!-- ══════════════════════════════════════════════════
-     SCENE 1: INTRO — 0-7s
+     SCENE 0: SPORTS BINGO — 0-15s  (leads the demo)
+═══════════════════════════════════════════════════ -->
+<div id="scene-bingo" class="scene" style="background:#0a0718;display:flex;align-items:center;justify-content:center;gap:80px;padding:0 80px;">
+  <div class="noise"></div>
+
+  <!-- Left: Bar TV showing bingo board -->
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;">
+    <div style="width:580px;background:#0a0718;border:3px solid rgba(85,69,211,0.5);border-radius:18px;overflow:hidden;box-shadow:0 0 60px rgba(85,69,211,0.25);">
+      <!-- TV header -->
+      <div style="background:#5545D3;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="font-size:18px;font-weight:900;color:#fff;letter-spacing:-.5px;">Sports<span style="color:#c4b5fd;">IQ</span></div>
+          <div style="width:1px;height:16px;background:rgba(255,255,255,0.3);"></div>
+          <!-- Wavy BINGO letters -->
+          <div style="display:flex;align-items:flex-end;gap:1px;">
+            <span style="font-size:24px;font-weight:900;color:#fff;line-height:1;margin-bottom:4px;">B</span>
+            <span style="font-size:24px;font-weight:900;color:#fff;line-height:1;margin-bottom:0px;">I</span>
+            <span style="font-size:24px;font-weight:900;color:#fff;line-height:1;margin-bottom:4px;">N</span>
+            <span style="font-size:24px;font-weight:900;color:#fff;line-height:1;margin-bottom:0px;">G</span>
+            <span style="font-size:24px;font-weight:900;color:#fff;line-height:1;margin-bottom:4px;">O</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;"></div>
+          <span style="font-size:12px;font-weight:700;color:#fff;">LIVE · Lakers vs Celtics</span>
+        </div>
+      </div>
+      <!-- Prize banner -->
+      <div style="background:rgba(85,69,211,0.2);border-bottom:1px solid rgba(85,69,211,0.3);padding:10px 22px;text-align:center;">
+        <span style="font-size:18px;font-weight:900;color:#fff;">🏆 Win a </span>
+        <span style="font-size:18px;font-weight:900;color:#f59e0b;">$50 Bar Tab</span>
+        <span style="font-size:14px;color:rgba(255,255,255,0.7);margin-left:8px;">· Complete your card first</span>
+      </div>
+      <!-- 5×3 bingo grid -->
+      <div style="padding:16px 18px 20px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
+        <!-- Row 1 -->
+        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">LAL</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">3-Pointers Made</div>
+          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+250</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.15);border:2px solid #22c55e;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">BOS</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Lead Change</div>
+          <div style="position:absolute;inset:0;background:rgba(34,197,94,0.3);border-radius:6px;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">✅</span></div>
+          <div style="position:absolute;bottom:-8px;background:#22c55e;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">✓ Done</div>
+        </div>
+        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;overflow:hidden;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;position:relative;z-index:1;">TOTAL</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;position:relative;z-index:1;">Points 220+</div>
+          <!-- Progress fill -->
+          <div style="position:absolute;bottom:0;left:0;right:0;height:55%;background:rgba(85,69,211,0.25);"></div>
+          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;z-index:2;">+300</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.15);border:2px solid #22c55e;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">LAL</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Dunk</div>
+          <div style="position:absolute;inset:0;background:rgba(34,197,94,0.3);border-radius:6px;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">✅</span></div>
+          <div style="position:absolute;bottom:-8px;background:#22c55e;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">✓ Done</div>
+        </div>
+        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">BOS</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">20+ Points Player</div>
+          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+400</div>
+        </div>
+        <!-- Row 2 -->
+        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;overflow:hidden;margin-top:8px;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;position:relative;z-index:1;">BOS</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;position:relative;z-index:1;">Assist Streak</div>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:30%;background:rgba(85,69,211,0.25);"></div>
+          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;z-index:2;">+200</div>
+        </div>
+        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">LAL</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Free Throw Miss</div>
+          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+150</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.15);border:2px solid #22c55e;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">TOTAL</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Timeout Called</div>
+          <div style="position:absolute;inset:0;background:rgba(34,197,94,0.3);border-radius:6px;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">✅</span></div>
+          <div style="position:absolute;bottom:-8px;background:#22c55e;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">✓ Done</div>
+        </div>
+        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;overflow:hidden;margin-top:8px;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;position:relative;z-index:1;">LAL</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;position:relative;z-index:1;">Steal</div>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:70%;background:rgba(85,69,211,0.25);"></div>
+          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;z-index:2;">+175</div>
+        </div>
+        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">BOS</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Block</div>
+          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+175</div>
+        </div>
+        <!-- Row 3 -->
+        <div style="background:rgba(34,197,94,0.15);border:2px solid #22c55e;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">TOTAL</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">10-0 Run</div>
+          <div style="position:absolute;inset:0;background:rgba(34,197,94,0.3);border-radius:6px;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">✅</span></div>
+          <div style="position:absolute;bottom:-8px;background:#22c55e;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">✓ Done</div>
+        </div>
+        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">BOS</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Buzzer Beater</div>
+          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+500</div>
+        </div>
+        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">LAL</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Triple-Double</div>
+          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+600</div>
+        </div>
+        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;overflow:hidden;margin-top:8px;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;position:relative;z-index:1;">TOTAL</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;position:relative;z-index:1;">OT Chance</div>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:20%;background:rgba(85,69,211,0.25);"></div>
+          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;z-index:2;">+800</div>
+        </div>
+        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
+          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">BOS</div>
+          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">30+ Point Player</div>
+          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+450</div>
+        </div>
+      </div>
+    </div>
+    <div style="width:60px;height:10px;background:rgba(85,69,211,0.4);border-radius:0 0 4px 4px;margin:0 auto;"></div>
+    <div style="width:120px;height:6px;background:rgba(85,69,211,0.2);border-radius:4px;"></div>
+  </div>
+
+  <!-- Right: copy + phone mockup -->
+  <div style="display:flex;flex-direction:column;gap:28px;max-width:480px;">
+    <!-- Eyebrow -->
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.4);border-radius:20px;padding:6px 16px;width:fit-content;">
+      <span style="font-size:16px;">🎰</span>
+      <span style="font-size:12px;font-weight:700;color:#7c6ef5;letter-spacing:1.5px;text-transform:uppercase;">New Feature</span>
+    </div>
+    <!-- Headline -->
+    <div>
+      <div style="font-size:62px;font-weight:900;color:#f8fafc;line-height:1;letter-spacing:-2px;">Sports</div>
+      <div style="display:flex;align-items:flex-end;gap:6px;margin-top:-4px;">
+        <span style="font-size:62px;font-weight:900;color:#f8fafc;line-height:1;letter-spacing:-2px;margin-bottom:2px;">B</span>
+        <span style="font-size:62px;font-weight:900;color:#7c6ef5;line-height:1.1;letter-spacing:-2px;">I</span>
+        <span style="font-size:62px;font-weight:900;color:#f8fafc;line-height:1;letter-spacing:-2px;margin-bottom:2px;">N</span>
+        <span style="font-size:62px;font-weight:900;color:#7c6ef5;line-height:1.1;letter-spacing:-2px;">G</span>
+        <span style="font-size:62px;font-weight:900;color:#f8fafc;line-height:1;letter-spacing:-2px;margin-bottom:2px;">O</span>
+      </div>
+    </div>
+    <!-- Bullets -->
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;">📱</div>
+        <div style="font-size:18px;color:rgba(248,250,252,0.85);line-height:1.4;">Every patron scans in and gets their own bingo card</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;">⚡</div>
+        <div style="font-size:18px;color:rgba(248,250,252,0.85);line-height:1.4;">Real game events tick off squares automatically</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;">🏆</div>
+        <div style="font-size:18px;color:rgba(248,250,252,0.85);line-height:1.4;">First to bingo wins a real prize — funded by the bar</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;">🍺</div>
+        <div style="font-size:18px;color:#22c55e;font-weight:600;line-height:1.4;">Works for NBA · NFL · NHL · MLB · Any sport</div>
+      </div>
+    </div>
+    <!-- URL -->
+    <div style="font-size:15px;color:rgba(255,255,255,0.35);letter-spacing:.5px;">lumen-iq.com</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SCENE 1: INTRO — 15-21s
 ═══════════════════════════════════════════════════ -->
 <div id="scene-intro" class="scene bg-dark">
   <div class="intro-glow"></div>
@@ -829,14 +1000,6 @@
   <div class="cta-url">Free setup · No staff training needed · Bar TV + mobile included</div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     VOICEOVER SCRIPT (caption bar)
-═══════════════════════════════════════════════════ -->
-<div class="caption-bar" id="caption">
-  <div class="caption-scene" id="caption-scene">Intro</div>
-  <div class="caption-vo" id="caption-vo">Meet SportsIQ.</div>
-</div>
-
 <!-- Single narration audio element — one play() call, zero orchestration -->
 <audio id="demo-audio" src="/audio/narration.mp3" preload="auto"></audio>
 
@@ -847,7 +1010,7 @@
   z-index:1000;cursor:pointer;gap:24px;
 " onclick="startDemo()">
   <div style="font-size:72px;font-weight:900;color:#F8FAFC;letter-spacing:-2px">Sports<span style="color:#7C6EF5">IQ</span></div>
-  <div style="font-size:20px;color:#94A3B8">Distributor Demo — 103 seconds</div>
+  <div style="font-size:20px;color:#94A3B8">Distributor Demo — 122 seconds</div>
   <div id="play-btn-overlay" style="
     background:#334155;border-radius:16px;padding:18px 60px;
     font-size:22px;font-weight:800;color:#94A3B8;
@@ -870,6 +1033,12 @@
 <script>
 // ── Scene data ─────────────────────────────────────
 const SCENES = [
+  {
+    id: 'scene-bingo',
+    duration: 15000,
+    label: 'Sports Bingo',
+    lines: []
+  },
   {
     id: 'scene-intro',
     duration: 7000,
@@ -951,40 +1120,17 @@ const demoAudio = document.getElementById('demo-audio');
 let muted = false;
 
 // Scene start times (seconds) matched to narration.mp3 pacing
-// Intro(0) → Bar(6) → Trivia(22) → Leaderboard(38) → LivePicks(54) → FAQ(69) → CTA(88)
-const SCENE_START_TIMES = [0, 6, 22, 38, 54, 69, 88];
+// Bingo(0) → Intro(15) → Bar(21) → Trivia(37) → Leaderboard(53) → LivePicks(67) → FAQ(82) → CTA(99)
+const SCENE_START_TIMES = [0, 15, 21, 37, 53, 67, 82, 99];
 
-// Caption cues: [startSec, endSec, text]
-const CAPTION_CUES = [
-  [0,   4,   'Meet SportsIQ.'],
-  [4,   8,   'The bar game your customers can\'t put down.'],
-  [8,   15,  'Imagine every patron at your bar — phones out, eyes up, competing live on the big screen.'],
-  [15,  21,  'Trivia on the phone. Leaderboard on the TV. The whole room is playing.'],
-  [19,  24,  'And that keeps them in their seats — and ordering.'],
-  [22,  31,  'SportsIQ runs 10-question trivia games every 30 seconds — automatically, all day.'],
-  [31,  40,  'Answer faster, earn more IQ. Risk a multiplier — 1.5, 2, even 3 times your points.'],
-  [40,  46,  'Zero staff involvement. It just runs.'],
-  [46,  52,  'The bar leaderboard on screen turns strangers into rivals.'],
-  [52,  61,  'Players see their name up there, they stay longer, drink more, and come back tomorrow.'],
-  [61,  68,  '2.3 drinks per player per hour. Zero dollars of staff effort to run it.'],
-  [69,  74,  'When a game\'s on? It gets even wilder.'],
-  [74,  83,  'Real-time sports picks — will the Chiefs score on this drive?'],
-  [83,  88,  'Plain English. No jargon. Everyone at the table is in.'],
-  [88,  94,  'Now — the questions we always hear from distributors.'],
-  [94,  100, 'Free to play? Yes. IQ points only, no gambling license required.'],
-  [100, 107, 'Staff effort? Zero. Your bartenders just pour drinks.'],
-  [107, 114, 'Equipment? Just a TV and WiFi. Setup in under 15 minutes.'],
-  [114, 120, 'Every venue in your network is leaving revenue on the table right now.'],
-  [120, 127, 'Get SportsIQ deployed to your bars. Revenue starts on day one.'],
-  [127, 134, 'lumen-iq.com — let\'s go.'],
-];
+// Captions removed per design decision — no caption bar
 
 // Enable play button when audio is ready to play
 demoAudio.addEventListener('canplaythrough', () => {
   const btn = document.getElementById('play-btn-overlay');
   const status = document.getElementById('audio-status');
   if (btn) { btn.textContent = '▶ Play Demo'; btn.style.background = '#5545D3'; btn.style.color = '#fff'; btn.style.boxShadow = '0 0 60px rgba(85,69,211,0.5)'; }
-  if (status) status.textContent = 'Turn up your volume · Captions included';
+  if (status) status.textContent = 'Turn up your volume · 122 seconds';
 });
 
 // Also unlock after 3s in case canplaythrough already fired or is slow
@@ -993,7 +1139,7 @@ setTimeout(() => {
   if (btn && btn.textContent.includes('Loading')) {
     btn.textContent = '▶ Play Demo'; btn.style.background = '#5545D3'; btn.style.color = '#fff';
     const status = document.getElementById('audio-status');
-    if (status) status.textContent = 'Turn up your volume · Captions included';
+    if (status) status.textContent = 'Turn up your volume · 122 seconds';
   }
 }, 3000);
 
@@ -1028,11 +1174,11 @@ function showScene(idx) {
   });
   currentScene = idx;
   clearVoiceTimers();
-  if (idx === 1) {
+  if (idx === 2) {
     setTimeout(() => document.getElementById('stat1')?.classList.add('show'), 500);
     setTimeout(() => document.getElementById('stat2')?.classList.add('show'), 1500);
   }
-  if (idx === 0) {
+  if (idx === 0 || idx === 1) {
     document.getElementById('stat1')?.classList.remove('show');
     document.getElementById('stat2')?.classList.remove('show');
   }
@@ -1045,28 +1191,15 @@ function clearVoiceTimers() {
 
 function updateProgress() {
   const t = demoAudio.currentTime;
-  const dur = demoAudio.duration || 103;
+  const dur = demoAudio.duration || 122;
   document.getElementById('progress').style.width = Math.min(100, (t / dur) * 100) + '%';
 }
 
-function updateCaption() {
-  const t = demoAudio.currentTime;
-  const cap = document.getElementById('caption');
-  const voEl = document.getElementById('caption-vo');
-  const sceneEl = document.getElementById('caption-scene');
-  const cue = CAPTION_CUES.find(c => t >= c[0] && t < c[1]);
-  if (cue) {
-    sceneEl.textContent = SCENES[currentScene] ? SCENES[currentScene].label : '';
-    voEl.textContent = '"' + cue[2] + '"';
-    cap.classList.add('visible');
-  }
-}
 
 function tick() {
   if (!playing) return;
   const t = demoAudio.currentTime;
   updateProgress();
-  updateCaption();
   // Advance scene based on audio position
   const nextSceneIdx = SCENE_START_TIMES.findLastIndex(s => t >= s);
   if (nextSceneIdx !== currentScene && nextSceneIdx >= 0 && nextSceneIdx < SCENES.length) {
@@ -1076,13 +1209,13 @@ function tick() {
       if (el) { i === nextSceneIdx ? el.classList.add('active') : el.classList.remove('active'); }
     });
     currentScene = nextSceneIdx;
-    if (nextSceneIdx === 1) {
+    if (nextSceneIdx === 2) {
       setTimeout(() => document.getElementById('stat1')?.classList.add('show'), 500);
       setTimeout(() => document.getElementById('stat2')?.classList.add('show'), 1500);
     }
   }
   // End of audio
-  if (demoAudio.ended || t >= (demoAudio.duration || 103) - 0.5) {
+  if (demoAudio.ended || t >= (demoAudio.duration || 122) - 0.5) {
     playing = false;
     document.getElementById('play-btn').textContent = '▶ Play';
     return;
