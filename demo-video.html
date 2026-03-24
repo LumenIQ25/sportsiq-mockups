@@ -989,21 +989,9 @@ function toggleMute() {
 
 function startDemo() {
   document.getElementById('start-overlay').style.display = 'none';
-  // Play a 1-sample silent WAV during the click gesture to unlock the browser audio context.
-  // One unlock grants permission for ALL subsequent Audio.play() calls on this page,
-  // including those fired later from setTimeout — no need to pre-play all 21 clips.
-  const silentWav = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAVFYAAFRWAAABAAgAZGF0YQAAAAA=';
-  const unlock = new Audio(silentWav);
-  unlock.play().then(() => {
-    playing = true;
-    showScene(0);
-    raf = requestAnimationFrame(tick);
-  }).catch(() => {
-    // Fallback if even silent unlock fails — just start anyway
-    playing = true;
-    showScene(0);
-    raf = requestAnimationFrame(tick);
-  });
+  playing = true;
+  showScene(0);
+  raf = requestAnimationFrame(tick);
 }
 
 // ── State ──────────────────────────────────────────
@@ -1041,18 +1029,23 @@ function showScene(idx) {
 function scheduleVoiceLines(scene) {
   const sceneIdx = SCENES.indexOf(scene);
   scene.lines.forEach((line, lineIdx) => {
-    const t = setTimeout(() => {
-      // Update caption
+    const playLine = () => {
       const cap = document.getElementById('caption');
       const sceneEl = document.getElementById('caption-scene');
       const voEl = document.getElementById('caption-vo');
       sceneEl.textContent = scene.label;
       voEl.textContent = '"' + line.vo + '"';
       cap.classList.add('visible');
-      // Play ElevenLabs clip
       speak(line.vo, sceneIdx, lineIdx);
-    }, line.at);
-    voiceTimers.push(t);
+    };
+    if (line.at === 0) {
+      // Play immediately — keeps us inside the user gesture chain so the browser
+      // grants audio permission. All subsequent setTimeout clips inherit this unlock.
+      playLine();
+    } else {
+      const t = setTimeout(playLine, line.at);
+      voiceTimers.push(t);
+    }
   });
 }
 
