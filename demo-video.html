@@ -989,9 +989,18 @@ function toggleMute() {
 
 function startDemo() {
   document.getElementById('start-overlay').style.display = 'none';
-  playing = true;
-  showScene(0);
-  raf = requestAnimationFrame(tick);
+  // Unlock ALL audio clips during the user gesture — required by browser autoplay policy.
+  // play() immediately then pause() registers each clip as user-approved, so setTimeout-
+  // triggered plays later won't be blocked.
+  const unlockPromises = Object.values(CLIPS).map(a => {
+    a.volume = 0;
+    return a.play().then(() => { a.pause(); a.currentTime = 0; a.volume = 1; }).catch(() => { a.volume = 1; });
+  });
+  Promise.all(unlockPromises).then(() => {
+    playing = true;
+    showScene(0);
+    raf = requestAnimationFrame(tick);
+  });
 }
 
 // ── State ──────────────────────────────────────────
