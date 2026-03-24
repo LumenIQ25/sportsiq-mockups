@@ -939,19 +939,17 @@ const SCENES = [
   },
 ];
 
-// ── ElevenLabs Audio Engine ────────────────────────
-let currentAudio = null;
+// ── Web Audio Engine ────────────────────────────────
+// Uses AudioContext instead of HTMLAudioElement. Once audioCtx.resume() is
+// called during a user gesture, ALL subsequent source.start() calls are
+// permitted forever — no per-play autoplay checks, no 5-second cutoff.
+let audioCtx = null;
+let currentSource = null;
 let muted = false;
-
-const CLIPS = {};
-['vo_01','vo_02','vo_03','vo_04','vo_05','vo_06','vo_07',
- 'vo_08','vo_09','vo_10','vo_11','vo_12','vo_13','vo_14',
- 'vo_15','vo_16','vo_17','vo_18','vo_19','vo_20','vo_21'
-].forEach(id => {
-  const a = new Audio(`/audio/${id}.mp3`);
-  a.preload = 'auto';
-  CLIPS[id] = a;
-});
+const audioBuffers = {};  // clip id → AudioBuffer (decoded PCM)
+const CLIP_IDS = ['vo_01','vo_02','vo_03','vo_04','vo_05','vo_06','vo_07',
+                  'vo_08','vo_09','vo_10','vo_11','vo_12','vo_13','vo_14',
+                  'vo_15','vo_16','vo_17','vo_18','vo_19','vo_20','vo_21'];
 
 // scene index + line index → clip id
 const CLIP_MAP = {
@@ -964,20 +962,38 @@ const CLIP_MAP = {
   '6,0':'vo_19','6,1':'vo_20','6,2':'vo_21',
 };
 
+// Fetch + decode all clips in background as soon as page loads
+function preloadAudioBuffers() {
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  CLIP_IDS.forEach(id => {
+    fetch(`/audio/${id}.mp3`)
+      .then(r => r.arrayBuffer())
+      .then(buf => audioCtx.decodeAudioData(buf))
+      .then(decoded => { audioBuffers[id] = decoded; })
+      .catch(() => {});
+  });
+}
+preloadAudioBuffers();
+
 function speak(text, sceneIdx, lineIdx) {
-  if (muted) return;
+  if (muted || !audioCtx) return;
   const clipId = CLIP_MAP[`${sceneIdx},${lineIdx}`];
   if (!clipId) return;
+  const buf = audioBuffers[clipId];
+  if (!buf) return;
   stopSpeech();
-  const a = CLIPS[clipId];
-  if (!a) return;
-  a.currentTime = 0;
-  a.play().catch(() => {});
-  currentAudio = a;
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+  src.connect(audioCtx.destination);
+  src.start(0);
+  currentSource = src;
 }
 
 function stopSpeech() {
-  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+  if (currentSource) {
+    try { currentSource.stop(0); } catch(e) {}
+    currentSource = null;
+  }
 }
 
 function toggleMute() {
@@ -989,6 +1005,8 @@ function toggleMute() {
 
 function startDemo() {
   document.getElementById('start-overlay').style.display = 'none';
+  // Resume AudioContext during user gesture — one-time unlock that persists forever
+  if (audioCtx) audioCtx.resume();
   playing = true;
   showScene(0);
   raf = requestAnimationFrame(tick);
@@ -1029,7 +1047,7 @@ function showScene(idx) {
 function scheduleVoiceLines(scene) {
   const sceneIdx = SCENES.indexOf(scene);
   scene.lines.forEach((line, lineIdx) => {
-    const playLine = () => {
+    const t = setTimeout(() => {
       const cap = document.getElementById('caption');
       const sceneEl = document.getElementById('caption-scene');
       const voEl = document.getElementById('caption-vo');
@@ -1037,15 +1055,8 @@ function scheduleVoiceLines(scene) {
       voEl.textContent = '"' + line.vo + '"';
       cap.classList.add('visible');
       speak(line.vo, sceneIdx, lineIdx);
-    };
-    if (line.at === 0) {
-      // Play immediately — keeps us inside the user gesture chain so the browser
-      // grants audio permission. All subsequent setTimeout clips inherit this unlock.
-      playLine();
-    } else {
-      const t = setTimeout(playLine, line.at);
-      voiceTimers.push(t);
-    }
+    }, line.at);
+    voiceTimers.push(t);
   });
 }
 
