@@ -410,173 +410,297 @@
 <body>
 
 <!-- ══════════════════════════════════════════════════
-     SCENE 0: SPORTS BINGO — 0-15s  (leads the demo)
+     SCENE 1: SPORTS BINGO — after intro (~6-26s)
+     Our biggest differentiator
 ═══════════════════════════════════════════════════ -->
-<div id="scene-bingo" class="scene" style="background:#0a0718;display:flex;align-items:center;justify-content:center;gap:80px;padding:0 80px;">
-  <div class="noise"></div>
+<div id="scene-bingo" class="scene" style="background:#0a0718;overflow:hidden;">
 
-  <!-- Left: Bar TV showing bingo board -->
-  <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;">
-    <div style="width:580px;background:#0a0718;border:3px solid rgba(85,69,211,0.5);border-radius:18px;overflow:hidden;box-shadow:0 0 60px rgba(85,69,211,0.25);">
-      <!-- TV header -->
-      <div style="background:#5545D3;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div style="font-size:18px;font-weight:900;color:#fff;letter-spacing:-.5px;">Sports<span style="color:#c4b5fd;">IQ</span></div>
-          <div style="width:1px;height:16px;background:rgba(255,255,255,0.3);"></div>
-          <!-- Wavy BINGO letters -->
-          <div style="display:flex;align-items:flex-end;gap:1px;">
-            <span style="font-size:24px;font-weight:900;color:#fff;line-height:1;margin-bottom:4px;">B</span>
-            <span style="font-size:24px;font-weight:900;color:#fff;line-height:1;margin-bottom:0px;">I</span>
-            <span style="font-size:24px;font-weight:900;color:#fff;line-height:1;margin-bottom:4px;">N</span>
-            <span style="font-size:24px;font-weight:900;color:#fff;line-height:1;margin-bottom:0px;">G</span>
-            <span style="font-size:24px;font-weight:900;color:#fff;line-height:1;margin-bottom:4px;">O</span>
+  <!-- Background atmosphere glows -->
+  <div style="position:absolute;top:50%;left:38%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(85,69,211,0.18) 0%,transparent 65%);pointer-events:none;"></div>
+  <div style="position:absolute;top:50%;right:5%;transform:translateY(-50%);width:400px;height:600px;background:radial-gradient(circle,rgba(34,140,136,0.12) 0%,transparent 70%);pointer-events:none;"></div>
+
+  <div style="display:flex;align-items:center;justify-content:center;gap:56px;width:100%;height:100%;padding:0 90px;position:relative;z-index:1;">
+
+    <!-- ── LEFT: Bar TV Display ── -->
+    <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;">
+      <!-- TV bezel -->
+      <div style="width:720px;background:#0f172a;border:5px solid #1e293b;border-radius:18px;overflow:hidden;box-shadow:0 0 100px rgba(85,69,211,0.4),0 40px 80px rgba(0,0,0,0.9);">
+        <!-- Purple header bar -->
+        <div style="background:#5545D3;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <span style="font-size:22px;font-weight:900;color:#fff;letter-spacing:-.5px;">Sports<span style="color:#c4b5fd;">IQ</span></span>
+            <div style="width:1px;height:22px;background:rgba(255,255,255,0.3);"></div>
+            <!-- Wavy BINGO: B/N/O raised (self-start), I/G lowered (self-end) -->
+            <div style="display:flex;align-items:center;height:38px;gap:1px;">
+              <span style="font-size:30px;font-weight:900;color:#fff;align-self:flex-start;line-height:1;">B</span>
+              <span style="font-size:30px;font-weight:900;color:#c4b5fd;align-self:flex-end;line-height:1;margin-bottom:2px;">I</span>
+              <span style="font-size:30px;font-weight:900;color:#fff;align-self:flex-start;line-height:1;">N</span>
+              <span style="font-size:30px;font-weight:900;color:#c4b5fd;align-self:flex-end;line-height:1;margin-bottom:2px;">G</span>
+              <span style="font-size:30px;font-weight:900;color:#fff;align-self:flex-start;line-height:1;">O</span>
+            </div>
+          </div>
+          <!-- LIVE badge -->
+          <div style="display:flex;align-items:center;gap:8px;background:rgba(0,0,0,0.25);border-radius:20px;padding:5px 14px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e;animation:pulse-red 1s infinite;"></div>
+            <span style="font-size:14px;font-weight:700;color:#fff;">LIVE · Lakers vs Celtics</span>
+            <span style="font-size:12px;color:rgba(255,255,255,0.55);margin-left:4px;">Q3 · 5:42</span>
           </div>
         </div>
-        <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;">
-          <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;"></div>
-          <span style="font-size:12px;font-weight:700;color:#fff;">LIVE · Lakers vs Celtics</span>
+        <!-- Prize row -->
+        <div style="background:linear-gradient(135deg,rgba(85,69,211,0.5),rgba(85,69,211,0.2));border-bottom:1px solid rgba(85,69,211,0.45);padding:11px 24px;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:22px;">🏆</span>
+            <span style="font-size:19px;font-weight:900;color:#fff;">$50 Bar Tab</span>
+            <span style="font-size:13px;color:rgba(255,255,255,0.55);">— complete your card first</span>
+          </div>
+          <span style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px;">Sponsored by O'Brien's Bar</span>
         </div>
-      </div>
-      <!-- Prize banner -->
-      <div style="background:rgba(85,69,211,0.2);border-bottom:1px solid rgba(85,69,211,0.3);padding:10px 22px;text-align:center;">
-        <span style="font-size:18px;font-weight:900;color:#fff;">🏆 Win a </span>
-        <span style="font-size:18px;font-weight:900;color:#f59e0b;">$50 Bar Tab</span>
-        <span style="font-size:14px;color:rgba(255,255,255,0.7);margin-left:8px;">· Complete your card first</span>
-      </div>
-      <!-- 5×3 bingo grid -->
-      <div style="padding:16px 18px 20px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
-        <!-- Row 1 -->
-        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">LAL</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">3-Pointers Made</div>
-          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+250</div>
-        </div>
-        <div style="background:rgba(34,197,94,0.15);border:2px solid #22c55e;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">BOS</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Lead Change</div>
-          <div style="position:absolute;inset:0;background:rgba(34,197,94,0.3);border-radius:6px;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">✅</span></div>
-          <div style="position:absolute;bottom:-8px;background:#22c55e;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">✓ Done</div>
-        </div>
-        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;overflow:hidden;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;position:relative;z-index:1;">TOTAL</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;position:relative;z-index:1;">Points 220+</div>
-          <!-- Progress fill -->
-          <div style="position:absolute;bottom:0;left:0;right:0;height:55%;background:rgba(85,69,211,0.25);"></div>
-          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;z-index:2;">+300</div>
-        </div>
-        <div style="background:rgba(34,197,94,0.15);border:2px solid #22c55e;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">LAL</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Dunk</div>
-          <div style="position:absolute;inset:0;background:rgba(34,197,94,0.3);border-radius:6px;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">✅</span></div>
-          <div style="position:absolute;bottom:-8px;background:#22c55e;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">✓ Done</div>
-        </div>
-        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">BOS</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">20+ Points Player</div>
-          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+400</div>
-        </div>
-        <!-- Row 2 -->
-        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;overflow:hidden;margin-top:8px;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;position:relative;z-index:1;">BOS</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;position:relative;z-index:1;">Assist Streak</div>
-          <div style="position:absolute;bottom:0;left:0;right:0;height:30%;background:rgba(85,69,211,0.25);"></div>
-          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;z-index:2;">+200</div>
-        </div>
-        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">LAL</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Free Throw Miss</div>
-          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+150</div>
-        </div>
-        <div style="background:rgba(34,197,94,0.15);border:2px solid #22c55e;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">TOTAL</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Timeout Called</div>
-          <div style="position:absolute;inset:0;background:rgba(34,197,94,0.3);border-radius:6px;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">✅</span></div>
-          <div style="position:absolute;bottom:-8px;background:#22c55e;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">✓ Done</div>
-        </div>
-        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;overflow:hidden;margin-top:8px;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;position:relative;z-index:1;">LAL</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;position:relative;z-index:1;">Steal</div>
-          <div style="position:absolute;bottom:0;left:0;right:0;height:70%;background:rgba(85,69,211,0.25);"></div>
-          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;z-index:2;">+175</div>
-        </div>
-        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">BOS</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Block</div>
-          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+175</div>
-        </div>
-        <!-- Row 3 -->
-        <div style="background:rgba(34,197,94,0.15);border:2px solid #22c55e;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">TOTAL</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">10-0 Run</div>
-          <div style="position:absolute;inset:0;background:rgba(34,197,94,0.3);border-radius:6px;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">✅</span></div>
-          <div style="position:absolute;bottom:-8px;background:#22c55e;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">✓ Done</div>
-        </div>
-        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">BOS</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Buzzer Beater</div>
-          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+500</div>
-        </div>
-        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">LAL</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">Triple-Double</div>
-          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+600</div>
-        </div>
-        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;overflow:hidden;margin-top:8px;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;position:relative;z-index:1;">TOTAL</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;position:relative;z-index:1;">OT Chance</div>
-          <div style="position:absolute;bottom:0;left:0;right:0;height:20%;background:rgba(85,69,211,0.25);"></div>
-          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;z-index:2;">+800</div>
-        </div>
-        <div style="background:#fff;border:2px solid #5545D3;border-radius:8px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;margin-top:8px;">
-          <div style="font-size:9px;font-weight:700;color:#374151;text-align:center;">BOS</div>
-          <div style="font-size:9px;color:#6b7280;text-align:center;line-height:1.2;">30+ Point Player</div>
-          <div style="position:absolute;bottom:-8px;background:#5545D3;border-radius:8px;padding:2px 6px;font-size:8px;font-weight:700;color:#fff;">+450</div>
-        </div>
-      </div>
-    </div>
-    <div style="width:60px;height:10px;background:rgba(85,69,211,0.4);border-radius:0 0 4px 4px;margin:0 auto;"></div>
-    <div style="width:120px;height:6px;background:rgba(85,69,211,0.2);border-radius:4px;"></div>
-  </div>
+        <!-- 3×3 Bingo Grid (correct dimensions from real app) -->
+        <div style="padding:20px 22px 26px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
 
-  <!-- Right: copy + phone mockup -->
-  <div style="display:flex;flex-direction:column;gap:28px;max-width:480px;">
-    <!-- Eyebrow -->
-    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.4);border-radius:20px;padding:6px 16px;width:fit-content;">
-      <span style="font-size:16px;">🎰</span>
-      <span style="font-size:12px;font-weight:700;color:#7c6ef5;letter-spacing:1.5px;text-transform:uppercase;">New Feature</span>
+          <!-- Sq 1: COMPLETED — LAL Dunk -->
+          <div style="background:#228C88;border-radius:12px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;min-height:120px;justify-content:center;">
+            <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:1.5px;">LAL</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;text-align:center;line-height:1.3;">Dunk</div>
+            <div style="font-size:26px;font-weight:900;color:#fff;">✓</div>
+            <div style="position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);background:#6366f1;border:2px solid #0a0718;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:800;color:#fff;white-space:nowrap;">+250</div>
+          </div>
+
+          <!-- Sq 2: IN PROGRESS 65% — BOS Lead Change -->
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;min-height:120px;justify-content:center;overflow:hidden;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:65%;background:rgba(99,102,241,0.38);"></div>
+            <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:1.5px;position:relative;z-index:1;">BOS</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;text-align:center;line-height:1.3;position:relative;z-index:1;">Lead Change</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5);position:relative;z-index:1;">2 of 3</div>
+            <div style="position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);background:#6366f1;border:2px solid #0a0718;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:800;color:#fff;white-space:nowrap;z-index:2;">+300</div>
+          </div>
+
+          <!-- Sq 3: COMPLETED — TOTAL Points 200+ -->
+          <div style="background:#228C88;border-radius:12px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;min-height:120px;justify-content:center;">
+            <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:1.5px;">TOTAL</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;text-align:center;line-height:1.3;">Points 200+</div>
+            <div style="font-size:26px;font-weight:900;color:#fff;">✓</div>
+            <div style="position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);background:#6366f1;border:2px solid #0a0718;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:800;color:#fff;white-space:nowrap;">+400</div>
+          </div>
+
+          <!-- Sq 4: IN PROGRESS 20% — LAL 3-Pointers -->
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;min-height:120px;justify-content:center;overflow:hidden;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:20%;background:rgba(99,102,241,0.38);"></div>
+            <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:1.5px;position:relative;z-index:1;">LAL</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;text-align:center;line-height:1.3;position:relative;z-index:1;">3-Pointers Made</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5);position:relative;z-index:1;">1 of 5</div>
+            <div style="position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);background:#6366f1;border:2px solid #0a0718;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:800;color:#fff;white-space:nowrap;z-index:2;">+200</div>
+          </div>
+
+          <!-- Sq 5: COMPLETED — Timeout Called -->
+          <div style="background:#228C88;border-radius:12px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;min-height:120px;justify-content:center;">
+            <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:1.5px;">TOTAL</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;text-align:center;line-height:1.3;">Timeout Called</div>
+            <div style="font-size:26px;font-weight:900;color:#fff;">✓</div>
+            <div style="position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);background:#6366f1;border:2px solid #0a0718;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:800;color:#fff;white-space:nowrap;">+175</div>
+          </div>
+
+          <!-- Sq 6: IN PROGRESS 40% — BOS Assist Streak -->
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;min-height:120px;justify-content:center;overflow:hidden;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:40%;background:rgba(99,102,241,0.38);"></div>
+            <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:1.5px;position:relative;z-index:1;">BOS</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;text-align:center;line-height:1.3;position:relative;z-index:1;">Assist Streak</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5);position:relative;z-index:1;">2 of 5</div>
+            <div style="position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);background:#6366f1;border:2px solid #0a0718;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:800;color:#fff;white-space:nowrap;z-index:2;">+200</div>
+          </div>
+
+          <!-- Sq 7: IN PROGRESS 80% — LAL Steal (almost done!) -->
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;min-height:120px;justify-content:center;overflow:hidden;">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:80%;background:rgba(99,102,241,0.38);"></div>
+            <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:1.5px;position:relative;z-index:1;">LAL</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;text-align:center;line-height:1.3;position:relative;z-index:1;">Steal</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5);position:relative;z-index:1;">4 of 5</div>
+            <div style="position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);background:#6366f1;border:2px solid #0a0718;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:800;color:#fff;white-space:nowrap;z-index:2;">+175</div>
+          </div>
+
+          <!-- Sq 8: COMPLETED — BOS Block -->
+          <div style="background:#228C88;border-radius:12px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;min-height:120px;justify-content:center;">
+            <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:1.5px;">BOS</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;text-align:center;line-height:1.3;">Block</div>
+            <div style="font-size:26px;font-weight:900;color:#fff;">✓</div>
+            <div style="position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);background:#6366f1;border:2px solid #0a0718;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:800;color:#fff;white-space:nowrap;">+175</div>
+          </div>
+
+          <!-- Sq 9: EMPTY — LAL Triple-Double -->
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;min-height:120px;justify-content:center;">
+            <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:1.5px;">LAL</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;text-align:center;line-height:1.3;">Triple-Double</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.35);">0 of 1</div>
+            <div style="position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);background:#6366f1;border:2px solid #0a0718;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:800;color:#fff;white-space:nowrap;">+600</div>
+          </div>
+
+        </div>
+      </div>
+      <!-- TV stand -->
+      <div style="width:80px;height:14px;background:#1e293b;border-radius:0 0 6px 6px;margin:0 auto;"></div>
+      <div style="width:180px;height:8px;background:#0f172a;border-radius:4px;margin:0 auto;"></div>
     </div>
-    <!-- Headline -->
-    <div>
-      <div style="font-size:62px;font-weight:900;color:#f8fafc;line-height:1;letter-spacing:-2px;">Sports</div>
-      <div style="display:flex;align-items:flex-end;gap:6px;margin-top:-4px;">
-        <span style="font-size:62px;font-weight:900;color:#f8fafc;line-height:1;letter-spacing:-2px;margin-bottom:2px;">B</span>
-        <span style="font-size:62px;font-weight:900;color:#7c6ef5;line-height:1.1;letter-spacing:-2px;">I</span>
-        <span style="font-size:62px;font-weight:900;color:#f8fafc;line-height:1;letter-spacing:-2px;margin-bottom:2px;">N</span>
-        <span style="font-size:62px;font-weight:900;color:#7c6ef5;line-height:1.1;letter-spacing:-2px;">G</span>
-        <span style="font-size:62px;font-weight:900;color:#f8fafc;line-height:1;letter-spacing:-2px;margin-bottom:2px;">O</span>
+
+    <!-- ── RIGHT: Branding + Patron Phone + QR ── -->
+    <div style="display:flex;flex-direction:column;gap:18px;width:520px;flex-shrink:0;">
+
+      <!-- Eyebrow badge -->
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.5);border-radius:20px;padding:6px 16px;width:fit-content;">
+        <div style="width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;animation:pulse-red 1.5s infinite;"></div>
+        <span style="font-size:11px;font-weight:800;color:#7c6ef5;text-transform:uppercase;letter-spacing:2px;">SportsIQ's Biggest Differentiator</span>
       </div>
+
+      <!-- BINGO wordmark — wavy, large -->
+      <div>
+        <div style="font-size:42px;font-weight:900;color:#f8fafc;letter-spacing:-1.5px;line-height:1;">Sports</div>
+        <div style="display:flex;align-items:center;height:58px;gap:2px;margin-top:-2px;">
+          <span style="font-size:56px;font-weight:900;color:#fff;align-self:flex-start;line-height:1;letter-spacing:-2px;">B</span>
+          <span style="font-size:56px;font-weight:900;color:#7c6ef5;align-self:flex-end;line-height:1;letter-spacing:-2px;margin-bottom:3px;">I</span>
+          <span style="font-size:56px;font-weight:900;color:#fff;align-self:flex-start;line-height:1;letter-spacing:-2px;">N</span>
+          <span style="font-size:56px;font-weight:900;color:#7c6ef5;align-self:flex-end;line-height:1;letter-spacing:-2px;margin-bottom:3px;">G</span>
+          <span style="font-size:56px;font-weight:900;color:#fff;align-self:flex-start;line-height:1;letter-spacing:-2px;">O</span>
+        </div>
+      </div>
+
+      <!-- Phone + QR side by side -->
+      <div style="display:flex;align-items:center;gap:20px;">
+
+        <!-- Patron's phone showing their personal card -->
+        <div style="width:200px;height:370px;background:#0D1124;border-radius:30px;border:2px solid rgba(255,255,255,0.12);overflow:hidden;position:relative;box-shadow:0 0 60px rgba(85,69,211,0.3),0 20px 40px rgba(0,0,0,0.8);flex-shrink:0;">
+          <div style="width:70px;height:22px;background:#000;border-radius:0 0 11px 11px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:10;"></div>
+          <div style="position:absolute;inset:0;background:#0a0718;padding-top:26px;display:flex;flex-direction:column;">
+            <!-- Phone header -->
+            <div style="padding:7px 12px 5px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:13px;font-weight:900;color:#fff;">Sports<span style="color:#7c6ef5;">IQ</span></div>
+              <div style="font-size:8px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;">Your Card</div>
+            </div>
+            <!-- Patron's 3×3 grid -->
+            <div style="padding:10px 10px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:5px;flex:0 0 auto;">
+              <!-- Completed -->
+              <div style="background:#228C88;border-radius:7px;padding:7px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:68px;justify-content:center;">
+                <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,0.6);">LAL</div>
+                <div style="font-size:9px;font-weight:700;color:#fff;text-align:center;line-height:1.2;">Dunk</div>
+                <div style="font-size:16px;">✓</div>
+              </div>
+              <!-- In progress -->
+              <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:7px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:68px;justify-content:center;overflow:hidden;position:relative;">
+                <div style="position:absolute;bottom:0;left:0;right:0;height:30%;background:rgba(99,102,241,0.45);"></div>
+                <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,0.6);position:relative;z-index:1;">BOS</div>
+                <div style="font-size:9px;font-weight:700;color:#fff;text-align:center;line-height:1.2;position:relative;z-index:1;">Lead Change</div>
+              </div>
+              <!-- Completed -->
+              <div style="background:#228C88;border-radius:7px;padding:7px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:68px;justify-content:center;">
+                <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,0.6);">TOTAL</div>
+                <div style="font-size:9px;font-weight:700;color:#fff;text-align:center;line-height:1.2;">200+ Pts</div>
+                <div style="font-size:16px;">✓</div>
+              </div>
+              <!-- Empty -->
+              <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:7px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:68px;justify-content:center;">
+                <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,0.6);">LAL</div>
+                <div style="font-size:9px;font-weight:700;color:#fff;text-align:center;line-height:1.2;">3-Pointers</div>
+              </div>
+              <!-- Completed -->
+              <div style="background:#228C88;border-radius:7px;padding:7px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:68px;justify-content:center;">
+                <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,0.6);">TOTAL</div>
+                <div style="font-size:9px;font-weight:700;color:#fff;text-align:center;line-height:1.2;">Timeout</div>
+                <div style="font-size:16px;">✓</div>
+              </div>
+              <!-- In progress high -->
+              <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:7px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:68px;justify-content:center;overflow:hidden;position:relative;">
+                <div style="position:absolute;bottom:0;left:0;right:0;height:45%;background:rgba(99,102,241,0.45);"></div>
+                <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,0.6);position:relative;z-index:1;">BOS</div>
+                <div style="font-size:9px;font-weight:700;color:#fff;text-align:center;line-height:1.2;position:relative;z-index:1;">Assist Streak</div>
+              </div>
+              <!-- In progress very high -->
+              <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:7px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:68px;justify-content:center;overflow:hidden;position:relative;">
+                <div style="position:absolute;bottom:0;left:0;right:0;height:75%;background:rgba(99,102,241,0.45);"></div>
+                <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,0.6);position:relative;z-index:1;">LAL</div>
+                <div style="font-size:9px;font-weight:700;color:#fff;text-align:center;line-height:1.2;position:relative;z-index:1;">Steal</div>
+              </div>
+              <!-- Completed -->
+              <div style="background:#228C88;border-radius:7px;padding:7px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:68px;justify-content:center;">
+                <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,0.6);">BOS</div>
+                <div style="font-size:9px;font-weight:700;color:#fff;text-align:center;line-height:1.2;">Block</div>
+                <div style="font-size:16px;">✓</div>
+              </div>
+              <!-- Empty -->
+              <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:7px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:68px;justify-content:center;">
+                <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,0.6);">LAL</div>
+                <div style="font-size:9px;font-weight:700;color:#fff;text-align:center;line-height:1.2;">Triple-Double</div>
+              </div>
+            </div>
+            <!-- Winner banner at bottom -->
+            <div style="margin:10px 10px 0;background:linear-gradient(135deg,#5545D3,#7c6ef5);border-radius:9px;padding:9px 8px;text-align:center;flex-shrink:0;">
+              <div style="font-size:16px;font-weight:900;color:#fff;letter-spacing:.5px;">🎉 5 in a Row!</div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.8);margin-top:2px;">You've won a $50 bar tab!</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QR + scan CTA -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+          <div style="background:#fff;border-radius:12px;padding:12px;width:130px;height:130px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(255,255,255,0.15);">
+            <svg viewBox="0 0 100 100" width="108" height="108">
+              <rect fill="#000" x="0" y="0" width="40" height="40" rx="4"/>
+              <rect fill="#fff" x="7" y="7" width="26" height="26" rx="2"/>
+              <rect fill="#000" x="13" y="13" width="14" height="14"/>
+              <rect fill="#000" x="60" y="0" width="40" height="40" rx="4"/>
+              <rect fill="#fff" x="67" y="7" width="26" height="26" rx="2"/>
+              <rect fill="#000" x="73" y="13" width="14" height="14"/>
+              <rect fill="#000" x="0" y="60" width="40" height="40" rx="4"/>
+              <rect fill="#fff" x="7" y="67" width="26" height="26" rx="2"/>
+              <rect fill="#000" x="13" y="73" width="14" height="14"/>
+              <rect fill="#000" x="44" y="0" width="14" height="8"/>
+              <rect fill="#000" x="44" y="12" width="10" height="6"/>
+              <rect fill="#000" x="44" y="22" width="14" height="6"/>
+              <rect fill="#000" x="0" y="44" width="14" height="10"/>
+              <rect fill="#000" x="18" y="44" width="8" height="7"/>
+              <rect fill="#000" x="30" y="44" width="12" height="8"/>
+              <rect fill="#000" x="44" y="44" width="10" height="10"/>
+              <rect fill="#000" x="58" y="44" width="14" height="8"/>
+              <rect fill="#000" x="76" y="44" width="10" height="8"/>
+              <rect fill="#000" x="44" y="58" width="8" height="12"/>
+              <rect fill="#000" x="56" y="56" width="12" height="10"/>
+              <rect fill="#000" x="72" y="54" width="10" height="12"/>
+              <rect fill="#000" x="86" y="56" width="14" height="8"/>
+              <rect fill="#000" x="54" y="70" width="14" height="8"/>
+              <rect fill="#000" x="72" y="70" width="8" height="14"/>
+              <rect fill="#000" x="84" y="70" width="16" height="8"/>
+              <rect fill="#000" x="54" y="82" width="8" height="18"/>
+              <rect fill="#000" x="66" y="84" width="14" height="8"/>
+              <rect fill="#000" x="84" y="82" width="8" height="8"/>
+              <rect fill="#000" x="94" y="84" width="6" height="16"/>
+            </svg>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:13px;font-weight:800;color:#7c6ef5;text-transform:uppercase;letter-spacing:1.5px;">Scan to Play</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Free · 10 seconds to join</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 4 key hooks -->
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:4px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:15px;flex-shrink:0;">📱</span>
+          <span style="font-size:15px;font-weight:700;color:#f8fafc;line-height:1.3;">Every patron gets their own unique card — instantly</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:15px;flex-shrink:0;">⚡</span>
+          <span style="font-size:15px;font-weight:700;color:#f8fafc;line-height:1.3;">Squares tick <em style="color:#7c6ef5;">automatically</em> from real game events</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:15px;flex-shrink:0;">🏆</span>
+          <span style="font-size:15px;font-weight:700;color:#f8fafc;line-height:1.3;">Bar-funded prizes drive loyalty &amp; repeat visits</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:15px;flex-shrink:0;">🏀</span>
+          <span style="font-size:14px;font-weight:600;color:#94a3b8;line-height:1.3;">NBA · NFL · NHL · MLB — any sport, any game</span>
+        </div>
+      </div>
+
     </div>
-    <!-- Bullets -->
-    <div style="display:flex;flex-direction:column;gap:14px;">
-      <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;">📱</div>
-        <div style="font-size:18px;color:rgba(248,250,252,0.85);line-height:1.4;">Every patron scans in and gets their own bingo card</div>
-      </div>
-      <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;">⚡</div>
-        <div style="font-size:18px;color:rgba(248,250,252,0.85);line-height:1.4;">Real game events tick off squares automatically</div>
-      </div>
-      <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;">🏆</div>
-        <div style="font-size:18px;color:rgba(248,250,252,0.85);line-height:1.4;">First to bingo wins a real prize — funded by the bar</div>
-      </div>
-      <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;">🍺</div>
-        <div style="font-size:18px;color:#22c55e;font-weight:600;line-height:1.4;">Works for NBA · NFL · NHL · MLB · Any sport</div>
-      </div>
-    </div>
-    <!-- URL -->
-    <div style="font-size:15px;color:rgba(255,255,255,0.35);letter-spacing:.5px;">lumen-iq.com</div>
   </div>
 </div>
 
@@ -1010,7 +1134,7 @@
   z-index:1000;cursor:pointer;gap:24px;
 " onclick="startDemo()">
   <div style="font-size:72px;font-weight:900;color:#F8FAFC;letter-spacing:-2px">Sports<span style="color:#7C6EF5">IQ</span></div>
-  <div style="font-size:20px;color:#94A3B8">Distributor Demo — 122 seconds</div>
+  <div style="font-size:20px;color:#94A3B8">Distributor Demo — 146 seconds</div>
   <div id="play-btn-overlay" style="
     background:#334155;border-radius:16px;padding:18px 60px;
     font-size:22px;font-weight:800;color:#94A3B8;
@@ -1034,19 +1158,19 @@
 // ── Scene data ─────────────────────────────────────
 const SCENES = [
   {
-    id: 'scene-bingo',
-    duration: 15000,
-    label: 'Sports Bingo',
-    lines: []
-  },
-  {
     id: 'scene-intro',
-    duration: 7000,
+    duration: 6000,
     label: 'Intro',
     lines: [
       { at: 0,    vo: 'Meet SportsIQ.' },
       { at: 2000, vo: 'The bar game your customers can\'t put down.' },
     ]
+  },
+  {
+    id: 'scene-bingo',
+    duration: 20000,
+    label: 'Sports Bingo',
+    lines: []
   },
   {
     id: 'scene-bar',
@@ -1120,8 +1244,8 @@ const demoAudio = document.getElementById('demo-audio');
 let muted = false;
 
 // Scene start times (seconds) matched to narration.mp3 pacing
-// Bingo(0) → Intro(15) → Bar(21) → Trivia(37) → Leaderboard(53) → LivePicks(67) → FAQ(82) → CTA(99)
-const SCENE_START_TIMES = [0, 15, 21, 37, 53, 67, 82, 99];
+// Intro(0) → Bingo(6) → Bar(28) → Trivia(44) → Leaderboard(60) → LivePicks(74) → FAQ(89) → CTA(106)
+const SCENE_START_TIMES = [0, 6, 28, 44, 60, 74, 89, 106];
 
 // Captions removed per design decision — no caption bar
 
@@ -1130,7 +1254,7 @@ demoAudio.addEventListener('canplaythrough', () => {
   const btn = document.getElementById('play-btn-overlay');
   const status = document.getElementById('audio-status');
   if (btn) { btn.textContent = '▶ Play Demo'; btn.style.background = '#5545D3'; btn.style.color = '#fff'; btn.style.boxShadow = '0 0 60px rgba(85,69,211,0.5)'; }
-  if (status) status.textContent = 'Turn up your volume · 122 seconds';
+  if (status) status.textContent = 'Turn up your volume · 146 seconds';
 });
 
 // Also unlock after 3s in case canplaythrough already fired or is slow
@@ -1139,7 +1263,7 @@ setTimeout(() => {
   if (btn && btn.textContent.includes('Loading')) {
     btn.textContent = '▶ Play Demo'; btn.style.background = '#5545D3'; btn.style.color = '#fff';
     const status = document.getElementById('audio-status');
-    if (status) status.textContent = 'Turn up your volume · 122 seconds';
+    if (status) status.textContent = 'Turn up your volume · 146 seconds';
   }
 }, 3000);
 
@@ -1191,7 +1315,7 @@ function clearVoiceTimers() {
 
 function updateProgress() {
   const t = demoAudio.currentTime;
-  const dur = demoAudio.duration || 122;
+  const dur = demoAudio.duration || 146;
   document.getElementById('progress').style.width = Math.min(100, (t / dur) * 100) + '%';
 }
 
@@ -1215,7 +1339,7 @@ function tick() {
     }
   }
   // End of audio
-  if (demoAudio.ended || t >= (demoAudio.duration || 122) - 0.5) {
+  if (demoAudio.ended || t >= (demoAudio.duration || 146) - 0.5) {
     playing = false;
     document.getElementById('play-btn').textContent = '▶ Play';
     return;
