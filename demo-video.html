@@ -837,21 +837,24 @@
   <div class="caption-vo" id="caption-vo">Meet SportsIQ.</div>
 </div>
 
-<!-- Click-to-start overlay (required to unlock browser audio) -->
+<!-- Single narration audio element — one play() call, zero orchestration -->
+<audio id="demo-audio" src="/audio/narration.mp3" preload="auto"></audio>
+
+<!-- Click-to-start overlay -->
 <div id="start-overlay" style="
   position:fixed;inset:0;background:rgba(5,9,18,0.97);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   z-index:1000;cursor:pointer;gap:24px;
 " onclick="startDemo()">
   <div style="font-size:72px;font-weight:900;color:#F8FAFC;letter-spacing:-2px">Sports<span style="color:#7C6EF5">IQ</span></div>
-  <div style="font-size:20px;color:#94A3B8">Distributor Demo — 72 seconds</div>
+  <div style="font-size:20px;color:#94A3B8">Distributor Demo — 103 seconds</div>
   <div id="play-btn-overlay" style="
-    background:#5545D3;border-radius:16px;padding:18px 60px;
-    font-size:22px;font-weight:800;color:#fff;
-    box-shadow:0 0 60px rgba(85,69,211,0.5);
-    margin-top:12px;
-  ">⏳ Loading audio...</div>
-  <div id="audio-status" style="font-size:13px;color:#475569;margin-top:8px">Loading 21 voice clips · please wait</div>
+    background:#334155;border-radius:16px;padding:18px 60px;
+    font-size:22px;font-weight:800;color:#94A3B8;
+    box-shadow:0 0 60px rgba(85,69,211,0.3);
+    margin-top:12px;transition:background 0.3s,color 0.3s;
+  ">⏳ Loading audio…</div>
+  <div id="audio-status" style="font-size:13px;color:#475569;margin-top:8px">Buffering narration · please wait</div>
 </div>
 
 <!-- Progress + Controls -->
@@ -939,112 +942,74 @@ const SCENES = [
   },
 ];
 
-// ── Web Audio Engine (3-stage) ──────────────────────
-//
-// Stage 1 (page load): fetch() raw MP3 bytes into ArrayBuffers.
-//   fetch() has NO autoplay restrictions — works immediately on load.
-//
-// Stage 2 (user click): create AudioContext + call resume() synchronously.
-//   Must happen inside user gesture. After this, ALL future source.start()
-//   calls work forever — no per-play checks, no 5-second cutoff.
-//
-// Stage 3 (still in click handler): decode ArrayBuffers → AudioBuffers.
-//   decodeAudioData() is async but AudioContext is already unlocked, so
-//   the resulting AudioBuffers play without restrictions at any future time.
+// ── Single-file Audio Engine ────────────────────────
+// One narration.mp3 for the entire demo. One HTMLAudioElement.play() call
+// during user gesture. Scenes driven by audio.currentTime polling.
+// Zero orchestration complexity.
 
-const CLIP_IDS = ['vo_01','vo_02','vo_03','vo_04','vo_05','vo_06','vo_07',
-                  'vo_08','vo_09','vo_10','vo_11','vo_12','vo_13','vo_14',
-                  'vo_15','vo_16','vo_17','vo_18','vo_19','vo_20','vo_21'];
+const demoAudio = document.getElementById('demo-audio');
+let muted = false;
 
-const CLIP_MAP = {
-  '0,0':'vo_01','0,1':'vo_02',
-  '1,0':'vo_03','1,1':'vo_04','1,2':'vo_05',
-  '2,0':'vo_06','2,1':'vo_07','2,2':'vo_08',
-  '3,0':'vo_09','3,1':'vo_10','3,2':'vo_11',
-  '4,0':'vo_12','4,1':'vo_13','4,2':'vo_14',
-  '5,0':'vo_15','5,1':'vo_16','5,2':'vo_17','5,3':'vo_18',
-  '6,0':'vo_19','6,1':'vo_20','6,2':'vo_21',
-};
+// Scene start times (seconds) matched to narration.mp3 pacing
+// Intro(0) → Bar(6) → Trivia(22) → Leaderboard(38) → LivePicks(54) → FAQ(69) → CTA(88)
+const SCENE_START_TIMES = [0, 6, 22, 38, 54, 69, 88];
 
-// Stage 1: fetch raw bytes now (no user gesture needed)
-const rawBuffers = {};
-let loadedCount = 0;
-const playBtn = document.getElementById('play-btn-overlay');
-const audioStatusEl = document.getElementById('audio-status');
+// Caption cues: [startSec, endSec, text]
+const CAPTION_CUES = [
+  [0,   4,   'Meet SportsIQ.'],
+  [4,   8,   'The bar game your customers can\'t put down.'],
+  [8,   15,  'Imagine every patron at your bar — phones out, eyes up, competing live on the big screen.'],
+  [15,  21,  'Trivia on the phone. Leaderboard on the TV. The whole room is playing.'],
+  [19,  24,  'And that keeps them in their seats — and ordering.'],
+  [22,  31,  'SportsIQ runs 10-question trivia games every 30 seconds — automatically, all day.'],
+  [31,  40,  'Answer faster, earn more IQ. Risk a multiplier — 1.5, 2, even 3 times your points.'],
+  [40,  46,  'Zero staff involvement. It just runs.'],
+  [46,  52,  'The bar leaderboard on screen turns strangers into rivals.'],
+  [52,  61,  'Players see their name up there, they stay longer, drink more, and come back tomorrow.'],
+  [61,  68,  '2.3 drinks per player per hour. Zero dollars of staff effort to run it.'],
+  [69,  74,  'When a game\'s on? It gets even wilder.'],
+  [74,  83,  'Real-time sports picks — will the Chiefs score on this drive?'],
+  [83,  88,  'Plain English. No jargon. Everyone at the table is in.'],
+  [88,  94,  'Now — the questions we always hear from distributors.'],
+  [94,  100, 'Free to play? Yes. IQ points only, no gambling license required.'],
+  [100, 107, 'Staff effort? Zero. Your bartenders just pour drinks.'],
+  [107, 114, 'Equipment? Just a TV and WiFi. Setup in under 15 minutes.'],
+  [114, 120, 'Every venue in your network is leaving revenue on the table right now.'],
+  [120, 127, 'Get SportsIQ deployed to your bars. Revenue starts on day one.'],
+  [127, 134, 'lumen-iq.com — let\'s go.'],
+];
 
-CLIP_IDS.forEach(id => {
-  fetch(`/audio/${id}.mp3`)
-    .then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
-    .then(buf => {
-      rawBuffers[id] = buf;
-      loadedCount++;
-      if (audioStatusEl) audioStatusEl.textContent = `Loading voice clips… ${loadedCount} / ${CLIP_IDS.length}`;
-      if (loadedCount === CLIP_IDS.length) {
-        if (playBtn) { playBtn.textContent = '▶ Play Demo'; playBtn.style.background = '#5545D3'; }
-        if (audioStatusEl) audioStatusEl.textContent = 'Turn up your volume · Captions included';
-      }
-    })
-    .catch(() => {
-      loadedCount++;  // count failures too so button unlocks
-      if (loadedCount === CLIP_IDS.length) {
-        if (playBtn) { playBtn.textContent = '▶ Play Demo'; playBtn.style.background = '#5545D3'; }
-        if (audioStatusEl) audioStatusEl.textContent = 'Turn up your volume · Captions included';
-      }
-    });
+// Enable play button when audio is ready to play
+demoAudio.addEventListener('canplaythrough', () => {
+  const btn = document.getElementById('play-btn-overlay');
+  const status = document.getElementById('audio-status');
+  if (btn) { btn.textContent = '▶ Play Demo'; btn.style.background = '#5545D3'; btn.style.color = '#fff'; btn.style.boxShadow = '0 0 60px rgba(85,69,211,0.5)'; }
+  if (status) status.textContent = 'Turn up your volume · Captions included';
 });
 
-let audioCtx = null;
-let currentSource = null;
-let muted = false;
-const audioBuffers = {};
-
-function speak(text, sceneIdx, lineIdx) {
-  if (muted || !audioCtx) return;
-  const clipId = CLIP_MAP[`${sceneIdx},${lineIdx}`];
-  if (!clipId) return;
-  const buf = audioBuffers[clipId];
-  if (!buf) return;
-  stopSpeech();
-  const src = audioCtx.createBufferSource();
-  src.buffer = buf;
-  src.connect(audioCtx.destination);
-  src.start(0);
-  currentSource = src;
-}
-
-function stopSpeech() {
-  if (currentSource) { try { currentSource.stop(0); } catch(e) {} currentSource = null; }
-}
+// Also unlock after 3s in case canplaythrough already fired or is slow
+setTimeout(() => {
+  const btn = document.getElementById('play-btn-overlay');
+  if (btn && btn.textContent.includes('Loading')) {
+    btn.textContent = '▶ Play Demo'; btn.style.background = '#5545D3'; btn.style.color = '#fff';
+    const status = document.getElementById('audio-status');
+    if (status) status.textContent = 'Turn up your volume · Captions included';
+  }
+}, 3000);
 
 function toggleMute() {
   muted = !muted;
+  demoAudio.muted = muted;
   const btn = document.getElementById('mute-btn');
   if (btn) btn.textContent = muted ? '🔇 Unmute' : '🔊 Mute';
-  if (muted) stopSpeech();
 }
 
 function startDemo() {
   document.getElementById('start-overlay').style.display = 'none';
-
-  // Stage 2: create + unlock AudioContext synchronously during user gesture
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  audioCtx.resume();  // synchronous call — unlocks context permanently
-
-  // Stage 3: decode all pre-fetched raw buffers, then start
-  const decodeAll = CLIP_IDS.map(id => {
-    const raw = rawBuffers[id];
-    if (!raw) return Promise.resolve();
-    // slice() makes a copy so the original isn't neutered
-    return audioCtx.decodeAudioData(raw.slice(0))
-      .then(decoded => { audioBuffers[id] = decoded; })
-      .catch(() => {});
-  });
-
-  Promise.all(decodeAll).then(() => {
-    playing = true;
-    showScene(0);
-    raf = requestAnimationFrame(tick);
-  });
+  demoAudio.play().catch(() => {});  // single play() call during user gesture
+  playing = true;
+  showScene(0);
+  raf = requestAnimationFrame(tick);
 }
 
 // ── State ──────────────────────────────────────────
@@ -1055,23 +1020,17 @@ let raf = null;
 let voiceTimers = [];
 let sceneTimer = null;
 
-// ── Helpers ────────────────────────────────────────
+// ── showScene: used only on init and manual nav ────
 function showScene(idx) {
   SCENES.forEach((s, i) => {
     const el = document.getElementById(s.id);
-    if (i === idx) el.classList.add('active');
-    else el.classList.remove('active');
+    if (el) { i === idx ? el.classList.add('active') : el.classList.remove('active'); }
   });
   currentScene = idx;
-  sceneStart = performance.now();
   clearVoiceTimers();
-  scheduleVoiceLines(SCENES[idx]);
-  updateProgress();
-
-  // Scene-specific effects
   if (idx === 1) {
-    setTimeout(() => document.getElementById('stat1')?.classList.add('show'), 2000);
-    setTimeout(() => document.getElementById('stat2')?.classList.add('show'), 3500);
+    setTimeout(() => document.getElementById('stat1')?.classList.add('show'), 500);
+    setTimeout(() => document.getElementById('stat2')?.classList.add('show'), 1500);
   }
   if (idx === 0) {
     document.getElementById('stat1')?.classList.remove('show');
@@ -1079,48 +1038,54 @@ function showScene(idx) {
   }
 }
 
-function scheduleVoiceLines(scene) {
-  const sceneIdx = SCENES.indexOf(scene);
-  scene.lines.forEach((line, lineIdx) => {
-    const t = setTimeout(() => {
-      const cap = document.getElementById('caption');
-      const sceneEl = document.getElementById('caption-scene');
-      const voEl = document.getElementById('caption-vo');
-      sceneEl.textContent = scene.label;
-      voEl.textContent = '"' + line.vo + '"';
-      cap.classList.add('visible');
-      speak(line.vo, sceneIdx, lineIdx);
-    }, line.at);
-    voiceTimers.push(t);
-  });
-}
-
 function clearVoiceTimers() {
   voiceTimers.forEach(clearTimeout);
   voiceTimers = [];
-  stopSpeech();
 }
 
 function updateProgress() {
-  const total = SCENES.reduce((s, sc) => s + sc.duration, 0);
-  const elapsed = SCENES.slice(0, currentScene).reduce((s, sc) => s + sc.duration, 0);
-  const inScene = Math.min(performance.now() - sceneStart, SCENES[currentScene].duration);
-  const pct = ((elapsed + inScene) / total) * 100;
-  document.getElementById('progress').style.width = pct + '%';
+  const t = demoAudio.currentTime;
+  const dur = demoAudio.duration || 103;
+  document.getElementById('progress').style.width = Math.min(100, (t / dur) * 100) + '%';
 }
 
-function tick(now) {
+function updateCaption() {
+  const t = demoAudio.currentTime;
+  const cap = document.getElementById('caption');
+  const voEl = document.getElementById('caption-vo');
+  const sceneEl = document.getElementById('caption-scene');
+  const cue = CAPTION_CUES.find(c => t >= c[0] && t < c[1]);
+  if (cue) {
+    sceneEl.textContent = SCENES[currentScene] ? SCENES[currentScene].label : '';
+    voEl.textContent = '"' + cue[2] + '"';
+    cap.classList.add('visible');
+  }
+}
+
+function tick() {
   if (!playing) return;
+  const t = demoAudio.currentTime;
   updateProgress();
-  const elapsed = now - sceneStart;
-  if (elapsed >= SCENES[currentScene].duration) {
-    if (currentScene < SCENES.length - 1) {
-      showScene(currentScene + 1);
-    } else {
-      playing = false;
-      document.getElementById('play-btn').textContent = '▶ Play';
-      return;
+  updateCaption();
+  // Advance scene based on audio position
+  const nextSceneIdx = SCENE_START_TIMES.findLastIndex(s => t >= s);
+  if (nextSceneIdx !== currentScene && nextSceneIdx >= 0 && nextSceneIdx < SCENES.length) {
+    // Change scene visuals without touching audio
+    SCENES.forEach((s, i) => {
+      const el = document.getElementById(s.id);
+      if (el) { i === nextSceneIdx ? el.classList.add('active') : el.classList.remove('active'); }
+    });
+    currentScene = nextSceneIdx;
+    if (nextSceneIdx === 1) {
+      setTimeout(() => document.getElementById('stat1')?.classList.add('show'), 500);
+      setTimeout(() => document.getElementById('stat2')?.classList.add('show'), 1500);
     }
+  }
+  // End of audio
+  if (demoAudio.ended || t >= (demoAudio.duration || 103) - 0.5) {
+    playing = false;
+    document.getElementById('play-btn').textContent = '▶ Play';
+    return;
   }
   raf = requestAnimationFrame(tick);
 }
@@ -1128,16 +1093,13 @@ function tick(now) {
 function togglePlay() {
   playing = !playing;
   document.getElementById('play-btn').textContent = playing ? '⏸ Pause' : '▶ Play';
-  if (playing) {
-    sceneStart = performance.now();
-    raf = requestAnimationFrame(tick);
-  } else {
-    stopSpeech();
-  }
+  if (playing) { demoAudio.play().catch(() => {}); raf = requestAnimationFrame(tick); }
+  else { demoAudio.pause(); }
 }
 
 function resetDemo() {
-  stopSpeech();
+  demoAudio.currentTime = 0;
+  demoAudio.play().catch(() => {});
   playing = true;
   document.getElementById('play-btn').textContent = '⏸ Pause';
   showScene(0);
@@ -1145,12 +1107,12 @@ function resetDemo() {
 }
 
 function nextScene() {
-  stopSpeech();
-  if (currentScene < SCENES.length - 1) showScene(currentScene + 1);
+  const next = Math.min(currentScene + 1, SCENES.length - 1);
+  demoAudio.currentTime = SCENE_START_TIMES[next] || 0;
 }
 function prevScene() {
-  stopSpeech();
-  if (currentScene > 0) showScene(currentScene - 1);
+  const prev = Math.max(currentScene - 1, 0);
+  demoAudio.currentTime = SCENE_START_TIMES[prev] || 0;
 }
 
 // ── Ticking phone timer (scene 1) ─────────────────
