@@ -825,7 +825,7 @@
   <div class="cta-eyebrow">For Distributors</div>
   <div class="cta-headline">Get your bars<br>in the game — <em>now.</em></div>
   <div class="cta-sub">Every venue in your network is leaving revenue on the table.<br>SportsIQ changes that on day one.</div>
-  <div class="cta-pill">Deploy to your network → sportsiq.app</div>
+  <div class="cta-pill">Deploy to your network → lumen-iq.com</div>
   <div class="cta-url">Free setup · No staff training needed · Bar TV + mobile included</div>
 </div>
 
@@ -845,13 +845,13 @@
 " onclick="startDemo()">
   <div style="font-size:72px;font-weight:900;color:#F8FAFC;letter-spacing:-2px">Sports<span style="color:#7C6EF5">IQ</span></div>
   <div style="font-size:20px;color:#94A3B8">Distributor Demo — 72 seconds</div>
-  <div style="
+  <div id="play-btn-overlay" style="
     background:#5545D3;border-radius:16px;padding:18px 60px;
     font-size:22px;font-weight:800;color:#fff;
     box-shadow:0 0 60px rgba(85,69,211,0.5);
     margin-top:12px;
-  ">▶ Play Demo</div>
-  <div style="font-size:13px;color:#475569;margin-top:8px">Turn up your volume · Captions included</div>
+  ">⏳ Loading audio...</div>
+  <div id="audio-status" style="font-size:13px;color:#475569;margin-top:8px">Loading 21 voice clips · please wait</div>
 </div>
 
 <!-- Progress + Controls -->
@@ -934,24 +934,28 @@ const SCENES = [
     lines: [
       { at: 0,    vo: 'Every venue in your network is leaving revenue on the table right now.' },
       { at: 3000, vo: 'Get SportsIQ deployed to your bars. Revenue starts on day one.' },
-      { at: 5500, vo: 'sportsiq.app — let\'s go.' },
+      { at: 5500, vo: 'lumen-iq.com — let\'s go.' },
     ]
   },
 ];
 
-// ── Web Audio Engine ────────────────────────────────
-// Uses AudioContext instead of HTMLAudioElement. Once audioCtx.resume() is
-// called during a user gesture, ALL subsequent source.start() calls are
-// permitted forever — no per-play autoplay checks, no 5-second cutoff.
-let audioCtx = null;
-let currentSource = null;
-let muted = false;
-const audioBuffers = {};  // clip id → AudioBuffer (decoded PCM)
+// ── Web Audio Engine (3-stage) ──────────────────────
+//
+// Stage 1 (page load): fetch() raw MP3 bytes into ArrayBuffers.
+//   fetch() has NO autoplay restrictions — works immediately on load.
+//
+// Stage 2 (user click): create AudioContext + call resume() synchronously.
+//   Must happen inside user gesture. After this, ALL future source.start()
+//   calls work forever — no per-play checks, no 5-second cutoff.
+//
+// Stage 3 (still in click handler): decode ArrayBuffers → AudioBuffers.
+//   decodeAudioData() is async but AudioContext is already unlocked, so
+//   the resulting AudioBuffers play without restrictions at any future time.
+
 const CLIP_IDS = ['vo_01','vo_02','vo_03','vo_04','vo_05','vo_06','vo_07',
                   'vo_08','vo_09','vo_10','vo_11','vo_12','vo_13','vo_14',
                   'vo_15','vo_16','vo_17','vo_18','vo_19','vo_20','vo_21'];
 
-// scene index + line index → clip id
 const CLIP_MAP = {
   '0,0':'vo_01','0,1':'vo_02',
   '1,0':'vo_03','1,1':'vo_04','1,2':'vo_05',
@@ -962,18 +966,37 @@ const CLIP_MAP = {
   '6,0':'vo_19','6,1':'vo_20','6,2':'vo_21',
 };
 
-// Fetch + decode all clips in background as soon as page loads
-function preloadAudioBuffers() {
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  CLIP_IDS.forEach(id => {
-    fetch(`/audio/${id}.mp3`)
-      .then(r => r.arrayBuffer())
-      .then(buf => audioCtx.decodeAudioData(buf))
-      .then(decoded => { audioBuffers[id] = decoded; })
-      .catch(() => {});
-  });
-}
-preloadAudioBuffers();
+// Stage 1: fetch raw bytes now (no user gesture needed)
+const rawBuffers = {};
+let loadedCount = 0;
+const playBtn = document.getElementById('play-btn-overlay');
+const audioStatusEl = document.getElementById('audio-status');
+
+CLIP_IDS.forEach(id => {
+  fetch(`/audio/${id}.mp3`)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+    .then(buf => {
+      rawBuffers[id] = buf;
+      loadedCount++;
+      if (audioStatusEl) audioStatusEl.textContent = `Loading voice clips… ${loadedCount} / ${CLIP_IDS.length}`;
+      if (loadedCount === CLIP_IDS.length) {
+        if (playBtn) { playBtn.textContent = '▶ Play Demo'; playBtn.style.background = '#5545D3'; }
+        if (audioStatusEl) audioStatusEl.textContent = 'Turn up your volume · Captions included';
+      }
+    })
+    .catch(() => {
+      loadedCount++;  // count failures too so button unlocks
+      if (loadedCount === CLIP_IDS.length) {
+        if (playBtn) { playBtn.textContent = '▶ Play Demo'; playBtn.style.background = '#5545D3'; }
+        if (audioStatusEl) audioStatusEl.textContent = 'Turn up your volume · Captions included';
+      }
+    });
+});
+
+let audioCtx = null;
+let currentSource = null;
+let muted = false;
+const audioBuffers = {};
 
 function speak(text, sceneIdx, lineIdx) {
   if (muted || !audioCtx) return;
@@ -990,10 +1013,7 @@ function speak(text, sceneIdx, lineIdx) {
 }
 
 function stopSpeech() {
-  if (currentSource) {
-    try { currentSource.stop(0); } catch(e) {}
-    currentSource = null;
-  }
+  if (currentSource) { try { currentSource.stop(0); } catch(e) {} currentSource = null; }
 }
 
 function toggleMute() {
@@ -1005,11 +1025,26 @@ function toggleMute() {
 
 function startDemo() {
   document.getElementById('start-overlay').style.display = 'none';
-  // Resume AudioContext during user gesture — one-time unlock that persists forever
-  if (audioCtx) audioCtx.resume();
-  playing = true;
-  showScene(0);
-  raf = requestAnimationFrame(tick);
+
+  // Stage 2: create + unlock AudioContext synchronously during user gesture
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  audioCtx.resume();  // synchronous call — unlocks context permanently
+
+  // Stage 3: decode all pre-fetched raw buffers, then start
+  const decodeAll = CLIP_IDS.map(id => {
+    const raw = rawBuffers[id];
+    if (!raw) return Promise.resolve();
+    // slice() makes a copy so the original isn't neutered
+    return audioCtx.decodeAudioData(raw.slice(0))
+      .then(decoded => { audioBuffers[id] = decoded; })
+      .catch(() => {});
+  });
+
+  Promise.all(decodeAll).then(() => {
+    playing = true;
+    showScene(0);
+    raf = requestAnimationFrame(tick);
+  });
 }
 
 // ── State ──────────────────────────────────────────
