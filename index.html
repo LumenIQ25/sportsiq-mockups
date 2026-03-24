@@ -2009,6 +2009,9 @@
     <div class="tab tab-review" data-screen="pro-upgrade" onclick="showScreen('pro-upgrade',this)">
       <span class="tab-label">Pro Upgrade Funnel ⚡</span><span class="tab-days" id="days-pro-upgrade"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="bar-owner-dashboard" onclick="showScreen('bar-owner-dashboard',this)">
+      <span class="tab-label">Bar Owner Dashboard 📊</span><span class="tab-days" id="days-bar-owner-dashboard"></span><span class="review-dot"></span>
+    </div>
     <!-- ↓ Previous versions (collapsed by default) -->
     <details class="nav-archive-group">
       <summary class="nav-archive-toggle">↓ 45 previous versions</summary>
@@ -5591,7 +5594,9 @@
     // ── Mar 22 loop — Push Notifications: what fires + when, lock screen designs ──
     'push-notifications':  '2026-03-22T20:30:00-07:00',
     // ── Mar 22 loop — Pro Upgrade Funnel: trigger moments, value prop, paywall ──
-    'pro-upgrade':         '2026-03-22T20:30:00-07:00'
+    'pro-upgrade':         '2026-03-22T20:30:00-07:00',
+    // ── Mar 23 — Bar Owner Dashboard: venue analytics, QR mgmt, revenue impact ──
+    'bar-owner-dashboard': '2026-03-23T18:00:00-07:00'
   };
 
   (function initDaysBadges() {
@@ -41329,6 +41334,397 @@
 
   <div id="sfb-panel-nav-rename-p5" class="sfb-panel"></div>
 </div><!-- /screen nav-rename-p5 -->
+
+<!-- ══════════════════════════════════════════════════════════════════
+     BAR OWNER DASHBOARD — Mar 23 2026
+     Web/tablet UI for venue managers. Shows tonight's live engagement,
+     7-day trends, QR code panel, top players, and revenue impact.
+     Purpose: completes the distributor pitch — shows bars what THEY see,
+     not just what players see. Closes "what do I get?" objection.
+     ══════════════════════════════════════════════════════════════════ -->
+<div id="bar-owner-dashboard" class="screen" style="display:none;">
+  <div class="screen-header">
+    <h2>📊 Bar Owner Dashboard — Venue Analytics & Management</h2>
+    <p class="screen-subtitle">Mar 23 2026 · Web/tablet dashboard that bar owners log into to track engagement, manage their QR code, and see revenue impact. The key missing piece for the distributor pitch — answers "what do I actually get?" This proprietary venue-level data accumulates over time and becomes a switching cost: bar owners won't leave because their historical data is here. Shows tonight's live stats, 7-day player trends, top players at their bar tonight, QR code management, and a revenue impact card comparing to bars without SportsIQ.</p>
+  </div>
+
+  <!-- Outer dashboard wrapper — wide tablet layout -->
+  <div style="max-width:1180px;margin:0 auto;padding:0 16px 48px;">
+
+    <!-- ── TOP: Header bar ── -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 0 18px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="font-size:22px;font-weight:900;color:#f0f6fc;letter-spacing:-.5px;">Sports<span style="color:#5545D3;">IQ</span></div>
+        <div style="width:1px;height:22px;background:rgba(255,255,255,0.15);"></div>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:#f0f6fc;">Yard House — Denver Downtown</div>
+          <div style="font-size:11px;color:#94a3b8;">Account #YH-2847 · Mountain Time</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="display:flex;align-items:center;gap:6px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);border-radius:20px;padding:6px 12px;">
+          <div style="width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;"></div>
+          <span style="font-size:12px;font-weight:700;color:#22c55e;">LIVE · 47 players now</span>
+        </div>
+        <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.35);border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;color:#7c6ef5;cursor:pointer;">Settings</div>
+        <div style="background:#5545D3;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;">Support</div>
+      </div>
+    </div>
+
+    <!-- ── ROW 1: 4 KPI cards ── -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;">
+
+      <!-- KPI 1: Active Players -->
+      <div style="background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:14px;padding:18px 20px;">
+        <div style="font-size:10px;font-weight:700;color:#7c6ef5;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;">Active Tonight</div>
+        <div style="font-size:36px;font-weight:900;color:#f0f6fc;line-height:1;">47</div>
+        <div style="font-size:11px;color:#22c55e;margin-top:6px;font-weight:600;">↑ 23% vs last Sunday</div>
+      </div>
+
+      <!-- KPI 2: Peak Concurrent -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:18px 20px;">
+        <div style="font-size:10px;font-weight:700;color:#94a3b8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;">Peak Concurrent</div>
+        <div style="font-size:36px;font-weight:900;color:#f0f6fc;line-height:1;">63</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:6px;">Hit at 8:47 PM</div>
+      </div>
+
+      <!-- KPI 3: Questions Answered -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:18px 20px;">
+        <div style="font-size:10px;font-weight:700;color:#94a3b8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;">Picks Submitted</div>
+        <div style="font-size:36px;font-weight:900;color:#f0f6fc;line-height:1;">312</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:6px;">Across 6 game rounds</div>
+      </div>
+
+      <!-- KPI 4: Avg Session -->
+      <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:14px;padding:18px 20px;">
+        <div style="font-size:10px;font-weight:700;color:#f59e0b;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;">Avg Dwell Time</div>
+        <div style="font-size:36px;font-weight:900;color:#f0f6fc;line-height:1;">74<span style="font-size:18px;font-weight:600;color:#94a3b8;"> min</span></div>
+        <div style="font-size:11px;color:#22c55e;margin-top:6px;font-weight:600;">↑ 41 min vs non-SportsIQ nights</div>
+      </div>
+
+    </div>
+
+    <!-- ── ROW 2: 7-day chart + QR panel ── -->
+    <div style="display:grid;grid-template-columns:1fr 340px;gap:14px;margin-bottom:20px;">
+
+      <!-- 7-day chart -->
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px 24px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#f0f6fc;">Player Count — Last 7 Days</div>
+            <div style="font-size:11px;color:#94a3b8;margin-top:2px;">Unique players by night · Yard House Denver</div>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <div style="background:rgba(85,69,211,0.2);border:1px solid rgba(85,69,211,0.4);border-radius:6px;padding:4px 10px;font-size:10px;font-weight:700;color:#7c6ef5;">7D</div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:10px;color:#94a3b8;">30D</div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:10px;color:#94a3b8;">All</div>
+          </div>
+        </div>
+        <!-- Bar chart -->
+        <div style="display:flex;align-items:flex-end;gap:0;height:140px;padding:0 4px;">
+          <!-- Day bars with labels -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="width:100%;max-width:52px;background:rgba(85,69,211,0.25);border-radius:5px 5px 0 0;height:68px;"></div>
+            <div style="font-size:9px;color:#94a3b8;font-weight:600;">MON</div>
+            <div style="font-size:10px;color:#7c6ef5;font-weight:700;">34</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="width:100%;max-width:52px;background:rgba(85,69,211,0.25);border-radius:5px 5px 0 0;height:52px;"></div>
+            <div style="font-size:9px;color:#94a3b8;font-weight:600;">TUE</div>
+            <div style="font-size:10px;color:#7c6ef5;font-weight:700;">26</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="width:100%;max-width:52px;background:rgba(85,69,211,0.25);border-radius:5px 5px 0 0;height:42px;"></div>
+            <div style="font-size:9px;color:#94a3b8;font-weight:600;">WED</div>
+            <div style="font-size:10px;color:#7c6ef5;font-weight:700;">21</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="width:100%;max-width:52px;background:rgba(85,69,211,0.35);border-radius:5px 5px 0 0;height:78px;"></div>
+            <div style="font-size:9px;color:#94a3b8;font-weight:600;">THU</div>
+            <div style="font-size:10px;color:#7c6ef5;font-weight:700;">39</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="width:100%;max-width:52px;background:rgba(85,69,211,0.5);border-radius:5px 5px 0 0;height:110px;"></div>
+            <div style="font-size:9px;color:#94a3b8;font-weight:600;">FRI</div>
+            <div style="font-size:10px;color:#7c6ef5;font-weight:700;">55</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="width:100%;max-width:52px;background:#5545D3;border-radius:5px 5px 0 0;height:128px;box-shadow:0 0 12px rgba(85,69,211,0.5);"></div>
+            <div style="font-size:9px;color:#94a3b8;font-weight:600;">SAT</div>
+            <div style="font-size:10px;color:#5545D3;font-weight:800;">64</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div style="width:100%;max-width:52px;background:rgba(34,197,94,0.6);border-radius:5px 5px 0 0;height:94px;border:1px dashed rgba(34,197,94,0.4);"></div>
+            <div style="font-size:9px;color:#22c55e;font-weight:700;">SUN ●</div>
+            <div style="font-size:10px;color:#22c55e;font-weight:800;">47 ↑</div>
+          </div>
+        </div>
+        <div style="font-size:9px;color:#475569;margin-top:8px;text-align:right;">● Tonight in progress · updates every 5 min</div>
+      </div>
+
+      <!-- QR Code panel -->
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:14px;">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#f0f6fc;">Your SportsIQ QR Code</div>
+          <div style="font-size:11px;color:#94a3b8;margin-top:2px;">Players scan this to join your bar's game</div>
+        </div>
+        <!-- QR placeholder -->
+        <div style="display:flex;justify-content:center;">
+          <div style="width:160px;height:160px;background:#fff;border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:center;">
+            <!-- Simplified QR grid pattern -->
+            <div style="width:140px;height:140px;position:relative;">
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;">
+                <!-- Corner squares + pattern to look like QR code -->
+                <div style="background:#000;border-radius:2px;aspect-ratio:1;grid-column:1/4;grid-row:1/4;"></div>
+                <div style="background:#000;border-radius:2px;aspect-ratio:1;grid-column:5/8;grid-row:1/4;"></div>
+                <div style="background:#000;border-radius:2px;aspect-ratio:1;grid-column:1/4;grid-row:5/8;"></div>
+              </div>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+                <div style="width:100%;height:100%;background:repeating-linear-gradient(0deg,#000 0,#000 3px,transparent 3px,transparent 8px),repeating-linear-gradient(90deg,#000 0,#000 3px,transparent 3px,transparent 8px);opacity:0.15;border-radius:4px;"></div>
+                <!-- SportsIQ logo in center -->
+                <div style="position:absolute;background:#fff;padding:4px 6px;border-radius:4px;">
+                  <div style="font-size:9px;font-weight:900;color:#050912;letter-spacing:-.3px;">Sports<span style="color:#5545D3;">IQ</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Link display -->
+        <div style="background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:8px;padding:8px 12px;">
+          <div style="font-size:9px;color:#7c6ef5;font-weight:700;margin-bottom:3px;">PLAYER LINK</div>
+          <div style="font-size:11px;color:#f0f6fc;font-family:monospace;">sportsiq.app/bar/yh-2847</div>
+        </div>
+        <!-- Action buttons -->
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:#5545D3;border-radius:8px;padding:9px;text-align:center;font-size:12px;font-weight:700;color:#fff;cursor:pointer;">🖨 Print QR Code</div>
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px;text-align:center;font-size:12px;font-weight:600;color:#94a3b8;cursor:pointer;">Copy Link</div>
+        </div>
+        <div style="font-size:10px;color:#475569;text-align:center;">Post this at every table and above the bar TV</div>
+      </div>
+
+    </div>
+
+    <!-- ── ROW 3: Top players + Revenue impact ── -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;">
+
+      <!-- Tonight's Top Players -->
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px 22px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#f0f6fc;">Tonight's Top Players</div>
+            <div style="font-size:11px;color:#94a3b8;margin-top:2px;">At Yard House right now</div>
+          </div>
+          <div style="font-size:11px;color:#7c6ef5;cursor:pointer;">View All</div>
+        </div>
+        <!-- Player rows -->
+        <div style="display:flex;flex-direction:column;gap:0;">
+          <!-- #1 -->
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <div style="font-size:18px;">🥇</div>
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(85,69,211,0.3);border:1px solid rgba(85,69,211,0.5);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#7c6ef5;">M</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">MarcD</div>
+              <div style="font-size:10px;color:#94a3b8;">8 picks · 6 correct</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:14px;font-weight:800;color:#f59e0b;">2,840 IQ</div>
+              <div style="font-size:9px;color:#94a3b8;">tonight</div>
+            </div>
+          </div>
+          <!-- #2 -->
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <div style="font-size:18px;">🥈</div>
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(85,69,211,0.3);border:1px solid rgba(85,69,211,0.5);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#7c6ef5;">S</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">SarahK</div>
+              <div style="font-size:10px;color:#94a3b8;">7 picks · 5 correct</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:14px;font-weight:800;color:#94a3b8;">2,410 IQ</div>
+              <div style="font-size:9px;color:#94a3b8;">tonight</div>
+            </div>
+          </div>
+          <!-- #3 -->
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <div style="font-size:18px;">🥉</div>
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(85,69,211,0.3);border:1px solid rgba(85,69,211,0.5);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#7c6ef5;">T</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">TomR_Broncos</div>
+              <div style="font-size:10px;color:#94a3b8;">9 picks · 5 correct</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:14px;font-weight:800;color:#94a3b8;">1,980 IQ</div>
+              <div style="font-size:9px;color:#94a3b8;">tonight</div>
+            </div>
+          </div>
+          <!-- #4 -->
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <div style="font-size:14px;color:#475569;font-weight:700;width:18px;text-align:center;">4</div>
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.25);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#7c6ef5;">J</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;color:#f0f6fc;">JennyB</div>
+              <div style="font-size:10px;color:#94a3b8;">6 picks · 4 correct</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">1,620 IQ</div>
+            </div>
+          </div>
+          <!-- #5 -->
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;">
+            <div style="font-size:14px;color:#475569;font-weight:700;width:18px;text-align:center;">5</div>
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.25);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#7c6ef5;">C</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;color:#f0f6fc;">ChrisD_Nuggets</div>
+              <div style="font-size:10px;color:#94a3b8;">5 picks · 4 correct</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">1,390 IQ</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.2);border-radius:8px;padding:8px 12px;font-size:10px;color:#94a3b8;text-align:center;">
+          42 more players active tonight
+        </div>
+      </div>
+
+      <!-- Revenue Impact -->
+      <div style="display:flex;flex-direction:column;gap:14px;">
+
+        <!-- Revenue impact card -->
+        <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:14px;padding:20px 22px;">
+          <div style="font-size:13px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">Revenue Impact</div>
+          <div style="font-size:11px;color:#94a3b8;margin-bottom:16px;">SportsIQ nights vs non-SportsIQ nights · your bar</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:14px;">
+              <div style="font-size:10px;color:#22c55e;font-weight:700;margin-bottom:6px;">DWELL TIME</div>
+              <div style="font-size:26px;font-weight:900;color:#22c55e;">+41<span style="font-size:14px;"> min</span></div>
+              <div style="font-size:10px;color:#94a3b8;margin-top:4px;">avg per customer</div>
+            </div>
+            <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:14px;">
+              <div style="font-size:10px;color:#22c55e;font-weight:700;margin-bottom:6px;">REPEAT VISITS</div>
+              <div style="font-size:26px;font-weight:900;color:#22c55e;">+31<span style="font-size:14px;">%</span></div>
+              <div style="font-size:10px;color:#94a3b8;margin-top:4px;">vs non-game nights</div>
+            </div>
+            <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:14px;">
+              <div style="font-size:10px;color:#22c55e;font-weight:700;margin-bottom:6px;">GROUP SIZE</div>
+              <div style="font-size:26px;font-weight:900;color:#22c55e;">2.3×</div>
+              <div style="font-size:10px;color:#94a3b8;margin-top:4px;">larger party avg</div>
+            </div>
+            <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:14px;">
+              <div style="font-size:10px;color:#22c55e;font-weight:700;margin-bottom:6px;">NEW CUSTOMERS</div>
+              <div style="font-size:26px;font-weight:900;color:#22c55e;">18%</div>
+              <div style="font-size:10px;color:#94a3b8;margin-top:4px;">of players first visit</div>
+            </div>
+          </div>
+          <div style="margin-top:12px;font-size:10px;color:#475569;text-align:center;">Based on 8 weeks of data · Yard House Denver</div>
+        </div>
+
+        <!-- Network rank card -->
+        <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:14px;padding:18px 22px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#f0f6fc;">Network Rank</div>
+              <div style="font-size:11px;color:#94a3b8;margin-top:2px;">Among 142 bars in your distributor network</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:32px;font-weight:900;color:#f59e0b;">#7</div>
+              <div style="font-size:10px;color:#94a3b8;">this month</div>
+            </div>
+          </div>
+          <div style="margin-top:14px;background:rgba(255,255,255,0.04);border-radius:8px;height:8px;overflow:hidden;">
+            <div style="width:95%;height:100%;background:linear-gradient(90deg,#f59e0b,#f59e0b);border-radius:8px;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:4px;">
+            <div style="font-size:9px;color:#475569;">Rank 142</div>
+            <div style="font-size:9px;color:#f59e0b;font-weight:700;">Top 5% of network</div>
+            <div style="font-size:9px;color:#475569;">Rank 1</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── ROW 4: TV Display Controls + Coming Soon ── -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+
+      <!-- TV Display control -->
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px 22px;">
+        <div style="font-size:13px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">Bar TV Display</div>
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:16px;">Control what's on your SportsIQ screen right now</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:10px;padding:12px 14px;">
+            <div>
+              <div style="font-size:12px;font-weight:700;color:#f0f6fc;">Live Leaderboard</div>
+              <div style="font-size:10px;color:#7c6ef5;">Showing tonight's top players</div>
+            </div>
+            <div style="background:#22c55e;border-radius:20px;padding:4px 10px;font-size:10px;font-weight:700;color:#000;">LIVE</div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <div style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px;text-align:center;font-size:11px;color:#94a3b8;cursor:pointer;">Promo Slide</div>
+            <div style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px;text-align:center;font-size:11px;color:#94a3b8;cursor:pointer;">QR Code Full</div>
+            <div style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px;text-align:center;font-size:11px;color:#94a3b8;cursor:pointer;">Next Game</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+            <div style="font-size:18px;">📺</div>
+            <div>
+              <div style="font-size:11px;color:#94a3b8;">TV Display URL:</div>
+              <div style="font-size:11px;color:#f0f6fc;font-family:monospace;">sportsiq.app/tv/yh-2847</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming features / promotions -->
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px 22px;">
+        <div style="font-size:13px;font-weight:700;color:#f0f6fc;margin-bottom:4px;">Upcoming Features</div>
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:16px;">Coming to your dashboard</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:10px;">
+            <div style="font-size:18px;">🏆</div>
+            <div>
+              <div style="font-size:12px;font-weight:700;color:#f0f6fc;">Bar Tournaments</div>
+              <div style="font-size:10px;color:#94a3b8;">Host bracket events — NFL playoffs, March Madness</div>
+            </div>
+            <div style="margin-left:auto;background:rgba(99,102,241,0.2);border-radius:4px;padding:3px 8px;font-size:9px;color:#a78bfa;font-weight:700;">SOON</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:10px;">
+            <div style="font-size:18px;">📣</div>
+            <div>
+              <div style="font-size:12px;font-weight:700;color:#f0f6fc;">Push to Players</div>
+              <div style="font-size:10px;color:#94a3b8;">Notify your regulars — "Big game tonight at Yard House"</div>
+            </div>
+            <div style="margin-left:auto;background:rgba(99,102,241,0.2);border-radius:4px;padding:3px 8px;font-size:9px;color:#a78bfa;font-weight:700;">SOON</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:10px;">
+            <div style="font-size:18px;">💬</div>
+            <div>
+              <div style="font-size:12px;font-weight:700;color:#f0f6fc;">Happy Hour Promos</div>
+              <div style="font-size:10px;color:#94a3b8;">Double IQ during happy hour, drive off-peak traffic</div>
+            </div>
+            <div style="margin-left:auto;background:rgba(99,102,241,0.2);border-radius:4px;padding:3px 8px;font-size:9px;color:#a78bfa;font-weight:700;">SOON</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Design note -->
+    <div style="margin-top:20px;background:rgba(85,69,211,0.06);border:1px solid rgba(85,69,211,0.2);border-radius:12px;padding:14px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#7c6ef5;margin-bottom:6px;">Design Notes — Bar Owner Dashboard</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="font-size:10px;color:#6b7280;">• This is the missing piece in the distributor pitch — shows bar owners what they get, not just what players see</div>
+        <div style="font-size:10px;color:#6b7280;">• Moat: proprietary venue-level engagement data accumulates over time → switching cost (bar won't leave, their history is here)</div>
+        <div style="font-size:10px;color:#6b7280;">• Revenue impact stats (dwell time, repeat visits) are the key conversion metric for bar owner buy-in</div>
+        <div style="font-size:10px;color:#6b7280;">• Network rank creates competition between venues → distributors can use this to motivate their bar accounts</div>
+        <div style="font-size:10px;color:#6b7280;">• TV Display Controls let bar staff manage the screen without needing technical support</div>
+        <div style="font-size:10px;color:#6b7280;">• "Push to Players" + "Bar Tournaments" are Phase 6 features but showing them here seeds demand with bar owners</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="sfb-panel-bar-owner-dashboard" class="sfb-panel"></div>
+</div><!-- /screen bar-owner-dashboard -->
 
 </body>
 </html>
