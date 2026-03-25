@@ -42761,7 +42761,7 @@
 <!-- ── TRIVIA QUESTION (trivia-q) ──────────────────────────────────────── -->
 <div id="bar-trivia-q" class="screen">
   <div class="tv-wrap">
-    <div class="tv-label">BAR SCREEN — TRIVIA QUESTION v2 (trivia-q) · Mar 25 2026 · 2-col layout, flood-fill cards, progress dots</div>
+    <div class="tv-label">BAR SCREEN — TRIVIA QUESTION v3 (trivia-q) · Mar 25 2026 · Single-column, question+cards fill screen uniformly</div>
     <div class="tv-frame">
       <div class="bar-1080" style="background:radial-gradient(ellipse at top,rgba(85,69,211,0.18) 0%,transparent 60%),#0B2230;display:flex;flex-direction:column;font-family:'Lexend','Lexend Deca',sans-serif;">
 
@@ -42799,52 +42799,48 @@
           </div>
         </div>
 
-        <!-- Body: 2-column -->
-        <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;">
+        <!-- Question — fixed block, no dead space -->
+        <div style="flex-shrink:0;padding:32px 80px 20px;">
+          <div style="font-size:58px;font-weight:800;color:#F8FAFC;line-height:1.25;">
+            Which quarterback threw the most touchdown passes in a single Super Bowl game?
+          </div>
+        </div>
 
-          <!-- Left: Question -->
-          <div style="display:flex;align-items:center;padding:48px 56px 48px 80px;border-right:1px solid rgba(255,255,255,0.06);">
-            <div style="font-size:54px;font-weight:800;color:#F8FAFC;line-height:1.3;">
-              Which quarterback threw the most touchdown passes in a single Super Bowl game?
-            </div>
+        <!-- Answer cards — fill ALL remaining height, each card = ¼ -->
+        <div style="flex:1;display:flex;flex-direction:column;padding:0 80px 32px;gap:14px;overflow:hidden;">
+
+          <!-- A — 38% -->
+          <div style="position:relative;flex:1;display:flex;align-items:center;gap:24px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:0 36px;overflow:hidden;">
+            <div style="position:absolute;inset:0 auto 0 0;width:38%;background:rgba(85,69,211,0.28);border-radius:18px;"></div>
+            <div style="position:relative;width:64px;height:64px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:28px;font-weight:900;">A</div>
+            <div style="position:relative;flex:1;color:#F8FAFC;font-size:30px;font-weight:600;line-height:1.3;">Joe Montana — 49ers</div>
+            <div style="position:relative;color:#94A3B8;font-size:38px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">38%</div>
           </div>
 
-          <!-- Right: Answer cards — flex:1 on each card fills the screen evenly -->
-          <div style="display:flex;flex-direction:column;padding:24px 64px 24px 44px;gap:14px;">
-
-            <!-- A — 38% -->
-            <div style="position:relative;flex:1;display:flex;align-items:center;gap:24px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:0 32px;overflow:hidden;">
-              <div style="position:absolute;inset:0 auto 0 0;width:38%;background:rgba(85,69,211,0.28);border-radius:18px;"></div>
-              <div style="position:relative;width:64px;height:64px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:28px;font-weight:900;">A</div>
-              <div style="position:relative;flex:1;color:#F8FAFC;font-size:28px;font-weight:600;line-height:1.3;">Joe Montana — 49ers</div>
-              <div style="position:relative;color:#94A3B8;font-size:36px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">38%</div>
-            </div>
-
-            <!-- B — 52% -->
-            <div style="position:relative;flex:1;display:flex;align-items:center;gap:24px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:0 32px;overflow:hidden;">
-              <div style="position:absolute;inset:0 auto 0 0;width:52%;background:rgba(85,69,211,0.28);border-radius:18px;"></div>
-              <div style="position:relative;width:64px;height:64px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:28px;font-weight:900;">B</div>
-              <div style="position:relative;flex:1;color:#F8FAFC;font-size:28px;font-weight:600;line-height:1.3;">Patrick Mahomes — Chiefs</div>
-              <div style="position:relative;color:#94A3B8;font-size:36px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">52%</div>
-            </div>
-
-            <!-- C — 7% -->
-            <div style="position:relative;flex:1;display:flex;align-items:center;gap:24px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:0 32px;overflow:hidden;">
-              <div style="position:absolute;inset:0 auto 0 0;width:7%;background:rgba(85,69,211,0.28);border-radius:18px;"></div>
-              <div style="position:relative;width:64px;height:64px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:28px;font-weight:900;">C</div>
-              <div style="position:relative;flex:1;color:#F8FAFC;font-size:28px;font-weight:600;line-height:1.3;">Tom Brady — Patriots</div>
-              <div style="position:relative;color:#94A3B8;font-size:36px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">7%</div>
-            </div>
-
-            <!-- D — 3% -->
-            <div style="position:relative;flex:1;display:flex;align-items:center;gap:24px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:0 32px;overflow:hidden;">
-              <div style="position:absolute;inset:0 auto 0 0;width:3%;background:rgba(85,69,211,0.28);border-radius:18px;"></div>
-              <div style="position:relative;width:64px;height:64px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:28px;font-weight:900;">D</div>
-              <div style="position:relative;flex:1;color:#F8FAFC;font-size:28px;font-weight:600;line-height:1.3;">Steve Young — 49ers</div>
-              <div style="position:relative;color:#94A3B8;font-size:36px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">3%</div>
-            </div>
-
+          <!-- B — 52% -->
+          <div style="position:relative;flex:1;display:flex;align-items:center;gap:24px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:0 36px;overflow:hidden;">
+            <div style="position:absolute;inset:0 auto 0 0;width:52%;background:rgba(85,69,211,0.28);border-radius:18px;"></div>
+            <div style="position:relative;width:64px;height:64px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:28px;font-weight:900;">B</div>
+            <div style="position:relative;flex:1;color:#F8FAFC;font-size:30px;font-weight:600;line-height:1.3;">Patrick Mahomes — Chiefs</div>
+            <div style="position:relative;color:#94A3B8;font-size:38px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">52%</div>
           </div>
+
+          <!-- C — 7% -->
+          <div style="position:relative;flex:1;display:flex;align-items:center;gap:24px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:0 36px;overflow:hidden;">
+            <div style="position:absolute;inset:0 auto 0 0;width:7%;background:rgba(85,69,211,0.28);border-radius:18px;"></div>
+            <div style="position:relative;width:64px;height:64px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:28px;font-weight:900;">C</div>
+            <div style="position:relative;flex:1;color:#F8FAFC;font-size:30px;font-weight:600;line-height:1.3;">Tom Brady — Patriots</div>
+            <div style="position:relative;color:#94A3B8;font-size:38px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">7%</div>
+          </div>
+
+          <!-- D — 3% -->
+          <div style="position:relative;flex:1;display:flex;align-items:center;gap:24px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:0 36px;overflow:hidden;">
+            <div style="position:absolute;inset:0 auto 0 0;width:3%;background:rgba(85,69,211,0.28);border-radius:18px;"></div>
+            <div style="position:relative;width:64px;height:64px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:28px;font-weight:900;">D</div>
+            <div style="position:relative;flex:1;color:#F8FAFC;font-size:30px;font-weight:600;line-height:1.3;">Steve Young — 49ers</div>
+            <div style="position:relative;color:#94A3B8;font-size:38px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">3%</div>
+          </div>
+
         </div>
 
       </div>
