@@ -42761,106 +42761,89 @@
 <!-- ── TRIVIA QUESTION (trivia-q) ──────────────────────────────────────── -->
 <div id="bar-trivia-q" class="screen">
   <div class="tv-wrap">
-    <div class="tv-label">BAR SCREEN — TRIVIA QUESTION (trivia-q) · Mar 25 2026 · Matches BarScreen.tsx</div>
+    <div class="tv-label">BAR SCREEN — TRIVIA QUESTION v2 (trivia-q) · Mar 25 2026 · 2-col layout, flood-fill cards, progress dots</div>
     <div class="tv-frame">
-      <div class="bar-1080" style="background:#0B2230;display:flex;flex-direction:column;padding:64px 80px;gap:36px;font-family:'Lexend','Lexend Deca',sans-serif;">
+      <div class="bar-1080" style="background:radial-gradient(ellipse at top,rgba(85,69,211,0.18) 0%,transparent 60%),#0B2230;display:flex;flex-direction:column;font-family:'Lexend','Lexend Deca',sans-serif;">
 
-        <!-- Header row -->
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div style="display:flex;align-items:center;gap:20px;">
-            <!-- Live badge -->
+        <!-- Header bar -->
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.30);border-bottom:1px solid rgba(255,255,255,0.07);padding:18px 64px;flex-shrink:0;">
+          <!-- Left: live badge + progress dots + Q label -->
+          <div style="display:flex;align-items:center;gap:28px;">
             <div style="display:flex;align-items:center;gap:10px;">
-              <div style="position:relative;width:14px;height:14px;">
-                <div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;opacity:0.5;"></div>
-                <div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;"></div>
-              </div>
-              <span style="color:#22C55E;font-size:22px;font-weight:800;letter-spacing:2px;">TRIVIA</span>
+              <div style="position:relative;width:14px;height:14px;"><div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;opacity:0.5;"></div><div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;"></div></div>
+              <span style="color:#22C55E;font-size:22px;font-weight:800;letter-spacing:2px;">LIVE TRIVIA</span>
             </div>
-            <div style="color:#475569;font-size:22px;">Q3 of 10</div>
+            <!-- Progress dots: filled=done(teal), current(brand), upcoming(faint) -->
+            <div style="display:flex;align-items:center;gap:5px;">
+              <div style="width:8px;height:8px;border-radius:4px;background:#228C88;"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:#228C88;"></div>
+              <div style="width:22px;height:8px;border-radius:4px;background:#5545D3;"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:rgba(255,255,255,0.12);"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:rgba(255,255,255,0.12);"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:rgba(255,255,255,0.12);"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:rgba(255,255,255,0.12);"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:rgba(255,255,255,0.12);"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:rgba(255,255,255,0.12);"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:rgba(255,255,255,0.12);"></div>
+            </div>
+            <div style="color:#64748B;font-size:20px;">Q3 / 10</div>
           </div>
-          <!-- Countdown box -->
-          <div style="background:#110E2A;border:2px solid rgba(85,69,211,0.35);border-radius:18px;padding:12px 36px;display:flex;align-items:center;gap:12px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C6EF5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span style="color:#F8FAFC;font-size:36px;font-weight:900;font-variant-numeric:tabular-nums;">08</span>
+          <!-- Center: countdown — focal point -->
+          <div style="background:rgba(85,69,211,0.20);border:2px solid #5545D3;border-radius:20px;padding:8px 44px;">
+            <span style="color:#F8FAFC;font-size:72px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1;">08</span>
+          </div>
+          <!-- Right: answering count -->
+          <div style="text-align:right;">
+            <div style="color:#F8FAFC;font-size:32px;font-weight:800;font-variant-numeric:tabular-nums;">147</div>
+            <div style="color:#64748B;font-size:14px;letter-spacing:1.5px;">ANSWERING</div>
           </div>
         </div>
 
-        <!-- Question -->
-        <div style="color:#F8FAFC;font-size:52px;font-weight:800;line-height:1.2;max-width:960px;">
-          Which quarterback threw the most touchdown passes in a single Super Bowl game?
-        </div>
+        <!-- Body: 2-column -->
+        <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;">
 
-        <!-- Answer bars — live updating as players answer -->
-        <div style="display:flex;flex-direction:column;gap:0;flex:1;justify-content:center;">
-
-          <!-- A -->
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
-            <div style="width:52px;color:#475569;font-size:30px;font-weight:800;">A</div>
-            <div style="flex:1;height:48px;background:#110E2A;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);">
-              <div style="height:100%;width:38%;background:rgba(255,255,255,0.08);border-radius:10px;transition:width 0.6s;"></div>
-            </div>
-            <div style="width:88px;text-align:right;color:#F8FAFC;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;">38%</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:6px;">
-            <div style="width:52px;color:#475569;font-size:30px;font-weight:800;"></div>
-            <div style="flex:1;padding-left:4px;">
-              <span style="color:#94A3B8;font-size:24px;font-weight:600;">Joe Montana — 49ers</span>
+          <!-- Left: Question -->
+          <div style="display:flex;align-items:center;padding:48px 56px 48px 80px;border-right:1px solid rgba(255,255,255,0.06);">
+            <div style="font-size:54px;font-weight:800;color:#F8FAFC;line-height:1.3;">
+              Which quarterback threw the most touchdown passes in a single Super Bowl game?
             </div>
           </div>
 
-          <!-- B -->
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;margin-top:8px;">
-            <div style="width:52px;color:#475569;font-size:30px;font-weight:800;">B</div>
-            <div style="flex:1;height:48px;background:#110E2A;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);">
-              <div style="height:100%;width:52%;background:rgba(255,255,255,0.08);border-radius:10px;"></div>
-            </div>
-            <div style="width:88px;text-align:right;color:#F8FAFC;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;">52%</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:6px;">
-            <div style="width:52px;"></div>
-            <div style="flex:1;padding-left:4px;">
-              <span style="color:#94A3B8;font-size:24px;font-weight:600;">Patrick Mahomes — Chiefs</span>
-            </div>
-          </div>
+          <!-- Right: Answer cards with flood-fill -->
+          <div style="display:flex;flex-direction:column;padding:28px 64px 28px 44px;gap:12px;justify-content:center;">
 
-          <!-- C -->
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;margin-top:8px;">
-            <div style="width:52px;color:#475569;font-size:30px;font-weight:800;">C</div>
-            <div style="flex:1;height:48px;background:#110E2A;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);">
-              <div style="height:100%;width:7%;background:rgba(255,255,255,0.08);border-radius:10px;"></div>
+            <!-- A — 38% -->
+            <div style="position:relative;display:flex;align-items:center;gap:18px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:20px 24px;overflow:hidden;min-height:80px;">
+              <div style="position:absolute;inset:0 auto 0 0;width:38%;background:rgba(85,69,211,0.28);border-radius:16px;"></div>
+              <div style="position:relative;width:48px;height:48px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:22px;font-weight:900;">A</div>
+              <div style="position:relative;flex:1;color:#F8FAFC;font-size:24px;font-weight:600;line-height:1.3;">Joe Montana — 49ers</div>
+              <div style="position:relative;color:#94A3B8;font-size:30px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">38%</div>
             </div>
-            <div style="width:88px;text-align:right;color:#F8FAFC;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;">7%</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:6px;">
-            <div style="width:52px;"></div>
-            <div style="flex:1;padding-left:4px;">
-              <span style="color:#94A3B8;font-size:24px;font-weight:600;">Tom Brady — Patriots</span>
-            </div>
-          </div>
 
-          <!-- D -->
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;margin-top:8px;">
-            <div style="width:52px;color:#475569;font-size:30px;font-weight:800;">D</div>
-            <div style="flex:1;height:48px;background:#110E2A;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);">
-              <div style="height:100%;width:3%;background:rgba(255,255,255,0.08);border-radius:10px;"></div>
+            <!-- B — 52% -->
+            <div style="position:relative;display:flex;align-items:center;gap:18px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:20px 24px;overflow:hidden;min-height:80px;">
+              <div style="position:absolute;inset:0 auto 0 0;width:52%;background:rgba(85,69,211,0.28);border-radius:16px;"></div>
+              <div style="position:relative;width:48px;height:48px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:22px;font-weight:900;">B</div>
+              <div style="position:relative;flex:1;color:#F8FAFC;font-size:24px;font-weight:600;line-height:1.3;">Patrick Mahomes — Chiefs</div>
+              <div style="position:relative;color:#94A3B8;font-size:30px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">52%</div>
             </div>
-            <div style="width:88px;text-align:right;color:#F8FAFC;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;">3%</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div style="width:52px;"></div>
-            <div style="flex:1;padding-left:4px;">
-              <span style="color:#94A3B8;font-size:24px;font-weight:600;">Steve Young — 49ers</span>
+
+            <!-- C — 7% -->
+            <div style="position:relative;display:flex;align-items:center;gap:18px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:20px 24px;overflow:hidden;min-height:80px;">
+              <div style="position:absolute;inset:0 auto 0 0;width:7%;background:rgba(85,69,211,0.28);border-radius:16px;"></div>
+              <div style="position:relative;width:48px;height:48px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:22px;font-weight:900;">C</div>
+              <div style="position:relative;flex:1;color:#F8FAFC;font-size:24px;font-weight:600;line-height:1.3;">Tom Brady — Patriots</div>
+              <div style="position:relative;color:#94A3B8;font-size:30px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">7%</div>
             </div>
-          </div>
 
-        </div>
+            <!-- D — 3% -->
+            <div style="position:relative;display:flex;align-items:center;gap:18px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:20px 24px;overflow:hidden;min-height:80px;">
+              <div style="position:absolute;inset:0 auto 0 0;width:3%;background:rgba(85,69,211,0.28);border-radius:16px;"></div>
+              <div style="position:relative;width:48px;height:48px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:22px;font-weight:900;">D</div>
+              <div style="position:relative;flex:1;color:#F8FAFC;font-size:24px;font-weight:600;line-height:1.3;">Steve Young — 49ers</div>
+              <div style="position:relative;color:#94A3B8;font-size:30px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">3%</div>
+            </div>
 
-        <!-- Footer: player count + IQ reminder -->
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div style="color:#475569;font-size:20px;">147 players answered</div>
-          <div style="display:flex;align-items:center;gap:10px;background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:10px;padding:10px 20px;">
-            <div style="width:7px;height:7px;border-radius:50%;background:#7C6EF5;"></div>
-            <span style="color:#7C6EF5;font-size:18px;font-weight:700;">Answer on your phone to earn IQ</span>
           </div>
         </div>
 
@@ -42873,107 +42856,112 @@
 <!-- ── TRIVIA REVEAL (trivia-rev) ───────────────────────────────────────── -->
 <div id="bar-trivia-rev" class="screen">
   <div class="tv-wrap">
-    <div class="tv-label">BAR SCREEN — TRIVIA REVEAL (trivia-rev) · Mar 25 2026 · Correct answer highlighted teal, fun fact, top scorers</div>
+    <div class="tv-label">BAR SCREEN — TRIVIA REVEAL v2 (trivia-rev) · Mar 25 2026 · Flood-fill cards, header bar, "X% got it right", fun fact gradient</div>
     <div class="tv-frame">
-      <div class="bar-1080" style="background:#0B2230;display:flex;flex-direction:column;padding:56px 80px;gap:28px;font-family:'Lexend','Lexend Deca',sans-serif;">
+      <div class="bar-1080" style="background:radial-gradient(ellipse at top left,rgba(34,197,94,0.10) 0%,transparent 55%),#0B2230;display:flex;flex-direction:column;font-family:'Lexend','Lexend Deca',sans-serif;">
 
-        <!-- Header -->
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div style="background:rgba(34,140,136,0.18);border:1.5px solid rgba(34,140,136,0.5);border-radius:10px;padding:8px 18px;">
-              <span style="color:#228C88;font-size:20px;font-weight:800;letter-spacing:1px;">ANSWER REVEALED</span>
-            </div>
-            <div style="color:#475569;font-size:20px;">Q3 of 10</div>
+        <!-- Header bar (consistent with trivia-q) -->
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.30);border-bottom:1px solid rgba(255,255,255,0.07);padding:18px 64px;flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:24px;">
+            <div style="background:rgba(34,140,136,0.25);border:1px solid #228C88;border-radius:12px;padding:8px 22px;color:#228C88;font-size:20px;font-weight:800;letter-spacing:2px;">ANSWER REVEALED</div>
+            <div style="color:#64748B;font-size:20px;">Q3 / 10</div>
           </div>
-          <div style="color:#475569;font-size:20px;">Next question in <span style="color:#F8FAFC;font-weight:700;">5s</span></div>
+          <div style="text-align:right;">
+            <div style="color:#22C55E;font-size:36px;font-weight:900;font-variant-numeric:tabular-nums;">52%</div>
+            <div style="color:#64748B;font-size:14px;letter-spacing:1.5px;">GOT IT RIGHT</div>
+          </div>
         </div>
 
-        <!-- Question (smaller) -->
-        <div style="color:#94A3B8;font-size:28px;font-weight:600;line-height:1.3;">
-          Which quarterback threw the most touchdown passes in a single Super Bowl game?
-        </div>
+        <!-- Body: 2-column -->
+        <div style="flex:1;display:grid;grid-template-columns:1fr 380px;overflow:hidden;">
 
-        <!-- Answer bars with correct highlighted -->
-        <div style="display:flex;flex-direction:column;gap:12px;">
+          <!-- Left: question + flood-fill answer cards + fun fact -->
+          <div style="display:flex;flex-direction:column;padding:36px 48px 36px 80px;gap:20px;">
 
-          <!-- A — wrong -->
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div style="width:52px;color:#475569;font-size:28px;font-weight:800;">A</div>
-            <div style="flex:1;">
-              <div style="font-size:20px;color:#64748B;font-weight:600;margin-bottom:6px;">Joe Montana — 49ers</div>
-              <div style="height:40px;background:#110E2A;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);">
-                <div style="height:100%;width:38%;background:rgba(255,255,255,0.06);border-radius:8px;"></div>
-              </div>
+            <div style="color:#94A3B8;font-size:28px;font-weight:600;line-height:1.4;flex-shrink:0;">
+              Which quarterback threw the most touchdown passes in a single Super Bowl game?
             </div>
-            <div style="width:72px;text-align:right;color:#475569;font-size:28px;font-weight:900;">38%</div>
+
+            <!-- Answer cards — flood fill, correct glows green -->
+            <div style="flex:1;display:flex;flex-direction:column;gap:10px;justify-content:center;">
+
+              <!-- A — wrong -->
+              <div style="position:relative;display:flex;align-items:center;gap:18px;background:#110E2A;border:2px solid rgba(255,255,255,0.07);border-radius:14px;padding:16px 24px;overflow:hidden;min-height:72px;">
+                <div style="position:absolute;inset:0 auto 0 0;width:38%;background:rgba(255,255,255,0.05);border-radius:14px;"></div>
+                <div style="position:relative;width:44px;height:44px;flex-shrink:0;background:rgba(255,255,255,0.06);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:20px;font-weight:900;">A</div>
+                <div style="position:relative;flex:1;color:#64748B;font-size:22px;font-weight:500;line-height:1.3;">Joe Montana — 49ers</div>
+                <div style="position:relative;color:#64748B;font-size:30px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">38%</div>
+              </div>
+
+              <!-- B — CORRECT — green glow + flood -->
+              <div style="position:relative;display:flex;align-items:center;gap:18px;background:rgba(34,197,94,0.08);border:2px solid #22C55E;border-radius:14px;padding:16px 24px;overflow:hidden;min-height:72px;box-shadow:0 0 32px rgba(34,197,94,0.15);">
+                <div style="position:absolute;inset:0 auto 0 0;width:52%;background:rgba(34,197,94,0.20);border-radius:14px;"></div>
+                <div style="position:relative;width:44px;height:44px;flex-shrink:0;background:rgba(34,197,94,0.25);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#22C55E;font-size:26px;font-weight:900;">✓</div>
+                <div style="position:relative;flex:1;color:#F8FAFC;font-size:26px;font-weight:800;line-height:1.3;">Patrick Mahomes — Chiefs</div>
+                <div style="position:relative;color:#22C55E;font-size:30px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">52%</div>
+              </div>
+
+              <!-- C — wrong -->
+              <div style="position:relative;display:flex;align-items:center;gap:18px;background:#110E2A;border:2px solid rgba(255,255,255,0.07);border-radius:14px;padding:16px 24px;overflow:hidden;min-height:72px;">
+                <div style="position:absolute;inset:0 auto 0 0;width:7%;background:rgba(255,255,255,0.05);border-radius:14px;"></div>
+                <div style="position:relative;width:44px;height:44px;flex-shrink:0;background:rgba(255,255,255,0.06);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:20px;font-weight:900;">C</div>
+                <div style="position:relative;flex:1;color:#64748B;font-size:22px;font-weight:500;">Tom Brady — Patriots</div>
+                <div style="position:relative;color:#64748B;font-size:30px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">7%</div>
+              </div>
+
+              <!-- D — wrong -->
+              <div style="position:relative;display:flex;align-items:center;gap:18px;background:#110E2A;border:2px solid rgba(255,255,255,0.07);border-radius:14px;padding:16px 24px;overflow:hidden;min-height:72px;">
+                <div style="position:absolute;inset:0 auto 0 0;width:3%;background:rgba(255,255,255,0.05);border-radius:14px;"></div>
+                <div style="position:relative;width:44px;height:44px;flex-shrink:0;background:rgba(255,255,255,0.06);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:20px;font-weight:900;">D</div>
+                <div style="position:relative;flex:1;color:#64748B;font-size:22px;font-weight:500;">Steve Young — 49ers</div>
+                <div style="position:relative;color:#64748B;font-size:30px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">3%</div>
+              </div>
+
+            </div>
+
+            <!-- Fun fact — indigo/teal gradient card -->
+            <div style="background:linear-gradient(135deg,rgba(85,69,211,0.15),rgba(34,140,136,0.10));border:1px solid rgba(85,69,211,0.25);border-radius:14px;padding:16px 24px;display:flex;gap:16px;align-items:flex-start;flex-shrink:0;">
+              <span style="font-size:26px;flex-shrink:0;">💡</span>
+              <div style="color:#94A3B8;font-size:21px;line-height:1.5;">Mahomes threw 6 TD passes in Super Bowl LVII — tying Steve Young's record (Super Bowl XXIX).</div>
+            </div>
+
           </div>
 
-          <!-- B — correct -->
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div style="width:52px;color:#228C88;font-size:28px;font-weight:800;">B</div>
-            <div style="flex:1;">
-              <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-                <span style="font-size:20px;color:#F8FAFC;font-weight:700;">Patrick Mahomes — Chiefs</span>
-                <span style="background:rgba(34,140,136,0.2);border:1px solid rgba(34,140,136,0.5);border-radius:6px;padding:2px 10px;font-size:14px;font-weight:800;color:#228C88;letter-spacing:0.5px;">✓ CORRECT</span>
+          <!-- Right: gold/silver/bronze leaderboard -->
+          <div style="border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;padding:36px 40px 36px 32px;">
+            <div style="color:#64748B;font-size:14px;font-weight:700;letter-spacing:3px;margin-bottom:20px;text-transform:uppercase;">Tonight's Leaders</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:14px 16px;background:linear-gradient(90deg,rgba(255,193,7,0.18),rgba(255,193,7,0.06));border:1px solid rgba(255,193,7,0.35);border-radius:12px;">
+                <span style="color:#fbbf24;font-size:16px;font-weight:800;">#1</span>
+                <span style="color:#F8FAFC;font-size:22px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">BigMike</span>
+                <span style="color:#fbbf24;font-size:22px;font-weight:900;font-variant-numeric:tabular-nums;">4,100</span>
               </div>
-              <div style="height:40px;background:#110E2A;border-radius:8px;overflow:hidden;border:1px solid rgba(34,140,136,0.4);">
-                <div style="height:100%;width:52%;background:linear-gradient(90deg,#228C88,#22C55E);border-radius:8px;"></div>
+
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(148,163,184,0.08);border:1px solid rgba(148,163,184,0.2);border-radius:12px;">
+                <span style="color:#64748B;font-size:16px;">#2</span>
+                <span style="color:#94A3B8;font-size:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">SarahK</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;">3,850</span>
               </div>
-            </div>
-            <div style="width:72px;text-align:right;color:#22C55E;font-size:28px;font-weight:900;">52%</div>
-          </div>
 
-          <!-- C — wrong -->
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div style="width:52px;color:#475569;font-size:28px;font-weight:800;">C</div>
-            <div style="flex:1;">
-              <div style="font-size:20px;color:#64748B;font-weight:600;margin-bottom:6px;">Tom Brady — Patriots</div>
-              <div style="height:40px;background:#110E2A;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);">
-                <div style="height:100%;width:7%;background:rgba(255,255,255,0.06);border-radius:8px;"></div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(205,127,50,0.08);border:1px solid rgba(205,127,50,0.2);border-radius:12px;">
+                <span style="color:#cd7f32;font-size:16px;">#3</span>
+                <span style="color:#94A3B8;font-size:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">JayBird</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;">3,200</span>
               </div>
-            </div>
-            <div style="width:72px;text-align:right;color:#475569;font-size:28px;font-weight:900;">7%</div>
-          </div>
 
-          <!-- D — wrong -->
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div style="width:52px;color:#475569;font-size:28px;font-weight:800;">D</div>
-            <div style="flex:1;">
-              <div style="font-size:20px;color:#64748B;font-weight:600;margin-bottom:6px;">Steve Young — 49ers</div>
-              <div style="height:40px;background:#110E2A;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);">
-                <div style="height:100%;width:3%;background:rgba(255,255,255,0.06);border-radius:8px;"></div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;">
+                <span style="color:#475569;font-size:16px;">#4</span>
+                <span style="color:#64748B;font-size:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">CoachKev</span>
+                <span style="color:#64748B;font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;">2,900</span>
               </div>
-            </div>
-            <div style="width:72px;text-align:right;color:#475569;font-size:28px;font-weight:900;">3%</div>
-          </div>
 
-        </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;">
+                <span style="color:#475569;font-size:16px;">#5</span>
+                <span style="color:#64748B;font-size:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">TommyG</span>
+                <span style="color:#64748B;font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;">2,450</span>
+              </div>
 
-        <!-- Fun fact + top scorers row -->
-        <div style="display:flex;gap:24px;flex:1;align-items:stretch;">
-
-          <!-- Fun fact -->
-          <div style="flex:1;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px 24px;display:flex;flex-direction:column;gap:10px;">
-            <div style="font-size:14px;font-weight:800;color:#5545D3;letter-spacing:1px;">FUN FACT</div>
-            <div style="font-size:22px;color:#F8FAFC;font-weight:600;line-height:1.4;">
-              Mahomes threw 6 TD passes in Super Bowl LVII — breaking the record set by Steve Young (6 TDs in Super Bowl XXIX). He did it in under 4 hours.
-            </div>
-          </div>
-
-          <!-- Top 3 scorers this question -->
-          <div style="width:340px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px 24px;">
-            <div style="font-size:14px;font-weight:800;color:#475569;letter-spacing:1px;margin-bottom:14px;">TOP SCORES THIS QUESTION</div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
-              <span style="color:#F8FAFC;font-size:22px;font-weight:700;"><span style="color:#475569;margin-right:10px;font-size:18px;">#1</span>BigMike</span>
-              <span style="color:#22C55E;font-size:22px;font-weight:900;">+950</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
-              <span style="color:#94A3B8;font-size:20px;font-weight:600;"><span style="color:#475569;margin-right:10px;font-size:18px;">#2</span>SarahK</span>
-              <span style="color:#94A3B8;font-size:20px;font-weight:900;">+850</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;">
-              <span style="color:#94A3B8;font-size:20px;font-weight:600;"><span style="color:#475569;margin-right:10px;font-size:18px;">#3</span>JayBird</span>
-              <span style="color:#94A3B8;font-size:20px;font-weight:900;">+800</span>
             </div>
           </div>
 
