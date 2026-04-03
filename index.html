@@ -2178,6 +2178,9 @@
     <div class="tab tab-review" data-screen="mobile-postgame" onclick="showScreen('mobile-postgame',this)">
       <span class="tab-label">Mobile · Post-Game ✦</span><span class="tab-days" id="days-mobile-postgame"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="bar-owner-onboarding" onclick="showScreen('bar-owner-onboarding',this)">
+      <span class="tab-label">Bar · Owner Onboarding ✦</span><span class="tab-days" id="days-bar-owner-onboarding"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="trivia-v3" onclick="showScreen('trivia-v3',this)">
       <span class="tab-label">Trivia (TV)</span><span class="tab-days" id="days-trivia-v3"></span><span class="review-dot"></span>
     </div>
@@ -5605,6 +5608,7 @@
     'bar-endgame':         '2026-04-03T13:00:00-07:00',
     'bar-game-controller': '2026-04-03T14:00:00-07:00',
     'mobile-postgame':     '2026-04-03T14:30:00-07:00',
+    'bar-owner-onboarding': '2026-04-03T16:00:00-07:00',
     // ── Mar 22 loop — Home Screen: progressive disclosure, 3 user states ──
     'home-screen':         '2026-03-22T19:40:00-07:00',
     // ── Mar 22 loop — Bar Download Flow: QR scan → venue-aware onboarding → first pick ──
@@ -45381,3 +45385,351 @@
 
   <div id="sfb-panel-mobile-postgame" class="sfb-panel"></div>
 </div><!-- /screen mobile-postgame -->
+
+<!-- ============================================================
+     SCREEN: Bar · Owner Onboarding ✦ — Apr 3 2026
+     5-step venue signup: Account → TV Setup → First Game → Billing → Go Live
+     Unblocks Isaac's venue signup + bar screen pairing state machine
+     ============================================================ -->
+<div id="bar-owner-onboarding" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Bar · Owner Onboarding ✦ — 5-Step Venue Signup</div>
+    <div class="screen-subtitle">Apr 3 2026 · Isaac dependency unlock. The venue signup flow — how a bar owner signs up, pairs their TV screen, sets up their first game, and goes live. 5 states on web/tablet: (1) Venue details, (2) TV screen pairing, (3) First game config, (4) Plan selection / billing, (5) Go live confirmation. This is the entry point for every new venue — without it Isaac can't wire the venue provisioning flow. Each step is 60 seconds or less. The pairing code (State 2) is the critical moment — bar owner types a 4-digit code shown on their TV to link their account to the screen. State 5 generates the bar's QR code, ready to share or print.</div>
+  </div>
+
+  <div style="padding:40px 32px;">
+
+    <!-- 5-step progress indicator -->
+    <div style="max-width:900px;margin:0 auto 40px;display:flex;align-items:center;gap:0;">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#6366f1);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;box-shadow:0 0 16px rgba(59,130,246,0.4);">1</div>
+        <div style="font-size:11px;font-weight:700;color:#3b82f6;text-align:center;">Venue</div>
+      </div>
+      <div style="flex:1;height:2px;background:linear-gradient(90deg,#3b82f6,#22d3ee);margin-bottom:20px;"></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#22d3ee,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;box-shadow:0 0 16px rgba(34,211,238,0.4);">2</div>
+        <div style="font-size:11px;font-weight:700;color:#22d3ee;text-align:center;">TV Setup</div>
+      </div>
+      <div style="flex:1;height:2px;background:linear-gradient(90deg,#22d3ee,#a855f7);margin-bottom:20px;"></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#ec4899);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;box-shadow:0 0 16px rgba(168,85,247,0.4);">3</div>
+        <div style="font-size:11px;font-weight:700;color:#a855f7;text-align:center;">First Game</div>
+      </div>
+      <div style="flex:1;height:2px;background:linear-gradient(90deg,#a855f7,#f59e0b);margin-bottom:20px;"></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;box-shadow:0 0 16px rgba(245,158,11,0.4);">4</div>
+        <div style="font-size:11px;font-weight:700;color:#f59e0b;text-align:center;">Billing</div>
+      </div>
+      <div style="flex:1;height:2px;background:linear-gradient(90deg,#f59e0b,#22c55e);margin-bottom:20px;"></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;box-shadow:0 0 16px rgba(34,197,94,0.4);">5</div>
+        <div style="font-size:11px;font-weight:700;color:#22c55e;text-align:center;">Go Live</div>
+      </div>
+    </div>
+
+    <!-- 5 states grid -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;max-width:1200px;margin:0 auto;">
+
+      <!-- STATE 1: VENUE DETAILS -->
+      <div style="background:#0f172a;border-radius:16px;border:2px solid #3b82f6;overflow:hidden;">
+        <div style="background:linear-gradient(135deg,#1e3a5f,#1e293b);padding:14px 16px;border-bottom:1px solid #1e3a5f;">
+          <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#3b82f6;margin-bottom:4px;">STEP 1</div>
+          <div style="font-size:14px;font-weight:900;color:#f8fafc;">Venue Details</div>
+        </div>
+        <div style="padding:16px;">
+          <!-- logo -->
+          <div style="text-align:center;margin-bottom:16px;">
+            <div style="font-size:24px;margin-bottom:6px;">🏟️</div>
+            <div style="font-size:13px;font-weight:800;color:#f8fafc;">Set up your venue</div>
+            <div style="font-size:11px;color:#64748b;margin-top:3px;">Takes about 2 minutes</div>
+          </div>
+          <!-- form fields -->
+          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#94a3b8;margin-bottom:4px;letter-spacing:1px;">BAR NAME</div>
+              <div style="background:#1e293b;border:1.5px solid #334155;border-radius:8px;padding:10px 12px;font-size:12px;color:#f8fafc;">Bosscat Kitchen & Bar</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#94a3b8;margin-bottom:4px;letter-spacing:1px;">CITY</div>
+              <div style="background:#1e293b;border:1.5px solid #334155;border-radius:8px;padding:10px 12px;font-size:12px;color:#f8fafc;">Houston, TX</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#94a3b8;margin-bottom:4px;letter-spacing:1px;">CONTACT EMAIL</div>
+              <div style="background:#1e293b;border:1.5px solid #3b82f6;border-radius:8px;padding:10px 12px;font-size:12px;color:#60a5fa;">manager@bosscat.com</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#94a3b8;margin-bottom:4px;letter-spacing:1px;">PHONE</div>
+              <div style="background:#1e293b;border:1.5px solid #334155;border-radius:8px;padding:10px 12px;font-size:12px;color:#f8fafc;">(713) 555-0142</div>
+            </div>
+          </div>
+          <!-- sports selection -->
+          <div style="font-size:10px;font-weight:700;color:#94a3b8;margin-bottom:8px;letter-spacing:1px;">YOUR SPORTS</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+            <div style="background:rgba(59,130,246,0.15);border:1.5px solid #3b82f6;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#60a5fa;">🏈 NFL</div>
+            <div style="background:rgba(59,130,246,0.15);border:1.5px solid #3b82f6;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#60a5fa;">🏀 NBA</div>
+            <div style="background:#1e293b;border:1.5px solid #334155;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#475569;">⚾ MLB</div>
+            <div style="background:#1e293b;border:1.5px solid #334155;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#475569;">🏒 NHL</div>
+            <div style="background:#1e293b;border:1.5px solid #334155;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#475569;">🧠 Trivia</div>
+          </div>
+          <!-- CTA -->
+          <div style="background:linear-gradient(135deg,#3b82f6,#6366f1);border-radius:10px;padding:12px;text-align:center;font-size:13px;font-weight:900;color:#fff;">Continue →</div>
+        </div>
+      </div>
+
+      <!-- STATE 2: TV SCREEN PAIRING -->
+      <div style="background:#0f172a;border-radius:16px;border:2px solid #22d3ee;overflow:hidden;">
+        <div style="background:linear-gradient(135deg,#0c3340,#1e293b);padding:14px 16px;border-bottom:1px solid #0c3340;">
+          <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#22d3ee;margin-bottom:4px;">STEP 2</div>
+          <div style="font-size:14px;font-weight:900;color:#f8fafc;">TV Screen Setup</div>
+        </div>
+        <div style="padding:16px;">
+          <div style="text-align:center;margin-bottom:14px;">
+            <div style="font-size:22px;margin-bottom:6px;">📺</div>
+            <div style="font-size:12px;font-weight:800;color:#f8fafc;line-height:1.4;">Connect your bar TV to SportsIQ</div>
+          </div>
+
+          <!-- instruction steps -->
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:#22d3ee;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#0f172a;flex-shrink:0;">1</div>
+              <div style="font-size:11px;color:#cbd5e1;line-height:1.4;">Open <span style="color:#22d3ee;font-weight:700;">sportsiq.app/tv</span> on the TV browser or plug in the SportsIQ stick</div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:#22d3ee;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#0f172a;flex-shrink:0;">2</div>
+              <div style="font-size:11px;color:#cbd5e1;line-height:1.4;">A 4-digit pairing code appears on screen</div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:#22d3ee;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#0f172a;flex-shrink:0;">3</div>
+              <div style="font-size:11px;color:#cbd5e1;line-height:1.4;">Enter that code below</div>
+            </div>
+          </div>
+
+          <!-- TV preview -->
+          <div style="background:#000;border-radius:8px;padding:12px;text-align:center;margin-bottom:12px;border:2px solid #1e293b;">
+            <div style="font-size:9px;color:#475569;margin-bottom:8px;letter-spacing:1.5px;">TV SCREEN SHOWS</div>
+            <div style="font-size:28px;font-weight:900;letter-spacing:8px;color:#22d3ee;font-family:monospace;">7 4 3 1</div>
+            <div style="font-size:10px;color:#64748b;margin-top:6px;">Pairing code · expires in 5 min</div>
+          </div>
+
+          <!-- code entry -->
+          <div style="font-size:10px;font-weight:700;color:#94a3b8;margin-bottom:8px;letter-spacing:1px;text-align:center;">ENTER CODE FROM TV</div>
+          <div style="display:flex;gap:8px;justify-content:center;margin-bottom:14px;">
+            <div style="width:40px;height:48px;background:#1e293b;border:2px solid #22d3ee;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#f8fafc;font-family:monospace;">7</div>
+            <div style="width:40px;height:48px;background:#1e293b;border:2px solid #22d3ee;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#f8fafc;font-family:monospace;">4</div>
+            <div style="width:40px;height:48px;background:#1e293b;border:2px solid #22d3ee;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#f8fafc;font-family:monospace;">3</div>
+            <div style="width:40px;height:48px;background:#1e293b;border:2px solid #22d3ee;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#f8fafc;font-family:monospace;">1</div>
+          </div>
+          <!-- paired success -->
+          <div style="background:rgba(34,211,238,0.1);border:1.5px solid rgba(34,211,238,0.3);border-radius:10px;padding:10px;text-align:center;margin-bottom:12px;">
+            <div style="font-size:16px;margin-bottom:4px;">✅</div>
+            <div style="font-size:12px;font-weight:800;color:#22d3ee;">Screen Paired!</div>
+            <div style="font-size:11px;color:#64748b;margin-top:3px;">TV 1 · Main Bar Area</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#22d3ee,#3b82f6);border-radius:10px;padding:12px;text-align:center;font-size:13px;font-weight:900;color:#0f172a;">Continue →</div>
+        </div>
+      </div>
+
+      <!-- STATE 3: FIRST GAME CONFIG -->
+      <div style="background:#0f172a;border-radius:16px;border:2px solid #a855f7;overflow:hidden;">
+        <div style="background:linear-gradient(135deg,#2d1b4e,#1e293b);padding:14px 16px;border-bottom:1px solid #2d1b4e;">
+          <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#a855f7;margin-bottom:4px;">STEP 3</div>
+          <div style="font-size:14px;font-weight:900;color:#f8fafc;">First Game</div>
+        </div>
+        <div style="padding:16px;">
+          <div style="text-align:center;margin-bottom:14px;">
+            <div style="font-size:22px;margin-bottom:6px;">🎮</div>
+            <div style="font-size:12px;font-weight:800;color:#f8fafc;">Configure your first game</div>
+            <div style="font-size:10px;color:#64748b;margin-top:3px;">You can change this anytime</div>
+          </div>
+
+          <!-- game type -->
+          <div style="font-size:10px;font-weight:700;color:#94a3b8;margin-bottom:8px;letter-spacing:1px;">GAME TYPE</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+            <div style="background:rgba(168,85,247,0.12);border:1.5px solid #a855f7;border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+              <div style="font-size:16px;">🏈</div>
+              <div>
+                <div style="font-size:12px;font-weight:800;color:#f8fafc;">NFL Picks</div>
+                <div style="font-size:10px;color:#94a3b8;">Pick winners, spreads, props</div>
+              </div>
+              <div style="margin-left:auto;width:16px;height:16px;border-radius:50%;background:#a855f7;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;">✓</div>
+            </div>
+            <div style="background:#1e293b;border:1.5px solid #334155;border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;opacity:0.6;">
+              <div style="font-size:16px;">🏀</div>
+              <div>
+                <div style="font-size:12px;font-weight:800;color:#f8fafc;">NBA Picks</div>
+                <div style="font-size:10px;color:#94a3b8;">Pick winners, points, props</div>
+              </div>
+            </div>
+            <div style="background:#1e293b;border:1.5px solid #334155;border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;opacity:0.6;">
+              <div style="font-size:16px;">🧠</div>
+              <div>
+                <div style="font-size:12px;font-weight:800;color:#f8fafc;">Sports Trivia</div>
+                <div style="font-size:10px;color:#94a3b8;">Multiple choice, timed rounds</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- tonight's game -->
+          <div style="font-size:10px;font-weight:700;color:#94a3b8;margin-bottom:8px;letter-spacing:1px;">TONIGHT'S GAME</div>
+          <div style="background:rgba(168,85,247,0.08);border:1.5px solid rgba(168,85,247,0.25);border-radius:8px;padding:10px 12px;margin-bottom:12px;">
+            <div style="font-size:12px;font-weight:800;color:#f8fafc;">Chiefs @ Ravens</div>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;">Sun Jan 19 · 6:30 PM CT · CBS</div>
+            <div style="font-size:10px;color:#a855f7;margin-top:3px;font-weight:700;">4 picks available</div>
+          </div>
+
+          <!-- settings -->
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:11px;color:#cbd5e1;">Show leaderboard on TV</div>
+              <div style="width:34px;height:18px;background:#a855f7;border-radius:9px;position:relative;"><div style="position:absolute;right:2px;top:2px;width:14px;height:14px;background:#fff;border-radius:50%;"></div></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:11px;color:#cbd5e1;">Auto-advance picks</div>
+              <div style="width:34px;height:18px;background:#a855f7;border-radius:9px;position:relative;"><div style="position:absolute;right:2px;top:2px;width:14px;height:14px;background:#fff;border-radius:50%;"></div></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:11px;color:#cbd5e1;">Allow late arrivals</div>
+              <div style="width:34px;height:18px;background:#334155;border-radius:9px;position:relative;"><div style="position:absolute;left:2px;top:2px;width:14px;height:14px;background:#64748b;border-radius:50%;"></div></div>
+            </div>
+          </div>
+
+          <div style="background:linear-gradient(135deg,#a855f7,#ec4899);border-radius:10px;padding:12px;text-align:center;font-size:13px;font-weight:900;color:#fff;">Continue →</div>
+        </div>
+      </div>
+
+      <!-- STATE 4: BILLING / PLAN -->
+      <div style="background:#0f172a;border-radius:16px;border:2px solid #f59e0b;overflow:hidden;">
+        <div style="background:linear-gradient(135deg,#422006,#1e293b);padding:14px 16px;border-bottom:1px solid #422006;">
+          <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#f59e0b;margin-bottom:4px;">STEP 4</div>
+          <div style="font-size:14px;font-weight:900;color:#f8fafc;">Choose Your Plan</div>
+        </div>
+        <div style="padding:16px;">
+          <div style="text-align:center;margin-bottom:14px;">
+            <div style="font-size:22px;margin-bottom:4px;">💳</div>
+            <div style="font-size:12px;font-weight:800;color:#f8fafc;">Start free · No credit card needed</div>
+          </div>
+
+          <!-- free trial banner -->
+          <div style="background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(239,68,68,0.1));border:1.5px solid rgba(245,158,11,0.4);border-radius:10px;padding:10px;text-align:center;margin-bottom:12px;">
+            <div style="font-size:14px;font-weight:900;color:#f59e0b;">30 Days Free</div>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;">Full access · No commitment</div>
+          </div>
+
+          <!-- plan options -->
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+            <!-- Starter -->
+            <div style="background:#1e293b;border:1.5px solid #334155;border-radius:10px;padding:10px 12px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-size:12px;font-weight:800;color:#f8fafc;">Starter</div>
+                <div style="font-size:13px;font-weight:900;color:#f8fafc;">$99<span style="font-size:10px;font-weight:500;color:#64748b;">/mo</span></div>
+              </div>
+              <div style="font-size:10px;color:#64748b;line-height:1.5;">1 screen · Up to 50 players/night · NFL + NBA</div>
+            </div>
+            <!-- Pro (selected) -->
+            <div style="background:rgba(245,158,11,0.1);border:2px solid #f59e0b;border-radius:10px;padding:10px 12px;position:relative;">
+              <div style="position:absolute;top:-8px;right:10px;background:#f59e0b;border-radius:4px;padding:2px 8px;font-size:9px;font-weight:900;color:#0f172a;">MOST POPULAR</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-size:12px;font-weight:800;color:#f59e0b;">Pro</div>
+                <div style="font-size:13px;font-weight:900;color:#f59e0b;">$199<span style="font-size:10px;font-weight:500;color:#94a3b8;">/mo</span></div>
+              </div>
+              <div style="font-size:10px;color:#94a3b8;line-height:1.5;">3 screens · Unlimited players · All sports · Analytics</div>
+              <div style="margin-left:auto;margin-top:4px;width:14px;height:14px;border-radius:50%;background:#f59e0b;display:inline-flex;align-items:center;justify-content:center;font-size:8px;color:#fff;float:right;">✓</div>
+            </div>
+            <!-- Enterprise -->
+            <div style="background:#1e293b;border:1.5px solid #334155;border-radius:10px;padding:10px 12px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-size:12px;font-weight:800;color:#f8fafc;">Enterprise</div>
+                <div style="font-size:13px;font-weight:900;color:#f8fafc;">Custom</div>
+              </div>
+              <div style="font-size:10px;color:#64748b;line-height:1.5;">Chains & multi-venue · White-label option · API access</div>
+            </div>
+          </div>
+
+          <div style="font-size:10px;color:#475569;text-align:center;margin-bottom:10px;">No charge for 30 days · Cancel anytime</div>
+          <div style="background:linear-gradient(135deg,#f59e0b,#ef4444);border-radius:10px;padding:12px;text-align:center;font-size:13px;font-weight:900;color:#fff;">Start Free Trial →</div>
+        </div>
+      </div>
+
+      <!-- STATE 5: GO LIVE -->
+      <div style="background:#0f172a;border-radius:16px;border:2px solid #22c55e;overflow:hidden;">
+        <div style="background:linear-gradient(135deg,#052e16,#1e293b);padding:14px 16px;border-bottom:1px solid #052e16;">
+          <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#22c55e;margin-bottom:4px;">STEP 5</div>
+          <div style="font-size:14px;font-weight:900;color:#f8fafc;">You're Live! 🎉</div>
+        </div>
+        <div style="padding:16px;">
+
+          <!-- success state -->
+          <div style="text-align:center;margin-bottom:14px;">
+            <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 10px;box-shadow:0 0 24px rgba(34,197,94,0.4);">✓</div>
+            <div style="font-size:15px;font-weight:900;color:#22c55e;">Bosscat is live!</div>
+            <div style="font-size:11px;color:#64748b;margin-top:4px;">Your bar screen is connected and ready</div>
+          </div>
+
+          <!-- venue QR -->
+          <div style="background:rgba(34,197,94,0.06);border:1.5px solid rgba(34,197,94,0.2);border-radius:12px;padding:12px;text-align:center;margin-bottom:12px;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#22c55e;margin-bottom:8px;">YOUR VENUE QR CODE</div>
+            <div style="width:80px;height:80px;background:#fff;margin:0 auto 8px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:44px;color:#0f172a;">▦</div>
+            <div style="font-size:10px;color:#64748b;margin-bottom:10px;">Players scan this to join your game</div>
+            <div style="display:flex;gap:6px;justify-content:center;">
+              <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:6px;padding:6px 10px;font-size:11px;font-weight:700;color:#22c55e;">⬇ Download</div>
+              <div style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:6px;padding:6px 10px;font-size:11px;font-weight:700;color:#22c55e;">🖨 Print</div>
+            </div>
+          </div>
+
+          <!-- quick actions -->
+          <div style="font-size:10px;font-weight:700;color:#94a3b8;margin-bottom:8px;letter-spacing:1px;">NEXT STEPS</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:8px;padding:8px 10px;">
+              <div style="font-size:14px;">📺</div>
+              <div style="font-size:11px;color:#cbd5e1;">Bar screen is live — go check it</div>
+              <div style="margin-left:auto;font-size:10px;color:#22c55e;font-weight:700;">Live ●</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:8px;padding:8px 10px;">
+              <div style="font-size:14px;">🎯</div>
+              <div style="font-size:11px;color:#cbd5e1;">Start tonight's game</div>
+              <div style="margin-left:auto;font-size:10px;color:#f59e0b;font-weight:700;">→</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:8px;padding:8px 10px;">
+              <div style="font-size:14px;">📊</div>
+              <div style="font-size:11px;color:#cbd5e1;">View your venue dashboard</div>
+              <div style="margin-left:auto;font-size:10px;color:#f59e0b;font-weight:700;">→</div>
+            </div>
+          </div>
+
+          <div style="background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:10px;padding:12px;text-align:center;font-size:13px;font-weight:900;color:#fff;">Go to Dashboard →</div>
+        </div>
+      </div>
+
+    </div><!-- /5-col grid -->
+
+    <!-- isaac notes -->
+    <div style="max-width:1200px;margin:40px auto 0;background:rgba(34,211,238,0.05);border:1px solid rgba(34,211,238,0.15);border-radius:16px;padding:24px;">
+      <div style="font-size:12px;font-weight:800;letter-spacing:2px;color:#22d3ee;margin-bottom:16px;">ISAAC BUILD NOTES — VENUE ONBOARDING STATE MACHINE</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;">
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#f8fafc;margin-bottom:6px;">Step 1 — Venue</div>
+          <div style="font-size:11px;color:#64748b;line-height:1.5;">POST /venues · fields: name, city, contact_email, phone, sports[ ]. Creates venue row + owner user record. Auth: email magic link or Google OAuth.</div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#f8fafc;margin-bottom:6px;">Step 2 — TV Pair</div>
+          <div style="font-size:11px;color:#64748b;line-height:1.5;">TV displays code via GET /screen/pair-code. Bar owner types code → POST /venues/{id}/screens with {code}. Polling: screen pings every 3s. On match: screen gets venue_id + JWT. State: paired ✓</div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#f8fafc;margin-bottom:6px;">Step 3 — First Game</div>
+          <div style="font-size:11px;color:#64748b;line-height:1.5;">GET /games/tonight for venue's sports. Owner selects game → POST /venue-games. Sets default config (leaderboard_visible, auto_advance, late_arrivals). Stored on venue_game row.</div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#f8fafc;margin-bottom:6px;">Step 4 — Billing</div>
+          <div style="font-size:11px;color:#64748b;line-height:1.5;">Stripe Checkout integration. Plan selection → POST /subscriptions with plan_id. 30-day trial: no card required. trial_ends_at stored on venue. Webhook: subscription.updated → update venue.plan.</div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#f8fafc;margin-bottom:6px;">Step 5 — Go Live</div>
+          <div style="font-size:11px;color:#64748b;line-height:1.5;">Generate venue QR: sportsiq.app/join/{venue_slug}. QR downloadable as PNG. Screen status: GET /screens/{id}/status → live/offline. Redirect to /dashboard/{venue_id} on "Go to Dashboard →"</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="sfb-panel-bar-owner-onboarding" class="sfb-panel"></div>
+</div><!-- /screen bar-owner-onboarding -->
