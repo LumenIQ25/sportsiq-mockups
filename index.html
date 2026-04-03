@@ -7225,23 +7225,19 @@
 
   // ── Review queue: populate top-of-nav "NEEDS REVIEW" section ─────────
   // ── Hash-based navigation: restore screen on page load / refresh ──────
-  (function initHashNav() {
+  // Deferred to window.load so all screen elements exist in the DOM first
+  window.addEventListener('load', function() {
     var hash = location.hash.replace('#', '');
     var target = hash ? document.getElementById(hash) : null;
-    // If hash matches a screen, use it. Otherwise try finding it as a partial match.
     var screenId;
     if (target && target.classList.contains('screen')) {
       screenId = hash;
-    } else if (hash) {
-      // Partial match — find first screen whose ID contains the hash
-      var partial = document.querySelector('.screen[id*="' + hash + '"]');
-      screenId = partial ? partial.id : 'home-live-v3';
     } else {
       screenId = 'home-live-v3';
     }
     var tab = document.querySelector('[data-screen="' + screenId + '"]');
     showScreen(screenId, tab || null);
-  })();
+  });
 </script>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
@@ -16604,7 +16600,7 @@
 <div id="bar-qr-standard" class="screen" style="display:none;">
   <div class="screen-header">
     <div class="screen-title">Bar Screens — QR Standard · Bottom-Right Corner · Consistent Across All 7 Screens</div>
-    <div class="screen-subtitle">Apr 3 2026 v3 · QR restructured to fill full right-column width on all 7 screens — removed horizontal padding from panel wrapper so QR width:100% resolves to full grid-column width. No more narrow QR. Screens 3+4: leaderboard overflow fixed with min-height:0+flex:1 preventing HOT STREAK / LATE ARRIVALS text overlap. Trivia headers compacted (padding:5px, smaller fonts) freeing vertical space for bigger answer choices (min-height:100px / 76px / 72px up from 80/60/56px).</div>
+    <div class="screen-subtitle">Apr 3 2026 v4 · QR shrunk slightly (18px horizontal padding on all 7 screens) to give more leaderboard length — identical on all screens. </div>
   </div>
 
   <!-- ── STANDARD QR SPEC CARD ── -->
@@ -16697,7 +16693,7 @@
           </div>
         </div>
         <!-- ▦ QR — fills full column width, no padding on sides -->
-        <div style="border-top:1px solid rgba(255,255,255,0.07);">
+        <div style="border-top:1px solid rgba(255,255,255,0.07);padding:0 18px;">
           <div style="padding:8px 0 5px;text-align:center;font-size:10px;color:#64748b;font-weight:700;letter-spacing:2.5px;">SCAN TO JOIN</div>
           <div style="width:100%;aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;font-size:72px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.18);">▦</div>
           <div style="padding:5px 0 2px;text-align:center;color:#5545D3;font-size:13px;font-weight:900;letter-spacing:1px;">sportsiq.app</div>
@@ -16771,7 +16767,7 @@
           </div>
         </div>
         <!-- ▦ QR — fills full column width, no padding on sides -->
-        <div style="border-top:1px solid rgba(255,255,255,0.07);">
+        <div style="border-top:1px solid rgba(255,255,255,0.07);padding:0 18px;">
           <div style="padding:8px 0 5px;text-align:center;font-size:10px;color:#64748b;font-weight:700;letter-spacing:2.5px;">SCAN TO JOIN</div>
           <div style="width:100%;aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;font-size:72px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.18);">▦</div>
           <div style="padding:5px 0 2px;text-align:center;color:#5545D3;font-size:13px;font-weight:900;letter-spacing:1px;">sportsiq.app</div>
@@ -16841,7 +16837,7 @@
           <div style="flex-shrink:0;margin-top:8px;margin-bottom:8px;background:rgba(85,69,211,0.1);border:1px solid rgba(85,69,211,0.25);border-radius:8px;padding:7px 12px;"><div style="font-size:10px;color:#818cf8;font-weight:700;">🔥 HOT STREAK BONUS — 3+ correct earns multiplier</div></div>
         </div>
         <!-- ▦ QR — fills full column width, outside padded area -->
-        <div style="border-top:1px solid rgba(255,255,255,0.07);">
+        <div style="border-top:1px solid rgba(255,255,255,0.07);padding:0 18px;">
           <div style="padding:8px 0 5px;text-align:center;font-size:10px;color:#64748b;font-weight:700;letter-spacing:2.5px;">SCAN TO JOIN</div>
           <div style="width:100%;aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;font-size:72px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.18);">▦</div>
           <div style="padding:5px 0 2px;text-align:center;color:#5545D3;font-size:13px;font-weight:900;letter-spacing:1px;">sportsiq.app</div>
@@ -16904,7 +16900,7 @@
           <div style="flex-shrink:0;margin-top:8px;margin-bottom:8px;background:rgba(85,69,211,0.10);border:1px solid rgba(85,69,211,0.25);border-radius:9px;padding:8px 12px;"><div style="font-size:10px;color:#818cf8;font-weight:700;">🔥 LATE ARRIVALS CAN CLIMB — Win Rate rotates every 15s</div></div>
         </div>
         <!-- ▦ QR — fills full column width, outside padded area -->
-        <div style="border-top:1px solid rgba(255,255,255,0.07);">
+        <div style="border-top:1px solid rgba(255,255,255,0.07);padding:0 18px;">
           <div style="padding:8px 0 5px;text-align:center;font-size:10px;color:#64748b;font-weight:700;letter-spacing:2.5px;">SCAN TO JOIN</div>
           <div style="width:100%;aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;font-size:72px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.18);">▦</div>
           <div style="padding:5px 0 2px;text-align:center;color:#5545D3;font-size:13px;font-weight:900;letter-spacing:1px;">sportsiq.app</div>
@@ -16962,7 +16958,7 @@
             <div style="flex-shrink:0;padding-top:10px;border-top:1px solid rgba(255,255,255,0.05);color:#64748B;font-size:11px;margin-bottom:8px;">Accumulates across all rounds tonight</div>
           </div>
           <!-- ▦ QR — fills full column width, outside padded area -->
-          <div style="border-top:1px solid rgba(255,255,255,0.07);">
+          <div style="border-top:1px solid rgba(255,255,255,0.07);padding:0 18px;">
             <div style="padding:8px 0 5px;text-align:center;font-size:10px;color:#64748b;font-weight:700;letter-spacing:2.5px;">SCAN TO JOIN</div>
             <div style="width:100%;aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;font-size:72px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.18);">▦</div>
             <div style="padding:5px 0 2px;text-align:center;color:#5545D3;font-size:13px;font-weight:900;letter-spacing:1px;">sportsiq.app</div>
@@ -17016,7 +17012,7 @@
             <div style="flex-shrink:0;padding-top:10px;border-top:1px solid rgba(255,255,255,0.05);color:#64748B;font-size:11px;margin-bottom:8px;">Cumulative across all rounds tonight</div>
           </div>
           <!-- ▦ QR — fills full column width, outside padded area -->
-          <div style="border-top:1px solid rgba(255,255,255,0.07);">
+          <div style="border-top:1px solid rgba(255,255,255,0.07);padding:0 18px;">
             <div style="padding:8px 0 5px;text-align:center;font-size:10px;color:#64748b;font-weight:700;letter-spacing:2.5px;">SCAN TO JOIN</div>
             <div style="width:100%;aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;font-size:72px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.18);">▦</div>
             <div style="padding:5px 0 2px;text-align:center;color:#5545D3;font-size:13px;font-weight:900;letter-spacing:1px;">sportsiq.app</div>
@@ -17074,7 +17070,7 @@
             <div style="flex-shrink:0;padding-top:12px;border-top:1px solid rgba(255,193,7,0.15);text-align:center;margin-bottom:8px;"><div style="color:#fbbf24;font-size:13px;font-weight:700;letter-spacing:1px;">Scan QR to play the next round</div></div>
           </div>
           <!-- ▦ QR — fills full column width, outside padded area -->
-          <div style="border-top:1px solid rgba(255,255,255,0.07);">
+          <div style="border-top:1px solid rgba(255,255,255,0.07);padding:0 18px;">
             <div style="padding:8px 0 5px;text-align:center;font-size:10px;color:#64748b;font-weight:700;letter-spacing:2.5px;">SCAN TO JOIN</div>
             <div style="width:100%;aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;font-size:72px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.18);">▦</div>
             <div style="padding:5px 0 2px;text-align:center;color:#5545D3;font-size:13px;font-weight:900;letter-spacing:1px;">sportsiq.app</div>
