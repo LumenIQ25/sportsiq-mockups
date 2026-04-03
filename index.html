@@ -2163,6 +2163,9 @@
     <div class="tab tab-review" data-screen="trivia-v3" onclick="showScreen('trivia-v3',this)">
       <span class="tab-label">Trivia (TV)</span><span class="tab-days" id="days-trivia-v3"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="trivia-tonight" onclick="showScreen('trivia-tonight',this)">
+      <span class="tab-label">Trivia · Tonight's Board 🏆</span><span class="tab-days" id="days-trivia-tonight"></span><span class="review-dot"></span>
+    </div>
     <!-- ↓ Previous versions -->
     <details class="nav-archive-group">
       <summary class="nav-archive-toggle">↓ 5 previous versions</summary>
@@ -5409,7 +5412,8 @@
                  'bar-idle-v2-inner', 'bar-pred-q-v2-inner', 'bar-tracking-v2-inner', 'bar-result-v2-inner',
                  'bar-idle-v3-inner', 'bar-pred-q-v3-inner', 'bar-pred-q-v4-inner',
                  'bar-idle-v4-inner', 'bar-tracking-v3-inner', 'bar-tracking-v3-result-inner',
-                 'bar-result-v3-inner', 'trivia-v3-inner', 'trivia-v3-reveal-inner'];
+                 'bar-result-v3-inner', 'trivia-v3-inner', 'trivia-v3-reveal-inner',
+                 'trivia-tonight-q-inner', 'trivia-tonight-rev-inner', 'trivia-tonight-final-inner'];
     ids.forEach(function(id) {
       var el = document.getElementById(id);
       if (!el) return;
@@ -5575,6 +5579,7 @@
     'onboarding-flow':     '2026-03-22T19:30:00-07:00',
     // ── Mar 22 loop — Bar Leaderboard: live venue rankings, bar champion badge ──
     'bar-leaderboard':     '2026-03-22T19:30:00-07:00',
+    'trivia-tonight':      '2026-04-03T07:32:00-07:00',
     // ── Mar 22 loop — Home Screen: progressive disclosure, 3 user states ──
     'home-screen':         '2026-03-22T19:40:00-07:00',
     // ── Mar 22 loop — Bar Download Flow: QR scan → venue-aware onboarding → first pick ──
@@ -43118,6 +43123,442 @@
   </div>
   <div id="sfb-panel-bar-trivia-rev" class="sfb-panel"></div>
 </div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     APR 03 2026 — TRIVIA · TONIGHT'S LEADERBOARD
+     Three bar screen states: (1) Question live with live leaderboard sidebar,
+     (2) Answer revealed with "Tonight's Total" cumulative panel,
+     (3) Q10 final round with gold "Final Standings" theme.
+     Leaderboard accumulates all night across every round — never resets mid-night.
+     Bartenders do nothing. Auto-switches from socket data.
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="trivia-tonight" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Trivia · Tonight's Board — 3 States</div>
+    <div class="screen-subtitle">Apr 3 2026 · Bar screen with cumulative leaderboard. State 1: Question live — leaderboard sidebar shows top 8 for the whole night (not just this round). State 2: Reveal — "Tonight's Total / Cumulative across all rounds." State 3: Q10 Final — gold "🏆 Final Standings" theme + "Round done! Scan QR to play next round." Bartenders never touch anything — all auto-switches from socket.</div>
+  </div>
+
+  <!-- ── STATE 1: QUESTION LIVE with Tonight's Top sidebar ───────────────── -->
+  <div style="margin-bottom:28px;">
+    <div class="screen-label" style="font-size:11px;opacity:0.6;">STATE 1 — QUESTION LIVE · Tonight's Top leaderboard sidebar · Q7/10</div>
+    <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
+    <div class="tv-label">BAR SCREEN — TRIVIA Q · Tonight's Top sidebar · live leaderboard during question · Apr 3 2026</div>
+    <div class="tv-frame">
+      <div class="bar-1080" id="trivia-tonight-q-inner" style="background:radial-gradient(ellipse at top,rgba(85,69,211,0.18) 0%,transparent 60%),#0B2230;display:flex;flex-direction:column;font-family:'Lexend','Lexend Deca',sans-serif;overflow:hidden;">
+
+        <!-- Header bar -->
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.30);border-bottom:1px solid rgba(255,255,255,0.07);padding:18px 64px;flex-shrink:0;">
+          <!-- Left: live badge + Q progress dots + Q label -->
+          <div style="display:flex;align-items:center;gap:28px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="position:relative;width:14px;height:14px;flex-shrink:0;">
+                <div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;opacity:0.45;animation:ping 1.2s ease infinite;"></div>
+                <div style="position:absolute;inset:0;border-radius:50%;background:#22C55E;"></div>
+              </div>
+              <span style="color:#22C55E;font-size:22px;font-weight:800;letter-spacing:2px;">LIVE TRIVIA</span>
+            </div>
+            <!-- Progress dots: 6 done (teal), Q7 active (brand wide), 3 upcoming -->
+            <div style="display:flex;align-items:center;gap:5px;">
+              <div style="width:8px;height:8px;border-radius:4px;background:#228C88;"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:#228C88;"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:#228C88;"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:#228C88;"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:#228C88;"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:#228C88;"></div>
+              <div style="width:22px;height:8px;border-radius:4px;background:#5545D3;"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:rgba(255,255,255,0.12);"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:rgba(255,255,255,0.12);"></div>
+              <div style="width:8px;height:8px;border-radius:4px;background:rgba(255,255,255,0.12);"></div>
+            </div>
+            <div style="color:#64748B;font-size:20px;">Q7 / 10</div>
+          </div>
+          <!-- Center: countdown -->
+          <div style="background:rgba(85,69,211,0.20);border:2px solid #5545D3;border-radius:20px;padding:8px 44px;">
+            <span style="color:#F8FAFC;font-size:72px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1;">09</span>
+          </div>
+          <!-- Right: answering count -->
+          <div style="text-align:right;">
+            <div style="color:#F8FAFC;font-size:32px;font-weight:800;font-variant-numeric:tabular-nums;">89</div>
+            <div style="color:#64748B;font-size:14px;letter-spacing:1.5px;">ANSWERING</div>
+          </div>
+        </div>
+
+        <!-- Body: question+answers LEFT, leaderboard RIGHT -->
+        <div style="flex:1;display:flex;overflow:hidden;">
+
+          <!-- Left: question + answer cards -->
+          <div style="flex:1;display:flex;flex-direction:column;padding:32px 32px 32px 80px;gap:14px;overflow:hidden;">
+            <!-- Question text -->
+            <div style="flex-shrink:0;margin-bottom:6px;">
+              <div style="font-size:56px;font-weight:800;color:#F8FAFC;line-height:1.25;">
+                Which quarterback has thrown the most touchdown passes in a single NFL season?
+              </div>
+            </div>
+            <!-- Answer cards -->
+            <div style="flex:1;display:flex;flex-direction:column;gap:14px;overflow:hidden;">
+
+              <!-- A — 12% -->
+              <div style="position:relative;flex:1;display:flex;align-items:center;gap:24px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:0 36px;overflow:hidden;">
+                <div style="position:absolute;inset:0 auto 0 0;width:12%;background:rgba(85,69,211,0.28);border-radius:18px;"></div>
+                <div style="position:relative;width:64px;height:64px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:28px;font-weight:900;">A</div>
+                <div style="position:relative;flex:1;color:#F8FAFC;font-size:30px;font-weight:600;line-height:1.3;">Tom Brady — 50 TDs (2007)</div>
+                <div style="position:relative;color:#94A3B8;font-size:38px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">12%</div>
+              </div>
+
+              <!-- B — 63% (most chosen) -->
+              <div style="position:relative;flex:1;display:flex;align-items:center;gap:24px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:0 36px;overflow:hidden;">
+                <div style="position:absolute;inset:0 auto 0 0;width:63%;background:rgba(85,69,211,0.28);border-radius:18px;"></div>
+                <div style="position:relative;width:64px;height:64px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:28px;font-weight:900;">B</div>
+                <div style="position:relative;flex:1;color:#F8FAFC;font-size:30px;font-weight:600;line-height:1.3;">Patrick Mahomes — 50 TDs (2022)</div>
+                <div style="position:relative;color:#94A3B8;font-size:38px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">63%</div>
+              </div>
+
+              <!-- C — 19% -->
+              <div style="position:relative;flex:1;display:flex;align-items:center;gap:24px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:0 36px;overflow:hidden;">
+                <div style="position:absolute;inset:0 auto 0 0;width:19%;background:rgba(85,69,211,0.28);border-radius:18px;"></div>
+                <div style="position:relative;width:64px;height:64px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:28px;font-weight:900;">C</div>
+                <div style="position:relative;flex:1;color:#F8FAFC;font-size:30px;font-weight:600;line-height:1.3;">Peyton Manning — 55 TDs (2013)</div>
+                <div style="position:relative;color:#94A3B8;font-size:38px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">19%</div>
+              </div>
+
+              <!-- D — 6% -->
+              <div style="position:relative;flex:1;display:flex;align-items:center;gap:24px;background:#110E2A;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:0 36px;overflow:hidden;">
+                <div style="position:absolute;inset:0 auto 0 0;width:6%;background:rgba(85,69,211,0.28);border-radius:18px;"></div>
+                <div style="position:relative;width:64px;height:64px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:28px;font-weight:900;">D</div>
+                <div style="position:relative;flex:1;color:#F8FAFC;font-size:30px;font-weight:600;line-height:1.3;">Aaron Rodgers — 45 TDs (2011)</div>
+                <div style="position:relative;color:#94A3B8;font-size:38px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">6%</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right: Tonight's Top leaderboard sidebar -->
+          <div style="width:340px;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;padding:32px 28px;flex-shrink:0;background:rgba(0,0,0,0.18);">
+            <!-- Header -->
+            <div style="margin-bottom:18px;">
+              <div style="color:#64748B;font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;font-family:'Lexend',sans-serif;">Tonight's Top</div>
+              <div style="width:32px;height:2px;background:#5545D3;margin-top:6px;border-radius:1px;"></div>
+            </div>
+            <!-- 8 rows -->
+            <!-- #1 gold -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(90deg,rgba(255,193,7,0.14),rgba(255,193,7,0.04));border:1px solid rgba(255,193,7,0.28);border-radius:10px;margin-bottom:6px;">
+              <span style="color:#fbbf24;font-size:14px;font-weight:800;min-width:20px;flex-shrink:0;">#1</span>
+              <span style="color:#F8FAFC;font-size:17px;font-weight:700;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">BigMike_B</span>
+              <span style="color:#fbbf24;font-size:16px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">2,850</span>
+            </div>
+            <!-- #2 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin-bottom:6px;">
+              <span style="color:#94A3B8;font-size:14px;font-weight:800;min-width:20px;flex-shrink:0;">#2</span>
+              <span style="color:#94A3B8;font-size:17px;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">SportsFan22</span>
+              <span style="color:#64748B;font-size:16px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">2,400</span>
+            </div>
+            <!-- #3 bronze -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(205,127,50,0.06);border:1px solid rgba(205,127,50,0.18);border-radius:10px;margin-bottom:6px;">
+              <span style="color:#cd7f32;font-size:14px;font-weight:800;min-width:20px;flex-shrink:0;">#3</span>
+              <span style="color:#94A3B8;font-size:17px;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">LakersKing_21</span>
+              <span style="color:#64748B;font-size:16px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">2,100</span>
+            </div>
+            <!-- #4 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin-bottom:6px;">
+              <span style="color:#64748B;font-size:14px;font-weight:800;min-width:20px;flex-shrink:0;">#4</span>
+              <span style="color:#94A3B8;font-size:17px;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">TreyDawg_91</span>
+              <span style="color:#64748B;font-size:16px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">1,850</span>
+            </div>
+            <!-- #5 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin-bottom:6px;">
+              <span style="color:#64748B;font-size:14px;font-weight:800;min-width:20px;flex-shrink:0;">#5</span>
+              <span style="color:#94A3B8;font-size:17px;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">KCChiefs4L</span>
+              <span style="color:#64748B;font-size:16px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">1,600</span>
+            </div>
+            <!-- #6 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin-bottom:6px;">
+              <span style="color:#64748B;font-size:14px;font-weight:800;min-width:20px;flex-shrink:0;">#6</span>
+              <span style="color:#94A3B8;font-size:17px;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">JessicaR</span>
+              <span style="color:#64748B;font-size:16px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">1,350</span>
+            </div>
+            <!-- #7 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin-bottom:6px;">
+              <span style="color:#64748B;font-size:14px;font-weight:800;min-width:20px;flex-shrink:0;">#7</span>
+              <span style="color:#94A3B8;font-size:17px;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ThaBull_7</span>
+              <span style="color:#64748B;font-size:16px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">1,100</span>
+            </div>
+            <!-- #8 -->
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;">
+              <span style="color:#64748B;font-size:14px;font-weight:800;min-width:20px;flex-shrink:0;">#8</span>
+              <span style="color:#94A3B8;font-size:17px;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">PatsFan12</span>
+              <span style="color:#64748B;font-size:16px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">850</span>
+            </div>
+            <!-- Footer label -->
+            <div style="margin-top:auto;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);color:#64748B;font-size:12px;line-height:1.5;">
+              Accumulates across all rounds tonight
+            </div>
+          </div>
+
+        </div><!-- /body flex row -->
+      </div><!-- /bar-1080 STATE 1 -->
+    </div><!-- /tv-frame -->
+    </div><!-- /tv-wrap -->
+  </div>
+
+  <!-- ── STATE 2: ANSWER REVEALED · Tonight's Total panel ───────────────── -->
+  <div style="margin-bottom:28px;">
+    <div class="screen-label" style="font-size:11px;opacity:0.6;">STATE 2 — ANSWER REVEALED · Tonight's Total cumulative right panel · Q7/10</div>
+    <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
+    <div class="tv-label">BAR SCREEN — TRIVIA REVEAL · Tonight's Total panel · cumulative across all rounds · Apr 3 2026</div>
+    <div class="tv-frame">
+      <div class="bar-1080" id="trivia-tonight-rev-inner" style="background:radial-gradient(ellipse at top left,rgba(34,197,94,0.10) 0%,transparent 55%),#0B2230;display:flex;flex-direction:column;font-family:'Lexend','Lexend Deca',sans-serif;overflow:hidden;">
+
+        <!-- Header bar -->
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.30);border-bottom:1px solid rgba(255,255,255,0.07);padding:18px 64px;flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:24px;">
+            <div style="background:rgba(34,140,136,0.25);border:1px solid #228C88;border-radius:12px;padding:8px 22px;color:#228C88;font-size:20px;font-weight:800;letter-spacing:2px;">ANSWER REVEALED</div>
+            <div style="color:#64748B;font-size:20px;">Q7 / 10</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="color:#22C55E;font-size:36px;font-weight:900;font-variant-numeric:tabular-nums;">19%</div>
+            <div style="color:#64748B;font-size:14px;letter-spacing:1.5px;">GOT IT RIGHT</div>
+          </div>
+        </div>
+
+        <!-- Body: grid 1fr 420px -->
+        <div style="flex:1;display:grid;grid-template-columns:1fr 420px;overflow:hidden;">
+
+          <!-- Left: question + revealed answers + fun fact -->
+          <div style="display:flex;flex-direction:column;padding:36px 48px 36px 80px;gap:18px;overflow:hidden;">
+
+            <div style="color:#94A3B8;font-size:28px;line-height:1.4;flex-shrink:0;">
+              Which quarterback has thrown the most touchdown passes in a single NFL season?
+            </div>
+
+            <div style="flex:1;display:flex;flex-direction:column;gap:10px;overflow:hidden;">
+
+              <!-- A — wrong, 12% -->
+              <div style="position:relative;flex:1;display:flex;align-items:center;gap:20px;background:#110E2A;border:2px solid rgba(255,255,255,0.07);border-radius:16px;padding:0 28px;overflow:hidden;opacity:0.45;">
+                <div style="position:absolute;inset:0 auto 0 0;width:12%;background:rgba(255,255,255,0.05);border-radius:16px;"></div>
+                <div style="position:relative;width:60px;height:60px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:#64748B;font-size:24px;font-weight:900;">A</div>
+                <div style="position:relative;flex:1;color:#94A3B8;font-size:24px;font-weight:500;line-height:1.3;">Tom Brady — 50 TDs (2007)</div>
+                <div style="position:relative;color:#64748B;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">12%</div>
+              </div>
+
+              <!-- B — wrong, 63% -->
+              <div style="position:relative;flex:1;display:flex;align-items:center;gap:20px;background:#110E2A;border:2px solid rgba(255,255,255,0.07);border-radius:16px;padding:0 28px;overflow:hidden;opacity:0.45;">
+                <div style="position:absolute;inset:0 auto 0 0;width:63%;background:rgba(255,255,255,0.05);border-radius:16px;"></div>
+                <div style="position:relative;width:60px;height:60px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:#64748B;font-size:24px;font-weight:900;">B</div>
+                <div style="position:relative;flex:1;color:#94A3B8;font-size:24px;font-weight:500;line-height:1.3;">Patrick Mahomes — 50 TDs (2022)</div>
+                <div style="position:relative;color:#64748B;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">63%</div>
+              </div>
+
+              <!-- C — CORRECT, 19% — green glow -->
+              <div style="position:relative;flex:1;display:flex;align-items:center;gap:20px;background:rgba(34,197,94,0.08);border:2px solid #22C55E;border-radius:16px;padding:0 28px;overflow:hidden;box-shadow:0 0 40px rgba(34,197,94,0.15);">
+                <div style="position:absolute;inset:0 auto 0 0;width:19%;background:rgba(34,197,94,0.20);border-radius:16px;"></div>
+                <div style="position:relative;width:60px;height:60px;flex-shrink:0;border-radius:12px;background:rgba(34,197,94,0.25);display:flex;align-items:center;justify-content:center;color:#22C55E;font-size:30px;font-weight:900;">✓</div>
+                <div style="position:relative;flex:1;color:#F8FAFC;font-size:28px;font-weight:800;line-height:1.3;">Peyton Manning — 55 TDs (2013)</div>
+                <div style="position:relative;color:#22C55E;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">19%</div>
+              </div>
+
+              <!-- D — wrong, 6% -->
+              <div style="position:relative;flex:1;display:flex;align-items:center;gap:20px;background:#110E2A;border:2px solid rgba(255,255,255,0.07);border-radius:16px;padding:0 28px;overflow:hidden;opacity:0.45;">
+                <div style="position:absolute;inset:0 auto 0 0;width:6%;background:rgba(255,255,255,0.05);border-radius:16px;"></div>
+                <div style="position:relative;width:60px;height:60px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:#64748B;font-size:24px;font-weight:900;">D</div>
+                <div style="position:relative;flex:1;color:#94A3B8;font-size:24px;font-weight:500;line-height:1.3;">Aaron Rodgers — 45 TDs (2011)</div>
+                <div style="position:relative;color:#64748B;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">6%</div>
+              </div>
+
+            </div>
+
+            <!-- Fun fact -->
+            <div style="background:linear-gradient(135deg,rgba(85,69,211,0.15),rgba(34,140,136,0.10));border:1px solid rgba(85,69,211,0.25);border-radius:14px;padding:16px 24px;display:flex;gap:16px;align-items:flex-start;flex-shrink:0;">
+              <span style="font-size:26px;flex-shrink:0;">💡</span>
+              <div style="color:#94A3B8;font-size:20px;line-height:1.5;">Manning's 55 TDs in 2013 still stands as the NFL record. Brady (50) and Mahomes (50) tied each other but neither caught Peyton.</div>
+            </div>
+
+          </div>
+
+          <!-- Right: Tonight's Total leaderboard -->
+          <div style="border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;padding:32px 36px 32px 28px;background:rgba(0,0,0,0.12);">
+            <!-- Header -->
+            <div style="margin-bottom:20px;">
+              <div style="color:#F8FAFC;font-size:16px;font-weight:800;letter-spacing:3px;text-transform:uppercase;font-family:'Lexend',sans-serif;">Tonight's Total</div>
+              <div style="color:#64748B;font-size:12px;margin-top:4px;">Cumulative across all rounds</div>
+              <div style="width:48px;height:2px;background:linear-gradient(90deg,#5545D3,#228C88);margin-top:8px;border-radius:1px;"></div>
+            </div>
+            <!-- 7 rows -->
+            <div style="display:flex;flex-direction:column;gap:8px;flex:1;">
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:linear-gradient(90deg,rgba(255,193,7,0.18),rgba(255,193,7,0.06));border:1px solid rgba(255,193,7,0.35);border-radius:12px;">
+                <span style="color:#fbbf24;font-size:16px;font-weight:800;">#1</span>
+                <span style="color:#F8FAFC;font-size:20px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">BigMike_B</span>
+                <span style="color:#fbbf24;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">2,850</span>
+              </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(148,163,184,0.08);border:1px solid rgba(148,163,184,0.2);border-radius:12px;">
+                <span style="color:#64748B;font-size:16px;font-weight:800;">#2</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">SportsFan22</span>
+                <span style="color:#94A3B8;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">2,400</span>
+              </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(205,127,50,0.08);border:1px solid rgba(205,127,50,0.2);border-radius:12px;">
+                <span style="color:#cd7f32;font-size:16px;font-weight:800;">#3</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">LakersKing_21</span>
+                <span style="color:#94A3B8;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">2,100</span>
+              </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;">
+                <span style="color:#64748B;font-size:16px;font-weight:800;">#4</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">TreyDawg_91</span>
+                <span style="color:#94A3B8;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">1,850</span>
+              </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;">
+                <span style="color:#64748B;font-size:16px;font-weight:800;">#5</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">KCChiefs4L</span>
+                <span style="color:#94A3B8;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">1,600</span>
+              </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;">
+                <span style="color:#64748B;font-size:16px;font-weight:800;">#6</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">JessicaR</span>
+                <span style="color:#94A3B8;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">1,350</span>
+              </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;">
+                <span style="color:#64748B;font-size:16px;font-weight:800;">#7</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ThaBull_7</span>
+                <span style="color:#94A3B8;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">1,100</span>
+              </div>
+            </div>
+            <!-- Footer -->
+            <div style="padding-top:16px;border-top:1px solid rgba(255,255,255,0.05);text-align:center;">
+              <div style="color:#228C88;font-size:13px;font-weight:700;letter-spacing:1px;">Next question coming up…</div>
+            </div>
+          </div>
+
+        </div><!-- /body grid -->
+      </div><!-- /bar-1080 STATE 2 -->
+    </div>
+    </div>
+  </div>
+
+  <!-- ── STATE 3: Q10 FINAL ROUND · Gold Final Standings ────────────────── -->
+  <div>
+    <div class="screen-label" style="font-size:11px;opacity:0.6;">STATE 3 — Q10 FINAL ROUND · 🏆 Final Standings · gold theme · "Round done — scan to play next round"</div>
+    <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
+    <div class="tv-label">BAR SCREEN — TRIVIA REVEAL Q10 · Final Standings · gold · "Scan QR for next round" · Apr 3 2026</div>
+    <div class="tv-frame">
+      <div class="bar-1080" id="trivia-tonight-final-inner" style="background:radial-gradient(ellipse at top left,rgba(34,197,94,0.10) 0%,transparent 55%),radial-gradient(ellipse at bottom right,rgba(255,193,7,0.06) 0%,transparent 50%),#0B2230;display:flex;flex-direction:column;font-family:'Lexend','Lexend Deca',sans-serif;overflow:hidden;">
+
+        <!-- Header bar — gold accents for final round -->
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.30);border-bottom:1px solid rgba(255,255,255,0.07);padding:18px 64px;flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:24px;">
+            <div style="background:rgba(34,140,136,0.25);border:1px solid #228C88;border-radius:12px;padding:8px 22px;color:#228C88;font-size:20px;font-weight:800;letter-spacing:2px;">ANSWER REVEALED</div>
+            <div style="color:#64748B;font-size:20px;">Q10 / 10</div>
+            <!-- ROUND COMPLETE badge — gold -->
+            <div style="background:rgba(255,193,7,0.15);border:1px solid rgba(255,193,7,0.40);border-radius:12px;padding:8px 22px;color:#fbbf24;font-size:18px;font-weight:800;letter-spacing:1.5px;">🏆 ROUND COMPLETE</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="color:#22C55E;font-size:36px;font-weight:900;font-variant-numeric:tabular-nums;">68%</div>
+            <div style="color:#64748B;font-size:14px;letter-spacing:1.5px;">GOT IT RIGHT</div>
+          </div>
+        </div>
+
+        <!-- Body: grid 1fr 420px -->
+        <div style="flex:1;display:grid;grid-template-columns:1fr 420px;overflow:hidden;">
+
+          <!-- Left: question + revealed answers + fun fact -->
+          <div style="display:flex;flex-direction:column;padding:36px 48px 36px 80px;gap:18px;overflow:hidden;">
+            <div style="color:#94A3B8;font-size:28px;line-height:1.4;flex-shrink:0;">
+              How many rushing yards did Derrick Henry finish with in the 2024 NFL regular season?
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:10px;overflow:hidden;">
+              <!-- A — wrong -->
+              <div style="position:relative;flex:1;display:flex;align-items:center;gap:20px;background:#110E2A;border:2px solid rgba(255,255,255,0.07);border-radius:16px;padding:0 28px;overflow:hidden;opacity:0.45;">
+                <div style="position:absolute;inset:0 auto 0 0;width:18%;background:rgba(255,255,255,0.05);border-radius:16px;"></div>
+                <div style="position:relative;width:60px;height:60px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:#64748B;font-size:24px;font-weight:900;">A</div>
+                <div style="position:relative;flex:1;color:#94A3B8;font-size:24px;font-weight:500;line-height:1.3;">1,647 yards</div>
+                <div style="position:relative;color:#64748B;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">18%</div>
+              </div>
+              <!-- B — CORRECT, 68% -->
+              <div style="position:relative;flex:1;display:flex;align-items:center;gap:20px;background:rgba(34,197,94,0.08);border:2px solid #22C55E;border-radius:16px;padding:0 28px;overflow:hidden;box-shadow:0 0 40px rgba(34,197,94,0.15);">
+                <div style="position:absolute;inset:0 auto 0 0;width:68%;background:rgba(34,197,94,0.20);border-radius:16px;"></div>
+                <div style="position:relative;width:60px;height:60px;flex-shrink:0;border-radius:12px;background:rgba(34,197,94,0.25);display:flex;align-items:center;justify-content:center;color:#22C55E;font-size:30px;font-weight:900;">✓</div>
+                <div style="position:relative;flex:1;color:#F8FAFC;font-size:28px;font-weight:800;line-height:1.3;">1,921 yards</div>
+                <div style="position:relative;color:#22C55E;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">68%</div>
+              </div>
+              <!-- C — wrong -->
+              <div style="position:relative;flex:1;display:flex;align-items:center;gap:20px;background:#110E2A;border:2px solid rgba(255,255,255,0.07);border-radius:16px;padding:0 28px;overflow:hidden;opacity:0.45;">
+                <div style="position:absolute;inset:0 auto 0 0;width:9%;background:rgba(255,255,255,0.05);border-radius:16px;"></div>
+                <div style="position:relative;width:60px;height:60px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:#64748B;font-size:24px;font-weight:900;">C</div>
+                <div style="position:relative;flex:1;color:#94A3B8;font-size:24px;font-weight:500;line-height:1.3;">2,118 yards</div>
+                <div style="position:relative;color:#64748B;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">9%</div>
+              </div>
+              <!-- D — wrong -->
+              <div style="position:relative;flex:1;display:flex;align-items:center;gap:20px;background:#110E2A;border:2px solid rgba(255,255,255,0.07);border-radius:16px;padding:0 28px;overflow:hidden;opacity:0.45;">
+                <div style="position:absolute;inset:0 auto 0 0;width:5%;background:rgba(255,255,255,0.05);border-radius:16px;"></div>
+                <div style="position:relative;width:60px;height:60px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:#64748B;font-size:24px;font-weight:900;">D</div>
+                <div style="position:relative;flex:1;color:#94A3B8;font-size:24px;font-weight:500;line-height:1.3;">2,305 yards</div>
+                <div style="position:relative;color:#64748B;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;flex-shrink:0;">5%</div>
+              </div>
+            </div>
+            <!-- Fun fact -->
+            <div style="background:linear-gradient(135deg,rgba(85,69,211,0.15),rgba(34,140,136,0.10));border:1px solid rgba(85,69,211,0.25);border-radius:14px;padding:16px 24px;display:flex;gap:16px;align-items:flex-start;flex-shrink:0;">
+              <span style="font-size:26px;flex-shrink:0;">💡</span>
+              <div style="color:#94A3B8;font-size:20px;line-height:1.5;">Henry rushed for 1,921 yards in 2024 — the most by any player in the NFL that season and 2nd most in Ravens history.</div>
+            </div>
+          </div>
+
+          <!-- Right: Final Standings — gold theme -->
+          <div style="border-left:1px solid rgba(255,193,7,0.15);display:flex;flex-direction:column;padding:32px 36px 32px 28px;background:rgba(0,0,0,0.15);">
+            <!-- Gold header -->
+            <div style="margin-bottom:20px;">
+              <div style="color:#fbbf24;font-size:18px;font-weight:800;letter-spacing:3px;text-transform:uppercase;font-family:'Lexend',sans-serif;">🏆 Final Standings</div>
+              <div style="color:#64748B;font-size:12px;margin-top:4px;">Cumulative across all rounds</div>
+              <div style="width:48px;height:2px;background:linear-gradient(90deg,#fbbf24,rgba(255,193,7,0.3));margin-top:8px;border-radius:1px;"></div>
+            </div>
+            <!-- 7 rows -->
+            <div style="display:flex;flex-direction:column;gap:8px;flex:1;">
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:linear-gradient(90deg,rgba(255,193,7,0.22),rgba(255,193,7,0.06));border:1px solid rgba(255,193,7,0.40);border-radius:12px;">
+                <span style="color:#fbbf24;font-size:16px;font-weight:800;">#1</span>
+                <span style="color:#F8FAFC;font-size:20px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">BigMike_B</span>
+                <span style="color:#fbbf24;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">3,950</span>
+              </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(148,163,184,0.08);border:1px solid rgba(148,163,184,0.2);border-radius:12px;">
+                <span style="color:#64748B;font-size:16px;font-weight:800;">#2</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">LakersKing_21</span>
+                <span style="color:#94A3B8;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">3,400</span>
+              </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(205,127,50,0.08);border:1px solid rgba(205,127,50,0.2);border-radius:12px;">
+                <span style="color:#cd7f32;font-size:16px;font-weight:800;">#3</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">SportsFan22</span>
+                <span style="color:#94A3B8;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">3,100</span>
+              </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;">
+                <span style="color:#64748B;font-size:16px;font-weight:800;">#4</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">TreyDawg_91</span>
+                <span style="color:#94A3B8;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">2,650</span>
+              </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;">
+                <span style="color:#64748B;font-size:16px;font-weight:800;">#5</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">KCChiefs4L</span>
+                <span style="color:#94A3B8;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">2,300</span>
+              </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;">
+                <span style="color:#64748B;font-size:16px;font-weight:800;">#6</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">JessicaR</span>
+                <span style="color:#94A3B8;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">1,950</span>
+              </div>
+              <div style="display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;">
+                <span style="color:#64748B;font-size:16px;font-weight:800;">#7</span>
+                <span style="color:#94A3B8;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ThaBull_7</span>
+                <span style="color:#94A3B8;font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;text-align:right;">1,600</span>
+              </div>
+            </div>
+            <!-- Gold CTA footer -->
+            <div style="padding-top:16px;border-top:1px solid rgba(255,193,7,0.15);text-align:center;">
+              <div style="color:#fbbf24;font-size:14px;font-weight:700;letter-spacing:1px;line-height:1.6;">Round done! Scan QR to play the next round</div>
+            </div>
+          </div>
+
+        </div><!-- /body grid -->
+      </div><!-- /bar-1080 STATE 3 -->
+    </div>
+    </div>
+  </div>
+
+  <div id="sfb-panel-trivia-tonight" class="sfb-panel"></div>
+</div><!-- /screen trivia-tonight -->
 
 
 </body>
