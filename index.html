@@ -2169,6 +2169,9 @@
     <div class="tab tab-review" data-screen="bar-join-flow" onclick="showScreen('bar-join-flow',this)">
       <span class="tab-label">Bar · Join Flow ✦</span><span class="tab-days" id="days-bar-join-flow"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="bar-endgame" onclick="showScreen('bar-endgame',this)">
+      <span class="tab-label">Bar · End of Game ✦</span><span class="tab-days" id="days-bar-endgame"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="trivia-v3" onclick="showScreen('trivia-v3',this)">
       <span class="tab-label">Trivia (TV)</span><span class="tab-days" id="days-trivia-v3"></span><span class="review-dot"></span>
     </div>
@@ -5593,6 +5596,7 @@
     'trivia-tonight':      '2026-04-03T07:32:00-07:00',
     'bar-qr-standard':     '2026-04-03T08:15:00-07:00',
     'bar-join-flow':       '2026-04-03T10:30:00-07:00',
+    'bar-endgame':         '2026-04-03T13:00:00-07:00',
     // ── Mar 22 loop — Home Screen: progressive disclosure, 3 user states ──
     'home-screen':         '2026-03-22T19:40:00-07:00',
     // ── Mar 22 loop — Bar Download Flow: QR scan → venue-aware onboarding → first pick ──
@@ -44470,3 +44474,324 @@
 
   <div id="sfb-panel-bar-join-flow" class="sfb-panel"></div>
 </div><!-- /screen bar-join-flow -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCREEN: Bar · End of Game — 4 states: countdown freeze → leaderboard reveal → winner celebration → play again
+     Apr 3 2026 · The cinematic close — demo closer + patron download trigger
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="bar-endgame" class="screen" style="display:none;">
+  <div class="screen-header">
+    <div class="screen-title">Bar Screens — End of Game · 4 States</div>
+    <div class="screen-subtitle">Apr 3 2026 · The most important TV moment: game-over countdown → leaderboard reveal → winner celebration → download CTA. Demo closer + patron retention + app download trigger in one sequence.</div>
+  </div>
+
+  <!-- ── STATE 1: GAME OVER — SCORES FROZEN ── -->
+  <div style="margin-bottom:36px;">
+    <div class="screen-label">STATE 1 — GAME OVER · Scores frozen · Dramatic reveal countdown · 5 seconds</div>
+    <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
+    <div class="tv-label">BAR SCREEN — END OF GAME STATE 1 · Scores frozen · Apr 3 2026</div>
+    <div class="tv-frame">
+    <div class="bar-1080" style="position:relative;background:radial-gradient(ellipse at center,rgba(85,69,211,0.35) 0%,transparent 65%),#06091a;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Lexend',sans-serif;overflow:hidden;gap:0;">
+
+      <!-- Pulse ring animation background -->
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+        <div style="width:600px;height:600px;border-radius:50%;border:1px solid rgba(85,69,211,0.15);"></div>
+        <div style="position:absolute;width:450px;height:450px;border-radius:50%;border:1px solid rgba(85,69,211,0.22);"></div>
+        <div style="position:absolute;width:300px;height:300px;border-radius:50%;border:1px solid rgba(85,69,211,0.30);"></div>
+      </div>
+
+      <!-- Top bar -->
+      <div style="position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:18px 52px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.4);">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="font-size:26px;font-weight:900;color:#fff;">SportsIQ</div>
+          <div style="width:1px;height:20px;background:rgba(255,255,255,0.15);"></div>
+          <div style="font-size:15px;color:#64748b;font-weight:600;">Kincade's Bar &amp; Grill</div>
+        </div>
+        <div style="background:rgba(239,68,68,0.18);border:1px solid rgba(239,68,68,0.5);border-radius:10px;padding:6px 20px;">
+          <span style="color:#ef4444;font-size:15px;font-weight:800;letter-spacing:2px;">● GAME OVER</span>
+        </div>
+      </div>
+
+      <!-- Center content -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:24px;position:relative;z-index:1;">
+        <div style="font-size:18px;font-weight:700;color:#64748b;letter-spacing:4px;text-transform:uppercase;">Final Scores Locked</div>
+        <div style="font-size:140px;font-weight:900;color:#fff;line-height:1;letter-spacing:-6px;font-variant-numeric:tabular-nums;text-shadow:0 0 80px rgba(85,69,211,0.8);">5</div>
+        <div style="font-size:22px;font-weight:700;color:#818cf8;letter-spacing:2px;">LEADERBOARD REVEALS IN</div>
+        <!-- Progress bar -->
+        <div style="width:400px;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;">
+          <div style="width:20%;height:100%;background:linear-gradient(90deg,#5545D3,#818cf8);border-radius:3px;"></div>
+        </div>
+      </div>
+
+      <!-- Bottom: live player count -->
+      <div style="position:absolute;bottom:28px;left:0;right:0;display:flex;justify-content:center;gap:60px;">
+        <div style="text-align:center;"><div style="font-size:11px;color:#475569;font-weight:700;letter-spacing:2px;">PLAYERS TONIGHT</div><div style="font-size:36px;font-weight:900;color:#fff;">63</div></div>
+        <div style="text-align:center;"><div style="font-size:11px;color:#475569;font-weight:700;letter-spacing:2px;">PICKS MADE</div><div style="font-size:36px;font-weight:900;color:#fff;">847</div></div>
+        <div style="text-align:center;"><div style="font-size:11px;color:#475569;font-weight:700;letter-spacing:2px;">BEST STREAK</div><div style="font-size:36px;font-weight:900;color:#fbbf24;">7🔥</div></div>
+      </div>
+
+    </div><!-- /bar-1080 -->
+    </div><!-- /tv-frame -->
+    </div><!-- /tv-wrap -->
+  </div>
+
+  <!-- ── STATE 2: LEADERBOARD REVEAL ── -->
+  <div style="margin-bottom:36px;">
+    <div class="screen-label">STATE 2 — LEADERBOARD REVEAL · Top 10 final standings · QR: download to play tomorrow</div>
+    <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
+    <div class="tv-label">BAR SCREEN — END OF GAME STATE 2 · Leaderboard reveal · Apr 3 2026</div>
+    <div class="tv-frame">
+    <div class="bar-1080" style="position:relative;background:radial-gradient(ellipse at top,rgba(85,69,211,0.20) 0%,transparent 50%),#060d1c;display:grid;grid-template-columns:1fr 320px;font-family:'Lexend',sans-serif;overflow:hidden;">
+
+      <!-- LEFT: Top 10 Leaderboard -->
+      <div style="display:flex;flex-direction:column;padding:0;border-right:1px solid rgba(255,255,255,0.06);overflow:hidden;">
+
+        <!-- Header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 48px 14px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.3);flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div style="font-size:24px;font-weight:900;color:#fff;">SportsIQ</div>
+            <div style="width:1px;height:18px;background:rgba(255,255,255,0.15);"></div>
+            <div style="font-size:14px;color:#64748b;">Kincade's Bar &amp; Grill</div>
+          </div>
+          <div style="background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.4);border-radius:10px;padding:5px 18px;">
+            <span style="color:#fbbf24;font-size:14px;font-weight:800;letter-spacing:2px;">🏆 FINAL STANDINGS</span>
+          </div>
+        </div>
+
+        <!-- Leaderboard rows — top 10 -->
+        <div style="flex:1;display:flex;flex-direction:column;padding:12px 48px;gap:6px;overflow:hidden;">
+
+          <!-- #1 — WINNER -->
+          <div style="position:relative;display:flex;align-items:center;gap:16px;background:linear-gradient(90deg,rgba(251,191,36,0.18),rgba(251,191,36,0.06));border:1.5px solid rgba(251,191,36,0.5);border-radius:14px;padding:10px 20px;overflow:hidden;flex-shrink:0;">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:#fbbf24;border-radius:2px 0 0 2px;"></div>
+            <div style="font-size:22px;font-weight:900;color:#fbbf24;min-width:32px;text-align:center;">🥇</div>
+            <div style="flex:1;">
+              <div style="font-size:20px;font-weight:900;color:#fff;">DomeKing91</div>
+              <div style="font-size:11px;color:#fbbf24;font-weight:700;letter-spacing:1px;">7-PICK STREAK 🔥 · TOP SCORER</div>
+            </div>
+            <div style="font-size:32px;font-weight:900;color:#fbbf24;font-variant-numeric:tabular-nums;">2,840</div>
+          </div>
+
+          <!-- #2 -->
+          <div style="display:flex;align-items:center;gap:16px;background:rgba(148,163,184,0.08);border:1px solid rgba(148,163,184,0.2);border-radius:12px;padding:8px 20px;flex-shrink:0;">
+            <div style="font-size:20px;font-weight:900;color:#94a3b8;min-width:32px;text-align:center;">🥈</div>
+            <div style="flex:1;font-size:18px;font-weight:700;color:#e2e8f0;">SharpsOnly</div>
+            <div style="font-size:26px;font-weight:900;color:#94a3b8;font-variant-numeric:tabular-nums;">2,610</div>
+          </div>
+
+          <!-- #3 -->
+          <div style="display:flex;align-items:center;gap:16px;background:rgba(180,120,60,0.10);border:1px solid rgba(180,120,60,0.25);border-radius:12px;padding:8px 20px;flex-shrink:0;">
+            <div style="font-size:20px;font-weight:900;color:#cd7f32;min-width:32px;text-align:center;">🥉</div>
+            <div style="flex:1;font-size:18px;font-weight:700;color:#e2e8f0;">QuarterbackQ</div>
+            <div style="font-size:26px;font-weight:900;color:#cd7f32;font-variant-numeric:tabular-nums;">2,390</div>
+          </div>
+
+          <!-- #4-10 compact rows -->
+          <div style="display:flex;flex-direction:column;gap:4px;flex:1;overflow:hidden;">
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.03);border-radius:10px;padding:6px 18px;"><span style="font-size:14px;font-weight:800;color:#475569;min-width:24px;">#4</span><span style="flex:1;font-size:15px;font-weight:600;color:#94a3b8;">PickEm_Pro</span><span style="font-size:18px;font-weight:900;color:#64748b;font-variant-numeric:tabular-nums;">2,180</span></div>
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.03);border-radius:10px;padding:6px 18px;"><span style="font-size:14px;font-weight:800;color:#475569;min-width:24px;">#5</span><span style="flex:1;font-size:15px;font-weight:600;color:#94a3b8;">JerseyShore7</span><span style="font-size:18px;font-weight:900;color:#64748b;font-variant-numeric:tabular-nums;">2,040</span></div>
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.03);border-radius:10px;padding:6px 18px;"><span style="font-size:14px;font-weight:800;color:#475569;min-width:24px;">#6</span><span style="flex:1;font-size:15px;font-weight:600;color:#94a3b8;">EagleFan_KC</span><span style="font-size:18px;font-weight:900;color:#64748b;font-variant-numeric:tabular-nums;">1,920</span></div>
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.03);border-radius:10px;padding:6px 18px;"><span style="font-size:14px;font-weight:800;color:#475569;min-width:24px;">#7</span><span style="flex:1;font-size:15px;font-weight:600;color:#94a3b8;">StatlineSam</span><span style="font-size:18px;font-weight:900;color:#64748b;font-variant-numeric:tabular-nums;">1,810</span></div>
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.03);border-radius:10px;padding:6px 18px;"><span style="font-size:14px;font-weight:800;color:#475569;min-width:24px;">#8</span><span style="flex:1;font-size:15px;font-weight:600;color:#94a3b8;">BlitzKrieg44</span><span style="font-size:18px;font-weight:900;color:#64748b;font-variant-numeric:tabular-nums;">1,695</span></div>
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.03);border-radius:10px;padding:6px 18px;"><span style="font-size:14px;font-weight:800;color:#475569;min-width:24px;">#9</span><span style="flex:1;font-size:15px;font-weight:600;color:#94a3b8;">RedZoneRita</span><span style="font-size:18px;font-weight:900;color:#64748b;font-variant-numeric:tabular-nums;">1,540</span></div>
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.03);border-radius:10px;padding:6px 18px;"><span style="font-size:14px;font-weight:800;color:#475569;min-width:24px;">#10</span><span style="flex:1;font-size:15px;font-weight:600;color:#94a3b8;">4thAndForever</span><span style="font-size:18px;font-weight:900;color:#64748b;font-variant-numeric:tabular-nums;">1,420</span></div>
+          </div>
+
+          <!-- Total players line -->
+          <div style="padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;flex-shrink:0;">
+            <span style="font-size:12px;color:#475569;font-weight:700;">63 players competed tonight · 847 picks made</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: QR + tomorrow hook -->
+      <div style="display:flex;flex-direction:column;padding:0;overflow:hidden;">
+
+        <!-- Play again header -->
+        <div style="padding:16px 24px 14px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.3);flex-shrink:0;">
+          <div style="font-size:13px;font-weight:800;color:#818cf8;letter-spacing:2px;margin-bottom:2px;">PLAY AGAIN</div>
+          <div style="font-size:11px;color:#475569;">Download to track your score all season</div>
+        </div>
+
+        <!-- App download hook -->
+        <div style="padding:16px 24px;display:flex;flex-direction:column;gap:12px;flex-shrink:0;">
+          <div style="background:rgba(85,69,211,0.12);border:1px solid rgba(85,69,211,0.3);border-radius:12px;padding:14px;">
+            <div style="font-size:11px;color:#818cf8;font-weight:700;letter-spacing:1.5px;margin-bottom:8px;">TONIGHT'S WINNER</div>
+            <div style="font-size:22px;font-weight:900;color:#fbbf24;">DomeKing91</div>
+            <div style="font-size:12px;color:#64748b;margin-top:2px;">Season rank: #3 · 14-game streak</div>
+          </div>
+          <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:10px 14px;">
+            <div style="font-size:11px;color:#22c55e;font-weight:700;letter-spacing:1px;margin-bottom:4px;">NEXT GAME</div>
+            <div style="font-size:13px;color:#e2e8f0;font-weight:700;">Chiefs vs Raiders</div>
+            <div style="font-size:11px;color:#64748b;">Sunday · 4:25 PM · Kincade's</div>
+          </div>
+        </div>
+
+        <!-- QR — download CTA -->
+        <div style="border-top:1px solid rgba(255,255,255,0.07);padding:0 44px;margin-top:auto;">
+          <div style="padding:8px 0 5px;text-align:center;font-size:10px;color:#64748b;font-weight:700;letter-spacing:2.5px;">SCAN TO PLAY SUNDAY</div>
+          <div style="width:100%;aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;font-size:72px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.18);">▦</div>
+          <div style="margin:0 16px 10px;background:rgba(85,69,211,0.15);border:1.5px solid rgba(85,69,211,0.5);border-radius:8px;padding:5px 14px;text-align:center;"><div style="color:#fff;font-size:22px;font-weight:900;letter-spacing:6px;font-variant-numeric:tabular-nums;">74291</div></div>
+        </div>
+
+      </div><!-- /right panel -->
+    </div><!-- /bar-1080 -->
+    </div><!-- /tv-frame -->
+    </div><!-- /tv-wrap -->
+  </div>
+
+  <!-- ── STATE 3: WINNER CELEBRATION ── -->
+  <div style="margin-bottom:36px;">
+    <div class="screen-label">STATE 3 — WINNER CELEBRATION · Full-screen winner moment · 8 seconds · The demo closer</div>
+    <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
+    <div class="tv-label">BAR SCREEN — END OF GAME STATE 3 · Winner celebration · Apr 3 2026</div>
+    <div class="tv-frame">
+    <div class="bar-1080" style="position:relative;background:radial-gradient(ellipse at center top,rgba(251,191,36,0.30) 0%,rgba(85,69,211,0.15) 40%,#050810 75%);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Lexend',sans-serif;overflow:hidden;gap:0;">
+
+      <!-- Confetti dots — decorative -->
+      <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(251,191,36,0.4) 1px,transparent 1px),radial-gradient(circle,rgba(85,69,211,0.3) 1px,transparent 1px);background-size:48px 48px,72px 72px;background-position:0 0,24px 24px;opacity:0.4;"></div>
+
+      <!-- Top bar -->
+      <div style="position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:16px 52px;border-bottom:1px solid rgba(251,191,36,0.15);background:rgba(0,0,0,0.5);">
+        <div style="font-size:22px;font-weight:900;color:#fff;">SportsIQ</div>
+        <div style="font-size:14px;color:#64748b;">Kincade's Bar &amp; Grill · Thursday Night Football</div>
+        <div style="font-size:13px;color:#fbbf24;font-weight:700;">63 players · 847 picks</div>
+      </div>
+
+      <!-- Winner announcement -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:18px;position:relative;z-index:1;margin-top:20px;">
+        <div style="font-size:16px;font-weight:700;color:#fbbf24;letter-spacing:5px;text-transform:uppercase;">Tonight's Champion</div>
+        <div style="font-size:18px;color:#64748b;letter-spacing:3px;">#1 OUT OF 63 PLAYERS</div>
+        <div style="font-size:110px;font-weight:900;color:#fff;line-height:1;letter-spacing:-4px;text-shadow:0 0 80px rgba(251,191,36,0.6),0 0 160px rgba(251,191,36,0.3);">DomeKing91</div>
+        <div style="display:flex;align-items:center;gap:24px;margin-top:4px;">
+          <div style="text-align:center;background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.3);border-radius:12px;padding:12px 24px;">
+            <div style="font-size:11px;color:#fbbf24;font-weight:700;letter-spacing:2px;margin-bottom:4px;">FINAL SCORE</div>
+            <div style="font-size:48px;font-weight:900;color:#fbbf24;font-variant-numeric:tabular-nums;">2,840</div>
+          </div>
+          <div style="text-align:center;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:12px;padding:12px 24px;">
+            <div style="font-size:11px;color:#ef4444;font-weight:700;letter-spacing:2px;margin-bottom:4px;">WIN STREAK</div>
+            <div style="font-size:48px;font-weight:900;color:#ef4444;">7🔥</div>
+          </div>
+          <div style="text-align:center;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);border-radius:12px;padding:12px 24px;">
+            <div style="font-size:11px;color:#22c55e;font-weight:700;letter-spacing:2px;margin-bottom:4px;">ACCURACY</div>
+            <div style="font-size:48px;font-weight:900;color:#22c55e;">87%</div>
+          </div>
+        </div>
+        <div style="font-size:16px;color:#64748b;margin-top:8px;">Season rank: <span style="color:#818cf8;font-weight:800;">#3 all-time at Kincade's</span></div>
+      </div>
+
+      <!-- Bottom CTA bar -->
+      <div style="position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:48px;padding:18px 52px;background:rgba(0,0,0,0.6);border-top:1px solid rgba(251,191,36,0.15);">
+        <div style="font-size:15px;color:#94a3b8;font-weight:600;">Think you can beat them?</div>
+        <div style="display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#5545D3,#7c3aed);border-radius:12px;padding:10px 28px;">
+          <div style="font-size:32px;color:#fff;">▦</div>
+          <div>
+            <div style="font-size:14px;font-weight:900;color:#fff;letter-spacing:0.5px;">Scan to download SportsIQ</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);">Free · Track your picks all season</div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:#64748b;">Next game: <span style="color:#fff;font-weight:700;">Sunday 4:25 PM</span></div>
+      </div>
+
+    </div><!-- /bar-1080 -->
+    </div><!-- /tv-frame -->
+    </div><!-- /tv-wrap -->
+  </div>
+
+  <!-- ── STATE 4: PLAY AGAIN TOMORROW ── -->
+  <div style="margin-bottom:36px;">
+    <div class="screen-label">STATE 4 — PLAY AGAIN · Returns to idle · Season stats + download hook · Loops until next game</div>
+    <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
+    <div class="tv-label">BAR SCREEN — END OF GAME STATE 4 · Play again / idle return · Apr 3 2026</div>
+    <div class="tv-frame">
+    <div class="bar-1080" style="position:relative;background:radial-gradient(ellipse at top left,rgba(85,69,211,0.28) 0%,transparent 50%),radial-gradient(ellipse at bottom right,rgba(34,140,136,0.20) 0%,transparent 50%),#060d1c;display:grid;grid-template-columns:1fr 320px;font-family:'Lexend',sans-serif;overflow:hidden;">
+
+      <!-- LEFT: Tonight recap + season standings teaser -->
+      <div style="display:flex;flex-direction:column;padding:0;border-right:1px solid rgba(255,255,255,0.06);overflow:hidden;">
+
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 48px 14px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.3);flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div style="font-size:24px;font-weight:900;color:#fff;">SportsIQ</div>
+            <div style="width:1px;height:18px;background:rgba(255,255,255,0.15);"></div>
+            <div style="font-size:14px;color:#64748b;">Kincade's Bar &amp; Grill</div>
+          </div>
+          <div style="background:rgba(85,69,211,0.15);border:1px solid rgba(85,69,211,0.4);border-radius:10px;padding:5px 18px;">
+            <span style="color:#818cf8;font-size:14px;font-weight:800;letter-spacing:2px;">GAME COMPLETE</span>
+          </div>
+        </div>
+
+        <div style="flex:1;padding:28px 48px;display:flex;gap:32px;overflow:hidden;">
+
+          <!-- Tonight's recap card -->
+          <div style="flex:1;display:flex;flex-direction:column;gap:14px;">
+            <div style="font-size:13px;font-weight:800;color:#818cf8;letter-spacing:2px;margin-bottom:4px;">TONIGHT'S RECAP</div>
+
+            <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:14px;padding:16px 20px;">
+              <div style="font-size:11px;color:#fbbf24;font-weight:700;letter-spacing:1px;margin-bottom:6px;">🏆 CHAMPION</div>
+              <div style="font-size:26px;font-weight:900;color:#fff;">DomeKing91</div>
+              <div style="font-size:13px;color:#64748b;margin-top:2px;">2,840 pts · 7-streak 🔥 · 87% accuracy</div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:14px;text-align:center;">
+                <div style="font-size:11px;color:#475569;font-weight:700;letter-spacing:1.5px;margin-bottom:4px;">PLAYERS</div>
+                <div style="font-size:36px;font-weight:900;color:#fff;">63</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:14px;text-align:center;">
+                <div style="font-size:11px;color:#475569;font-weight:700;letter-spacing:1.5px;margin-bottom:4px;">PICKS</div>
+                <div style="font-size:36px;font-weight:900;color:#fff;">847</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:14px;text-align:center;">
+                <div style="font-size:11px;color:#475569;font-weight:700;letter-spacing:1.5px;margin-bottom:4px;">AVG SCORE</div>
+                <div style="font-size:36px;font-weight:900;color:#818cf8;">1,240</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:14px;text-align:center;">
+                <div style="font-size:11px;color:#475569;font-weight:700;letter-spacing:1.5px;margin-bottom:4px;">HARDEST PICK</div>
+                <div style="font-size:24px;font-weight:900;color:#ef4444;">19%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Season at Kincade's leaderboard -->
+          <div style="flex:1;display:flex;flex-direction:column;gap:10px;">
+            <div style="font-size:13px;font-weight:800;color:#818cf8;letter-spacing:2px;margin-bottom:4px;">SEASON AT KINCADE'S</div>
+            <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+              <div style="display:flex;align-items:center;gap:12px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:10px;padding:8px 16px;"><span style="color:#fbbf24;font-weight:900;min-width:24px;">#1</span><span style="flex:1;color:#fff;font-weight:700;">DomeKing91</span><span style="color:#fbbf24;font-weight:900;">14 wins</span></div>
+              <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);border-radius:10px;padding:8px 16px;"><span style="color:#64748b;font-weight:900;min-width:24px;">#2</span><span style="flex:1;color:#94a3b8;font-weight:600;">SharpsOnly</span><span style="color:#64748b;font-weight:900;">11 wins</span></div>
+              <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);border-radius:10px;padding:8px 16px;"><span style="color:#64748b;font-weight:900;min-width:24px;">#3</span><span style="flex:1;color:#94a3b8;font-weight:600;">QuarterbackQ</span><span style="color:#64748b;font-weight:900;">9 wins</span></div>
+              <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);border-radius:10px;padding:8px 16px;"><span style="color:#64748b;font-weight:900;min-width:24px;">#4</span><span style="flex:1;color:#94a3b8;font-weight:600;">PickEm_Pro</span><span style="color:#64748b;font-weight:900;">7 wins</span></div>
+              <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);border-radius:10px;padding:8px 16px;"><span style="color:#64748b;font-weight:900;min-width:24px;">#5</span><span style="flex:1;color:#94a3b8;font-weight:600;">JerseyShore7</span><span style="color:#64748b;font-weight:900;">6 wins</span></div>
+            </div>
+            <div style="font-size:11px;color:#334155;text-align:center;padding-top:4px;">Download SportsIQ to see your full season record</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: QR + next game -->
+      <div style="display:flex;flex-direction:column;overflow:hidden;">
+        <div style="padding:16px 24px 14px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.3);flex-shrink:0;">
+          <div style="font-size:13px;font-weight:800;color:#22c55e;letter-spacing:2px;margin-bottom:2px;">NEXT GAME</div>
+          <div style="font-size:14px;color:#e2e8f0;font-weight:700;">Chiefs vs Raiders</div>
+          <div style="font-size:11px;color:#475569;">Sunday · 4:25 PM · Here at Kincade's</div>
+        </div>
+        <div style="padding:16px 24px;flex-shrink:0;">
+          <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:12px;padding:12px;">
+            <div style="font-size:11px;color:#22c55e;font-weight:700;letter-spacing:1px;margin-bottom:6px;">DOWNLOAD BONUS</div>
+            <div style="font-size:13px;color:#e2e8f0;font-weight:700;">Get 500 IQ points free</div>
+            <div style="font-size:11px;color:#475569;margin-top:2px;">when you download before Sunday's game</div>
+          </div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.07);padding:0 44px;margin-top:auto;">
+          <div style="padding:8px 0 5px;text-align:center;font-size:10px;color:#64748b;font-weight:700;letter-spacing:2.5px;">SCAN TO DOWNLOAD</div>
+          <div style="width:100%;aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;font-size:72px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.18);">▦</div>
+          <div style="margin:0 16px 10px;background:rgba(85,69,211,0.15);border:1.5px solid rgba(85,69,211,0.5);border-radius:8px;padding:5px 14px;text-align:center;"><div style="color:#fff;font-size:22px;font-weight:900;letter-spacing:6px;font-variant-numeric:tabular-nums;">74291</div></div>
+        </div>
+      </div>
+
+    </div><!-- /bar-1080 -->
+    </div><!-- /tv-frame -->
+    </div><!-- /tv-wrap -->
+  </div>
+
+  <div id="sfb-panel-bar-endgame" class="sfb-panel"></div>
+</div><!-- /screen bar-endgame -->
