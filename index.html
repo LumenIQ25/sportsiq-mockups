@@ -2172,6 +2172,12 @@
     <div class="tab tab-review" data-screen="bar-endgame" onclick="showScreen('bar-endgame',this)">
       <span class="tab-label">Bar · End of Game ✦</span><span class="tab-days" id="days-bar-endgame"></span><span class="review-dot"></span>
     </div>
+    <div class="tab tab-review" data-screen="bar-game-controller" onclick="showScreen('bar-game-controller',this)">
+      <span class="tab-label">Bar · Game Controller ✦</span><span class="tab-days" id="days-bar-game-controller"></span><span class="review-dot"></span>
+    </div>
+    <div class="tab tab-review" data-screen="mobile-postgame" onclick="showScreen('mobile-postgame',this)">
+      <span class="tab-label">Mobile · Post-Game ✦</span><span class="tab-days" id="days-mobile-postgame"></span><span class="review-dot"></span>
+    </div>
     <div class="tab tab-review" data-screen="trivia-v3" onclick="showScreen('trivia-v3',this)">
       <span class="tab-label">Trivia (TV)</span><span class="tab-days" id="days-trivia-v3"></span><span class="review-dot"></span>
     </div>
@@ -5597,6 +5603,8 @@
     'bar-qr-standard':     '2026-04-03T08:15:00-07:00',
     'bar-join-flow':       '2026-04-03T10:30:00-07:00',
     'bar-endgame':         '2026-04-03T13:00:00-07:00',
+    'bar-game-controller': '2026-04-03T14:00:00-07:00',
+    'mobile-postgame':     '2026-04-03T14:30:00-07:00',
     // ── Mar 22 loop — Home Screen: progressive disclosure, 3 user states ──
     'home-screen':         '2026-03-22T19:40:00-07:00',
     // ── Mar 22 loop — Bar Download Flow: QR scan → venue-aware onboarding → first pick ──
@@ -44795,3 +44803,581 @@
 
   <div id="sfb-panel-bar-endgame" class="sfb-panel"></div>
 </div><!-- /screen bar-endgame -->
+
+<!-- ============================================================
+     BAR · GAME CONTROLLER  ·  Apr 3 2026
+     Bar owner / staff tablet/phone interface for running a live game
+     4 states: Pre-game setup → Live round controls → Between rounds → Post-game
+     ============================================================ -->
+<div id="bar-game-controller" class="screen" style="display:none;">
+  <div class="tv-label">BAR · GAME CONTROLLER — Staff tablet/phone interface · 4 states · Apr 3 2026</div>
+
+  <!-- Layout: 2-column grid of phone frames, 2 rows = 4 states -->
+  <div style="padding:40px;background:#0a0f1a;min-height:100vh;">
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style="font-size:13px;font-weight:800;letter-spacing:3px;color:#7c3aed;margin-bottom:8px;">BAR · GAME CONTROLLER</div>
+      <div style="font-size:28px;font-weight:900;color:#f8fafc;">How the bar owner runs the game</div>
+      <div style="font-size:14px;color:#64748b;margin-top:8px;">Staff phone/tablet — triggers every state change on the bar TV</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:32px;max-width:1200px;margin:0 auto;">
+
+      <!-- STATE 1: PRE-GAME SETUP -->
+      <div style="background:#111827;border-radius:20px;overflow:hidden;border:1.5px solid rgba(124,58,237,0.4);box-shadow:0 0 32px rgba(124,58,237,0.12);">
+        <div style="background:rgba(124,58,237,0.15);padding:10px 16px;border-bottom:1px solid rgba(124,58,237,0.2);">
+          <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#7c3aed;">STATE 1</div>
+          <div style="font-size:14px;font-weight:800;color:#f8fafc;margin-top:2px;">PRE-GAME SETUP</div>
+        </div>
+        <!-- phone frame -->
+        <div style="padding:20px 16px;">
+          <!-- venue + game info header -->
+          <div style="background:rgba(15,23,42,0.8);border-radius:12px;padding:14px;margin-bottom:14px;border:1px solid rgba(255,255,255,0.06);">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <div>
+                <div style="font-size:11px;color:#64748b;font-weight:700;letter-spacing:1.5px;">VENUE</div>
+                <div style="font-size:16px;font-weight:800;color:#f8fafc;">Bosscat Kitchen</div>
+              </div>
+              <div style="width:36px;height:36px;background:rgba(124,58,237,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                <div style="font-size:18px;">🏠</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;text-align:center;">
+                <div style="font-size:10px;color:#64748b;font-weight:700;letter-spacing:1px;">TV STATUS</div>
+                <div style="font-size:12px;font-weight:700;color:#22c55e;margin-top:2px;">● ONLINE</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;text-align:center;">
+                <div style="font-size:10px;color:#64748b;font-weight:700;letter-spacing:1px;">ROOM CODE</div>
+                <div style="font-size:14px;font-weight:900;color:#f8fafc;letter-spacing:3px;margin-top:2px;">74291</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- game type selector -->
+          <div style="margin-bottom:14px;">
+            <div style="font-size:10px;color:#94a3b8;font-weight:700;letter-spacing:1.5px;margin-bottom:8px;">GAME TYPE</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="background:rgba(124,58,237,0.2);border:1.5px solid #7c3aed;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+                <div style="font-size:20px;">🏈</div>
+                <div>
+                  <div style="font-size:13px;font-weight:800;color:#f8fafc;">NFL Predictions</div>
+                  <div style="font-size:11px;color:#94a3b8;">Live game picks + halftime</div>
+                </div>
+                <div style="margin-left:auto;width:18px;height:18px;background:#7c3aed;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                  <div style="color:#fff;font-size:11px;font-weight:900;">✓</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+                <div style="font-size:20px;">🧠</div>
+                <div>
+                  <div style="font-size:13px;font-weight:700;color:#94a3b8;">Sports Trivia</div>
+                  <div style="font-size:11px;color:#475569;">10-question rounds</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+                <div style="font-size:20px;">🏀</div>
+                <div>
+                  <div style="font-size:13px;font-weight:700;color:#94a3b8;">NBA Live Picks</div>
+                  <div style="font-size:11px;color:#475569;">Quarter-by-quarter</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- game settings -->
+          <div style="margin-bottom:16px;">
+            <div style="font-size:10px;color:#94a3b8;font-weight:700;letter-spacing:1.5px;margin-bottom:8px;">SETTINGS</div>
+            <div style="background:rgba(15,23,42,0.6);border-radius:10px;border:1px solid rgba(255,255,255,0.06);overflow:hidden;">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.04);">
+                <div style="font-size:12px;color:#e2e8f0;font-weight:600;">Auto-advance rounds</div>
+                <div style="width:36px;height:20px;background:#7c3aed;border-radius:10px;position:relative;"><div style="position:absolute;right:3px;top:3px;width:14px;height:14px;background:#fff;border-radius:50%;"></div></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.04);">
+                <div style="font-size:12px;color:#e2e8f0;font-weight:600;">Show leaderboard after each</div>
+                <div style="width:36px;height:20px;background:#7c3aed;border-radius:10px;position:relative;"><div style="position:absolute;right:3px;top:3px;width:14px;height:14px;background:#fff;border-radius:50%;"></div></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;">
+                <div style="font-size:12px;color:#e2e8f0;font-weight:600;">Bonus challenge round</div>
+                <div style="width:36px;height:20px;background:rgba(255,255,255,0.1);border-radius:10px;position:relative;"><div style="position:absolute;left:3px;top:3px;width:14px;height:14px;background:#fff;border-radius:50%;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- start game button -->
+          <div style="background:linear-gradient(135deg,#7c3aed,#5b21b6);border-radius:12px;padding:16px;text-align:center;cursor:pointer;box-shadow:0 0 24px rgba(124,58,237,0.5);">
+            <div style="font-size:18px;font-weight:900;color:#fff;letter-spacing:1px;">▶ START GAME</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:4px;">TV will show live in ~3 seconds</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE 2: LIVE ROUND CONTROLS -->
+      <div style="background:#111827;border-radius:20px;overflow:hidden;border:1.5px solid rgba(239,68,68,0.4);box-shadow:0 0 32px rgba(239,68,68,0.12);">
+        <div style="background:rgba(239,68,68,0.15);padding:10px 16px;border-bottom:1px solid rgba(239,68,68,0.2);">
+          <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#ef4444;">STATE 2</div>
+          <div style="font-size:14px;font-weight:800;color:#f8fafc;margin-top:2px;">LIVE ROUND CONTROLS</div>
+        </div>
+        <div style="padding:20px 16px;">
+
+          <!-- live indicator -->
+          <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="width:8px;height:8px;background:#ef4444;border-radius:50%;animation:pulse 1s infinite;"></div>
+              <div style="font-size:13px;font-weight:800;color:#ef4444;">GAME LIVE</div>
+            </div>
+            <div style="font-size:12px;color:#94a3b8;font-weight:700;">Q2 · 2:47</div>
+          </div>
+
+          <!-- current pick being shown -->
+          <div style="background:rgba(15,23,42,0.8);border-radius:12px;padding:14px;margin-bottom:14px;border:1px solid rgba(255,255,255,0.06);">
+            <div style="font-size:10px;color:#94a3b8;font-weight:700;letter-spacing:1.5px;margin-bottom:8px;">CURRENT PICK ON TV</div>
+            <div style="font-size:14px;font-weight:800;color:#f8fafc;margin-bottom:6px;">Will the Chiefs score next?</div>
+            <div style="display:flex;gap:6px;margin-bottom:10px;">
+              <div style="flex:1;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:6px;text-align:center;">
+                <div style="font-size:12px;font-weight:800;color:#22c55e;">YES</div>
+                <div style="font-size:11px;color:#64748b;margin-top:2px;">67%</div>
+              </div>
+              <div style="flex:1;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:6px;text-align:center;">
+                <div style="font-size:12px;font-weight:800;color:#ef4444;">NO</div>
+                <div style="font-size:11px;color:#64748b;margin-top:2px;">33%</div>
+              </div>
+            </div>
+            <!-- timer bar -->
+            <div style="background:rgba(255,255,255,0.07);border-radius:4px;height:6px;overflow:hidden;">
+              <div style="width:45%;height:100%;background:linear-gradient(90deg,#22c55e,#f59e0b);border-radius:4px;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:4px;">
+              <div style="font-size:10px;color:#64748b;">Closing in</div>
+              <div style="font-size:10px;font-weight:700;color:#f59e0b;">22s</div>
+            </div>
+          </div>
+
+          <!-- player count -->
+          <div style="display:flex;gap:8px;margin-bottom:14px;">
+            <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:10px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,0.06);">
+              <div style="font-size:22px;font-weight:900;color:#f8fafc;">47</div>
+              <div style="font-size:10px;color:#64748b;font-weight:700;letter-spacing:1px;margin-top:2px;">PLAYING</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:10px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,0.06);">
+              <div style="font-size:22px;font-weight:900;color:#f8fafc;">12</div>
+              <div style="font-size:10px;color:#64748b;font-weight:700;letter-spacing:1px;margin-top:2px;">JOINED</div>
+            </div>
+            <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:10px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,0.06);">
+              <div style="font-size:22px;font-weight:900;color:#f8fafc;">3</div>
+              <div style="font-size:10px;color:#64748b;font-weight:700;letter-spacing:1px;margin-top:2px;">PICKS LEFT</div>
+            </div>
+          </div>
+
+          <!-- round controls -->
+          <div style="margin-bottom:10px;">
+            <div style="font-size:10px;color:#94a3b8;font-weight:700;letter-spacing:1.5px;margin-bottom:8px;">CONTROLS</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;gap:6px;">
+                <div style="flex:1;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:10px;padding:10px;text-align:center;cursor:pointer;">
+                  <div style="font-size:16px;">⏸</div>
+                  <div style="font-size:11px;font-weight:700;color:#f59e0b;margin-top:4px;">Pause</div>
+                </div>
+                <div style="flex:1;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);border-radius:10px;padding:10px;text-align:center;cursor:pointer;">
+                  <div style="font-size:16px;">⏭</div>
+                  <div style="font-size:11px;font-weight:700;color:#22c55e;margin-top:4px;">Next Pick</div>
+                </div>
+                <div style="flex:1;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);border-radius:10px;padding:10px;text-align:center;cursor:pointer;">
+                  <div style="font-size:16px;">🏆</div>
+                  <div style="font-size:11px;font-weight:700;color:#818cf8;margin-top:4px;">Board</div>
+                </div>
+              </div>
+              <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:10px;padding:10px;text-align:center;cursor:pointer;">
+                <div style="font-size:13px;font-weight:800;color:#ef4444;">⏹ END GAME NOW</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE 3: REVEAL + SCORE OVERRIDE -->
+      <div style="background:#111827;border-radius:20px;overflow:hidden;border:1.5px solid rgba(245,158,11,0.4);box-shadow:0 0 32px rgba(245,158,11,0.12);">
+        <div style="background:rgba(245,158,11,0.15);padding:10px 16px;border-bottom:1px solid rgba(245,158,11,0.2);">
+          <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#f59e0b;">STATE 3</div>
+          <div style="font-size:14px;font-weight:800;color:#f8fafc;margin-top:2px;">REVEAL & OVERRIDE</div>
+        </div>
+        <div style="padding:20px 16px;">
+
+          <!-- result pending -->
+          <div style="background:rgba(15,23,42,0.8);border-radius:12px;padding:14px;margin-bottom:14px;border:1px solid rgba(255,255,255,0.06);">
+            <div style="font-size:10px;color:#94a3b8;font-weight:700;letter-spacing:1.5px;margin-bottom:8px;">AWAITING RESULT</div>
+            <div style="font-size:14px;font-weight:800;color:#f8fafc;margin-bottom:8px;">Will the Chiefs score next?</div>
+            <div style="display:flex;gap:6px;">
+              <div style="flex:1;background:rgba(34,197,94,0.1);border:2px solid rgba(34,197,94,0.4);border-radius:8px;padding:8px;text-align:center;cursor:pointer;">
+                <div style="font-size:20px;">✅</div>
+                <div style="font-size:12px;font-weight:800;color:#22c55e;margin-top:4px;">YES</div>
+                <div style="font-size:10px;color:#64748b;margin-top:2px;">31 picked</div>
+              </div>
+              <div style="flex:1;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:8px;text-align:center;cursor:pointer;opacity:0.5;">
+                <div style="font-size:20px;">❌</div>
+                <div style="font-size:12px;font-weight:800;color:#ef4444;margin-top:4px;">NO</div>
+                <div style="font-size:10px;color:#64748b;margin-top:2px;">16 picked</div>
+              </div>
+            </div>
+            <div style="margin-top:10px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:8px;text-align:center;">
+              <div style="font-size:11px;color:#22c55e;font-weight:700;">Tap correct answer to reveal on TV →</div>
+            </div>
+          </div>
+
+          <!-- score override -->
+          <div style="background:rgba(15,23,42,0.6);border-radius:12px;padding:14px;margin-bottom:14px;border:1px solid rgba(255,255,255,0.04);">
+            <div style="font-size:10px;color:#94a3b8;font-weight:700;letter-spacing:1.5px;margin-bottom:8px;">SCORE OVERRIDE</div>
+            <div style="font-size:12px;color:#64748b;margin-bottom:10px;">Was the result different than expected? Fix it here.</div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px;text-align:center;cursor:pointer;">
+                <div style="font-size:11px;font-weight:700;color:#94a3b8;">Void Pick</div>
+                <div style="font-size:10px;color:#475569;margin-top:2px;">Refund points</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px;text-align:center;cursor:pointer;">
+                <div style="font-size:11px;font-weight:700;color:#94a3b8;">Flip Result</div>
+                <div style="font-size:10px;color:#475569;margin-top:2px;">Change winner</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- next pick preview -->
+          <div style="background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);border-radius:12px;padding:12px;">
+            <div style="font-size:10px;color:#7c3aed;font-weight:700;letter-spacing:1.5px;margin-bottom:6px;">NEXT PICK (READY)</div>
+            <div style="font-size:12px;color:#e2e8f0;margin-bottom:8px;">Will Mahomes throw for 300+ yards?</div>
+            <div style="background:rgba(124,58,237,0.2);border-radius:8px;padding:8px;text-align:center;cursor:pointer;border:1px solid rgba(124,58,237,0.4);">
+              <div style="font-size:13px;font-weight:800;color:#a78bfa;">▶ LAUNCH NEXT PICK</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE 4: END GAME TRIGGERED -->
+      <div style="background:#111827;border-radius:20px;overflow:hidden;border:1.5px solid rgba(250,204,21,0.4);box-shadow:0 0 32px rgba(250,204,21,0.12);">
+        <div style="background:rgba(250,204,21,0.12);padding:10px 16px;border-bottom:1px solid rgba(250,204,21,0.2);">
+          <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#facc15;">STATE 4</div>
+          <div style="font-size:14px;font-weight:800;color:#f8fafc;margin-top:2px;">GAME ENDED</div>
+        </div>
+        <div style="padding:20px 16px;">
+
+          <!-- summary card -->
+          <div style="background:rgba(15,23,42,0.8);border-radius:12px;padding:14px;margin-bottom:14px;border:1px solid rgba(250,204,21,0.15);">
+            <div style="font-size:10px;color:#facc15;font-weight:700;letter-spacing:1.5px;margin-bottom:10px;">GAME SUMMARY</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+              <div style="text-align:center;">
+                <div style="font-size:28px;font-weight:900;color:#f8fafc;">47</div>
+                <div style="font-size:10px;color:#64748b;font-weight:700;letter-spacing:1px;">PLAYERS</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:28px;font-weight:900;color:#f8fafc;">312</div>
+                <div style="font-size:10px;color:#64748b;font-weight:700;letter-spacing:1px;">TOTAL PICKS</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:28px;font-weight:900;color:#f8fafc;">8</div>
+                <div style="font-size:10px;color:#64748b;font-weight:700;letter-spacing:1px;">ROUNDS</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:28px;font-weight:900;color:#f8fafc;">62%</div>
+                <div style="font-size:10px;color:#64748b;font-weight:700;letter-spacing:1px;">AVG ACCURACY</div>
+              </div>
+            </div>
+            <!-- winner -->
+            <div style="background:linear-gradient(135deg,rgba(250,204,21,0.12),rgba(245,158,11,0.08));border:1px solid rgba(250,204,21,0.3);border-radius:10px;padding:10px;text-align:center;">
+              <div style="font-size:10px;color:#facc15;font-weight:700;letter-spacing:1.5px;margin-bottom:4px;">🏆 WINNER</div>
+              <div style="font-size:18px;font-weight:900;color:#f8fafc;">Jake M.</div>
+              <div style="font-size:12px;color:#facc15;margin-top:2px;">2,840 pts · 8/8 correct</div>
+            </div>
+          </div>
+
+          <!-- post-game actions -->
+          <div style="margin-bottom:12px;">
+            <div style="font-size:10px;color:#94a3b8;font-weight:700;letter-spacing:1.5px;margin-bottom:8px;">TV IS SHOWING</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="background:rgba(250,204,21,0.1);border:1px solid rgba(250,204,21,0.3);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+                <div style="font-size:16px;">🏆</div>
+                <div style="font-size:13px;font-weight:700;color:#f8fafc;">Winner Reveal</div>
+                <div style="margin-left:auto;width:8px;height:8px;background:#facc15;border-radius:50%;"></div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+                <div style="font-size:16px;">📊</div>
+                <div style="font-size:13px;font-weight:700;color:#94a3b8;">Full Leaderboard</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+                <div style="font-size:16px;">💤</div>
+                <div style="font-size:13px;font-weight:700;color:#94a3b8;">Return to Idle Screen</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- start new game -->
+          <div style="background:linear-gradient(135deg,#7c3aed,#5b21b6);border-radius:12px;padding:14px;text-align:center;cursor:pointer;box-shadow:0 0 20px rgba(124,58,237,0.4);">
+            <div style="font-size:15px;font-weight:900;color:#fff;">▶ START NEW GAME</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /grid -->
+  </div>
+
+  <div id="sfb-panel-bar-game-controller" class="sfb-panel"></div>
+</div><!-- /screen bar-game-controller -->
+
+
+<!-- ============================================================
+     MOBILE · POST-GAME RESULTS  ·  Apr 3 2026
+     Patron's phone view after bar game ends — rank, IQ score, download hook
+     4 states: Loading/reveal → Personal results → City leaderboard → Download CTA
+     ============================================================ -->
+<div id="mobile-postgame" class="screen" style="display:none;">
+  <div class="tv-label">MOBILE · POST-GAME RESULTS — Patron phone view after bar game · 4 states · Apr 3 2026</div>
+
+  <div style="padding:40px;background:#0a0f1a;min-height:100vh;">
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style="font-size:13px;font-weight:800;letter-spacing:3px;color:#22c55e;margin-bottom:8px;">MOBILE · POST-GAME</div>
+      <div style="font-size:28px;font-weight:900;color:#f8fafc;">The patron's phone after the game</div>
+      <div style="font-size:14px;color:#64748b;margin-top:8px;">The moment that converts bar players → app users with persistent identity</div>
+    </div>
+
+    <!-- 4 phone frames in a row -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;max-width:1100px;margin:0 auto;">
+
+      <!-- STATE 1: RESULTS INCOMING -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#64748b;margin-bottom:12px;">STATE 1 — RESULTS INCOMING</div>
+        <div style="width:240px;background:#0f172a;border-radius:36px;border:3px solid #1e293b;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+          <!-- notch -->
+          <div style="background:#0f172a;padding:12px 0 0;text-align:center;"><div style="width:80px;height:5px;background:#1e293b;border-radius:3px;margin:0 auto;"></div></div>
+          <!-- content -->
+          <div style="padding:20px 18px 28px;">
+            <!-- game context -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+              <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#22c55e;">● GAME ENDED</div>
+              <div style="font-size:11px;color:#475569;">Bosscat Kitchen</div>
+            </div>
+            <!-- loading animation state -->
+            <div style="text-align:center;padding:30px 0;">
+              <div style="font-size:56px;margin-bottom:12px;">⚡</div>
+              <div style="font-size:22px;font-weight:900;color:#f8fafc;margin-bottom:8px;">Calculating your IQ...</div>
+              <div style="font-size:13px;color:#64748b;margin-bottom:20px;">Analyzing your 8 picks</div>
+              <div style="background:rgba(255,255,255,0.07);border-radius:4px;height:4px;overflow:hidden;margin:0 20px;">
+                <div style="width:75%;height:100%;background:linear-gradient(90deg,#7c3aed,#22c55e);border-radius:4px;animation:progressAnim 1.5s ease-in-out infinite;"></div>
+              </div>
+            </div>
+            <!-- mini stats -->
+            <div style="display:flex;gap:8px;margin-top:8px;">
+              <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:10px;padding:8px;text-align:center;">
+                <div style="font-size:16px;font-weight:900;color:#f8fafc;">8</div>
+                <div style="font-size:9px;color:#64748b;font-weight:700;letter-spacing:1px;margin-top:2px;">PICKS</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:10px;padding:8px;text-align:center;">
+                <div style="font-size:16px;font-weight:900;color:#f8fafc;">47</div>
+                <div style="font-size:9px;color:#64748b;font-weight:700;letter-spacing:1px;margin-top:2px;">PLAYERS</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:10px;padding:8px;text-align:center;">
+                <div style="font-size:16px;font-weight:900;color:#22c55e;">+5</div>
+                <div style="font-size:9px;color:#64748b;font-weight:700;letter-spacing:1px;margin-top:2px;">STREAK</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE 2: PERSONAL RESULTS -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#22c55e;margin-bottom:12px;">STATE 2 — YOUR RESULTS</div>
+        <div style="width:240px;background:#0f172a;border-radius:36px;border:3px solid #1e293b;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+          <div style="background:#0f172a;padding:12px 0 0;text-align:center;"><div style="width:80px;height:5px;background:#1e293b;border-radius:3px;margin:0 auto;"></div></div>
+          <div style="padding:18px 16px 24px;">
+            <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#22c55e;margin-bottom:14px;">● YOUR RESULTS</div>
+
+            <!-- rank badge (hero) -->
+            <div style="background:linear-gradient(135deg,rgba(250,204,21,0.15),rgba(245,158,11,0.08));border:1.5px solid rgba(250,204,21,0.4);border-radius:16px;padding:14px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden;">
+              <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(250,204,21,0.08),transparent 60%);"></div>
+              <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#facc15;margin-bottom:6px;">TONIGHT'S RANK</div>
+              <div style="font-size:52px;font-weight:900;color:#facc15;line-height:1;">#3</div>
+              <div style="font-size:12px;color:#94a3b8;margin-top:4px;">out of 47 players</div>
+              <div style="margin-top:8px;display:inline-block;background:rgba(250,204,21,0.15);border:1px solid rgba(250,204,21,0.3);border-radius:20px;padding:4px 12px;">
+                <div style="font-size:11px;font-weight:700;color:#facc15;">Top 7% 🏆</div>
+              </div>
+            </div>
+
+            <!-- score + accuracy row -->
+            <div style="display:flex;gap:8px;margin-bottom:12px;">
+              <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:10px;padding:10px;text-align:center;">
+                <div style="font-size:20px;font-weight:900;color:#f8fafc;">2,480</div>
+                <div style="font-size:9px;color:#64748b;font-weight:700;letter-spacing:1px;margin-top:2px;">IQ POINTS</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.04);border-radius:10px;padding:10px;text-align:center;">
+                <div style="font-size:20px;font-weight:900;color:#22c55e;">6/8</div>
+                <div style="font-size:9px;color:#64748b;font-weight:700;letter-spacing:1px;margin-top:2px;">CORRECT</div>
+              </div>
+            </div>
+
+            <!-- pick breakdown -->
+            <div style="margin-bottom:12px;">
+              <div style="font-size:9px;color:#475569;font-weight:700;letter-spacing:1.5px;margin-bottom:6px;">PICK BREAKDOWN</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:rgba(34,197,94,0.08);border-radius:6px;">
+                  <div style="font-size:11px;color:#e2e8f0;">Chiefs score next?</div>
+                  <div style="display:flex;align-items:center;gap:4px;"><div style="font-size:10px;font-weight:700;color:#22c55e;">YES ✓</div><div style="font-size:10px;color:#22c55e;">+320</div></div>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:rgba(34,197,94,0.08);border-radius:6px;">
+                  <div style="font-size:11px;color:#e2e8f0;">Mahomes 300+ yds?</div>
+                  <div style="display:flex;align-items:center;gap:4px;"><div style="font-size:10px;font-weight:700;color:#22c55e;">YES ✓</div><div style="font-size:10px;color:#22c55e;">+280</div></div>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:rgba(239,68,68,0.08);border-radius:6px;">
+                  <div style="font-size:11px;color:#e2e8f0;">Safety before halftime?</div>
+                  <div style="display:flex;align-items:center;gap:4px;"><div style="font-size:10px;font-weight:700;color:#ef4444;">NO ✗</div><div style="font-size:10px;color:#475569;">+0</div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- share CTA -->
+            <div style="background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);border-radius:10px;padding:10px;text-align:center;cursor:pointer;">
+              <div style="font-size:13px;font-weight:800;color:#a78bfa;">📤 Share My Results</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE 3: CITY LEADERBOARD -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#818cf8;margin-bottom:12px;">STATE 3 — CITY LEADERBOARD</div>
+        <div style="width:240px;background:#0f172a;border-radius:36px;border:3px solid #1e293b;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+          <div style="background:#0f172a;padding:12px 0 0;text-align:center;"><div style="width:80px;height:5px;background:#1e293b;border-radius:3px;margin:0 auto;"></div></div>
+          <div style="padding:18px 16px 24px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+              <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#818cf8;">SEASON RANK</div>
+              <div style="font-size:11px;color:#475569;">Houston</div>
+            </div>
+
+            <!-- player's rank card in city board -->
+            <div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(124,58,237,0.08));border:1.5px solid rgba(99,102,241,0.4);border-radius:14px;padding:12px;margin-bottom:14px;text-align:center;">
+              <div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#818cf8;margin-bottom:4px;">YOU IN HOUSTON</div>
+              <div style="font-size:40px;font-weight:900;color:#818cf8;line-height:1;">#47</div>
+              <div style="font-size:11px;color:#64748b;margin-top:4px;">of 2,841 players</div>
+              <div style="margin-top:6px;font-size:11px;color:#818cf8;font-weight:700;">↑ +12 spots tonight</div>
+            </div>
+
+            <!-- leaderboard list -->
+            <div style="margin-bottom:12px;">
+              <div style="font-size:9px;color:#475569;font-weight:700;letter-spacing:1.5px;margin-bottom:6px;">TOP HOUSTON PLAYERS</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;align-items:center;gap:8px;padding:5px 6px;background:rgba(250,204,21,0.06);border-radius:6px;border:1px solid rgba(250,204,21,0.15);">
+                  <div style="font-size:11px;font-weight:900;color:#facc15;width:18px;">1</div>
+                  <div style="width:22px;height:22px;background:linear-gradient(135deg,#7c3aed,#3b82f6);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;">J</div>
+                  <div style="flex:1;font-size:11px;color:#f8fafc;font-weight:700;">Jake M.</div>
+                  <div style="font-size:11px;font-weight:800;color:#facc15;">24,180</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:5px 6px;background:rgba(203,213,225,0.04);border-radius:6px;">
+                  <div style="font-size:11px;font-weight:900;color:#94a3b8;width:18px;">2</div>
+                  <div style="width:22px;height:22px;background:linear-gradient(135deg,#0ea5e9,#22c55e);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;">S</div>
+                  <div style="flex:1;font-size:11px;color:#f8fafc;font-weight:700;">Sarah K.</div>
+                  <div style="font-size:11px;font-weight:800;color:#94a3b8;">23,640</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:5px 6px;background:rgba(203,213,225,0.04);border-radius:6px;">
+                  <div style="font-size:11px;font-weight:900;color:#94a3b8;width:18px;">3</div>
+                  <div style="width:22px;height:22px;background:linear-gradient(135deg,#f59e0b,#ef4444);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;">M</div>
+                  <div style="flex:1;font-size:11px;color:#f8fafc;font-weight:700;">Mike T.</div>
+                  <div style="font-size:11px;font-weight:800;color:#94a3b8;">22,980</div>
+                </div>
+                <!-- player's own row highlighted -->
+                <div style="margin-top:4px;display:flex;align-items:center;gap:8px;padding:5px 6px;background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.3);border-radius:6px;">
+                  <div style="font-size:11px;font-weight:900;color:#818cf8;width:18px;">47</div>
+                  <div style="width:22px;height:22px;background:linear-gradient(135deg,#7c3aed,#22c55e);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;">Y</div>
+                  <div style="flex:1;font-size:11px;color:#818cf8;font-weight:800;">You</div>
+                  <div style="font-size:11px;font-weight:800;color:#818cf8;">8,420</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- next game hook -->
+            <div style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);border-radius:10px;padding:8px;text-align:center;">
+              <div style="font-size:11px;color:#a78bfa;font-weight:700;">Next game at Bosscat</div>
+              <div style="font-size:12px;font-weight:800;color:#f8fafc;margin-top:2px;">Tuesday 8pm 🏀 NBA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE 4: DOWNLOAD CTA (convert anonymous → app user) -->
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#f472b6;margin-bottom:12px;">STATE 4 — DOWNLOAD & CLAIM</div>
+        <div style="width:240px;background:#0f172a;border-radius:36px;border:3px solid #1e293b;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+          <div style="background:#0f172a;padding:12px 0 0;text-align:center;"><div style="width:80px;height:5px;background:#1e293b;border-radius:3px;margin:0 auto;"></div></div>
+          <div style="padding:18px 16px 28px;">
+
+            <!-- hook headline -->
+            <div style="text-align:center;margin-bottom:16px;">
+              <div style="font-size:32px;margin-bottom:8px;">🏆</div>
+              <div style="font-size:18px;font-weight:900;color:#f8fafc;line-height:1.2;margin-bottom:6px;">You finished #3 tonight</div>
+              <div style="font-size:12px;color:#64748b;">But your rank resets unless you claim it</div>
+            </div>
+
+            <!-- claim card -->
+            <div style="background:linear-gradient(135deg,rgba(244,114,182,0.15),rgba(124,58,237,0.1));border:1.5px solid rgba(244,114,182,0.35);border-radius:16px;padding:14px;margin-bottom:14px;">
+              <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#f472b6;margin-bottom:8px;">CLAIM YOUR PROFILE</div>
+              <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e2e8f0;">
+                  <div style="color:#22c55e;font-weight:700;">✓</div>
+                  <div>Keep your #3 rank permanently</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e2e8f0;">
+                  <div style="color:#22c55e;font-weight:700;">✓</div>
+                  <div>Play at any SportsIQ bar, same rank</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e2e8f0;">
+                  <div style="color:#22c55e;font-weight:700;">✓</div>
+                  <div>Earn IQ points between games</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#facc15;">
+                  <div style="font-weight:700;">⚡</div>
+                  <div style="font-weight:700;">+500 bonus IQ on first pick</div>
+                </div>
+              </div>
+              <!-- big CTA -->
+              <div style="background:linear-gradient(135deg,#f472b6,#7c3aed);border-radius:12px;padding:14px;text-align:center;cursor:pointer;box-shadow:0 0 20px rgba(244,114,182,0.3);">
+                <div style="font-size:15px;font-weight:900;color:#fff;">Download SportsIQ</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.75);margin-top:3px;">Free · iOS & Android</div>
+              </div>
+            </div>
+
+            <!-- or continue as guest -->
+            <div style="text-align:center;margin-bottom:12px;">
+              <div style="font-size:11px;color:#475569;">or</div>
+              <div style="font-size:12px;color:#64748b;margin-top:4px;cursor:pointer;text-decoration:underline;">Continue as guest (rank won't save)</div>
+            </div>
+
+            <!-- QR code fallback -->
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px;text-align:center;">
+              <div style="font-size:9px;color:#475569;font-weight:700;letter-spacing:1.5px;margin-bottom:6px;">SCAN TO DOWNLOAD</div>
+              <div style="width:60px;height:60px;background:#fff;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:32px;color:#0f172a;border-radius:4px;">▦</div>
+              <div style="font-size:10px;color:#475569;margin-top:6px;">sportsiq.app/download</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /4-col grid -->
+
+    <!-- strategy note -->
+    <div style="max-width:900px;margin:40px auto 0;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:16px;padding:24px;">
+      <div style="font-size:12px;font-weight:800;letter-spacing:2px;color:#22c55e;margin-bottom:12px;">WHY THIS SCREEN IS THE MOAT ACTIVATION</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#f8fafc;margin-bottom:6px;">State 1-2: Reveal moment</div>
+          <div style="font-size:12px;color:#64748b;line-height:1.5;">Patron is emotionally primed — they just competed and want to know how they did. This is the highest-attention moment of the night. The loading animation builds anticipation.</div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#f8fafc;margin-bottom:6px;">State 3: City rank hook</div>
+          <div style="font-size:12px;color:#64748b;line-height:1.5;">Moving from tonight's bar rank to the city seasonal leaderboard creates a larger identity. "I'm #47 in Houston" is more meaningful than "I was #3 at Bosscat." This is the loyalty trigger.</div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#f8fafc;margin-bottom:6px;">State 4: Download = moat</div>
+          <div style="font-size:12px;color:#64748b;line-height:1.5;">Once they download, their rank follows them to every SportsIQ venue. Cross-venue identity data starts accumulating. This is when patron-level data becomes proprietary and compounding.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="sfb-panel-mobile-postgame" class="sfb-panel"></div>
+</div><!-- /screen mobile-postgame -->
