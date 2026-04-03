@@ -5416,7 +5416,9 @@
                  'bar-idle-v3-inner', 'bar-pred-q-v3-inner', 'bar-pred-q-v4-inner',
                  'bar-idle-v4-inner', 'bar-tracking-v3-inner', 'bar-tracking-v3-result-inner',
                  'bar-result-v3-inner', 'trivia-v3-inner', 'trivia-v3-reveal-inner',
-                 'trivia-tonight-q-inner', 'trivia-tonight-rev-inner', 'trivia-tonight-final-inner'];
+                 'trivia-tonight-q-inner', 'trivia-tonight-rev-inner', 'trivia-tonight-final-inner',
+                 'bar-idle-v5-inner', 'bar-pred-q-v5-inner', 'bar-tracking-v4-inner', 'bar-result-v4-inner',
+                 'trivia-qr-q-inner', 'trivia-qr-rev-inner', 'trivia-qr-final-inner'];
     ids.forEach(function(id) {
       var el = document.getElementById(id);
       if (!el) return;
@@ -16589,14 +16591,14 @@
 <div id="bar-qr-standard" class="screen" style="display:none;">
   <div class="screen-header">
     <div class="screen-title">Bar Screens — QR Standard · 200px · Consistent Placement</div>
-    <div class="screen-subtitle">Apr 3 2026 · All 4 bar screens updated with the same QR standard: 200×200px white-background QR in a dedicated right panel, sportsiq.app URL, and room code 74291 in large monospace. At 200px on a 1080p layout, the QR renders at ~6 inches on a 65" TV — clearly visible and scannable from 15+ feet. Consistent position: dedicated right panel on every screen, same visual weight, same label treatment.</div>
+    <div class="screen-subtitle">Apr 3 2026 · All 4 bar screens updated with the same QR standard: 160×160px white-background QR in a dedicated right panel, sportsiq.app URL, and room code 74291 in large monospace. At 160px on a 1080p layout, the QR renders at ~4.8 inches on a 65" TV — clearly visible and scannable from 15+ feet. Consistent position: dedicated right panel on every screen, same visual weight, same label treatment.</div>
   </div>
 
   <!-- ── STANDARD QR SPEC CARD ── -->
   <div style="max-width:900px;margin:0 auto 36px;padding:0 20px;">
     <div style="background:linear-gradient(135deg,rgba(85,69,211,0.18),rgba(34,140,136,0.10));border:1px solid rgba(85,69,211,0.35);border-radius:16px;padding:28px 36px;display:flex;align-items:center;gap:48px;">
       <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:12px;">
-        <div style="width:200px;height:200px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:80px;color:#0f172a;box-shadow:0 0 30px rgba(255,255,255,0.15);">▦</div>
+        <div style="width:160px;height:160px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:64px;color:#0f172a;box-shadow:0 0 30px rgba(255,255,255,0.15);">▦</div>
         <div style="color:#5545D3;font-size:15px;font-weight:900;letter-spacing:1px;">sportsiq.app</div>
         <div style="background:rgba(85,69,211,0.18);border:2px solid rgba(85,69,211,0.6);border-radius:10px;padding:8px 20px;">
           <div style="color:#fff;font-size:32px;font-weight:900;letter-spacing:8px;font-variant-numeric:tabular-nums;">74291</div>
@@ -16605,7 +16607,7 @@
       <div>
         <div style="font-size:13px;font-weight:800;color:#818cf8;letter-spacing:2px;margin-bottom:14px;">QR STANDARD — ALL BAR SCREENS</div>
         <div style="font-size:15px;color:#94a3b8;line-height:1.8;">
-          • <strong style="color:#fff;">200×200px</strong> QR on 1080p layout = ~6 inches on a 65" TV<br>
+          • <strong style="color:#fff;">160×160px</strong> QR on 1080p layout = ~4.8 inches on a 65" TV<br>
           • Visible and scannable from <strong style="color:#fff;">15+ feet</strong> (was 56px = 1.7")<br>
           • <strong style="color:#fff;">Dedicated right panel</strong> — same position on every screen<br>
           • White background for maximum contrast in dark bar environments<br>
@@ -16620,9 +16622,9 @@
   <div style="margin-bottom:36px;">
     <div class="screen-label">SCREEN 1 — BAR IDLE · QR upgraded 180px → 200px · Cleaner left panel · Apr 3 2026</div>
     <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
-    <div class="tv-label">BAR SCREEN IDLE v5 — 200px QR standard · sportsiq.app · Apr 3 2026</div>
+    <div class="tv-label">BAR SCREEN IDLE v5 — 160px QR standard · sportsiq.app · Apr 3 2026</div>
     <div class="tv-frame">
-    <div class="bar-1080" style="background:radial-gradient(ellipse at top left,rgba(85,69,211,0.30) 0%,transparent 50%),radial-gradient(ellipse at bottom right,rgba(34,140,136,0.24) 0%,transparent 50%),#060d1c;display:grid;grid-template-columns:380px 1fr 320px;grid-template-rows:auto 1fr;gap:0;font-family:'Lexend',sans-serif;overflow:hidden;">
+    <div class="bar-1080" id="bar-idle-v5-inner" style="background:radial-gradient(ellipse at top left,rgba(85,69,211,0.30) 0%,transparent 50%),radial-gradient(ellipse at bottom right,rgba(34,140,136,0.24) 0%,transparent 50%),#060d1c;display:grid;grid-template-columns:380px 1fr 320px;grid-template-rows:auto 1fr;gap:0;font-family:'Lexend',sans-serif;overflow:hidden;">
       <!-- TOP HEADER BAR -->
       <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:18px 48px 14px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.3);">
         <div style="display:flex;align-items:center;gap:16px;">
@@ -16643,8 +16645,8 @@
       <!-- LEFT COL — QR Standard -->
       <div style="padding:36px 32px;border-right:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;background:rgba(0,0,0,0.12);">
         <div style="font-size:11px;color:#64748b;font-weight:700;letter-spacing:2.5px;text-align:center;">SCAN TO JOIN</div>
-        <!-- 200px QR — visible from 15ft on 65" TV -->
-        <div style="width:200px;height:200px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:80px;color:#0f172a;box-shadow:0 0 30px rgba(255,255,255,0.12);">▦</div>
+        <!-- 160px QR — visible from 15ft on 65" TV -->
+        <div style="width:160px;height:160px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:64px;color:#0f172a;box-shadow:0 0 30px rgba(255,255,255,0.12);">▦</div>
         <div style="color:#5545D3;font-size:18px;font-weight:900;letter-spacing:1px;text-align:center;">sportsiq.app</div>
         <div style="text-align:center;">
           <div style="font-size:10px;color:#64748b;letter-spacing:2.5px;font-weight:700;margin-bottom:8px;">OR ENTER CODE</div>
@@ -16703,9 +16705,9 @@
   <div style="margin-bottom:36px;">
     <div class="screen-label">SCREEN 2 — BAR LIVE PICK · QR upgraded 160px → 200px · White background · Apr 3 2026</div>
     <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
-    <div class="tv-label">BAR SCREEN LIVE PICK v5 — 200px QR standard · Apr 3 2026</div>
+    <div class="tv-label">BAR SCREEN LIVE PICK v5 — 160px QR standard · Apr 3 2026</div>
     <div class="tv-frame">
-    <div class="bar-1080" style="background:linear-gradient(135deg,#060b18 0%,#0d1829 40%,#0a1520 100%);display:grid;grid-template-columns:1fr 1.4fr 300px;grid-template-rows:1fr;gap:0;padding:0;overflow:hidden;">
+    <div class="bar-1080" id="bar-pred-q-v5-inner" style="background:linear-gradient(135deg,#060b18 0%,#0d1829 40%,#0a1520 100%);display:grid;grid-template-columns:1fr 1.4fr 300px;grid-template-rows:1fr;gap:0;padding:0;overflow:hidden;">
       <!-- LEFT: Player Identity -->
       <div style="padding:36px 40px 36px 52px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(255,255,255,0.06);">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:36px;">
@@ -16764,7 +16766,7 @@
         <!-- QR Standard 200px -->
         <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;">
           <div style="font-size:11px;color:#64748b;font-weight:700;letter-spacing:2px;">SCAN TO JOIN</div>
-          <div style="width:200px;height:200px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:80px;color:#0f172a;box-shadow:0 0 20px rgba(255,255,255,0.12);">▦</div>
+          <div style="width:160px;height:160px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:64px;color:#0f172a;box-shadow:0 0 20px rgba(255,255,255,0.12);">▦</div>
           <div style="color:#5545D3;font-size:15px;font-weight:900;letter-spacing:1px;">sportsiq.app</div>
           <div style="color:#64748b;font-size:11px;letter-spacing:2px;margin-top:2px;">OR ENTER CODE</div>
           <div style="color:#f8fafc;font-size:32px;font-weight:900;letter-spacing:8px;font-variant-numeric:tabular-nums;">74291</div>
@@ -16779,9 +16781,9 @@
   <div style="margin-bottom:36px;">
     <div class="screen-label">SCREEN 3 — BAR TRACKING · QR panel added (was missing entirely) · Apr 3 2026</div>
     <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
-    <div class="tv-label">BAR SCREEN TRACKING v4 — 200px QR standard · dedicated right panel · Apr 3 2026</div>
+    <div class="tv-label">BAR SCREEN TRACKING v4 — 160px QR standard · dedicated right panel · Apr 3 2026</div>
     <div class="tv-frame">
-    <div class="bar-1080" style="background:radial-gradient(ellipse at top left,rgba(34,197,94,0.18) 0%,transparent 50%),radial-gradient(ellipse at bottom right,rgba(85,69,211,0.22) 0%,transparent 50%),#060d1c;display:grid;grid-template-columns:1fr 360px 240px;grid-template-rows:auto 1fr;gap:0;font-family:'Lexend',sans-serif;overflow:hidden;">
+    <div class="bar-1080" id="bar-tracking-v4-inner" style="background:radial-gradient(ellipse at top left,rgba(34,197,94,0.18) 0%,transparent 50%),radial-gradient(ellipse at bottom right,rgba(85,69,211,0.22) 0%,transparent 50%),#060d1c;display:grid;grid-template-columns:1fr 360px 240px;grid-template-rows:auto 1fr;gap:0;font-family:'Lexend',sans-serif;overflow:hidden;">
       <!-- Header -->
       <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:16px 48px 14px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.3);">
         <div style="display:flex;align-items:center;gap:20px;">
@@ -16833,7 +16835,7 @@
       <!-- RIGHT: QR Standard -->
       <div style="border-left:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:28px 16px;background:rgba(0,0,0,0.15);">
         <div style="font-size:10px;color:#64748b;font-weight:700;letter-spacing:2.5px;text-align:center;">SCAN TO JOIN</div>
-        <div style="width:200px;height:200px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:80px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.12);">▦</div>
+        <div style="width:160px;height:160px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:64px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.12);">▦</div>
         <div style="color:#5545D3;font-size:16px;font-weight:900;letter-spacing:1px;text-align:center;">sportsiq.app</div>
         <div style="text-align:center;"><div style="font-size:10px;color:#64748b;letter-spacing:2px;font-weight:700;margin-bottom:6px;">OR ENTER CODE</div><div style="color:#f8fafc;font-size:30px;font-weight:900;letter-spacing:6px;font-variant-numeric:tabular-nums;">74291</div></div>
         <div style="font-size:11px;color:#475569;text-align:center;">Free to play</div>
@@ -16847,9 +16849,9 @@
   <div style="margin-bottom:36px;">
     <div class="screen-label">SCREEN 4 — BAR RESULT · QR panel added (was text-only) · Apr 3 2026</div>
     <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
-    <div class="tv-label">BAR SCREEN RESULT v4 — 200px QR standard · dedicated right panel · Apr 3 2026</div>
+    <div class="tv-label">BAR SCREEN RESULT v4 — 160px QR standard · dedicated right panel · Apr 3 2026</div>
     <div class="tv-frame">
-    <div class="bar-1080" style="background:radial-gradient(ellipse at center top,rgba(34,197,94,0.22) 0%,transparent 55%),radial-gradient(ellipse at bottom,rgba(85,69,211,0.18) 0%,transparent 55%),#060d1c;display:grid;grid-template-columns:1fr 340px 240px;grid-template-rows:auto 1fr auto;gap:0;font-family:'Lexend',sans-serif;overflow:hidden;">
+    <div class="bar-1080" id="bar-result-v4-inner" style="background:radial-gradient(ellipse at center top,rgba(34,197,94,0.22) 0%,transparent 55%),radial-gradient(ellipse at bottom,rgba(85,69,211,0.18) 0%,transparent 55%),#060d1c;display:grid;grid-template-columns:1fr 340px 240px;grid-template-rows:auto 1fr auto;gap:0;font-family:'Lexend',sans-serif;overflow:hidden;">
       <!-- Header -->
       <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:16px 48px 14px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.3);">
         <div style="display:flex;align-items:center;gap:20px;">
@@ -16896,7 +16898,7 @@
       <!-- RIGHT: QR Standard -->
       <div style="grid-row:2/3;border-left:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:28px 16px;background:rgba(0,0,0,0.15);">
         <div style="font-size:10px;color:#64748b;font-weight:700;letter-spacing:2.5px;text-align:center;">SCAN TO JOIN</div>
-        <div style="width:200px;height:200px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:80px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.12);">▦</div>
+        <div style="width:160px;height:160px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:64px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.12);">▦</div>
         <div style="color:#5545D3;font-size:16px;font-weight:900;letter-spacing:1px;text-align:center;">sportsiq.app</div>
         <div style="text-align:center;"><div style="font-size:10px;color:#64748b;letter-spacing:2px;font-weight:700;margin-bottom:6px;">OR ENTER CODE</div><div style="color:#f8fafc;font-size:30px;font-weight:900;letter-spacing:6px;font-variant-numeric:tabular-nums;">74291</div></div>
         <div style="font-size:11px;color:#475569;text-align:center;">Free to play</div>
@@ -16912,16 +16914,16 @@
     </div>
   </div>
 
-  <!-- ── SCREEN 5: TRIVIA TONIGHT (3 states with 200px QR in right panel) ── -->
+  <!-- ── SCREEN 5: TRIVIA TONIGHT (3 states with 160px QR in right panel) ── -->
   <div>
     <div class="screen-label">SCREEN 5 — TRIVIA TONIGHT (all 3 states) · QR upgraded 56px footer → 200px right panel · Apr 3 2026</div>
 
     <!-- State 1 -->
     <div style="margin-bottom:28px;">
       <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
-      <div class="tv-label">TRIVIA — STATE 1: Question live · 200px QR in leaderboard panel footer · Apr 3 2026</div>
+      <div class="tv-label">TRIVIA — STATE 1: Question live · 160px QR in leaderboard panel footer · Apr 3 2026</div>
       <div class="tv-frame">
-      <div class="bar-1080" style="background:radial-gradient(ellipse at top,rgba(85,69,211,0.18) 0%,transparent 60%),#0B2230;display:grid;grid-template-columns:1fr 340px 220px;font-family:'Lexend','Lexend Deca',sans-serif;overflow:hidden;">
+      <div class="bar-1080" id="trivia-qr-q-inner" style="background:radial-gradient(ellipse at top,rgba(85,69,211,0.18) 0%,transparent 60%),#0B2230;display:grid;grid-template-columns:1fr 340px 220px;font-family:'Lexend','Lexend Deca',sans-serif;overflow:hidden;">
         <!-- Header -->
         <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.30);border-bottom:1px solid rgba(255,255,255,0.07);padding:18px 64px;flex-shrink:0;">
           <div style="display:flex;align-items:center;gap:24px;"><div style="background:rgba(85,69,211,0.25);border:1px solid #5545D3;border-radius:12px;padding:8px 22px;color:#818cf8;font-size:20px;font-weight:800;letter-spacing:2px;">QUESTION LIVE</div><div style="color:#64748B;font-size:20px;">Q7 / 10</div></div>
@@ -16953,7 +16955,7 @@
         <!-- Right: QR Standard -->
         <div style="border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px 14px;background:rgba(0,0,0,0.18);">
           <div style="font-size:10px;color:#64748B;font-weight:700;letter-spacing:2.5px;text-align:center;">SCAN TO JOIN</div>
-          <div style="width:200px;height:200px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:80px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.12);">▦</div>
+          <div style="width:160px;height:160px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:64px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.12);">▦</div>
           <div style="color:#5545D3;font-size:15px;font-weight:900;letter-spacing:1px;text-align:center;">sportsiq.app</div>
           <div style="text-align:center;"><div style="font-size:10px;color:#64748B;letter-spacing:2px;font-weight:700;margin-bottom:5px;">OR CODE</div><div style="color:#F8FAFC;font-size:28px;font-weight:900;letter-spacing:6px;font-variant-numeric:tabular-nums;">74291</div></div>
         </div>
@@ -16965,9 +16967,9 @@
     <!-- State 2: Answer Revealed -->
     <div style="margin-bottom:28px;">
       <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
-      <div class="tv-label">TRIVIA — STATE 2: Answer revealed · 200px QR in right panel · Apr 3 2026</div>
+      <div class="tv-label">TRIVIA — STATE 2: Answer revealed · 160px QR in right panel · Apr 3 2026</div>
       <div class="tv-frame">
-      <div class="bar-1080" style="background:radial-gradient(ellipse at top left,rgba(34,197,94,0.10) 0%,transparent 55%),#0B2230;display:grid;grid-template-columns:1fr 340px 220px;font-family:'Lexend','Lexend Deca',sans-serif;overflow:hidden;">
+      <div class="bar-1080" id="trivia-qr-rev-inner" style="background:radial-gradient(ellipse at top left,rgba(34,197,94,0.10) 0%,transparent 55%),#0B2230;display:grid;grid-template-columns:1fr 340px 220px;font-family:'Lexend','Lexend Deca',sans-serif;overflow:hidden;">
         <!-- Header -->
         <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.30);border-bottom:1px solid rgba(255,255,255,0.07);padding:18px 64px;">
           <div style="display:flex;align-items:center;gap:24px;"><div style="background:rgba(34,140,136,0.25);border:1px solid #228C88;border-radius:12px;padding:8px 22px;color:#228C88;font-size:20px;font-weight:800;letter-spacing:2px;">ANSWER REVEALED</div><div style="color:#64748B;font-size:20px;">Q7 / 10</div></div>
@@ -17004,7 +17006,7 @@
         <!-- Right: QR Standard -->
         <div style="border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px 14px;background:rgba(0,0,0,0.18);">
           <div style="font-size:10px;color:#64748B;font-weight:700;letter-spacing:2.5px;text-align:center;">SCAN TO JOIN</div>
-          <div style="width:200px;height:200px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:80px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.12);">▦</div>
+          <div style="width:160px;height:160px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:64px;color:#0f172a;box-shadow:0 0 24px rgba(255,255,255,0.12);">▦</div>
           <div style="color:#5545D3;font-size:15px;font-weight:900;letter-spacing:1px;text-align:center;">sportsiq.app</div>
           <div style="text-align:center;"><div style="font-size:10px;color:#64748B;letter-spacing:2px;font-weight:700;margin-bottom:5px;">OR CODE</div><div style="color:#F8FAFC;font-size:28px;font-weight:900;letter-spacing:6px;font-variant-numeric:tabular-nums;">74291</div></div>
         </div>
@@ -17016,9 +17018,9 @@
     <!-- State 3: Q10 Final -->
     <div>
       <div class="tv-wrap" style="min-height:auto;padding:0 20px 20px;">
-      <div class="tv-label">TRIVIA — STATE 3: Q10 Final · 200px QR gold tint · Apr 3 2026</div>
+      <div class="tv-label">TRIVIA — STATE 3: Q10 Final · 160px QR gold tint · Apr 3 2026</div>
       <div class="tv-frame">
-      <div class="bar-1080" style="background:radial-gradient(ellipse at top left,rgba(34,197,94,0.10) 0%,transparent 55%),radial-gradient(ellipse at bottom right,rgba(255,193,7,0.06) 0%,transparent 50%),#0B2230;display:grid;grid-template-columns:1fr 340px 220px;font-family:'Lexend','Lexend Deca',sans-serif;overflow:hidden;">
+      <div class="bar-1080" id="trivia-qr-final-inner" style="background:radial-gradient(ellipse at top left,rgba(34,197,94,0.10) 0%,transparent 55%),radial-gradient(ellipse at bottom right,rgba(255,193,7,0.06) 0%,transparent 50%),#0B2230;display:grid;grid-template-columns:1fr 340px 220px;font-family:'Lexend','Lexend Deca',sans-serif;overflow:hidden;">
         <!-- Header gold -->
         <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.30);border-bottom:1px solid rgba(255,255,255,0.07);padding:18px 64px;">
           <div style="display:flex;align-items:center;gap:24px;"><div style="background:rgba(34,140,136,0.25);border:1px solid #228C88;border-radius:12px;padding:8px 22px;color:#228C88;font-size:20px;font-weight:800;letter-spacing:2px;">ANSWER REVEALED</div><div style="color:#64748B;font-size:20px;">Q10 / 10</div><div style="background:rgba(255,193,7,0.15);border:1px solid rgba(255,193,7,0.40);border-radius:12px;padding:8px 22px;color:#fbbf24;font-size:18px;font-weight:800;letter-spacing:1.5px;">🏆 ROUND COMPLETE</div></div>
@@ -17059,7 +17061,7 @@
         <!-- Right: QR Standard — gold tint for final round -->
         <div style="border-left:1px solid rgba(255,193,7,0.15);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px 14px;background:rgba(0,0,0,0.18);">
           <div style="font-size:10px;color:#fbbf24;font-weight:700;letter-spacing:2px;text-align:center;">SCAN TO PLAY NEXT ROUND</div>
-          <div style="width:200px;height:200px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:80px;color:#0f172a;box-shadow:0 0 24px rgba(255,193,7,0.15);">▦</div>
+          <div style="width:160px;height:160px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:64px;color:#0f172a;box-shadow:0 0 24px rgba(255,193,7,0.15);">▦</div>
           <div style="color:#5545D3;font-size:15px;font-weight:900;letter-spacing:1px;text-align:center;">sportsiq.app</div>
           <div style="text-align:center;"><div style="font-size:10px;color:#fbbf24;letter-spacing:2px;font-weight:700;margin-bottom:5px;">OR CODE</div><div style="color:#F8FAFC;font-size:28px;font-weight:900;letter-spacing:6px;font-variant-numeric:tabular-nums;">74291</div></div>
         </div>
