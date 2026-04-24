@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportsIQ — Bar Screen · Predictor Locked v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #050912;
+  --brand: #5545D3;
+  --brand-light: #7C6EF5;
+  --brand-gradient: linear-gradient(135deg, #5545D3 0%, #7C6EF5 100%);
+  --teal: #228C88;
+  --green: #22C55E;
+  --green-light: #4ADE80;
+  --red: #EF4444;
+  --red-light: #FCA5A5;
+  --amber: #F59E0B;
+  --amber-light: #FDE047;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --faint: #64748B;
+  --divider: rgba(255,255,255,0.06);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background:
+    radial-gradient(ellipse at top right, rgba(85,69,211,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(34,197,94,0.03) 0%, transparent 50%),
+    #020408;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-eyebrow {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  text-align: center;
+}
+.page-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  text-align: center;
+  margin: 8px 0 6px;
+}
+.page-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 620px;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.tv-frame {
+  width: 1000px;
+  height: 562px;
+  background: var(--bg);
+  border-radius: 18px;
+  overflow: hidden;
+  border: 4px solid #000;
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,0.04),
+    0 40px 120px rgba(0,0,0,0.8),
+    0 0 160px rgba(34,197,94,0.12);
+  position: relative;
+}
+
+.tv-inner {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background:
+    radial-gradient(ellipse at top right, rgba(85,69,211,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 50% 30%, rgba(34,197,94,0.08) 0%, transparent 70%),
+    var(--bg);
+  position: relative;
+}
+
+/* Top bar */
+.top-bar {
+  padding: 14px 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--divider);
+  background: rgba(0,0,0,0.3);
+}
+.venue { display: flex; align-items: center; gap: 12px; }
+.venue-logo {
+  font-family: 'Lexend', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+.venue-logo span { color: var(--brand-light); }
+.mode-badge {
+  font-family: 'Lexend', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 4px 11px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(239,68,68,0.2) 0%, rgba(239,68,68,0.08) 100%);
+  border: 1px solid rgba(239,68,68,0.45);
+  color: var(--red-light);
+  text-transform: uppercase;
+}
+.venue-divider {
+  width: 1px;
+  height: 22px;
+  background: rgba(255,255,255,0.12);
+}
+.venue-name {
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.top-right { display: flex; align-items: center; gap: 14px; }
+.perk-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(34,197,94,0.18), rgba(34,197,94,0.04));
+  border: 1px solid rgba(34,197,94,0.45);
+  box-shadow: 0 4px 14px rgba(34,197,94,0.2);
+}
+.perk-mult {
+  font-family: 'Lexend', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--green-light);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.perk-text {
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--green-light);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.perk-sub { color: rgba(74,222,128,0.65); font-weight: 700; }
+
+.locked-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  border-radius: 6px;
+  background: rgba(34,197,94,0.15);
+  border: 1px solid rgba(34,197,94,0.45);
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--green-light);
+  letter-spacing: 1.5px;
+}
+.locked-badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 1.6s infinite;
+  box-shadow: 0 0 8px rgba(34,197,94,0.7);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+/* Main layout */
+.main {
+  display: grid;
+  grid-template-columns: 240px 1fr 240px;
+  gap: 0;
+  min-height: 0;
+}
+.sidebar {
+  padding: 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sidebar.left { border-right: 1px solid var(--divider); }
+.sidebar.right { border-left: 1px solid var(--divider); }
+.panel { display: flex; flex-direction: column; gap: 9px; }
+.panel-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.lb-rows { display: flex; flex-direction: column; gap: 4px; }
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 9px;
+  border-radius: 7px;
+  font-size: 13px;
+}
+.lb-row.top {
+  background: linear-gradient(90deg, rgba(245,158,11,0.15), transparent);
+  border: 1px solid rgba(245,158,11,0.3);
+}
+.lb-rank {
+  font-family: 'Lexend', sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  width: 22px;
+}
+.lb-row.top .lb-rank { color: var(--amber-light); }
+.lb-name {
+  flex: 1;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 13px;
+}
+.lb-iq {
+  font-family: 'Lexend', sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  color: var(--muted);
+  font-size: 12px;
+}
+.lb-row.top .lb-iq { color: var(--amber-light); }
+
+/* Standard QR */
+.qr-standard {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: auto;
+}
+.qr-standard-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(255,255,255,0.08);
+}
+.qr-standard-box svg { width: 100%; height: 100%; }
+.qr-standard-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.qr-standard-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.2px;
+}
+.qr-standard-bonus {
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--green-light);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+/* Center */
+.center {
+  padding: 22px 28px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+/* Matchup */
+.matchup {
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+.team-logo {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+}
+.team-logo img { width: 100%; height: 100%; object-fit: contain; }
+.team-name {
+  font-family: 'Lexend', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+}
+.team-score {
+  font-family: 'Lexend', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  line-height: 0.95;
+}
+.team.leading .team-score { color: var(--green-light); }
+.vs-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 80px;
+}
+.vs-quarter {
+  font-family: 'Lexend', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: var(--red-light);
+  text-transform: uppercase;
+}
+.vs-time {
+  font-family: 'Lexend', sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.3px;
+}
+.vs-live {
+  font-size: 9px;
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: 1.2px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.35);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.vs-live-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: pulse 1.6s infinite;
+}
+
+/* Pick question (muted echo) */
+.pick-question {
+  font-family: 'Lexend', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--muted);
+  text-align: center;
+  letter-spacing: -0.3px;
+  line-height: 1.25;
+}
+
+/* Tracking card — the main center element */
+.track-card {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(34,197,94,0.12) 0%, rgba(34,197,94,0.02) 100%);
+  border: 1.5px solid rgba(34,197,94,0.5);
+  border-radius: 16px;
+  padding: 16px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 6px 24px rgba(34,197,94,0.18);
+}
+.track-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.track-label {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--green-light);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.track-label-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 1.6s infinite;
+  box-shadow: 0 0 8px rgba(34,197,94,0.7);
+}
+.track-resolution-in {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+.track-resolution-in strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  margin-left: 5px;
+}
+
+.track-stat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 4px 0;
+}
+.track-stat-big {
+  font-family: 'Lexend', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: -1.8px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.track-stat-label {
+  font-family: 'Lexend', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--muted);
+  line-height: 1.3;
+  max-width: 180px;
+}
+.track-stat-label strong { color: var(--text); font-weight: 900; }
+
+/* Crowd split (revealed now) */
+.crowd-split {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+.crowd-split-label {
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.crowd-split-bar {
+  flex: 1;
+  height: 12px;
+  display: flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.crowd-split-yes {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(34,197,94,0.5), var(--green));
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 8px;
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--bg);
+  letter-spacing: 0.3px;
+}
+.crowd-split-no {
+  height: 100%;
+  background: linear-gradient(90deg, var(--red), rgba(239,68,68,0.5));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--bg);
+  letter-spacing: 0.3px;
+}
+
+/* Sharp money (still visible) */
+.sharp-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.sharp-label {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.sharp-val {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 900;
+  color: var(--green-light);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.3px;
+  font-size: 12px;
+}
+
+/* Bottom strip */
+.bottom-strip {
+  padding: 12px 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--divider);
+  background: rgba(0,0,0,0.3);
+  font-family: 'Lexend', sans-serif;
+}
+.stat-group { display: flex; align-items: center; gap: 18px; }
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+.stat-item strong {
+  color: var(--green-light);
+  font-size: 15px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.3px;
+}
+.stat-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 1.6s infinite;
+  box-shadow: 0 0 6px rgba(34,197,94,0.7);
+}
+.next-up {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.next-up-event {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(124,110,245,0.08);
+  border: 1px solid rgba(124,110,245,0.25);
+  color: var(--brand-light);
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+/* Design notes */
+.design-notes {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.design-notes strong { color: var(--text); font-weight: 700; }
+.design-notes-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.design-notes-row { margin: 4px 0; }
+.design-notes-row .k { color: var(--text); font-weight: 700; }
+
+/* ── Responsive: realistic rendering on phones + TV mode ──── */
+@media (max-width: 500px) and (orientation: portrait) {
+  body { padding: 0 !important; gap: 0 !important; align-items: stretch !important; min-height: 100vh; background: var(--bg) !important; }
+  body > div:not(.phone-frame):not(.tv-frame) { display: none !important; }
+  .design-notes { display: none !important; }
+  .phone-frame {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    max-height: 100dvh !important;
+  }
+  .phone-notch { display: none !important; }
+  .phone-inner { padding-top: env(safe-area-inset-top, 36px) !important; }
+  .bottom-nav { padding-bottom: calc(env(safe-area-inset-bottom, 14px) + 6px) !important; }
+  .modal-overlay { inset: 0 !important; }
+}
+
+/* TV mode — URL ?tv=1 triggers fullscreen + native-resolution zoom scaling */
+html.tv-mode body { padding: 0 !important; gap: 0 !important; margin: 0 !important; align-items: flex-start !important; justify-content: flex-start !important; min-height: 100vh; background: var(--bg) !important; overflow: hidden !important; }
+html.tv-mode body > div:not(.tv-frame):not(.phone-frame) { display: none !important; }
+html.tv-mode .design-notes { display: none !important; }
+html.tv-mode .tv-frame,
+html.tv-mode .phone-frame {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="page-eyebrow">Bar screen · TV · Predictor locked</div>
+  <div class="page-title">Picks locked — tracking the stat live</div>
+  <div class="page-subtitle">Voting window closed. All picks are in. Bar screen now shows the live stat being tracked (LeBron's Q3 points) + the revealed crowd split (since voting is done, the data no longer biases). Resolution ticks until the quarter ends.</div>
+</div>
+
+<div class="tv-frame">
+  <div class="tv-inner">
+
+    <div class="top-bar">
+      <div class="venue">
+        <div class="venue-logo">Sports<span>IQ</span></div>
+        <div class="mode-badge">Predictor</div>
+        <div class="venue-divider"></div>
+        <div class="venue-name">Kincade's Sports Pub</div>
+      </div>
+      <div class="top-right">
+        <div class="perk-badge">
+          <div class="perk-mult">3×</div>
+          <div class="perk-text">Bar bonus<br><span class="perk-sub">on every correct pick</span></div>
+        </div>
+        <div class="locked-badge">
+          <span class="locked-badge-dot"></span>
+          <span>🔒 LOCKED</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="main">
+
+      <div class="sidebar left">
+        <div class="panel">
+          <div class="panel-title">Current Game</div>
+          <div class="lb-rows">
+            <div class="lb-row top">
+              <div class="lb-rank">1</div>
+              <div class="lb-name">DerekM</div>
+              <div class="lb-iq">+400</div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">2</div>
+              <div class="lb-name">JessB</div>
+              <div class="lb-iq">+350</div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">3</div>
+              <div class="lb-name">RaviP</div>
+              <div class="lb-iq">+300</div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">4</div>
+              <div class="lb-name">NinaK</div>
+              <div class="lb-iq">+200</div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">5</div>
+              <div class="lb-name">TomH</div>
+              <div class="lb-iq">+150</div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">6</div>
+              <div class="lb-name">KevinO</div>
+              <div class="lb-iq">+100</div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">7</div>
+              <div class="lb-name">AliceS</div>
+              <div class="lb-iq">+50</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="center">
+
+        <div class="matchup">
+          <div class="team leading">
+            <div class="team-logo"><img src="https://a.espncdn.com/i/teamlogos/nba/500/lal.png" alt="Lakers"></div>
+            <div class="team-name">LAL</div>
+            <div class="team-score">64</div>
+          </div>
+          <div class="vs-center">
+            <div class="vs-quarter">Q3</div>
+            <div class="vs-time">6:42</div>
+            <div class="vs-live"><span class="vs-live-dot"></span>LIVE</div>
+          </div>
+          <div class="team">
+            <div class="team-logo"><img src="https://a.espncdn.com/i/teamlogos/nba/500/gs.png" alt="Warriors"></div>
+            <div class="team-name">GSW</div>
+            <div class="team-score">61</div>
+          </div>
+        </div>
+
+        <div class="pick-question">Will LeBron score in Q3?</div>
+
+        <div class="track-card">
+          <div class="track-top">
+            <div class="track-label">
+              <span class="track-label-dot"></span>
+              <span>Tracking Live</span>
+            </div>
+            <div class="track-resolution-in">
+              Resolves at Q3 end <strong>6:42</strong>
+            </div>
+          </div>
+
+          <div class="track-stat">
+            <div class="track-stat-big">0</div>
+            <div class="track-stat-label">
+              <strong>LeBron points</strong><br>
+              in Q3 so far
+            </div>
+          </div>
+
+          <div class="crowd-split">
+            <div class="crowd-split-label">Room picked</div>
+            <div class="crowd-split-bar">
+              <div class="crowd-split-yes" style="width: 66%;">66% YES</div>
+              <div class="crowd-split-no" style="width: 34%;">NO 34%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sharp-row">
+          <span class="sharp-label">Sharp $</span>
+          <span class="sharp-val">63% YES · updates live</span>
+        </div>
+
+      </div>
+
+      <div class="sidebar right">
+        <div class="panel">
+          <div class="panel-title">Today at Kincade's</div>
+          <div class="lb-rows">
+            <div class="lb-row top">
+              <div class="lb-rank">1</div>
+              <div class="lb-name">JessB</div>
+              <div class="lb-iq">680</div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">2</div>
+              <div class="lb-name">DerekM</div>
+              <div class="lb-iq">550</div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">3</div>
+              <div class="lb-name">RaviP</div>
+              <div class="lb-iq">525</div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">4</div>
+              <div class="lb-name">NinaK</div>
+              <div class="lb-iq">490</div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">5</div>
+              <div class="lb-name">TomH</div>
+              <div class="lb-iq">440</div>
+            </div>
+          </div>
+        </div>
+        <div class="qr-standard">
+          <div class="qr-standard-box">
+            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+              <rect width="120" height="120" fill="white"/>
+              <g fill="black">
+                <rect x="8" y="8" width="24" height="24"/>
+                <rect x="14" y="14" width="12" height="12" fill="white"/>
+                <rect x="88" y="8" width="24" height="24"/>
+                <rect x="94" y="14" width="12" height="12" fill="white"/>
+                <rect x="8" y="88" width="24" height="24"/>
+                <rect x="14" y="94" width="12" height="12" fill="white"/>
+                <rect x="40" y="12" width="4" height="4"/>
+                <rect x="48" y="8" width="4" height="4"/>
+                <rect x="56" y="12" width="4" height="4"/>
+                <rect x="64" y="16" width="4" height="4"/>
+                <rect x="72" y="12" width="4" height="4"/>
+                <rect x="80" y="16" width="4" height="4"/>
+                <rect x="40" y="24" width="4" height="4"/>
+                <rect x="48" y="20" width="4" height="4"/>
+                <rect x="64" y="24" width="4" height="4"/>
+                <rect x="76" y="20" width="4" height="4"/>
+                <rect x="12" y="40" width="4" height="4"/>
+                <rect x="20" y="44" width="4" height="4"/>
+                <rect x="28" y="40" width="4" height="4"/>
+                <rect x="36" y="44" width="4" height="4"/>
+                <rect x="44" y="36" width="4" height="4"/>
+                <rect x="52" y="44" width="4" height="4"/>
+                <rect x="60" y="40" width="4" height="4"/>
+                <rect x="68" y="36" width="4" height="4"/>
+                <rect x="76" y="44" width="4" height="4"/>
+                <rect x="84" y="40" width="4" height="4"/>
+                <rect x="92" y="36" width="4" height="4"/>
+                <rect x="100" y="44" width="4" height="4"/>
+                <rect x="108" y="40" width="4" height="4"/>
+                <rect x="12" y="52" width="4" height="4"/>
+                <rect x="24" y="56" width="4" height="4"/>
+                <rect x="36" y="52" width="4" height="4"/>
+                <rect x="48" y="56" width="4" height="4"/>
+                <rect x="60" y="52" width="4" height="4"/>
+                <rect x="72" y="56" width="4" height="4"/>
+                <rect x="84" y="52" width="4" height="4"/>
+                <rect x="100" y="56" width="4" height="4"/>
+                <rect x="12" y="68" width="4" height="4"/>
+                <rect x="20" y="72" width="4" height="4"/>
+                <rect x="32" y="68" width="4" height="4"/>
+                <rect x="44" y="72" width="4" height="4"/>
+                <rect x="56" y="68" width="4" height="4"/>
+                <rect x="68" y="72" width="4" height="4"/>
+                <rect x="80" y="68" width="4" height="4"/>
+                <rect x="92" y="72" width="4" height="4"/>
+                <rect x="104" y="68" width="4" height="4"/>
+                <rect x="40" y="88" width="4" height="4"/>
+                <rect x="48" y="92" width="4" height="4"/>
+                <rect x="56" y="88" width="4" height="4"/>
+                <rect x="68" y="92" width="4" height="4"/>
+                <rect x="76" y="88" width="4" height="4"/>
+                <rect x="84" y="92" width="4" height="4"/>
+                <rect x="48" y="100" width="4" height="4"/>
+                <rect x="60" y="104" width="4" height="4"/>
+                <rect x="72" y="100" width="4" height="4"/>
+                <rect x="84" y="104" width="4" height="4"/>
+              </g>
+            </svg>
+          </div>
+          <div class="qr-standard-caption">
+            <span class="qr-standard-title">Scan to Play</span>
+            <span class="qr-standard-bonus">3× bonus</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bottom-strip">
+      <div class="stat-group">
+        <div class="stat-item">
+          <span class="stat-dot"></span>
+          <span><strong>1,284</strong>&nbsp;locked in nationally</span>
+        </div>
+        <div class="stat-item">
+          <span>·</span>
+          <span><strong>38</strong>&nbsp;locked at Kincade's</span>
+        </div>
+      </div>
+      <div class="next-up">
+        <span>Next up</span>
+        <span class="next-up-event">🧠 Trivia · 8:05</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="design-notes">
+  <div class="design-notes-title">Design Mechanics · Bar predictor locked</div>
+  <div class="design-notes-row"><span class="k">Top bar</span> — LIVE → 🔒 LOCKED badge (green). Same mode badge (Predictor). 3× perk unchanged.</div>
+  <div class="design-notes-row"><span class="k">YES/NO pick buttons removed</span> — voting is closed. Replaced by the Tracking card. This is the signal that patrons can no longer scan to join this particular pick (but QR still works for next question and trivia).</div>
+  <div class="design-notes-row"><span class="k">Tracking card</span> — green, glowing, dominates the center. <strong>"Tracking Live"</strong> label with pulsing dot. Big stat number (<strong>0</strong>) + label ("LeBron points in Q3 so far"). Updates live as the game unfolds — turns green when prediction becomes likely, flashes red as it slips.</div>
+  <div class="design-notes-row"><span class="k">Resolution countdown</span> — "Resolves at Q3 end · 6:42" anchors anticipation. Patrons know exactly when the outcome locks.</div>
+  <div class="design-notes-row"><span class="k">Crowd split revealed</span> — now that voting is done, showing "Room picked 66% YES · 34% NO" no longer causes herd bias. It creates shared drama: "most of us picked YES, if LeBron scores we all win together."</div>
+  <div class="design-notes-row"><span class="k">Sharp $ stays visible</span> — external market consensus for comparison. As game unfolds, Sharp $ may drift (odds shift live) — shown with "updates live" caption.</div>
+  <div class="design-notes-row"><span class="k">Bottom strip</span> — counts switch from "picking" to "locked in" — 1,284 nationally · 38 at Kincade's.</div>
+</div>
+
+<script>
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  if (p.get('tv') === '1' || p.get('fullscreen') === '1') {
+    document.documentElement.classList.add('tv-mode');
+    function fit() {
+      var frame = document.querySelector('.tv-frame') || document.querySelector('.phone-frame');
+      if (!frame) return;
+      var isTv = frame.classList.contains('tv-frame');
+      var w = isTv ? 1000 : 340;
+      var h = isTv ? 562 : 680;
+      var s = Math.min(window.innerWidth / w, window.innerHeight / h);
+      frame.style.zoom = s;
+    }
+    window.addEventListener('resize', fit);
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', fit);
+    } else {
+      fit();
+    }
+  }
+})();
+</script>
+</body>
+</html>

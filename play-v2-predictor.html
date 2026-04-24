@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportsIQ — Play Screen v2 (Predictor focused)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #050912;
+  --bg-elev: #0A1020;
+  --brand: #5545D3;
+  --brand-light: #7C6EF5;
+  --brand-gradient: linear-gradient(135deg, #5545D3 0%, #7C6EF5 100%);
+  --brand-gradient-soft: linear-gradient(135deg, rgba(85,69,211,0.18) 0%, rgba(124,110,245,0.08) 100%);
+  --green: #22C55E;
+  --green-light: #4ADE80;
+  --red: #EF4444;
+  --red-light: #FCA5A5;
+  --amber: #F59E0B;
+  --amber-light: #FDE047;
+  --orange: #FB923C;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --faint: #64748B;
+  --card-border: rgba(255,255,255,0.09);
+  --divider: rgba(255,255,255,0.05);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background:
+    radial-gradient(ellipse at top right, rgba(85,69,211,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(239,68,68,0.03) 0%, transparent 50%),
+    #020408;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 48px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-eyebrow {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  text-align: center;
+}
+.page-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  color: var(--text);
+  text-align: center;
+  margin: 8px 0 6px;
+}
+.page-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 520px;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.phone-frame {
+  width: 340px; height: 680px;
+  background: var(--bg);
+  border-radius: 48px;
+  overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 0 0 6px rgba(0,0,0,0.7),
+    0 40px 100px rgba(0,0,0,0.8),
+    0 0 120px rgba(239,68,68,0.12);
+  position: relative;
+}
+.phone-notch {
+  position: absolute; top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 110px; height: 28px;
+  background: #000;
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+.phone-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(ellipse 50% 30% at 50% 15%, rgba(239,68,68,0.08) 0%, transparent 70%),
+    var(--bg);
+  padding-top: 38px;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 22px 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.65);
+  font-variant-numeric: tabular-nums;
+}
+
+/* App header — identical to play-v2 */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px 12px;
+}
+.app-logo {
+  font-family: 'Lexend', sans-serif;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+}
+.app-logo span { color: var(--brand-light); }
+.status-chips { display: flex; gap: 6px; }
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 9px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid transparent;
+}
+.chip-streak { background: rgba(251,146,60,0.1); border-color: rgba(251,146,60,0.3); color: #FDBA74; }
+.chip-iq { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); color: var(--amber-light); }
+.chip-rank { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); color: var(--green-light); }
+
+/* Live Stack Pill row — Predictor focused this time */
+.live-stack {
+  padding: 10px 14px 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--divider);
+}
+.live-stack::-webkit-scrollbar { display: none; }
+.live-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: transparent;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.live-pill.focused {
+  background: linear-gradient(135deg, rgba(239,68,68,0.18) 0%, rgba(239,68,68,0.06) 100%);
+  border-color: rgba(239,68,68,0.55);
+  color: var(--text);
+  box-shadow: 0 4px 16px rgba(239,68,68,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+  padding: 9px 13px;
+  font-weight: 800;
+}
+.live-pill-icon { font-size: 13px; }
+.live-pill-timer {
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  font-size: 11px;
+  color: var(--muted);
+}
+.live-pill.focused .live-pill-timer { color: var(--red-light); }
+.live-pill-pulse {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 1.6s infinite;
+  box-shadow: 0 0 6px rgba(34,197,94,0.7);
+}
+.live-pill-new {
+  background: var(--green);
+  color: var(--bg);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-left: 2px;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+/* ── Hero: Live Predictor ─────────────────────────────── */
+.hero {
+  flex: 1;
+  min-height: 0;
+  padding: 10px 16px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  color: var(--red-light);
+  text-transform: uppercase;
+  justify-content: center;
+}
+.hero-eyebrow-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: pulse 1.6s infinite;
+  box-shadow: 0 0 10px rgba(239,68,68,0.8);
+}
+
+/* Game matchup card */
+.matchup {
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+.team-logo {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+.team-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.team-name {
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+}
+.team-score {
+  font-family: 'Lexend', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  margin-top: 2px;
+}
+.team.leading .team-score { color: var(--green-light); }
+.vs-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 64px;
+}
+.vs-quarter {
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: var(--red-light);
+  text-transform: uppercase;
+}
+.vs-time {
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.3px;
+}
+.vs-live {
+  font-size: 8px;
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: 1px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.35);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.vs-live-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: pulse 1.6s infinite;
+}
+
+/* Predictor question + yes/no */
+.pick-question {
+  font-family: 'Lexend', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+  padding: 2px 4px;
+}
+
+/* Question timer */
+.q-timer {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1px;
+}
+.q-timer-fill-wrap {
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  width: 100%;
+  overflow: hidden;
+}
+.q-timer-fill {
+  height: 100%;
+  width: 62%;
+  background: linear-gradient(90deg, var(--amber), var(--amber-light));
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(245,158,11,0.5);
+}
+.q-timer-secs {
+  font-family: 'Lexend', sans-serif;
+  color: var(--amber-light);
+  font-variant-numeric: tabular-nums;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: -0.2px;
+}
+
+.pick-buttons {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+.pick-btn {
+  flex: 1;
+  padding: 13px 0;
+  border-radius: 14px;
+  font-family: 'Lexend', sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: transform 0.12s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.pick-btn.yes {
+  background: linear-gradient(135deg, rgba(34,197,94,0.18), rgba(34,197,94,0.04));
+  border-color: rgba(34,197,94,0.5);
+  color: var(--green-light);
+  box-shadow: 0 4px 16px rgba(34,197,94,0.18);
+}
+.pick-btn.no {
+  background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(239,68,68,0.02));
+  border-color: rgba(239,68,68,0.4);
+  color: var(--red-light);
+  box-shadow: 0 4px 16px rgba(239,68,68,0.14);
+}
+.pick-btn:active { transform: scale(0.99); }
+
+/* Sharp money / crowd split */
+.splits {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 2px;
+}
+.split-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+}
+.split-label {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+.split-val {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 900;
+  color: var(--green-light);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.2px;
+}
+.split-val.red { color: var(--red-light); }
+
+/* Multiplier at bottom */
+.multiplier-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-top: 2px;
+}
+.multipliers {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+.multiplier {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 6px 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.multiplier-x {
+  font-family: 'Lexend', sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  line-height: 1;
+}
+.multiplier-payout {
+  font-size: 8.5px;
+  font-weight: 800;
+  opacity: 0.85;
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.multiplier.safe {
+  background: rgba(34,197,94,0.12);
+  border: 1px solid rgba(34,197,94,0.4);
+}
+.multiplier.safe .multiplier-x,
+.multiplier.safe .multiplier-payout { color: var(--green-light); }
+.multiplier.balanced {
+  background: rgba(245,158,11,0.15);
+  border: 2px solid var(--amber);
+}
+.multiplier.balanced .multiplier-x,
+.multiplier.balanced .multiplier-payout { color: var(--amber); }
+.multiplier.risky {
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.4);
+}
+.multiplier.risky .multiplier-x,
+.multiplier.risky .multiplier-payout { color: var(--red-light); }
+.multiplier.selected .multiplier-x::after {
+  content: " ✓";
+  font-size: 10px;
+}
+
+/* Social ticker (matches play-v2) */
+.social-ticker {
+  padding: 8px 18px 8px;
+  border-top: 1px solid var(--divider);
+}
+.ticker-label {
+  font-size: 9px;
+  font-weight: 900;
+  color: var(--faint);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.ticker-items { display: flex; flex-direction: column; gap: 4px; }
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.ticker-avatar {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 800;
+  color: white;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(0,0,0,0.3);
+}
+.ticker-text strong { color: var(--text); font-weight: 700; }
+.ticker-iq { color: var(--green-light); font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* Bar strip */
+.bar-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 18px;
+  background: linear-gradient(90deg, rgba(34,140,136,0.08), rgba(34,197,94,0.04));
+  border-top: 1px solid rgba(34,197,94,0.15);
+  border-bottom: 1px solid var(--divider);
+}
+.bar-strip-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.bar-strip-mult {
+  font-family: 'Lexend', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--green-light);
+  background: rgba(34,197,94,0.15);
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(34,197,94,0.3);
+  letter-spacing: -0.3px;
+}
+.bar-strip-right {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--green-light);
+  letter-spacing: 0.5px;
+}
+
+/* Bottom nav */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 9px 0 22px;
+  border-top: 1px solid var(--divider);
+  background: rgba(5,9,18,0.98);
+}
+.nav-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 14px;
+  border-radius: 10px;
+}
+.nav-tab-icon {
+  font-size: 20px;
+  opacity: 0.55;
+}
+.nav-tab.active .nav-tab-icon {
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(124,110,245,0.7));
+}
+.nav-tab-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--faint);
+  letter-spacing: 0.3px;
+}
+.nav-tab.active .nav-tab-label { color: var(--brand-light); }
+
+/* Design notes */
+.design-notes {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.design-notes strong { color: var(--text); font-weight: 700; }
+.design-notes-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.design-notes-row { margin: 4px 0; }
+.design-notes-row .k { color: var(--text); font-weight: 700; }
+
+/* ── Responsive: realistic rendering on phones + TV mode ──── */
+@media (max-width: 500px) and (orientation: portrait) {
+  body { padding: 0 !important; gap: 0 !important; align-items: stretch !important; min-height: 100vh; background: var(--bg) !important; }
+  body > div:not(.phone-frame):not(.tv-frame) { display: none !important; }
+  .design-notes { display: none !important; }
+  .phone-frame {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    max-height: 100dvh !important;
+  }
+  .phone-notch { display: none !important; }
+  .phone-inner { padding-top: env(safe-area-inset-top, 36px) !important; }
+  .bottom-nav { padding-bottom: calc(env(safe-area-inset-bottom, 14px) + 6px) !important; }
+  .modal-overlay { inset: 0 !important; }
+}
+
+/* TV mode — URL ?tv=1 triggers fullscreen + native-resolution zoom scaling */
+html.tv-mode body { padding: 0 !important; gap: 0 !important; margin: 0 !important; align-items: flex-start !important; justify-content: flex-start !important; min-height: 100vh; background: var(--bg) !important; overflow: hidden !important; }
+html.tv-mode body > div:not(.tv-frame):not(.phone-frame) { display: none !important; }
+html.tv-mode .design-notes { display: none !important; }
+html.tv-mode .tv-frame,
+html.tv-mode .phone-frame {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="page-eyebrow">Mobile · Play screen · v2 · Predictor focused</div>
+  <div class="page-title">Same screen, Predictor is the hero</div>
+  <div class="page-subtitle">User tapped the 🏀 LAL pill in the Live Stack — the entire hero morphs. Trivia's countdown becomes a game matchup with live score; "Join Trivia" CTA becomes YES/NO pick buttons; categories become Sharp Money + Crowd splits. Same shell, different event.</div>
+</div>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-inner">
+
+    <div class="status-bar">
+      <span>8:12</span>
+      <span>🔋 85%</span>
+    </div>
+
+    <!-- App header — unchanged -->
+    <div class="app-header">
+      <div class="app-logo">Sports<span>IQ</span></div>
+      <div class="status-chips">
+        <div class="chip chip-streak">🔥 4d</div>
+        <div class="chip chip-iq">⚡ 2,450</div>
+        <div class="chip chip-rank">#47</div>
+      </div>
+    </div>
+
+    <!-- Live Stack — Predictor now focused (red gradient) -->
+    <div class="live-stack">
+      <div class="live-pill">
+        <span class="live-pill-icon">🧠</span>
+        <span>Trivia</span>
+        <span class="live-pill-timer">2:00</span>
+      </div>
+      <div class="live-pill focused">
+        <span class="live-pill-icon">🏀</span>
+        <span>LAL</span>
+        <span class="live-pill-timer">0:47</span>
+      </div>
+      <div class="live-pill">
+        <span class="live-pill-icon">🎯</span>
+        <span>Bingo</span>
+        <span class="live-pill-new">NEW</span>
+        <span class="live-pill-pulse"></span>
+      </div>
+    </div>
+
+    <!-- Hero: Live Predictor -->
+    <div class="hero">
+
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Live Predictor
+      </div>
+
+      <!-- Game matchup -->
+      <div class="matchup">
+        <div class="team leading">
+          <div class="team-logo"><img src="https://a.espncdn.com/i/teamlogos/nba/500/lal.png" alt="Lakers"></div>
+          <div class="team-name">LAL</div>
+          <div class="team-score">62</div>
+        </div>
+        <div class="vs-center">
+          <div class="vs-quarter">Q3</div>
+          <div class="vs-time">8:12</div>
+          <div class="vs-live"><span class="vs-live-dot"></span>LIVE</div>
+        </div>
+        <div class="team">
+          <div class="team-logo"><img src="https://a.espncdn.com/i/teamlogos/nba/500/gs.png" alt="Warriors"></div>
+          <div class="team-name">GSW</div>
+          <div class="team-score">58</div>
+        </div>
+      </div>
+
+      <!-- Pick question -->
+      <div class="pick-question">Will LeBron score in Q3?</div>
+
+      <!-- Question timer -->
+      <div class="q-timer-fill-wrap">
+        <div class="q-timer-fill"></div>
+      </div>
+      <div class="q-timer">
+        <span>Locks in</span>
+        <span class="q-timer-secs">0:47</span>
+      </div>
+
+      <!-- Yes/No picks -->
+      <div class="pick-buttons">
+        <button class="pick-btn yes">YES</button>
+        <button class="pick-btn no">NO</button>
+      </div>
+
+      <!-- Splits: Sharp $ + Crowd -->
+      <div class="splits">
+        <div class="split-item">
+          <span class="split-label">Sharp $</span>
+          <span class="split-val">63% Yes</span>
+        </div>
+        <div class="split-item">
+          <span class="split-label">Crowd</span>
+          <span class="split-val">58% Yes</span>
+        </div>
+      </div>
+
+      <!-- Risk multiplier (matches production trivia pattern) -->
+      <div class="multiplier-label">Risk multiplier?</div>
+      <div class="multipliers">
+        <div class="multiplier safe">
+          <span class="multiplier-x">1.5×</span>
+          <span class="multiplier-payout">75 IQ</span>
+        </div>
+        <div class="multiplier balanced selected">
+          <span class="multiplier-x">2×</span>
+          <span class="multiplier-payout">100 IQ</span>
+        </div>
+        <div class="multiplier risky">
+          <span class="multiplier-x">3×</span>
+          <span class="multiplier-payout">150 IQ</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Social ticker -->
+    <div class="social-ticker">
+      <div class="ticker-label">Friends on this game</div>
+      <div class="ticker-items">
+        <div class="ticker-item">
+          <div class="ticker-avatar" style="background:linear-gradient(135deg,#5545D3,#818cf8);">K</div>
+          <div class="ticker-text"><strong>Kim</strong> picked <span style="color:var(--green-light);font-weight:800;">YES</span> · 2×</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nearby bar perk -->
+    <div class="bar-strip">
+      <div class="bar-strip-left">
+        <span>🎯</span>
+        <span><strong style="color:var(--text);font-weight:700;">Kincade's</strong> · 0.4 mi</span>
+        <span class="bar-strip-mult">3×</span>
+      </div>
+      <div class="bar-strip-right">Play there →</div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+      <div class="nav-tab active">
+        <div class="nav-tab-icon">🏠</div>
+        <div class="nav-tab-label">Play</div>
+      </div>
+      <div class="nav-tab">
+        <div class="nav-tab-icon">🏆</div>
+        <div class="nav-tab-label">Rank</div>
+      </div>
+      <div class="nav-tab">
+        <div class="nav-tab-icon">👤</div>
+        <div class="nav-tab-label">You</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="design-notes">
+  <div class="design-notes-title">Design Mechanics · Predictor-focused variant</div>
+  <div class="design-notes-row"><span class="k">Pattern validation</span> — same shell as trivia-focused (<a href="/play-v2" style="color:var(--brand-light);">play-v2</a>): header, Live Stack, social ticker, bar strip, bottom nav — all identical. Only the focused pill and the hero swap.</div>
+  <div class="design-notes-row"><span class="k">Pill swap</span> — 🏀 LAL now has the red-gradient focused treatment. 🧠 Trivia and 🎯 Bingo are outlined/muted.</div>
+  <div class="design-notes-row"><span class="k">Hero structure for Predictor</span> — eyebrow "LIVE PREDICTOR" (red, pulsing). Game matchup card (team scores + live Q3 8:12 LIVE badge) replaces Trivia's "Round X" title. Natural-language pick question ("Will LeBron score in Q3?") matches production's <code>pick_question</code> format. Timer bar + countdown. YES/NO big pick buttons (green/red) replace the single "Join Trivia" CTA. Sharp $ + Crowd % splits replace trivia's category pill teaser. Risk multiplier row is identical to trivia's (1.5×/2×/3×).</div>
+  <div class="design-notes-row"><span class="k">Affiliate proximity</span> — Sharp $ signal is right above the pick buttons, priming the user's instinct that "real money agrees with my read." This is the trust-building scaffold for later sportsbook handoff (at result screen, "put real money on your next call?").</div>
+  <div class="design-notes-row"><span class="k">Ticker localizes</span> — while a live game is focused, the ticker switches from "Friends" to "Friends on this game" (Kim's picked YES · 2×). Makes you feel seen/competitive.</div>
+  <div class="design-notes-row"><span class="k">Bar perk unchanged</span> — Kincade's 3× remains the opportunistic reminder. Same pattern across all Play-screen states.</div>
+  <div class="design-notes-row"><span class="k">Team logos</span> — mockup uses ESPN's public CDN (<code>a.espncdn.com/i/teamlogos/nba/500/{abbr}.png</code>) as a visual placeholder. Production: swap <code>&lt;img src&gt;</code> to the logo URL returned by sportsdata.io's team endpoint (Isaac's backend already integrates).</div>
+</div>
+
+<script>
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  if (p.get('tv') === '1' || p.get('fullscreen') === '1') {
+    document.documentElement.classList.add('tv-mode');
+    function fit() {
+      var frame = document.querySelector('.tv-frame') || document.querySelector('.phone-frame');
+      if (!frame) return;
+      var isTv = frame.classList.contains('tv-frame');
+      var w = isTv ? 1000 : 340;
+      var h = isTv ? 562 : 680;
+      var s = Math.min(window.innerWidth / w, window.innerHeight / h);
+      frame.style.zoom = s;
+    }
+    window.addEventListener('resize', fit);
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', fit);
+    } else {
+      fit();
+    }
+  }
+})();
+</script>
+</body>
+</html>

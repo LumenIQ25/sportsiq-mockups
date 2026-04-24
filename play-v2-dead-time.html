@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportsIQ — Play Screen · Dead-time v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #050912;
+  --brand: #5545D3;
+  --brand-light: #7C6EF5;
+  --brand-gradient: linear-gradient(135deg, #5545D3 0%, #7C6EF5 100%);
+  --brand-gradient-soft: linear-gradient(135deg, rgba(85,69,211,0.18) 0%, rgba(124,110,245,0.08) 100%);
+  --green: #22C55E;
+  --green-light: #4ADE80;
+  --red: #EF4444;
+  --red-light: #FCA5A5;
+  --amber: #F59E0B;
+  --amber-light: #FDE047;
+  --orange: #FB923C;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --faint: #64748B;
+  --divider: rgba(255,255,255,0.05);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background:
+    radial-gradient(ellipse at top right, rgba(85,69,211,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(34,197,94,0.03) 0%, transparent 50%),
+    #020408;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 48px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-eyebrow {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  text-align: center;
+}
+.page-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  text-align: center;
+  margin: 8px 0 6px;
+}
+.page-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 520px;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.phone-frame {
+  width: 340px; height: 680px;
+  background: var(--bg);
+  border-radius: 48px;
+  overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 0 0 6px rgba(0,0,0,0.7),
+    0 40px 100px rgba(0,0,0,0.8),
+    0 0 120px rgba(85,69,211,0.15);
+  position: relative;
+}
+.phone-notch {
+  position: absolute; top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 110px; height: 28px;
+  background: #000;
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+.phone-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  padding-top: 38px;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 22px 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.65);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Header — same as play-v2 */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px 10px;
+}
+.app-logo {
+  font-family: 'Lexend', sans-serif;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+}
+.app-logo span { color: var(--brand-light); }
+.status-chips { display: flex; gap: 6px; }
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 9px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid transparent;
+}
+.chip-streak { background: rgba(251,146,60,0.1); border-color: rgba(251,146,60,0.3); color: #FDBA74; }
+.chip-iq { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); color: var(--amber-light); }
+.chip-rank { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); color: var(--green-light); }
+
+/* Live Stack — only 1 pill */
+.live-stack {
+  padding: 8px 14px 10px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-bottom: 1px solid var(--divider);
+}
+.live-pill.focused {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 13px;
+  border-radius: 999px;
+  background: var(--brand-gradient-soft);
+  border: 1px solid rgba(124,110,245,0.55);
+  color: var(--text);
+  box-shadow: 0 4px 16px rgba(85,69,211,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.live-pill-icon { font-size: 13px; }
+.live-pill-timer {
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  font-size: 11px;
+  color: var(--brand-light);
+}
+.quiet-note {
+  font-size: 11px;
+  color: var(--faint);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  margin-left: 6px;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+/* Hero — compact trivia countdown */
+.hero {
+  padding: 12px 18px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  color: var(--brand-light);
+  text-transform: uppercase;
+}
+.hero-eyebrow-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 1.6s infinite;
+  box-shadow: 0 0 10px rgba(34,197,94,0.8);
+}
+.hero-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  line-height: 1;
+}
+.hero-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 4px 0;
+}
+.countdown-mini {
+  position: relative;
+  width: 72px; height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.countdown-mini-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from -90deg,
+    #7C6EF5 0%,
+    #5545D3 70%,
+    rgba(255,255,255,0.06) 70%,
+    rgba(255,255,255,0.06) 100%
+  );
+  mask: radial-gradient(circle, transparent 62%, black 64%);
+  -webkit-mask: radial-gradient(circle, transparent 62%, black 64%);
+  filter: drop-shadow(0 0 14px rgba(124,110,245,0.35));
+}
+.countdown-mini-inner {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #0D1320 0%, #050912 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.countdown-mini-num {
+  font-family: 'Lexend', sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  line-height: 1;
+}
+.countdown-mini-label {
+  font-size: 6px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+.hero-cta {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: var(--brand-gradient);
+  color: white;
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(85,69,211,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* Dead-time content cards */
+.scroll-body {
+  flex: 1;
+  padding: 8px 16px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.scroll-body::-webkit-scrollbar { display: none; }
+
+/* Daily Challenge card */
+.daily-card {
+  padding: 11px 13px;
+  background: linear-gradient(135deg, rgba(245,158,11,0.12) 0%, rgba(245,158,11,0.02) 100%);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.daily-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--amber) 0%, var(--amber-light) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(245,158,11,0.3);
+}
+.daily-body { flex: 1; line-height: 1.35; }
+.daily-label {
+  font-family: 'Lexend', sans-serif;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--amber-light);
+  margin-bottom: 2px;
+}
+.daily-text {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.daily-text strong { color: var(--text); font-weight: 800; }
+.daily-progress {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--amber);
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tonight's Schedule */
+.schedule-label {
+  font-size: 9px;
+  font-weight: 900;
+  color: var(--faint);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  padding: 2px 2px;
+}
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.schedule-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 11px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+}
+.schedule-logos {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.schedule-logo {
+  width: 20px; height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.schedule-logo img { width: 100%; height: 100%; object-fit: contain; }
+.schedule-matchup {
+  flex: 1;
+  font-size: 11.5px;
+  line-height: 1.3;
+}
+.schedule-teams {
+  color: var(--text);
+  font-weight: 800;
+}
+.schedule-time {
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 600;
+  margin-top: 1px;
+}
+.schedule-remind {
+  font-family: 'Lexend', sans-serif;
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--brand-light);
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(124,110,245,0.1);
+  border: 1px solid rgba(124,110,245,0.25);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+/* Friend activity */
+.ticker-label {
+  font-size: 9px;
+  font-weight: 900;
+  color: var(--faint);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  padding: 2px 2px;
+}
+.ticker-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 3px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.ticker-avatar {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: white;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(0,0,0,0.3);
+}
+.ticker-text strong { color: var(--text); font-weight: 700; }
+.ticker-iq { color: var(--green-light); font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* Bottom nav */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 9px 0 22px;
+  border-top: 1px solid var(--divider);
+  background: rgba(5,9,18,0.98);
+  backdrop-filter: blur(12px);
+}
+.nav-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 14px;
+  border-radius: 10px;
+}
+.nav-tab-icon { font-size: 20px; opacity: 0.55; }
+.nav-tab.active .nav-tab-icon {
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(124,110,245,0.7));
+}
+.nav-tab-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--faint);
+  letter-spacing: 0.3px;
+}
+.nav-tab.active .nav-tab-label { color: var(--brand-light); }
+
+/* Design notes */
+.design-notes {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.design-notes strong { color: var(--text); font-weight: 700; }
+.design-notes-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.design-notes-row { margin: 4px 0; }
+.design-notes-row .k { color: var(--text); font-weight: 700; }
+
+/* ── Responsive: realistic rendering on phones + TV mode ──── */
+@media (max-width: 500px) and (orientation: portrait) {
+  body { padding: 0 !important; gap: 0 !important; align-items: stretch !important; min-height: 100vh; background: var(--bg) !important; }
+  body > div:not(.phone-frame):not(.tv-frame) { display: none !important; }
+  .design-notes { display: none !important; }
+  .phone-frame {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    max-height: 100dvh !important;
+  }
+  .phone-notch { display: none !important; }
+  .phone-inner { padding-top: env(safe-area-inset-top, 36px) !important; }
+  .bottom-nav { padding-bottom: calc(env(safe-area-inset-bottom, 14px) + 6px) !important; }
+  .modal-overlay { inset: 0 !important; }
+}
+
+/* TV mode — URL ?tv=1 triggers fullscreen + native-resolution zoom scaling */
+html.tv-mode body { padding: 0 !important; gap: 0 !important; margin: 0 !important; align-items: flex-start !important; justify-content: flex-start !important; min-height: 100vh; background: var(--bg) !important; overflow: hidden !important; }
+html.tv-mode body > div:not(.tv-frame):not(.phone-frame) { display: none !important; }
+html.tv-mode .design-notes { display: none !important; }
+html.tv-mode .tv-frame,
+html.tv-mode .phone-frame {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="page-eyebrow">Mobile · Play · Dead-time</div>
+  <div class="page-title">Quiet hours — trivia is the only live thing</div>
+  <div class="page-subtitle">2pm on a weekday. No live NBA, no bar events, no Bingo — just trivia's perpetual 5-minute drumbeat. Live Stack shrinks to one pill. Hero becomes compact (countdown side-by-side with CTA). The freed space fills with meaningful content: daily challenge, tonight's schedule, expanded friend activity. User never opens the app to emptiness.</div>
+</div>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-inner">
+
+    <div class="status-bar">
+      <span>2:18</span>
+      <span>🔋 72%</span>
+    </div>
+
+    <!-- Header -->
+    <div class="app-header">
+      <div class="app-logo">Sports<span>IQ</span></div>
+      <div class="status-chips">
+        <div class="chip chip-streak">🔥 4d</div>
+        <div class="chip chip-iq">⚡ 2,450</div>
+        <div class="chip chip-rank">#47</div>
+      </div>
+    </div>
+
+    <!-- Live Stack — just trivia -->
+    <div class="live-stack">
+      <div class="live-pill focused">
+        <span class="live-pill-icon">🧠</span>
+        <span>Trivia</span>
+        <span class="live-pill-timer">3:24</span>
+      </div>
+    </div>
+
+    <!-- Compact hero -->
+    <div class="hero">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Next Trivia Round
+      </div>
+      <div class="hero-row">
+        <div class="countdown-mini">
+          <div class="countdown-mini-ring"></div>
+          <div class="countdown-mini-inner">
+            <div class="countdown-mini-num">3:24</div>
+            <div class="countdown-mini-label">min · sec</div>
+          </div>
+        </div>
+        <button class="hero-cta">
+          <span>Join Trivia</span>
+          <span>→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dead-time content -->
+    <div class="scroll-body">
+
+      <!-- Daily Challenge -->
+      <div class="daily-card">
+        <div class="daily-icon">🎯</div>
+        <div class="daily-body">
+          <div class="daily-label">Today's bonus</div>
+          <div class="daily-text">Hit <strong>3 trivia rounds in a row</strong> for +300 IQ</div>
+        </div>
+        <div class="daily-progress">1 / 3</div>
+      </div>
+
+      <!-- Tonight's Schedule -->
+      <div>
+        <div class="schedule-label">Tonight's Games</div>
+        <div class="schedule-list">
+          <div class="schedule-row">
+            <div class="schedule-logos">
+              <div class="schedule-logo"><img src="https://a.espncdn.com/i/teamlogos/nba/500/lal.png" alt="LAL"></div>
+              <div class="schedule-logo"><img src="https://a.espncdn.com/i/teamlogos/nba/500/gs.png" alt="GSW"></div>
+            </div>
+            <div class="schedule-matchup">
+              <div class="schedule-teams">LAL @ GSW</div>
+              <div class="schedule-time">7:30 PM · Predictor opens 15 min early</div>
+            </div>
+            <div class="schedule-remind">Remind</div>
+          </div>
+          <div class="schedule-row">
+            <div class="schedule-logos">
+              <div class="schedule-logo"><img src="https://a.espncdn.com/i/teamlogos/nba/500/bos.png" alt="BOS"></div>
+              <div class="schedule-logo"><img src="https://a.espncdn.com/i/teamlogos/nba/500/mia.png" alt="MIA"></div>
+            </div>
+            <div class="schedule-matchup">
+              <div class="schedule-teams">BOS @ MIA</div>
+              <div class="schedule-time">8:00 PM</div>
+            </div>
+            <div class="schedule-remind">Remind</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Friend activity -->
+      <div>
+        <div class="ticker-label">Friends</div>
+        <div class="ticker-items">
+          <div class="ticker-item">
+            <div class="ticker-avatar" style="background:linear-gradient(135deg,#5545D3,#818cf8);">K</div>
+            <div class="ticker-text"><strong>Kim</strong> just hit <span class="ticker-iq">+200 IQ</span> on trivia</div>
+          </div>
+          <div class="ticker-item">
+            <div class="ticker-avatar" style="background:linear-gradient(135deg,#059669,#22c55e);">J</div>
+            <div class="ticker-text"><strong>John</strong> passed you · now #46</div>
+          </div>
+          <div class="ticker-item">
+            <div class="ticker-avatar" style="background:linear-gradient(135deg,#F59E0B,#FBBF24);">A</div>
+            <div class="ticker-text"><strong>Alex</strong> started a 5-day streak 🔥</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+      <div class="nav-tab active">
+        <div class="nav-tab-icon">🏠</div>
+        <div class="nav-tab-label">Play</div>
+      </div>
+      <div class="nav-tab">
+        <div class="nav-tab-icon">🏆</div>
+        <div class="nav-tab-label">Rank</div>
+      </div>
+      <div class="nav-tab">
+        <div class="nav-tab-icon">👤</div>
+        <div class="nav-tab-label">You</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="design-notes">
+  <div class="design-notes-title">Design Mechanics · Dead-time Play</div>
+  <div class="design-notes-row"><span class="k">Shell unchanged</span> — same header chips, Live Stack pill, ticker, bar strip (hidden here since no live bar event nearby), nav. User perceives the same app, just quieter.</div>
+  <div class="design-notes-row"><span class="k">Live Stack shrinks to 1 pill</span> — just trivia, still counting down. "· quiet hours" label next to it explains why the row is sparse (no shame in an empty row).</div>
+  <div class="design-notes-row"><span class="k">Hero compresses to a row</span> — instead of the big countdown dominating, the mini-ring (72×72) sits left, "Join Trivia →" CTA sits right. Saves ~120px of vertical space for other content.</div>
+  <div class="design-notes-row"><span class="k">Daily Challenge card</span> — "Today's bonus: Hit 3 trivia rounds in a row for +300 IQ · 1 / 3". Gives users a reason to come back multiple times today. Progress counter creates completion pressure. This is the Duolingo-style engagement fuel for dead periods.</div>
+  <div class="design-notes-row"><span class="k">Tonight's Games schedule</span> — two upcoming NBA games with real ESPN team logos, tip-off time, "Predictor opens 15 min early" signal. <strong>Remind</strong> pill on each row creates a future hook (push notification). Converts a currently-dead state into an anticipated future one.</div>
+  <div class="design-notes-row"><span class="k">Friend activity expanded</span> — 3 rows instead of 2, more varied content ("passed you", "started a streak") to sustain interest when other content is sparse.</div>
+  <div class="design-notes-row"><span class="k">Scroll inside the content zone</span> — scroll-body is vertically scrollable (scrollbar hidden). Lets us stack as many cards as we want for dead-time without compressing. Hero + stack stay pinned top; nav stays pinned bottom.</div>
+  <div class="design-notes-row"><span class="k">Bar strip omitted</span> — when user isn't near a bar with a live event, don't nag. Returns when geofence triggers.</div>
+</div>
+
+<script>
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  if (p.get('tv') === '1' || p.get('fullscreen') === '1') {
+    document.documentElement.classList.add('tv-mode');
+    function fit() {
+      var frame = document.querySelector('.tv-frame') || document.querySelector('.phone-frame');
+      if (!frame) return;
+      var isTv = frame.classList.contains('tv-frame');
+      var w = isTv ? 1000 : 340;
+      var h = isTv ? 562 : 680;
+      var s = Math.min(window.innerWidth / w, window.innerHeight / h);
+      frame.style.zoom = s;
+    }
+    window.addEventListener('resize', fit);
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', fit);
+    } else {
+      fit();
+    }
+  }
+})();
+</script>
+</body>
+</html>

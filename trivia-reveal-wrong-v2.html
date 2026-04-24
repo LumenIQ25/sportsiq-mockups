@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportsIQ — Trivia Reveal (Wrong) v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #050912;
+  --brand: #5545D3;
+  --brand-light: #7C6EF5;
+  --brand-gradient: linear-gradient(135deg, #5545D3 0%, #7C6EF5 100%);
+  --green: #22C55E;
+  --green-light: #4ADE80;
+  --red: #EF4444;
+  --red-light: #FCA5A5;
+  --amber: #F59E0B;
+  --amber-light: #FDE047;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --faint: #64748B;
+  --divider: rgba(255,255,255,0.05);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background:
+    radial-gradient(ellipse at top right, rgba(85,69,211,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(239,68,68,0.04) 0%, transparent 50%),
+    #020408;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 48px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-eyebrow {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  text-align: center;
+}
+.page-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  text-align: center;
+  margin: 8px 0 6px;
+}
+.page-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 520px;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.phone-frame {
+  width: 340px; height: 680px;
+  background: var(--bg);
+  border-radius: 48px;
+  overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 0 0 6px rgba(0,0,0,0.7),
+    0 40px 100px rgba(0,0,0,0.8),
+    0 0 120px rgba(239,68,68,0.12);
+  position: relative;
+}
+.phone-notch {
+  position: absolute; top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 110px; height: 28px;
+  background: #000;
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+.phone-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(ellipse 50% 30% at 50% 20%, rgba(239,68,68,0.12) 0%, transparent 70%),
+    var(--bg);
+  padding-top: 38px;
+  position: relative;
+  overflow: hidden;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 22px 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.65);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Game top */
+.game-top {
+  padding: 10px 18px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.exit-btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+.round-iq {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: rgba(251,146,60,0.1);
+  border: 1px solid rgba(251,146,60,0.3);
+  font-size: 11px;
+  font-weight: 800;
+  color: #FDBA74;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Progress — Q4 filled RED (wrong) */
+.progress {
+  display: flex;
+  gap: 4px;
+  padding: 0 18px 4px;
+  align-items: center;
+}
+.prog-dot {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.08);
+}
+.prog-dot.done-correct { background: var(--green); box-shadow: 0 0 4px rgba(34,197,94,0.5); }
+.prog-dot.done-wrong { background: var(--red); opacity: 0.7; }
+.prog-dot.just-filled-wrong {
+  background: var(--red);
+  height: 4px;
+  margin-top: -0.5px;
+  box-shadow: 0 0 10px rgba(239,68,68,0.9);
+  animation: popIn 0.3s ease-out;
+}
+@keyframes popIn {
+  0% { transform: scaleY(0.5); opacity: 0.5; }
+  50% { transform: scaleY(1.2); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+/* Celebration bar — RED for loss */
+.celebration {
+  margin: 6px 18px 4px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, rgba(239,68,68,0.18) 0%, rgba(239,68,68,0.04) 100%);
+  border: 1px solid rgba(239,68,68,0.4);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(239,68,68,0.2);
+}
+.celebration-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Lexend', sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--red-light);
+  letter-spacing: -0.3px;
+}
+.celebration-icon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+  color: #050912;
+}
+.celebration-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+}
+.celebration-iq {
+  font-family: 'Lexend', sans-serif;
+  font-size: 17px;
+  font-weight: 900;
+  color: var(--red-light);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.3px;
+}
+.celebration-math {
+  font-size: 9px;
+  color: rgba(252,165,165,0.7);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin-top: 3px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Question + answers */
+.question-area {
+  flex: 1;
+  padding: 10px 20px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  min-height: 0;
+}
+
+.category-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: rgba(124,110,245,0.08);
+  border: 1px solid rgba(124,110,245,0.25);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brand-light);
+}
+
+.question-text {
+  font-family: 'Lexend', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--muted);
+  text-align: center;
+  max-width: 280px;
+  margin-bottom: 2px;
+}
+
+/* Answer base */
+.answers {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.answer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  opacity: 0.45;
+  transition: all 0.15s;
+}
+.answer-letter {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.06);
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--muted);
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.answer-text { flex: 1; }
+
+/* Correct answer (A) — green */
+.answer.correct {
+  background: linear-gradient(135deg, rgba(34,197,94,0.18) 0%, rgba(34,197,94,0.06) 100%);
+  border-color: rgba(34,197,94,0.55);
+  color: var(--text);
+  opacity: 1;
+  box-shadow: 0 4px 16px rgba(34,197,94,0.18);
+}
+.answer.correct .answer-letter {
+  background: var(--green);
+  color: #050912;
+  border-color: transparent;
+}
+
+/* User's wrong pick (B) — red */
+.answer.wrong-pick {
+  background: linear-gradient(135deg, rgba(239,68,68,0.14) 0%, rgba(239,68,68,0.03) 100%);
+  border-color: rgba(239,68,68,0.45);
+  color: var(--text);
+  opacity: 1;
+  box-shadow: 0 4px 16px rgba(239,68,68,0.12);
+}
+.answer.wrong-pick .answer-letter {
+  background: var(--red);
+  color: #050912;
+  border-color: transparent;
+}
+
+/* Right-side badges and percentages */
+.answer-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.you-tag {
+  font-family: 'Lexend', sans-serif;
+  font-size: 8.5px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  padding: 3px 6px;
+  border-radius: 5px;
+  background: rgba(239,68,68,0.18);
+  color: var(--red-light);
+  border: 1px solid rgba(239,68,68,0.45);
+  text-transform: uppercase;
+}
+.correct-tag {
+  font-family: 'Lexend', sans-serif;
+  font-size: 8.5px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  padding: 3px 6px;
+  border-radius: 5px;
+  background: rgba(34,197,94,0.2);
+  color: var(--green-light);
+  border: 1px solid rgba(34,197,94,0.45);
+  text-transform: uppercase;
+}
+.answer-pct {
+  font-family: 'Lexend', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.3px;
+  color: var(--muted);
+  min-width: 36px;
+  text-align: right;
+}
+.answer.correct .answer-pct { color: var(--green-light); }
+.answer.wrong-pick .answer-pct { color: var(--red-light); }
+
+/* Bottom bar showing % distribution */
+.answer-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 0 0 12px 12px;
+}
+.answer.correct .answer-bar {
+  background: linear-gradient(90deg, var(--green) 0%, var(--green-light) 100%);
+  box-shadow: 0 0 6px rgba(34,197,94,0.5);
+}
+.answer.wrong-pick .answer-bar {
+  background: linear-gradient(90deg, var(--red) 0%, var(--red-light) 100%);
+}
+
+/* Fun fact with redemption framing */
+.fun-fact {
+  margin: 0;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, rgba(124,110,245,0.09) 0%, rgba(85,69,211,0.03) 100%);
+  border: 1px solid rgba(124,110,245,0.2);
+  border-radius: 12px;
+  display: flex;
+  gap: 11px;
+  align-self: stretch;
+  margin-top: auto;
+}
+.fun-fact-icon {
+  width: 26px; height: 26px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: rgba(124,110,245,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.fun-fact-body { flex: 1; }
+.fun-fact-label {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--brand-light);
+  margin-bottom: 2px;
+}
+.fun-fact-text {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.fun-fact-text strong { color: var(--text); font-weight: 700; }
+
+/* Auto-advance */
+.next-countdown {
+  padding: 14px 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+}
+.next-countdown strong {
+  font-family: 'Lexend', sans-serif;
+  color: var(--text);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+}
+.advance-dots {
+  display: flex;
+  gap: 3px;
+}
+.advance-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--brand-light);
+  opacity: 0.3;
+  animation: advanceBlink 1.5s infinite;
+}
+.advance-dot:nth-child(2) { animation-delay: 0.5s; }
+.advance-dot:nth-child(3) { animation-delay: 1s; }
+@keyframes advanceBlink {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; box-shadow: 0 0 6px rgba(124,110,245,0.7); }
+}
+
+/* Design notes */
+.design-notes {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.design-notes strong { color: var(--text); font-weight: 700; }
+.design-notes-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.design-notes-row { margin: 4px 0; }
+.design-notes-row .k { color: var(--text); font-weight: 700; }
+
+/* ── Responsive: realistic rendering on phones + TV mode ──── */
+@media (max-width: 500px) and (orientation: portrait) {
+  body { padding: 0 !important; gap: 0 !important; align-items: stretch !important; min-height: 100vh; background: var(--bg) !important; }
+  body > div:not(.phone-frame):not(.tv-frame) { display: none !important; }
+  .design-notes { display: none !important; }
+  .phone-frame {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    max-height: 100dvh !important;
+  }
+  .phone-notch { display: none !important; }
+  .phone-inner { padding-top: env(safe-area-inset-top, 36px) !important; }
+  .bottom-nav { padding-bottom: calc(env(safe-area-inset-bottom, 14px) + 6px) !important; }
+  .modal-overlay { inset: 0 !important; }
+}
+
+/* TV mode — URL ?tv=1 triggers fullscreen + native-resolution zoom scaling */
+html.tv-mode body { padding: 0 !important; gap: 0 !important; margin: 0 !important; align-items: flex-start !important; justify-content: flex-start !important; min-height: 100vh; background: var(--bg) !important; overflow: hidden !important; }
+html.tv-mode body > div:not(.tv-frame):not(.phone-frame) { display: none !important; }
+html.tv-mode .design-notes { display: none !important; }
+html.tv-mode .tv-frame,
+html.tv-mode .phone-frame {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="page-eyebrow">Mobile · Trivia reveal · wrong answer</div>
+  <div class="page-title">Picked B — correct was A</div>
+  <div class="page-subtitle">Loss variant of the reveal state. User tapped LeBron James at 2× multiplier; correct answer was Michael Jordan. Red ambient glow, red celebration bar, the user's wrong pick lights red AND the correct answer still lights green — so you see at once where you went and where you should have gone. Fun fact uses "The answer was..." framing (not condescending, just informative).</div>
+</div>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-inner">
+
+    <div class="status-bar">
+      <span>8:06</span>
+      <span>🔋 87%</span>
+    </div>
+
+    <div class="game-top">
+      <div class="exit-btn">✕</div>
+      <div class="round-iq">
+        <span>⚡</span>
+        <span>+50 this round</span>
+      </div>
+    </div>
+
+    <!-- Progress — Q4 just filled RED -->
+    <div class="progress">
+      <div class="prog-dot done-correct"></div>
+      <div class="prog-dot done-correct"></div>
+      <div class="prog-dot done-wrong"></div>
+      <div class="prog-dot just-filled-wrong"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+    </div>
+
+    <!-- Celebration bar — RED loss state -->
+    <div class="celebration">
+      <div class="celebration-left">
+        <div class="celebration-icon">✕</div>
+        <span>Tough break</span>
+      </div>
+      <div class="celebration-right">
+        <span class="celebration-iq">−50 IQ</span>
+        <span class="celebration-math">25 lost × 2×</span>
+      </div>
+    </div>
+
+    <div class="question-area">
+
+      <div class="category-pill">
+        <span>🏀</span>
+        <span>NBA</span>
+      </div>
+
+      <div class="question-text">
+        Which player holds the record for most NBA Finals MVP awards?
+      </div>
+
+      <div class="answers">
+        <!-- A: correct answer, NOT user's pick -->
+        <div class="answer correct">
+          <div class="answer-letter">A</div>
+          <div class="answer-text">Michael Jordan</div>
+          <div class="answer-right">
+            <div class="correct-tag">✓ Correct</div>
+            <div class="answer-pct">43%</div>
+          </div>
+          <div class="answer-bar" style="width: 43%;"></div>
+        </div>
+        <!-- B: user's wrong pick -->
+        <div class="answer wrong-pick">
+          <div class="answer-letter">B</div>
+          <div class="answer-text">LeBron James</div>
+          <div class="answer-right">
+            <div class="you-tag">Your pick ✕</div>
+            <div class="answer-pct">28%</div>
+          </div>
+          <div class="answer-bar" style="width: 28%;"></div>
+        </div>
+        <div class="answer">
+          <div class="answer-letter">C</div>
+          <div class="answer-text">Kareem Abdul-Jabbar</div>
+          <div class="answer-right">
+            <div class="answer-pct">19%</div>
+          </div>
+          <div class="answer-bar" style="width: 19%;"></div>
+        </div>
+        <div class="answer">
+          <div class="answer-letter">D</div>
+          <div class="answer-text">Bill Russell</div>
+          <div class="answer-right">
+            <div class="answer-pct">10%</div>
+          </div>
+          <div class="answer-bar" style="width: 10%;"></div>
+        </div>
+      </div>
+
+      <!-- Fun fact with redemption framing -->
+      <div class="fun-fact">
+        <div class="fun-fact-icon">💡</div>
+        <div class="fun-fact-body">
+          <div class="fun-fact-label">The answer</div>
+          <div class="fun-fact-text"><strong>Michael Jordan</strong> won 6 Finals MVPs — one in each of his championship appearances. LeBron has 4.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="next-countdown">
+      <span>Next question in</span>
+      <strong>0:02</strong>
+      <span class="advance-dots">
+        <span class="advance-dot"></span>
+        <span class="advance-dot"></span>
+        <span class="advance-dot"></span>
+      </span>
+    </div>
+
+  </div>
+</div>
+
+<div class="design-notes">
+  <div class="design-notes-title">Design Mechanics · Wrong-answer reveal</div>
+  <div class="design-notes-row"><span class="k">Ambient red glow</span> — subtle, not aggressive. Matches the loss tone without feeling punitive.</div>
+  <div class="design-notes-row"><span class="k">Top chip colors shift</span> — round IQ chip becomes orange (progress still positive, but you had a setback). Progress dot for Q4 is red with the same "just-filled" pop animation — mirror of the correct state.</div>
+  <div class="design-notes-row"><span class="k">Celebration bar flips red</span> — <strong>"Tough break"</strong> (not mocking — empathetic; matches the "fun even in loss" principle) + <strong>−50 IQ</strong> + math <strong>"25 lost × 2×"</strong>. Same layout as correct state; same info.</div>
+  <div class="design-notes-row"><span class="k">Two answers light up simultaneously</span>:
+    <br/>• <strong>Answer A (green)</strong> — the correct answer. "✓ Correct" tag. User sees at a glance where they should have gone.
+    <br/>• <strong>Answer B (red)</strong> — the user's pick. "Your pick ✕" tag. User sees where they went wrong.
+    <br/>Both lit at full opacity so the comparison is visible.
+  </div>
+  <div class="design-notes-row"><span class="k">All 4 percentages shown</span> — exactly like the correct state (43% / 28% / 19% / 10%). Same 5 data pieces Mark asked for; same layout regardless of outcome.</div>
+  <div class="design-notes-row"><span class="k">Fun fact reframed</span> — eyebrow becomes "The answer" (not "Did you know"), body leads with <strong>Michael Jordan</strong> and educates on why he's the answer — plus a small dunk on the user's pick ("LeBron has 4"). Informative and a bit playful — not preachy.</div>
+  <div class="design-notes-row"><span class="k">Auto-advance unchanged</span> — same 2-second countdown to next Q. Loss doesn't add friction. Flow continues.</div>
+</div>
+
+<script>
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  if (p.get('tv') === '1' || p.get('fullscreen') === '1') {
+    document.documentElement.classList.add('tv-mode');
+    function fit() {
+      var frame = document.querySelector('.tv-frame') || document.querySelector('.phone-frame');
+      if (!frame) return;
+      var isTv = frame.classList.contains('tv-frame');
+      var w = isTv ? 1000 : 340;
+      var h = isTv ? 562 : 680;
+      var s = Math.min(window.innerWidth / w, window.innerHeight / h);
+      frame.style.zoom = s;
+    }
+    window.addEventListener('resize', fit);
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', fit);
+    } else {
+      fit();
+    }
+  }
+})();
+</script>
+</body>
+</html>

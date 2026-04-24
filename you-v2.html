@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportsIQ — You Tab v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #050912;
+  --brand: #5545D3;
+  --brand-light: #7C6EF5;
+  --brand-gradient: linear-gradient(135deg, #5545D3 0%, #7C6EF5 100%);
+  --brand-gradient-soft: linear-gradient(135deg, rgba(85,69,211,0.18) 0%, rgba(124,110,245,0.08) 100%);
+  --green: #22C55E;
+  --green-light: #4ADE80;
+  --red: #EF4444;
+  --red-light: #FCA5A5;
+  --amber: #F59E0B;
+  --amber-light: #FDE047;
+  --orange: #FB923C;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --faint: #64748B;
+  --divider: rgba(255,255,255,0.05);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background:
+    radial-gradient(ellipse at top right, rgba(85,69,211,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(34,197,94,0.03) 0%, transparent 50%),
+    #020408;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 48px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-eyebrow {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  text-align: center;
+}
+.page-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  text-align: center;
+  margin: 8px 0 6px;
+}
+.page-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 520px;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.phone-frame {
+  width: 340px; height: 680px;
+  background: var(--bg);
+  border-radius: 48px;
+  overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 0 0 6px rgba(0,0,0,0.7),
+    0 40px 100px rgba(0,0,0,0.8),
+    0 0 120px rgba(85,69,211,0.15);
+  position: relative;
+}
+.phone-notch {
+  position: absolute; top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 110px; height: 28px;
+  background: #000;
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+.phone-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  padding-top: 38px;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 22px 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.65);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px 10px;
+}
+.app-logo {
+  font-family: 'Lexend', sans-serif;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+}
+.app-logo span { color: var(--brand-light); }
+.settings-gear {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Scrollable body */
+.you-body {
+  flex: 1;
+  padding: 8px 16px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.you-body::-webkit-scrollbar { display: none; }
+
+/* Profile hero */
+.profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 4px 2px;
+}
+.profile-avatar {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5545D3 0%, #7C6EF5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lexend', sans-serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 6px 20px rgba(85,69,211,0.35);
+}
+.profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.profile-name {
+  font-family: 'Lexend', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  line-height: 1;
+}
+.profile-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.04));
+  border: 1px solid rgba(245,158,11,0.35);
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--amber-light);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+.profile-phone {
+  font-size: 11px;
+  color: var(--faint);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  margin-top: 3px;
+}
+.profile-edit {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--brand-light);
+  letter-spacing: 0.3px;
+  padding: 6px 10px;
+  background: rgba(124,110,245,0.08);
+  border: 1px solid rgba(124,110,245,0.25);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+/* Stats grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+.stat-cell {
+  padding: 10px 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--divider);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.stat-cell-label {
+  font-size: 9px;
+  font-weight: 900;
+  color: var(--faint);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.stat-cell-value {
+  font-family: 'Lexend', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.4px;
+  margin-top: 2px;
+  line-height: 1;
+}
+.stat-cell.iq { background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(245,158,11,0.02)); border-color: rgba(245,158,11,0.22); }
+.stat-cell.iq .stat-cell-value { color: var(--amber-light); }
+.stat-cell.streak { background: linear-gradient(135deg, rgba(251,146,60,0.1), rgba(251,146,60,0.02)); border-color: rgba(251,146,60,0.22); }
+.stat-cell.streak .stat-cell-value { color: #FDBA74; font-size: 16px; }
+.stat-cell.winrate { background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(34,197,94,0.02)); border-color: rgba(34,197,94,0.22); }
+.stat-cell.winrate .stat-cell-value { color: var(--green-light); }
+
+/* Section label */
+.section-label {
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.8px;
+  color: var(--faint);
+  text-transform: uppercase;
+  padding: 8px 2px 0;
+}
+
+/* Recent picks list */
+.recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.recent-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 11px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--divider);
+  border-radius: 10px;
+}
+.recent-outcome {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+.recent-outcome.win {
+  background: rgba(34,197,94,0.2);
+  color: var(--green-light);
+  border: 1px solid rgba(34,197,94,0.4);
+}
+.recent-outcome.loss {
+  background: rgba(239,68,68,0.15);
+  color: var(--red-light);
+  border: 1px solid rgba(239,68,68,0.35);
+}
+.recent-body { flex: 1; line-height: 1.25; min-width: 0; }
+.recent-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.recent-sub {
+  font-size: 10px;
+  color: var(--faint);
+  font-weight: 600;
+  margin-top: 1px;
+}
+.recent-iq {
+  font-family: 'Lexend', sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.3px;
+  flex-shrink: 0;
+}
+.recent-iq.pos { color: var(--green-light); }
+.recent-iq.neg { color: var(--red-light); }
+
+/* Settings list */
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--divider);
+}
+.settings-row:last-child { border-bottom: none; }
+.settings-row.destructive { color: var(--red-light); }
+.settings-icon {
+  width: 24px; height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+  color: var(--muted);
+}
+.settings-row.destructive .settings-icon { color: var(--red-light); }
+.settings-label {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.1px;
+}
+.settings-row.destructive .settings-label { color: var(--red-light); }
+.settings-caret {
+  color: var(--faint);
+  font-size: 14px;
+  font-weight: 400;
+}
+.settings-value {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Bottom nav */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 9px 0 22px;
+  border-top: 1px solid var(--divider);
+  background: rgba(5,9,18,0.98);
+}
+.nav-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 14px;
+  border-radius: 10px;
+}
+.nav-tab-icon { font-size: 20px; opacity: 0.55; }
+.nav-tab.active .nav-tab-icon {
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(124,110,245,0.7));
+}
+.nav-tab-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--faint);
+  letter-spacing: 0.3px;
+}
+.nav-tab.active .nav-tab-label { color: var(--brand-light); }
+
+/* Design notes */
+.design-notes {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.design-notes strong { color: var(--text); font-weight: 700; }
+.design-notes-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.design-notes-row { margin: 4px 0; }
+.design-notes-row .k { color: var(--text); font-weight: 700; }
+
+/* ── Responsive: realistic rendering on phones + TV mode ──── */
+@media (max-width: 500px) and (orientation: portrait) {
+  body { padding: 0 !important; gap: 0 !important; align-items: stretch !important; min-height: 100vh; background: var(--bg) !important; }
+  body > div:not(.phone-frame):not(.tv-frame) { display: none !important; }
+  .design-notes { display: none !important; }
+  .phone-frame {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    max-height: 100dvh !important;
+  }
+  .phone-notch { display: none !important; }
+  .phone-inner { padding-top: env(safe-area-inset-top, 36px) !important; }
+  .bottom-nav { padding-bottom: calc(env(safe-area-inset-bottom, 14px) + 6px) !important; }
+  .modal-overlay { inset: 0 !important; }
+}
+
+/* TV mode — URL ?tv=1 triggers fullscreen + native-resolution zoom scaling */
+html.tv-mode body { padding: 0 !important; gap: 0 !important; margin: 0 !important; align-items: flex-start !important; justify-content: flex-start !important; min-height: 100vh; background: var(--bg) !important; overflow: hidden !important; }
+html.tv-mode body > div:not(.tv-frame):not(.phone-frame) { display: none !important; }
+html.tv-mode .design-notes { display: none !important; }
+html.tv-mode .tv-frame,
+html.tv-mode .phone-frame {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="page-eyebrow">Mobile · You tab</div>
+  <div class="page-title">Profile · Stats · Settings</div>
+  <div class="page-subtitle">One scroll. Identity up top, stats grid, recent picks history, settings list at the bottom. Matches MEMORY.md's IQ Economy (Rookie/Sharp/WiseGuy/Legend/Elite titles) and production's existing Delete Account flow.</div>
+</div>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-inner">
+
+    <div class="status-bar">
+      <span>8:03</span>
+      <span>🔋 87%</span>
+    </div>
+
+    <!-- Header — just logo + settings gear -->
+    <div class="app-header">
+      <div class="app-logo">Sports<span>IQ</span></div>
+      <div class="settings-gear">⚙</div>
+    </div>
+
+    <!-- Scrollable body -->
+    <div class="you-body">
+
+      <!-- Profile hero -->
+      <div class="profile-hero">
+        <div class="profile-avatar">M</div>
+        <div class="profile-info">
+          <div class="profile-name">MarkN</div>
+          <div class="profile-title">⚡ Sharp</div>
+          <div class="profile-phone">+1 (949) 555-0142</div>
+        </div>
+        <div class="profile-edit">Edit</div>
+      </div>
+
+      <!-- Stats grid -->
+      <div class="stats-grid">
+        <div class="stat-cell iq">
+          <div class="stat-cell-label">Lifetime IQ</div>
+          <div class="stat-cell-value">2,450</div>
+        </div>
+        <div class="stat-cell streak">
+          <div class="stat-cell-label">Streak</div>
+          <div class="stat-cell-value">🔥 4d</div>
+        </div>
+        <div class="stat-cell winrate">
+          <div class="stat-cell-label">Win Rate</div>
+          <div class="stat-cell-value">62%</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-cell-label">Trivia Avg</div>
+          <div class="stat-cell-value">7.8<span style="font-size:12px;color:var(--muted);">/10</span></div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-cell-label">Picks Made</div>
+          <div class="stat-cell-value">142</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-cell-label">Bars Played</div>
+          <div class="stat-cell-value">3</div>
+        </div>
+      </div>
+
+      <!-- Recent picks -->
+      <div>
+        <div class="section-label">Recent</div>
+        <div class="recent-list">
+          <div class="recent-row">
+            <div class="recent-outcome win">✓</div>
+            <div class="recent-body">
+              <div class="recent-title">Predictor · LeBron Q3 points · YES</div>
+              <div class="recent-sub">2× · 14 min ago</div>
+            </div>
+            <div class="recent-iq pos">+100</div>
+          </div>
+          <div class="recent-row">
+            <div class="recent-outcome win">✓</div>
+            <div class="recent-body">
+              <div class="recent-title">Trivia Round · 9/10 correct</div>
+              <div class="recent-sub">2× avg · 42 min ago</div>
+            </div>
+            <div class="recent-iq pos">+720</div>
+          </div>
+          <div class="recent-row">
+            <div class="recent-outcome loss">✗</div>
+            <div class="recent-body">
+              <div class="recent-title">Predictor · KC covers -3.5 · NO</div>
+              <div class="recent-sub">3× · 1 hr ago</div>
+            </div>
+            <div class="recent-iq neg">−75</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div>
+        <div class="section-label">Settings</div>
+        <div class="settings-list">
+          <div class="settings-row">
+            <div class="settings-icon">🔔</div>
+            <div class="settings-label">Notifications</div>
+            <div class="settings-value">On</div>
+            <div class="settings-caret">›</div>
+          </div>
+          <div class="settings-row">
+            <div class="settings-icon">📍</div>
+            <div class="settings-label">Location · Bar Mode</div>
+            <div class="settings-value">On</div>
+            <div class="settings-caret">›</div>
+          </div>
+          <div class="settings-row">
+            <div class="settings-icon">📄</div>
+            <div class="settings-label">Terms &amp; Privacy</div>
+            <div class="settings-caret">›</div>
+          </div>
+          <div class="settings-row">
+            <div class="settings-icon">↩</div>
+            <div class="settings-label">Sign out</div>
+            <div class="settings-caret">›</div>
+          </div>
+          <div class="settings-row destructive">
+            <div class="settings-icon">🗑</div>
+            <div class="settings-label">Delete account</div>
+            <div class="settings-caret">›</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom nav — You active -->
+    <div class="bottom-nav">
+      <div class="nav-tab">
+        <div class="nav-tab-icon">🏠</div>
+        <div class="nav-tab-label">Play</div>
+      </div>
+      <div class="nav-tab">
+        <div class="nav-tab-icon">🏆</div>
+        <div class="nav-tab-label">Rank</div>
+      </div>
+      <div class="nav-tab active">
+        <div class="nav-tab-icon">👤</div>
+        <div class="nav-tab-label">You</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="design-notes">
+  <div class="design-notes-title">Design Mechanics · You tab</div>
+  <div class="design-notes-row"><span class="k">Header minimal</span> — just SportsIQ logo + a settings gear (top-right). No chips here because the entire tab IS about "you."</div>
+  <div class="design-notes-row"><span class="k">Profile hero</span> — 64px avatar (brand-gradient fill with first-letter monogram), nickname <strong>MarkN</strong>, title pill <strong>⚡ Sharp</strong> (per MEMORY.md's five titles: Rookie → Sharp → WiseGuy → Legend → Elite — 2,450 IQ = Sharp). Phone number muted. <strong>Edit</strong> button changes nickname/avatar.</div>
+  <div class="design-notes-row"><span class="k">Stats grid 3×2</span> — 6 key metrics, each color-coded by type:
+    <br/>• IQ (amber) · Streak (orange) · Win Rate (green)
+    <br/>• Trivia Avg (7.8/10) · Picks Made (142) · Bars Played (3)
+  </div>
+  <div class="design-notes-row"><span class="k">Recent list</span> — last 3 picks: ✓/✗ outcome badges, plain-English title, multiplier + time ago, IQ delta (green/red). Tap any row to see the full reveal state for that pick.</div>
+  <div class="design-notes-row"><span class="k">Settings list (grouped)</span>:
+    <br/>• 🔔 Notifications · On ›
+    <br/>• 📍 Location · Bar Mode · On ›
+    <br/>• 📄 Terms &amp; Privacy ›
+    <br/>• ↩ Sign out ›
+    <br/>• 🗑 Delete account › (red, destructive — matches production's existing flow)
+  </div>
+  <div class="design-notes-row"><span class="k">Sign out</span> behavior — clears session, routes back to <a href="/auth-phone" style="color:var(--brand-light);">phone entry</a>. Returning user experience: phone + OTP only (skip nickname/terms since they already have them).</div>
+  <div class="design-notes-row"><span class="k">Delete account</span> — production already has the flow (from bundle: "Enter the phone number associated with your SportsIQ account. We'll send a verification code to confirm your identity before deleting..."). Triggering this taps into existing backend.</div>
+  <div class="design-notes-row"><span class="k">Entire body is one scroll</span> — no internal tabs. Keeps the surface predictable; users know everything about themselves is on this one page.</div>
+</div>
+
+<script>
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  if (p.get('tv') === '1' || p.get('fullscreen') === '1') {
+    document.documentElement.classList.add('tv-mode');
+    function fit() {
+      var frame = document.querySelector('.tv-frame') || document.querySelector('.phone-frame');
+      if (!frame) return;
+      var isTv = frame.classList.contains('tv-frame');
+      var w = isTv ? 1000 : 340;
+      var h = isTv ? 562 : 680;
+      var s = Math.min(window.innerWidth / w, window.innerHeight / h);
+      frame.style.zoom = s;
+    }
+    window.addEventListener('resize', fit);
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', fit);
+    } else {
+      fit();
+    }
+  }
+})();
+</script>
+</body>
+</html>

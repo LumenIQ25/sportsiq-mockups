@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportsIQ — Trivia Result v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #050912;
+  --bg-elev: #0A1020;
+  --brand: #5545D3;
+  --brand-light: #7C6EF5;
+  --brand-gradient: linear-gradient(135deg, #5545D3 0%, #7C6EF5 100%);
+  --green: #22C55E;
+  --green-light: #4ADE80;
+  --red: #EF4444;
+  --red-light: #FCA5A5;
+  --amber: #F59E0B;
+  --amber-light: #FDE047;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --faint: #64748B;
+  --divider: rgba(255,255,255,0.05);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background:
+    radial-gradient(ellipse at top right, rgba(85,69,211,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(34,197,94,0.03) 0%, transparent 50%),
+    #020408;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 48px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Page framing */
+.page-eyebrow {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  text-align: center;
+}
+.page-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  text-align: center;
+  margin: 8px 0 6px;
+}
+.page-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 520px;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* Phone frame */
+.phone-frame {
+  width: 340px; height: 680px;
+  background: var(--bg);
+  border-radius: 48px;
+  overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 0 0 6px rgba(0,0,0,0.7),
+    0 40px 100px rgba(0,0,0,0.8),
+    0 0 120px rgba(85,69,211,0.15);
+  position: relative;
+}
+.phone-notch {
+  position: absolute; top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 110px; height: 28px;
+  background: #000;
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+.phone-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(ellipse at top, rgba(34,197,94,0.12) 0%, transparent 60%),
+    var(--bg);
+  padding-top: 38px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle confetti */
+.confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.4;
+}
+.confetti span {
+  position: absolute;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+.confetti span:nth-child(1) { top: 12%; left: 18%; background: var(--green-light); }
+.confetti span:nth-child(2) { top: 22%; left: 82%; background: var(--amber-light); }
+.confetti span:nth-child(3) { top: 8%; left: 60%; background: var(--brand-light); }
+.confetti span:nth-child(4) { top: 16%; left: 35%; background: var(--green-light); width: 4px; height: 4px; }
+.confetti span:nth-child(5) { top: 28%; left: 15%; background: var(--amber); width: 4px; height: 4px; }
+.confetti span:nth-child(6) { top: 32%; left: 75%; background: var(--brand-light); width: 4px; height: 4px; }
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 22px 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.65);
+  font-variant-numeric: tabular-nums;
+  position: relative;
+  z-index: 2;
+}
+
+/* Top bar — just close */
+.result-top {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 16px 0;
+  position: relative;
+  z-index: 2;
+}
+.close-btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Hero: score celebration */
+.result-hero {
+  padding: 6px 20px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  z-index: 2;
+}
+
+.result-eyebrow {
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--green-light);
+}
+
+.score-ring {
+  position: relative;
+  width: 136px; height: 136px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2px 0;
+}
+.score-ring-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from -90deg,
+    var(--green) 0%,
+    var(--green-light) 70%,
+    rgba(255,255,255,0.06) 70%,
+    rgba(255,255,255,0.06) 100%
+  );
+  mask: radial-gradient(circle, transparent 62%, black 64%);
+  -webkit-mask: radial-gradient(circle, transparent 62%, black 64%);
+  filter: drop-shadow(0 0 24px rgba(34,197,94,0.5));
+}
+.score-inner {
+  width: 102px; height: 102px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #0D1320 0%, #050912 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+}
+.score-num {
+  font-family: 'Lexend', sans-serif;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 0.9;
+  color: var(--green-light);
+}
+.score-total {
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.result-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  color: var(--text);
+  margin-top: 4px;
+}
+
+/* IQ earned + rank change */
+.stats-row {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 10px;
+  position: relative;
+  z-index: 2;
+}
+.stat-card {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  padding: 10px 10px 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.stat-label {
+  font-size: 8.5px;
+  font-weight: 900;
+  color: var(--faint);
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+.stat-value {
+  font-family: 'Lexend', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  margin-top: 2px;
+}
+.stat-card.iq { background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(245,158,11,0.03)); border-color: rgba(245,158,11,0.25); }
+.stat-card.iq .stat-value { color: var(--amber-light); }
+.stat-card.rank { background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(34,197,94,0.03)); border-color: rgba(34,197,94,0.25); }
+.stat-card.rank .stat-value { color: var(--green-light); }
+.stat-card.streak { background: linear-gradient(135deg, rgba(251,146,60,0.1), rgba(251,146,60,0.03)); border-color: rgba(251,146,60,0.25); }
+.stat-card.streak .stat-value { color: #FDBA74; font-size: 16px; }
+
+/* Affiliate handoff card */
+.affiliate {
+  margin: 0 16px 10px;
+  padding: 11px 13px;
+  background: linear-gradient(135deg, rgba(251,146,60,0.1) 0%, rgba(239,68,68,0.06) 100%);
+  border: 1px solid rgba(251,146,60,0.3);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
+}
+.affiliate-icon {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #FB923C 0%, #EF4444 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.affiliate-text {
+  flex: 1;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.affiliate-text strong { color: var(--text); font-weight: 800; }
+.affiliate-arrow {
+  color: #FB923C;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+/* Leaderboard preview */
+.lb-strip {
+  padding: 0 20px 8px;
+  position: relative;
+  z-index: 2;
+}
+.lb-strip-label {
+  font-size: 9px;
+  font-weight: 900;
+  color: var(--faint);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 11px;
+  color: var(--muted);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.lb-row:last-child { border-bottom: none; }
+.lb-row.you {
+  background: linear-gradient(90deg, rgba(124,110,245,0.08), transparent);
+  padding: 5px 8px;
+  border-radius: 6px;
+  margin: 1px -4px;
+}
+.lb-rank {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--muted);
+  width: 24px;
+  font-variant-numeric: tabular-nums;
+}
+.lb-row.you .lb-rank { color: var(--brand-light); }
+.lb-row.top .lb-rank { color: var(--amber-light); }
+.lb-name {
+  flex: 1;
+  color: var(--text);
+  font-weight: 600;
+}
+.lb-row.you .lb-name { color: var(--brand-light); font-weight: 800; }
+.lb-score {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* Action buttons */
+.actions {
+  margin-top: auto;
+  padding: 10px 16px 22px;
+  display: flex;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+.btn {
+  flex: 1;
+  padding: 13px;
+  border-radius: 14px;
+  font-family: 'Lexend', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: transform 0.12s;
+}
+.btn:active { transform: scale(0.98); }
+
+.btn-secondary {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text);
+}
+.btn-primary {
+  background: var(--brand-gradient);
+  color: white;
+  box-shadow: 0 8px 24px rgba(85,69,211,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+  flex: 1.5;
+}
+.btn-timer {
+  font-size: 10px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.5px;
+  margin-left: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Design notes ─────────────────────────────────────── */
+.design-notes {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.design-notes strong { color: var(--text); font-weight: 700; }
+.design-notes-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.design-notes-row { margin: 4px 0; }
+.design-notes-row .k { color: var(--text); font-weight: 700; }
+
+/* ── Responsive: realistic rendering on phones + TV mode ──── */
+@media (max-width: 500px) and (orientation: portrait) {
+  body { padding: 0 !important; gap: 0 !important; align-items: stretch !important; min-height: 100vh; background: var(--bg) !important; }
+  body > div:not(.phone-frame):not(.tv-frame) { display: none !important; }
+  .design-notes { display: none !important; }
+  .phone-frame {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    max-height: 100dvh !important;
+  }
+  .phone-notch { display: none !important; }
+  .phone-inner { padding-top: env(safe-area-inset-top, 36px) !important; }
+  .bottom-nav { padding-bottom: calc(env(safe-area-inset-bottom, 14px) + 6px) !important; }
+  .modal-overlay { inset: 0 !important; }
+}
+
+/* TV mode — URL ?tv=1 triggers fullscreen + native-resolution zoom scaling */
+html.tv-mode body { padding: 0 !important; gap: 0 !important; margin: 0 !important; align-items: flex-start !important; justify-content: flex-start !important; min-height: 100vh; background: var(--bg) !important; overflow: hidden !important; }
+html.tv-mode body > div:not(.tv-frame):not(.phone-frame) { display: none !important; }
+html.tv-mode .design-notes { display: none !important; }
+html.tv-mode .tv-frame,
+html.tv-mode .phone-frame {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="page-eyebrow">Mobile · Trivia result · v2</div>
+  <div class="page-title">End-of-round payoff</div>
+  <div class="page-subtitle">The moment right after Q10 resolves. Strong-result state shown (7/10): big score ring in green, IQ earned, rank climbed, streak extended. National leaderboard preview + "Next round in 2:43" CTA keeps the flow moving.</div>
+</div>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-inner">
+
+    <!-- Confetti accents -->
+    <div class="confetti">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="status-bar">
+      <span>8:11</span>
+      <span>🔋 85%</span>
+    </div>
+
+    <!-- Top bar -->
+    <div class="result-top">
+      <div class="close-btn">✕</div>
+    </div>
+
+    <!-- Hero: score celebration -->
+    <div class="result-hero">
+      <div class="result-eyebrow">Round Complete</div>
+
+      <div class="score-ring">
+        <div class="score-ring-bg"></div>
+        <div class="score-inner">
+          <div class="score-num">7<span style="color:var(--faint); font-size:22px; letter-spacing:-1px;">/10</span></div>
+          <div class="score-total">Correct</div>
+        </div>
+      </div>
+
+      <div class="result-title">Nicely played</div>
+    </div>
+
+    <!-- Stats row -->
+    <div class="stats-row">
+      <div class="stat-card iq">
+        <div class="stat-label">IQ Earned</div>
+        <div class="stat-value">+525</div>
+      </div>
+      <div class="stat-card rank">
+        <div class="stat-label">Rank</div>
+        <div class="stat-value">↑12</div>
+      </div>
+      <div class="stat-card streak">
+        <div class="stat-label">Streak</div>
+        <div class="stat-value">🔥 5d</div>
+      </div>
+    </div>
+
+    <!-- Leaderboard preview -->
+    <div class="lb-strip">
+      <div class="lb-strip-label">National · this round</div>
+      <div class="lb-row top">
+        <div class="lb-rank">1</div>
+        <div class="lb-name">thundercat42</div>
+        <div class="lb-score">10/10 · +1,500</div>
+      </div>
+      <div class="lb-row you">
+        <div class="lb-rank">#35</div>
+        <div class="lb-name">You</div>
+        <div class="lb-score">7/10 · +525</div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn-secondary">Share</button>
+      <button class="btn btn-primary">
+        <span>Next Round</span>
+        <span class="btn-timer">2:43</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div class="design-notes">
+  <div class="design-notes-title">Design Mechanics</div>
+  <div class="design-notes-row"><span class="k">Celebration aesthetic</span> — subtle green ambient glow at top, small confetti particles. Reads as "you won" without being aggressive.</div>
+  <div class="design-notes-row"><span class="k">Hero score ring</span> — conic gradient filled to 70% (7/10), green glow, big tabular number. Draws the eye first.</div>
+  <div class="design-notes-row"><span class="k">3 stat cards</span> — IQ (amber) · Rank (green, with ↑) · Streak (orange). Each color-coded to its vibe.</div>
+  <div class="design-notes-row"><span class="k">Affiliate handoff</span> — contextual to category performance. "Hot on NBA" + "Lakers tip off in 18 min" + "Put real money on your next call?" arrow. Only shows when user scored well in a category with a live game available.</div>
+  <div class="design-notes-row"><span class="k">Leaderboard preview</span> — 2 rows: the top player (gold), and you (purple highlighted). Tap for full board.</div>
+  <div class="design-notes-row"><span class="k">Primary CTA</span> — "Next Round · 2:43" is the default action. Keeps user in the loop. Share is secondary.</div>
+  <div class="design-notes-row"><span class="k">State variants not shown</span> — weak result (&lt;5/10) skips affiliate card, replaces celebration with redemption framing ("Next round in 2:43 — redeem yourself"). Perfect round (10/10) gets stronger celebration, unlocks Sharp Badge.</div>
+</div>
+
+<script>
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  if (p.get('tv') === '1' || p.get('fullscreen') === '1') {
+    document.documentElement.classList.add('tv-mode');
+    function fit() {
+      var frame = document.querySelector('.tv-frame') || document.querySelector('.phone-frame');
+      if (!frame) return;
+      var isTv = frame.classList.contains('tv-frame');
+      var w = isTv ? 1000 : 340;
+      var h = isTv ? 562 : 680;
+      var s = Math.min(window.innerWidth / w, window.innerHeight / h);
+      frame.style.zoom = s;
+    }
+    window.addEventListener('resize', fit);
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', fit);
+    } else {
+      fit();
+    }
+  }
+})();
+</script>
+</body>
+</html>

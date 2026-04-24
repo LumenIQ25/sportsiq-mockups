@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportsIQ — Trivia Gameplay v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #050912;
+  --bg-elev: #0A1020;
+  --brand: #5545D3;
+  --brand-light: #7C6EF5;
+  --brand-gradient: linear-gradient(135deg, #5545D3 0%, #7C6EF5 100%);
+  --brand-gradient-soft: linear-gradient(135deg, rgba(85,69,211,0.18) 0%, rgba(124,110,245,0.08) 100%);
+  --green: #22C55E;
+  --green-light: #4ADE80;
+  --red: #EF4444;
+  --red-light: #FCA5A5;
+  --amber: #F59E0B;
+  --amber-light: #FDE047;
+  --orange: #FB923C;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --faint: #64748B;
+  --card-border: rgba(255,255,255,0.09);
+  --divider: rgba(255,255,255,0.05);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background:
+    radial-gradient(ellipse at top right, rgba(85,69,211,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(34,197,94,0.03) 0%, transparent 50%),
+    #020408;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 48px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Page framing (same as play-v2) */
+.page-eyebrow {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  text-align: center;
+}
+.page-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  color: var(--text);
+  text-align: center;
+  margin: 8px 0 6px;
+}
+.page-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 520px;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.phone-frame {
+  width: 340px; height: 680px;
+  background: var(--bg);
+  border-radius: 48px;
+  overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 0 0 6px rgba(0,0,0,0.7),
+    0 40px 100px rgba(0,0,0,0.8),
+    0 0 120px rgba(85,69,211,0.15);
+  position: relative;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 110px; height: 28px;
+  background: #000;
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+
+.phone-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  padding-top: 38px;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 22px 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.65);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Game top bar ─────────────────────────────────────── */
+.game-top {
+  padding: 10px 18px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.exit-btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Round-score chip (right) */
+.round-iq {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.3);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--green-light);
+  font-variant-numeric: tabular-nums;
+}
+
+.round-iq-icon { font-size: 12px; }
+.round-iq-amt { color: var(--green-light); }
+
+/* Progress dots */
+.progress {
+  display: flex;
+  gap: 4px;
+  padding: 0 18px 4px;
+  align-items: center;
+}
+
+.prog-dot {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.08);
+  transition: all 0.3s;
+}
+
+.prog-dot.done-correct { background: var(--green); box-shadow: 0 0 4px rgba(34,197,94,0.5); }
+.prog-dot.done-wrong { background: var(--red); opacity: 0.7; }
+.prog-dot.active {
+  background: var(--brand-light);
+  box-shadow: 0 0 8px rgba(124,110,245,0.8);
+  height: 4px;
+  margin-top: -0.5px;
+}
+
+/* Timer bar */
+.timer-bar-wrap {
+  padding: 8px 18px 6px;
+}
+.timer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.timer-label-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.timer-label-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 1.6s infinite;
+  box-shadow: 0 0 6px rgba(34,197,94,0.7);
+}
+.timer-secs {
+  color: var(--amber-light);
+  font-variant-numeric: tabular-nums;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  font-size: 13px;
+}
+.timer-bar {
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.timer-fill {
+  height: 100%;
+  width: 62%;
+  background: linear-gradient(90deg, var(--amber) 0%, var(--amber-light) 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(245,158,11,0.5);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+/* ── Question area ────────────────────────────────────── */
+.question-area {
+  flex: 1;
+  padding: 14px 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  position: relative;
+}
+
+.category-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(124,110,245,0.08);
+  border: 1px solid rgba(124,110,245,0.25);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brand-light);
+}
+.category-pill-icon { font-size: 13px; }
+
+.question-text {
+  font-family: 'Lexend', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
+  text-align: center;
+  max-width: 280px;
+  letter-spacing: -0.2px;
+  margin: 2px 0 4px;
+}
+
+/* Multiplier selector — matches production (1.5× / 2× / 3×) */
+.multiplier-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 2px;
+  align-self: flex-start;
+}
+.multipliers {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  margin-bottom: 2px;
+}
+.multiplier {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 8px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.multiplier-x {
+  font-family: 'Lexend', sans-serif;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+  line-height: 1;
+}
+.multiplier-payout {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+
+/* Safe (green) — 1.5× */
+.multiplier.safe {
+  background: rgba(34,197,94,0.12);
+  border: 1px solid rgba(34,197,94,0.4);
+}
+.multiplier.safe .multiplier-x,
+.multiplier.safe .multiplier-payout { color: #4ADE80; }
+
+/* Balanced (gold) — 2× · the default recommended */
+.multiplier.balanced {
+  background: rgba(245,158,11,0.15);
+  border: 2px solid var(--amber);
+}
+.multiplier.balanced .multiplier-x,
+.multiplier.balanced .multiplier-payout { color: var(--amber); }
+
+/* Risky (red) — 3× */
+.multiplier.risky {
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.4);
+}
+.multiplier.risky .multiplier-x,
+.multiplier.risky .multiplier-payout { color: #FCA5A5; }
+
+/* Selected adds a ✓ via ::after and brighter shadow */
+.multiplier.selected {
+  box-shadow: 0 4px 14px rgba(255,255,255,0.08);
+}
+.multiplier.selected .multiplier-x::after {
+  content: " ✓";
+  font-size: 12px;
+}
+
+/* Answer buttons */
+.answers {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.answer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+}
+.answer:hover {
+  background: rgba(124,110,245,0.08);
+  border-color: rgba(124,110,245,0.35);
+}
+.answer:active { transform: scale(0.99); }
+
+.answer-letter {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.06);
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--muted);
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.answer-text { flex: 1; }
+
+/* Optional answer states for demo */
+.answer.selected {
+  background: rgba(124,110,245,0.15);
+  border-color: var(--brand-light);
+}
+.answer.selected .answer-letter {
+  background: var(--brand-gradient);
+  color: white;
+  border-color: transparent;
+}
+
+/* Live social proof */
+.live-count {
+  padding: 8px 18px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted);
+  border-top: 1px solid var(--divider);
+}
+
+.live-count-num {
+  font-family: 'Lexend', sans-serif;
+  color: var(--green-light);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.2px;
+}
+
+.live-count-pulse {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 1.6s infinite;
+  box-shadow: 0 0 6px rgba(34,197,94,0.7);
+}
+
+/* ── Design notes ─────────────────────────────────────── */
+.design-notes {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.design-notes strong { color: var(--text); font-weight: 700; }
+.design-notes-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.design-notes-row { margin: 4px 0; }
+.design-notes-row .k { color: var(--text); font-weight: 700; }
+
+/* ── Responsive: realistic rendering on phones + TV mode ──── */
+@media (max-width: 500px) and (orientation: portrait) {
+  body { padding: 0 !important; gap: 0 !important; align-items: stretch !important; min-height: 100vh; background: var(--bg) !important; }
+  body > div:not(.phone-frame):not(.tv-frame) { display: none !important; }
+  .design-notes { display: none !important; }
+  .phone-frame {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    max-height: 100dvh !important;
+  }
+  .phone-notch { display: none !important; }
+  .phone-inner { padding-top: env(safe-area-inset-top, 36px) !important; }
+  .bottom-nav { padding-bottom: calc(env(safe-area-inset-bottom, 14px) + 6px) !important; }
+  .modal-overlay { inset: 0 !important; }
+}
+
+/* TV mode — URL ?tv=1 triggers fullscreen + native-resolution zoom scaling */
+html.tv-mode body { padding: 0 !important; gap: 0 !important; margin: 0 !important; align-items: flex-start !important; justify-content: flex-start !important; min-height: 100vh; background: var(--bg) !important; overflow: hidden !important; }
+html.tv-mode body > div:not(.tv-frame):not(.phone-frame) { display: none !important; }
+html.tv-mode .design-notes { display: none !important; }
+html.tv-mode .tv-frame,
+html.tv-mode .phone-frame {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="page-eyebrow">Mobile · Trivia gameplay · v2</div>
+  <div class="page-title">Active question — mid-round</div>
+  <div class="page-subtitle">What the user sees while answering one of the 10 questions. No nav, no chrome — focused immersive experience. Progress dots at top, timer fill depleting amber→red, question + four large tap-targets, live national answer count at bottom.</div>
+</div>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-inner">
+
+    <div class="status-bar">
+      <span>8:06</span>
+      <span>🔋 87%</span>
+    </div>
+
+    <!-- Game top bar -->
+    <div class="game-top">
+      <div class="exit-btn">✕</div>
+      <div class="round-iq">
+        <span class="round-iq-icon">⚡</span>
+        <span class="round-iq-amt">+100 this round</span>
+      </div>
+    </div>
+
+    <!-- Progress dots (10 Qs: 2 correct, 1 wrong, current active on Q4, 6 upcoming) -->
+    <div class="progress">
+      <div class="prog-dot done-correct"></div>
+      <div class="prog-dot done-correct"></div>
+      <div class="prog-dot done-wrong"></div>
+      <div class="prog-dot active"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+      <div class="prog-dot"></div>
+    </div>
+
+    <!-- Timer -->
+    <div class="timer-bar-wrap">
+      <div class="timer-row">
+        <div class="timer-label-left">
+          <span class="timer-label-dot"></span>
+          <span>Q 4 / 10</span>
+        </div>
+        <div class="timer-secs">0:08</div>
+      </div>
+      <div class="timer-bar">
+        <div class="timer-fill"></div>
+      </div>
+    </div>
+
+    <!-- Question + answers -->
+    <div class="question-area">
+
+      <div class="category-pill">
+        <span class="category-pill-icon">🏀</span>
+        <span>NBA</span>
+      </div>
+
+      <div class="question-text">
+        Which player holds the record for most NBA Finals MVP awards?
+      </div>
+
+      <div class="answers">
+        <div class="answer">
+          <div class="answer-letter">A</div>
+          <div class="answer-text">Michael Jordan</div>
+        </div>
+        <div class="answer">
+          <div class="answer-letter">B</div>
+          <div class="answer-text">LeBron James</div>
+        </div>
+        <div class="answer">
+          <div class="answer-letter">C</div>
+          <div class="answer-text">Kareem Abdul-Jabbar</div>
+        </div>
+        <div class="answer">
+          <div class="answer-letter">D</div>
+          <div class="answer-text">Bill Russell</div>
+        </div>
+      </div>
+
+      <div class="multiplier-label">Risk multiplier?</div>
+      <div class="multipliers">
+        <div class="multiplier safe">
+          <span class="multiplier-x">1.5×</span>
+          <span class="multiplier-payout">75 IQ</span>
+        </div>
+        <div class="multiplier balanced selected">
+          <span class="multiplier-x">2×</span>
+          <span class="multiplier-payout">100 IQ</span>
+        </div>
+        <div class="multiplier risky">
+          <span class="multiplier-x">3×</span>
+          <span class="multiplier-payout">150 IQ</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Live count -->
+    <div class="live-count">
+      <span class="live-count-pulse"></span>
+      <span><span class="live-count-num">3,847</span> answering right now</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="design-notes">
+  <div class="design-notes-title">Design Mechanics</div>
+  <div class="design-notes-row"><span class="k">No bottom nav</span> during gameplay — immersive focus. No distractions.</div>
+  <div class="design-notes-row"><span class="k">Progress dots</span> (10) — green filled = correct, red = wrong, purple glow = current.</div>
+  <div class="design-notes-row"><span class="k">Timer</span> — amber fill depletes over ~15 sec per question; turns red at &lt;5 sec.</div>
+  <div class="design-notes-row"><span class="k">Category pill</span> — sport/category indicator, subtle but informative (answers "what topic").</div>
+  <div class="design-notes-row"><span class="k">Multipliers (per-question)</span> — matches production code in sportsiq-frontend bundle. 3 pills above answers, labeled "Risk multiplier?" — <strong>1.5× (green, safe)</strong> · <strong>2× (gold, balanced — default selected)</strong> · <strong>3× (red, risky)</strong>. Each pill shows the IQ payout for that risk level (base×multiplier). On wrong answer, loss is the inverse of the win amount at that multiplier. Multiplier emits `trivia:multiplier` event on tap; locks when answer is selected.</div>
+  <div class="design-notes-row"><span class="k">Answer buttons</span> — full-width, big tap targets, letter prefix in a circle, fits 4 buttons without scroll.</div>
+  <div class="design-notes-row"><span class="k">Live count</span> — ticking national number reinforces "you're playing with thousands right now."</div>
+  <div class="design-notes-row"><span class="k">After-answer state</span> (next mockup): selected answer highlights, others lock; at timer expire, correct answer glows green + wrong glows red; auto-advance to next Q after ~2 sec.</div>
+  <div class="design-notes-row"><span class="k">Exit button</span> (×) — taps to confirm leaving round (would lose progress).</div>
+</div>
+
+<script>
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  if (p.get('tv') === '1' || p.get('fullscreen') === '1') {
+    document.documentElement.classList.add('tv-mode');
+    function fit() {
+      var frame = document.querySelector('.tv-frame') || document.querySelector('.phone-frame');
+      if (!frame) return;
+      var isTv = frame.classList.contains('tv-frame');
+      var w = isTv ? 1000 : 340;
+      var h = isTv ? 562 : 680;
+      var s = Math.min(window.innerWidth / w, window.innerHeight / h);
+      frame.style.zoom = s;
+    }
+    window.addEventListener('resize', fit);
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', fit);
+    } else {
+      fit();
+    }
+  }
+})();
+</script>
+</body>
+</html>

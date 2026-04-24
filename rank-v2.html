@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportsIQ — Rank v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #050912;
+  --brand: #5545D3;
+  --brand-light: #7C6EF5;
+  --brand-gradient: linear-gradient(135deg, #5545D3 0%, #7C6EF5 100%);
+  --brand-gradient-soft: linear-gradient(135deg, rgba(85,69,211,0.18) 0%, rgba(124,110,245,0.08) 100%);
+  --green: #22C55E;
+  --green-light: #4ADE80;
+  --red: #EF4444;
+  --red-light: #FCA5A5;
+  --amber: #F59E0B;
+  --amber-light: #FDE047;
+  --orange: #FB923C;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --faint: #64748B;
+  --divider: rgba(255,255,255,0.05);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background:
+    radial-gradient(ellipse at top right, rgba(85,69,211,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(34,197,94,0.03) 0%, transparent 50%),
+    #020408;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 48px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-eyebrow {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  text-align: center;
+}
+.page-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  text-align: center;
+  margin: 8px 0 6px;
+}
+.page-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 520px;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.phone-frame {
+  width: 340px; height: 680px;
+  background: var(--bg);
+  border-radius: 48px;
+  overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 0 0 6px rgba(0,0,0,0.7),
+    0 40px 100px rgba(0,0,0,0.8),
+    0 0 120px rgba(85,69,211,0.15);
+  position: relative;
+}
+.phone-notch {
+  position: absolute; top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 110px; height: 28px;
+  background: #000;
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+.phone-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  padding-top: 38px;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 22px 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.65);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px 10px;
+}
+.app-logo {
+  font-family: 'Lexend', sans-serif;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+}
+.app-logo span { color: var(--brand-light); }
+.status-chips { display: flex; gap: 6px; }
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 9px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid transparent;
+}
+.chip-streak { background: rgba(251,146,60,0.1); border-color: rgba(251,146,60,0.3); color: #FDBA74; }
+.chip-iq { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); color: var(--amber-light); }
+.chip-rank { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); color: var(--green-light); }
+
+/* Scope tabs */
+.scope-tabs {
+  display: flex;
+  padding: 6px 14px 10px;
+  gap: 6px;
+  border-bottom: 1px solid var(--divider);
+}
+.scope-tab {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  font-family: 'Lexend', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+  text-align: center;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+}
+.scope-tab.active {
+  background: var(--brand-gradient-soft);
+  border-color: rgba(124,110,245,0.5);
+  color: var(--text);
+  box-shadow: 0 4px 14px rgba(85,69,211,0.25);
+}
+
+/* Time filter row */
+.time-filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px 6px;
+}
+.time-pills {
+  display: flex;
+  gap: 4px;
+}
+.time-pill {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.time-pill.active {
+  background: rgba(124,110,245,0.1);
+  border: 1px solid rgba(124,110,245,0.3);
+  color: var(--brand-light);
+}
+.scope-count {
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--faint);
+  letter-spacing: 0.5px;
+}
+.scope-count strong { color: var(--text); font-variant-numeric: tabular-nums; }
+
+/* Your rank hero card */
+.your-rank-card {
+  margin: 4px 14px 8px;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, rgba(124,110,245,0.18) 0%, rgba(85,69,211,0.04) 100%);
+  border: 1.5px solid rgba(124,110,245,0.5);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 6px 22px rgba(85,69,211,0.22);
+}
+.your-rank-num {
+  font-family: 'Lexend', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  line-height: 0.95;
+  min-width: 60px;
+  text-align: center;
+}
+.your-rank-num span {
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.your-rank-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.your-rank-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+.your-rank-value {
+  font-family: 'Lexend', sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.your-rank-delta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--green-light);
+  font-weight: 800;
+  margin-top: 2px;
+}
+.your-rank-delta-icon { font-size: 10px; }
+.your-rank-iq {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.your-rank-iq-num {
+  font-family: 'Lexend', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--amber-light);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.5px;
+}
+.your-rank-iq-label {
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--faint);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+/* Leaderboard list */
+.lb-list {
+  flex: 1;
+  padding: 4px 14px 6px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.lb-list::-webkit-scrollbar { display: none; }
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
+.lb-row.top {
+  background: linear-gradient(90deg, rgba(245,158,11,0.1), transparent);
+  border: 1px solid rgba(245,158,11,0.22);
+}
+.lb-row.top-2 {
+  background: linear-gradient(90deg, rgba(203,213,225,0.06), transparent);
+  border: 1px solid rgba(203,213,225,0.15);
+}
+.lb-row.top-3 {
+  background: linear-gradient(90deg, rgba(251,146,60,0.06), transparent);
+  border: 1px solid rgba(251,146,60,0.18);
+}
+.lb-rank {
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  width: 30px;
+  text-align: center;
+}
+.lb-row.top .lb-rank { color: var(--amber-light); font-size: 16px; }
+.lb-row.top-2 .lb-rank { color: #CBD5E1; font-size: 15px; }
+.lb-row.top-3 .lb-rank { color: #FB923C; font-size: 15px; }
+.lb-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: white;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(0,0,0,0.3);
+}
+.lb-name {
+  flex: 1;
+  min-width: 0;
+}
+.lb-name-line {
+  font-family: 'Lexend', sans-serif;
+  color: var(--text);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: -0.1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lb-name-sub {
+  font-size: 10px;
+  color: var(--faint);
+  font-weight: 600;
+  margin-top: 1px;
+}
+.lb-iq {
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.3px;
+  min-width: 56px;
+  text-align: right;
+}
+.lb-delta {
+  font-family: 'Lexend', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  min-width: 26px;
+  text-align: right;
+}
+.lb-delta.up { color: var(--green-light); }
+.lb-delta.down { color: var(--red-light); }
+.lb-delta.same { color: var(--faint); }
+
+/* Bottom nav */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 9px 0 22px;
+  border-top: 1px solid var(--divider);
+  background: rgba(5,9,18,0.98);
+}
+.nav-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 14px;
+  border-radius: 10px;
+}
+.nav-tab-icon { font-size: 20px; opacity: 0.55; }
+.nav-tab.active .nav-tab-icon {
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(124,110,245,0.7));
+}
+.nav-tab-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--faint);
+  letter-spacing: 0.3px;
+}
+.nav-tab.active .nav-tab-label { color: var(--brand-light); }
+
+/* Design notes */
+.design-notes {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.design-notes strong { color: var(--text); font-weight: 700; }
+.design-notes-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.design-notes-row { margin: 4px 0; }
+.design-notes-row .k { color: var(--text); font-weight: 700; }
+
+/* ── Responsive: realistic rendering on phones + TV mode ──── */
+@media (max-width: 500px) and (orientation: portrait) {
+  body { padding: 0 !important; gap: 0 !important; align-items: stretch !important; min-height: 100vh; background: var(--bg) !important; }
+  body > div:not(.phone-frame):not(.tv-frame) { display: none !important; }
+  .design-notes { display: none !important; }
+  .phone-frame {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    max-height: 100dvh !important;
+  }
+  .phone-notch { display: none !important; }
+  .phone-inner { padding-top: env(safe-area-inset-top, 36px) !important; }
+  .bottom-nav { padding-bottom: calc(env(safe-area-inset-bottom, 14px) + 6px) !important; }
+  .modal-overlay { inset: 0 !important; }
+}
+
+/* TV mode — URL ?tv=1 triggers fullscreen + native-resolution zoom scaling */
+html.tv-mode body { padding: 0 !important; gap: 0 !important; margin: 0 !important; align-items: flex-start !important; justify-content: flex-start !important; min-height: 100vh; background: var(--bg) !important; overflow: hidden !important; }
+html.tv-mode body > div:not(.tv-frame):not(.phone-frame) { display: none !important; }
+html.tv-mode .design-notes { display: none !important; }
+html.tv-mode .tv-frame,
+html.tv-mode .phone-frame {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="page-eyebrow">Mobile · Rank tab</div>
+  <div class="page-title">Leaderboards — three scales, one swipe</div>
+  <div class="page-subtitle">Friends · Your Bar · National scope tabs at top. Time filter (Today / Week / Lifetime) below. Your rank hero card always visible — even if you're #4,782, you still see where you stand. Scrollable list highlights top 3 medals and your row when in-view.</div>
+</div>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-inner">
+
+    <div class="status-bar">
+      <span>8:03</span>
+      <span>🔋 87%</span>
+    </div>
+
+    <!-- Header -->
+    <div class="app-header">
+      <div class="app-logo">Sports<span>IQ</span></div>
+      <div class="status-chips">
+        <div class="chip chip-streak">🔥 4d</div>
+        <div class="chip chip-iq">⚡ 2,450</div>
+        <div class="chip chip-rank">#47</div>
+      </div>
+    </div>
+
+    <!-- Scope tabs -->
+    <div class="scope-tabs">
+      <div class="scope-tab">Friends</div>
+      <div class="scope-tab">Your Bar</div>
+      <div class="scope-tab active">National</div>
+    </div>
+
+    <!-- Time filter -->
+    <div class="time-filter">
+      <div class="time-pills">
+        <div class="time-pill active">Today</div>
+        <div class="time-pill">Week</div>
+        <div class="time-pill">Lifetime</div>
+      </div>
+      <div class="scope-count"><strong>4,218</strong> playing</div>
+    </div>
+
+    <!-- Your rank card -->
+    <div class="your-rank-card">
+      <div class="your-rank-num">#47<span></span></div>
+      <div class="your-rank-body">
+        <div class="your-rank-label">Your Rank · National</div>
+        <div class="your-rank-value">Top 2% today</div>
+        <div class="your-rank-delta">
+          <span class="your-rank-delta-icon">↑</span>
+          <span>Up 12 from yesterday</span>
+        </div>
+      </div>
+      <div class="your-rank-iq">
+        <div class="your-rank-iq-num">2,450</div>
+        <div class="your-rank-iq-label">IQ today</div>
+      </div>
+    </div>
+
+    <!-- Leaderboard list -->
+    <div class="lb-list">
+      <div class="lb-row top">
+        <div class="lb-rank">1</div>
+        <div class="lb-avatar" style="background:linear-gradient(135deg,#F59E0B,#FBBF24);">T</div>
+        <div class="lb-name">
+          <div class="lb-name-line">thundercat42</div>
+          <div class="lb-name-sub">🇺🇸 Nationally</div>
+        </div>
+        <div class="lb-iq">14,820</div>
+        <div class="lb-delta same">—</div>
+      </div>
+      <div class="lb-row top-2">
+        <div class="lb-rank">2</div>
+        <div class="lb-avatar" style="background:linear-gradient(135deg,#64748B,#94A3B8);">R</div>
+        <div class="lb-name">
+          <div class="lb-name-line">ratedR</div>
+          <div class="lb-name-sub">🇺🇸 Nationally</div>
+        </div>
+        <div class="lb-iq">13,940</div>
+        <div class="lb-delta up">↑2</div>
+      </div>
+      <div class="lb-row top-3">
+        <div class="lb-rank">3</div>
+        <div class="lb-avatar" style="background:linear-gradient(135deg,#FB923C,#F59E0B);">J</div>
+        <div class="lb-name">
+          <div class="lb-name-line">jolene</div>
+          <div class="lb-name-sub">🇺🇸 Nationally</div>
+        </div>
+        <div class="lb-iq">13,610</div>
+        <div class="lb-delta down">↓1</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">4</div>
+        <div class="lb-avatar" style="background:linear-gradient(135deg,#5545D3,#7C6EF5);">M</div>
+        <div class="lb-name">
+          <div class="lb-name-line">MarqueeSix</div>
+        </div>
+        <div class="lb-iq">12,080</div>
+        <div class="lb-delta up">↑1</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">5</div>
+        <div class="lb-avatar" style="background:linear-gradient(135deg,#059669,#22c55e);">S</div>
+        <div class="lb-name">
+          <div class="lb-name-line">SaintJude</div>
+        </div>
+        <div class="lb-iq">11,905</div>
+        <div class="lb-delta down">↓1</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">6</div>
+        <div class="lb-avatar" style="background:linear-gradient(135deg,#EF4444,#FCA5A5);">K</div>
+        <div class="lb-name">
+          <div class="lb-name-line">kingKong</div>
+        </div>
+        <div class="lb-iq">11,440</div>
+        <div class="lb-delta up">↑3</div>
+      </div>
+      <div class="lb-row">
+        <div class="lb-rank">7</div>
+        <div class="lb-avatar" style="background:linear-gradient(135deg,#F59E0B,#FDE047);">D</div>
+        <div class="lb-name">
+          <div class="lb-name-line">dynamite</div>
+        </div>
+        <div class="lb-iq">10,890</div>
+        <div class="lb-delta same">—</div>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+      <div class="nav-tab">
+        <div class="nav-tab-icon">🏠</div>
+        <div class="nav-tab-label">Play</div>
+      </div>
+      <div class="nav-tab active">
+        <div class="nav-tab-icon">🏆</div>
+        <div class="nav-tab-label">Rank</div>
+      </div>
+      <div class="nav-tab">
+        <div class="nav-tab-icon">👤</div>
+        <div class="nav-tab-label">You</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="design-notes">
+  <div class="design-notes-title">Design Mechanics · Rank tab</div>
+  <div class="design-notes-row"><span class="k">3 scope tabs at top</span> — <strong>Friends · Your Bar · National</strong>. Same 3 scales from the Play screen's social ticker, now expanded to full leaderboards. Active tab (National here) gets the brand-purple gradient treatment.</div>
+  <div class="design-notes-row"><span class="k">Time filter</span> — <strong>Today · Week · Lifetime</strong> as pill row. Mark's IQ Economy decision per MEMORY.md: Today/Weekly reset; Lifetime only rises. Today is the default — emphasizes "what's happening right now" over all-time stats.</div>
+  <div class="design-notes-row"><span class="k">Scope count on the right</span> — "4,218 playing" when National · "38 at Kincade's" when Your Bar · "8 friends" when Friends. Frames the size of the pool.</div>
+  <div class="design-notes-row"><span class="k">Your Rank hero card</span> — big #47 + "Top 2% today" + "↑12 from yesterday" + "2,450 IQ today". Always visible, even if your list position would otherwise be off-screen. Persistent ego hook.</div>
+  <div class="design-notes-row"><span class="k">Top 3 get medal colors</span> — gold / silver / bronze gradient backgrounds. Classic podium visual without being cheesy.</div>
+  <div class="design-notes-row"><span class="k">Rank deltas per row</span> — ↑N / ↓N / — shows each player's movement since yesterday. Creates narrative ("thundercat42 holding #1", "ratedR climbing").</div>
+  <div class="design-notes-row"><span class="k">Jump-to-you (not shown in this state)</span> — when user scrolls far from their position, a floating pill appears at the bottom: "You are #47 — jump to your position". Tap returns to their row, highlighted.</div>
+  <div class="design-notes-row"><span class="k">Friends scope variant</span> — avatars become the friend's custom avatar; "X pts from you" delta shown on each row; empty state prompts "Invite friends to see them here".</div>
+  <div class="design-notes-row"><span class="k">Your Bar variant</span> — only shows people playing at the same venue as you (geofenced). Sidebar variant of the bar screen leaderboard.</div>
+</div>
+
+<script>
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  if (p.get('tv') === '1' || p.get('fullscreen') === '1') {
+    document.documentElement.classList.add('tv-mode');
+    function fit() {
+      var frame = document.querySelector('.tv-frame') || document.querySelector('.phone-frame');
+      if (!frame) return;
+      var isTv = frame.classList.contains('tv-frame');
+      var w = isTv ? 1000 : 340;
+      var h = isTv ? 562 : 680;
+      var s = Math.min(window.innerWidth / w, window.innerHeight / h);
+      frame.style.zoom = s;
+    }
+    window.addEventListener('resize', fit);
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', fit);
+    } else {
+      fit();
+    }
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,3 +1,7 @@
 node_modules/
 .DS_Store
 *.log
+
+# macOS AppleDouble metadata (external drive artifacts)
+._*
+**/._*
